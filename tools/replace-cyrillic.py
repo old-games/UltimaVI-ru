@@ -11,5 +11,5 @@ with open('tools/cp866-8x8', 'rb') as f:
     e = f.read()
 
 os.chdir(output_directory)
-with open('U6.CH.new', 'wb') as f:
+with open('U6.CH', 'wb') as f:
     f.write(d[:1024] + e[1024:] + d[1024:])
