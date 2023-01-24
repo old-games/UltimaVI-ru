@@ -4,7 +4,7 @@ import sys
 with open(sys.argv[1], 'rb') as f:
     x = f.read()
 
-for i in range(64):
+for i in range((len(x) + 31) // 32):
     if i % 8 == 0:
         print(f'{i // 8 * 32:02X}')
 
