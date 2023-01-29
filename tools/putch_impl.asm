@@ -7,6 +7,8 @@ section CODE
 
 ; cat ../unpacked/GAME.EXE | tail -c+43835 | head -c996
 
+; TODO: clean up code, move character buffer to proper place
+
 sub_2efa:
         push    bp
         mov     bp, sp
@@ -42,7 +44,7 @@ loc_2f32:
         push    word [bp+0x6]
 
 fixmeup0: ; far call by absolute direct address
-        call    0x2ce6:0x3 ; toupper
+        call    0x2ce6:0x3 ; toupper FIXME
         pop     cx
         mov     [bp+0x6], ax
 
@@ -58,7 +60,7 @@ loc_2f65:
         jz      loc_2f7a
         cmp     word [bp+0x6], byte +0x20
         jng     loc_2f7a
-        or      word [bp+0x6], 0x80
+        or      word [bp+0x6], 0x100
 
 loc_2f7a:
         mov     bx, [0x4df]
@@ -172,23 +174,25 @@ loc_306d:
         jl      loc_30d5
         cmp     word [bp+0x6], byte +0xa
         jnz     loc_3086
-        mov     al, 0x20
+        mov     ax, 0x20
         jmp     short loc_3089
 
 loc_3086:
-        mov     al, [bp+0x6]
+        mov     ax, [bp+0x6]
 
 loc_3089:
         mov     dl, [0x57a]
         mov     dh, 0x0
         mov     bx, dx
-        mov     [bx-0x49af], al
+        shl     bx, 1
+        mov     [bx-0x49af], ax ; character
+        shr     bx, 1
         mov     bx, [0x4df]
         mov     al, [bx+0x6]
         mov     dl, [0x57a]
         mov     dh, 0x0
         mov     bx, dx
-        mov     [bx-0x4986], al
+        mov     [bx-0x4986], al ; color
         jmp     short loc_30ad
 
 loc_30aa:
@@ -196,10 +200,12 @@ loc_30aa:
 
 loc_30ad:
         mov     bx, [bp-0x6]
-        cmp     byte [bx-0x49af], 0x20
+        shl     bx, 1
+        cmp     word [bx-0x49af], 0x20 ; character
         jz      loc_30c7
-        cmp     byte [bx-0x49b0], 0x2d
+        cmp     word [bx-0x49b1], 0x2d ; character
         jz      loc_30c7
+        shr     bx, 1
         mov     al, [0x57b]
         mov     ah, 0x0
         cmp     ax, bx
@@ -258,10 +264,12 @@ loc_3128:
         jmp     short loc_3152
 
 loc_3131:
-        mov     al, [si-0x4986]
+        mov     al, [si-0x4986] ; color
         mov     bx, [0x4df]
         mov     [bx+0x6], al
-        mov     al, [si-0x49af]
+        shl     si, 1
+        mov     ax, [si-0x49af] ; character
+        shr     si, 1
         mov     ah, 0x0
         push    ax
         mov     al, [bx]
@@ -295,7 +303,8 @@ loc_3171:
         cmp     word [bp+0x6], byte +0x0
         jl      loc_31da
         mov     bx, [bp-0x6]
-        cmp     byte [bx-0x49af], 0x20
+        shl     bx, 1
+        cmp     word [bx-0x49af], 0x20 ; character
         jnz     loc_3197
         inc     word [bp-0x6]
 
@@ -304,14 +313,18 @@ loc_3197:
         jmp     short loc_31b7
 
 loc_319c:
-        mov     al, [si-0x49af]
+        shl     si, 1
+        mov     ax, [si-0x49af] ; character
+        shr     si, 1
         mov     bx, si
         sub     bx, [bp-0x6]
-        mov     [bx-0x49af], al
-        mov     al, [si-0x4986]
+        shl     bx, 1
+        mov     [bx-0x49af], ax ; character
+        shr     bx, 1
+        mov     al, [si-0x4986] ; color
         mov     bx, si
         sub     bx, [bp-0x6]
-        mov     [bx-0x4986], al
+        mov     [bx-0x4986], al ; color
         inc     si
 
 loc_31b7:
@@ -343,12 +356,14 @@ loc_31da:
         mov     dl, [0x57a]
         mov     dh, 0x0
         mov     bx, dx
-        mov     [bx-0x4986], al
-        mov     al, [bp+0x6]
+        mov     [bx-0x4986], al ; color
+        mov     ax, [bp+0x6]
         mov     dl, [0x57a]
         mov     dh, 0x0
         mov     bx, dx
-        mov     [bx-0x49af], al
+        shl     bx, 1
+        mov     [bx-0x49af], ax ; character
+        shr     bx, 1
         inc     byte [0x57a]
 
 loc_321a:
@@ -413,12 +428,14 @@ loc_329f:
         mov     dl, [0x57a]
         mov     dh, 0x0
         mov     bx, dx
-        mov     [bx-0x4986], al
-        mov     al, [bp+0x6]
+        mov     [bx-0x4986], al ; color
+        mov     ax, [bp+0x6]
         mov     dl, [0x57a]
         mov     dh, 0x0
         mov     bx, dx
-        mov     [bx-0x49af], al
+        shl     bx, 1
+        mov     [bx-0x49af], ax ; character
+        shr     bx, 1
         inc     byte [0x57a]
 
 loc_32c5:

@@ -1,4 +1,139 @@
+import datetime
 import os
+import subprocess
+import tempfile
+
+
+def apply_obj(path, base):
+    with open(path, 'rb') as f:
+        data = f.read()
+    index = 0
+    fixups = {}
+    externs = []
+    fixmeups = set()
+    code = b''
+    while index < len(data):
+        t = data[index]
+        s = int.from_bytes(data[index+1:index+3], 'little')
+        d = data[index+3:index+3+s]
+        index += 3 + s
+
+        if t == 0xa0:
+            assert d[0] == 1
+            assert len(code) == int.from_bytes(d[1:3], 'little')
+            code += d[3:-1]
+
+        elif t == 0x9c:
+            d = d[:-1]
+            i = 0
+            z = None
+            while i < len(d):
+                if d[i] & 0x80:
+                    assert d[i] & 4
+                    assert d[i] & 0x78 == 0
+                    z = d[i] & 3
+                    i += 1
+                else:
+                    x = z << 8 | d[i]
+                    u = d[i+1]
+                    y = d[i+2]
+                    i += 3
+                    assert u, y == (0x56, 1)
+                    fixups[x] = externs[0]
+                    z = None
+            assert d[0] == 0x85
+
+        elif t == 0x8c:
+            externs.append(d[1:1+d[0]].decode())
+
+        elif t == 0x90:
+            d = d[1:-2]
+            i = 0
+            while i < len(d):
+                s = d[i+1]
+                n = d[i+2:i+2+s].decode()
+                a = int.from_bytes(d[i+2+s:i+4+s], 'little')
+                if n.startswith('fixmeup'):
+                    fixmeups.add(a)
+                i += s + 4
+
+    for a in fixmeups:
+        assert code[a] == 0x9a
+        more_relocs.append(base+a+3)
+
+    assert not fixups
+    return code
+
+
+def replace(d, a, c):
+    d[a:a+len(c)] = c
+
+
+def nasm(code):
+    with tempfile.TemporaryDirectory() as d:
+        with open(f'{d}/1.asm', 'w') as f:
+            f.write(f'bits 16\n{code}')
+        r = subprocess.run(['nasm', f'{d}/1.asm', '-o', f'{d}/1'])
+        r.check_returncode()
+        with open(f'{d}/1', 'rb') as f:
+            return f.read()
+
+
+def pi_jump(s, a):
+    s += space * 0x20
+    # FIXME remove old relocs which could break these jumps.
+    return b'\x8c\xc8\x2d' + s.to_bytes(2, 'little') + b'\x50\xb8' + a.to_bytes(2, 'little') + b'\x50\xcb'
+    return nasm("""
+; debugging
+; n.b. this code is affected by old relocs
+        xor ax, ax
+        xor dx, dx
+
+        mov cx, cs
+        shr cx, 0x0c
+        mov dl, cl
+        and dx, 0x0f
+        cmp dx, 9
+        jle $+5
+        add dl, 7
+        add dl, 0x30
+        mov ah, 2
+        int 0x21
+
+        mov cx, cs
+        shr cx, 8
+        mov dl, cl
+        and dx, 0x0f
+        cmp dx, 9
+        jle $+5
+        add dl, 7
+        add dl, 0x30
+        mov ah, 2
+        int 0x21
+
+        mov cx, cs
+        shr cx, 4
+        mov dl, cl
+        and dx, 0x0f
+        cmp dx, 9
+        jle $+5
+        add dl, 7
+        add dl, 0x30
+        mov ah, 2
+        int 0x21
+
+        mov cx, cs
+        mov dl, cl
+        and dl, 0x0f
+        cmp dl, 9
+        jle $+5
+        add dl, 7
+        add dl, 0x30
+        mov ah, 2
+        int 0x21
+
+        jmp $+0
+        """)
 
 
 output_directory = os.getcwd()
@@ -6,16 +141,43 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 with open('unpacked/GAME.EXE', 'rb') as f:
     d = bytearray(f.read())
+    initial_size = len(d)
 
 checksum = int.from_bytes(d[0x12:0x14], 'little')
 assert sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) & 0xffff == 0xffff
-space = 3
 pages = int.from_bytes(d[4:6], 'little')
 cs = int.from_bytes(d[0x16:0x18], 'little')
 ss = int.from_bytes(d[0x0e:0x10], 'little')
 relocs = int.from_bytes(d[6:8], 'little')
 header = int.from_bytes(d[8:0x0a], 'little') * 0x10
 relocs_base = int.from_bytes(d[0x18:0x1a], 'little')
+
+more_relocs = []
+
+with tempfile.TemporaryDirectory() as temp:
+    subprocess.run(['nasm', '-f', 'obj', 'tools/putch_impl.asm', '-o', f'{temp}/putch_impl.obj']).check_returncode()
+    code_block = apply_obj(f'{temp}/putch_impl.obj', base=header)
+
+r = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], stdout=subprocess.PIPE, universal_newlines=True)
+sha = f', {r.stdout.rstrip()}'.encode() if r.returncode == 0 else b''
+code_block += b'Code was patched by Vladimir Chebotarev, ' + datetime.datetime.today().strftime('%Y-%m-%d').encode() + sha + b'. '
+code_block += b'Please report issues to vladimir.chebotarev@gmail.com if any occur.'
+code_block += b'\x00' * (0x200 - len(code_block) % 0x200)
+
+assert set(d[relocs_base+4*relocs:header]) == {0}
+assert len(d[relocs_base+4*relocs:header]) // 4 >= len(more_relocs)
+
+print(f'Adding {len(code_block)} bytes')
+space = len(code_block) // 0x200
+
+for i, x in enumerate(more_relocs, start=relocs):
+    o = x % 0x10000
+    s = x // 0x10000 * 0x1000
+    d[relocs_base+i*4:relocs_base+i*4+2] = o.to_bytes(2, 'little')
+    d[relocs_base+i*4+2:relocs_base+i*4+4] = s.to_bytes(2, 'little')
+
+relocs += len(more_relocs)
+
 for i in range(relocs):
     offset = int.from_bytes(d[relocs_base+i*4:relocs_base+i*4+2], 'little')
     segment = int.from_bytes(d[relocs_base+i*4+2:relocs_base+i*4+4], 'little')
@@ -26,7 +188,9 @@ for i in range(relocs):
     segment += space*0x20
     assert segment < 0x10000
     d[relocs_base+i*4+2:relocs_base+i*4+4] = segment.to_bytes(2, 'little')
+
 pages += space
+d[6:8] = relocs.to_bytes(2, 'little')
 cs += space*0x20
 assert cs + 0x10 < 0x10000
 d[0x16:0x18] = cs.to_bytes(2, 'little')
@@ -36,10 +200,9 @@ d[0x0e:0x10] = ss.to_bytes(2, 'little')
 d[4:6] = pages.to_bytes(2, 'little')
 
 assert d[0xb203:0xb206] == b'\x0d\x80\x00'
-assert d[0xabb5:0xabba] == b'\x81\x4e\x06\x80\x00'
+replace(d, 0xb204, b'\x00\x01') # 0x464:0x33d3, putch
 
-d[0xb204:0xb206] = b'\x00\x01'
-d[0xabb8:0xabba] = b'\x00\x01'
+replace(d, 0xab3a, pi_jump(0x464, 0)) # 0x464:0x2efa, putch_impl
 
 def replace(d, o, s, x):
     assert len(x) == s, f'{len(x)} != {s}'
@@ -47,7 +210,9 @@ def replace(d, o, s, x):
 
 replace(d, 0x310b4, 0x2e, 'ХУЙ С РУНАМИ <ABCD>!!! Функция: %d, о: %d, ф: '.encode('cp866'))
 
-d = d[:header] + b'\x00'*space*0x200 + d[header:]
+assert len(d) == initial_size
+
+d = d[:header] + code_block + d[header:]
 
 checksum = (checksum - sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) + 0xffff) & 0xffff
 d[0x12:0x14] = checksum.to_bytes(2, 'little')
@@ -59,3 +224,6 @@ with open('GAME.EXE', 'wb') as f:
 
 # TODO: check / fix tolower / toupper / isalpha etc?
 # TODO: игра буферизует символы в отдельном массиве перед выводом для того чтобы правильно разбивать на строки и они становятся байтами. Это нужно переделать.
+
+# TODO: место из под старого кода можно переиспользовать, а также его relocs
+# TODO: добавлять место более гранулярно чем постранично
