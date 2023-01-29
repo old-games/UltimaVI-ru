@@ -154,9 +154,10 @@ relocs_base = int.from_bytes(d[0x18:0x1a], 'little')
 
 more_relocs = []
 
+code_block = bytearray()
 with tempfile.TemporaryDirectory() as temp:
     subprocess.run(['nasm', '-f', 'obj', 'tools/putch_impl.asm', '-o', f'{temp}/putch_impl.obj']).check_returncode()
-    code_block = apply_obj(f'{temp}/putch_impl.obj', base=header)
+    code_block += apply_obj(f'{temp}/putch_impl.obj', len(code_block))
 
 r = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], stdout=subprocess.PIPE, universal_newlines=True)
 sha = f', {r.stdout.rstrip()}'.encode() if r.returncode == 0 else b''
@@ -171,12 +172,14 @@ print(f'Adding {len(code_block)} bytes')
 space = len(code_block) // 0x200
 
 for i, x in enumerate(more_relocs, start=relocs):
+    old_segment = int.from_bytes(code_block[x:x+2], 'little')
+    old_segment += space*0x20
+    assert old_segment + 0x10 < 0x10000
+    code_block[x:x+2] = old_segment.to_bytes(2, 'little')
     o = x % 0x10000
     s = x // 0x10000 * 0x1000
     d[relocs_base+i*4:relocs_base+i*4+2] = o.to_bytes(2, 'little')
     d[relocs_base+i*4+2:relocs_base+i*4+4] = s.to_bytes(2, 'little')
-
-relocs += len(more_relocs)
 
 for i in range(relocs):
     offset = int.from_bytes(d[relocs_base+i*4:relocs_base+i*4+2], 'little')
@@ -188,6 +191,8 @@ for i in range(relocs):
     segment += space*0x20
     assert segment < 0x10000
     d[relocs_base+i*4+2:relocs_base+i*4+4] = segment.to_bytes(2, 'little')
+
+relocs += len(more_relocs)
 
 pages += space
 d[6:8] = relocs.to_bytes(2, 'little')
@@ -204,11 +209,11 @@ replace(d, 0xb204, b'\x00\x01') # 0x464:0x33d3, putch
 
 replace(d, 0xab3a, pi_jump(0x464, 0)) # 0x464:0x2efa, putch_impl
 
-def replace(d, o, s, x):
+def replace_check_size(d, o, s, x):
     assert len(x) == s, f'{len(x)} != {s}'
     d[o:o+s] = x
 
-replace(d, 0x310b4, 0x2e, 'ХУЙ С РУНАМИ <ABCD>!!! Функция: %d, о: %d, ф: '.encode('cp866'))
+replace_check_size(d, 0x310b4, 0x2e, 'ХУЙ С РУНАМИ <ABCabc>! Функция: %d, о: %d, ф: '.encode('cp866'))
 
 assert len(d) == initial_size
 
