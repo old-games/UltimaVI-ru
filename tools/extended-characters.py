@@ -216,7 +216,6 @@ def replace_check_size(d, o, s, x):
 replace_check_size(d, 0x310b4, 0x2e, 'ХУЙ С РУНАМИ <ABCabc>! Функция: %d, о: %d, ф: '.encode('cp866'))
 
 assert len(d) == initial_size
-
 d = d[:header] + code_block + d[header:]
 
 checksum = (checksum - sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) + 0xffff) & 0xffff

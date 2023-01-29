@@ -45,6 +45,7 @@ loc_2f32:
 
 fixmeup0: ; far call by absolute direct address
         call    0x2ce6:0x3 ; toupper FIXME
+        ; помимо фикса кириллицы, надо пропускать руны!
         pop     cx
         mov     [bp+0x6], ax
 
@@ -270,7 +271,6 @@ loc_3131:
         shl     si, 1
         mov     ax, [si-0x49af] ; character
         shr     si, 1
-        mov     ah, 0x0
         push    ax
         mov     al, [bx]
         mov     ah, 0x0
