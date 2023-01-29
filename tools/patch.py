@@ -1,13 +1,23 @@
+import binascii
 import datetime
 import os
 import subprocess
 import tempfile
 
 
+binary = 'GAME.EXE'
+
 functions = {
     'putch_impl': (0x464, 0x2efa),
     'toupper': (0x2ce6, 3),
 }
+
+# TODO: check / fix tolower / toupper / isalpha etc?
+# TODO: игра буферизует символы в отдельном массиве перед выводом для того чтобы правильно разбивать на строки и они становятся байтами. Это нужно переделать.
+
+# TODO: место из под старого кода можно переиспользовать, а также его relocs
+# TODO: добавлять место более гранулярно чем постранично
+
 
 def apply_obj(path, base):
     with open(path, 'rb') as f:
@@ -144,7 +154,7 @@ def pi_jump(s, a):
 output_directory = os.getcwd()
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-with open('unpacked/GAME.EXE', 'rb') as f:
+with open(f'unpacked/{binary}', 'rb') as f:
     d = bytearray(f.read())
     initial_size = len(d)
 
@@ -169,7 +179,7 @@ code_block += b'Please report issues to vladimir.chebotarev@gmail.com if any occ
 
 with tempfile.TemporaryDirectory() as temp:
     for f in functions:
-        subprocess.run(['nasm', '-f', 'obj', f'tools/{f}.asm', '-o', f'{temp}/{f}.obj']).check_returncode()
+        subprocess.run(['nasm', '-f', 'obj', f'tools/{os.path.splitext(binary)[0]}/{f}.asm', '-o', f'{temp}/{f}.obj']).check_returncode()
         function_address[f] = len(code_block)
         code_block += apply_obj(f'{temp}/{f}.obj', function_address[f])
 
@@ -178,7 +188,7 @@ code_block += b'\x00' * (0x200 - len(code_block) % 0x200)
 assert set(d[relocs_base+4*relocs:header]) == {0}
 assert len(d[relocs_base+4*relocs:header]) // 4 >= len(more_relocs)
 
-print(f'Adding {len(code_block)} bytes')
+print(f'{binary} — adding {len(code_block)} bytes for {len(functions)} functions')
 space = len(code_block) // 0x200
 
 for i, x in enumerate(more_relocs, start=relocs):
@@ -215,12 +225,12 @@ d[0x0e:0x10] = ss.to_bytes(2, 'little')
 d[4:6] = pages.to_bytes(2, 'little')
 
 assert d[0xb203:0xb206] == b'\x0d\x80\x00'
-replace(d, 0xb204, b'\x00\x01') # 0x464:0x33d3, putch
+replace(d, 0xb204, b'\x00\x01') # 0x464:0x33d3, putch # FIXME выкинуть это в отдельный файл.
 
 for f, (cs, ip) in functions.items():
     replace(d, header+cs*0x10+ip, pi_jump(cs, function_address[f]))
 
-def replace_check_size(d, o, s, x):
+def replace_check_size(d, o, s, x): # FIXME выкинуть это также в отдельный файл
     assert len(x) == s, f'{len(x)} != {s}'
     d[o:o+s] = x
 
@@ -234,11 +244,7 @@ d[0x12:0x14] = checksum.to_bytes(2, 'little')
 assert sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) & 0xffff == 0xffff
 
 os.chdir(output_directory)
-with open('GAME.EXE', 'wb') as f:
+with open(binary, 'wb') as f:
     f.write(d)
 
-# TODO: check / fix tolower / toupper / isalpha etc?
-# TODO: игра буферизует символы в отдельном массиве перед выводом для того чтобы правильно разбивать на строки и они становятся байтами. Это нужно переделать.
-
-# TODO: место из под старого кода можно переиспользовать, а также его relocs
-# TODO: добавлять место более гранулярно чем постранично
+print(f'Written {binary}, {binascii.crc32(d) & 0xffffffff:8x}')
