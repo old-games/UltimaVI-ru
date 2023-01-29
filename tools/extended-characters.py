@@ -4,6 +4,11 @@ import subprocess
 import tempfile
 
 
+functions = {
+    'putch_impl': (0x464, 0x2efa),
+    'toupper': (0x2ce6, 3),
+}
+
 def apply_obj(path, base):
     with open(path, 'rb') as f:
         data = f.read()
@@ -155,14 +160,19 @@ relocs_base = int.from_bytes(d[0x18:0x1a], 'little')
 more_relocs = []
 
 code_block = bytearray()
-with tempfile.TemporaryDirectory() as temp:
-    subprocess.run(['nasm', '-f', 'obj', 'tools/putch_impl.asm', '-o', f'{temp}/putch_impl.obj']).check_returncode()
-    code_block += apply_obj(f'{temp}/putch_impl.obj', len(code_block))
+function_address = {}
 
 r = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], stdout=subprocess.PIPE, universal_newlines=True)
 sha = f', {r.stdout.rstrip()}'.encode() if r.returncode == 0 else b''
 code_block += b'Code was patched by Vladimir Chebotarev, ' + datetime.datetime.today().strftime('%Y-%m-%d').encode() + sha + b'. '
 code_block += b'Please report issues to vladimir.chebotarev@gmail.com if any occur.'
+
+with tempfile.TemporaryDirectory() as temp:
+    for f in functions:
+        subprocess.run(['nasm', '-f', 'obj', f'tools/{f}.asm', '-o', f'{temp}/{f}.obj']).check_returncode()
+        function_address[f] = len(code_block)
+        code_block += apply_obj(f'{temp}/{f}.obj', function_address[f])
+
 code_block += b'\x00' * (0x200 - len(code_block) % 0x200)
 
 assert set(d[relocs_base+4*relocs:header]) == {0}
@@ -207,13 +217,14 @@ d[4:6] = pages.to_bytes(2, 'little')
 assert d[0xb203:0xb206] == b'\x0d\x80\x00'
 replace(d, 0xb204, b'\x00\x01') # 0x464:0x33d3, putch
 
-replace(d, 0xab3a, pi_jump(0x464, 0)) # 0x464:0x2efa, putch_impl
+for f, (cs, ip) in functions.items():
+    replace(d, header+cs*0x10+ip, pi_jump(cs, function_address[f]))
 
 def replace_check_size(d, o, s, x):
     assert len(x) == s, f'{len(x)} != {s}'
     d[o:o+s] = x
 
-replace_check_size(d, 0x310b4, 0x2e, 'ХУЙ С РУНАМИ <ABCabc>! Функция: %d, о: %d, ф: '.encode('cp866'))
+replace_check_size(d, 0x310b4, 0x2e, 'ХУЙ С РУНАМИ <ABCabc>! Функция: %d, ё: %d, ф: '.encode('cp866'))
 
 assert len(d) == initial_size
 d = d[:header] + code_block + d[header:]
