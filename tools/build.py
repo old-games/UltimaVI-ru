@@ -23,4 +23,4 @@ with tempfile.TemporaryDirectory() as d:
 
     with zipfile.ZipFile(f'{output_directory}/UltimaIV-ru{sha}.zip', 'w') as f:
         for n in sorted(existing_files):
-            f.write(f'original/{n}', f'UltimaIV-ru{sha}/{n}')
+            f.write(f'{d}/{n}', f'UltimaIV-ru{sha}/{n}')
