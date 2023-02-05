@@ -5,7 +5,7 @@ global fixmeup0
 
 section CODE
 
-; cat ../unpacked/GAME.EXE | tail -c+43835 | head -c996
+; cat unpacked/GAME.EXE | tail -c+43835 | head -c996
 
 ; TODO: clean up code, move character buffer to proper place
 

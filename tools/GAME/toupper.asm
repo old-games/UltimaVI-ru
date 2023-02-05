@@ -4,11 +4,15 @@ global sub_0003
 
 section CODE
 
-; cat ../unpacked/GAME.EXE | head -c197780 | tail -c+197732
+; cat unpacked/GAME.EXE | head -c197780 | tail -c+197732
 
 sub_0003:
         push    bp
         mov     bp, sp
+
+        ; FIXME Первоначально `toupper` работала только с младшим байтом.
+        ; Это позволяло также использовать её на расширенных символах,
+        ; приходящих от прерываний BIOS, для нормализации горячих клавиш.
 
         mov     ax, [bp+0x6]
         cmp     ax, 0xffff
@@ -68,5 +72,5 @@ skip_fix_runes:
         jmp     short loc_32
 
 loc_32:
-        pop bp
+        pop     bp
         retf
