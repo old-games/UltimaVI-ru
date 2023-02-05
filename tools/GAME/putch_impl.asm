@@ -44,8 +44,7 @@ loc_2f32:
         push    word [bp+0x6]
 
 fixmeup0: ; far call by absolute direct address
-        call    0x2ce6:0x3 ; toupper FIXME
-        ; помимо фикса кириллицы, надо пропускать руны!
+        call    0x2ce6:0x3 ; toupper
         pop     cx
         mov     [bp+0x6], ax
 
