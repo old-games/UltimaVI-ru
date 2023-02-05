@@ -7,10 +7,12 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 ds = {
     'GAME.EXE': 0x2d85,
+    'U.EXE': 0x1499,
 }
 
 printf = {
-    'GAME.EXE': 0x04643643,
+    'GAME.EXE': [0x04643643],
+    'U.EXE': [0x12ee0229, 0x12ee0249, 0x12ee0277],
 }
 
 
@@ -31,24 +33,28 @@ for name in ds:
     with open(f'unpacked/{name}', 'rb') as f:
         d = f.read()
 
+    base = int.from_bytes(d[8:0x0a], 'little')*0x10
+
+    calls = [b'\x9a' + func.to_bytes(4, 'little') for func in printf[name]]
     for i in range(len(d)):
-        if d[i:i+5] == b'\x9a' + printf[name].to_bytes(4, 'little'):
+        if d[i:i+5] in calls:
+            print(name, hex(i))
             if d[i-1] == 0x50 and d[i-4] == 0xb8 and d[i-5] == 0x50 and d[i-8] == 0xb8:
                 a = int.from_bytes(d[i-7:i-5], 'little')
                 a2 = int.from_bytes(d[i-3:i-1], 'little')
-                if (name, a*0x10+a2+0x3600) not in tt:
-                    s = read_null_terminated(d, a*0x10+a2+0x3600)
-                    tt[(name, a*0x10+a2+0x3600)] = s, 'FIXME ' + s
+                if (name, a*0x10+a2+base) not in tt:
+                    s = read_null_terminated(d, a*0x10+a2+base)
+                    tt[(name, a*0x10+a2+base)] = s, 'FIXME ' + s
 
             elif d[i-1] == 0x50 and d[i-4] == 0xb8 and d[i-5] == 0x1e:
                 a = ds[name]
                 a2 = int.from_bytes(d[i-3:i-1], 'little')
-                if (name, a*0x10+a2+0x3600) not in tt:
-                    s = read_null_terminated(d, a*0x10+a2+0x3600)
-                    tt[(name, a*0x10+a2+0x3600)] = s, 'FIXME ' + s
+                if (name, a*0x10+a2+base) not in tt:
+                    s = read_null_terminated(d, a*0x10+a2+base)
+                    tt[(name, a*0x10+a2+base)] = s, 'FIXME ' + s
 
             else:
-                print(hex(i), hex(d[i-1]), 'UNKNOWN')
+                print(name, hex(i), hex(d[i-1]), 'UNKNOWN')
 
 # TODO %s
 
