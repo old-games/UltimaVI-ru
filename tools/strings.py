@@ -34,11 +34,11 @@ def add_string(name, offset, s):
         tt[(name, offset)] = (s, f'FIXME {s}')
 
 
-def add_reference(name, offset, origin, type):
+def add_reference(name, offset, origin, type, segment):
     rr.setdefault((name, offset), [])
     origins = [x['origin'] for x in rr[(name, offset)]]
     if not origin in origins:
-        rr[(name, offset)].append({'origin': origin, 'type': type})
+        rr[(name, offset)].append({'origin': origin, 'segment': segment, 'type': type})
 
 
 with open('tools/translation.json') as f:
@@ -68,7 +68,7 @@ for name, ds in dsegs.items():
                     o = a*0x10 + a2 + base
                     s = read_null_terminated(d, o)
                     add_string(name, o, s)
-                    add_reference(name, o, i-4, 'register')
+                    add_reference(name, o, i-3, 'register', i-7)
                 except (IndexError, UnicodeDecodeError, AssertionError):
                     pass
 
@@ -78,7 +78,7 @@ for name, ds in dsegs.items():
                     o = ds*0x10 + a2 + base
                     s = read_null_terminated(d, o)
                     add_string(name, o, s)
-                    add_reference(name, o, i-4, 'register')
+                    add_reference(name, o, i-3, 'register', 'ds')
                 except (IndexError, UnicodeDecodeError, AssertionError):
                     pass
 
@@ -92,7 +92,7 @@ for name, ds in dsegs.items():
             o = ds*0x10 + a2 + base
             s = read_null_terminated(d, o)
             add_string(name, o, s)
-            add_reference(name, o, i, 'data')
+            add_reference(name, o, i, 'data', 'ds')
         except (IndexError, UnicodeDecodeError, AssertionError):
             pass
 
@@ -104,7 +104,7 @@ for name, ds in dsegs.items():
                 assert d[o-1] == 0
                 s = read_null_terminated(d, o)
                 add_string(name, o, s)
-                add_reference(name, o, i, 'register')
+                add_reference(name, o, i+1, 'register', 'ds')
             except (IndexError, UnicodeDecodeError, AssertionError):
                 pass
 
