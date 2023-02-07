@@ -49,7 +49,7 @@ tt = {(x['source'], x['offset']): (x['english'], x['russian']) for x in t}
 with open('tools/references.json') as f:
     r = json.loads(f.read())
 
-rr = {(x['source'], x['offset']): x['references'] for x in r}
+rr = {(x['source'], x['offset']): sorted(x['references'], key=lambda x: (x['origin'], x['segment'] if isinstance(x['segment'], int) else 0)) for x in r}
 
 for name, ds in dsegs.items():
     with open(f'unpacked/{name}', 'rb') as f:
