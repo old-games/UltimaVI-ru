@@ -1,5 +1,6 @@
 import json
 import os
+import re
 import subprocess
 
 
@@ -36,8 +37,8 @@ def add_string(name, offset, s):
 
 def add_reference(name, offset, origin, type, segment):
     rr.setdefault((name, offset), [])
-    origins = [x['origin'] for x in rr[(name, offset)]]
-    if not origin in origins:
+    origins = [(x['origin'], x['segment']) for x in rr[(name, offset)]]
+    if (origin, segment) not in origins:
         rr[(name, offset)].append({'origin': origin, 'segment': segment, 'type': type})
 
 
@@ -49,16 +50,31 @@ tt = {(x['source'], x['offset']): (x['english'], x['russian']) for x in t}
 with open('tools/references.json') as f:
     r = json.loads(f.read())
 
-rr = {(x['source'], x['offset']): sorted(x['references'], key=lambda x: (x['origin'], x['segment'] if isinstance(x['segment'], int) else 0)) for x in r}
+rr = {(x['source'], x['offset']): x['references'] for x in r}
 
 for name, ds in dsegs.items():
     with open(f'unpacked/{name}', 'rb') as f:
         d = f.read()
 
+    relocs_base = int.from_bytes(d[0x18:0x1a], 'little')
+    header = int.from_bytes(d[8:0x0a], 'little') * 0x10
+    relocs = int.from_bytes(d[6:8], 'little')
+
+    segments = set()
+    for i in range(relocs):
+        offset = int.from_bytes(d[relocs_base+i*4:relocs_base+i*4+2], 'little')
+        segment = int.from_bytes(d[relocs_base+i*4+2:relocs_base+i*4+4], 'little')
+        value = int.from_bytes(d[offset+segment*0x10+header:offset+segment*0x10+2+header], 'little')
+        segments.add(value)
+
+    assert ds in segments
+
     base = int.from_bytes(d[8:0x0a], 'little')*0x10
 
+    # FIXME объединять одинаковые строки в одну.
+
     calls = [b'\x9a' + func.to_bytes(4, 'little') for func in printf[name]]
-    for i in range(base, ds*0x10+base):
+    for i in range(base, ds*0x10+base): # FIXME этот цикл на самом деле не нужен.
         if d[i] == 0x9a:
             is_printf = d[i:i+5] in calls
             if d[i-1] == 0x50 and d[i-4] == 0xb8 and d[i-5] == 0x50 and d[i-8] == 0xb8:
@@ -78,35 +94,72 @@ for name, ds in dsegs.items():
                     o = ds*0x10 + a2 + base
                     s = read_null_terminated(d, o)
                     add_string(name, o, s)
-                    add_reference(name, o, i-3, 'register', 'ds')
+                    add_reference(name, o, i-3, 'register', 'ds') # FIXME ds может быть unknown
                 except (IndexError, UnicodeDecodeError, AssertionError):
                     pass
-
-            elif printf:
-                print(name, hex(i), hex(d[i-1]), 'UNKNOWN')
 
     for i in range(ds*0x10+base, len(d), 2):
         a2 = int.from_bytes(d[i:i+2], 'little')
         try:
-            assert d[ds*0x10+a2+base-1] == 0
             o = ds*0x10 + a2 + base
+            assert d[o-1] == 0
             s = read_null_terminated(d, o)
             add_string(name, o, s)
-            add_reference(name, o, i, 'data', 'ds')
+            add_reference(name, o, i, 'data', 'ds') # FIXME ds может быть unknown
         except (IndexError, UnicodeDecodeError, AssertionError):
             pass
 
+    for segment in segments:
+        for i in range(ds*0x10+base, len(d), 2):
+            a2 = int.from_bytes(d[i:i+2], 'little')
+            try:
+                o = segment*0x10 + a2 + base
+                assert d[o-1] == 0
+                s = read_null_terminated(d, o)
+                add_string(name, o, s)
+                add_reference(name, o, i, 'data', 'unknown')
+            except (IndexError, UnicodeDecodeError, AssertionError):
+                pass
+
+    for segment_offset in (-2, +2):
+        for i in range(ds*0x10+base, len(d), 2):
+            a = int.from_bytes(d[i+segment_offset:i+segment_offset+2], 'little')
+            a2 = int.from_bytes(d[i:i+2], 'little')
+            try:
+                #assert False # FIXME
+                assert a != 0
+                o = a*0x10 + a2 + base
+                assert d[o-1] == 0
+                s = read_null_terminated(d, o)
+                add_string(name, o, s)
+                add_reference(name, o, i, 'data', i+segment_offset)
+            except (IndexError, UnicodeDecodeError, AssertionError):
+                pass
+
     for i in range(base, ds*0x10+base):
-        if d[i] in range(0xb8, 0xc0):
+        if d[i] in range(0xb8, 0xc0): # segments around?
             a2 = int.from_bytes(d[i+1:i+3], 'little')
             try:
                 o = ds*0x10 + a2 + base
                 assert d[o-1] == 0
                 s = read_null_terminated(d, o)
                 add_string(name, o, s)
-                add_reference(name, o, i+1, 'register', 'ds')
+                add_reference(name, o, i+1, 'register', 'ds') # FIXME ds может быть unknown
             except (IndexError, UnicodeDecodeError, AssertionError):
                 pass
+
+    for segment in segments:
+        for i in range(base, ds*0x10+base):
+            if d[i] in range(0xb8, 0xc0): # segments around?
+                a2 = int.from_bytes(d[i+1:i+3], 'little')
+                try:
+                    o = segment*0x10 + a2 + base
+                    assert d[o-1] == 0
+                    s = read_null_terminated(d, o)
+                    add_string(name, o, s)
+                    add_reference(name, o, i+1, 'register', 'unknown')
+                except (IndexError, UnicodeDecodeError, AssertionError):
+                    pass
 
 # TODO %s
 
@@ -114,7 +167,7 @@ t = [{'source': s, 'offset': o, 'english': en, 'russian': ru} for (s, o), (en, r
 with open('tools/translation.json', 'w') as f:
     f.write(json.dumps(t, indent=4, ensure_ascii=False))
 
-r = [{'source': s, 'offset': o, 'text': tt[(s, o)][0], 'references': d} for (s, o), d in sorted(rr.items())]
+r = [{'source': s, 'offset': o, 'text': tt[(s, o)][0], 'references': sorted(d, key=lambda x: (x['origin'], x['segment'] if isinstance(x['segment'], int) else 0))} for (s, o), d in sorted(rr.items())]
 with open('tools/references.json', 'w') as f:
     f.write(json.dumps(r, indent=4, ensure_ascii=False))
 
@@ -122,7 +175,7 @@ c = 0
 for name in dsegs:
     r = subprocess.run(['strings', f'unpacked/{name}'], stdout=subprocess.PIPE, universal_newlines=True)
     r.check_returncode()
-    t = {e.replace('\n', '').replace('\r', '').replace('\b', '').replace('\t', '') for (s, _), (e, _) in tt.items() if s == name}
+    t = {x for (s, _), (e, _) in tt.items() if s == name for x in re.split('[\n\r\b\t]+', e) if x}
     for i in r.stdout.splitlines():
         if i not in t:
             print(name, 'Not found:', i)
