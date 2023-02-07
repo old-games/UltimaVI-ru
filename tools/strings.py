@@ -98,7 +98,7 @@ for name, ds in dsegs.items():
                 except (IndexError, UnicodeDecodeError, AssertionError):
                     pass
 
-    for i in range(ds*0x10+base, len(d), 2):
+    for i in range(ds*0x10+base, len(d), 1):
         a2 = int.from_bytes(d[i:i+2], 'little')
         try:
             o = ds*0x10 + a2 + base
@@ -110,7 +110,7 @@ for name, ds in dsegs.items():
             pass
 
     for segment in segments:
-        for i in range(ds*0x10+base, len(d), 2):
+        for i in range(ds*0x10+base, len(d), 1):
             a2 = int.from_bytes(d[i:i+2], 'little')
             try:
                 o = segment*0x10 + a2 + base
@@ -158,6 +158,17 @@ for name, ds in dsegs.items():
                     s = read_null_terminated(d, o)
                     add_string(name, o, s)
                     add_reference(name, o, i+1, 'register', 'unknown')
+                except (IndexError, UnicodeDecodeError, AssertionError):
+                    pass
+
+            if d[i:i+2] == b'\x66\x68':
+                a2 = int.from_bytes(d[i+2:i+4], 'little')
+                try:
+                    o = segment*0x10 + a2 + base
+                    assert d[o-1] == 0
+                    s = read_null_terminated(d, o)
+                    add_string(name, o, s)
+                    add_reference(name, o, i+1, 'argument', 'unknown')
                 except (IndexError, UnicodeDecodeError, AssertionError):
                     pass
 
