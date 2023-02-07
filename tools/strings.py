@@ -80,7 +80,7 @@ for name, ds in dsegs.items():
             pass
 
     for i in range(base, ds*0x10+base):
-        if d[i] == 0xb8:
+        if d[i] in range(0xb8, 0xc0):
             a2 = int.from_bytes(d[i+1:i+3], 'little')
             try:
                 assert d[ds*0x10+a2+base-1] == 0

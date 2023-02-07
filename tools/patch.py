@@ -7,10 +7,14 @@ import tempfile
 
 
 add_functions = {
+    'END.EXE': {
+    },
     'GAME.EXE': {
         'putch_impl': (0x464, 0x2efa),
         'toupper': (0x2ce6, 3),
-    }
+    },
+    'U.EXE': {
+    },
 }
 
 # TODO: место из под старого кода можно переиспользовать
@@ -86,9 +90,9 @@ def nasm(code):
     with tempfile.TemporaryDirectory() as d:
         with open(f'{d}/1.asm', 'w') as f:
             f.write(f'bits 16\n{code}')
-        r = subprocess.run(['nasm', f'{d}/1.asm', '-o', f'{d}/1'])
+        r = subprocess.run(['nasm', '-f', 'bin', f'{d}/1.asm', '-o', f'{d}/1.com'])
         r.check_returncode()
-        with open(f'{d}/1', 'rb') as f:
+        with open(f'{d}/1.com', 'rb') as f:
             return f.read()
 
 
@@ -155,13 +159,16 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 with open('tools/translation.json') as f:
     translation = json.loads(f.read())
 
+replaced = 0
+
 for binary, functions in add_functions.items():
     with open(f'unpacked/{binary}', 'rb') as f:
         d = bytearray(f.read())
         initial_size = len(d)
 
     checksum = int.from_bytes(d[0x12:0x14], 'little')
-    assert sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) & 0xffff == 0xffff
+    original_checksum = sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) & 0xffff
+    assert original_checksum in (0xffff, 0x80df, 0x3dc1)
     pages = int.from_bytes(d[4:6], 'little')
     cs = int.from_bytes(d[0x16:0x18], 'little')
     ss = int.from_bytes(d[0x0e:0x10], 'little')
@@ -236,18 +243,21 @@ for binary, functions in add_functions.items():
     assert len(d) == initial_size
     d = d[:header] + code_block + d[header:]
 
-    checksum = (checksum - sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) + 0xffff) & 0xffff
+    checksum = (checksum - sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) + original_checksum) & 0xffff
     d[0x12:0x14] = checksum.to_bytes(2, 'little')
-    assert sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) & 0xffff == 0xffff
+    assert sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) & 0xffff == original_checksum
 
     for t in translation:
         if t['source'] == binary:
-            if len(t['russian']) <= len(t['english']):
+            if not t['russian'].startswith('FIXME ') and len(t['russian']) <= len(t['english']):
                 t['offset'] += space*0x200
                 message = t['russian'].encode('cp866').ljust(len(t['english']), b'\x00')
                 d[t['offset']:t['offset']+len(message)] = message
+                replaced += 1
 
     with open(f'{output_directory}/{binary}', 'wb') as f:
         f.write(d)
 
-    print(f'Written {binary}, {binascii.crc32(d) & 0xffffffff:8x}')
+    print(f'Written {binary}, {binascii.crc32(d) & 0xffffffff:08x}')
+
+print(f'Replaced strings: {replaced} out of {len(translation)} — {100*replaced/len(translation):.1f}%')
