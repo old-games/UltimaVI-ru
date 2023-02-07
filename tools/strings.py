@@ -1,16 +1,19 @@
 import json
 import os
+import subprocess
 
 
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
 ds = {
+    'END.EXE': 0x07b4,
     'GAME.EXE': 0x2d85,
     'U.EXE': 0x1499,
 }
 
 printf = {
+    'END.EXE': [0x063a022b, 0x063a024b, 0x063a0279],
     'GAME.EXE': [0x04643643],
     'U.EXE': [0x12ee0229, 0x12ee0249, 0x12ee0277],
 }
@@ -61,3 +64,15 @@ for name in ds:
 t = [{'source': s, 'offset': o, 'english': en, 'russian': ru} for (s, o), (en, ru) in sorted(tt.items())]
 with open('tools/translation.json', 'w') as f:
     f.write(json.dumps(t, indent=4, ensure_ascii=False))
+
+c = 0
+for name in ds:
+    r = subprocess.run(['strings', f'unpacked/{name}'], stdout=subprocess.PIPE, universal_newlines=True)
+    r.check_returncode()
+    t = {e for (s, _), (e, _) in tt.items() if s == name}
+    for i in r.stdout.splitlines():
+        if i not in t:
+            print(name, 'Not found:', i)
+            c += 1
+
+print(len(tt), c)
