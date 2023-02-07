@@ -34,10 +34,22 @@ def add_string(name, offset, s):
         tt[(name, offset)] = (s, f'FIXME {s}')
 
 
+def add_reference(name, offset, origin, type):
+    rr.setdefault((name, offset), [])
+    origins = [x['origin'] for x in rr[(name, offset)]]
+    if not origin in origins:
+        rr[(name, offset)].append({'origin': origin, 'type': type})
+
+
 with open('tools/translation.json') as f:
     t = json.loads(f.read())
 
 tt = {(x['source'], x['offset']): (x['english'], x['russian']) for x in t}
+
+with open('tools/references.json') as f:
+    r = json.loads(f.read())
+
+rr = {(x['source'], x['offset']): x['references'] for x in r}
 
 for name, ds in dsegs.items():
     with open(f'unpacked/{name}', 'rb') as f:
@@ -53,18 +65,21 @@ for name, ds in dsegs.items():
                 a = int.from_bytes(d[i-7:i-5], 'little')
                 a2 = int.from_bytes(d[i-3:i-1], 'little')
                 try:
-                    s = read_null_terminated(d, a*0x10+a2+base)
-                    add_string(name, a*0x10+a2+base, s)
+                    o = a*0x10 + a2 + base
+                    s = read_null_terminated(d, o)
+                    add_string(name, o, s)
+                    add_reference(name, o, i-4, 'register')
                 except (IndexError, UnicodeDecodeError, AssertionError):
                     pass
 
             elif d[i-1] == 0x50 and d[i-4] == 0xb8 and d[i-5] == 0x1e:
                 a2 = int.from_bytes(d[i-3:i-1], 'little')
                 try:
-                    s = read_null_terminated(d, ds*0x10+a2+base)
-                    add_string(name, ds*0x10+a2+base, s)
+                    o = ds*0x10 + a2 + base
+                    s = read_null_terminated(d, o)
+                    add_string(name, o, s)
+                    add_reference(name, o, i-4, 'register')
                 except (IndexError, UnicodeDecodeError, AssertionError):
-                    print(i)
                     pass
 
             elif printf:
@@ -74,8 +89,10 @@ for name, ds in dsegs.items():
         a2 = int.from_bytes(d[i:i+2], 'little')
         try:
             assert d[ds*0x10+a2+base-1] == 0
-            s = read_null_terminated(d, ds*0x10+a2+base)
-            add_string(name, ds*0x10+a2+base, s)
+            o = ds*0x10 + a2 + base
+            s = read_null_terminated(d, o)
+            add_string(name, o, s)
+            add_reference(name, o, i, 'data')
         except (IndexError, UnicodeDecodeError, AssertionError):
             pass
 
@@ -83,9 +100,11 @@ for name, ds in dsegs.items():
         if d[i] in range(0xb8, 0xc0):
             a2 = int.from_bytes(d[i+1:i+3], 'little')
             try:
-                assert d[ds*0x10+a2+base-1] == 0
-                s = read_null_terminated(d, ds*0x10+a2+base)
-                add_string(name, ds*0x10+a2+base, s)
+                o = ds*0x10 + a2 + base
+                assert d[o-1] == 0
+                s = read_null_terminated(d, o)
+                add_string(name, o, s)
+                add_reference(name, o, i, 'register')
             except (IndexError, UnicodeDecodeError, AssertionError):
                 pass
 
@@ -94,6 +113,10 @@ for name, ds in dsegs.items():
 t = [{'source': s, 'offset': o, 'english': en, 'russian': ru} for (s, o), (en, ru) in sorted(tt.items())]
 with open('tools/translation.json', 'w') as f:
     f.write(json.dumps(t, indent=4, ensure_ascii=False))
+
+r = [{'source': s, 'offset': o, 'text': tt[(s, o)][0], 'references': d} for (s, o), d in sorted(rr.items())]
+with open('tools/references.json', 'w') as f:
+    f.write(json.dumps(r, indent=4, ensure_ascii=False))
 
 c = 0
 for name in dsegs:
@@ -105,4 +128,4 @@ for name in dsegs:
             print(name, 'Not found:', i)
             c += 1
 
-print(len(tt), c)
+print(len(tt), len(rr), c)
