@@ -159,6 +159,9 @@ os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 with open('tools/translation.json') as f:
     translation = json.loads(f.read())
 
+with open('tools/references.json') as f:
+    references = {(x['source'], x['offset']): x['references'] for x in json.loads(f.read())}
+
 replaced = 0
 
 for binary, functions in add_functions.items():
@@ -249,11 +252,17 @@ for binary, functions in add_functions.items():
 
     for t in translation:
         if t['source'] == binary:
-            if not t['russian'].startswith('FIXME ') and len(t['russian']) <= len(t['english']):
-                t['offset'] += space*0x200
-                message = t['russian'].encode('cp866').ljust(len(t['english']), b'\x00')
-                d[t['offset']:t['offset']+len(message)] = message
-                replaced += 1
+            segments = [x['segment'] for x in references[(binary, t['offset'])]]
+
+            if not t['russian'].startswith('FIXME '):
+                if len(t['russian']) <= len(t['english']):
+                    t['offset'] += space*0x200
+                    message = t['russian'].encode('cp866').ljust(len(t['english']), b'\x00')
+                    d[t['offset']:t['offset']+len(message)] = message
+                    replaced += 1
+
+                elif all(map(lambda x: isinstance(x, int), segments)):
+                    print(f'String {repr(t["russian"])} can be moved!')
 
     with open(f'{output_directory}/{binary}', 'wb') as f:
         f.write(d)

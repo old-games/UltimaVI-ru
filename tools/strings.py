@@ -23,7 +23,7 @@ def read_null_terminated(d, i):
     s = ''
     assert d[i] != 0
     while d[i]:
-        assert d[i] in b'\r\n\b' + bytes(range(0x20, 0x80))
+        assert d[i] in b'\r\n\b\t' + bytes(range(0x20, 0x80))
         s += d[i:i+1].decode('ascii')
         i += 1
     return s
@@ -122,7 +122,7 @@ c = 0
 for name in dsegs:
     r = subprocess.run(['strings', f'unpacked/{name}'], stdout=subprocess.PIPE, universal_newlines=True)
     r.check_returncode()
-    t = {e.replace('\n', '').replace('\r', '').replace('\b', '') for (s, _), (e, _) in tt.items() if s == name}
+    t = {e.replace('\n', '').replace('\r', '').replace('\b', '').replace('\t', '') for (s, _), (e, _) in tt.items() if s == name}
     for i in r.stdout.splitlines():
         if i not in t:
             print(name, 'Not found:', i)
