@@ -74,20 +74,18 @@ for name, ds in dsegs.items():
     with open(f'unpacked/{name}', 'rb') as f:
         d = f.read()
 
+    base = int.from_bytes(d[8:0x0a], 'little')*0x10
     relocs_base = int.from_bytes(d[0x18:0x1a], 'little')
-    header = int.from_bytes(d[8:0x0a], 'little') * 0x10
     relocs = int.from_bytes(d[6:8], 'little')
 
     segments = set()
     for i in range(relocs):
         offset = int.from_bytes(d[relocs_base+i*4:relocs_base+i*4+2], 'little')
         segment = int.from_bytes(d[relocs_base+i*4+2:relocs_base+i*4+4], 'little')
-        value = int.from_bytes(d[offset+segment*0x10+header:offset+segment*0x10+2+header], 'little')
+        value = int.from_bytes(d[offset+segment*0x10+base:offset+segment*0x10+2+base], 'little')
         segments.add(value)
 
     assert ds in segments
-
-    base = int.from_bytes(d[8:0x0a], 'little')*0x10
 
     # FIXME объединять одинаковые строки в одну.
 
