@@ -20,6 +20,24 @@ printf = {
 }
 
 
+FIXME = """
+END.EXE Not found: seven
+END.EXE Not found: twenty-one
+END.EXE Not found: twenty-two
+END.EXE Not found: twenty-six
+END.EXE Not found: twenty-nine
+END.EXE Not found:          !!!!!
+GAME.EXE Not found: savegame\objblkaa
+GAME.EXE Not found: midi.dat
+GAME.EXE Not found: portrait.a
+GAME.EXE Not found:          !!!!!
+U.EXE Not found: mainmenu.cga
+U.EXE Not found: NSCA
+U.EXE Not found: SPTA
+U.EXE Not found:          !!!!!
+"""
+
+
 def read_null_terminated(d, i):
     s = ''
     assert d[i] != 0
@@ -102,7 +120,7 @@ for name, ds in dsegs.items():
         a2 = int.from_bytes(d[i:i+2], 'little')
         try:
             o = ds*0x10 + a2 + base
-            assert d[o-1] == 0
+            assert d[o-1] == 0 # FIXME
             s = read_null_terminated(d, o)
             add_string(name, o, s)
             add_reference(name, o, i, 'data', 'ds') # FIXME ds может быть unknown
@@ -114,7 +132,7 @@ for name, ds in dsegs.items():
             a2 = int.from_bytes(d[i:i+2], 'little')
             try:
                 o = segment*0x10 + a2 + base
-                assert d[o-1] == 0
+                assert d[o-1] == 0 # FIXME
                 s = read_null_terminated(d, o)
                 add_string(name, o, s)
                 add_reference(name, o, i, 'data', 'unknown')
@@ -126,10 +144,9 @@ for name, ds in dsegs.items():
             a = int.from_bytes(d[i+segment_offset:i+segment_offset+2], 'little')
             a2 = int.from_bytes(d[i:i+2], 'little')
             try:
-                #assert False # FIXME
                 assert a != 0
                 o = a*0x10 + a2 + base
-                assert d[o-1] == 0
+                assert d[o-1] == 0 # FIXME
                 s = read_null_terminated(d, o)
                 add_string(name, o, s)
                 add_reference(name, o, i, 'data', i+segment_offset)
@@ -141,7 +158,7 @@ for name, ds in dsegs.items():
             a2 = int.from_bytes(d[i+1:i+3], 'little')
             try:
                 o = ds*0x10 + a2 + base
-                assert d[o-1] == 0
+                assert d[o-1] == 0 # FIXME
                 s = read_null_terminated(d, o)
                 add_string(name, o, s)
                 add_reference(name, o, i+1, 'register', 'ds') # FIXME ds может быть unknown
@@ -154,7 +171,7 @@ for name, ds in dsegs.items():
                 a2 = int.from_bytes(d[i+1:i+3], 'little')
                 try:
                     o = segment*0x10 + a2 + base
-                    assert d[o-1] == 0
+                    assert d[o-1] == 0 # FIXME
                     s = read_null_terminated(d, o)
                     add_string(name, o, s)
                     add_reference(name, o, i+1, 'register', 'unknown')
@@ -165,7 +182,7 @@ for name, ds in dsegs.items():
                 a2 = int.from_bytes(d[i+2:i+4], 'little')
                 try:
                     o = segment*0x10 + a2 + base
-                    assert d[o-1] == 0
+                    assert d[o-1] == 0 # FIXME
                     s = read_null_terminated(d, o)
                     add_string(name, o, s)
                     add_reference(name, o, i+1, 'argument', 'unknown')
