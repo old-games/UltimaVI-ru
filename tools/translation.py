@@ -31,3 +31,21 @@ for s, ii in by_source.items():
     for i in ii:
         text = read_null_terminated(x, i['offset'])
         assert text == i['english'], f'English text could not be found at offset {i["offset"]}: "{i["english"]}".'
+
+with open('tools/not-strings.json') as f:
+    ns = json.loads(f.read())
+
+by_source = collections.defaultdict(list)
+
+for i in ns:
+    assert set(i.keys()) == {'source', 'offset', 'text'}
+    assert i['source'] in {'GAME.EXE', 'END.EXE', 'INSTALL.EXE', 'U.EXE', 'ULTIMA6.EXE'}, f'Invalid source: "{i["source"]}".'
+    assert isinstance(i['offset'], int)
+    by_source[i['source']].append(i)
+
+for s, ii in by_source.items():
+    with open(f'unpacked/{s}', 'rb') as f:
+        x = f.read()
+    for i in ii:
+        text = read_null_terminated(x, i['offset'])
+        assert text == i['text'], f'Text could not be found at offset {i["offset"]}: "{i["text"]}".'
