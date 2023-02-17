@@ -77,11 +77,13 @@ for name, printfs in printf.items():
         segments.add(value)
 
     ds = max(segments)
+    segments = sorted(segments)
 
     # FIXME объединять одинаковые строки в одну.
 
+    # printf из каждого сегмента кроме DS.
     calls = [b'\x9a' + func.to_bytes(4, 'little') for func in printfs]
-    for i in range(base, ds*0x10+base): # FIXME этот цикл на самом деле не нужен.
+    for i in range(base, ds*0x10+base+15): # FIXME этот цикл на самом деле не нужен.
         if d[i] == 0x9a:
             is_printf = d[i:i+5] in calls
             if d[i-1] == 0x50 and d[i-4] == 0xb8 and d[i-5] == 0x50 and d[i-8] == 0xb8:
@@ -101,10 +103,15 @@ for name, printfs in printf.items():
                     o = ds*0x10 + a2 + base
                     s = read_null_terminated(d, o)
                     add_string(name, o, s)
-                    add_reference(name, o, i-3, 'register', 'ds') # FIXME ds может быть unknown
+                    add_reference(name, o, i-3, 'register', 'unknown')
                 except (IndexError, UnicodeDecodeError, AssertionError):
                     pass
 
+            else:
+                # FIXME
+                pass
+
+    # Ссылки из DS в DS.
     for i in range(ds*0x10+base, len(d), 1):
         a2 = int.from_bytes(d[i:i+2], 'little')
         try:
@@ -112,10 +119,11 @@ for name, printfs in printf.items():
             assert d[o-1] == 0 # FIXME
             s = read_null_terminated(d, o)
             add_string(name, o, s)
-            add_reference(name, o, i, 'data', 'ds') # FIXME ds может быть unknown
+            add_reference(name, o, i, 'data', 'unknown')
         except (IndexError, UnicodeDecodeError, AssertionError):
             pass
 
+    # Ссылки из DS в каждый сегмент.
     for segment in segments:
         for i in range(ds*0x10+base, len(d), 1):
             a2 = int.from_bytes(d[i:i+2], 'little')
@@ -128,6 +136,7 @@ for name, printfs in printf.items():
             except (IndexError, UnicodeDecodeError, AssertionError):
                 pass
 
+    # Far ссылки из DS из данных.
     for segment_offset in (-2, +2):
         for i in range(ds*0x10+base, len(d), 2):
             a = int.from_bytes(d[i+segment_offset:i+segment_offset+2], 'little')
@@ -142,7 +151,8 @@ for name, printfs in printf.items():
             except (IndexError, UnicodeDecodeError, AssertionError):
                 pass
 
-    for i in range(base, ds*0x10+base):
+    # Ссылки из каждого сегмента кроме DS в DS из кода.
+    for i in range(base, ds*0x10+base+15):
         if d[i] in range(0xb8, 0xc0): # segments around?
             a2 = int.from_bytes(d[i+1:i+3], 'little')
             try:
@@ -150,12 +160,25 @@ for name, printfs in printf.items():
                 assert d[o-1] == 0 # FIXME
                 s = read_null_terminated(d, o)
                 add_string(name, o, s)
-                add_reference(name, o, i+1, 'register', 'ds') # FIXME ds может быть unknown
+                add_reference(name, o, i+1, 'register', 'unknown') # FIXME ds может быть unknown
             except (IndexError, UnicodeDecodeError, AssertionError):
                 pass
 
-    for segment in segments:
-        for i in range(base, ds*0x10+base):
+        if d[i:i+2] == b'\x66\x68':
+            a2 = int.from_bytes(d[i+2:i+4], 'little')
+            try:
+                o = ds*0x10 + a2 + base
+                assert d[o-1] == 0 # FIXME
+                s = read_null_terminated(d, o)
+                add_string(name, o, s)
+                add_reference(name, o, i+1, 'argument', 'unknown')
+            except (IndexError, UnicodeDecodeError, AssertionError):
+                pass
+
+    # Ссылки из каждого сегмента в каждый сегмент кроме DS из кода.
+    for segment, next_segment in zip(segments, segments[1:]+[(len(d)-base+15)//16]):
+        for i in range(base, ds*0x10+base+15):
+        #for i in range(segment*0x10+base, min(next_segment*0x10+base+15, len(d))):
             if d[i] in range(0xb8, 0xc0): # segments around?
                 a2 = int.from_bytes(d[i+1:i+3], 'little')
                 try:
