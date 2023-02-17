@@ -76,12 +76,12 @@ for name, printfs in printf.items():
         value = int.from_bytes(d[offset+segment*0x10+base:offset+segment*0x10+2+base], 'little')
         segments.add(value)
 
-    ds = max(segments)
     segments = sorted(segments)
+    ds = segments[-1]
 
     # FIXME объединять одинаковые строки в одну.
 
-    # printf из каждого сегмента кроме DS.
+    # Ссылки на printf-строки из каждого сегмента кроме DS из кода.
     calls = [b'\x9a' + func.to_bytes(4, 'little') for func in printfs]
     for i in range(base, ds*0x10+base+15): # FIXME этот цикл на самом деле не нужен.
         if d[i] == 0x9a:
@@ -111,7 +111,7 @@ for name, printfs in printf.items():
                 # FIXME
                 pass
 
-    # Ссылки из DS в DS.
+    # Ссылки из DS в DS из данных.
     for i in range(ds*0x10+base, len(d), 1):
         a2 = int.from_bytes(d[i:i+2], 'little')
         try:
@@ -123,7 +123,7 @@ for name, printfs in printf.items():
         except (IndexError, UnicodeDecodeError, AssertionError):
             pass
 
-    # Ссылки из DS в каждый сегмент.
+    # Ссылки из DS в каждый сегмент из данных.
     for segment in segments:
         for i in range(ds*0x10+base, len(d), 1):
             a2 = int.from_bytes(d[i:i+2], 'little')
@@ -175,7 +175,7 @@ for name, printfs in printf.items():
             except (IndexError, UnicodeDecodeError, AssertionError):
                 pass
 
-    # Ссылки из каждого сегмента в каждый сегмент кроме DS из кода.
+    # Ссылки из каждого сегмента кроме DS в каждый сегмент из кода.
     for segment, next_segment in zip(segments, segments[1:]+[(len(d)-base+15)//16]):
         for i in range(base, ds*0x10+base+15):
         #for i in range(segment*0x10+base, min(next_segment*0x10+base+15, len(d))):
