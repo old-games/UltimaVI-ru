@@ -7,12 +7,6 @@ import subprocess
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 
-dsegs = {
-    'END.EXE': 0x07b4,
-    'GAME.EXE': 0x2d85,
-    'U.EXE': 0x1499,
-}
-
 printf = {
     'END.EXE': [0x063a022b, 0x063a024b, 0x063a0279],
     'GAME.EXE': [0x04643643],
@@ -67,7 +61,7 @@ with open('tools/references.json') as f:
 
 rr = {(x['source'], x['offset']): x['references'] for x in r}
 
-for name, ds in dsegs.items():
+for name, printfs in printf.items():
     with open(f'unpacked/{name}', 'rb') as f:
         d = f.read()
 
@@ -82,11 +76,11 @@ for name, ds in dsegs.items():
         value = int.from_bytes(d[offset+segment*0x10+base:offset+segment*0x10+2+base], 'little')
         segments.add(value)
 
-    assert ds in segments
+    ds = max(segments)
 
     # FIXME объединять одинаковые строки в одну.
 
-    calls = [b'\x9a' + func.to_bytes(4, 'little') for func in printf[name]]
+    calls = [b'\x9a' + func.to_bytes(4, 'little') for func in printfs]
     for i in range(base, ds*0x10+base): # FIXME этот цикл на самом деле не нужен.
         if d[i] == 0x9a:
             is_printf = d[i:i+5] in calls
@@ -195,7 +189,7 @@ with open('tools/references.json', 'w') as f:
     f.write(json.dumps(r, indent=4, ensure_ascii=False))
 
 c = 0
-for name in dsegs:
+for name in printf:
     r = subprocess.run(['strings', f'unpacked/{name}'], stdout=subprocess.PIPE, universal_newlines=True)
     r.check_returncode()
     t = {x for (s, _), (e, _) in tt.items() if s == name for x in re.split('[\n\r\b\t]+', e) if x}
