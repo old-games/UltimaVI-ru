@@ -26,15 +26,12 @@ END.EXE Not found: twenty-one
 END.EXE Not found: twenty-two
 END.EXE Not found: twenty-six
 END.EXE Not found: twenty-nine
-END.EXE Not found:          !!!!!
 GAME.EXE Not found: savegame\objblkaa
 GAME.EXE Not found: midi.dat
 GAME.EXE Not found: portrait.a
-GAME.EXE Not found:          !!!!!
 U.EXE Not found: mainmenu.cga
 U.EXE Not found: NSCA
 U.EXE Not found: SPTA
-U.EXE Not found:          !!!!!
 """
 
 
@@ -191,7 +188,7 @@ for name, ds in dsegs.items():
 
 t = [{'source': s, 'offset': o, 'english': en, 'russian': ru} for (s, o), (en, ru) in sorted(tt.items())]
 with open('tools/translation.json', 'w') as f:
-    f.write(json.dumps(t, indent=4, ensure_ascii=False))
+    print(json.dumps(t, indent=4, ensure_ascii=False), file=f)
 
 r = [{'source': s, 'offset': o, 'text': tt[(s, o)][0], 'references': sorted(d, key=lambda x: (x['origin'], x['segment'] if isinstance(x['segment'], int) else 0))} for (s, o), d in sorted(rr.items())]
 with open('tools/references.json', 'w') as f:
