@@ -90,6 +90,8 @@ for name, printfs in printf.items():
                     # FIXME
                     pass
 
+            # TODO %s
+
     # Ссылки из DS из данных.
     for ds in sss:
         for i in range(dss[0]*0x10+base, len(d), 1): # FIXME 1
@@ -121,40 +123,16 @@ for name, printfs in printf.items():
     # Ссылки из каждого сегмента кроме DS из кода.
     for ds in sss:
         for i in range(base, dss[0]*0x10+base+15):
-            if d[i] in (5, *range(0xb8, 0xc0)): # segments around?
-                a2 = int.from_bytes(d[i+1:i+3], 'little')
+            if d[i-1] in (5, 0x68, *range(0xb8, 0xc0)) or d[i-2:i] in (b'\x8a\x87',) or d[i-4:i-2] in (b'\xc7\x06',): # segments around?
+                a2 = int.from_bytes(d[i:i+2], 'little')
                 try:
                     o = ds*0x10 + a2 + base
                     assert d[o-1] == 0
                     s = read_null_terminated(d, o)
                     add_string(name, o, s)
-                    add_reference(name, o, i+1, 'register', 'unknown')
+                    add_reference(name, o, i, 'argument' if d[i-1] == 0x68 or d[i-4:i-2] == b'\xc7\x06' else 'register', 'unknown')
                 except (IndexError, UnicodeDecodeError, AssertionError):
                     pass
-
-            if d[i:i+2] in (b'\x66\x68', b'\x8a\x87'):
-                a2 = int.from_bytes(d[i+2:i+4], 'little')
-                try:
-                    o = ds*0x10 + a2 + base
-                    assert d[o-1] == 0
-                    s = read_null_terminated(d, o)
-                    add_string(name, o, s)
-                    add_reference(name, o, i+1, 'argument', 'unknown')
-                except (IndexError, UnicodeDecodeError, AssertionError):
-                    pass
-
-            if d[i:i+2] in (b'\xc7\x06',):
-                a2 = int.from_bytes(d[i+4:i+6], 'little')
-                try:
-                    o = ds*0x10 + a2 + base
-                    assert d[o-1] == 0
-                    s = read_null_terminated(d, o)
-                    add_string(name, o, s)
-                    add_reference(name, o, i+1, 'argument', 'unknown')
-                except (IndexError, UnicodeDecodeError, AssertionError):
-                    pass
-
-            # TODO %s
 
 if os.path.isfile('tools/translation.json'):
     with open('tools/translation.json') as f:
