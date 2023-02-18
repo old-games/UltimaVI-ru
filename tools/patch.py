@@ -11,7 +11,7 @@ add_functions = {
     },
     'GAME.EXE': {
         'putch_impl': (0x464, 0x2efa, 0x3e4),
-        'toupper': (0x2ce6, 3, 0x1a),
+        'toupper': (0x2ce6, 3, 0x31),
     },
     'U.EXE': {
     },
@@ -88,7 +88,7 @@ def apply_obj(path, base):
 
     for a in fixmeups:
         assert code[a] == 0x9a
-        more_relocs.append(base+a+3)
+        relocs.append((base+a+3, 0, False, False))
 
     assert not fixups
     return code
@@ -106,6 +106,13 @@ def nasm(code):
         r.check_returncode()
         with open(f'{d}/1.com', 'rb') as f:
             return f.read()
+
+
+def jump(s, a, os, oa):
+    relocs.append((oa+3, os, True, True))
+    return b'\xea' + a.to_bytes(2, 'little') + s.to_bytes(2, 'little')
+    relocs.append((oa+1, os, True, True))
+    return b'\x68' + s.to_bytes(2, 'little') + b'\x68' + a.to_bytes(2, 'little') + b'\xcb'
 
 
 def pi_jump(s, a):
@@ -190,8 +197,14 @@ for binary, functions in add_functions.items():
     relocs_size = int.from_bytes(d[6:8], 'little')
     header = int.from_bytes(d[8:0x0a], 'little') * 0x10
     relocs_base = int.from_bytes(d[0x18:0x1a], 'little')
-
-    more_relocs = []
+    relocs = []
+    segments = set()
+    for i in range(relocs_size):
+        offset = int.from_bytes(d[relocs_base+i*4:relocs_base+i*4+2], 'little')
+        segment = int.from_bytes(d[relocs_base+i*4+2:relocs_base+i*4+4], 'little')
+        segments.add(int.from_bytes(d[offset+segment*0x10+header:offset+segment*0x10+2+header], 'little'))
+        relocs.append((offset, segment, False, True))
+    segments = sorted(segments)
 
     code_block = bytearray()
     function_address = {}
@@ -209,24 +222,12 @@ for binary, functions in add_functions.items():
 
     code_block += b'\x00' * (0x200 - len(code_block) % 0x200)
 
-    assert set(d[relocs_base+4*relocs_size:header]) == {0}
-    assert len(d[relocs_base+4*relocs_size:header]) // 4 >= len(more_relocs)
-
     print(f'{binary} — adding {len(code_block)} bytes for {len(functions)} functions')
     space = len(code_block) // 0x200
 
     if binary == 'GAME.EXE':
         assert d[0xb203:0xb206] == b'\x0d\x80\x00'
         replace(d, 0xb204, b'\x00\x01') # 0x0464:0x33d3, putch # FIXME выкинуть это в отдельный файл.
-
-    relocs = []
-    segments = set()
-    for i in range(relocs_size):
-        offset = int.from_bytes(d[relocs_base+i*4:relocs_base+i*4+2], 'little')
-        segment = int.from_bytes(d[relocs_base+i*4+2:relocs_base+i*4+4], 'little')
-        segments.add(int.from_bytes(d[offset+segment*0x10+header:offset+segment*0x10+2+header], 'little'))
-        relocs.append((offset, segment))
-    segments = sorted(segments)
 
     if 0:
         uninitialized_fill, = find_all(d, [0xbf, None, None, 0xb9, None, None, 0x2b, 0xcf, 0xf3, 0xaa])
@@ -237,34 +238,37 @@ for binary, functions in add_functions.items():
 
     for f, (function_cs, function_ip, size) in functions.items():
         address = function_cs*0x10 + function_ip
-        replace(d, header+address, pi_jump(function_cs, function_address[f]))
-        relocs[:] = [(o, s) for o, s in relocs if o+s*0x10 >= address+size or o+s*0x10 < address-1]
+        relocs[:] = [(o, s, l, v) for o, s, l, v in relocs if not v or o+s*0x10 >= address+size or o+s*0x10 < address-1]
+        replace(d, header+address, jump(0, function_address[f], function_cs, function_ip).ljust(size, b'\x00'))
 
-    for i, x in enumerate(more_relocs, start=len(relocs)):
-        old_segment = int.from_bytes(code_block[x:x+2], 'little')
-        old_segment += space*0x20
-        assert old_segment + 0x10 < 0x10000
-        code_block[x:x+2] = old_segment.to_bytes(2, 'little')
-        o = x % 0x10000
-        s = x // 0x10000 * 0x1000
-        d[relocs_base+i*4:relocs_base+i*4+2] = o.to_bytes(2, 'little')
-        d[relocs_base+i*4+2:relocs_base+i*4+4] = s.to_bytes(2, 'little')
+    assert set(d[relocs_base+4*relocs_size:header]) == {0}
+    assert header - relocs_base >= len(relocs)*4
 
-    for i, (offset, segment) in enumerate(relocs):
-        value = int.from_bytes(d[offset+segment*0x10+header:offset+segment*0x10+2+header], 'little')
-        value += space*0x20
-        assert value + 0x10 < 0x10000
-        d[offset+segment*0x10+header:offset+segment*0x10+2+header] = value.to_bytes(2, 'little')
-        segment += space*0x20
-        assert segment < 0x10000
+    for i, (offset, segment, local, vanilla) in enumerate(relocs):
+        if not local:
+            if vanilla:
+                array = d
+                array_base = header
+            else:
+                array = code_block
+                array_base = 0
+            assert offset < 0x10000
+            x = offset+segment*0x10
+            value = int.from_bytes(array[array_base+x:array_base+x+2], 'little')
+            value += space*0x20
+            assert value + 0x10 < 0x10000
+            array[array_base+x:array_base+x+2] = value.to_bytes(2, 'little')
+        if vanilla:
+            segment += space*0x20
+            assert segment < 0x10000
         d[relocs_base+i*4:relocs_base+i*4+2] = offset.to_bytes(2, 'little')
         d[relocs_base+i*4+2:relocs_base+i*4+4] = segment.to_bytes(2, 'little')
 
-    for i in range(len(relocs)+len(more_relocs), relocs_size):
+    for i in range(len(relocs), relocs_size):
         d[relocs_base+i*4:relocs_base+i*4+4] = b'\x00'*4
 
     pages += space
-    d[6:8] = (len(relocs)+len(more_relocs)).to_bytes(2, 'little')
+    d[6:8] = len(relocs).to_bytes(2, 'little')
     cs += space*0x20
     assert cs + 0x10 < 0x10000
     d[0x16:0x18] = cs.to_bytes(2, 'little')
