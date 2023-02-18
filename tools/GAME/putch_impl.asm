@@ -2,6 +2,7 @@ bits 16
 
 global sub_2efa
 global fixmeup0
+global fixmeup1
 
 section CODE
 
@@ -116,6 +117,7 @@ loc_2fd1:
         mov     word [0x4d4], 0x1
 
 loc_2ffa:
+fixmeup1: ; far call by absolute direct address
         call    0x464:0x2a59 ; getch
         mov     di, ax
         cmp     di, byte +0x20
