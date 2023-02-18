@@ -10,8 +10,8 @@ add_functions = {
     'END.EXE': {
     },
     'GAME.EXE': {
-        'putch_impl': (0x464, 0x2efa),
-        'toupper': (0x2ce6, 3),
+        'putch_impl': (0x464, 0x2efa, 0x3e4),
+        'toupper': (0x2ce6, 3, 0x1a),
     },
     'U.EXE': {
     },
@@ -98,7 +98,6 @@ def nasm(code):
 
 def pi_jump(s, a):
     s += space * 0x20
-    # FIXME remove old relocs which could break these jumps.
     return b'\x8c\xc8\x2d' + s.to_bytes(2, 'little') + b'\x50\xb8' + a.to_bytes(2, 'little') + b'\x50\xcb'
     return nasm("""
         ; debugging
@@ -175,7 +174,7 @@ for binary, functions in add_functions.items():
     pages = int.from_bytes(d[4:6], 'little')
     cs = int.from_bytes(d[0x16:0x18], 'little')
     ss = int.from_bytes(d[0x0e:0x10], 'little')
-    relocs = int.from_bytes(d[6:8], 'little')
+    relocs_size = int.from_bytes(d[6:8], 'little')
     header = int.from_bytes(d[8:0x0a], 'little') * 0x10
     relocs_base = int.from_bytes(d[0x18:0x1a], 'little')
 
@@ -197,13 +196,28 @@ for binary, functions in add_functions.items():
 
     code_block += b'\x00' * (0x200 - len(code_block) % 0x200)
 
-    assert set(d[relocs_base+4*relocs:header]) == {0}
-    assert len(d[relocs_base+4*relocs:header]) // 4 >= len(more_relocs)
+    assert set(d[relocs_base+4*relocs_size:header]) == {0}
+    assert len(d[relocs_base+4*relocs_size:header]) // 4 >= len(more_relocs)
 
     print(f'{binary} — adding {len(code_block)} bytes for {len(functions)} functions')
     space = len(code_block) // 0x200
 
-    for i, x in enumerate(more_relocs, start=relocs):
+    if binary == 'GAME.EXE':
+        assert d[0xb203:0xb206] == b'\x0d\x80\x00'
+        replace(d, 0xb204, b'\x00\x01') # 0x0464:0x33d3, putch # FIXME выкинуть это в отдельный файл.
+
+    relocs = []
+    for i in range(relocs_size):
+        offset = int.from_bytes(d[relocs_base+i*4:relocs_base+i*4+2], 'little')
+        segment = int.from_bytes(d[relocs_base+i*4+2:relocs_base+i*4+4], 'little')
+        relocs.append((offset, segment))
+
+    for f, (function_cs, function_ip, size) in functions.items():
+        address = function_cs*0x10 + function_ip
+        replace(d, header+address, pi_jump(function_cs, function_address[f]))
+        relocs[:] = [(o, s) for o, s in relocs if o+s*0x10 >= address+size or o+s*0x10 < address-1]
+
+    for i, x in enumerate(more_relocs, start=len(relocs)):
         old_segment = int.from_bytes(code_block[x:x+2], 'little')
         old_segment += space*0x20
         assert old_segment + 0x10 < 0x10000
@@ -213,21 +227,21 @@ for binary, functions in add_functions.items():
         d[relocs_base+i*4:relocs_base+i*4+2] = o.to_bytes(2, 'little')
         d[relocs_base+i*4+2:relocs_base+i*4+4] = s.to_bytes(2, 'little')
 
-    for i in range(relocs):
-        offset = int.from_bytes(d[relocs_base+i*4:relocs_base+i*4+2], 'little')
-        segment = int.from_bytes(d[relocs_base+i*4+2:relocs_base+i*4+4], 'little')
+    for i, (offset, segment) in enumerate(relocs):
         value = int.from_bytes(d[offset+segment*0x10+header:offset+segment*0x10+2+header], 'little')
         value += space*0x20
         assert value + 0x10 < 0x10000
         d[offset+segment*0x10+header:offset+segment*0x10+2+header] = value.to_bytes(2, 'little')
         segment += space*0x20
         assert segment < 0x10000
+        d[relocs_base+i*4:relocs_base+i*4+2] = offset.to_bytes(2, 'little')
         d[relocs_base+i*4+2:relocs_base+i*4+4] = segment.to_bytes(2, 'little')
 
-    relocs += len(more_relocs)
+    for i in range(len(relocs)+len(more_relocs), relocs_size):
+        d[relocs_base+i*4:relocs_base+i*4+4] = b'\x00'*4
 
     pages += space
-    d[6:8] = relocs.to_bytes(2, 'little')
+    d[6:8] = (len(relocs)+len(more_relocs)).to_bytes(2, 'little')
     cs += space*0x20
     assert cs + 0x10 < 0x10000
     d[0x16:0x18] = cs.to_bytes(2, 'little')
@@ -235,13 +249,6 @@ for binary, functions in add_functions.items():
     assert ss + 0x10 < 0x10000
     d[0x0e:0x10] = ss.to_bytes(2, 'little')
     d[4:6] = pages.to_bytes(2, 'little')
-
-    if binary == 'GAME.EXE':
-        assert d[0xb203:0xb206] == b'\x0d\x80\x00'
-        replace(d, 0xb204, b'\x00\x01') # 0x464:0x33d3, putch # FIXME выкинуть это в отдельный файл.
-
-    for f, (cs, ip) in functions.items():
-        replace(d, header+cs*0x10+ip, pi_jump(cs, function_address[f]))
 
     assert len(d) == initial_size
     d = d[:header] + code_block + d[header:]
