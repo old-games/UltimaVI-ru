@@ -21,6 +21,18 @@ add_functions = {
 # TODO: добавлять место более гранулярно чем постранично
 
 
+def find_all(d, pattern):
+    results = []
+    for i in range(len(d)):
+        for j, x in enumerate(pattern):
+            if x is not None:
+                if x != d[i+j]:
+                    break
+        else:
+            results.append(i)
+    return results
+
+
 def apply_obj(path, base):
     with open(path, 'rb') as f:
         data = f.read()
@@ -162,6 +174,7 @@ with open('tools/references.json') as f:
     references = {(x['source'], x['offset']): x['references'] for x in json.loads(f.read())}
 
 replaced = 0
+missing = 0
 
 for binary, functions in add_functions.items():
     with open(f'unpacked/{binary}', 'rb') as f:
@@ -207,10 +220,20 @@ for binary, functions in add_functions.items():
         replace(d, 0xb204, b'\x00\x01') # 0x0464:0x33d3, putch # FIXME выкинуть это в отдельный файл.
 
     relocs = []
+    segments = set()
     for i in range(relocs_size):
         offset = int.from_bytes(d[relocs_base+i*4:relocs_base+i*4+2], 'little')
         segment = int.from_bytes(d[relocs_base+i*4+2:relocs_base+i*4+4], 'little')
+        segments.add(int.from_bytes(d[offset+segment*0x10+header:offset+segment*0x10+2+header], 'little'))
         relocs.append((offset, segment))
+    segments = sorted(segments)
+
+    if 0:
+        uninitialized_fill, = find_all(d, [0xbf, None, None, 0xb9, None, None, 0x2b, 0xcf, 0xf3, 0xaa])
+        initialized_size = int.from_bytes(d[uninitialized_fill+1:uninitialized_fill+3], 'little')
+        assert initialized_size in (len(d) - segments[-1]*0x10 - header, len(d) - segments[-1]*0x10 - header-2)
+        uninitialized_size = int.from_bytes(d[uninitialized_fill+4:uninitialized_fill+6], 'little') - initialized_size
+        dereferencing = [b'\xbf', b'\xa1', b'\x8b\x1e', b'\xa3', b'\xc4\x1e', b'\xff\x36', b'\x89\x1e', b'\x8c\x06', b'\x8b\x16', b'\x89\x16', b'\x3b\x06', b'\x29\x06', b'\x3b\x16', b'\x19\x16']
 
     for f, (function_cs, function_ip, size) in functions.items():
         address = function_cs*0x10 + function_ip
@@ -271,9 +294,13 @@ for binary, functions in add_functions.items():
                 elif all(map(lambda x: isinstance(x, int), segments)):
                     print(f'String {repr(t["russian"])} can be moved!')
 
+            else:
+                missing += 1
+
     with open(f'{output_directory}/{binary}', 'wb') as f:
         f.write(d)
 
     print(f'Written {binary}, {binascii.crc32(d) & 0xffffffff:08x}')
 
+print(f'Missing strings: {missing} out of {len(translation)} — {100*missing/len(translation):.1f}%')
 print(f'Replaced strings: {replaced} out of {len(translation)} — {100*replaced/len(translation):.1f}%')
