@@ -252,7 +252,7 @@ for binary, functions in add_functions.items():
 
     for t in translation:
         if t['source'] == binary:
-            segments = [x['segment'] for x in references[(binary, t['offset'])]]
+            segments = [x['segment'] for x in references.get((binary, t['offset']), [])]
 
             if not t['russian'].startswith('FIXME '):
                 if len(t['russian']) <= len(t['english']):
