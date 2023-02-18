@@ -201,7 +201,11 @@ if 'merge':
         }:
             tt[t] = old_tt[t] # FIXME numbers and classes
 
-t = [{'source': s, 'offset': o, 'english': en, 'russian': ru} for (s, o), (en, ru) in sorted(tt.items())]
+
+with open('tools/not-strings.json', 'r') as f:
+    ns = {(d['source'], d['offset']) for d in json.loads(f.read())}
+
+t = [{'source': s, 'offset': o, 'english': en, 'russian': ru} for (s, o), (en, ru) in sorted(tt.items()) if (s, o) not in ns]
 with open('tools/translation.json', 'w') as f:
     print(json.dumps(t, indent=4, ensure_ascii=False), file=f)
 
