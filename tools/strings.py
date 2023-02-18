@@ -14,21 +14,6 @@ printf = {
 }
 
 
-FIXME = """
-END.EXE Not found: seven
-END.EXE Not found: twenty-one
-END.EXE Not found: twenty-two
-END.EXE Not found: twenty-six
-END.EXE Not found: twenty-nine
-GAME.EXE Not found: savegame\objblkaa
-GAME.EXE Not found: midi.dat
-GAME.EXE Not found: portrait.a
-U.EXE Not found: mainmenu.cga
-U.EXE Not found: NSCA
-U.EXE Not found: SPTA
-"""
-
-
 def read_null_terminated(d, i):
     s = ''
     assert d[i] != 0
@@ -51,15 +36,8 @@ def add_reference(name, offset, origin, type, segment):
         rr[(name, offset)].append({'origin': origin, 'segment': segment, 'type': type})
 
 
-with open('tools/translation.json') as f:
-    t = json.loads(f.read())
-
-tt = {(x['source'], x['offset']): (x['english'], x['russian']) for x in t}
-
-with open('tools/references.json') as f:
-    r = json.loads(f.read())
-
-rr = {(x['source'], x['offset']): x['references'] for x in r}
+tt = {}
+rr = {}
 
 for name, printfs in printf.items():
     with open(f'unpacked/{name}', 'rb') as f:
@@ -77,59 +55,48 @@ for name, printfs in printf.items():
         segments.add(value)
 
     segments = sorted(segments)
-    ds = segments[-1]
+    dss = segments[-3:] if name == 'GAME.EXE' else segments[-1:]
+    sss = segments[-2:] if name == 'GAME.EXE' else segments[-1:]
 
     # FIXME объединять одинаковые строки в одну.
 
-    # Ссылки на printf-строки из каждого сегмента кроме DS из кода.
+    # Ссылки на printf-строки из каждого сегмента кода из кода.
     calls = [b'\x9a' + func.to_bytes(4, 'little') for func in printfs]
-    for i in range(base, ds*0x10+base+15): # FIXME этот цикл на самом деле не нужен.
-        if d[i] == 0x9a:
-            is_printf = d[i:i+5] in calls
-            if d[i-1] == 0x50 and d[i-4] == 0xb8 and d[i-5] == 0x50 and d[i-8] == 0xb8:
-                a = int.from_bytes(d[i-7:i-5], 'little')
-                a2 = int.from_bytes(d[i-3:i-1], 'little')
-                try:
-                    o = a*0x10 + a2 + base
-                    s = read_null_terminated(d, o)
-                    add_string(name, o, s)
-                    add_reference(name, o, i-3, 'register', i-7)
-                except (IndexError, UnicodeDecodeError, AssertionError):
+    for ds in sss:
+        for i in range(base, dss[0]*0x10+base+15):
+            if d[i:i+5] in calls:
+                if d[i-1] == 0x50 and d[i-4] == 0xb8 and d[i-5] == 0x50 and d[i-8] == 0xb8:
+                    a = int.from_bytes(d[i-7:i-5], 'little')
+                    a2 = int.from_bytes(d[i-3:i-1], 'little')
+                    try:
+                        o = a*0x10 + a2 + base
+                        s = read_null_terminated(d, o)
+                        add_string(name, o, s)
+                        add_reference(name, o, i-3, 'register', i-7)
+                    except (IndexError, UnicodeDecodeError, AssertionError):
+                        pass
+
+                elif d[i-1] == 0x50 and d[i-4] == 0xb8 and d[i-5] == 0x1e:
+                    a2 = int.from_bytes(d[i-3:i-1], 'little')
+                    try:
+                        o = ds*0x10 + a2 + base
+                        s = read_null_terminated(d, o)
+                        add_string(name, o, s)
+                        add_reference(name, o, i-3, 'register', 'unknown')
+                    except (IndexError, UnicodeDecodeError, AssertionError):
+                        pass
+
+                else:
+                    # FIXME
                     pass
 
-            elif d[i-1] == 0x50 and d[i-4] == 0xb8 and d[i-5] == 0x1e:
-                a2 = int.from_bytes(d[i-3:i-1], 'little')
-                try:
-                    o = ds*0x10 + a2 + base
-                    s = read_null_terminated(d, o)
-                    add_string(name, o, s)
-                    add_reference(name, o, i-3, 'register', 'unknown')
-                except (IndexError, UnicodeDecodeError, AssertionError):
-                    pass
-
-            else:
-                # FIXME
-                pass
-
-    # Ссылки из DS в DS из данных.
-    for i in range(ds*0x10+base, len(d), 1):
-        a2 = int.from_bytes(d[i:i+2], 'little')
-        try:
-            o = ds*0x10 + a2 + base
-            assert d[o-1] == 0 # FIXME
-            s = read_null_terminated(d, o)
-            add_string(name, o, s)
-            add_reference(name, o, i, 'data', 'unknown')
-        except (IndexError, UnicodeDecodeError, AssertionError):
-            pass
-
-    # Ссылки из DS в каждый сегмент из данных.
-    for segment in segments:
-        for i in range(ds*0x10+base, len(d), 1):
+    # Ссылки из DS из данных.
+    for ds in sss:
+        for i in range(dss[0]*0x10+base, len(d), 1): # FIXME 1
             a2 = int.from_bytes(d[i:i+2], 'little')
             try:
-                o = segment*0x10 + a2 + base
-                assert d[o-1] == 0 # FIXME
+                o = ds*0x10 + a2 + base
+                assert d[o-1] == 0
                 s = read_null_terminated(d, o)
                 add_string(name, o, s)
                 add_reference(name, o, i, 'data', 'unknown')
@@ -138,70 +105,101 @@ for name, printfs in printf.items():
 
     # Far ссылки из DS из данных.
     for segment_offset in (-2, +2):
-        for i in range(ds*0x10+base, len(d), 2):
+        for i in range(dss[0]*0x10+base, len(d), 2): # FIXME 2?
             a = int.from_bytes(d[i+segment_offset:i+segment_offset+2], 'little')
-            a2 = int.from_bytes(d[i:i+2], 'little')
-            try:
-                assert a != 0
-                o = a*0x10 + a2 + base
-                assert d[o-1] == 0 # FIXME
-                s = read_null_terminated(d, o)
-                add_string(name, o, s)
-                add_reference(name, o, i, 'data', i+segment_offset)
-            except (IndexError, UnicodeDecodeError, AssertionError):
-                pass
+            if a in sss:
+                a2 = int.from_bytes(d[i:i+2], 'little')
+                try:
+                    o = a*0x10 + a2 + base
+                    assert d[o-1] == 0
+                    s = read_null_terminated(d, o)
+                    add_string(name, o, s)
+                    add_reference(name, o, i, 'data', i+segment_offset)
+                except (IndexError, UnicodeDecodeError, AssertionError):
+                    pass
 
-    # Ссылки из каждого сегмента кроме DS в DS из кода.
-    for i in range(base, ds*0x10+base+15):
-        if d[i] in range(0xb8, 0xc0): # segments around?
-            a2 = int.from_bytes(d[i+1:i+3], 'little')
-            try:
-                o = ds*0x10 + a2 + base
-                assert d[o-1] == 0 # FIXME
-                s = read_null_terminated(d, o)
-                add_string(name, o, s)
-                add_reference(name, o, i+1, 'register', 'unknown') # FIXME ds может быть unknown
-            except (IndexError, UnicodeDecodeError, AssertionError):
-                pass
-
-        if d[i:i+2] == b'\x66\x68':
-            a2 = int.from_bytes(d[i+2:i+4], 'little')
-            try:
-                o = ds*0x10 + a2 + base
-                assert d[o-1] == 0 # FIXME
-                s = read_null_terminated(d, o)
-                add_string(name, o, s)
-                add_reference(name, o, i+1, 'argument', 'unknown')
-            except (IndexError, UnicodeDecodeError, AssertionError):
-                pass
-
-    # Ссылки из каждого сегмента кроме DS в каждый сегмент из кода.
-    for segment, next_segment in zip(segments, segments[1:]+[(len(d)-base+15)//16]):
-        for i in range(base, ds*0x10+base+15):
-        #for i in range(segment*0x10+base, min(next_segment*0x10+base+15, len(d))):
-            if d[i] in range(0xb8, 0xc0): # segments around?
+    # Ссылки из каждого сегмента кроме DS из кода.
+    for ds in sss:
+        for i in range(base, dss[0]*0x10+base+15):
+            if d[i] in (5, *range(0xb8, 0xc0)): # segments around?
                 a2 = int.from_bytes(d[i+1:i+3], 'little')
                 try:
-                    o = segment*0x10 + a2 + base
-                    assert d[o-1] == 0 # FIXME
+                    o = ds*0x10 + a2 + base
+                    assert d[o-1] == 0
                     s = read_null_terminated(d, o)
                     add_string(name, o, s)
                     add_reference(name, o, i+1, 'register', 'unknown')
                 except (IndexError, UnicodeDecodeError, AssertionError):
                     pass
 
-            if d[i:i+2] == b'\x66\x68':
+            if d[i:i+2] in (b'\x66\x68', b'\x8a\x87'):
                 a2 = int.from_bytes(d[i+2:i+4], 'little')
                 try:
-                    o = segment*0x10 + a2 + base
-                    assert d[o-1] == 0 # FIXME
+                    o = ds*0x10 + a2 + base
+                    assert d[o-1] == 0
                     s = read_null_terminated(d, o)
                     add_string(name, o, s)
                     add_reference(name, o, i+1, 'argument', 'unknown')
                 except (IndexError, UnicodeDecodeError, AssertionError):
                     pass
 
-# TODO %s
+            if d[i:i+2] in (b'\xc7\x06',):
+                a2 = int.from_bytes(d[i+4:i+6], 'little')
+                try:
+                    o = ds*0x10 + a2 + base
+                    assert d[o-1] == 0
+                    s = read_null_terminated(d, o)
+                    add_string(name, o, s)
+                    add_reference(name, o, i+1, 'argument', 'unknown')
+                except (IndexError, UnicodeDecodeError, AssertionError):
+                    pass
+
+            # TODO %s
+
+if os.path.isfile('tools/translation.json'):
+    with open('tools/translation.json') as f:
+        t = json.loads(f.read())
+    old_tt = {(x['source'], x['offset']): (x['english'], x['russian']) for x in t}
+else:
+    old_tt = {}
+
+if 'merge':
+    for t in set(old_tt) & set(tt):
+        if not old_tt[t][1].startswith('FIXME '):
+            tt[t] = old_tt[t]
+    for t in set(old_tt) - set(tt):
+        if t in {
+            ('END.EXE', 34725),
+            ('END.EXE', 34738),
+            ('END.EXE', 34751),
+            ('END.EXE', 34764),
+            ('END.EXE', 34777),
+            ('END.EXE', 34790),
+            ('END.EXE', 34816),
+            ('END.EXE', 34829),
+            ('END.EXE', 34842),
+            ('END.EXE', 34855),
+            ('END.EXE', 34868),
+            ('END.EXE', 34881),
+            ('END.EXE', 34894),
+            ('END.EXE', 34907),
+            ('END.EXE', 34920),
+            ('END.EXE', 34933),
+            ('END.EXE', 34959),
+            ('END.EXE', 34972),
+            ('END.EXE', 35011),
+            ('END.EXE', 35024),
+            ('END.EXE', 35037),
+            ('END.EXE', 35089),
+            ('U.EXE', 92069),
+            ('U.EXE', 92078),
+            ('U.EXE', 92087),
+            ('U.EXE', 92096),
+            ('U.EXE', 92105),
+            ('U.EXE', 92114),
+            ('U.EXE', 92123),
+        }:
+            tt[t] = old_tt[t] # FIXME numbers and classes
 
 t = [{'source': s, 'offset': o, 'english': en, 'russian': ru} for (s, o), (en, ru) in sorted(tt.items())]
 with open('tools/translation.json', 'w') as f:
@@ -222,3 +220,8 @@ for name in printf:
             c += 1
 
 print(len(tt), len(rr), c)
+
+if 'check':
+    for t in sorted(set(old_tt) - set(tt)):
+        if not old_tt[t][1].startswith('FIXME '):
+            print('Removed', t, old_tt[t])
