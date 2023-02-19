@@ -25,19 +25,24 @@ def read_null_terminated(d, i):
 
 
 def add_string(name, offset, s):
-    if (name, offset) not in tt:
-        tt[(name, offset)] = (s, f'FIXME {s}')
+    if (name, offset) not in ns:
+        if (name, offset) not in tt:
+            tt[(name, offset)] = (s, f'FIXME {s}')
 
 
 def add_reference(name, offset, origin, type, segment):
-    rr.setdefault((name, offset), [])
-    origins = [(x['origin'], x['segment']) for x in rr[(name, offset)]]
-    if (origin, segment) not in origins:
-        rr[(name, offset)].append({'origin': origin, 'segment': segment, 'type': type})
+    if (name, offset) not in ns:
+        rr.setdefault((name, offset), [])
+        origins = [(x['origin'], x['segment']) for x in rr[(name, offset)]]
+        if (origin, segment) not in origins:
+            rr[(name, offset)].append({'origin': origin, 'segment': segment, 'type': type})
 
 
 tt = {}
 rr = {}
+
+with open('tools/not-strings.json', 'r') as f:
+    ns = {(d['source'], d['offset']) for d in json.loads(f.read())}
 
 for name, printfs in printf.items():
     with open(f'unpacked/{name}', 'rb') as f:
@@ -179,9 +184,6 @@ if 'merge':
         }:
             tt[t] = old_tt[t] # FIXME numbers and classes
 
-
-with open('tools/not-strings.json', 'r') as f:
-    ns = {(d['source'], d['offset']) for d in json.loads(f.read())}
 
 t = [{'source': s, 'offset': o, 'english': en, 'russian': ru} for (s, o), (en, ru) in sorted(tt.items()) if (s, o) not in ns]
 with open('tools/translation.json', 'w') as f:
