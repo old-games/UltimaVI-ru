@@ -21,6 +21,12 @@ add_functions = {
 # TODO: добавлять место более гранулярно чем постранично
 
 
+def ljust(d, n, p):
+    r = d + p*((n - len(d) + len(p)-1)//len(p))
+    r[n:] = []
+    return r
+
+
 def find_all(d, pattern):
     results = []
     for i in range(len(d)):
@@ -181,12 +187,12 @@ with open('tools/references.json') as f:
     references = {(x['source'], x['offset']): x['references'] for x in json.loads(f.read())}
 
 replaced = 0
+added = 0
 missing = 0
 
 for binary, functions in add_functions.items():
     with open(f'unpacked/{binary}', 'rb') as f:
         d = bytearray(f.read())
-        initial_size = len(d)
 
     checksum = int.from_bytes(d[0x12:0x14], 'little')
     original_checksum = sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) & 0xffff
@@ -221,20 +227,62 @@ for binary, functions in add_functions.items():
             code_block += apply_obj(f'{temp}/{f}.obj', function_address[f])
 
     code_block += b'\x00' * (0x200 - len(code_block) % 0x200)
-
-    print(f'{binary} — adding {len(code_block)} bytes for {len(functions)} functions')
     space = len(code_block) // 0x200
 
     if binary == 'GAME.EXE':
         assert d[0xb203:0xb206] == b'\x0d\x80\x00'
         replace(d, 0xb204, b'\x00\x01') # 0x0464:0x33d3, putch # FIXME выкинуть это в отдельный файл.
 
-    if 0:
-        uninitialized_fill, = find_all(d, [0xbf, None, None, 0xb9, None, None, 0x2b, 0xcf, 0xf3, 0xaa])
-        initialized_size = int.from_bytes(d[uninitialized_fill+1:uninitialized_fill+3], 'little')
-        assert initialized_size in (len(d) - segments[-1]*0x10 - header, len(d) - segments[-1]*0x10 - header-2)
-        uninitialized_size = int.from_bytes(d[uninitialized_fill+4:uninitialized_fill+6], 'little') - initialized_size
-        dereferencing = [b'\xbf', b'\xa1', b'\x8b\x1e', b'\xa3', b'\xc4\x1e', b'\xff\x36', b'\x89\x1e', b'\x8c\x06', b'\x8b\x16', b'\x89\x16', b'\x3b\x06', b'\x29\x06', b'\x3b\x16', b'\x19\x16']
+    uninitialized_fill, = find_all(d, [0xbf, None, None, 0xb9, None, None, 0x2b, 0xcf, 0xf3, 0xaa])
+    initialized_size = int.from_bytes(d[uninitialized_fill+1:uninitialized_fill+3], 'little')
+    assert initialized_size in (len(d) - segments[-1]*0x10 - header, len(d) - segments[-1]*0x10 - header-2)
+    uninitialized_size = int.from_bytes(d[uninitialized_fill+4:uninitialized_fill+6], 'little') - initialized_size
+    dereferencing = [b'\xbf', b'\xa1', b'\x8b\x1e', b'\xa3', b'\xc4\x1e', b'\xff\x36', b'\x89\x1e', b'\x8c\x06', b'\x8b\x16', b'\x89\x16', b'\x3b\x06', b'\x29\x06', b'\x3b\x16', b'\x19\x16']
+    system_break_shift, = find_all(d, [0x8b, 0x56, 8, 3, 6, None, None, 0x83, 0xd2, 0, 0x8b, 0xc8, 0x81, 0xc1, 0, 1, 0x83, 0xd2, 0])
+    system_break_address = int.from_bytes(d[system_break_shift+5:system_break_shift+7], 'little')
+    system_break = int.from_bytes(d[system_break_address+segments[-1]*0x10+header:system_break_address+segments[-1]*0x10+header+2], 'little')
+    assert system_break == initialized_size + uninitialized_size
+
+    ds = d[header + segments[-1]*0x10:]
+    ds_size = len(ds)
+    ds = ljust(ds, system_break, b'www.old-games.ru.')
+    required_space = 0
+    for t in translation:
+        if t['source'] == binary:
+            if not t['russian'].startswith('FIXME ') and t['russian'] != t['english']:
+                references_segments = [x['segment'] for x in references.get((binary, t['offset']), [])]
+
+                if len(t['russian']) <= len(t['english']):
+                    message = t['russian'].encode('cp866').ljust(len(t['english']), b'\x00')
+                    d[t['offset']:t['offset']+len(message)] = message
+                    replaced += 1
+
+                elif t['offset'] > header + segments[-1]*0x10:
+                    ds.extend(t['russian'].encode('cp866') + b'\x00')
+                    rr = references.get((binary, t['offset']), [])
+                    for r in rr:
+                        if int.from_bytes(d[r['origin']:r['origin']+2], 'little') == t['offset'] - header - segments[-1]*0x10:
+                            d[r['origin']:r['origin']+2] = len(ds).to_bytes(2, 'little')
+                            replaced += 1/len(rr)
+
+                        else:
+                            # FIXME reference from another segment
+                            pass
+
+                    added += 1
+
+                elif all(map(lambda x: isinstance(x, int), references_segments)):
+                    print(f'String {repr(t["russian"])} can be moved!')
+
+            else:
+                missing += 1
+
+    ds[system_break_address:system_break_address+2] = len(ds).to_bytes(2, 'little')
+    ds.extend(b'\x00' * ((len(ds) - ds_size + 0x1ff) // 0x200 * 0x200 - len(ds) + ds_size))
+    assert (len(ds) - ds_size) % 0x200 == 0
+    data_space = (len(ds) - ds_size) // 0x200
+    print(f'{binary} — adding {data_space*0x200 + len(code_block)} bytes for {len(functions)} functions and {added} strings')
+    d[header + segments[-1]*0x10:] = ds
 
     for f, (function_cs, function_ip, size) in functions.items():
         address = function_cs*0x10 + function_ip
@@ -267,39 +315,23 @@ for binary, functions in add_functions.items():
     for i in range(len(relocs), relocs_size):
         d[relocs_base+i*4:relocs_base+i*4+4] = b'\x00'*4
 
-    pages += space
+    pages += space + data_space
     d[6:8] = len(relocs).to_bytes(2, 'little')
     cs += space*0x20
     assert cs + 0x10 < 0x10000
     d[0x16:0x18] = cs.to_bytes(2, 'little')
-    ss += space*0x20
+    ss += (space+data_space)*0x20
     assert ss + 0x10 < 0x10000
     d[0x0e:0x10] = ss.to_bytes(2, 'little')
     d[4:6] = pages.to_bytes(2, 'little')
+    d[0x0a:0x0c] = (max(0, int.from_bytes(d[0x0a:0x0c], 'little') - data_space*0x20)).to_bytes(2, 'little')
+    d[0x0c:0x0e] = (max(0, int.from_bytes(d[0x0c:0x0e], 'little') - data_space*0x20)).to_bytes(2, 'little')
 
-    assert len(d) == initial_size
     d = d[:header] + code_block + d[header:]
 
     checksum = (checksum - sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) + original_checksum) & 0xffff
     d[0x12:0x14] = checksum.to_bytes(2, 'little')
     assert sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) & 0xffff == original_checksum
-
-    for t in translation:
-        if t['source'] == binary:
-            segments = [x['segment'] for x in references.get((binary, t['offset']), [])]
-
-            if not t['russian'].startswith('FIXME '):
-                if len(t['russian']) <= len(t['english']):
-                    t['offset'] += space*0x200
-                    message = t['russian'].encode('cp866').ljust(len(t['english']), b'\x00')
-                    d[t['offset']:t['offset']+len(message)] = message
-                    replaced += 1
-
-                elif all(map(lambda x: isinstance(x, int), segments)):
-                    print(f'String {repr(t["russian"])} can be moved!')
-
-            else:
-                missing += 1
 
     with open(f'{output_directory}/{binary}', 'wb') as f:
         f.write(d)
@@ -307,4 +339,4 @@ for binary, functions in add_functions.items():
     print(f'Written {binary}, {binascii.crc32(d) & 0xffffffff:08x}')
 
 print(f'Missing strings: {missing} out of {len(translation)} — {100*missing/len(translation):.1f}%')
-print(f'Replaced strings: {replaced} out of {len(translation)} — {100*replaced/len(translation):.1f}%')
+print(f'Replaced strings: {replaced:.1f} out of {len(translation)} — {100*replaced/len(translation):.1f}%')

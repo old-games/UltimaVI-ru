@@ -92,14 +92,13 @@ for name, printfs in printf.items():
                         pass
 
                 else:
-                    # FIXME
                     pass
 
             # TODO %s
 
     # Ссылки из DS из данных.
     for ds in sss:
-        for i in range(dss[0]*0x10+base, len(d), 1): # FIXME 1
+        for i in range(dss[0]*0x10+base, len(d), 1):
             a2 = int.from_bytes(d[i:i+2], 'little')
             try:
                 o = ds*0x10 + a2 + base
@@ -112,7 +111,7 @@ for name, printfs in printf.items():
 
     # Far ссылки из DS из данных.
     for segment_offset in (-2, +2):
-        for i in range(dss[0]*0x10+base, len(d), 2): # FIXME 2?
+        for i in range(dss[0]*0x10+base, len(d), 1):
             a = int.from_bytes(d[i+segment_offset:i+segment_offset+2], 'little')
             if a in sss:
                 a2 = int.from_bytes(d[i:i+2], 'little')
@@ -121,7 +120,7 @@ for name, printfs in printf.items():
                     assert d[o-1] == 0
                     s = read_null_terminated(d, o)
                     add_string(name, o, s)
-                    add_reference(name, o, i, 'data', i+segment_offset)
+                    add_reference(name, o, i, 'data', a)
                 except (IndexError, UnicodeDecodeError, AssertionError):
                     pass
 
