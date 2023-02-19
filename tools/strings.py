@@ -67,23 +67,26 @@ for name, printfs in printf.items():
 
     # Ссылки на printf-строки из каждого сегмента кода из кода.
     calls = [b'\x9a' + func.to_bytes(4, 'little') for func in printfs]
-    for ds in sss:
+    for ds, next_ds in zip(sss, sss[1:] + [None]):
         for i in range(base, dss[0]*0x10+base+15):
             if d[i:i+5] in calls:
                 if d[i-1] == 0x50 and d[i-4] == 0xb8 and d[i-5] == 0x50 and d[i-8] == 0xb8:
                     a = int.from_bytes(d[i-7:i-5], 'little')
-                    a2 = int.from_bytes(d[i-3:i-1], 'little')
-                    try:
-                        o = a*0x10 + a2 + base
-                        s = read_null_terminated(d, o)
-                        add_string(name, o, s)
-                        add_reference(name, o, i-3, 'register', i-7)
-                    except (IndexError, UnicodeDecodeError, AssertionError):
-                        pass
+                    if a == ds:
+                        a2 = int.from_bytes(d[i-3:i-1], 'little')
+                        try:
+                            assert not next_ds or a2 < (next_ds-ds)*0x10+15
+                            o = a*0x10 + a2 + base
+                            s = read_null_terminated(d, o)
+                            add_string(name, o, s)
+                            add_reference(name, o, i-3, 'register', i-7)
+                        except (IndexError, UnicodeDecodeError, AssertionError):
+                            pass
 
                 elif d[i-1] == 0x50 and d[i-4] == 0xb8 and d[i-5] == 0x1e:
                     a2 = int.from_bytes(d[i-3:i-1], 'little')
                     try:
+                        assert not next_ds or a2 < (next_ds-ds)*0x10+15
                         o = ds*0x10 + a2 + base
                         s = read_null_terminated(d, o)
                         add_string(name, o, s)
@@ -97,10 +100,11 @@ for name, printfs in printf.items():
             # TODO %s
 
     # Ссылки из DS из данных.
-    for ds in sss:
+    for ds, next_ds in zip(sss, sss[1:] + [None]):
         for i in range(dss[0]*0x10+base, len(d), 1):
             a2 = int.from_bytes(d[i:i+2], 'little')
             try:
+                assert not next_ds or a2 < (next_ds-ds)*0x10+15
                 o = ds*0x10 + a2 + base
                 assert d[o-1] == 0
                 s = read_null_terminated(d, o)
@@ -113,23 +117,27 @@ for name, printfs in printf.items():
     for segment_offset in (-2, +2):
         for i in range(dss[0]*0x10+base, len(d), 1):
             a = int.from_bytes(d[i+segment_offset:i+segment_offset+2], 'little')
-            if a in sss:
-                a2 = int.from_bytes(d[i:i+2], 'little')
-                try:
-                    o = a*0x10 + a2 + base
-                    assert d[o-1] == 0
-                    s = read_null_terminated(d, o)
-                    add_string(name, o, s)
-                    add_reference(name, o, i, 'data', a)
-                except (IndexError, UnicodeDecodeError, AssertionError):
-                    pass
+            for ds, next_ds in zip(sss, sss[1:] + [None]):
+                if a == ds:
+                    a2 = int.from_bytes(d[i:i+2], 'little')
+                    try:
+                        assert not next_ds or a2 < (next_ds-ds)*0x10+15
+                        o = a*0x10 + a2 + base
+                        assert d[o-1] == 0
+                        s = read_null_terminated(d, o)
+                        add_string(name, o, s)
+                        add_reference(name, o, i, 'data', i+segment_offset)
+                    except (IndexError, UnicodeDecodeError, AssertionError):
+                        pass
 
     # Ссылки из каждого сегмента кроме DS из кода.
-    for ds in sss:
+    for ds, next_ds in zip(sss, sss[1:] + [None]):
         for i in range(base, dss[0]*0x10+base+15):
-            if d[i-1] in (5, 0x68, *range(0xb8, 0xc0)) or d[i-2:i] in (b'\x8a\x87',) or d[i-4:i-2] in (b'\xc7\x06',): # segments around?
+            # TODO manual indexing with [bx+...]
+            if d[i-1] in (5, 0x68, *range(0xb8, 0xc0)) or d[i-2:i] in (b'\x8a\x87',) or d[i-4:i-2] in (b'\xc7\x06',) or d[i-3:i-1] in (b'\xc7\x46',):
                 a2 = int.from_bytes(d[i:i+2], 'little')
                 try:
+                    assert not next_ds or a2 < (next_ds-ds)*0x10+15
                     o = ds*0x10 + a2 + base
                     assert d[o-1] == 0
                     s = read_null_terminated(d, o)
@@ -151,6 +159,7 @@ if 'merge':
             tt[t] = old_tt[t]
     for t in set(old_tt) - set(tt):
         if t in {
+            ('GAME.EXE', 201222),
             ('END.EXE', 34725),
             ('END.EXE', 34738),
             ('END.EXE', 34751),

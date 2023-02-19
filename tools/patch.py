@@ -236,6 +236,7 @@ for binary, functions in add_functions.items():
     system_break = int.from_bytes(d[system_break_address+segments[-1]*0x10+header:system_break_address+segments[-1]*0x10+header+2], 'little')
     assert system_break == initialized_size + uninitialized_size
 
+    replaces = []
     ds = d[header + segments[-1]*0x10:]
     ds_size = len(ds)
     ds = ljust(ds, system_break, b'www.old-games.ru.')
@@ -247,21 +248,18 @@ for binary, functions in add_functions.items():
 
                 if len(t['russian']) <= len(t['english']):
                     message = t['russian'].encode('cp866').ljust(len(t['english']), b'\x00')
-                    d[t['offset']:t['offset']+len(message)] = message
+                    replaces.append((t['offset'], len(message), message))
                     replaced += 1
 
                 elif t['offset'] > header + segments[-1]*0x10:
-                    ds.extend(t['russian'].encode('cp866') + b'\x00')
                     rr = references.get((binary, t['offset']), [])
                     for r in rr:
-                        if int.from_bytes(d[r['origin']:r['origin']+2], 'little') == t['offset'] - header - segments[-1]*0x10:
-                            d[r['origin']:r['origin']+2] = len(ds).to_bytes(2, 'little')
-                            replaced += 1/len(rr)
+                        assert int.from_bytes(d[r['origin']:r['origin']+2], 'little') == t['offset'] - header - segments[-1]*0x10
+                        replaces.append((r['origin'], 2, len(ds).to_bytes(2, 'little')))
 
-                        else:
-                            # FIXME reference from another segment
-                            pass
+                    ds.extend(t['russian'].encode('cp866') + b'\x00')
 
+                    replaced += bool(rr)
                     added += 1
 
                 elif all(map(lambda x: isinstance(x, int), references_segments)):
@@ -269,6 +267,10 @@ for binary, functions in add_functions.items():
 
             else:
                 missing += 1
+
+    for o, l, t in replaces: # TODO Эта штука нужна до тех пор пока есть несовместимые замены и она скрывает эти ошибки.
+        assert len(t) == l
+        d[o:o+l] = t
 
     ds[system_break_address:system_break_address+2] = len(ds).to_bytes(2, 'little')
     ds.extend(b'\x00' * ((len(ds) - ds_size + 0x1ff) // 0x200 * 0x200 - len(ds) + ds_size))
@@ -332,4 +334,4 @@ for binary, functions in add_functions.items():
     print(f'Written {binary}, {binascii.crc32(d) & 0xffffffff:08x}')
 
 print(f'Missing strings: {missing} out of {len(translation)} — {100*missing/len(translation):.1f}%')
-print(f'Replaced strings: {replaced:.1f} out of {len(translation)-missing} — {100*replaced/(len(translation)-missing):.1f}%')
+print(f'Replaced strings: {replaced} out of {len(translation)-missing} — {100*replaced/(len(translation)-missing):.1f}%')
