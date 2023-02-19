@@ -339,4 +339,4 @@ for binary, functions in add_functions.items():
     print(f'Written {binary}, {binascii.crc32(d) & 0xffffffff:08x}')
 
 print(f'Missing strings: {missing} out of {len(translation)} — {100*missing/len(translation):.1f}%')
-print(f'Replaced strings: {replaced:.1f} out of {len(translation)} — {100*replaced/len(translation):.1f}%')
+print(f'Replaced strings: {replaced:.1f} out of {len(translation)-missing} — {100*replaced/(len(translation)-missing):.1f}%')
