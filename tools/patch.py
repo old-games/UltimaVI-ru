@@ -43,10 +43,9 @@ def apply_obj(path, base):
     with open(path, 'rb') as f:
         data = f.read()
     index = 0
-    fixups = {}
     externs = []
     fixmeups = set()
-    code = b''
+    code = bytearray()
     while index < len(data):
         t = data[index]
         s = int.from_bytes(data[index+1:index+3], 'little')
@@ -56,27 +55,22 @@ def apply_obj(path, base):
         if t == 0xa0:
             assert d[0] == 1
             assert len(code) == int.from_bytes(d[1:3], 'little')
+            last_code = len(code)
             code += d[3:-1]
 
         elif t == 0x9c:
             d = d[:-1]
             i = 0
-            z = None
             while i < len(d):
-                if d[i] & 0x80:
-                    assert d[i] & 4
-                    assert d[i] & 0x78 == 0
-                    z = d[i] & 3
-                    i += 1
-                else:
-                    x = z << 8 | d[i]
-                    u = d[i+1]
-                    y = d[i+2]
-                    i += 3
-                    assert u, y == (0x56, 1)
-                    fixups[x] = externs[0]
-                    z = None
-            assert d[0] == 0x85
+                assert d[i] & 0xfc == 0xc4
+                x = d[i+1] | (d[i] & 3) << 8
+                u = d[i+1]
+                y = d[i+2]
+                assert u, y == (0x54, 1) # local data
+                code[last_code+x:last_code+x+2] = (base+int.from_bytes(code[last_code+x:last_code+x+2], 'little')).to_bytes(2, 'little')
+                # TODO call near
+                # TODO call far
+                i += 4
 
         elif t == 0x8c:
             externs.append(d[1:1+d[0]].decode())
@@ -96,7 +90,6 @@ def apply_obj(path, base):
         assert code[a] == 0x9a
         relocs.append((base+a+3, 0, False, False))
 
-    assert not fixups
     return code
 
 

@@ -186,15 +186,21 @@ loc_3089:
         mov     dl, [0x57a]
         mov     dh, 0x0
         mov     bx, dx
+
         shl     bx, 1
-        mov     [bx-0x49af], ax ; character
+        push    ds
+        push    cs
+        pop     ds
+        mov     [bx+char_buffer], ax ; character
+        pop     ds
+
         shr     bx, 1
         mov     bx, [0x4df]
         mov     al, [bx+0x6]
         mov     dl, [0x57a]
         mov     dh, 0x0
         mov     bx, dx
-        mov     [bx-0x4986], al ; color
+        mov     [bx+0xb67a], al ; color
         jmp     short loc_30ad
 
 loc_30aa:
@@ -202,10 +208,22 @@ loc_30aa:
 
 loc_30ad:
         mov     bx, [bp-0x6]
+
         shl     bx, 1
-        cmp     word [bx-0x49af], 0x20 ; character
+        push    ds
+        push    cs
+        pop     ds
+        cmp     word [bx+char_buffer], 0x20 ; character
+        pop     ds
+
         jz      loc_30c7
-        cmp     word [bx-0x49b1], 0x2d ; character
+
+        push    ds
+        push    cs
+        pop     ds
+        cmp     word [bx+char_buffer-2], 0x2d ; character
+        pop     ds
+
         jz      loc_30c7
         shr     bx, 1
         mov     al, [0x57b]
@@ -266,11 +284,17 @@ loc_3128:
         jmp     short loc_3152
 
 loc_3131:
-        mov     al, [si-0x4986] ; color
+        mov     al, [si+0xb67a] ; color
         mov     bx, [0x4df]
         mov     [bx+0x6], al
+
         shl     si, 1
-        mov     ax, [si-0x49af] ; character
+        push    ds
+        push    cs
+        pop     ds
+        mov     ax, [si+char_buffer] ; character
+        pop     ds
+
         shr     si, 1
         push    ax
         mov     al, [bx]
@@ -304,8 +328,14 @@ loc_3171:
         cmp     word [bp+0x6], byte +0x0
         jl      loc_31da
         mov     bx, [bp-0x6]
+
         shl     bx, 1
-        cmp     word [bx-0x49af], 0x20 ; character
+        push    ds
+        push    cs
+        pop     ds
+        cmp     word [bx+char_buffer], 0x20 ; character
+        pop     ds
+
         jnz     loc_3197
         inc     word [bp-0x6]
 
@@ -315,17 +345,28 @@ loc_3197:
 
 loc_319c:
         shl     si, 1
-        mov     ax, [si-0x49af] ; character
+        push    ds
+        push    cs
+        pop     ds
+        mov     ax, [si+char_buffer] ; character
+        pop     ds
         shr     si, 1
+
         mov     bx, si
         sub     bx, [bp-0x6]
+
         shl     bx, 1
-        mov     [bx-0x49af], ax ; character
+        push    ds
+        push    cs
+        pop     ds
+        mov     [bx+char_buffer], ax ; character
+        pop     ds
         shr     bx, 1
-        mov     al, [si-0x4986] ; color
+
+        mov     al, [si+0xb67a] ; color
         mov     bx, si
         sub     bx, [bp-0x6]
-        mov     [bx-0x4986], al ; color
+        mov     [bx+0xb67a], al ; color
         inc     si
 
 loc_31b7:
@@ -357,14 +398,20 @@ loc_31da:
         mov     dl, [0x57a]
         mov     dh, 0x0
         mov     bx, dx
-        mov     [bx-0x4986], al ; color
+        mov     [bx+0xb67a], al ; color
         mov     ax, [bp+0x6]
         mov     dl, [0x57a]
         mov     dh, 0x0
         mov     bx, dx
+
         shl     bx, 1
-        mov     [bx-0x49af], ax ; character
+        push    ds
+        push    cs
+        pop     ds
+        mov     [bx+char_buffer], ax ; character
+        pop     ds
         shr     bx, 1
+
         inc     byte [0x57a]
 
 loc_321a:
@@ -429,14 +476,20 @@ loc_329f:
         mov     dl, [0x57a]
         mov     dh, 0x0
         mov     bx, dx
-        mov     [bx-0x4986], al ; color
+        mov     [bx+0xb67a], al ; color
         mov     ax, [bp+0x6]
         mov     dl, [0x57a]
         mov     dh, 0x0
         mov     bx, dx
+
         shl     bx, 1
-        mov     [bx-0x49af], ax ; character
+        push    ds
+        push    cs
+        pop     ds
+        mov     [bx+char_buffer], ax ; character
+        pop     ds
         shr     bx, 1
+
         inc     byte [0x57a]
 
 loc_32c5:
@@ -453,3 +506,5 @@ loc_32d6:
         mov     sp, bp
         pop     bp
         retf    0x2
+
+char_buffer: times 0x29 dw 0
