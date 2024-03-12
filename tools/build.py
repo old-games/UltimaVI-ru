@@ -4,6 +4,8 @@ import subprocess
 import tempfile
 import zipfile
 
+import tools
+
 
 output_directory = os.getcwd()
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -18,9 +20,9 @@ with tempfile.TemporaryDirectory() as d:
             shutil.copy(e.path, f'{d}/{e.name}')
             existing_files.add(e.name)
 
-    r = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], stdout=subprocess.PIPE, universal_newlines=True)
-    sha = f'-{r.stdout.rstrip()}' if r.returncode == 0 else ''
+    sha = tools.get_sha()
+    sha = f'-{sha}' if sha else ''
 
-    with zipfile.ZipFile(f'{output_directory}/UltimaIV-ru{sha}.zip', 'w') as f:
+    with zipfile.ZipFile(f'{output_directory}/UltimaVI-ru{sha}.zip', 'w') as f:
         for n in sorted(existing_files):
-            f.write(f'{d}/{n}', f'UltimaIV-ru{sha}/{n}')
+            f.write(f'{d}/{n}', f'UltimaVI-ru{sha}/{n}')

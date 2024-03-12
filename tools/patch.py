@@ -5,6 +5,8 @@ import os
 import subprocess
 import tempfile
 
+import tools
+
 
 add_functions = {
     'END.EXE': {
@@ -208,8 +210,9 @@ for binary, functions in add_functions.items():
     code_block = bytearray()
     function_address = {}
 
-    r = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], stdout=subprocess.PIPE, universal_newlines=True)
-    sha = f', {r.stdout.rstrip()}'.encode() if r.returncode == 0 else b''
+    sha = tools.get_sha()
+    sha = f', {sha}'.encode() if sha else b''
+
     code_block += b'Code was patched by Vladimir Chebotarev, ' + datetime.datetime.today().strftime('%Y-%m-%d').encode() + sha + b'. '
     code_block += b'Please report issues to vladimir.chebotarev@gmail.com if any occur.'
 
