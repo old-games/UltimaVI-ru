@@ -15,6 +15,8 @@ add_functions = {
         'putch_impl': (0x464, 0x2efa, 0x3e4),
         'toupper': (0x2ce6, 3, 0x31),
     },
+    'INSTALL.EXE': {
+    },
     'U.EXE': {
     },
 }
@@ -186,12 +188,12 @@ added = 0
 missing = 0
 
 for binary, functions in add_functions.items():
-    with open(f'unpacked/{binary}', 'rb') as f:
+    with open(tools.get_binary_path(binary), 'rb') as f:
         d = bytearray(f.read())
 
     checksum = int.from_bytes(d[0x12:0x14], 'little')
     original_checksum = sum(map(lambda x: x[1]*0x100+x[0], zip(d[::2], d[1::2]))) & 0xffff
-    assert original_checksum in (0xffff, 0x80df, 0x3dc1)
+    assert original_checksum in (0xffff, 0x80df, 0x3dc1, 0x95f6)
     pages = int.from_bytes(d[4:6], 'little')
     cs = int.from_bytes(d[0x16:0x18], 'little')
     ss = int.from_bytes(d[0x0e:0x10], 'little')
@@ -249,12 +251,14 @@ for binary, functions in add_functions.items():
             if not t['russian'].startswith('FIXME ') and t['russian'] != t['english']:
                 references_segments = [x['segment'] for x in references.get((binary, t['offset']), [])]
 
-                if len(t['russian']) <= len(t['english']):
+                if len(t['russian'].encode('cp866')) <= len(t['english'].encode('cp866')):
+                    # FIXME упаковать фразы лучше
                     message = t['russian'].encode('cp866').ljust(len(t['english']), b'\x00')
                     replaces.append((t['offset'], len(message), message))
                     replaced += 1
 
                 elif t['offset'] > header + segments[-1]*0x10:
+                    # FIXME reuse old space
                     rr = references.get((binary, t['offset']), [])
                     for r in rr:
                         assert int.from_bytes(d[r['origin']:r['origin']+2], 'little') == t['offset'] - header - segments[-1]*0x10
@@ -267,13 +271,10 @@ for binary, functions in add_functions.items():
 
                 elif all(map(lambda x: isinstance(x, int), references_segments)):
                     print(f'String {repr(t["russian"])} can be moved!')
+                    # FIXME why it can?
 
             else:
                 missing += 1
-
-    for o, l, t in replaces: # TODO Эта штука нужна до тех пор пока есть несовместимые замены и она скрывает эти ошибки.
-        assert len(t) == l
-        d[o:o+l] = t
 
     ds[system_break_address:system_break_address+2] = len(ds).to_bytes(2, 'little')
     ds.extend(b'\x00' * ((len(ds) - ds_size + 0x1ff) // 0x200 * 0x200 - len(ds) + ds_size))
@@ -281,6 +282,11 @@ for binary, functions in add_functions.items():
     data_space = (len(ds) - ds_size) // 0x200
     print(f'{binary} — adding {data_space*0x200 + len(code_block)} bytes for {len(functions)} functions and {added} strings')
     d[header + segments[-1]*0x10:] = ds
+
+    # FIXME переставил это на абзац ниже, проверить, что это ничего не ломает. как будто бы не должно
+    for o, l, t in replaces: # TODO Эта штука нужна до тех пор пока есть несовместимые замены и она скрывает эти ошибки.
+        assert len(t) == l
+        d[o:o+l] = t
 
     for f, (function_cs, function_ip, size) in functions.items():
         address = function_cs*0x10 + function_ip

@@ -2,6 +2,8 @@ import collections
 import json
 import os
 
+import tools
+
 
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -26,7 +28,7 @@ for i in t:
     by_source[i['source']].append(i)
 
 for s, ii in by_source.items():
-    with open(f'unpacked/{s}', 'rb') as f:
+    with open(tools.get_binary_path(s), 'rb') as f:
         x = f.read()
     for i in ii:
         text = read_null_terminated(x, i['offset'])
@@ -44,7 +46,7 @@ for i in ns:
     by_source[i['source']].append(i)
 
 for s, ii in by_source.items():
-    with open(f'unpacked/{s}', 'rb') as f:
+    with open(tools.get_binary_path(s), 'rb') as f:
         x = f.read()
     for i in ii:
         text = read_null_terminated(x, i['offset'])

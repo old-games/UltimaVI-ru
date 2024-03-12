@@ -11,10 +11,11 @@ output_directory = os.getcwd()
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 with tempfile.TemporaryDirectory() as d:
-    subprocess.run(['python3', os.path.abspath('tools/patch.py')], cwd=d).check_returncode()
-    subprocess.run(['python3', os.path.abspath('tools/replace-cyrillic.py')], cwd=d).check_returncode()
+    subprocess.run(['python3', '-m', 'tools.patch'], cwd=d, check=True)
+    subprocess.run(['python3', '-m', 'tools.symbols'], cwd=d, check=True)
 
     existing_files = set(os.listdir(d))
+    print(existing_files)
     for e in os.scandir('original'):
         if e.name not in existing_files:
             shutil.copy(e.path, f'{d}/{e.name}')
