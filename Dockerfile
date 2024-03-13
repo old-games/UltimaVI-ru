@@ -16,5 +16,4 @@ COPY tools/RK.COM .
 COPY tools/RUSSIAN.RK .
 COPY tools/8X16.RK .
 
-ENTRYPOINT ["python3", "-m", "unittest"]
-CMD ["discover"]
+ENTRYPOINT ["python3", "-m", "unittest", "-v"]
