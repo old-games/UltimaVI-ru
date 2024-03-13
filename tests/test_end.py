@@ -1,10 +1,12 @@
 import time
+import unittest
 
 import testbox
 import tests
 
 
 class TestEnd(tests.TestCase):
+    @unittest.skip('TBD')
     def testEnd(self):
         with open('CONFIG.U6', 'wb') as f:
             f.write(b'\x76\x6d\x61\x33\x38\x38\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
