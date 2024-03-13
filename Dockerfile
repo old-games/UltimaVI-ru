@@ -17,5 +17,6 @@ COPY tools/RUSSIAN.RK .
 COPY tools/8X16.RK .
 
 COPY screenshots screenshots
+COPY tests tests
 
-CMD python3 -m tools.test
+CMD python3 -m unittest discover
