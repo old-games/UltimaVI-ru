@@ -40,7 +40,7 @@ class TestEnd(tests.TestCase):
                 'cycles': 'max',
             },
             'render': {
-                'scaler': 'normal5x',
+                'scaler': 'normal2x forced',
             },
         }
 
@@ -48,7 +48,7 @@ class TestEnd(tests.TestCase):
             [
                 '-c', 'MOUNT C: .',
                 '-c', 'C:',
-                '-c', 'END.EXE',
+                '-c', 'DEBUG END.EXE',
                 '-c', 'CLS',
             ],
             configuration,

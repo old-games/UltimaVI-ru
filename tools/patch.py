@@ -183,6 +183,15 @@ with open('tools/translation.json') as f:
 with open('tools/references.json') as f:
     references = {(x['source'], x['offset']): x['references'] for x in json.loads(f.read())}
 
+with open('tools/bad-references.json') as f:
+    for x in json.loads(f.read()):
+        bad = set(x['bad-references'])
+        references[(x['source'], x['offset'])] = [
+            y
+            for y in references[(x['source'], x['offset'])]
+            if y['origin'] not in bad
+        ]
+
 replaced = 0
 added = 0
 missing = 0

@@ -51,3 +51,11 @@ for s, ii in by_source.items():
     for i in ii:
         text = read_null_terminated(x, i['offset'])
         assert text == i['text'], f'Text could not be found at offset {i["offset"]}: "{i["text"]}".'
+
+with open('tools/references.json') as f:
+    r = json.loads(f.read())
+# FIXME
+
+with open('tools/bad-references.json') as f:
+    br = json.loads(f.read())
+# FIXME
