@@ -28,6 +28,7 @@ with testbox.TestBox(
         'Y', # Everything is correct.
         '2', # Don't create character.
     ):
+        # FIXME save screenshots and pack as artifacts.
         box.send_keys(keys)
         time.sleep(0.1)
     box.wait_image('screenshots/install.png', bbox=(0, 16, 640, 400), timeout=1)
@@ -47,4 +48,3 @@ with testbox.TestBox(
     configuration
 ) as box:
     time.sleep(1000)
-

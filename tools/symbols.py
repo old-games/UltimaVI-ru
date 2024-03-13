@@ -17,4 +17,6 @@ os.chdir(output_directory)
 with open('U6.CH', 'wb') as f:
     f.write(d[:1024] + g[1536:1920] + e[1408:1792] + g[1920:] + g[1576:1584] + bytes((x >> 1 for x in g[1096:1104])) + e[1936:] + d[1024:])
 
+# FIXME patch U6.SET
+
 # FIXME also patch keyboard driver
