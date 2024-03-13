@@ -47,7 +47,7 @@ with open('tools/not-strings.json', 'r') as f:
     ns = {(d['source'], d['offset']) for d in json.loads(f.read())}
 
 for name, printfs in printf.items():
-    with open(tools.get_binary_path(name), 'rb') as f:
+    with open(tools.get_path(name), 'rb') as f:
         d = f.read()
 
     base = int.from_bytes(d[8:0x0a], 'little')*0x10
@@ -205,7 +205,7 @@ with open('tools/references.json', 'w') as f:
 
 c = 0
 for name in printf:
-    r = subprocess.run(['strings', tools.get_binary_path(name)], stdout=subprocess.PIPE, universal_newlines=True)
+    r = subprocess.run(['strings', tools.get_path(name)], stdout=subprocess.PIPE, universal_newlines=True)
     r.check_returncode()
     t = {x for (s, _), (e, _) in tt.items() if s == name for x in re.split('[\n\r\b\t]+', e) if x}
     for i in r.stdout.splitlines():

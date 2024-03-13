@@ -197,7 +197,7 @@ added = 0
 missing = 0
 
 for binary, functions in add_functions.items():
-    with open(tools.get_binary_path(binary), 'rb') as f:
+    with open(tools.get_path(binary), 'rb') as f:
         d = bytearray(f.read())
 
     checksum = int.from_bytes(d[0x12:0x14], 'little')

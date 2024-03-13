@@ -17,9 +17,9 @@ with tempfile.TemporaryDirectory() as d:
     subprocess.run(['python3', '-m', 'tools.symbols'], cwd=d, check=True)
 
     for name in tools.get_compressed_files():
-        with open(os.path.join('unpacked', name), 'rb')  as f:
+        with open(tools.get_path(name, d), 'rb')  as f:
             data = tools.lzw.compress(f.read())
-        with open(os.path.join(d, 'name'), 'wb') as f:
+        with open(os.path.join(d, name), 'wb') as f:
             f.write(data)
 
     existing_files = set(os.listdir(d))
@@ -27,8 +27,6 @@ with tempfile.TemporaryDirectory() as d:
         if e.name not in existing_files:
             shutil.copy(e.path, os.path.join(d, e.name))
             existing_files.add(e.name)
-
-    #subprocess.run(['python3', '-m', 'tools.reorder'], cwd=d, check=True)
 
     sha = tools.get_sha()
     sha = f'-{sha}' if sha else ''
