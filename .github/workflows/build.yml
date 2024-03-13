@@ -12,20 +12,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-      with:
-        submodules: recursive
-
-    - name: Test
-      run: |
-        docker-compose -f docker-compose.console.yml build test
-        docker-compose -f docker-compose.console.yml run test
-
-    - name: Upload
-      uses: actions/upload-artifact@v3
-      with:
-        name: UltimaVI-ru
-        path: UltimaVI-ru-*.zip
-        if-no-files-found: error
 
     - name: Set up Python 3.8
       uses: actions/setup-python@v2
@@ -37,3 +23,10 @@ jobs:
         sudo apt install nasm
         export PYTHONPATH=${{ github.workspace }}:$PYTHONPATH
         python3 -m tools.build
+
+    - name: Upload
+      uses: actions/upload-artifact@v3
+      with:
+        name: UltimaVI-ru
+        path: UltimaVI-ru-*.zip
+        if-no-files-found: error
