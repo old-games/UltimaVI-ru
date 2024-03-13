@@ -15,17 +15,6 @@ jobs:
       with:
         submodules: recursive
 
-    - name: Set up Python 3.8
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.8
-
-    - name: Build
-      run: |
-        sudo apt install nasm
-        export PYTHONPATH=${{ github.workspace }}:$PYTHONPATH
-        python3 -m tools.build
-
     - name: Test
       run: |
         docker-compose -f docker-compose.console.yml build test
@@ -37,3 +26,14 @@ jobs:
         name: UltimaVI-ru
         path: UltimaVI-ru-*.zip
         if-no-files-found: error
+
+    - name: Set up Python 3.8
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.8
+
+    - name: Build
+      run: |
+        sudo apt install nasm
+        export PYTHONPATH=${{ github.workspace }}:$PYTHONPATH
+        python3 -m tools.build
