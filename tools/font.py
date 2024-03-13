@@ -50,7 +50,7 @@ elif ext == '.SET':
 
         for j in range(8):
             for k in range(size):
-
+                # k == 0 это отступ, справа отступа нет.
                 c = s[offset+j*size+k]
                 assert c in (0, 15)
                 if c:
