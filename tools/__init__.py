@@ -2,6 +2,15 @@ import os
 import subprocess
 
 
+def get_binaries():
+    return [
+        'GAME.EXE',
+        'END.EXE',
+        'INSTALL.EXE',
+        'U.EXE',
+    ]
+
+
 def get_sha():
     try:
         r = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], stdout=subprocess.PIPE, universal_newlines=True, check=True)

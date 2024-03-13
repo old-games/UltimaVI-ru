@@ -28,6 +28,8 @@ with tempfile.TemporaryDirectory() as d:
             shutil.copy(e.path, os.path.join(d, e.name))
             existing_files.add(e.name)
 
+    #subprocess.run(['python3', '-m', 'tools.reorder'], cwd=d, check=True)
+
     sha = tools.get_sha()
     sha = f'-{sha}' if sha else ''
 
