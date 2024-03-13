@@ -9,6 +9,8 @@ class TestGame(tests.TestCase):
         with open('CONFIG.U6', 'wb') as f:
             f.write(b'\x76\x6d\x61\x33\x38\x38\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
 
+        # FIXME игре нужен созданный персонаж
+
         configuration = {
             'cpu': {
                 'cycles': 'max',
