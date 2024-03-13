@@ -28,9 +28,8 @@ jobs:
 
     - name: Test
       run: |
-        docker-compose version
-        cp docker-compose.console.yml docker-compose.yml
-        docker-compose run --build test
+        docker-compose -f docker-compose.console.yml build test
+        docker-compose -f docker-compose.console.yml run test
 
     - name: Upload
       uses: actions/upload-artifact@v3
