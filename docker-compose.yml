@@ -1,0 +1,17 @@
+version: "3"
+
+services:
+  testbox:
+    build: testbox
+    image: testbox
+    pull_policy: build
+
+  test:
+    build: .
+    environment:
+    - DISPLAY
+    volumes:
+    - "/tmp/.X11-unix:/tmp/.X11-unix"
+    - "/dev/snd:/dev/snd"
+    depends_on:
+    - testbox

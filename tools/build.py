@@ -4,23 +4,33 @@ import subprocess
 import tempfile
 import zipfile
 
+import tools
+import tools.lzw
+
 
 output_directory = os.getcwd()
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 with tempfile.TemporaryDirectory() as d:
-    subprocess.run(['python3', os.path.abspath('tools/patch.py')], cwd=d).check_returncode()
-    subprocess.run(['python3', os.path.abspath('tools/replace-cyrillic.py')], cwd=d).check_returncode()
+    subprocess.run(['python3', '-m', 'tools.patch'], cwd=d, check=True)
+    # FIXME exepack
+    subprocess.run(['python3', '-m', 'tools.symbols'], cwd=d, check=True)
+
+    for name in tools.get_compressed_files():
+        with open(os.path.join('unpacked', name), 'rb')  as f:
+            data = tools.lzw.compress(f.read())
+        with open(os.path.join(d, 'name'), 'wb') as f:
+            f.write(data)
 
     existing_files = set(os.listdir(d))
     for e in os.scandir('original'):
         if e.name not in existing_files:
-            shutil.copy(e.path, f'{d}/{e.name}')
+            shutil.copy(e.path, os.path.join(d, e.name))
             existing_files.add(e.name)
 
-    r = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], stdout=subprocess.PIPE, universal_newlines=True)
-    sha = f'-{r.stdout.rstrip()}' if r.returncode == 0 else ''
+    sha = tools.get_sha()
+    sha = f'-{sha}' if sha else ''
 
-    with zipfile.ZipFile(f'{output_directory}/UltimaIV-ru{sha}.zip', 'w') as f:
+    with zipfile.ZipFile(os.path.join(output_directory, f'UltimaVI-ru{sha}.zip'), 'w') as f:
         for n in sorted(existing_files):
-            f.write(f'{d}/{n}', f'UltimaIV-ru{sha}/{n}')
+            f.write(os.path.join(d, n), os.path.join(f'UltimaVI-ru{sha}', n))

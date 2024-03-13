@@ -1,0 +1,22 @@
+name: Test
+
+on:
+  push:
+    branches: [master]
+
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+      with:
+        submodules: recursive
+
+    - name: Test
+      run: |
+        docker build -t testbox testbox
+        docker build -t test .
+        docker run -e SDL_VIDEODRIVER=dummy -e SDL_AUDIODRIVER=dummy test
