@@ -1,0 +1,16 @@
+version: "3"
+
+services:
+  testbox:
+    build: testbox
+    image: testbox
+    pull_policy: build
+
+  test:
+    build: .
+    environment:
+    - SDL_VIDEODRIVER=dummy
+    - SDL_AUDIODRIVER=dummy
+    volumes:
+    depends_on:
+    - testbox
