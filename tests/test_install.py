@@ -7,6 +7,9 @@ import tests
 class TestInstall(tests.TestCase):
     def testInstall(self):
         configuration = {
+            'cpu': {
+                'cycles': 'max',
+            },
             'render': {
                 'scaler': 'normal2x forced',
             },

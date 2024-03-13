@@ -19,4 +19,5 @@ COPY tools/8X16.RK .
 COPY screenshots screenshots
 COPY tests tests
 
-CMD python3 -m unittest discover
+ENTRYPOINT python3 -m unittest
+CMD discover
