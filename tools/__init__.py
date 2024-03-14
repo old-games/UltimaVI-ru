@@ -87,4 +87,27 @@ def get_compressed_files():
         'U6INNOVA.DRV',
         'U6MCGA.DRV',
         'U6MCGA.PTR',
+        'U6ROLAND.DRV',
+        'U6TANDY.DRV',
+        'U6TMUS.DRV',
+        'ULTIMA.M',
+        'VELLUM1.SHP',
+        'WOODS.SHP',
+        'WORLDMAP.BMP',
+    ]
+
+
+def get_compressed_executables():
+    return [
+        'END.EXE',
+        'GAME.EXE',
+        'INSTALL.EXE',
+        'MAKEMODE.EXE',
+        'T2CGA.EXE',
+        'T2EGA.EXE',
+        'T2HRC.EXE',
+        'T2TGA.EXE',
+        'TANDYPIN.EXE',
+        'U.EXE',
+        'ULTIMA6.EXE',
     ]
