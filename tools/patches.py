@@ -9,6 +9,18 @@ def patch_U(d):
     d[0xb750] -= 4
     d[0xb762] += 8
 
+    # Высота текста "At first the plain is still. Then a hundred voices ".
+    assert d[0xcda2] == 0xa0
+    assert d[0xcdb4] == 0x1f
+    d[0xcda2] -= 4
+    d[0xcdb4] += 8
+
+    # Высота текста "Friendly faces vault from a newborn moongate, while a "
+    assert d[0xd23f] == 0xa0
+    assert d[0xd251] == 0x1f
+    d[0xd23f] -= 4
+    d[0xd251] += 8
+
 
 def patch_END(d):
     # Высота текста "From its crimson depths Lord British emerges, trailed by ".
