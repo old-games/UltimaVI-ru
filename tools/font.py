@@ -19,7 +19,7 @@ if ext == '.CH':
             for j in range(16):
                 for l in range(8):
                     c = i * 16 + j
-                    C = x[c*8+k] & (1 << (7-l%8))
+                    C = x[c*8+k] & 1 << 7-l
                     if C:
                         r = result[1+k//2+i*5][j*width+l]
                         if k % 2 == 0:
