@@ -233,11 +233,12 @@ for binary, functions in add_functions.items():
     code_block += b'\x00' * (0x200 - len(code_block) % 0x200)
     space = len(code_block) // 0x200
 
-    if binary == 'GAME.EXE':
-        tools.patches.patch_GAME(d)
-
     if binary == 'END.EXE':
         tools.patches.patch_END(d)
+    elif binary == 'GAME.EXE':
+        tools.patches.patch_GAME(d)
+    elif binary == 'U.EXE':
+        tools.patches.patch_U(d)
 
     uninitialized_fill, = find_all(d, [0xbf, None, None, 0xb9, None, None, 0x2b, 0xcf, 0xf3, 0xaa])
     initialized_size = int.from_bytes(d[uninitialized_fill+1:uninitialized_fill+3], 'little')

@@ -2,6 +2,14 @@ def replace(d, a, c):
     d[a:a+len(c)] = c
 
 
+def patch_U(d):
+    # Ширина текста "Outside, a chill wind rises...".
+    assert d[0xb750] == 0x28
+    assert d[0xb762] == 0xea
+    d[0xb750] -= 4
+    d[0xb762] += 8
+
+
 def patch_END(d):
     # Высота текста "From its crimson depths Lord British emerges, trailed by ".
     assert d[0x1749] == 0x92
