@@ -348,6 +348,7 @@ for binary, functions in add_functions.items():
 
     with open(f'{output_directory}/{binary}', 'wb') as f:
         f.write(d)
+    os.chmod(f'{output_directory}/{binary}', 0o700)
 
     print(f'Written {binary}, {binascii.crc32(d) & 0xffffffff:08x}')
 
