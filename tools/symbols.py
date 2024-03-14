@@ -34,9 +34,12 @@ for i, (lo, hi, size) in enumerate(zip(s[0x104:0x204], s[0x204:0x304], s[4:0x104
 
 s = s[:0x304]
 
-symbols = list(range(0x20)) + list(range(0x80, 0x100))
+symbols = [
+    *range(0x20),
+    *range(0x80, 0x100),
+]
 for symbol in symbols:
-    data = d[symbol*8:symbol*8+8]
+    data = combined_font[symbol*8:symbol*8+8]
     left = 7
     right = 0
     for i in range(8):
