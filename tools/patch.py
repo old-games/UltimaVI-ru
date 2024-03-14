@@ -6,6 +6,7 @@ import subprocess
 import tempfile
 
 import tools
+import tools.patches
 
 
 add_functions = {
@@ -95,10 +96,6 @@ def apply_obj(path, base):
         relocs.append((base+a+3, 0, False, False))
 
     return code
-
-
-def replace(d, a, c):
-    d[a:a+len(c)] = c
 
 
 def nasm(code):
@@ -237,15 +234,10 @@ for binary, functions in add_functions.items():
     space = len(code_block) // 0x200
 
     if binary == 'GAME.EXE':
-        assert d[0xb203:0xb206] == b'\x0d\x80\x00'
-        replace(d, 0xb204, b'\x00\x01') # 0x0464:0x33d3, putch # FIXME выкинуть это в отдельный файл.
+        tools.patches.patch_GAME(d)
 
     if binary == 'END.EXE':
-        # FIXME move it to separate file
-        assert d[0x1749] == 0x92
-        assert d[0x175b] == 0x27
-        d[0x1749] -= 4
-        d[0x175b] += 8
+        tools.patches.patch_END(d)
 
     uninitialized_fill, = find_all(d, [0xbf, None, None, 0xb9, None, None, 0x2b, 0xcf, 0xf3, 0xaa])
     initialized_size = int.from_bytes(d[uninitialized_fill+1:uninitialized_fill+3], 'little')
@@ -307,7 +299,7 @@ for binary, functions in add_functions.items():
     for f, (function_cs, function_ip, size) in functions.items():
         address = function_cs*0x10 + function_ip
         relocs[:] = [(o, s, l, v) for o, s, l, v in relocs if not v or o+s*0x10 >= address+size or o+s*0x10 < address-1]
-        replace(d, header+address, jump(0, function_address[f], function_cs, function_ip).ljust(size, b'\x00'))
+        tools.patches.replace(d, header+address, jump(0, function_address[f], function_cs, function_ip).ljust(size, b'\x00'))
 
     assert set(d[relocs_base+4*relocs_size:header]) == {0}
     assert header - relocs_base >= len(relocs)*4
