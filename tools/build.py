@@ -23,10 +23,19 @@ with tempfile.TemporaryDirectory() as d:
             f.write(data)
 
     existing_files = set(os.listdir(d))
-    for e in os.scandir('original'):
-        if e.name not in existing_files:
-            shutil.copy(e.path, os.path.join(d, e.name))
-            existing_files.add(e.name)
+
+    def recursive_copy(source, destination, sub_directory=None):
+        for e in os.scandir(source):
+            if e.name not in existing_files:
+                full_name = e.name if sub_directory is None else os.path.join(sub_directory, e.name)
+                if e.is_file():
+                    shutil.copy(e.path, os.path.join(destination, e.name))
+                    existing_files.add(full_name)
+                elif e.is_dir():
+                    os.makedirs(os.path.join(destination, e.name))
+                    recursive_copy(os.path.join(source, e.name), os.path.join(destination, e.name), sub_directory=full_name)
+
+    recursive_copy('original', d)
 
     sha = tools.get_sha()
     sha = f'-{sha}' if sha else ''

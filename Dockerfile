@@ -9,8 +9,10 @@ ENV PYTHONPATH /test:${PYTHONPATH}
 COPY . .
 
 RUN python3 -m tools.build
-RUN unzip -j UltimaVI-ru.zip 
+RUN unzip UltimaVI-ru.zip 
 RUN rm UltimaVI-ru.zip
+RUN mv UltimaVI-ru/* .
+RUN rm -rf UltimaVI-ru
 
 COPY tools/RK.COM .
 COPY tools/RUSSIAN.RK .
