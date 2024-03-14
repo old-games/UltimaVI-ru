@@ -1,6 +1,7 @@
 import os
 import shutil
 import subprocess
+import sys
 import tempfile
 import zipfile
 
@@ -8,13 +9,17 @@ import tools
 import tools.lzw
 
 
+mode = sys.argv[1] if len(sys.argv) == 2 else 'russian'
+assert mode in ('russian', 'english')
+
 output_directory = os.getcwd()
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 with tempfile.TemporaryDirectory() as d:
-    subprocess.run(['python3', '-m', 'tools.patch'], cwd=d, check=True)
-    # FIXME exepack
-    subprocess.run(['python3', '-m', 'tools.symbols'], cwd=d, check=True)
+    if mode == 'russian':
+        subprocess.run(['python3', '-m', 'tools.patch'], cwd=d, check=True)
+        # FIXME exepack
+        subprocess.run(['python3', '-m', 'tools.symbols'], cwd=d, check=True)
 
     for name in tools.get_compressed_files():
         with open(tools.get_path(name, d), 'rb')  as f:
@@ -40,6 +45,8 @@ with tempfile.TemporaryDirectory() as d:
     sha = tools.get_sha()
     sha = f'-{sha}' if sha else ''
 
-    with zipfile.ZipFile(os.path.join(output_directory, f'UltimaVI-ru{sha}.zip'), 'w') as f:
+    mode = f'-{mode}' if mode == 'english' else ''
+
+    with zipfile.ZipFile(os.path.join(output_directory, f'UltimaVI-ru{mode}{sha}.zip'), 'w') as f:
         for n in sorted(existing_files):
-            f.write(os.path.join(d, n), os.path.join(f'UltimaVI-ru{sha}', n))
+            f.write(os.path.join(d, n), os.path.join(f'UltimaVI-ru{mode}{sha}', n))
