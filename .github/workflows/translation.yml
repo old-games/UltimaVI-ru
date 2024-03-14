@@ -18,7 +18,12 @@ jobs:
       with:
         python-version: 3.8
 
-    - name: Test with `translation`
+    - name: Check with `translation`
       run: |
         export PYTHONPATH=${{ github.workspace }}:$PYTHONPATH
         python3 -m tools.translation
+
+    - name: Check with `duplicates`
+      run: |
+        export PYTHONPATH=${{ github.workspace }}:$PYTHONPATH
+        python3 -m tools.duplicates

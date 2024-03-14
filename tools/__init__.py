@@ -2,6 +2,15 @@ import os
 import subprocess
 
 
+def get_binaries():
+    return [
+        'GAME.EXE',
+        'END.EXE',
+        'INSTALL.EXE',
+        'U.EXE',
+    ]
+
+
 def get_sha():
     try:
         r = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], stdout=subprocess.PIPE, universal_newlines=True, check=True)
@@ -10,12 +19,20 @@ def get_sha():
         return None
 
 
-def get_binary_path(binary):
-    path = f'unpacked/{binary}'
-    if os.path.isfile(path):
-        return path
-    else:
-        return f'original/{binary}'
+def get_script_path():
+    return os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+
+def get_path(name, current_directory='.'):
+    paths = [
+        os.path.join(current_directory, name),
+        os.path.join(get_script_path(), 'unpacked', name),
+    ]
+    if name not in get_compressed_files():
+        paths.append(os.path.join(get_script_path(), 'original', name))
+    for path in paths:
+        if os.path.isfile(path):
+            return path
 
 
 def get_compressed_files():
@@ -58,6 +75,7 @@ def get_compressed_files():
         'STONES.M',
         'TGADRV.BIN',
         'TITLES.SHP',
+        'U6.SET',
         'U6ADLIB.DRV',
         'U6CGA.DRV',
         'U6CMS.DRV',

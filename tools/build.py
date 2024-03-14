@@ -17,9 +17,9 @@ with tempfile.TemporaryDirectory() as d:
     subprocess.run(['python3', '-m', 'tools.symbols'], cwd=d, check=True)
 
     for name in tools.get_compressed_files():
-        with open(os.path.join('unpacked', name), 'rb')  as f:
+        with open(tools.get_path(name, d), 'rb')  as f:
             data = tools.lzw.compress(f.read())
-        with open(os.path.join(d, 'name'), 'wb') as f:
+        with open(os.path.join(d, name), 'wb') as f:
             f.write(data)
 
     existing_files = set(os.listdir(d))

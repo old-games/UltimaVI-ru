@@ -28,7 +28,7 @@ for i in t:
     by_source[i['source']].append(i)
 
 for s, ii in by_source.items():
-    with open(tools.get_binary_path(s), 'rb') as f:
+    with open(tools.get_path(s), 'rb') as f:
         x = f.read()
     for i in ii:
         text = read_null_terminated(x, i['offset'])
@@ -46,7 +46,7 @@ for i in ns:
     by_source[i['source']].append(i)
 
 for s, ii in by_source.items():
-    with open(tools.get_binary_path(s), 'rb') as f:
+    with open(tools.get_path(s), 'rb') as f:
         x = f.read()
     for i in ii:
         text = read_null_terminated(x, i['offset'])
