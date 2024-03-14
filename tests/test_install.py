@@ -38,7 +38,7 @@ class TestInstall(tests.TestCase):
                 # FIXME save screenshots and pack as artifacts.
                 box.send_keys(keys)
                 time.sleep(0.1)
-            box.wait_image('screenshots/install.png', bbox=(0, 16, 640, 400), timeout=1)
+            box.wait_image('screenshots/INSTALL/install.png', bbox=(0, 16, 640, 400), timeout=1)
 
             with open('CONFIG.U6', 'rb') as f:
                 self.assertEqual(f.read(), b'\x76\x6d\x61\x33\x38\x38\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')

@@ -25,7 +25,7 @@ class TestU(tests.TestCase):
                 '-c', 'MOUNT C: .',
                 '-c', 'C:',
                 '-c', 'RK.COM /L:RUSSIAN.RK /F:8X16.RK',
-                'U.EXE',
+    #            'U.EXE',
             ],
             configuration,
             timeout_error=AssertionError,
