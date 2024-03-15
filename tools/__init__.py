@@ -111,3 +111,13 @@ def get_compressed_executables():
         'U.EXE',
         'ULTIMA6.EXE',
     ]
+
+
+def get_archive_files():
+    return [
+        'CONVERSE.A',
+        'CONVERSE.B',
+        'PORTRAIT.A',
+        'PORTRAIT.B',
+        'PORTRAIT.Z',
+    ]
