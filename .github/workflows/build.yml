@@ -24,9 +24,14 @@ jobs:
         export PYTHONPATH=${{ github.workspace }}:$PYTHONPATH
         python3 -m tools.build
 
+    - name: Get short sha
+      id: sha
+      run: |
+        echo "short=`git rev-parse --short HEAD`" >> $GITHUB_OUTPUT
+
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
         name: UltimaVI-ru
-        path: UltimaVI-ru-*.zip
+        path: UltimaVI-ru-${{ steps.sha.outputs.short }}.zip
         if-no-files-found: error
