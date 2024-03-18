@@ -16,10 +16,9 @@ output_directory = os.getcwd()
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 with tempfile.TemporaryDirectory() as d:
-    if mode == 'russian':
-        subprocess.run(['python3', '-m', 'tools.patch'], cwd=d, check=True)
-        # FIXME exepack
-        subprocess.run(['python3', '-m', 'tools.symbols'], cwd=d, check=True)
+    subprocess.run(['python3', '-m', 'tools.patch', mode], cwd=d, check=True)
+    # FIXME exepack
+    subprocess.run(['python3', '-m', 'tools.symbols'], cwd=d, check=True)
 
     for name in tools.get_compressed_files():
         with open(tools.get_path(name, d), 'rb')  as f:

@@ -3,6 +3,7 @@ import datetime
 import json
 import os
 import subprocess
+import sys
 import tempfile
 
 import tools
@@ -14,6 +15,7 @@ add_functions = {
     },
     'GAME.EXE': {
         'putch_impl': (0x464, 0x2efa, 0x3e4),
+        #'puts_impl': (0x464, 0x32f8, 0x22),
         'toupper': (0x2ce6, 3, 0x31),
     },
     'INSTALL.EXE': {
@@ -171,6 +173,9 @@ def pi_jump(s, a):
         """)
 
 
+mode = sys.argv[1] if len(sys.argv) == 2 else 'russian'
+assert mode in ('russian', 'english')
+
 output_directory = os.getcwd()
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
@@ -255,35 +260,36 @@ for binary, functions in add_functions.items():
     ds_size = len(ds)
     ds = ljust(ds, system_break, b'www.old-games.ru.')
     required_space = 0
-    for t in translation:
-        if t['source'] == binary:
-            if not t['russian'].startswith('FIXME ') and t['russian'] != t['english']:
-                references_segments = [x['segment'] for x in references.get((binary, t['offset']), [])]
+    if mode == 'russian':
+        for t in translation:
+            if t['source'] == binary:
+                if not t['russian'].startswith('FIXME ') and t['russian'] != t['english']:
+                    references_segments = [x['segment'] for x in references.get((binary, t['offset']), [])]
 
-                if len(t['russian'].encode('cp866')) <= len(t['english'].encode('cp866')):
-                    # FIXME упаковать фразы лучше
-                    message = t['russian'].encode('cp866').ljust(len(t['english']), b'\x00')
-                    replaces.append((t['offset'], len(message), message))
-                    replaced += 1
+                    if len(t['russian'].encode('cp866')) <= len(t['english'].encode('cp866')):
+                        # FIXME упаковать фразы лучше
+                        message = t['russian'].encode('cp866').ljust(len(t['english']), b'\x00')
+                        replaces.append((t['offset'], len(message), message))
+                        replaced += 1
 
-                elif t['offset'] > header + segments[-1]*0x10:
-                    # FIXME reuse old space
-                    rr = references.get((binary, t['offset']), [])
-                    for r in rr:
-                        assert int.from_bytes(d[r['origin']:r['origin']+2], 'little') == t['offset'] - header - segments[-1]*0x10
-                        replaces.append((r['origin'], 2, len(ds).to_bytes(2, 'little')))
+                    elif t['offset'] > header + segments[-1]*0x10:
+                        # FIXME reuse old space
+                        rr = references.get((binary, t['offset']), [])
+                        for r in rr:
+                            assert int.from_bytes(d[r['origin']:r['origin']+2], 'little') == t['offset'] - header - segments[-1]*0x10
+                            replaces.append((r['origin'], 2, len(ds).to_bytes(2, 'little')))
 
-                    ds.extend(t['russian'].encode('cp866') + b'\x00')
+                        ds.extend(t['russian'].encode('cp866') + b'\x00')
 
-                    replaced += bool(rr)
-                    added += 1
+                        replaced += bool(rr)
+                        added += 1
 
-                elif all(map(lambda x: isinstance(x, int), references_segments)):
-                    print(f'String {repr(t["russian"])} can be moved!')
-                    # FIXME why it can?
+                    elif all(map(lambda x: isinstance(x, int), references_segments)):
+                        print(f'String {repr(t["russian"])} can be moved!')
+                        # FIXME why it can?
 
-            else:
-                missing += 1
+                else:
+                    missing += 1
 
     ds[system_break_address:system_break_address+2] = len(ds).to_bytes(2, 'little')
     ds.extend(b'\x00' * ((len(ds) - ds_size + 0x1ff) // 0x200 * 0x200 - len(ds) + ds_size))
