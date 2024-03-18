@@ -1,14 +1,6 @@
 import collections
 
 
-def _slice_deque(deque, index, size):
-    result = []
-    for i in range(index, size):
-        result.append(deque[i])
-    #print(result)
-    return tuple(result)
-
-
 def _codeword_to_int(codeword):
     b = 0
     for j, bit in enumerate(codeword):
@@ -24,7 +16,17 @@ def _int_to_codeword(x, codeword_size):
     return codeword
 
 
+def _check_settings(min_codeword_size=9, max_codeword_size=12):
+    if min_codeword_size > max_codeword_size:
+        raise RuntimeError('`min_codeword_size` can not be greater than `max_codeword_size`')
+
+    if min_codeword_size < 2:
+        raise RuntimeError('`min_codeword_size` can not be less than 2')
+
+
 def decompress(data, min_codeword_size=9, max_codeword_size=12):
+    _check_settings(min_codeword_size=min_codeword_size, max_codeword_size=max_codeword_size)
+
     size = int.from_bytes(data[:4], 'little')
     max_codeword_size = max_codeword_size
     min_extended_codeword = (1 << min_codeword_size - 1) + 2
@@ -44,9 +46,7 @@ def decompress(data, min_codeword_size=9, max_codeword_size=12):
     string = b''
     result = bytearray()
     while bits:
-        codeword = _codeword_to_int(_slice_deque(bits, 0, codeword_size))
-        for _ in range(codeword_size):
-            bits.popleft()
+        codeword = _codeword_to_int((bits.popleft() for _ in range(codeword_size)))
 
         if codeword == max_value:
             codeword_size = min_codeword_size
@@ -59,7 +59,7 @@ def decompress(data, min_codeword_size=9, max_codeword_size=12):
 
         else:
             if codeword < len(strings):
-                if len(string):
+                if string:
                     # Дополнительный символ всегда приходит в начале следующей строке.
                     strings.append(string + strings[codeword][:1])
 
@@ -80,15 +80,23 @@ def decompress(data, min_codeword_size=9, max_codeword_size=12):
     return result
 
 
-def get_compression_levels():
-    return (-1, 0, 1, 2, 3)
+def get_compression_levels(min_codeword_size=9, max_codeword_size=12):
+    if min_codeword_size >= 3 or min_codeword_size == max_codeword_size:
+        return (-1, 0, 1, 2, 3)
+    elif min_codeword_size >= 2:
+        return (-1, 2, 3)
 
 
 def compress(data, level=2, min_codeword_size=9, max_codeword_size=12):
     assert level in get_compression_levels()
     max_value = 1 << min_codeword_size - 1
-    max_safe_block_size = max_value - 2
+    max_safe_block_size = max_value - 2 if min_codeword_size < max_codeword_size else len(data)
     bits = []
+
+    _check_settings(min_codeword_size=min_codeword_size, max_codeword_size=max_codeword_size)
+
+    if level not in get_compression_levels(min_codeword_size=min_codeword_size, max_codeword_size=max_codeword_size):
+        raise RuntimeError(f'`min_codeword_size={min_codeword_size}` can not work with level {level}')
 
     # TODO можно ли писать дальше конца словаря?
     # TODO научиться в любой момент сбрасывать словарь
@@ -96,15 +104,21 @@ def compress(data, level=2, min_codeword_size=9, max_codeword_size=12):
 
     # TODO Для строк нулевой длины отправляется только EOF. Проверить правильно ли это.
     if level == -1:
+        codeword_size = min_codeword_size
         for i, char in enumerate(data):
-            bits.extend(_int_to_codeword(max_value, min_codeword_size))
-            bits.extend(_int_to_codeword(char, min_codeword_size))
-        bits.extend(_int_to_codeword(max_value+1, min_codeword_size))
+            bits.extend(_int_to_codeword(max_value, codeword_size))
+            codeword_size = min_codeword_size
+            assert char < max_value
+            bits.extend(_int_to_codeword(char, codeword_size))
+            if codeword_size < max_codeword_size:
+                codeword_size = max(3, codeword_size)
+        bits.extend(_int_to_codeword(max_value+1, codeword_size))
 
     elif level == 0:
         for i, char in enumerate(data):
             if i % max_safe_block_size == 0:
                 bits.extend(_int_to_codeword(max_value, min_codeword_size))
+            assert char < max_value
             bits.extend(_int_to_codeword(char, min_codeword_size))
         bits.extend(_int_to_codeword(max_value+1, min_codeword_size))
 
@@ -116,30 +130,30 @@ def compress(data, level=2, min_codeword_size=9, max_codeword_size=12):
         codeword_size = min_codeword_size
         string = b''
         strings = new_strings.copy()
-        i = 0
         for i, char in enumerate(data):
             if i % max_safe_block_size == 0:
-                if len(string):
+                if string:
                     bits.extend(_int_to_codeword(strings[string], codeword_size))
                 strings = new_strings.copy()
                 bits.extend(_int_to_codeword(strings['INIT'], codeword_size))
-                codeword_size = min_codeword_size
                 string = b''
 
+            assert char < max_value
             bytes_char = bytes([char])
             if string + bytes_char in strings:
                 string += bytes_char
 
             else:
                 bits.extend(_int_to_codeword(strings[string], codeword_size))
-                strings[string+bytes_char] = len(strings)
+                if len(strings) < 1 << codeword_size:
+                    strings[string+bytes_char] = len(strings)
                 string = bytes_char
 
-                if len(strings) >= 1 << codeword_size and codeword_size < max_codeword_size:
-                    codeword_size += 1
-
-        if len(string):
+        if string:
             bits.extend(_int_to_codeword(strings[string], codeword_size))
+            if min_codeword_size < max_codeword_size:
+                assert len(strings) + 1 <= 1 << codeword_size
+
         bits.extend(_int_to_codeword(strings['EOF'], codeword_size))
 
     elif level == 2:
@@ -150,17 +164,16 @@ def compress(data, level=2, min_codeword_size=9, max_codeword_size=12):
         codeword_size = min_codeword_size
         string = b''
         strings = new_strings.copy()
-        i = 0
         for i, char in enumerate(data):
             if not i:
                 bits.extend(_int_to_codeword(strings['INIT'], codeword_size))
 
+            assert char < max_value
             bytes_char = bytes([char])
             if string + bytes_char in strings:
                 string += bytes_char
 
             else:
-                # FIXME здесь можем отправить меньше бит чем надо, если добавляются две подряд строки?
                 bits.extend(_int_to_codeword(strings[string], codeword_size))
                 if strings[string] == len(strings) - 1:
                     # FIXME почему так выходит, ещё раз?
@@ -181,8 +194,14 @@ def compress(data, level=2, min_codeword_size=9, max_codeword_size=12):
                         codeword_size = min_codeword_size
                         string = b''
 
-        if len(string):
+        if string:
             bits.extend(_int_to_codeword(strings[string], codeword_size))
+            if len(strings) + 1 > 1 << codeword_size:
+                assert len(strings) == 1 << codeword_size
+                if codeword_size < max_codeword_size:
+                    codeword_size += 1
+                # FIXME Упростить это
+
         bits.extend(_int_to_codeword(strings['EOF'], codeword_size))
 
     elif level == 3:
@@ -194,17 +213,16 @@ def compress(data, level=2, min_codeword_size=9, max_codeword_size=12):
         codeword_size = min_codeword_size
         string = b''
         strings = new_strings.copy()
-        i = 0
         for i, char in enumerate(data):
             if not i:
                 bits.extend(_int_to_codeword(strings['INIT'], codeword_size))
 
+            assert char < max_value
             bytes_char = bytes([char])
             if string + bytes_char in strings:
                 string += bytes_char
 
             else:
-                # FIXME здесь можем отправить меньше бит чем надо, если добавляются две подряд строки?
                 bits.extend(_int_to_codeword(strings[string], codeword_size))
                 if strings[string] == len(strings) - 1:
                     # FIXME почему так выходит, ещё раз?
@@ -223,9 +241,17 @@ def compress(data, level=2, min_codeword_size=9, max_codeword_size=12):
                         bits.extend(_int_to_codeword(strings['INIT'], codeword_size))
                         codeword_size = min_codeword_size
 
-        if len(string):
+        if string:
             bits.extend(_int_to_codeword(strings[string], codeword_size))
+            if len(strings) + 1 > 1 << codeword_size:
+                assert len(strings) == 1 << codeword_size
+                if codeword_size < max_codeword_size:
+                    codeword_size += 1
+            # FIXME Упростить это
+
         bits.extend(_int_to_codeword(strings['EOF'], codeword_size))
+
+    # TODO better compression, level 4
 
     bits.extend([0] * ((len(bits) + 7) // 8 * 8 - len(bits)))
     assert len(bits) % 8 == 0
