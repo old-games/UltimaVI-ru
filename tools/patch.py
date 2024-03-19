@@ -14,8 +14,10 @@ add_functions = {
     'END.EXE': {
     },
     'GAME.EXE': {
+        # FIXME switch to global names in asm files.
         'putch_impl': (0x464, 0x2efa, 0x3e4),
         #'puts_impl': (0x464, 0x32f8, 0x22),
+        'get_character_name': (0xecb, 0xa0, 0x76),
         'toupper': (0x2ce6, 3, 0x31),
     },
     'INSTALL.EXE': {
@@ -89,7 +91,7 @@ def apply_obj(path, base):
                 s = d[i+1]
                 n = d[i+2:i+2+s].decode()
                 a = int.from_bytes(d[i+2+s:i+4+s], 'little')
-                if n.startswith('fixmeup'):
+                if n.startswith('fixmeup'): # TODO избавиться от fixmeup, придумать как-то поумнее
                     fixmeups.add(a)
                 i += s + 4
 

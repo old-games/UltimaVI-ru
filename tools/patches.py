@@ -68,6 +68,6 @@ def patch_END(d):
 
 
 def patch_GAME(d):
-    # 0x0464:0x33d3, putch, проверка на 0x80 бит.
+    # 0x464:0x33d3, putch, проверка на 0x80 бит.
     assert d[0xb203:0xb206] == b'\x0d\x80\x00'
     replace(d, 0xb204, b'\x00\x01')

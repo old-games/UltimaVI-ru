@@ -16,45 +16,45 @@ sub_0003:
 
         mov     ax, [bp+0x6]
         cmp     ax, 0xffff
-        jz      loc_32
+        jz      loc_0032
 
         cmp     ax, 0x80
-        jb      loc_11
+        jb      loc_0011
 
         cmp     ax, 0x100
-        jae     loc_11
+        jae     loc_0011
 
         ; ax — 0x80..0xff
         cmp     ax, 0xa0
-        jb      loc_32
+        jb      loc_0032
 
         cmp     ax, 0xf0
-        jz      loc_32 ; Ё
+        jz      loc_0032 ; Ё
 
         cmp     ax, 0xb0
         jb      and_df
 
         cmp     ax, 0xe0
-        jb      loc_32
+        jb      loc_0032
 
         cmp     ax, 0xf0
         jb      sub_50
 
         cmp     ax, 0xf2
-        jae     loc_32
+        jae     loc_0032
 
         dec     ax
-        jmp     loc_32
+        jmp     loc_0032
 
 sub_50:
         sub     ax, 0x50
-        jmp     loc_32
+        jmp     loc_0032
 
 and_df:
         and     ax, 0xdf
-        jmp     loc_32
+        jmp     loc_0032
 
-loc_11:
+loc_0011:
         mov     bx, ax
         cmp     ax, 0x100
         jb      skip_fix_runes
@@ -64,13 +64,13 @@ loc_11:
 
 skip_fix_runes:
         test    byte [bx+0x3117], 0x8 ; От этой таблицы регистров можно было бы избавиться.
-        jz      loc_32
+        jz      loc_0032
 
         mov     al, [bp+0x6]
         mov     ah, 0x0
         add     ax, 0xffe0
-        jmp     short loc_32
+        jmp     short loc_0032
 
-loc_32:
+loc_0032:
         pop     bp
         retf
