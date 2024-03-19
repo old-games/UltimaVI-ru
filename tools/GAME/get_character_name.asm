@@ -42,8 +42,8 @@ loc_00d7:
         xor     si, si
 
 loc_00d9:
-        test    byte [si-0x189c], 0x80
-        jnz     loc_00ec
+        cmp     byte [si-0x189c], 0xf1
+        jz      loc_00ec
         mov     ax, si
         inc     si
         mov     bx, ax
@@ -64,6 +64,7 @@ fixmeup1: ; far call by absolute direct address
         jmp     loc_0109
 
 loc_00fe:
+        ; FIXME patch Dr. Cat without code.
         cmp     word [bp+0x6], byte +0x6e
         jnz     loc_0109
         mov     byte [0xe766], 0x2e ; Patch Dr. Cat.
