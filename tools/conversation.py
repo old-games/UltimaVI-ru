@@ -83,7 +83,7 @@ def _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, 
         all_instructions.add(0xa2)
 
     while (code := _peek_byte(stream)) not in end and stream.tell() not in visited_labels:
-        visited_labels.add(stream.tell())
+        start_offset = stream.tell()
 
         if code == 0x9c:
             _read_byte(stream)
@@ -252,6 +252,9 @@ def _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, 
         else:
             result.append(_read_string(stream, end | all_instructions))
 
+        for i in range(start_offset, stream.tell()):
+            visited_labels.add(i)
+
         if _peek_byte(stream) is None or _is_ended(result) and (None in end or 0xee in end and allow_drop_esac):
             # Выходим, если читать больше нечего или не ждём окончания определённого блока.
             break
@@ -278,13 +281,17 @@ def decode(data):
 
     add_a2 = digest == '85f1912ed262ba67a28fdff87c31575d6dd2cea0fbf431ef73e2be77d0958a0d'
 
+    visited_labels.add(stream.tell())
     assert _read_byte(stream) == 0xff
+    visited_labels.add(stream.tell())
     result['id'] = _read_byte(stream)
     result['name'] = _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, {0xf1})
 
+    visited_labels.add(stream.tell())
     _read_byte(stream)
     result['description'] = _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, {0xf2})
 
+    visited_labels.add(stream.tell())
     _read_byte(stream)
     result['conversation'] = {stream.tell(): _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, {None})}
 
@@ -295,4 +302,6 @@ def decode(data):
         # FIXME split code with label in the middle
 
     result['conversation'] = dict(sorted(result['conversation'].items()))
+
+    assert set(range(len(data))) - visited_labels == {}
     return result
