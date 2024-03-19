@@ -26,6 +26,7 @@ add_functions = {
     },
 }
 
+# TODO: add possibility to change english strings
 # TODO: место из под старого кода можно переиспользовать
 # TODO: добавлять место более гранулярно чем постранично
 
