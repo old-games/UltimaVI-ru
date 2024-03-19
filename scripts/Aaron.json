@@ -1,0 +1,309 @@
+{
+    "source": "CONVERSE.A",
+    "index": 69,
+    "id": 69,
+    "name": [
+        "Aaron"
+    ],
+    "description": [
+        "a plump blond man with curly blond hair and a cheerful face.",
+        "WAIT"
+    ],
+    "conversation": {
+        "70": [
+            "\n",
+            [
+                "IF",
+                [
+                    211,
+                    235,
+                    0,
+                    171
+                ],
+                [
+                    "\"Hello again, Avatar!\""
+                ],
+                [
+                    "\"Hello hello!\""
+                ]
+            ],
+            "WAIT",
+            "\n\n\"What can I do for you this $T?\"\n",
+            "ASK",
+            [
+                "KEYWORDS",
+                "name",
+                [
+                    [
+                        "IF",
+                        [
+                            211,
+                            235,
+                            0,
+                            171
+                        ],
+                        [
+                            "\"That's funny. I remember your name!\""
+                        ],
+                        [
+                            "\"My name's Aaron.\"",
+                            [
+                                "SETF",
+                                [
+                                    211,
+                                    235
+                                ],
+                                [
+                                    0
+                                ]
+                            ]
+                        ]
+                    ],
+                    [
+                        "JUMP",
+                        150
+                    ]
+                ]
+            ],
+            [
+                "KEYWORDS",
+                "job",
+                [
+                    "\"I run the sawmill! Is there anything I can do for thee?\"",
+                    [
+                        "JUMP",
+                        150
+                    ]
+                ]
+            ],
+            [
+                "KEYWORDS",
+                "saw",
+                [
+                    "\"Yes, I saw logs into @boards.\"",
+                    [
+                        "JUMP",
+                        150
+                    ]
+                ]
+            ],
+            [
+                "KEYWORDS",
+                "boar,log",
+                [
+                    [
+                        "IF",
+                        [
+                            32,
+                            178,
+                            211,
+                            144,
+                            133
+                        ],
+                        [
+                            "\"Come to my shop when I'm open!\"",
+                            [
+                                "JUMP",
+                                150
+                            ]
+                        ],
+                        []
+                    ],
+                    [
+                        "DECL",
+                        [
+                            0,
+                            178,
+                            168,
+                            212,
+                            18,
+                            1,
+                            211,
+                            0,
+                            199
+                        ]
+                    ],
+                    [
+                        "IF",
+                        [
+                            0,
+                            178,
+                            212,
+                            1,
+                            128,
+                            134
+                        ],
+                        [
+                            "\"My mill makes smooth boards and planks out of rough-cut logs.\"",
+                            [
+                                "JUMP",
+                                150
+                            ]
+                        ],
+                        []
+                    ],
+                    [
+                        "SETNAME",
+                        [
+                            0,
+                            178
+                        ]
+                    ],
+                    "\"Aye, I see $Y has a yew log.\" He inspects the wood with a practiced eye.",
+                    "WAIT",
+                    "\n\n\"Good grain. Yes, I can make a fine board out of this log.\"",
+                    "WAIT",
+                    "\n\n\"But it will cost thee 5 gold, $Y!\"\n\n\"Still interested?\" ",
+                    [
+                        "JUMP",
+                        733
+                    ]
+                ]
+            ],
+            [
+                "KEYWORDS",
+                "bye",
+                [
+                    "\"Farewell!\"\n",
+                    [
+                        "SETF",
+                        [
+                            211,
+                            235
+                        ],
+                        [
+                            0
+                        ]
+                    ],
+                    "BYE"
+                ]
+            ],
+            [
+                "KEYWORDS",
+                "*",
+                [
+                    "\"Beg pardon?\"",
+                    [
+                        "JUMP",
+                        150
+                    ]
+                ]
+            ]
+        ],
+        "150": [
+            "\n"
+        ],
+        "733": [
+            [
+                "ASKC",
+                "yn"
+            ],
+            [
+                "KEYWORDS",
+                "y",
+                [
+                    [
+                        "IF",
+                        [
+                            0,
+                            178,
+                            211,
+                            88,
+                            187,
+                            211,
+                            5,
+                            131
+                        ],
+                        [
+                            "\"Sorry, but I can't work for free!\"",
+                            "WAIT",
+                            "\n\n\"Come back when you have the 5 gold!\"",
+                            [
+                                "JUMP",
+                                150
+                            ]
+                        ],
+                        []
+                    ],
+                    [
+                        "DELETE",
+                        [
+                            0,
+                            178
+                        ],
+                        [
+                            212,
+                            18,
+                            1
+                        ],
+                        [
+                            211,
+                            0
+                        ],
+                        [
+                            211,
+                            1
+                        ]
+                    ],
+                    [
+                        "DELETE",
+                        [
+                            0,
+                            178
+                        ],
+                        [
+                            211,
+                            88
+                        ],
+                        [
+                            211,
+                            0
+                        ],
+                        [
+                            211,
+                            5
+                        ]
+                    ],
+                    "Aaron goes to his saw and turns the log into a flat, sanded board.",
+                    "WAIT",
+                    "\n\n\"There!\" He hands $Y the finished product.",
+                    [
+                        "NEW",
+                        [
+                            0,
+                            178
+                        ],
+                        [
+                            212,
+                            21,
+                            1
+                        ],
+                        [
+                            211,
+                            0
+                        ],
+                        [
+                            211,
+                            1
+                        ]
+                    ],
+                    [
+                        "JUMP",
+                        150
+                    ]
+                ]
+            ],
+            [
+                "KEYWORDS",
+                "n",
+                [
+                    "\"Oh. Well, perhaps some other time then.\"",
+                    [
+                        "JUMP",
+                        150
+                    ]
+                ]
+            ]
+        ]
+    }
+}

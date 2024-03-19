@@ -1,0 +1,247 @@
+{
+    "source": "CONVERSE.B",
+    "index": 20,
+    "id": 119,
+    "name": [
+        "Petroph"
+    ],
+    "description": [
+        "a giant of a man with a solemn stare.",
+        "WAIT",
+        "\n"
+    ],
+    "conversation": {
+        "50": [
+            [
+                "IF",
+                [
+                    211,
+                    235,
+                    1,
+                    171
+                ],
+                [
+                    "\"What you back for? I thought you not like my @inn.\"\n",
+                    [
+                        "JUMP",
+                        154
+                    ]
+                ],
+                []
+            ],
+            [
+                "IF",
+                [
+                    211,
+                    235,
+                    0,
+                    171
+                ],
+                [
+                    "\"Heylo again.\"\n"
+                ],
+                [
+                    "\"Heylo to you.\"\n"
+                ]
+            ],
+            "ASK",
+            [
+                "KEYWORDS",
+                "name",
+                [
+                    "\"@Petroph.\"\n",
+                    [
+                        "SETF",
+                        [
+                            211,
+                            235
+                        ],
+                        [
+                            0
+                        ]
+                    ],
+                    [
+                        "JUMP",
+                        154
+                    ]
+                ]
+            ],
+            [
+                "KEYWORDS",
+                "petr",
+                [
+                    "\"Da, Petroph.\"\n",
+                    [
+                        "JUMP",
+                        154
+                    ]
+                ]
+            ],
+            [
+                "KEYWORDS",
+                "job",
+                [
+                    "\"I am keeping the @inn, here at King's Ransom.\"\n",
+                    [
+                        "JUMP",
+                        154
+                    ]
+                ]
+            ],
+            [
+                "KEYWORDS",
+                "room,inn",
+                [
+                    [
+                        "JUMP",
+                        401
+                    ]
+                ]
+            ],
+            [
+                "KEYWORDS",
+                "bye",
+                [
+                    [
+                        "IF",
+                        [
+                            211,
+                            235,
+                            1,
+                            171
+                        ],
+                        [
+                            "\"Da, goodbye and good riddance!\"\n"
+                        ],
+                        [
+                            "\"Have a nice day.\"\n"
+                        ]
+                    ],
+                    "BYE"
+                ]
+            ],
+            [
+                "KEYWORDS",
+                "*",
+                [
+                    "\"You speak too quick. What was that?\"\n",
+                    [
+                        "JUMP",
+                        154
+                    ]
+                ]
+            ]
+        ],
+        "401": [
+            [
+                "DECL",
+                [
+                    0,
+                    178,
+                    168,
+                    23,
+                    178,
+                    211,
+                    1,
+                    144,
+                    211,
+                    6,
+                    146
+                ]
+            ],
+            "\"#0 gold for you to stay and have meal, good?\" ",
+            [
+                "ASKC",
+                "yn"
+            ],
+            [
+                "KEYWORDS",
+                "y",
+                [
+                    [
+                        "IF",
+                        [
+                            211,
+                            1,
+                            211,
+                            88,
+                            187,
+                            0,
+                            178,
+                            131
+                        ],
+                        [
+                            "\"Must pay in advance for rooms. Sorry, is policy.\"\n",
+                            [
+                                "JUMP",
+                                154
+                            ]
+                        ],
+                        []
+                    ],
+                    [
+                        "DELETE",
+                        [
+                            211,
+                            1
+                        ],
+                        [
+                            211,
+                            88
+                        ],
+                        [
+                            211,
+                            0
+                        ],
+                        [
+                            0,
+                            178
+                        ]
+                    ],
+                    [
+                        "CLEARF",
+                        [
+                            211,
+                            235
+                        ],
+                        [
+                            1
+                        ]
+                    ],
+                    "You sleep in a comfortable bed...\n",
+                    "SLEEP",
+                    "\nYou wake rested and eat a large breakfast.",
+                    "WAIT",
+                    "\n\n\"Good morning to you.\"\n",
+                    [
+                        "JUMP",
+                        154
+                    ]
+                ]
+            ],
+            [
+                "KEYWORDS",
+                "n",
+                [
+                    "\"What, maybe you don't like my inn?\"",
+                    "WAIT",
+                    "\n\n\"Well, maybe I don't like you either!\"\n",
+                    [
+                        "SETF",
+                        [
+                            211,
+                            235
+                        ],
+                        [
+                            1
+                        ]
+                    ],
+                    [
+                        "JUMP",
+                        154
+                    ]
+                ]
+            ]
+        ]
+    }
+}
