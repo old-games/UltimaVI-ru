@@ -38,10 +38,10 @@ def _read_word(stream, visited_labels):
 
 
 def _read_string(stream, visited_labels, end):
-    result = []
+    result = bytearray()
     while _peek_byte(stream) not in end:
-        result.append(_read_char(stream, visited_labels))
-    return b''.join(result).decode('ascii')
+        result.append(_read_byte(stream, visited_labels))
+    return result.decode('ascii')
 
 
 def _set_data_type(data, offset, type):
