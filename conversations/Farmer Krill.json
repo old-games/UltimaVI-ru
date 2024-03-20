@@ -14,21 +14,27 @@
         "59": [
             [
                 "IF",
-                "21, integer, byte 0, equals"
+                [
+                    "equals(integer(value 21), byte 0)"
+                ]
             ],
             "The gargoyle screams, \"An-bal-sil-fer! Des-lem, klep lem!\"\n",
             "BYE",
             "ENDIF",
             [
                 "IF",
-                "byte 76, byte 0, isInPartyObj, byte 1, notEquals"
+                [
+                    "notEquals(partyHasObject(byte 76, byte 0), byte 1)"
+                ]
             ],
             "The gargoyle screams, \"The False Prophet! Workers, attack!\"\n",
             "BYE",
             "ENDIF",
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"Good $T, noble $P. To be pleased by your return!\"",
             "ELSE",
@@ -40,15 +46,23 @@
             "ASK",
             [
                 "ASSIGN",
-                "0, string",
-                "35, string"
+                [
+                    "string(value 0)"
+                ],
+                [
+                    "string(value 35)"
+                ]
             ],
             "WAIT",
             "\n\"To greet you, $0.\"",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "ENDIF",
             "\n",
@@ -94,7 +108,9 @@
                 [
                     [
                         "IF",
-                        "byte 164, isInParty",
+                        [
+                            "partyHas(byte 164)"
+                        ],
                         [
                             "\"Beh Lem? To be but a child. To someday grow wings just like his father, Scholar @Valkadesh.\""
                         ],

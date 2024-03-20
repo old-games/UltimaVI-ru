@@ -12,7 +12,9 @@
         "59": [
             [
                 "IF",
-                "byte 235, byte 5, flag, byte 0, equals"
+                [
+                    "equals(hasBit(byte 235, byte 5), byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -28,8 +30,12 @@
                     "\"They call me Mariah.\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -98,7 +104,9 @@
                 [
                     [
                         "IF",
-                        "byte 60, byte 0, isInPartyObj, word 32769, equals",
+                        [
+                            "equals(partyHasObject(byte 60, byte 0), word 32769)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -109,7 +117,9 @@
                     ],
                     [
                         "IF",
-                        "word 390, byte 0, isInPartyObj, word 32769, notEquals, word 389, byte 0, isInPartyObj, word 32769, notEquals, and",
+                        [
+                            "and(notEquals(partyHasObject(word 390, byte 0), word 32769), notEquals(partyHasObject(word 389, byte 0), word 32769))"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -120,7 +130,9 @@
                     ],
                     [
                         "IF",
-                        "byte 235, byte 7, flag, byte 0, equals",
+                        [
+                            "equals(hasBit(byte 235, byte 7), byte 0)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -141,7 +153,9 @@
                 [
                     [
                         "IF",
-                        "word 389, byte 0, isInPartyObj, word 32769, notEquals",
+                        [
+                            "notEquals(partyHasObject(word 389, byte 0), word 32769)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -180,7 +194,9 @@
         "1177": [
             [
                 "IF",
-                "byte 60, byte 0, isInPartyObj, word 32769, equals"
+                [
+                    "equals(partyHasObject(byte 60, byte 0), word 32769)"
+                ]
             ],
             [
                 "JUMP",
@@ -189,7 +205,9 @@
             "ENDIF",
             [
                 "IF",
-                "word 390, byte 0, isInPartyObj, word 32769, notEquals, word 389, byte 0, isInPartyObj, word 32769, notEquals, and"
+                [
+                    "and(notEquals(partyHasObject(word 390, byte 0), word 32769), notEquals(partyHasObject(word 389, byte 0), word 32769))"
+                ]
             ],
             [
                 "JUMP",
@@ -198,7 +216,9 @@
             "ENDIF",
             [
                 "IF",
-                "word 390, byte 0, isInPartyObj, word 32769, notEquals, word 389, byte 0, isInPartyObj, word 32769, equals, and"
+                [
+                    "and(notEquals(partyHasObject(word 390, byte 0), word 32769), equals(partyHasObject(word 389, byte 0), word 32769))"
+                ]
             ],
             "\"I must have both halves of the tablet before I can tell you any more.\"\n*\n\"This piece I have had for quite some time, and I've learned all I can from it.\"",
             [
@@ -208,7 +228,9 @@
             "ENDIF",
             [
                 "IF",
-                "word 390, byte 0, isInPartyObj, word 32769, equals, word 389, byte 0, isInPartyObj, word 32769, notEquals, and"
+                [
+                    "and(equals(partyHasObject(word 390, byte 0), word 32769), notEquals(partyHasObject(word 389, byte 0), word 32769))"
+                ]
             ],
             "\"Ah, thou hast found the rest of the tablet! Go get the other half from my study and bring it here.\"\n*\n\"With the two of them together I should be able to tell you more.\"",
             [
@@ -231,8 +253,12 @@
         "1801": [
             [
                 "SETF",
-                "byte 235",
-                "byte 7"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 7"
+                ]
             ],
             "\"I'd be glad to look at it for thee.\" She examines the book.\n*\n\"Oh! I've seen this script before!\"\n*\n\"I have part of an ancient silver tablet in my study with writing both in our language and this.\"\n*\n\"I have learned only a little from studying it, but I can make out a few words.\"\n*\n\"The title is 'The Book of Prophecies,' and it says something about 'the end of our world.'\"\n*\n\"If only I had the other half of the @tablet, perhaps I'd be able to decipher the rest of the book.\"",
             [
@@ -251,12 +277,18 @@
             "\"I'm sorry to put you to the trouble, but I'm only supposed to help those who know the ways of magic.\"\n*\n\"So I have to ask you a question to test you...\"\n*\n",
             [
                 "ASSIGN",
-                "6, integer",
-                "byte 1, byte 5, rand"
+                [
+                    "integer(value 6)"
+                ],
+                [
+                    "random(byte 1, byte 5)"
+                ]
             ],
             [
                 "IF",
-                "6, integer, byte 1, equals"
+                [
+                    "equals(integer(value 6), byte 1)"
+                ]
             ],
             [
                 "JUMP",
@@ -265,7 +297,9 @@
             "ENDIF",
             [
                 "IF",
-                "6, integer, byte 2, equals"
+                [
+                    "equals(integer(value 6), byte 2)"
+                ]
             ],
             [
                 "JUMP",
@@ -274,7 +308,9 @@
             "ENDIF",
             [
                 "IF",
-                "6, integer, byte 3, equals"
+                [
+                    "equals(integer(value 6), byte 3)"
+                ]
             ],
             [
                 "JUMP",
@@ -283,7 +319,9 @@
             "ENDIF",
             [
                 "IF",
-                "6, integer, byte 4, equals"
+                [
+                    "equals(integer(value 6), byte 4)"
+                ]
             ],
             [
                 "JUMP",
@@ -292,7 +330,9 @@
             "ENDIF",
             [
                 "IF",
-                "6, integer, byte 5, equals"
+                [
+                    "equals(integer(value 6), byte 5)"
+                ]
             ],
             [
                 "JUMP",
@@ -477,8 +517,12 @@
             "\"That's right! Now then, what can I help you with?\"",
             [
                 "SETF",
-                "byte 235",
-                "byte 5"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 5"
+                ]
             ],
             [
                 "JUMP",

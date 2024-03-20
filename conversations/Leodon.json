@@ -14,7 +14,9 @@
         "69": [
             [
                 "IF",
-                "byte 235, isInParty"
+                [
+                    "partyHas(byte 235)"
+                ]
             ],
             "\"Yes, $P?\"",
             [
@@ -24,7 +26,9 @@
             "ENDIF",
             [
                 "IF",
-                "32, integer, byte 153, equals"
+                [
+                    "equals(integer(value 32), byte 153)"
+                ]
             ],
             "\"Not now, $G!\" She ducks a punch. \"I'm busy!\"\n",
             "BYE",
@@ -38,8 +42,12 @@
                     "\"I'm @Captain Leodon.\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -80,7 +88,9 @@
                     "\"Yes, I must keep myself occupied on land, meantime.\"",
                     [
                         "IF",
-                        "byte 235, isInParty",
+                        [
+                            "partyHas(byte 235)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -145,7 +155,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, isInParty",
+                        [
+                            "partyHas(byte 235)"
+                        ],
                         [
                             "\"You wouldn't be talking about Captain @John, would you?\"",
                             [
@@ -157,12 +169,18 @@
                     ],
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "byte 114, isNearby, byte 111, isNearby, plus, byte 112, isNearby, plus"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "plus(plus(isNearby(byte 114), isNearby(byte 111)), isNearby(byte 112))"
+                        ]
                     ],
                     [
                         "IF",
-                        "0, integer, byte 1, lessOrEquals",
+                        [
+                            "lessOrEquals(integer(value 0), byte 1)"
+                        ],
                         [
                             "\"You wouldn't be talking about Captain @John, would you?\"",
                             [
@@ -190,17 +208,23 @@
                     "\n\n",
                     [
                         "IF",
-                        "byte 114, isNearby",
+                        [
+                            "isNearby(byte 114)"
+                        ],
                         [
                             [
                                 "PORTRAIT",
-                                "byte 114"
+                                [
+                                    "byte 114"
+                                ]
                             ],
                             "Leonna blushes and looks away, embarassed.",
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 235"
+                                [
+                                    "byte 235"
+                                ]
                             ],
                             "\n\n"
                         ],
@@ -222,12 +246,16 @@
                     "\n\"He went down to the other side of the world to join up with the @gargoyles, the dirty traitor...\"",
                     [
                         "IF",
-                        "byte 112, isNearby",
+                        [
+                            "isNearby(byte 112)"
+                        ],
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 112"
+                                [
+                                    "byte 112"
+                                ]
                             ],
                             "\nThe tea-drinker interrupts. \"No, no, you've got it all wrong!\"",
                             "WAIT",
@@ -235,7 +263,9 @@
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 235"
+                                [
+                                    "byte 235"
+                                ]
                             ]
                         ],
                         []
@@ -287,7 +317,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, isInParty",
+                        [
+                            "partyHas(byte 235)"
+                        ],
                         [
                             "\"Back to our quest, eh $G?\"\n",
                             "BYE"
@@ -313,7 +345,9 @@
         "1909": [
             [
                 "IF",
-                "byte 235, isInParty"
+                [
+                    "partyHas(byte 235)"
+                ]
             ],
             "\"I'd be glad to join you--but I have already!\"",
             [
@@ -348,12 +382,18 @@
             ],
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 235, joinParty"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "partyJoin(byte 235)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals"
+                [
+                    "equals(integer(value 0), byte 1)"
+                ]
             ],
             "\"Not while you're in that thing!\"",
             [
@@ -363,7 +403,9 @@
             "ENDIF",
             [
                 "IF",
-                "0, integer, byte 2, equals"
+                [
+                    "equals(integer(value 0), byte 2)"
+                ]
             ],
             "\"You have enough travelling with you already.\"",
             "WAIT",
@@ -375,7 +417,9 @@
             "ENDIF",
             [
                 "IF",
-                "0, integer, byte 3, equals"
+                [
+                    "equals(integer(value 0), byte 3)"
+                ]
             ],
             [
                 "JUMP",
@@ -385,7 +429,9 @@
             "\"Very well. This should make a nice change from my usual routine.\"",
             [
                 "IF",
-                "byte 114, isInParty, byte 0, equals"
+                [
+                    "equals(partyHas(byte 114), byte 0)"
+                ]
             ],
             "\n\n",
             "WAIT",
@@ -397,7 +443,9 @@
         "2523": [
             [
                 "IF",
-                "byte 235, isInParty, byte 0, equals"
+                [
+                    "equals(partyHas(byte 235), byte 0)"
+                ]
             ],
             "\"I'd have to @join you before I could leave, silly!\"",
             [
@@ -407,12 +455,18 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 235, leaveParty"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "partyLeave(byte 235)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals"
+                [
+                    "equals(integer(value 0), byte 1)"
+                ]
             ],
             "\"Let's get our feet back on solid ground first, okay?\"",
             [
@@ -422,7 +476,9 @@
             "ENDIF",
             [
                 "IF",
-                "0, integer, byte 2, equals"
+                [
+                    "equals(integer(value 0), byte 2)"
+                ]
             ],
             [
                 "JUMP",

@@ -12,8 +12,12 @@
         "46": [
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "WAIT",
             "\nAs you face the altar, a voice rings in your head.",
@@ -23,7 +27,9 @@
             "\n\n",
             [
                 "IF",
-                "26, integer"
+                [
+                    "integer(value 26)"
+                ]
             ],
             "\"There is no more wisdom for thee to acquire here, noble Avatar.\"",
             "WAIT",
@@ -34,7 +40,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, byte 2, flag"
+                [
+                    "hasBit(byte 235, byte 2)"
+                ]
             ],
             "\"Hast thou completed thy journey to the @catacombs?\" ",
             [
@@ -60,7 +68,9 @@
             "ENDIF",
             [
                 "IF",
-                "20, integer, byte 40, less"
+                [
+                    "less(integer(value 20), byte 40)"
+                ]
             ],
             "\"Thy deeds make thee unworthy of enlightenment.\"",
             "WAIT",
@@ -71,7 +81,9 @@
             "ENDIF",
             [
                 "IF",
-                "20, integer, byte 80, greater"
+                [
+                    "greater(integer(value 20), byte 80)"
+                ]
             ],
             "\"Thou hast far to travel and much to achieve, but thy inner fire will surely guide thy way.\"",
             "ELSE",
@@ -88,7 +100,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, byte 2, flag",
+                        [
+                            "hasBit(byte 235, byte 2)"
+                        ],
                         [
                             "\"What is the Mantra of Singularity?\"\n",
                             [
@@ -114,18 +128,30 @@
                 [
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "dword 3487, byte 35, indexOf"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "indexOf(dword 3487, byte 35)"
+                        ]
                     ],
                     [
                         "ASSIGN",
-                        "0, string",
-                        "dword 3487, 0, integer, data"
+                        [
+                            "string(value 0)"
+                        ],
+                        [
+                            "data(dword 3487, integer(value 0))"
+                        ]
                     ],
                     [
                         "ASSIGN",
-                        "1, string",
-                        "dword 3514, 0, integer, data"
+                        [
+                            "string(value 1)"
+                        ],
+                        [
+                            "data(dword 3514, integer(value 0))"
+                        ]
                     ],
                     "\"$0 is one of the guiding principles of the gargoyle race.\"",
                     "WAIT",
@@ -185,7 +211,9 @@
                 [
                     [
                         "IF",
-                        "byte 0, byte 1, rand",
+                        [
+                            "random(byte 0, byte 1)"
+                        ],
                         [
                             "\"The answer to that lies elsewhere.\""
                         ],
@@ -223,12 +251,18 @@
                     "\n\nYour final quest has begun!",
                     [
                         "ADD_KARMA",
-                        "byte 10"
+                        [
+                            "byte 10"
+                        ]
                     ],
                     [
                         "ASSIGN",
-                        "26, integer",
-                        "byte 1"
+                        [
+                            "integer(value 26)"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     "WAIT",
                     "\n",
@@ -289,8 +323,12 @@
                     "\n\n\"Return when thou hast found these @catacombs.\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 2"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 2"
+                        ]
                     ],
                     [
                         "JUMP",

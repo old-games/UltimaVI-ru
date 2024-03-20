@@ -12,34 +12,48 @@
         "62": [
             [
                 "ASSIGN",
-                "1, integer",
-                "byte 99"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "byte 99"
+                ]
             ],
             [
                 "IF",
-                "byte 110, isNearby"
+                [
+                    "isNearby(byte 110)"
+                ]
             ],
             "\"My chances to visit Dr. @Cat come all too seldom.\"\n*\n\"Seek me out later and I will speak with you.\"\n",
             "BYE",
             "ENDIF",
             [
                 "IF",
-                "byte 135, byte 7, flag"
+                [
+                    "hasBit(byte 135, byte 7)"
+                ]
             ],
             "\"I have no time for those who are cruel to animals.\"\n",
             "BYE",
             "ENDIF",
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"Welcome back, Avatar.\"",
             "ELSE",
             "\"You are the Avatar. I had a vision that you would come to seek aid from me.\"",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "ENDIF",
             "\n",
@@ -221,7 +235,9 @@
                 [
                     [
                         "IF",
-                        "byte 41, 0, flag",
+                        [
+                            "hasBit(byte 41, value 0)"
+                        ],
                         [
                             "\"I sense that you have met her already.\""
                         ],
@@ -266,7 +282,9 @@
             ],
             [
                 "IF",
-                "byte 1, byte 88, countObj, byte 2, less"
+                [
+                    "less(objectsCount(byte 1, byte 88), byte 2)"
+                ]
             ],
             "\n\"Best check your purse.\"",
             [
@@ -276,17 +294,33 @@
             "ENDIF",
             [
                 "DELETE",
-                "byte 1",
-                "byte 88",
-                "byte 0",
-                "byte 2"
+                [
+                    "byte 1"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 2"
+                ]
             ],
             [
                 "NEW",
-                "byte 235",
-                "byte 88",
-                "byte 0",
-                "byte 2"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 2"
+                ]
             ],
             "\n\"Look through the books at the @Lycaeum. You might learn something useful there.\"",
             [
@@ -313,7 +347,9 @@
             ],
             [
                 "IF",
-                "byte 1, byte 88, countObj, byte 6, less"
+                [
+                    "less(objectsCount(byte 1, byte 88), byte 6)"
+                ]
             ],
             "\n\"Best check your purse.\"",
             [
@@ -323,29 +359,51 @@
             "ENDIF",
             [
                 "DELETE",
-                "byte 1",
-                "byte 88",
-                "byte 0",
-                "byte 6"
+                [
+                    "byte 1"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 6"
+                ]
             ],
             [
                 "NEW",
-                "byte 235",
-                "byte 88",
-                "byte 0",
-                "byte 6"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 6"
+                ]
             ],
             "\nFrom the folds of her cloak, she withdraws a velvet pouch.\n\n*After shaking it gently, she casts forth three small squares of ivory, each with an image etched into its surface and a title at the bottom.",
             "WAIT",
             "\n\nThe tiles are:\n\n",
             [
                 "ASSIGN",
-                "2, integer",
-                "byte 0, byte 4, rand"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "random(byte 0, byte 4)"
+                ]
             ],
             [
                 "IF",
-                "2, integer, 1, integer, equals"
+                [
+                    "equals(integer(value 2), integer(value 1))"
+                ]
             ],
             [
                 "JUMP",
@@ -354,12 +412,19 @@
             "ENDIF",
             [
                 "DPRINT",
-                "dword 2185, 2, integer"
+                [
+                    "integer(value 2)",
+                    "dword 2185"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, integer",
-                "2, integer"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "integer(value 2)"
+                ]
             ],
             "\n*\n\"If you consult the tiles another time, perhaps they will have more to say of your @future.\"",
             [

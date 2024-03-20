@@ -14,7 +14,9 @@
         "32": [
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"Hello again!\"",
             [
@@ -25,8 +27,12 @@
             "\"Hello, my name is Smith. Who are you?\"\n",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "ASK",
             "\n\"Oh, I had something important to tell you!\"",
@@ -44,12 +50,16 @@
                     "\n\n\"Well, when you go to rescue Lord British from the underworld, be sure to bring his sandlewood @box with you!\"",
                     [
                         "IF",
-                        "byte 2, isInParty",
+                        [
+                            "partyHas(byte 2)"
+                        ],
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 2"
+                                [
+                                    "byte 2"
+                                ]
                             ],
                             "\n\n\"We went to all that trouble just to hear this?\" says Dupre.",
                             "WAIT",
@@ -57,7 +67,9 @@
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 235"
+                                [
+                                    "byte 235"
+                                ]
                             ],
                             "\n\n\"Well, even if you didn't like my clue, it wouldn't kill you to say 'thank you.'\""
                         ],
@@ -142,18 +154,24 @@
                     "\"I eat Iolo's @hay to keep it from piling up everywhere and making a mess.\"",
                     [
                         "IF",
-                        "byte 4, isInParty",
+                        [
+                            "partyHas(byte 4)"
+                        ],
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 4"
+                                [
+                                    "byte 4"
+                                ]
                             ],
                             "\n\nIolo winks at you. \"And a fine job you do of it, too. I don't know what I'd do without you.\"",
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 235"
+                                [
+                                    "byte 235"
+                                ]
                             ]
                         ],
                         []
@@ -199,7 +217,9 @@
                     "\"Farewell, two-legger",
                     [
                         "IF",
-                        "23, integer",
+                        [
+                            "integer(value 23)"
+                        ],
                         [
                             "s"
                         ],
@@ -208,7 +228,9 @@
                     ".\"",
                     [
                         "IF",
-                        "byte 235, byte 7, flag",
+                        [
+                            "hasBit(byte 235, byte 7)"
+                        ],
                         [
                             "\n",
                             "BYE"
@@ -217,17 +239,25 @@
                     ],
                     [
                         "IF",
-                        "byte 4, isInParty, byte 2, isInParty, and",
+                        [
+                            "and(partyHas(byte 4), partyHas(byte 2))"
+                        ],
                         [
                             [
                                 "SETF",
-                                "byte 235",
-                                "byte 7"
+                                [
+                                    "byte 235"
+                                ],
+                                [
+                                    "byte 7"
+                                ]
                             ],
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 4"
+                                [
+                                    "byte 4"
+                                ]
                             ],
                             "\n\nYou see Iolo give Dupre a nudge in the ribs. \"You owe me a drink,\" he says, grinning.",
                             "WAIT",
@@ -235,7 +265,9 @@
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 2"
+                                [
+                                    "byte 2"
+                                ]
                             ],
                             "\n\n\"Now I've seen everything. I suppose we'll be inviting some ducks over for tea next.\"\n"
                         ],

@@ -14,7 +14,9 @@
         "84": [
             [
                 "IF",
-                "byte 147, isNearby, byte 0, equals"
+                [
+                    "equals(isNearby(byte 147), byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -23,7 +25,9 @@
             "ENDIF",
             [
                 "IF",
-                "16, integer, byte 1, equals"
+                [
+                    "equals(integer(value 16), byte 1)"
+                ]
             ],
             "\"Excuse me, ma'am. We are, um, indisposed.\" He returns his attentions to Sylaina.\n",
             "BYE",
@@ -38,7 +42,9 @@
             "\"Greetings, ",
             [
                 "IF",
-                "23, integer"
+                [
+                    "integer(value 23)"
+                ]
             ],
             "folks.\"",
             [
@@ -50,12 +56,16 @@
             "ENDIF",
             [
                 "IF",
-                "byte 4, isInParty, byte 235, byte 4, flag, byte 0, equals, and"
+                [
+                    "and(partyHas(byte 4), equals(hasBit(byte 235, byte 4), byte 0))"
+                ]
             ],
             "WAIT",
             [
                 "PORTRAIT",
-                "byte 4"
+                [
+                    "byte 4"
+                ]
             ],
             "\n\n\"Why, hello there, my friend. You've grown a bit since we met last.\"",
             "WAIT",
@@ -63,13 +73,19 @@
             "WAIT",
             [
                 "PORTRAIT",
-                "byte 235"
+                [
+                    "byte 235"
+                ]
             ],
             "\n\n\"It has been a while, Master Iolo.\"",
             [
                 "SETF",
-                "byte 235",
-                "byte 4"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 4"
+                ]
             ],
             "ENDIF",
             "\n",
@@ -81,8 +97,12 @@
                     "\"My name is Sionnach.\" (He pronounces it 'ShaNOK'.)",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",

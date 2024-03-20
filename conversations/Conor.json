@@ -12,7 +12,9 @@
         "66": [
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -21,7 +23,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 4, isInParty"
+                [
+                    "partyHas(byte 4)"
+                ]
             ],
             "You think you see a brief flicker of recognition pass between @Iolo and the fisherman.\n*\nBut before you can be certain, he turns to address you.\n*",
             "ENDIF",
@@ -42,12 +46,18 @@
                     "ASK",
                     [
                         "IF",
-                        "35, string, 25, string, equals",
+                        [
+                            "equals(string(value 35), string(value 25))"
+                        ],
                         [
                             [
                                 "SETF",
-                                "byte 235",
-                                "0"
+                                [
+                                    "byte 235"
+                                ],
+                                [
+                                    "value 0"
+                                ]
                             ]
                         ],
                         []

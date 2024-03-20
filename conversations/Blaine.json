@@ -12,7 +12,9 @@
         "39": [
             [
                 "IF",
-                "byte 235, isInParty"
+                [
+                    "partyHas(byte 235)"
+                ]
             ],
             [
                 "JUMP",
@@ -21,7 +23,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 135, byte 7, flag"
+                [
+                    "hasBit(byte 135, byte 7)"
+                ]
             ],
             "\"Our dog did his best trick for you. You should show him some appreciation.\"\n",
             "BYE",
@@ -35,8 +39,12 @@
                     "\"I am called Blaine.\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -138,7 +146,9 @@
             "\n",
             [
                 "IF",
-                "byte 1, byte 88, countObj, byte 1, less"
+                [
+                    "less(objectsCount(byte 1, byte 88), byte 1)"
+                ]
             ],
             "\"Best check your purse.\"",
             [
@@ -148,17 +158,33 @@
             "ENDIF",
             [
                 "DELETE",
-                "byte 1",
-                "byte 88",
-                "byte 0",
-                "byte 1"
+                [
+                    "byte 1"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "NEW",
-                "byte 235",
-                "byte 88",
-                "byte 0",
-                "byte 1"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             "\"Almost due east of Iolo's hut there lives a powerful enchanter.\"",
             [
@@ -186,7 +212,9 @@
             "\n",
             [
                 "IF",
-                "byte 1, byte 88, countObj, byte 5, less"
+                [
+                    "less(objectsCount(byte 1, byte 88), byte 5)"
+                ]
             ],
             "\"Best check your purse.\"",
             [
@@ -196,17 +224,33 @@
             "ENDIF",
             [
                 "DELETE",
-                "byte 1",
-                "byte 88",
-                "byte 0",
-                "byte 5"
+                [
+                    "byte 1"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 5"
+                ]
             ],
             [
                 "NEW",
-                "byte 235",
-                "byte 88",
-                "byte 0",
-                "byte 5"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 5"
+                ]
             ],
             "The gypsy juggler takes three wands out of his knapsack and sets their ends afire.\n*\nTossing them into the air, he begins juggling.\n*\nThe pattern is elaborate, almost hypnotic as the tips of the wands describe great flaming arcs and spirals through the air. \n*\nAt regular intervals he tosses one around behind his back.\n*\nYet somehow it always finds its way back into the pattern with the other two, without missing a beat.\n",
             "WAIT",
@@ -219,7 +263,9 @@
         "1662": [
             [
                 "IF",
-                "byte 235, isInParty"
+                [
+                    "partyHas(byte 235)"
+                ]
             ],
             "\"I have joined you already!\"",
             [
@@ -246,12 +292,18 @@
             "\n",
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 235, joinParty"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "partyJoin(byte 235)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals"
+                [
+                    "equals(integer(value 0), byte 1)"
+                ]
             ],
             "\"Not while you're in that thing!\"",
             [
@@ -261,7 +313,9 @@
             "ENDIF",
             [
                 "IF",
-                "0, integer, byte 2, equals"
+                [
+                    "equals(integer(value 0), byte 2)"
+                ]
             ],
             "\"You have enough travelling with you already.\"\n*\n\"If you ask one of them to @leave first, I'd be happy to join you.\"",
             [
@@ -271,7 +325,9 @@
             "ENDIF",
             [
                 "IF",
-                "0, integer, byte 3, equals"
+                [
+                    "equals(integer(value 0), byte 3)"
+                ]
             ],
             [
                 "JUMP",
@@ -297,12 +353,18 @@
             ],
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 235, leaveParty"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "partyLeave(byte 235)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals"
+                [
+                    "equals(integer(value 0), byte 1)"
+                ]
             ],
             "\"Let's get our feet back on solid ground first, okay?\"",
             [

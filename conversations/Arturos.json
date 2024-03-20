@@ -15,8 +15,12 @@
             "\"Hey, paisan! If you were looking to geta your @fortune told, you came to the right place.\"",
             [
                 "CLEARF",
-                "byte 235",
-                "byte 7"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 7"
+                ]
             ],
             "\n",
             "ASK",
@@ -27,8 +31,12 @@
                     "\"I'ma called Arturos. That meansa either 'foolish monkey' or 'he who sells cheese', depending on howa you @translate it.\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -53,7 +61,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, word 402, byte 0, isInActorObj, byte 0, equals",
+                        [
+                            "equals(hasObject(byte 235, word 402, byte 0), byte 0)"
+                        ],
                         [
                             "\"Yeah, I used to have a map like that. Can't remember what I did with it, though...\"",
                             [
@@ -120,7 +130,9 @@
                     "\"That'sa nice and friendly. I like you too.\" He comes over and gives you a big hug.",
                     [
                         "IF",
-                        "byte 1, byte 88, countObj, byte 75, less",
+                        [
+                            "less(objectsCount(byte 1, byte 88), byte 75)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -131,22 +143,42 @@
                     ],
                     [
                         "DELETE",
-                        "byte 1",
-                        "byte 88",
-                        "byte 0",
-                        "byte 75"
+                        [
+                            "byte 1"
+                        ],
+                        [
+                            "byte 88"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 75"
+                        ]
                     ],
                     [
                         "NEW",
-                        "byte 235",
-                        "byte 88",
-                        "byte 0",
-                        "byte 75"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 88"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 75"
+                        ]
                     ],
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -161,12 +193,16 @@
                     "\"Hey, you come again soon, okay?\"",
                     [
                         "IF",
-                        "byte 235, byte 7, flag, byte 3, isInParty, and",
+                        [
+                            "and(hasBit(byte 235, byte 7), partyHas(byte 3))"
+                        ],
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 3"
+                                [
+                                    "byte 3"
+                                ]
                             ],
                             "\n\nShamino whispers to you, \"Best check your coinpouch. I think I saw something when that gypsy hugged you.\""
                         ],
@@ -185,8 +221,12 @@
                     "\n\n\"But hey, maybe there's something in the @cards about it, ah?\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 6"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 6"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -212,7 +252,9 @@
             "\n\n\"For justa two gold, ",
             [
                 "IF",
-                "byte 235, byte 6, flag"
+                [
+                    "hasBit(byte 235, byte 6)"
+                ]
             ],
             "maybe I can help you finda this silver tablet.\"",
             "WAIT",
@@ -243,7 +285,9 @@
                 [
                     [
                         "IF",
-                        "byte 1, byte 88, countObj, byte 2, less",
+                        [
+                            "less(objectsCount(byte 1, byte 88), byte 2)"
+                        ],
                         [
                             "\"Come back whena you have the money.\"",
                             [
@@ -255,17 +299,33 @@
                     ],
                     [
                         "DELETE",
-                        "byte 1",
-                        "byte 88",
-                        "byte 0",
-                        "byte 2"
+                        [
+                            "byte 1"
+                        ],
+                        [
+                            "byte 88"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 2"
+                        ]
                     ],
                     [
                         "NEW",
-                        "byte 235",
-                        "byte 88",
-                        "byte 0",
-                        "byte 2"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 88"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 2"
+                        ]
                     ],
                     "He takes out a deck of cards, shuffles it, and has you pick one."
                 ]
@@ -295,8 +355,12 @@
                 [
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "byte 1"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ]
                 ]
             ],
@@ -325,15 +389,21 @@
                 [
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "byte 2"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "byte 2"
+                        ]
                     ]
                 ]
             ],
             "\"Oh, hey, you picked the Lovers this time. I thinka maybe you should go talk to ",
             [
                 "IF",
-                "16, integer"
+                [
+                    "integer(value 16)"
+                ]
             ],
             "Andreas",
             "ELSE",
@@ -362,8 +432,12 @@
                 [
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "byte 5"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "byte 5"
+                        ]
                     ]
                 ]
             ],
@@ -390,8 +464,12 @@
             ],
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 6"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "byte 6"
+                ]
             ],
             "\n\"Uh-oh, you justa drew the Death card. That means eithera you're going to kill somebody soon, ora somebody's gonna kill you.\"",
             "WAIT",
@@ -412,8 +490,12 @@
             ],
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 7"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "byte 7"
+                ]
             ],
             "\n\"Allaright, now we're talking. You pickeda the Crow card. That'sa telling you adventuring isa for the birds.\"",
             "WAIT",
@@ -422,20 +504,30 @@
             "\n",
             [
                 "ASSIGN",
-                "1, integer",
-                "0, integer, byte 5, multiply"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "multiply(integer(value 0), byte 5)"
+                ]
             ],
             [
                 "IF",
-                "byte 235, byte 6, flag"
+                [
+                    "hasBit(byte 235, byte 6)"
+                ]
             ],
             "\n\"The cards didn't say nothin' about the silver tablet. Guess that means you're not gonna find it.\"",
             "WAIT",
             "\n\n\"That's life, you know?\"",
             [
                 "CLEARF",
-                "byte 235",
-                "byte 6"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 6"
+                ]
             ],
             "WAIT",
             "\n",
@@ -445,30 +537,52 @@
             "\n\n",
             [
                 "IF",
-                "byte 1, byte 88, countObj, 1, integer, less"
+                [
+                    "less(objectsCount(byte 1, byte 88), integer(value 1))"
+                ]
             ],
             "\"Since you don'ta have that much, I'll just settle for what you've got.\"",
             "WAIT",
             "\n\n",
             [
                 "ASSIGN",
-                "1, integer",
-                "byte 1, byte 88, countObj"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "objectsCount(byte 1, byte 88)"
+                ]
             ],
             "ENDIF",
             [
                 "DELETE",
-                "byte 1",
-                "byte 88",
-                "byte 0",
-                "1, integer"
+                [
+                    "byte 1"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "integer(value 1)"
+                ]
             ],
             [
                 "NEW",
-                "byte 235",
-                "byte 88",
-                "byte 0",
-                "1, integer"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "integer(value 1)"
+                ]
             ],
             "\"It was a pleasure doinga business with you.\"",
             [
@@ -501,7 +615,9 @@
                     "\"Oh! Well, sure you do, she's a very important map!\"",
                     [
                         "IF",
-                        "23, integer",
+                        [
+                            "integer(value 23)"
+                        ],
                         [
                             "WAIT",
                             "\n\nHe leads you away from the rest of the group. \"Don't want no spyin' ears, ah?\""
@@ -518,8 +634,12 @@
             "\n\n\"So if you want this map you're agonna have to pay - 100 gold! Okay?\" ",
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 100"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "byte 100"
+                ]
             ],
             [
                 "ASKC",
@@ -531,7 +651,9 @@
                 [
                     [
                         "IF",
-                        "0, integer, byte 50, equals",
+                        [
+                            "equals(integer(value 0), byte 50)"
+                        ],
                         [
                             "\"Thank you! You have asaved me from amaking a big mistake!\"",
                             "WAIT",
@@ -545,13 +667,19 @@
                     ],
                     [
                         "IF",
-                        "0, integer, byte 75, equals",
+                        [
+                            "equals(integer(value 0), byte 75)"
+                        ],
                         [
                             "\"What, are you nuts? But okay, how'sabout just 50 gold?\" ",
                             [
                                 "ASSIGN",
-                                "0, integer",
-                                "byte 50"
+                                [
+                                    "integer(value 0)"
+                                ],
+                                [
+                                    "byte 50"
+                                ]
                             ],
                             [
                                 "JUMP",
@@ -565,8 +693,12 @@
                     "\n\n\"I sell you this map, this key to infinite wealth, for just 75 gold. Okay?\" ",
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "byte 75"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "byte 75"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -580,7 +712,9 @@
                 [
                     [
                         "IF",
-                        "byte 1, byte 88, countObj, 0, integer, less",
+                        [
+                            "less(objectsCount(byte 1, byte 88), integer(value 0))"
+                        ],
                         [
                             "\"Hey, what are you, a deadbeat? Come back when you can afford the map!\"",
                             [
@@ -592,14 +726,24 @@
                     ],
                     [
                         "DELETE",
-                        "byte 1",
-                        "byte 88",
-                        "byte 0",
-                        "0, integer"
+                        [
+                            "byte 1"
+                        ],
+                        [
+                            "byte 88"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "integer(value 0)"
+                        ]
                     ],
                     [
                         "IF",
-                        "byte 1, canCarry, word 402, byte 1, weight, less",
+                        [
+                            "less(canCarry(byte 1), weight(word 402, byte 1))"
+                        ],
                         [
                             "\"Yeah, well, you've got a lot to carry right now.\"",
                             "WAIT",
@@ -616,10 +760,18 @@
                     "\"Okay, here's the map, and may fortune bring you lotsa gold!\"",
                     [
                         "GIVE",
-                        "word 402",
-                        "byte 0",
-                        "byte 235",
-                        "byte 1"
+                        [
+                            "word 402"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     [
                         "JUMP",

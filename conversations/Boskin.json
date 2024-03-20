@@ -14,7 +14,9 @@
             "\n",
             [
                 "IF",
-                "byte 235, 1, flag, byte 0, equals"
+                [
+                    "equals(hasBit(byte 235, value 1), byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -23,7 +25,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 0, byte 2, rand"
+                [
+                    "random(byte 0, byte 2)"
+                ]
             ],
             "\"I ain't talkin' to you, you're just like all the rest!\"",
             "WAIT",
@@ -37,8 +41,12 @@
             "\n\n\"Now go away and leave me alone.\"\n",
             [
                 "CLEARF",
-                "byte 235",
-                "1"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 1"
+                ]
             ],
             "BYE",
             "ENDIF"
@@ -46,7 +54,9 @@
         "330": [
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"$G! Am I glad to see thee!\"",
             "WAIT",
@@ -61,8 +71,12 @@
             "\n\n\"You've got to get me @out of 'ere, $G!\"",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "ENDIF",
             "\n",
@@ -211,8 +225,12 @@
                     "\n\n\"You'll never get nothin' out of me!\"\n",
                     [
                         "SETF",
-                        "byte 235",
-                        "1"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 1"
+                        ]
                     ],
                     "BYE"
                 ]
@@ -257,12 +275,16 @@
                     "\n\n\"I 'id the rune under a potted plant in the Slaughtered Lamb inn.\"",
                     [
                         "IF",
-                        "byte 4, isInParty",
+                        [
+                            "partyHas(byte 4)"
+                        ],
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 4"
+                                [
+                                    "byte 4"
+                                ]
                             ],
                             "\n\nAs you leave, Iolo whispers to you.\n",
                             "WAIT",
@@ -273,7 +295,9 @@
                     "\n",
                     [
                         "SUB_KARMA",
-                        "byte 5"
+                        [
+                            "byte 5"
+                        ]
                     ],
                     "BYE"
                 ]

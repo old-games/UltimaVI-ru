@@ -15,15 +15,21 @@
             "\n\n\"Yes, what do you want",
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             " now?\"",
             "ELSE",
             "?\"",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "ENDIF",
             "\n",
@@ -153,7 +159,9 @@
                 [
                     [
                         "IF",
-                        "byte 0, byte 1, rand",
+                        [
+                            "random(byte 0, byte 1)"
+                        ],
                         [
                             "\"Oh really?\""
                         ],
@@ -179,12 +187,18 @@
                 [
                     [
                         "IF",
-                        "23, integer",
+                        [
+                            "integer(value 23)"
+                        ],
                         [
                             [
                                 "ASSIGN",
-                                "1, integer",
-                                "23, integer, byte 1, plus, byte 5, multiply"
+                                [
+                                    "integer(value 1)"
+                                ],
+                                [
+                                    "multiply(plus(integer(value 23), byte 1), byte 5)"
+                                ]
                             ],
                             [
                                 "JUMP",
@@ -215,7 +229,9 @@
         "1226": [
             [
                 "IF",
-                "byte 0, byte 0, character, byte 88, countObj, byte 5, less"
+                [
+                    "less(objectsCount(character(byte 0, byte 0), byte 88), byte 5)"
+                ]
             ],
             "\"No pay, no stay. 5 gold, cash in advance.\"",
             [
@@ -225,10 +241,18 @@
             "ELSE",
             [
                 "DELETE",
-                "byte 0, byte 0, character",
-                "byte 88",
-                "byte 0",
-                "byte 5"
+                [
+                    "character(byte 0, byte 0)"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 5"
+                ]
             ],
             [
                 "JUMP",
@@ -239,22 +263,36 @@
         "1310": [
             [
                 "ASSIGN",
-                "2, integer",
-                "byte 0"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "ASSIGN",
-                "3, integer",
-                "byte 0"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "ASSIGN",
-                "4, integer",
-                "byte 0"
+                [
+                    "integer(value 4)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "IF",
-                "3, integer, 23, integer, greater"
+                [
+                    "greater(integer(value 3), integer(value 23))"
+                ]
             ],
             "\"No pay, no stay.\"",
             "WAIT",
@@ -266,27 +304,45 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "5, integer",
-                "3, integer, byte 0, character, byte 88, countObj"
+                [
+                    "integer(value 5)"
+                ],
+                [
+                    "objectsCount(character(integer(value 3), byte 0), byte 88)"
+                ]
             ],
             [
                 "IF",
-                "5, integer, 1, integer, less"
+                [
+                    "less(integer(value 5), integer(value 1))"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, integer",
-                "1, integer, 5, integer, minus"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "minus(integer(value 1), integer(value 5))"
+                ]
             ],
             [
                 "ASSIGN",
-                "2, integer",
-                "2, integer, 5, integer, plus"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "plus(integer(value 2), integer(value 5))"
+                ]
             ],
             [
                 "ASSIGN",
-                "3, integer",
-                "3, integer, byte 1, plus"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "plus(integer(value 3), byte 1)"
+                ]
             ],
             [
                 "JUMP",
@@ -296,23 +352,39 @@
             "Your party takes up a collection to pay for the rooms.",
             [
                 "ASSIGN",
-                "1, integer",
-                "23, integer, byte 1, plus, byte 5, multiply"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "multiply(plus(integer(value 23), byte 1), byte 5)"
+                ]
             ],
             [
                 "ASSIGN",
-                "2, integer",
-                "byte 0"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "ASSIGN",
-                "4, integer",
-                "3, integer"
+                [
+                    "integer(value 4)"
+                ],
+                [
+                    "integer(value 3)"
+                ]
             ],
             [
                 "ASSIGN",
-                "3, integer",
-                "byte 0"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "JUMP",
@@ -323,14 +395,24 @@
         "1561": [
             [
                 "IF",
-                "3, integer, 4, integer, equals"
+                [
+                    "equals(integer(value 3), integer(value 4))"
+                ]
             ],
             [
                 "DELETE",
-                "3, integer, byte 0, character",
-                "byte 88",
-                "byte 0",
-                "1, integer"
+                [
+                    "character(integer(value 3), byte 0)"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "integer(value 1)"
+                ]
             ],
             "WAIT",
             "\n\n",
@@ -341,25 +423,45 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "5, integer",
-                "3, integer, byte 0, character, byte 88, countObj"
+                [
+                    "integer(value 5)"
+                ],
+                [
+                    "objectsCount(character(integer(value 3), byte 0), byte 88)"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, integer",
-                "1, integer, 5, integer, minus"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "minus(integer(value 1), integer(value 5))"
+                ]
             ],
             [
                 "DELETE",
-                "3, integer, byte 0, character",
-                "byte 88",
-                "byte 0",
-                "5, integer"
+                [
+                    "character(integer(value 3), byte 0)"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "integer(value 5)"
+                ]
             ],
             [
                 "ASSIGN",
-                "3, integer",
-                "3, integer, byte 1, plus"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "plus(integer(value 3), byte 1)"
+                ]
             ],
             [
                 "JUMP",

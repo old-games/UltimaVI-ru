@@ -12,14 +12,18 @@
         "72": [
             [
                 "IF",
-                "byte 135, byte 7, flag"
+                [
+                    "hasBit(byte 135, byte 7)"
+                ]
             ],
             "\"Anyone who would mistreat a dog has no business with Zoltan.\"\n",
             "BYE",
             "ENDIF",
             [
                 "IF",
-                "byte 235, 1, flag, byte 0, equals"
+                [
+                    "equals(hasBit(byte 235, value 1), byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -47,12 +51,18 @@
         "414": [
             [
                 "CLEARF",
-                "byte 235",
-                "byte 7"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 7"
+                ]
             ],
             [
                 "IF",
-                "byte 235, 0, flag, byte 0, equals"
+                [
+                    "equals(hasBit(byte 235, value 0), byte 0)"
+                ]
             ],
             "\"Huzzah! I am @Zoltan, king of the gypsies!\"",
             "ELSE",
@@ -60,8 +70,12 @@
             "ENDIF",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "\n",
             "ASK",
@@ -311,7 +325,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, byte 7, flag",
+                        [
+                            "hasBit(byte 235, byte 7)"
+                        ],
                         [
                             "\"Farewell! My fellow gypsies and I will @dance to your health and good fortune!\""
                         ],
@@ -375,7 +391,9 @@
             ],
             [
                 "IF",
-                "byte 1, byte 88, countObj, byte 2, less"
+                [
+                    "less(objectsCount(byte 1, byte 88), byte 2)"
+                ]
             ],
             "\n\"Come back when you're not so down on your luck.\"",
             [
@@ -385,22 +403,42 @@
             "ENDIF",
             [
                 "DELETE",
-                "byte 1",
-                "byte 88",
-                "byte 0",
-                "byte 2"
+                [
+                    "byte 1"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 2"
+                ]
             ],
             [
                 "NEW",
-                "byte 235",
-                "byte 88",
-                "byte 0",
-                "byte 2"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 2"
+                ]
             ],
             [
                 "SETF",
-                "byte 235",
-                "byte 7"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 7"
+                ]
             ],
             "\n\"I'll tell you this:\"\n*\n\"Powder kegs are useful for persuading uncooperative doors to open.\"",
             [
@@ -427,7 +465,9 @@
             ],
             [
                 "IF",
-                "byte 1, byte 88, countObj, byte 10, less"
+                [
+                    "less(objectsCount(byte 1, byte 88), byte 10)"
+                ]
             ],
             "\n\"Come back when you have the money.\"",
             [
@@ -437,22 +477,42 @@
             "ENDIF",
             [
                 "DELETE",
-                "byte 1",
-                "byte 88",
-                "byte 0",
-                "byte 10"
+                [
+                    "byte 1"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 10"
+                ]
             ],
             [
                 "NEW",
-                "byte 235",
-                "byte 88",
-                "byte 0",
-                "byte 10"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 10"
+                ]
             ],
             [
                 "SETF",
-                "byte 235",
-                "byte 7"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 7"
+                ]
             ],
             "\n\"Some @gorgio called 'Captain @John' brought us the silver tablet and paid us to take it to the Lycaeum.\"\n*\n\"While we were on the way there, we were ambushed by Captain @Hawkins and his crew.\"\n*\nThe tablet was broken in two during the scuffle. The pirates got away with the bigger half.\"\n*\n\"Hawkins took my finest earring as well - I spit on his mother's grave!\"\n*\n\"Most likely they went to Buccaneer's @Den with their loot.\"\n*\n\"We took the corner of the tablet that they missed to the @Lycaeum and sold it to @Mariah.\"",
             [
@@ -472,8 +532,12 @@
                 [
                     [
                         "SETF",
-                        "byte 235",
-                        "1"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 1"
+                        ]
                     ],
                     "\"Hah! I should know better than to expect a gorgio to appreciate a fine gypsy dance.\"\n*\nProudly, he turns his back on you.\n",
                     "BYE"
@@ -486,7 +550,9 @@
             ],
             [
                 "IF",
-                "0, integer, byte 1, byte 88, countObj, greater"
+                [
+                    "greater(integer(value 0), objectsCount(byte 1, byte 88))"
+                ]
             ],
             "\nYou don't have that much.\n",
             [
@@ -496,7 +562,9 @@
             "ENDIF",
             [
                 "IF",
-                "0, integer, byte 0, equals"
+                [
+                    "equals(integer(value 0), byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -505,27 +573,51 @@
             "ENDIF",
             [
                 "DELETE",
-                "byte 1",
-                "byte 88",
-                "byte 0",
-                "0, integer"
+                [
+                    "byte 1"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "integer(value 0)"
+                ]
             ],
             [
                 "NEW",
-                "byte 235",
-                "byte 88",
-                "byte 0",
-                "0, integer"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "integer(value 0)"
+                ]
             ],
             [
                 "SETF",
-                "byte 235",
-                "byte 7"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 7"
+                ]
             ],
             [
                 "CLEARF",
-                "byte 235",
-                "1"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 1"
+                ]
             ],
             "\nZoltan pockets the money. \"Thanks.\"",
             [
@@ -536,12 +628,18 @@
         "4344": [
             [
                 "IF",
-                "23, integer, byte 0, greater"
+                [
+                    "greater(integer(value 23), byte 0)"
+                ]
             ],
             [
                 "ASSIGN",
-                "2, integer",
-                "byte 1"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "JUMP",
@@ -550,8 +648,12 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "3, integer",
-                "byte 0, byte 0, character"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "character(byte 0, byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -561,22 +663,34 @@
         "4379": [
             [
                 "ASSIGN",
-                "3, integer",
-                "2, integer, byte 1, minus, byte 0, character"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "character(minus(integer(value 2), byte 1), byte 0)"
+                ]
             ],
             [
                 "SETNAME",
-                "3, integer"
+                [
+                    "integer(value 3)"
+                ]
             ],
             "#2) $Y\n",
             [
                 "IF",
-                "2, integer, 23, integer, lessOrEquals"
+                [
+                    "lessOrEquals(integer(value 2), integer(value 23))"
+                ]
             ],
             [
                 "ASSIGN",
-                "2, integer",
-                "2, integer, byte 1, plus"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "plus(integer(value 2), byte 1)"
+                ]
             ],
             [
                 "JUMP",
@@ -590,7 +704,9 @@
             ],
             [
                 "IF",
-                "2, integer, byte 0, equals, 2, integer, 23, integer, byte 1, plus, greater, or"
+                [
+                    "or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1)))"
+                ]
             ],
             "\n\"What else would you like to know?\"",
             [
@@ -600,35 +716,55 @@
             "ELSE",
             [
                 "ASSIGN",
-                "3, integer",
-                "2, integer, byte 1, minus, byte 0, character"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "character(minus(integer(value 2), byte 1), byte 0)"
+                ]
             ],
             "ENDIF"
         ],
         "4517": [
             [
                 "SETNAME",
-                "3, integer"
+                [
+                    "integer(value 3)"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, integer",
-                "byte 1"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, string",
-                "dword 5107, 1, integer, byte 1, minus, data"
+                [
+                    "string(value 1)"
+                ],
+                [
+                    "data(dword 5107, minus(integer(value 1), byte 1))"
+                ]
             ],
             "#1) $1\n",
             [
                 "ASSIGN",
-                "1, integer",
-                "1, integer, byte 1, plus"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "plus(integer(value 1), byte 1)"
+                ]
             ],
             [
                 "IF",
-                "dword 5075, 1, integer, byte 1, minus, data, byte 0, greater"
+                [
+                    "greater(data(dword 5075, minus(integer(value 1), byte 1)), byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -642,12 +778,18 @@
             ],
             [
                 "IF",
-                "2, integer, byte 0, equals, 2, integer, 1, integer, greaterOrEquals, or"
+                [
+                    "or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1)))"
+                ]
             ],
             [
                 "ASSIGN",
-                "2, integer",
-                "byte 1"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "JUMP",
@@ -656,23 +798,39 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "2, integer",
-                "2, integer, byte 1, minus"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "minus(integer(value 2), byte 1)"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, integer",
-                "dword 5091, 2, integer, data"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "data(dword 5091, integer(value 2))"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, string",
-                "dword 5107, 2, integer, data"
+                [
+                    "string(value 1)"
+                ],
+                [
+                    "data(dword 5107, integer(value 2))"
+                ]
             ],
             [
                 "ASSIGN",
-                "5, integer",
-                "byte 0"
+                [
+                    "integer(value 5)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             "\"$1 costs #1 per portion.\"",
             "WAIT",
@@ -683,7 +841,9 @@
             ],
             [
                 "IF",
-                "4, integer, byte 0, equals"
+                [
+                    "equals(integer(value 4), byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -692,7 +852,9 @@
             "ENDIF",
             [
                 "IF",
-                "3, integer, canCarry, dword 5075, 2, integer, data, byte 1, weight, less"
+                [
+                    "less(canCarry(integer(value 3)), weight(data(dword 5075, integer(value 2)), byte 1))"
+                ]
             ],
             [
                 "JUMP",
@@ -701,7 +863,9 @@
             "ENDIF",
             [
                 "IF",
-                "3, integer, byte 88, countObj, 1, integer, less"
+                [
+                    "less(objectsCount(integer(value 3), byte 88), integer(value 1))"
+                ]
             ],
             [
                 "JUMP",
@@ -710,36 +874,66 @@
             "ENDIF",
             [
                 "DELETE",
-                "3, integer",
-                "byte 88",
-                "byte 0",
-                "1, integer"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "integer(value 1)"
+                ]
             ],
             [
                 "NEW",
-                "3, integer",
-                "dword 5075, 2, integer, data",
-                "byte 0",
-                "byte 1"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "data(dword 5075, integer(value 2))"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "SETF",
-                "byte 235",
-                "byte 7"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 7"
+                ]
             ],
             [
                 "CLEARF",
-                "byte 235",
-                "1"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 1"
+                ]
             ],
             [
                 "ASSIGN",
-                "5, integer",
-                "5, integer, byte 1, plus"
+                [
+                    "integer(value 5)"
+                ],
+                [
+                    "plus(integer(value 5), byte 1)"
+                ]
             ],
             [
                 "IF",
-                "5, integer, 4, integer, equals"
+                [
+                    "equals(integer(value 5), integer(value 4))"
+                ]
             ],
             "$N hands $Y the $1.",
             "WAIT",
@@ -758,7 +952,9 @@
         "4877": [
             [
                 "IF",
-                "5, integer"
+                [
+                    "integer(value 5)"
+                ]
             ],
             "\"You can't carry that much!\"",
             "WAIT",
@@ -782,7 +978,9 @@
         "4976": [
             [
                 "IF",
-                "5, integer"
+                [
+                    "integer(value 5)"
+                ]
             ],
             "\"You can't afford that much!\"",
             "WAIT",

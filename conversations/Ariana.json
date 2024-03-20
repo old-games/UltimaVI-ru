@@ -12,7 +12,9 @@
         "47": [
             [
                 "IF",
-                "byte 235, byte 7, flag"
+                [
+                    "hasBit(byte 235, byte 7)"
+                ]
             ],
             [
                 "JUMP",
@@ -21,7 +23,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -33,8 +37,12 @@
             "\n\"Ok. Now I can talk to you!\"",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             [
                 "JUMP",
@@ -174,7 +182,9 @@
                     "The little girl sniffles, seeming suddenly on the verge of tears.\n\n*\"I'm sorry,\" she says, \"I shouldn't have asked.\" She turns her back, as if ashamed to face you.\n",
                     [
                         "SUB_KARMA",
-                        "byte 5"
+                        [
+                            "byte 5"
+                        ]
                     ],
                     "BYE"
                 ]
@@ -186,16 +196,24 @@
                     "The little girl's face breaks out into a smile bright enough to light up the whole room.\n*\n\"Really? I would like that very much.\"",
                     [
                         "IF",
-                        "byte 235, byte 4, flag, byte 0, equals",
+                        [
+                            "equals(hasBit(byte 235, byte 4), byte 0)"
+                        ],
                         [
                             [
                                 "ADD_KARMA",
-                                "byte 10"
+                                [
+                                    "byte 10"
+                                ]
                             ],
                             [
                                 "SETF",
-                                "byte 235",
-                                "byte 4"
+                                [
+                                    "byte 235"
+                                ],
+                                [
+                                    "byte 4"
+                                ]
                             ]
                         ],
                         []
@@ -210,7 +228,9 @@
         "1475": [
             [
                 "IF",
-                "byte 235, byte 6, flag"
+                [
+                    "hasBit(byte 235, byte 6)"
+                ]
             ],
             "\"I already gave it to you, silly. I hope you can figure out how to use it.\"",
             [
@@ -257,13 +277,21 @@
                     "\"I'm not supposed to let anyone else have it. But if you truly need it...\"\n*\n\"I don't know what I should do.\"\n*\n\"I know! My parents run the Blue Boar Tavern. Go ask them if you can borrow the rune.\"\n*\n\"If they say 'tis okay, I'll give it to you.\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 5"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 5"
+                        ]
                     ]
                 ]
             ],
@@ -284,7 +312,9 @@
                 [
                     [
                         "IF",
-                        "3, integer, byte 0, character, canCarry, byte 243, byte 1, weight, less",
+                        [
+                            "less(canCarry(character(integer(value 3), byte 0)), weight(byte 243, byte 1))"
+                        ],
                         [
                             "\"Oh, you're carrying too much right now. You'd better come back for it later.\"",
                             [
@@ -297,31 +327,51 @@
                     "\"Then here you are.\" She hands you the rune. \"I wish you the best of luck on your quest.\"",
                     [
                         "IF",
-                        "byte 235, byte 5, flag",
+                        [
+                            "hasBit(byte 235, byte 5)"
+                        ],
                         [
                             [
                                 "SUB_KARMA",
-                                "byte 10"
+                                [
+                                    "byte 10"
+                                ]
                             ]
                         ],
                         []
                     ],
                     [
                         "CLEARF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 6"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 6"
+                        ]
                     ],
                     [
                         "GIVE",
-                        "byte 243",
-                        "byte 0",
-                        "byte 235",
-                        "byte 1"
+                        [
+                            "byte 243"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     [
                         "JUMP",

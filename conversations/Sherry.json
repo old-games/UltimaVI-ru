@@ -14,7 +14,9 @@
         "32": [
             [
                 "IF",
-                "byte 235, isInParty"
+                [
+                    "partyHas(byte 235)"
+                ]
             ],
             [
                 "JUMP",
@@ -24,12 +26,16 @@
             "\"Squeak, squeak, @squeak!\"",
             [
                 "IF",
-                "byte 235, byte 7, flag, byte 0, equals, byte 2, isInParty, and"
+                [
+                    "and(equals(hasBit(byte 235, byte 7), byte 0), partyHas(byte 2))"
+                ]
             ],
             "WAIT",
             [
                 "PORTRAIT",
-                "byte 2"
+                [
+                    "byte 2"
+                ]
             ],
             "\n\n\"Talking to a mouse?\" says Dupre.",
             "WAIT",
@@ -37,12 +43,18 @@
             "WAIT",
             [
                 "PORTRAIT",
-                "byte 235"
+                [
+                    "byte 235"
+                ]
             ],
             [
                 "SETF",
-                "byte 235",
-                "byte 7"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 7"
+                ]
             ],
             "ENDIF",
             "\n",
@@ -87,8 +99,12 @@
                     "\"I am Lord @British's friend, @Sherry.\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -146,7 +162,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, byte 5, flag",
+                        [
+                            "hasBit(byte 235, byte 5)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -157,8 +175,12 @@
                             "\"Give me some @cheese and ask me again.\"",
                             [
                                 "SETF",
-                                "byte 235",
-                                "byte 6"
+                                [
+                                    "byte 235"
+                                ],
+                                [
+                                    "byte 6"
+                                ]
                             ],
                             [
                                 "JUMP",
@@ -197,7 +219,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, byte 6, flag, byte 0, equals",
+                        [
+                            "equals(hasBit(byte 235, byte 6), byte 0)"
+                        ],
                         [
                             "\"Nitters @fiblik.\""
                         ],
@@ -215,7 +239,9 @@
                 [
                     [
                         "IF",
-                        "byte 1, byte 7, rand, byte 5, greater",
+                        [
+                            "greater(random(byte 1, byte 7), byte 5)"
+                        ],
                         [
                             "\"Kerchew!\""
                         ],
@@ -233,7 +259,9 @@
         "906": [
             [
                 "IF",
-                "byte 235, byte 5, flag"
+                [
+                    "hasBit(byte 235, byte 5)"
+                ]
             ],
             [
                 "JUMP",
@@ -244,8 +272,12 @@
             "\n\n\"Do you have any cheese?\" ",
             [
                 "SETF",
-                "byte 235",
-                "byte 6"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 6"
+                ]
             ],
             [
                 "ASKC",
@@ -264,7 +296,9 @@
             ],
             [
                 "IF",
-                "byte 132, byte 0, isInPartyObj, word 32769, notEquals"
+                [
+                    "notEquals(partyHasObject(byte 132, byte 0), word 32769)"
+                ]
             ],
             [
                 "JUMP",
@@ -301,23 +335,43 @@
                 [
                     [
                         "DELETE",
-                        "byte 132, byte 0, isInPartyObj",
-                        "byte 132",
-                        "byte 0",
-                        "byte 1"
+                        [
+                            "partyHasObject(byte 132, byte 0)"
+                        ],
+                        [
+                            "byte 132"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     [
                         "NEW",
-                        "byte 235",
-                        "byte 132",
-                        "byte 0",
-                        "byte 1"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 132"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     "\"Thank you very much!\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 5"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 5"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -349,12 +403,18 @@
                 [
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "byte 235, joinParty"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "partyJoin(byte 235)"
+                        ]
                     ],
                     [
                         "IF",
-                        "0, integer, byte 0, equals",
+                        [
+                            "equals(integer(value 0), byte 0)"
+                        ],
                         [
                             "\"Great!\"\n",
                             "BYE"
@@ -363,7 +423,9 @@
                     ],
                     [
                         "IF",
-                        "0, integer, byte 1, equals",
+                        [
+                            "equals(integer(value 0), byte 1)"
+                        ],
                         [
                             "\"Boats make me seasick.\"",
                             [
@@ -375,7 +437,9 @@
                     ],
                     [
                         "IF",
-                        "0, integer, byte 2, equals",
+                        [
+                            "equals(integer(value 0), byte 2)"
+                        ],
                         [
                             "\"With that many people I'd get trampled!\"",
                             [
@@ -391,8 +455,12 @@
         "1347": [
             [
                 "WORKTYPE",
-                "byte 235",
-                "byte 154"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 154"
+                ]
             ],
             "\n",
             "BYE"
@@ -504,12 +572,18 @@
             ],
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 235, leaveParty"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "partyLeave(byte 235)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals"
+                [
+                    "equals(integer(value 0), byte 1)"
+                ]
             ],
             "\"I'm not leaving until we get out of this thing!\"",
             [

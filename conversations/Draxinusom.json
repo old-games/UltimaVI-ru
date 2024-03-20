@@ -12,26 +12,38 @@
         "56": [
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 0"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, integer",
-                "byte 0"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             "WAIT",
             "\n",
             [
                 "IF",
-                "21, integer, byte 0, equals"
+                [
+                    "equals(integer(value 21), byte 0)"
+                ]
             ],
             "The gargoyle screams, \"An-bal-sil-fer! Klep lem! Por-aylem ter-ort ka!\"\n",
             "BYE",
             "ENDIF",
             [
                 "IF",
-                "byte 76, byte 0, isInPartyObj, byte 1, equals"
+                [
+                    "equals(partyHasObject(byte 76, byte 0), byte 1)"
+                ]
             ],
             "\"To be honored by your presence, noble $P. To feel sorrow that matters of state prevent conversation.\"",
             "WAIT",
@@ -40,7 +52,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 164, isInParty"
+                [
+                    "partyHas(byte 164)"
+                ]
             ],
             "\"To refrain from slaying you only because of the presence of the child, False Prophet!\"",
             "WAIT",
@@ -48,15 +62,21 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"To demand to know why you have returned here, False Prophet!\"",
             "ELSE",
             "\"To express astonishment at your audacity, False Prophet!\"",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "ENDIF",
             "\n",
@@ -80,8 +100,12 @@
                     "\n\n\"To demand to know why you have come before me!\"",
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "0, integer, byte 1, plus"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "plus(integer(value 0), byte 1)"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -96,8 +120,12 @@
                     "\"To be the leader of our race. To have little time to waste chatting with the False Prophet!\"",
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "0, integer, byte 1, plus"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "plus(integer(value 0), byte 1)"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -121,7 +149,9 @@
                 [
                     [
                         "IF",
-                        "0, integer, byte 2, greater",
+                        [
+                            "greater(integer(value 0), byte 2)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -132,12 +162,19 @@
                     ],
                     [
                         "DPRINT",
-                        "dword 2131, 0, integer"
+                        [
+                            "integer(value 0)",
+                            "dword 2131"
+                        ]
                     ],
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "0, integer, byte 1, plus"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "plus(integer(value 0), byte 1)"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -158,18 +195,24 @@
                     "\n\n\"Hsss....To consent to wear this?\" ",
                     [
                         "IF",
-                        "byte 2, isInParty",
+                        [
+                            "partyHas(byte 2)"
+                        ],
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 2"
+                                [
+                                    "byte 2"
+                                ]
                             ],
                             "\n\nTrusted Dupre whispers frantically to you, \"You mustn't! It's some sort of magical trap!\"",
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 235"
+                                [
+                                    "byte 235"
+                                ]
                             ],
                             "\n\nThe gargoyle waits impatiently for an answer. \"Yes or no, False Prophet?\" "
                         ],
@@ -219,7 +262,9 @@
                 [
                     [
                         "IF",
-                        "1, integer",
+                        [
+                            "integer(value 1)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -230,8 +275,12 @@
                             "\"To be necessary for surrender! To ask again for your acceptance of this.\"\n\nYour answer: ",
                             [
                                 "ASSIGN",
-                                "1, integer",
-                                "byte 1"
+                                [
+                                    "integer(value 1)"
+                                ],
+                                [
+                                    "byte 1"
+                                ]
                             ],
                             [
                                 "JUMP",
@@ -248,14 +297,24 @@
                     "The gargoyle hands you the amulet, and you slip the leather loop over your head.",
                     [
                         "NEW",
-                        "byte 1",
-                        "byte 76",
-                        "byte 0",
-                        "byte 1"
+                        [
+                            "byte 1"
+                        ],
+                        [
+                            "byte 76"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     [
                         "ADD_KARMA",
-                        "byte 10"
+                        [
+                            "byte 10"
+                        ]
                     ],
                     "WAIT"
                 ]

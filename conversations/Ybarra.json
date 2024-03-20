@@ -14,7 +14,9 @@
             "\n",
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"Thou art back!\"",
             "WAIT",
@@ -33,8 +35,12 @@
             "\n\n\"I need @food, badly!\"",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "\n",
             "ASK",
@@ -110,7 +116,9 @@
                     "WAIT",
                     [
                         "IF",
-                        "byte 235, word 404, byte 0, isInActorObj, byte 0, equals",
+                        [
+                            "equals(hasObject(byte 235, word 404, byte 0), byte 0)"
+                        ],
                         [
                             "\n\n\"You already got it from me.\"",
                             [
@@ -125,8 +133,12 @@
                     "\n\n\"I couldn't eat it.\"",
                     [
                         "ASSIGN",
-                        "9, integer",
-                        "byte 0"
+                        [
+                            "integer(value 9)"
+                        ],
+                        [
+                            "byte 0"
+                        ]
                     ],
                     "WAIT",
                     "\n\n\"It ought to be worth some @food, surely?\" ",
@@ -180,12 +192,18 @@
         "1061": [
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 0"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "IF",
-                "0, integer, byte 15, greater"
+                [
+                    "greater(integer(value 0), byte 15)"
+                ]
             ],
             [
                 "JUMP",
@@ -194,17 +212,27 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "1, integer",
-                "dword 1878, 0, integer, data, byte 0, isInPartyObj"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "partyHasObject(data(dword 1878, integer(value 0)), byte 0)"
+                ]
             ],
             [
                 "IF",
-                "1, integer, word 32769, equals"
+                [
+                    "equals(integer(value 1), word 32769)"
+                ]
             ],
             [
                 "ASSIGN",
-                "0, integer",
-                "0, integer, byte 1, plus"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "plus(integer(value 0), byte 1)"
+                ]
             ],
             [
                 "JUMP",
@@ -213,27 +241,41 @@
             "ENDIF",
             [
                 "IF",
-                "1, integer, byte 1, equals"
+                [
+                    "equals(integer(value 1), byte 1)"
+                ]
             ],
             "You share ",
             "ELSE",
             [
                 "SETNAME",
-                "1, integer"
+                [
+                    "integer(value 1)"
+                ]
             ],
             "$Y shares ",
             "ENDIF",
             "some food with the pathetic man.",
             [
                 "DELETE",
-                "1, integer",
-                "dword 1878, 0, integer, data",
-                "byte 0",
-                "1, integer, dword 1878, 0, integer, data, countObj"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "data(dword 1878, integer(value 0))"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "objectsCount(integer(value 1), data(dword 1878, integer(value 0)))"
+                ]
             ],
             [
                 "ADD_KARMA",
-                "byte 1"
+                [
+                    "byte 1"
+                ]
             ],
             "WAIT",
             "\n\n\"Thunff fou,\" Ybarra says, stuffing the food into his mouth.",
@@ -262,10 +304,18 @@
                     "He hands you the map piece and rubs his hands, eagerly awaiting his food.",
                     [
                         "GIVE",
-                        "word 404",
-                        "byte 0",
-                        "byte 235",
-                        "byte 1"
+                        [
+                            "word 404"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     "WAIT",
                     "\n\n",
@@ -281,7 +331,9 @@
                 [
                     [
                         "IF",
-                        "9, integer, byte 1, equals",
+                        [
+                            "equals(integer(value 9), byte 1)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -293,8 +345,12 @@
                     "\"You must! I'll die! Just a little bit of @food for the map?\" ",
                     [
                         "ASSIGN",
-                        "9, integer",
-                        "byte 1"
+                        [
+                            "integer(value 9)"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -307,8 +363,12 @@
             "His last shred of hope torn away from him, the withered man leaps at you, screaming \"@Food! @Food!\"\n",
             [
                 "WORKTYPE",
-                "byte 235",
-                "byte 153"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 153"
+                ]
             ],
             "BYE"
         ],
@@ -325,8 +385,12 @@
                     "The man collapses, the last of his energy gone.\n",
                     [
                         "WORKTYPE",
-                        "byte 235",
-                        "byte 145"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 145"
+                        ]
                     ],
                     "BYE"
                 ]

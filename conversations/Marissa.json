@@ -14,7 +14,9 @@
         "69": [
             [
                 "IF",
-                "32, integer, byte 144, notEquals"
+                [
+                    "notEquals(integer(value 32), byte 144)"
+                ]
             ],
             [
                 "JUMP",
@@ -23,7 +25,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"Hello again.\"",
             "ELSE",
@@ -39,7 +43,9 @@
             "She bows stiffly. \"I'm sorry, good ",
             [
                 "IF",
-                "16, integer"
+                [
+                    "integer(value 16)"
+                ]
             ],
             "madam",
             "ELSE",
@@ -59,8 +65,12 @@
                     "\"Marissa. You may call me '@Miss Trihune.\"\n",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -153,7 +163,9 @@
                     "\n\n",
                     [
                         "IF",
-                        "word 270, byte 0, isInPartyObj, word 32769, equals",
+                        [
+                            "equals(partyHasObject(word 270, byte 0), word 32769)"
+                        ],
                         [
                             "\"But I'll need to see the plans.\"\n",
                             [
@@ -165,12 +177,18 @@
                     ],
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "byte 241, byte 0, isInPartyObj"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "partyHasObject(byte 241, byte 0)"
+                        ]
                     ],
                     [
                         "IF",
-                        "0, integer, word 32769, equals",
+                        [
+                            "equals(integer(value 0), word 32769)"
+                        ],
                         [
                             "\"But I'll need a @bolt of silk to do it, of course.\"\n",
                             [
@@ -222,7 +240,9 @@
                 [
                     [
                         "IF",
-                        "byte 0, byte 1, rand",
+                        [
+                            "random(byte 0, byte 1)"
+                        ],
                         [
                             "\"Hmph! I am not a gossip, $G.\"\n"
                         ],
@@ -249,11 +269,15 @@
                 [
                     [
                         "IF",
-                        "0, integer, byte 88, countObj, byte 75, less",
+                        [
+                            "less(objectsCount(integer(value 0), byte 88), byte 75)"
+                        ],
                         [
                             [
                                 "SETNAME",
-                                "0, integer"
+                                [
+                                    "integer(value 0)"
+                                ]
                             ],
                             "\"Come back when you have the gold, $Y.\"\n",
                             [
@@ -265,17 +289,33 @@
                     ],
                     [
                         "DELETE",
-                        "0, integer",
-                        "byte 88",
-                        "byte 0",
-                        "byte 75"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "byte 88"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 75"
+                        ]
                     ],
                     [
                         "DELETE",
-                        "0, integer",
-                        "byte 241",
-                        "byte 0",
-                        "byte 1"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "byte 241"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     "She takes the silk cloth and begins to work, following the balloon plans.",
                     "WAIT",
@@ -286,10 +326,18 @@
                     "\n\n\"There, 'tis done!\" she cries, handing you the bag.\n",
                     [
                         "NEW",
-                        "0, integer",
-                        "word 421",
-                        "byte 0",
-                        "byte 1"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "word 421"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -312,12 +360,18 @@
         "1892": [
             [
                 "IF",
-                "23, integer, byte 0, equals"
+                [
+                    "equals(integer(value 23), byte 0)"
+                ]
             ],
             [
                 "ASSIGN",
-                "3, integer",
-                "byte 0, byte 0, character"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "character(byte 0, byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -326,32 +380,52 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 0"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "ASSIGN",
-                "2, integer",
-                "byte 1"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "SETNAME",
-                "0, integer, byte 0, character"
+                [
+                    "character(integer(value 0), byte 0)"
+                ]
             ],
             "#2. $Y\n",
             [
                 "ASSIGN",
-                "0, integer",
-                "0, integer, byte 1, plus"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "plus(integer(value 0), byte 1)"
+                ]
             ],
             [
                 "ASSIGN",
-                "2, integer",
-                "2, integer, byte 1, plus"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "plus(integer(value 2), byte 1)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, 23, integer, lessOrEquals"
+                [
+                    "lessOrEquals(integer(value 0), integer(value 23))"
+                ]
             ],
             [
                 "JUMP",
@@ -365,7 +439,9 @@
             ],
             [
                 "IF",
-                "3, integer, byte 0, equals"
+                [
+                    "equals(integer(value 3), byte 0)"
+                ]
             ],
             "\"Suit yourself,\" she sniffs, offended.\n",
             [
@@ -375,12 +451,18 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "3, integer",
-                "3, integer, byte 1, minus"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "minus(integer(value 3), byte 1)"
+                ]
             ],
             [
                 "IF",
-                "3, integer, 23, integer, greater"
+                [
+                    "greater(integer(value 3), integer(value 23))"
+                ]
             ],
             [
                 "JUMP",
@@ -389,8 +471,12 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "3, integer",
-                "3, integer, byte 0, character"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "character(integer(value 3), byte 0)"
+                ]
             ],
             "1. Tunic\n2. Dress\n3. Pants\n\"Which one?\" ",
             [
@@ -399,7 +485,9 @@
             ],
             [
                 "IF",
-                "0, integer, byte 1, less, 0, integer, byte 3, greater, or"
+                [
+                    "or(less(integer(value 0), byte 1), greater(integer(value 0), byte 3))"
+                ]
             ],
             "\n\n",
             [
@@ -409,18 +497,30 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "0, integer",
-                "0, integer, byte 1, minus"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "minus(integer(value 0), byte 1)"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, integer",
-                "dword 3258, 0, integer, data"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "data(dword 3258, integer(value 0))"
+                ]
             ],
             [
                 "ASSIGN",
-                "0, string",
-                "dword 3270, 0, integer, data"
+                [
+                    "string(value 0)"
+                ],
+                [
+                    "data(dword 3270, integer(value 0))"
+                ]
             ],
             "\"It'll cost you #1 gold for that $0. Interested?\" ",
             [
@@ -433,7 +533,9 @@
                 [
                     [
                         "IF",
-                        "3, integer, canCarry, byte 88, 1, integer, weight, plus, dword 3264, 0, integer, data, byte 1, weight, less",
+                        [
+                            "less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 3264, integer(value 0)), byte 1))"
+                        ],
                         [
                             "\"You look pretty full to me.\"\n",
                             [
@@ -445,25 +547,45 @@
                     ],
                     [
                         "IF",
-                        "3, integer, byte 88, countObj, dword 3258, 0, integer, data, greaterOrEquals",
+                        [
+                            "greaterOrEquals(objectsCount(integer(value 3), byte 88), data(dword 3258, integer(value 0)))"
+                        ],
                         [
                             [
                                 "DELETE",
-                                "3, integer",
-                                "byte 88",
-                                "byte 0",
-                                "dword 3258, 0, integer, data"
+                                [
+                                    "integer(value 3)"
+                                ],
+                                [
+                                    "byte 88"
+                                ],
+                                [
+                                    "byte 0"
+                                ],
+                                [
+                                    "data(dword 3258, integer(value 0))"
+                                ]
                             ],
                             [
                                 "NEW",
-                                "3, integer",
-                                "dword 3264, 0, integer, data",
-                                "byte 0",
-                                "byte 1"
+                                [
+                                    "integer(value 3)"
+                                ],
+                                [
+                                    "data(dword 3264, integer(value 0))"
+                                ],
+                                [
+                                    "byte 0"
+                                ],
+                                [
+                                    "byte 1"
+                                ]
                             ],
                             [
                                 "SETNAME",
-                                "3, integer"
+                                [
+                                    "integer(value 3)"
+                                ]
                             ],
                             "\"Excellent!\" After accepting $Y's gold, $N hands over the $0.\n",
                             [
@@ -474,7 +596,9 @@
                         [
                             [
                                 "SETNAME",
-                                "3, integer"
+                                [
+                                    "integer(value 3)"
+                                ]
                             ],
                             "$N looks at $Y. \"How rude! Don't ask for something you can't pay for!\"\n",
                             [
@@ -500,42 +624,72 @@
         "2550": [
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 0"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "ASSIGN",
-                "2, integer",
-                "byte 0"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "ASSIGN",
-                "3, integer",
-                "byte 0"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, integer",
-                "byte 0"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "IF",
-                "0, integer, byte 0, character, byte 185, countObj"
+                [
+                    "objectsCount(character(integer(value 0), byte 0), byte 185)"
+                ]
             ],
             [
                 "ASSIGN",
-                "dword 3242, 2, integer, data",
-                "0, integer"
+                [
+                    "data(dword 3242, integer(value 2))"
+                ],
+                [
+                    "integer(value 0)"
+                ]
             ],
             [
                 "ASSIGN",
-                "2, integer",
-                "2, integer, byte 1, plus"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "plus(integer(value 2), byte 1)"
+                ]
             ],
             [
                 "ASSIGN",
-                "3, integer",
-                "byte 1"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "JUMP",
@@ -544,12 +698,18 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "1, integer",
-                "1, integer, byte 1, plus"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "plus(integer(value 1), byte 1)"
+                ]
             ],
             [
                 "IF",
-                "1, integer, byte 7, less"
+                [
+                    "less(integer(value 1), byte 7)"
+                ]
             ],
             [
                 "JUMP",
@@ -558,12 +718,18 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "0, integer",
-                "0, integer, byte 1, plus"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "plus(integer(value 0), byte 1)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, 23, integer, lessOrEquals"
+                [
+                    "lessOrEquals(integer(value 0), integer(value 23))"
+                ]
             ],
             [
                 "JUMP",
@@ -572,7 +738,9 @@
             "ENDIF",
             [
                 "IF",
-                "3, integer, byte 0, equals"
+                [
+                    "equals(integer(value 3), byte 0)"
+                ]
             ],
             "\"Sorry, none of you has anything of interest.\"\n",
             [
@@ -582,12 +750,18 @@
             "ENDIF",
             [
                 "IF",
-                "2, integer, byte 1, equals"
+                [
+                    "equals(integer(value 2), byte 1)"
+                ]
             ],
             [
                 "ASSIGN",
-                "3, integer",
-                "dword 3242, byte 0, data, byte 0, character"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "character(data(dword 3242, byte 0), byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -596,32 +770,52 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 0"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, integer",
-                "byte 1"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "SETNAME",
-                "dword 3242, 0, integer, data, byte 0, character"
+                [
+                    "character(data(dword 3242, integer(value 0)), byte 0)"
+                ]
             ],
             "#1. $Y\n",
             [
                 "ASSIGN",
-                "0, integer",
-                "0, integer, byte 1, plus"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "plus(integer(value 0), byte 1)"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, integer",
-                "1, integer, byte 1, plus"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "plus(integer(value 1), byte 1)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, 2, integer, less"
+                [
+                    "less(integer(value 0), integer(value 2))"
+                ]
             ],
             [
                 "JUMP",
@@ -635,7 +829,9 @@
             ],
             [
                 "IF",
-                "3, integer, byte 0, equals"
+                [
+                    "equals(integer(value 3), byte 0)"
+                ]
             ],
             "\"Just as well. That cloth is rather shabby...\"\n",
             [
@@ -645,12 +841,18 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "3, integer",
-                "3, integer, byte 1, minus"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "minus(integer(value 3), byte 1)"
+                ]
             ],
             [
                 "IF",
-                "3, integer, 2, integer, greaterOrEquals"
+                [
+                    "greaterOrEquals(integer(value 3), integer(value 2))"
+                ]
             ],
             [
                 "JUMP",
@@ -659,21 +861,33 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "3, integer",
-                "dword 3242, 3, integer, data, byte 0, character"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "character(data(dword 3242, integer(value 3)), byte 0)"
+                ]
             ],
             [
                 "ASSIGN",
-                "4, integer",
-                "3, integer, byte 185, countObj"
+                [
+                    "integer(value 4)"
+                ],
+                [
+                    "objectsCount(integer(value 3), byte 185)"
+                ]
             ],
             [
                 "SETNAME",
-                "3, integer"
+                [
+                    "integer(value 3)"
+                ]
             ],
             [
                 "IF",
-                "4, integer, byte 0, equals"
+                [
+                    "equals(integer(value 4), byte 0)"
+                ]
             ],
             "\"I don't see any cloth, other than what you're wearing!\"\n",
             [
@@ -693,17 +907,33 @@
                     "\"Done!\" She hands $Y 20 gold pieces and takes the cloth.\n",
                     [
                         "DELETE",
-                        "3, integer",
-                        "byte 185",
-                        "byte 0",
-                        "byte 1"
+                        [
+                            "integer(value 3)"
+                        ],
+                        [
+                            "byte 185"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     [
                         "NEW",
-                        "3, integer",
-                        "byte 88",
-                        "byte 0",
-                        "byte 20"
+                        [
+                            "integer(value 3)"
+                        ],
+                        [
+                            "byte 88"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 20"
+                        ]
                     ],
                     [
                         "JUMP",

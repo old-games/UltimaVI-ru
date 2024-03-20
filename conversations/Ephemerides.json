@@ -14,7 +14,9 @@
         "87": [
             [
                 "IF",
-                "32, integer, byte 138, notEquals"
+                [
+                    "notEquals(integer(value 32), byte 138)"
+                ]
             ],
             [
                 "JUMP",
@@ -31,12 +33,18 @@
         "318": [
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 48, byte 0, isInPartyObj"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "partyHasObject(byte 48, byte 0)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, word 32769, notEquals, byte 235, byte 7, flag, and, byte 235, byte 6, flag, byte 0, equals, and"
+                [
+                    "and(and(notEquals(integer(value 0), word 32769), hasBit(byte 235, byte 7)), equals(hasBit(byte 235, byte 6), byte 0))"
+                ]
             ],
             [
                 "JUMP",
@@ -46,7 +54,9 @@
             "\"Ahem. Yes, what can I help you with, ",
             [
                 "IF",
-                "16, integer, byte 1, equals"
+                [
+                    "equals(integer(value 16), byte 1)"
+                ]
             ],
             "madam?\"\n",
             "ELSE",
@@ -60,8 +70,12 @@
                     "\"I am Ephemerides.\"\n",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -112,8 +126,12 @@
                 [
                     [
                         "ASSIGN",
-                        "4, integer",
-                        "byte 0"
+                        [
+                            "integer(value 4)"
+                        ],
+                        [
+                            "byte 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -227,7 +245,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, byte 6, flag",
+                        [
+                            "hasBit(byte 235, byte 6)"
+                        ],
                         [
                             "\"I hope the lens I made you will prove suitable.\"\n",
                             [
@@ -239,7 +259,9 @@
                     ],
                     [
                         "IF",
-                        "word 396, byte 0, isInPartyObj, word 32769, equals, byte 235, byte 7, flag, byte 0, equals, and",
+                        [
+                            "and(equals(partyHasObject(word 396, byte 0), word 32769), equals(hasBit(byte 235, byte 7), byte 0))"
+                        ],
                         [
                             "\"What sort of lens do you want?\"\n",
                             [
@@ -251,12 +273,18 @@
                     ],
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "word 396, byte 0, isInPartyObj"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "partyHasObject(word 396, byte 0)"
+                        ]
                     ],
                     [
                         "IF",
-                        "0, integer, word 32769, equals",
+                        [
+                            "equals(integer(value 0), word 32769)"
+                        ],
                         [
                             "\"When you bring me a glass @sword, I should be able to duplicate your lens for you.\"\n",
                             [
@@ -278,15 +306,27 @@
                     "WAIT",
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "GIVE",
-                        "word 396",
-                        "byte 0",
-                        "0, integer",
-                        "byte 235"
+                        [
+                            "word 396"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "byte 235"
+                        ]
                     ],
                     "\n\nBefore you can protest, he pockets the lens. \"Let me know when you have the glass @sword.\"\n",
                     [
@@ -301,7 +341,9 @@
                 [
                     [
                         "IF",
-                        "byte 48, byte 0, isInPartyObj, word 32769, notEquals, byte 235, byte 7, flag, and, byte 235, byte 6, flag, byte 0, equals, and",
+                        [
+                            "and(and(notEquals(partyHasObject(byte 48, byte 0), word 32769), hasBit(byte 235, byte 7)), equals(hasBit(byte 235, byte 6), byte 0))"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -377,29 +419,57 @@
             "\n\n\"I don't know what you need these lenses for, but I wish you luck!\"\n",
             [
                 "SETF",
-                "byte 235",
-                "byte 6"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 6"
+                ]
             ],
             [
                 "DELETE",
-                "byte 48, byte 0, isInPartyObj",
-                "byte 48",
-                "byte 0",
-                "byte 1"
+                [
+                    "partyHasObject(byte 48, byte 0)"
+                ],
+                [
+                    "byte 48"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "GIVE",
-                "word 396",
-                "byte 0",
-                "byte 235",
-                "byte 1"
+                [
+                    "word 396"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "NEW",
-                "byte 1",
-                "word 394",
-                "byte 0",
-                "byte 1"
+                [
+                    "byte 1"
+                ],
+                [
+                    "word 394"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "JUMP",
@@ -409,12 +479,18 @@
         "3941": [
             [
                 "IF",
-                "23, integer, byte 0, equals"
+                [
+                    "equals(integer(value 23), byte 0)"
+                ]
             ],
             [
                 "ASSIGN",
-                "3, integer",
-                "byte 0"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "JUMP",
@@ -423,32 +499,52 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 0"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, integer",
-                "byte 1"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "SETNAME",
-                "0, integer, byte 0, character"
+                [
+                    "character(integer(value 0), byte 0)"
+                ]
             ],
             "#1. $Y\n",
             [
                 "ASSIGN",
-                "0, integer",
-                "0, integer, byte 1, plus"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "plus(integer(value 0), byte 1)"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, integer",
-                "1, integer, byte 1, plus"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "plus(integer(value 1), byte 1)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, 23, integer, lessOrEquals"
+                [
+                    "lessOrEquals(integer(value 0), integer(value 23))"
+                ]
             ],
             [
                 "JUMP",
@@ -462,7 +558,9 @@
             ],
             [
                 "IF",
-                "3, integer, byte 0, equals"
+                [
+                    "equals(integer(value 3), byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -471,12 +569,18 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "3, integer",
-                "3, integer, byte 1, minus"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "minus(integer(value 3), byte 1)"
+                ]
             ],
             [
                 "IF",
-                "3, integer, 23, integer, greater"
+                [
+                    "greater(integer(value 3), integer(value 23))"
+                ]
             ],
             [
                 "JUMP",
@@ -485,21 +589,33 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "3, integer",
-                "3, integer, byte 0, character"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "character(integer(value 3), byte 0)"
+                ]
             ],
             [
                 "ASSIGN",
-                "0, string",
-                "dword 4491, 4, integer, data"
+                [
+                    "string(value 0)"
+                ],
+                [
+                    "data(dword 4491, integer(value 4))"
+                ]
             ],
             [
                 "SETNAME",
-                "3, integer"
+                [
+                    "integer(value 3)"
+                ]
             ],
             [
                 "IF",
-                "3, integer, canCarry, byte 88, dword 4479, 4, integer, data, weight, plus, dword 4485, 4, integer, data, byte 1, weight, less"
+                [
+                    "less(plus(canCarry(integer(value 3)), weight(byte 88, data(dword 4479, integer(value 4)))), weight(data(dword 4485, integer(value 4)), byte 1))"
+                ]
             ],
             "$N looks at $Y. \"You haven't any room in your pack.\"",
             "WAIT",
@@ -511,7 +627,9 @@
             "ENDIF",
             [
                 "IF",
-                "3, integer, byte 88, countObj, dword 4479, 4, integer, data, less"
+                [
+                    "less(objectsCount(integer(value 3), byte 88), data(dword 4479, integer(value 4)))"
+                ]
             ],
             "$N looks at $Y. \"`$0s cost more gold than you have.\"",
             "WAIT",
@@ -523,12 +641,18 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "0, integer",
-                "dword 4479, 4, integer, data"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "data(dword 4479, integer(value 4))"
+                ]
             ],
             [
                 "SETNAME",
-                "3, integer"
+                [
+                    "integer(value 3)"
+                ]
             ],
             "$N looks at $Y. \"It'll cost you #0 gold for a $0. Do you want one?\" ",
             [
@@ -554,17 +678,33 @@
                 [
                     [
                         "DELETE",
-                        "3, integer",
-                        "byte 88",
-                        "byte 0",
-                        "dword 4479, 4, integer, data"
+                        [
+                            "integer(value 3)"
+                        ],
+                        [
+                            "byte 88"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "data(dword 4479, integer(value 4))"
+                        ]
                     ],
                     [
                         "NEW",
-                        "3, integer",
-                        "dword 4485, 4, integer, data",
-                        "byte 0",
-                        "byte 1"
+                        [
+                            "integer(value 3)"
+                        ],
+                        [
+                            "data(dword 4485, integer(value 4))"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     "He hands $Y a $0.",
                     "WAIT",

@@ -14,7 +14,9 @@
         "63": [
             [
                 "IF",
-                "32, integer, byte 143, equals"
+                [
+                    "equals(integer(value 32), byte 143)"
+                ]
             ],
             [
                 "JUMP",
@@ -23,7 +25,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, 0, flag, byte 235, 1, flag, byte 0, equals, and"
+                [
+                    "and(hasBit(byte 235, value 0), equals(hasBit(byte 235, value 1), byte 0))"
+                ]
             ],
             "\"You're welcome here.\"",
             [
@@ -34,8 +38,12 @@
             "\"Why you bargin' inta my house?\" he shouts.",
             [
                 "SETF",
-                "byte 235",
-                "1"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 1"
+                ]
             ],
             "WAIT",
             "\n\nHefting his large axe, he prepares to defend his home.\n",
@@ -44,7 +52,9 @@
         "226": [
             [
                 "IF",
-                "byte 235, 1, flag"
+                [
+                    "hasBit(byte 235, value 1)"
+                ]
             ],
             "\"Hah, sneakin' around in my @forest, huh?\"",
             "WAIT",
@@ -52,18 +62,28 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, 0, flag, byte 0, equals"
+                [
+                    "equals(hasBit(byte 235, value 0), byte 0)"
+                ]
             ],
             "\"I told the last one of ya that came by that I'll have nothin' t'do with yer @wars, so shove off!\"",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             [
                 "SETF",
-                "byte 235",
-                "1"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 1"
+                ]
             ],
             [
                 "JUMP",
@@ -72,7 +92,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, 1, flag"
+                [
+                    "hasBit(byte 235, value 1)"
+                ]
             ],
             "\n\n\"I told ya once already that I want to be left @alone!\"",
             "ELSE",
@@ -95,7 +117,9 @@
                     "\n\n",
                     [
                         "IF",
-                        "byte 235, 1, flag",
+                        [
+                            "hasBit(byte 235, value 1)"
+                        ],
                         [
                             "\"But you ain't one of my friends.\""
                         ],
@@ -115,7 +139,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, 1, flag",
+                        [
+                            "hasBit(byte 235, value 1)"
+                        ],
                         [
                             "He fires a look at you. \"I said only my @friends call me that.\""
                         ],
@@ -173,7 +199,9 @@
                     "\"Aye, this is where I cut trees, and I don't like strangers wanderin' through!\"",
                     [
                         "IF",
-                        "byte 235, 1, flag, byte 0, equals",
+                        [
+                            "equals(hasBit(byte 235, value 1), byte 0)"
+                        ],
                         [
                             "WAIT",
                             "\n\n\"You're welcome here, though.\""
@@ -228,7 +256,9 @@
                     "\"Careful in those woods now.",
                     [
                         "IF",
-                        "byte 235, 1, flag",
+                        [
+                            "hasBit(byte 235, value 1)"
+                        ],
                         [
                             " Accidents happen....\"\n"
                         ],
@@ -263,8 +293,12 @@
                     "\"I knew it!\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "1"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 1"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -279,8 +313,12 @@
                     "\"Oh.\" He seems friendlier now.",
                     [
                         "CLEARF",
-                        "byte 235",
-                        "1"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 1"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -300,12 +338,18 @@
                 [
                     [
                         "IF",
-                        "23, integer",
+                        [
+                            "integer(value 23)"
+                        ],
                         [
                             [
                                 "ASSIGN",
-                                "0, integer",
-                                "byte 1"
+                                [
+                                    "integer(value 0)"
+                                ],
+                                [
+                                    "byte 1"
+                                ]
                             ],
                             [
                                 "JUMP",
@@ -315,8 +359,12 @@
                         [
                             [
                                 "ASSIGN",
-                                "3, integer",
-                                "byte 0, byte 0, character"
+                                [
+                                    "integer(value 3)"
+                                ],
+                                [
+                                    "character(byte 0, byte 0)"
+                                ]
                             ],
                             [
                                 "JUMP",
@@ -332,7 +380,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, 1, flag",
+                        [
+                            "hasBit(byte 235, value 1)"
+                        ],
                         [
                             "\"Well, what do ya want then?\""
                         ],
@@ -350,17 +400,25 @@
         "1833": [
             [
                 "SETNAME",
-                "0, integer, byte 1, minus, byte 0, character"
+                [
+                    "character(minus(integer(value 0), byte 1), byte 0)"
+                ]
             ],
             "#0) $Y\n",
             [
                 "IF",
-                "0, integer, 23, integer, lessOrEquals"
+                [
+                    "lessOrEquals(integer(value 0), integer(value 23))"
+                ]
             ],
             [
                 "ASSIGN",
-                "0, integer",
-                "0, integer, byte 1, plus"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "plus(integer(value 0), byte 1)"
+                ]
             ],
             [
                 "JUMP",
@@ -374,7 +432,9 @@
             ],
             [
                 "IF",
-                "2, integer, byte 0, equals"
+                [
+                    "equals(integer(value 2), byte 0)"
+                ]
             ],
             "\"Well, why'd ya say you wanted one?\"",
             [
@@ -384,17 +444,27 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "2, integer",
-                "2, integer, byte 1, minus"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "minus(integer(value 2), byte 1)"
+                ]
             ],
             [
                 "IF",
-                "2, integer, 23, integer, greater"
+                [
+                    "greater(integer(value 2), integer(value 23))"
+                ]
             ],
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 1"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "JUMP",
@@ -403,16 +473,24 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "3, integer",
-                "2, integer, byte 0, character"
+                [
+                    "integer(value 3)"
+                ],
+                [
+                    "character(integer(value 2), byte 0)"
+                ]
             ],
             [
                 "SETNAME",
-                "3, integer"
+                [
+                    "integer(value 3)"
+                ]
             ],
             [
                 "IF",
-                "3, integer, canCarry, byte 88, byte 5, weight, plus, word 274, byte 1, weight, less"
+                [
+                    "less(plus(canCarry(integer(value 3)), weight(byte 88, byte 5)), weight(word 274, byte 1))"
+                ]
             ],
             "\"But $Y can't carry a log!\"",
             [
@@ -422,7 +500,9 @@
             "ENDIF",
             [
                 "IF",
-                "3, integer, byte 88, countObj, byte 5, less"
+                [
+                    "less(objectsCount(integer(value 3), byte 88), byte 5)"
+                ]
             ],
             "\"But $Y don't have 5 gold!\"",
             [
@@ -441,28 +521,50 @@
                 [
                     [
                         "DELETE",
-                        "3, integer",
-                        "byte 88",
-                        "byte 0",
-                        "byte 5"
+                        [
+                            "integer(value 3)"
+                        ],
+                        [
+                            "byte 88"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 5"
+                        ]
                     ],
                     [
                         "NEW",
-                        "3, integer",
-                        "word 274",
-                        "byte 0",
-                        "byte 1"
+                        [
+                            "integer(value 3)"
+                        ],
+                        [
+                            "word 274"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     "$N takes $Y's gold and hands over a fine yew log.",
                     [
                         "IF",
-                        "byte 235, 1, flag",
+                        [
+                            "hasBit(byte 235, value 1)"
+                        ],
                         [
                             "*\n\nBen seems friendlier now.",
                             [
                                 "CLEARF",
-                                "byte 235",
-                                "1"
+                                [
+                                    "byte 235"
+                                ],
+                                [
+                                    "value 1"
+                                ]
                             ]
                         ],
                         []

@@ -14,7 +14,9 @@
             "\n",
             [
                 "IF",
-                "21, integer, byte 1, equals, byte 76, byte 0, isInPartyObj, byte 1, equals, and"
+                [
+                    "and(equals(integer(value 21), byte 1), equals(partyHasObject(byte 76, byte 0), byte 1))"
+                ]
             ],
             [
                 "JUMP",
@@ -23,7 +25,9 @@
             "ENDIF",
             [
                 "IF",
-                "21, integer"
+                [
+                    "integer(value 21)"
+                ]
             ],
             "\"The False Prophet!\" the gargoyle screams. \"Guards! Guards!\"",
             "ELSE",
@@ -33,15 +37,21 @@
             "\n\nSuddenly realizing that he is holding a weapon, the gargoyle attacks!\n",
             [
                 "WORKTYPE",
-                "byte 235",
-                "byte 153"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 153"
+                ]
             ],
             "BYE"
         ],
         "281": [
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"To ask how I can help you, noble one.\"",
             "ELSE",
@@ -52,8 +62,12 @@
             "\n\n\"To greatly respect your nobility and courage.\"",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "ENDIF",
             "\n",
@@ -105,7 +119,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, byte 2, flag",
+                        [
+                            "hasBit(byte 235, byte 2)"
+                        ],
                         [
                             "\"To wish I had more boomerangs, that I might give you another.\"",
                             [
@@ -128,7 +144,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, byte 3, flag",
+                        [
+                            "hasBit(byte 235, byte 3)"
+                        ],
                         [
                             "\"To regret that I have such a small supply of zu ylem dust.\"",
                             [
@@ -364,7 +382,9 @@
         "3365": [
             [
                 "IF",
-                "32, integer, byte 144, notEquals"
+                [
+                    "notEquals(integer(value 32), byte 144)"
+                ]
             ],
             "\"To ask you to see me at my shop!\"",
             [
@@ -379,7 +399,9 @@
             "\n\n\"To have only a few left in stock",
             [
                 "IF",
-                "byte 49, byte 1, weight, byte 1, canCarry, greater"
+                [
+                    "greater(weight(byte 49, byte 1), canCarry(byte 1))"
+                ]
             ],
             ".\"",
             [
@@ -400,25 +422,41 @@
                 [
                     [
                         "NEW",
-                        "byte 1",
-                        "byte 49",
-                        "byte 0",
-                        "byte 1"
+                        [
+                            "byte 1"
+                        ],
+                        [
+                            "byte 49"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 2"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 2"
+                        ]
                     ],
                     [
                         "IF",
-                        "byte 3, isInParty",
+                        [
+                            "partyHas(byte 3)"
+                        ],
                         [
                             "As you take the boomerang, Shamino speaks.",
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 3"
+                                [
+                                    "byte 3"
+                                ]
                             ],
                             "\n\n\"Aye, 'tis a most interesting weapon, $G.\"",
                             "WAIT",
@@ -426,7 +464,9 @@
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 235"
+                                [
+                                    "byte 235"
+                                ]
                             ],
                             "\n\nThe gargoyle speaks. \"To ask if anything else interests you?\"",
                             [
@@ -459,7 +499,9 @@
         "4014": [
             [
                 "IF",
-                "32, integer, byte 144, notEquals"
+                [
+                    "notEquals(integer(value 32), byte 144)"
+                ]
             ],
             "\"To ask that you see me at my shop!\"",
             [
@@ -476,7 +518,9 @@
             "\n\n\"Unfortunately, to make this powder from @plants that can no longer be found.\"",
             [
                 "IF",
-                "byte 91, byte 1, weight, byte 1, canCarry, greater"
+                [
+                    "greater(weight(byte 91, byte 1), canCarry(byte 1))"
+                ]
             ],
             [
                 "JUMP",
@@ -497,15 +541,27 @@
                 [
                     [
                         "NEW",
-                        "byte 1",
-                        "byte 91",
-                        "byte 0",
-                        "byte 1"
+                        [
+                            "byte 1"
+                        ],
+                        [
+                            "byte 91"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 3"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 3"
+                        ]
                     ],
                     "He hands you a small pouch. \"To hope you find it useful.\"",
                     [

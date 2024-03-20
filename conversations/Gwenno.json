@@ -12,12 +12,18 @@
         "35": [
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             [
                 "IF",
-                "byte 235, isInParty"
+                [
+                    "partyHas(byte 235)"
+                ]
             ],
             "\"Is there something you needed to know?\"",
             "ELSE",
@@ -43,7 +49,9 @@
                     "\"Iolo's @apprentice has taken over my job at @Iolo's Bows.\"\n*\n\"These days I've been transcribing the folk @songs of Britannia into numerical @notation for the artisan's @guild.\"\n*\n",
                     [
                         "IF",
-                        "byte 235, isInParty",
+                        [
+                            "partyHas(byte 235)"
+                        ],
                         [
                             "\"Of course, helping you on your quest is more important than that right now.\""
                         ],
@@ -128,18 +136,24 @@
                     "\"A bit scruffy, but he's the sweetest husband I could ever ask for.\"",
                     [
                         "IF",
-                        "byte 4, isNearby",
+                        [
+                            "isNearby(byte 4)"
+                        ],
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 4"
+                                [
+                                    "byte 4"
+                                ]
                             ],
                             "\n\nIolo says \"You're only saying that because it's true.\" He gives her a kiss.",
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 235"
+                                [
+                                    "byte 235"
+                                ]
                             ]
                         ],
                         []
@@ -261,7 +275,9 @@
         "1689": [
             [
                 "IF",
-                "byte 235, isInParty"
+                [
+                    "partyHas(byte 235)"
+                ]
             ],
             "\"I have joined you already!\"",
             [
@@ -287,12 +303,18 @@
             ],
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 235, joinParty"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "partyJoin(byte 235)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals"
+                [
+                    "equals(integer(value 0), byte 1)"
+                ]
             ],
             "\n\"Not while you're in that thing!\"",
             [
@@ -302,7 +324,9 @@
             "ENDIF",
             [
                 "IF",
-                "0, integer, byte 2, equals"
+                [
+                    "equals(integer(value 0), byte 2)"
+                ]
             ],
             "\n\"You have enough travelling with you already.\"\n*\n\"If you ask one of them to @leave first, I'd be happy to join you.\"",
             [
@@ -312,7 +336,9 @@
             "ENDIF",
             [
                 "IF",
-                "0, integer, byte 3, equals"
+                [
+                    "equals(integer(value 0), byte 3)"
+                ]
             ],
             [
                 "JUMP",
@@ -322,7 +348,9 @@
             "\n\"Okay! It will be nice to spend some time on the road again.\"",
             [
                 "IF",
-                "byte 4, isInParty"
+                [
+                    "partyHas(byte 4)"
+                ]
             ],
             "WAIT",
             "\n\nShe runs over and hooks arms with @Iolo, and they dance around and around.\n*\nThey're obviously very happy to see each other again.",
@@ -333,7 +361,9 @@
         "2222": [
             [
                 "IF",
-                "byte 235, isInParty, byte 0, equals"
+                [
+                    "equals(partyHas(byte 235), byte 0)"
+                ]
             ],
             "\"I'd have to @join you before I could leave, silly!\"",
             [
@@ -343,12 +373,18 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 235, leaveParty"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "partyLeave(byte 235)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals"
+                [
+                    "equals(integer(value 0), byte 1)"
+                ]
             ],
             "\"Let's get our feet back on solid ground first, okay?\"",
             [
@@ -358,7 +394,9 @@
             "ENDIF",
             [
                 "IF",
-                "0, integer, byte 2, equals"
+                [
+                    "equals(integer(value 0), byte 2)"
+                ]
             ],
             [
                 "JUMP",
@@ -368,7 +406,9 @@
             "\"All right. I'll head back home to Minoc. Come let me know if you need me to join you again later.\"\n*\n\"I'll leave all my things here - some of them might come in handy for you.\"",
             [
                 "IF",
-                "byte 4, isInParty"
+                [
+                    "partyHas(byte 4)"
+                ]
             ],
             "WAIT",
             "\n\nShe gives Iolo a big hug before she leaves.\n*\n\"Remember to keep your socks dry,\" she says, \"and I'll see you when the quest is done.\"",

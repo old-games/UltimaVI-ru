@@ -14,7 +14,9 @@
         "50": [
             [
                 "IF",
-                "byte 235, 1, flag"
+                [
+                    "hasBit(byte 235, value 1)"
+                ]
             ],
             "\"What you back for? I thought you not like my @inn.\"\n",
             [
@@ -24,7 +26,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"Heylo again.\"\n",
             "ELSE",
@@ -38,8 +42,12 @@
                     "\"@Petroph.\"\n",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -85,7 +93,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, 1, flag",
+                        [
+                            "hasBit(byte 235, value 1)"
+                        ],
                         [
                             "\"Da, goodbye and good riddance!\"\n"
                         ],
@@ -111,8 +121,12 @@
         "401": [
             [
                 "ASSIGN",
-                "0, integer",
-                "23, integer, byte 1, plus, byte 6, multiply"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "multiply(plus(integer(value 23), byte 1), byte 6)"
+                ]
             ],
             "\"#0 gold for you to stay and have meal, good?\" ",
             [
@@ -125,7 +139,9 @@
                 [
                     [
                         "IF",
-                        "byte 1, byte 88, countObj, 0, integer, less",
+                        [
+                            "less(objectsCount(byte 1, byte 88), integer(value 0))"
+                        ],
                         [
                             "\"Must pay in advance for rooms. Sorry, is policy.\"\n",
                             [
@@ -137,15 +153,27 @@
                     ],
                     [
                         "DELETE",
-                        "byte 1",
-                        "byte 88",
-                        "byte 0",
-                        "0, integer"
+                        [
+                            "byte 1"
+                        ],
+                        [
+                            "byte 88"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "integer(value 0)"
+                        ]
                     ],
                     [
                         "CLEARF",
-                        "byte 235",
-                        "1"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 1"
+                        ]
                     ],
                     "You sleep in a comfortable bed...\n",
                     "SLEEP",
@@ -167,8 +195,12 @@
                     "\n\n\"Well, maybe I don't like you either!\"\n",
                     [
                         "SETF",
-                        "byte 235",
-                        "1"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 1"
+                        ]
                     ],
                     [
                         "JUMP",

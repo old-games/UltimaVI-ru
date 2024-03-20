@@ -14,7 +14,9 @@
             "\n",
             [
                 "IF",
-                "byte 235, isInParty"
+                [
+                    "partyHas(byte 235)"
+                ]
             ],
             "\"I fear I know little that would help in this situation, $G.\"",
             [
@@ -24,7 +26,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, byte 2, flag"
+                [
+                    "hasBit(byte 235, byte 2)"
+                ]
             ],
             "\"Good $T, $G. Hast thou need of my services again?\" ",
             [
@@ -56,7 +60,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"Good $T, $G! Hast thou fared well in thy travels?\" ",
             [
@@ -88,15 +94,21 @@
             "ENDIF",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "\"$P! 'Tis a great joy and relief to see thou hast returned to Britannia, $G!\"",
             "WAIT",
             "\n\n",
             [
                 "IF",
-                "23, integer"
+                [
+                    "integer(value 23)"
+                ]
             ],
             "She greets your other traveling companions.",
             "WAIT",
@@ -130,7 +142,9 @@
                     "\n\n\"Though I know 'tis unbecoming of a simple druid to do so, I miss the excitement of our quests together!\"",
                     [
                         "IF",
-                        "byte 235, isInParty",
+                        [
+                            "partyHas(byte 235)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -153,7 +167,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, isInParty",
+                        [
+                            "partyHas(byte 235)"
+                        ],
                         [
                             "\"Surely I misunderstand thee, $G.\"",
                             "WAIT",
@@ -167,18 +183,28 @@
                     ],
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "byte 235, joinParty"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "partyJoin(byte 235)"
+                        ]
                     ],
                     [
                         "IF",
-                        "0, integer, byte 0, equals",
+                        [
+                            "equals(integer(value 0), byte 0)"
+                        ],
                         [
                             "\"Gladly, $G!\"\n",
                             [
                                 "SETF",
-                                "byte 235",
-                                "byte 2"
+                                [
+                                    "byte 235"
+                                ],
+                                [
+                                    "byte 2"
+                                ]
                             ],
                             "BYE"
                         ],
@@ -186,7 +212,9 @@
                     ],
                     [
                         "IF",
-                        "0, integer, byte 2, equals",
+                        [
+                            "equals(integer(value 0), byte 2)"
+                        ],
                         [
                             "\"Nay, $G, thou seemst to have enough companions as it is.\"",
                             "WAIT",
@@ -216,12 +244,18 @@
                 [
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "byte 235, leaveParty"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "partyLeave(byte 235)"
+                        ]
                     ],
                     [
                         "IF",
-                        "0, integer, byte 0, equals",
+                        [
+                            "equals(integer(value 0), byte 0)"
+                        ],
                         [
                             "\"Whatever thou thinkest best, $G.\"\n*\n\"Thou mayst keep my supplies.\"\n",
                             "BYE"
@@ -230,7 +264,9 @@
                     ],
                     [
                         "IF",
-                        "0, integer, byte 2, equals",
+                        [
+                            "equals(integer(value 0), byte 2)"
+                        ],
                         [
                             "\"Perhaps I misunderstand, $G.\"",
                             "WAIT",
@@ -284,7 +320,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, isInParty",
+                        [
+                            "partyHas(byte 235)"
+                        ],
                         [
                             "\"May the virtues guide us in our quest!\"\n"
                         ],
@@ -301,7 +339,9 @@
                 [
                     [
                         "IF",
-                        "byte 0, byte 1, rand",
+                        [
+                            "random(byte 0, byte 1)"
+                        ],
                         [
                             "\"Alas, I know nothing of $Z, $G.\""
                         ],

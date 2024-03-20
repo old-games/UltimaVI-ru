@@ -14,7 +14,9 @@
         "55": [
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"Welcome back, my friend",
             "ELSE",
@@ -22,7 +24,9 @@
             "ENDIF",
             [
                 "IF",
-                "23, integer"
+                [
+                    "integer(value 23)"
+                ]
             ],
             "s",
             "ENDIF",
@@ -35,8 +39,12 @@
                     "\"@Timothy.\" He flashes a friendly smile and nods.\n",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -118,7 +126,9 @@
                     "\"Farewell, friend",
                     [
                         "IF",
-                        "23, integer",
+                        [
+                            "integer(value 23)"
+                        ],
                         [
                             "s"
                         ],
@@ -143,8 +153,12 @@
         "789": [
             [
                 "ASSIGN",
-                "0, integer",
-                "23, integer, byte 1, plus, byte 5, multiply"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "multiply(plus(integer(value 23), byte 1), byte 5)"
+                ]
             ],
             "\"#0 gold for you to stay and have a meal, good?\" ",
             [
@@ -157,7 +171,9 @@
                 [
                     [
                         "IF",
-                        "byte 1, byte 88, countObj, 0, integer, less",
+                        [
+                            "less(objectsCount(byte 1, byte 88), integer(value 0))"
+                        ],
                         [
                             "\"I'm sorry, but we require cash in advance for our rooms.\"\n",
                             "BYE"
@@ -166,10 +182,18 @@
                     ],
                     [
                         "DELETE",
-                        "byte 1",
-                        "byte 88",
-                        "byte 0",
-                        "0, integer"
+                        [
+                            "byte 1"
+                        ],
+                        [
+                            "byte 88"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "integer(value 0)"
+                        ]
                     ],
                     "You sleep in a comfortable bed...\n",
                     "SLEEP",

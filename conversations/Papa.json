@@ -14,7 +14,9 @@
             "\n",
             [
                 "IF",
-                "byte 235, byte 2, flag"
+                [
+                    "hasBit(byte 235, byte 2)"
+                ]
             ],
             "\"Hoh, hoh. You back!\"",
             "WAIT",
@@ -49,7 +51,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"Hoh! You bring fish?\" ",
             [
@@ -81,8 +85,12 @@
             "\"Who you?\"",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "\n",
             "ASK",
@@ -144,7 +152,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, byte 64, byte 13, isInActorObj",
+                        [
+                            "hasObject(byte 235, byte 64, byte 13)"
+                        ],
                         [
                             "\"Got key. Want key?\" ",
                             [
@@ -193,7 +203,9 @@
                     "\"Come back, bring ",
                     [
                         "IF",
-                        "byte 235, byte 2, flag",
+                        [
+                            "hasBit(byte 235, byte 2)"
+                        ],
                         [
                             "more "
                         ],
@@ -250,17 +262,27 @@
         "845": [
             [
                 "ASSIGN",
-                "1, integer",
-                "byte 0"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "ASSIGN",
-                "0, integer",
-                "word 265, byte 0, isInPartyObj"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "partyHasObject(word 265, byte 0)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, word 32769, equals"
+                [
+                    "equals(integer(value 0), word 32769)"
+                ]
             ],
             "\"Where fish? No smell fish.\"",
             [
@@ -270,14 +292,24 @@
             "ENDIF",
             [
                 "DELETE",
-                "0, integer",
-                "word 265",
-                "byte 0",
-                "byte 1"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "word 265"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "IF",
-                "byte 235, byte 2, flag"
+                [
+                    "hasBit(byte 235, byte 2)"
+                ]
             ],
             "\"Good fish! Good friend!\"",
             [
@@ -290,15 +322,27 @@
             "\n\nThe cyclops hands you a large, rusted key.",
             [
                 "GIVE",
-                "byte 64",
-                "byte 13",
-                "byte 235",
-                "byte 1"
+                [
+                    "byte 64"
+                ],
+                [
+                    "byte 13"
+                ],
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "SETF",
-                "byte 235",
-                "byte 2"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 2"
+                ]
             ],
             [
                 "JUMP",

@@ -14,7 +14,9 @@
         "52": [
             [
                 "IF",
-                "byte 235, byte 5, flag, byte 0, equals"
+                [
+                    "equals(hasBit(byte 235, byte 5), byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -23,7 +25,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, byte 7, flag"
+                [
+                    "hasBit(byte 235, byte 7)"
+                ]
             ],
             "\"Hello. There's something I need to ask you, what was it...\"",
             "WAIT",
@@ -46,8 +50,12 @@
                     "\n\n\"But you have the look of one with more important @business.\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -116,7 +124,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, byte 6, flag",
+                        [
+                            "hasBit(byte 235, byte 6)"
+                        ],
                         [
                             "\"I already loaned you the rune.\"",
                             [
@@ -139,7 +149,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, byte 6, flag",
+                        [
+                            "hasBit(byte 235, byte 6)"
+                        ],
                         [
                             "\"Wait a minute... You're already a member of the guild!\"",
                             [
@@ -156,12 +168,18 @@
                     "\n\n\"You also need to commit '@Stones' to memory. 'Tis a simple tune - ask @Gwenno to play it for thee.\"",
                     [
                         "IF",
-                        "byte 235, byte 6, flag, byte 0, equals",
+                        [
+                            "equals(hasBit(byte 235, byte 6), byte 0)"
+                        ],
                         [
                             [
                                 "SETF",
-                                "byte 235",
-                                "byte 7"
+                                [
+                                    "byte 235"
+                                ],
+                                [
+                                    "byte 7"
+                                ]
                             ]
                         ],
                         []
@@ -188,7 +206,9 @@
                 [
                     [
                         "IF",
-                        "byte 67, isInParty",
+                        [
+                            "partyHas(byte 67)"
+                        ],
                         [
                             "\"Yes, ask her about it.\""
                         ],
@@ -222,18 +242,24 @@
                     "\"I know she's around here somewhere...\"",
                     [
                         "IF",
-                        "byte 66, isNearby",
+                        [
+                            "isNearby(byte 66)"
+                        ],
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 66"
+                                [
+                                    "byte 66"
+                                ]
                             ],
                             "\n\n\"I'm right here, Selganor!\"",
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 235"
+                                [
+                                    "byte 235"
+                                ]
                             ],
                             "\n\n\"Ah, I knew you'd be somewhere close by.\""
                         ],
@@ -316,7 +342,9 @@
         "1968": [
             [
                 "IF",
-                "byte 235, byte 6, flag"
+                [
+                    "hasBit(byte 235, byte 6)"
+                ]
             ],
             "\"You should play your panpipes often - 'twill lighten your step on the long road ahead.\"",
             [
@@ -346,7 +374,9 @@
                 [
                     [
                         "IF",
-                        "byte 153, byte 0, isInPartyObj, word 32769, equals",
+                        [
+                            "equals(partyHasObject(byte 153, byte 0), word 32769)"
+                        ],
                         [
                             "\"But I don't see any!\"",
                             [
@@ -379,20 +409,36 @@
                     "\n\"I know you'll find some solution to this gargoyle problem.\"",
                     [
                         "GIVE",
-                        "byte 246",
-                        "byte 0",
-                        "byte 235",
-                        "byte 1"
+                        [
+                            "byte 246"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 6"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 6"
+                        ]
                     ],
                     [
                         "CLEARF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -416,12 +462,18 @@
             "\"Oh, hello. Maybe you can help me with something.\"\n*\n\"My nephew is studying alchemy, and he needs to know this.\"\n*\n",
             [
                 "ASSIGN",
-                "6, integer",
-                "byte 1, byte 4, rand"
+                [
+                    "integer(value 6)"
+                ],
+                [
+                    "random(byte 1, byte 4)"
+                ]
             ],
             [
                 "IF",
-                "6, integer, byte 1, equals"
+                [
+                    "equals(integer(value 6), byte 1)"
+                ]
             ],
             [
                 "JUMP",
@@ -430,7 +482,9 @@
             "ENDIF",
             [
                 "IF",
-                "6, integer, byte 2, equals"
+                [
+                    "equals(integer(value 6), byte 2)"
+                ]
             ],
             [
                 "JUMP",
@@ -439,7 +493,9 @@
             "ENDIF",
             [
                 "IF",
-                "6, integer, byte 3, equals"
+                [
+                    "equals(integer(value 6), byte 3)"
+                ]
             ],
             [
                 "JUMP",
@@ -448,7 +504,9 @@
             "ENDIF",
             [
                 "IF",
-                "6, integer, byte 4, equals"
+                [
+                    "equals(integer(value 6), byte 4)"
+                ]
             ],
             [
                 "JUMP",
@@ -598,8 +656,12 @@
             "\"Thanks! Now what can I do for you?\"",
             [
                 "SETF",
-                "byte 235",
-                "byte 5"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 5"
+                ]
             ],
             [
                 "JUMP",

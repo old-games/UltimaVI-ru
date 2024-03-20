@@ -13,12 +13,18 @@
             "\"Hey hey hey! Welcome to the finest sewers in Britannia.",
             [
                 "IF",
-                "byte 235, 0, flag, byte 0, equals"
+                [
+                    "equals(hasBit(byte 235, value 0), byte 0)"
+                ]
             ],
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "\"\n*\n\"You look like you need a nickname, so I'll call you 'ducks.'",
             "ENDIF",
@@ -140,14 +146,24 @@
                 [
                     [
                         "IF",
-                        "byte 1, canCarry, byte 169, byte 1, weight, greater, byte 1, byte 169, byte 0, isInActorObj, byte 0, equals, and",
+                        [
+                            "and(greater(canCarry(byte 1), weight(byte 169, byte 1)), equals(hasObject(byte 1, byte 169, byte 0), byte 0))"
+                        ],
                         [
                             [
                                 "NEW",
-                                "byte 1",
-                                "byte 169",
-                                "byte 0",
-                                "byte 1"
+                                [
+                                    "byte 1"
+                                ],
+                                [
+                                    "byte 169"
+                                ],
+                                [
+                                    "byte 0"
+                                ],
+                                [
+                                    "byte 1"
+                                ]
                             ]
                         ],
                         []

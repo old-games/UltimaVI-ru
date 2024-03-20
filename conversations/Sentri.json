@@ -12,7 +12,9 @@
         "31": [
             [
                 "IF",
-                "byte 235, isInParty"
+                [
+                    "partyHas(byte 235)"
+                ]
             ],
             [
                 "JUMP",
@@ -21,7 +23,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"Good $T, $P. I hope you have returned to ask me to join you.\"",
             "ELSE",
@@ -35,8 +39,12 @@
                 [
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     "\"It is I, Sentri.\" (He pronounces his name 'Sahn-tray.')",
                     [
@@ -111,7 +119,9 @@
         "849": [
             [
                 "IF",
-                "byte 235, isInParty"
+                [
+                    "partyHas(byte 235)"
+                ]
             ],
             "\"I have joined you already!\"",
             [
@@ -138,12 +148,18 @@
             "\n",
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 235, joinParty"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "partyJoin(byte 235)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals"
+                [
+                    "equals(integer(value 0), byte 1)"
+                ]
             ],
             "\"It would be best if you got out of that vessel first.\"",
             [
@@ -153,7 +169,9 @@
             "ENDIF",
             [
                 "IF",
-                "0, integer, byte 2, equals"
+                [
+                    "equals(integer(value 0), byte 2)"
+                ]
             ],
             "\"You have enough companions now.\"\n*\n\"If you tell one of them to @leave first, then I'll join you.\"",
             [
@@ -163,7 +181,9 @@
             "ENDIF",
             [
                 "IF",
-                "0, integer, byte 3, equals"
+                [
+                    "equals(integer(value 0), byte 3)"
+                ]
             ],
             [
                 "JUMP",
@@ -190,12 +210,18 @@
             "\n",
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 235, leaveParty"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "partyLeave(byte 235)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals"
+                [
+                    "equals(integer(value 0), byte 1)"
+                ]
             ],
             "\"Let's get our feet back on solid ground first, okay?\"",
             [

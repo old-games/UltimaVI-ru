@@ -14,7 +14,9 @@
             "\n",
             [
                 "IF",
-                "21, integer, byte 1, equals, byte 76, byte 0, isInPartyObj, byte 1, equals, and"
+                [
+                    "and(equals(integer(value 21), byte 1), equals(partyHasObject(byte 76, byte 0), byte 1))"
+                ]
             ],
             [
                 "JUMP",
@@ -23,7 +25,9 @@
             "ENDIF",
             [
                 "IF",
-                "21, integer"
+                [
+                    "integer(value 21)"
+                ]
             ],
             "\"The False Prophet!\" the gargoyle shouts. \"Begone, begone!\"",
             "ELSE",
@@ -32,11 +36,15 @@
             "WAIT",
             [
                 "IF",
-                "byte 4, isInParty"
+                [
+                    "partyHas(byte 4)"
+                ]
             ],
             [
                 "PORTRAIT",
-                "byte 4"
+                [
+                    "byte 4"
+                ]
             ],
             "\n\nHalf-jokingly, Iolo says, \"We'd better do as he says.\"",
             "WAIT",
@@ -50,7 +58,9 @@
         "372": [
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"To welcome you back, False Prophet!\"",
             "ELSE",
@@ -67,7 +77,9 @@
                 [
                     [
                         "IF",
-                        "32, integer, byte 143, notEquals",
+                        [
+                            "notEquals(integer(value 32), byte 143)"
+                        ],
                         [
                             "\"To not have food on me. To have you visit my shop.\"",
                             [
@@ -156,7 +168,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, 0, flag",
+                        [
+                            "hasBit(byte 235, value 0)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -166,13 +180,21 @@
                         [
                             [
                                 "ASSIGN",
-                                "2, integer",
-                                "byte 1, 23, integer, byte 1, plus, rand"
+                                [
+                                    "integer(value 2)"
+                                ],
+                                [
+                                    "random(byte 1, plus(integer(value 23), byte 1))"
+                                ]
                             ],
                             [
                                 "ASSIGN",
-                                "0, integer",
-                                "byte 0"
+                                [
+                                    "integer(value 0)"
+                                ],
+                                [
+                                    "byte 0"
+                                ]
                             ],
                             [
                                 "JUMP",
@@ -228,7 +250,9 @@
                     "You",
                     [
                         "IF",
-                        "23, integer",
+                        [
+                            "integer(value 23)"
+                        ],
                         [
                             "r party eats the profferred food."
                         ],
@@ -240,7 +264,9 @@
                     "\n\nThe flavor is unlike anything you've had before.",
                     [
                         "IF",
-                        "23, integer, byte 4, isInParty, and, byte 0, equals",
+                        [
+                            "equals(and(integer(value 23), partyHas(byte 4)), byte 0)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -252,13 +278,17 @@
                     "WAIT",
                     [
                         "PORTRAIT",
-                        "byte 4"
+                        [
+                            "byte 4"
+                        ]
                     ],
                     "\n\nIolo speaks. \"I wonder what sort of @meat this is, $P.\"",
                     "WAIT",
                     [
                         "PORTRAIT",
-                        "byte 235"
+                        [
+                            "byte 235"
+                        ]
                     ],
                     "\n\nThe gargoyle beams with pride. \"To ask you: Is it not the best @meat you have ever eaten?\"",
                     [
@@ -284,12 +314,18 @@
         "2151": [
             [
                 "IF",
-                "0, integer, 24, integer, greater"
+                [
+                    "greater(integer(value 0), integer(value 24))"
+                ]
             ],
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             [
                 "JUMP",
@@ -298,22 +334,36 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "2, integer",
-                "byte 5"
+                [
+                    "integer(value 2)"
+                ],
+                [
+                    "byte 5"
+                ]
             ],
             [
                 "ASSIGN",
-                "1, integer",
-                "0, integer, byte 0, character"
+                [
+                    "integer(value 1)"
+                ],
+                [
+                    "character(integer(value 0), byte 0)"
+                ]
             ],
             [
                 "IF",
-                "byte 135, 2, integer, weight, 1, integer, canCarry, greater"
+                [
+                    "greater(weight(byte 135, integer(value 2)), canCarry(integer(value 1)))"
+                ]
             ],
             [
                 "ASSIGN",
-                "0, integer",
-                "0, integer, byte 1, plus"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "plus(integer(value 0), byte 1)"
+                ]
             ],
             [
                 "JUMP",
@@ -322,8 +372,12 @@
             "ENDIF",
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "\"Wait!\"",
             "WAIT",
@@ -340,19 +394,31 @@
                 [
                     [
                         "NEW",
-                        "1, integer",
-                        "byte 135",
-                        "byte 0",
-                        "2, integer"
+                        [
+                            "integer(value 1)"
+                        ],
+                        [
+                            "byte 135"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "integer(value 2)"
+                        ]
                     ],
                     [
                         "SETNAME",
-                        "1, integer"
+                        [
+                            "integer(value 1)"
+                        ]
                     ],
                     "The chef gives ",
                     [
                         "IF",
-                        "1, integer, byte 1, equals",
+                        [
+                            "equals(integer(value 1), byte 1)"
+                        ],
                         [
                             "you"
                         ],

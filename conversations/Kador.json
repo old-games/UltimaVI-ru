@@ -12,7 +12,9 @@
         "34": [
             [
                 "IF",
-                "byte 235, byte 7, flag"
+                [
+                    "hasBit(byte 235, byte 7)"
+                ]
             ],
             "*The dog gets up and brings you his bowl again, looking at you expectantly. ",
             [
@@ -22,12 +24,19 @@
             "ENDIF",
             [
                 "DPRINT",
-                "dword 1353, byte 0, byte 3, rand"
+                [
+                    "random(byte 0, byte 3)",
+                    "dword 1353"
+                ]
             ],
             [
                 "SETF",
-                "byte 235",
-                "0"
+                [
+                    "byte 235"
+                ],
+                [
+                    "value 0"
+                ]
             ],
             "\n",
             "ASK",
@@ -60,8 +69,12 @@
                     "The dog sits.",
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -76,8 +89,12 @@
                     "The dog fetches a stick and lays it at your feet.",
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -92,8 +109,12 @@
                     "The dog shakes paws with you.",
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -108,8 +129,12 @@
                     "The dog bites your heel.",
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -124,8 +149,12 @@
                     "The dog begs.",
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -140,8 +169,12 @@
                     "The dog plays dead.",
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -156,8 +189,12 @@
                     "The dog rolls over.",
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -171,11 +208,16 @@
                 [
                     [
                         "IF",
-                        "byte 235, byte 6, flag",
+                        [
+                            "hasBit(byte 235, byte 6)"
+                        ],
                         [
                             [
                                 "DPRINT",
-                                "dword 1353, byte 0, byte 3, rand"
+                                [
+                                    "random(byte 0, byte 3)",
+                                    "dword 1353"
+                                ]
                             ],
                             [
                                 "JUMP",
@@ -187,13 +229,21 @@
                     "\"I feel that the whole debate over 'free will' versus 'determinism' arises from an artificial semantic division. In light of the work of Godel and Heisenberg, it is evident that the two concepts are indistinguishable and thus, for all practical purposes, identical.\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 6"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 6"
+                        ]
                     ],
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -214,7 +264,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, byte 7, flag, byte 0, equals",
+                        [
+                            "equals(hasBit(byte 235, byte 7), byte 0)"
+                        ],
                         [
                             "\"Ruff.\"\n",
                             "BYE"
@@ -234,7 +286,10 @@
                 [
                     [
                         "DPRINT",
-                        "dword 1353, byte 0, byte 3, rand"
+                        [
+                            "random(byte 0, byte 3)",
+                            "dword 1353"
+                        ]
                     ]
                 ]
             ],
@@ -256,7 +311,9 @@
                     "After a while the dog sets down the bowl, lies down, and starts whimpering.\n",
                     [
                         "SUB_KARMA",
-                        "byte 5"
+                        [
+                            "byte 5"
+                        ]
                     ],
                     "BYE"
                 ]
@@ -268,7 +325,9 @@
             ],
             [
                 "IF",
-                "0, integer, byte 1, byte 88, countObj, greater"
+                [
+                    "greater(integer(value 0), objectsCount(byte 1, byte 88))"
+                ]
             ],
             "You don't have that much.\n",
             [
@@ -278,7 +337,9 @@
             "ENDIF",
             [
                 "IF",
-                "0, integer, byte 0, equals"
+                [
+                    "equals(integer(value 0), byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -287,22 +348,42 @@
             "ENDIF",
             [
                 "DELETE",
-                "byte 1",
-                "byte 88",
-                "byte 0",
-                "0, integer"
+                [
+                    "byte 1"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "integer(value 0)"
+                ]
             ],
             [
                 "NEW",
-                "byte 235",
-                "byte 88",
-                "byte 0",
-                "0, integer"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "integer(value 0)"
+                ]
             ],
             [
                 "CLEARF",
-                "byte 235",
-                "byte 7"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 7"
+                ]
             ],
             "The dog seems pleased.\n",
             "BYE"

@@ -14,7 +14,9 @@
         "64": [
             [
                 "IF",
-                "32, integer, byte 153, equals"
+                [
+                    "equals(integer(value 32), byte 153)"
+                ]
             ],
             "\"Don't you know it's rude to interrupt a man when he's brawling?\"\n",
             "BYE",
@@ -22,7 +24,9 @@
             "\"Hello there, $G.\"",
             [
                 "IF",
-                "32, integer, byte 144, notEquals"
+                [
+                    "notEquals(integer(value 32), byte 144)"
+                ]
             ],
             [
                 "JUMP",
@@ -78,8 +82,12 @@
                     "\n\"Pleased to make your acquaintance.\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -191,18 +199,24 @@
                     "\"Look carefully, $G. Ye will see it if ye keep on looking.\"",
                     [
                         "IF",
-                        "byte 3, isInParty",
+                        [
+                            "partyHas(byte 3)"
+                        ],
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 3"
+                                [
+                                    "byte 3"
+                                ]
                             ],
                             "\n\nShamino points to a spot west of the bar where the wall meets the ground. \"There it is.\"",
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 50"
+                                [
+                                    "byte 50"
+                                ]
                             ]
                         ],
                         []

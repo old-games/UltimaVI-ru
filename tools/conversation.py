@@ -41,41 +41,63 @@ def _read_string(stream, visited_labels, end):
 
 
 def _read_expression(stream, visited_labels, end):
-    result = []
-
     operators = {
         0x81: 'greater', 0x82: 'greaterOrEquals', 0x83: 'less', 0x84: 'lessOrEquals', 0x85: 'notEquals', 0x86: 'equals',
         0x90: 'plus', 0x91: 'minus', 0x92: 'multiply', 0x93: 'divide', 0x94: 'or', 0x95: 'and',
-        0x9a: 'canCarry', 0x9b: 'weight', 0x9d: 'hasHorse', 0x9f: 'isInActorObj',
-        0xa0: 'rand', 0xab: 'flag',
-        0xb2: 'integer', 0xb3: 'string', 0xb4: 'data', 0xb7: 'indexOf', 0xbb: 'countObj',
-        0xc6: 'isInParty', 0xc7: 'isInPartyObj', 0xca: 'joinParty', 0xcc: 'leaveParty',
+        0x9a: 'canCarry', 0x9b: 'weight', 0x9d: 'hasHorse', 0x9f: 'hasObject',
+        0xa0: 'random', 0xab: 'hasBit',
+        0xb2: 'integer', 0xb3: 'string', 0xb4: 'data', 0xb7: 'indexOf', 0xbb: 'objectsCount',
+        0xc6: 'partyHas', 0xc7: 'partyHasObject', 0xca: 'partyJoin', 0xcc: 'partyLeave',
         0xd7: 'isNearby', 0xda: 'isWounded', 0xdc: 'isPoisoned', 0xdd: 'character',
         0xe0: 'experience', 0xe1: 'level', 0xe2: 'strength', 0xe3: 'intelligence', 0xe4: 'dexterity',
     }
+    parameters = {operator: 1 for operator in (
+        'canCarry', 'hasHorse', 'integer', 'string', 'partyHas', 'partyJoin', 'partyLeave',
+        'isNearby', 'isWounded', 'isPoisoned'
+    )}
+    parameters.update({operator: 2 for operator in operators.values() if operator not in parameters})
+    parameters.update({operator: 3 for operator in ('hasObject',)})
 
+    parts = []
     while (code := _peek_byte(stream)) != end:
         if code == 0xd2:
             _read_byte(stream, visited_labels)
-            result.append(f'dword {_read_dword(stream, visited_labels)}')
+            parts.append(('dword', _read_dword(stream, visited_labels)))
 
         elif code == 0xd3:
             _read_byte(stream, visited_labels)
-            result.append(f'byte {_read_byte(stream, visited_labels)}')
+            parts.append(('byte', _read_byte(stream, visited_labels)))
 
         elif code == 0xd4:
             _read_byte(stream, visited_labels)
-            result.append(f'word {_read_word(stream, visited_labels)}')
+            parts.append(('word', _read_word(stream, visited_labels)))
 
         elif code in operators:
-            result.append(operators[_read_byte(stream, visited_labels)])
+            parts.append(operators[_read_byte(stream, visited_labels)])
 
         else:
             assert _peek_byte(stream) < 0x80
-            result.append(_read_byte(stream, visited_labels))
+            parts.append(('value', _read_byte(stream, visited_labels)))
 
     _read_byte(stream, visited_labels)
-    return ', '.join(map(str, result))
+
+    # FIXME what is `value`? why not `byte`? can we squeeze them to plain value and decide automatically?
+
+    def format_expression(parts):
+        operator = parts.pop()
+        if operator[0] in ('byte', 'word', 'dword', 'value'):
+            return ' '.join(map(str, operator))
+
+        else:
+            arguments = []
+            for i in range(parameters[operator]):
+                arguments.append(format_expression(parts))
+            return f'{operator}({", ".join(reversed(arguments))})'
+
+    result = []
+    while parts:
+        result.append(format_expression(parts))
+    return result
 
 
 def _is_ended(result):

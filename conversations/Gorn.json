@@ -12,18 +12,28 @@
         "36": [
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 0"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "IF",
-                "byte 235, isInParty"
+                [
+                    "partyHas(byte 235)"
+                ]
             ],
             "\"Vy talk ven dere's fighting to do?\"",
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 1"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "JUMP",
@@ -32,7 +42,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, 0, flag"
+                [
+                    "hasBit(byte 235, value 0)"
+                ]
             ],
             "\"Ho, Avatar, thou hast returned!\"",
             [
@@ -49,8 +61,12 @@
                     "\"I be named Gorn, $G.\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -64,7 +80,9 @@
                 [
                     [
                         "IF",
-                        "0, integer",
+                        [
+                            "integer(value 0)"
+                        ],
                         [
                             "\"I follow thee, $G. I haf no other job now.\""
                         ],
@@ -86,7 +104,9 @@
                 [
                     [
                         "IF",
-                        "0, integer",
+                        [
+                            "integer(value 0)"
+                        ],
                         [
                             "\"Ya, I like to trafel!\"",
                             [
@@ -111,7 +131,9 @@
                 [
                     [
                         "IF",
-                        "0, integer",
+                        [
+                            "integer(value 0)"
+                        ],
                         [
                             "\"I don't understand, $G. Vat do you mean, $Z?\"",
                             [
@@ -169,7 +191,9 @@
                 [
                     [
                         "IF",
-                        "byte 0, byte 1, rand",
+                        [
+                            "random(byte 0, byte 1)"
+                        ],
                         [
                             "\"I am just a simple varrior, $G, and know nothing about $Z.\""
                         ],
@@ -187,18 +211,28 @@
         "989": [
             [
                 "ASSIGN",
-                "9, integer",
-                "byte 235, joinParty"
+                [
+                    "integer(value 9)"
+                ],
+                [
+                    "partyJoin(byte 235)"
+                ]
             ],
             [
                 "ASSIGN",
-                "0, string",
-                "dword 1270, 9, integer, data"
+                [
+                    "string(value 0)"
+                ],
+                [
+                    "data(dword 1270, integer(value 9))"
+                ]
             ],
             "\"I vould be much happy to join mit thee, $G$0\"",
             [
                 "IF",
-                "9, integer, byte 0, equals"
+                [
+                    "equals(integer(value 9), byte 0)"
+                ]
             ],
             "\n",
             "BYE",
@@ -212,7 +246,9 @@
         "1072": [
             [
                 "IF",
-                "byte 235, isInParty, byte 0, equals"
+                [
+                    "equals(partyHas(byte 235), byte 0)"
+                ]
             ],
             "\"But I vas here first, ya?\"",
             [
@@ -222,12 +258,18 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 235, leaveParty"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "partyLeave(byte 235)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals"
+                [
+                    "equals(integer(value 0), byte 1)"
+                ]
             ],
             "\"Ask ven ve land, okay?\"",
             [
@@ -237,7 +279,9 @@
             "ENDIF",
             [
                 "IF",
-                "0, integer, byte 2, equals"
+                [
+                    "equals(integer(value 0), byte 2)"
+                ]
             ],
             [
                 "JUMP",

@@ -14,7 +14,9 @@
         "67": [
             [
                 "IF",
-                "32, integer, byte 153, equals"
+                [
+                    "equals(integer(value 32), byte 153)"
+                ]
             ],
             "\"Can't talk now. I'm--ungh!\" He reels from a punch to his belly.",
             "WAIT",
@@ -29,7 +31,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, 0, flag",
+                        [
+                            "hasBit(byte 235, value 0)"
+                        ],
                         [
                             "\"Well, I'm still Captain Elad.\"",
                             [
@@ -42,8 +46,12 @@
                     "He looks at you uneasily. \"I'm @Captain Elad. Not that it's any business of yours...\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -84,18 +92,24 @@
                     "\n\n\"I hear they dragged him down into Hythloth, and nobody's seen hide nor hair of him since.\"",
                     [
                         "IF",
-                        "byte 114, isNearby",
+                        [
+                            "isNearby(byte 114)"
+                        ],
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 114"
+                                [
+                                    "byte 114"
+                                ]
                             ],
                             "\n\nLeonna raises an eyebrow. \"Is that so? I could tell a different tale...\"",
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 235"
+                                [
+                                    "byte 235"
+                                ]
                             ]
                         ],
                         []
@@ -271,14 +285,18 @@
         "2394": [
             [
                 "IF",
-                "byte 235, byte 6, flag"
+                [
+                    "hasBit(byte 235, byte 6)"
+                ]
             ],
             "The pirate smiles and waves goodbye, then scowls as he turns back to his mug of tea.\n",
             "BYE",
             "ENDIF",
             [
                 "IF",
-                "byte 235, byte 7, flag"
+                [
+                    "hasBit(byte 235, byte 7)"
+                ]
             ],
             [
                 "JUMP",
@@ -287,7 +305,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 1, canCarry, byte 88, byte 5, weight, less"
+                [
+                    "less(canCarry(byte 1), weight(byte 88, byte 5))"
+                ]
             ],
             [
                 "JUMP",
@@ -361,34 +381,54 @@
                 [
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 6"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 6"
+                        ]
                     ]
                 ]
             ],
             [
                 "NEW",
-                "byte 1",
-                "byte 88",
-                "byte 0",
-                "byte 5"
+                [
+                    "byte 1"
+                ],
+                [
+                    "byte 88"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 5"
+                ]
             ],
             "\"Thank you! Now my meditations will succeed at last!\"",
             [
                 "SETF",
-                "byte 235",
-                "byte 7"
+                [
+                    "byte 235"
+                ],
+                [
+                    "byte 7"
+                ]
             ],
             [
                 "IF",
-                "byte 235, byte 6, flag"
+                [
+                    "hasBit(byte 235, byte 6)"
+                ]
             ],
             "\n",
             "BYE",
             "ELSE",
             [
                 "SUB_KARMA",
-                "byte 5"
+                [
+                    "byte 5"
+                ]
             ],
             "ENDIF",
             "As you turn to leave, you think you might have caught a glimpse of Captain Elad stealing a swig from someone else's mug... But you can't be sure.\n",

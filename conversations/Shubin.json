@@ -14,7 +14,9 @@
         "73": [
             [
                 "IF",
-                "byte 235, byte 7, flag"
+                [
+                    "hasBit(byte 235, byte 7)"
+                ]
             ],
             [
                 "JUMP",
@@ -42,8 +44,12 @@
                     "\"My name is Shubin, $G.\"",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -80,18 +86,24 @@
                     "\"@Sandy says the mantra of eating is 'yum,' $G. Hee, hee!\"",
                     [
                         "IF",
-                        "byte 4, isInParty",
+                        [
+                            "partyHas(byte 4)"
+                        ],
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 4"
+                                [
+                                    "byte 4"
+                                ]
                             ],
                             "\n\nYou friend Iolo rolls his eyes. \"Such wisdom we can surely do without!\"",
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "byte 235"
+                                [
+                                    "byte 235"
+                                ]
                             ]
                         ],
                         []
@@ -108,7 +120,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, byte 7, flag, byte 1, canCarry, byte 130, byte 1, weight, less, or",
+                        [
+                            "or(hasBit(byte 235, byte 7), less(canCarry(byte 1), weight(byte 130, byte 1)))"
+                        ],
                         [
                             "\"I have no more rolls, $G.\"",
                             [
@@ -223,24 +237,40 @@
                 [
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "word 417, byte 0, isInPartyObj"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "partyHasObject(word 417, byte 0)"
+                        ]
                     ],
                     [
                         "IF",
-                        "0, integer, word 32769, notEquals",
+                        [
+                            "notEquals(integer(value 0), word 32769)"
+                        ],
                         [
                             "\"Oh, thank you, thank you, thank you!\"",
                             [
                                 "DELETE",
-                                "byte 1",
-                                "word 417",
-                                "byte 0",
-                                "byte 1"
+                                [
+                                    "byte 1"
+                                ],
+                                [
+                                    "word 417"
+                                ],
+                                [
+                                    "byte 0"
+                                ],
+                                [
+                                    "byte 1"
+                                ]
                             ],
                             [
                                 "ADD_KARMA",
-                                "byte 5"
+                                [
+                                    "byte 5"
+                                ]
                             ],
                             [
                                 "JUMP",
@@ -281,15 +311,27 @@
                     "\"Have a whole tray, then.\"",
                     [
                         "NEW",
-                        "byte 1",
-                        "byte 130",
-                        "byte 0",
-                        "byte 1"
+                        [
+                            "byte 1"
+                        ],
+                        [
+                            "byte 130"
+                        ],
+                        [
+                            "byte 0"
+                        ],
+                        [
+                            "byte 1"
+                        ]
                     ],
                     [
                         "SETF",
-                        "byte 235",
-                        "byte 7"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "byte 7"
+                        ]
                     ],
                     [
                         "JUMP",

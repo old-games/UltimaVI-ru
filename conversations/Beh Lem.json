@@ -13,7 +13,9 @@
             "WAIT",
             [
                 "IF",
-                "byte 235, isInParty"
+                [
+                    "partyHas(byte 235)"
+                ]
             ],
             "\n\"To ask how I can help, mighty $P,\" Beh Lem asks.",
             [
@@ -23,12 +25,18 @@
             "ENDIF",
             [
                 "IF",
-                "21, integer"
+                [
+                    "integer(value 21)"
+                ]
             ],
             [
                 "ASSIGN",
-                "9, integer",
-                "byte 0"
+                [
+                    "integer(value 9)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "JUMP",
@@ -42,17 +50,27 @@
             "\n\n\"Hello. I little human @speak.\"",
             [
                 "ASSIGN",
-                "0, integer",
-                "byte 0"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "ASSIGN",
-                "0, integer",
-                "0, integer, byte 1, plus"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "plus(integer(value 0), byte 1)"
+                ]
             ],
             [
                 "IF",
-                "0, integer, byte 5, less"
+                [
+                    "less(integer(value 0), byte 5)"
+                ]
             ],
             [
                 "JUMP",
@@ -62,15 +80,21 @@
             "WAIT",
             [
                 "IF",
-                "byte 2, isInParty"
+                [
+                    "partyHas(byte 2)"
+                ]
             ],
             [
                 "PORTRAIT",
-                "byte 2"
+                [
+                    "byte 2"
+                ]
             ],
             [
                 "SETNAME",
-                "byte 2"
+                [
+                    "byte 2"
+                ]
             ],
             [
                 "JUMP",
@@ -79,15 +103,21 @@
             "ENDIF",
             [
                 "IF",
-                "byte 4, isInParty"
+                [
+                    "partyHas(byte 4)"
+                ]
             ],
             [
                 "PORTRAIT",
-                "byte 4"
+                [
+                    "byte 4"
+                ]
             ],
             [
                 "SETNAME",
-                "byte 4"
+                [
+                    "byte 4"
+                ]
             ],
             [
                 "JUMP",
@@ -123,12 +153,18 @@
                     "\"As you wish, $G.\"",
                     [
                         "PORTRAIT",
-                        "byte 235"
+                        [
+                            "byte 235"
+                        ]
                     ],
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "byte 0"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "byte 0"
+                        ]
                     ]
                 ]
             ]
@@ -204,7 +240,9 @@
             "\n",
             [
                 "IF",
-                "byte 235, 0, flag, byte 0, equals"
+                [
+                    "equals(hasBit(byte 235, value 0), byte 0)"
+                ]
             ],
             "\"To greet you, human. To recognize you as the False @Prophet!\"",
             "WAIT",
@@ -216,7 +254,9 @@
             "\"Good $T, my friend",
             [
                 "IF",
-                "23, integer"
+                [
+                    "integer(value 23)"
+                ]
             ],
             "s",
             "ENDIF",
@@ -279,7 +319,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, isInParty",
+                        [
+                            "partyHas(byte 235)"
+                        ],
                         [
                             "\"To be here to help you, noble $P.\""
                         ],
@@ -299,7 +341,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, isInParty",
+                        [
+                            "partyHas(byte 235)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -336,11 +380,16 @@
                 [
                     [
                         "IF",
-                        "byte 235, isInParty",
+                        [
+                            "partyHas(byte 235)"
+                        ],
                         [
                             [
                                 "DPRINT",
-                                "dword 4206, byte 3"
+                                [
+                                    "byte 3",
+                                    "dword 4206"
+                                ]
                             ],
                             [
                                 "JUMP",
@@ -420,7 +469,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, isInParty",
+                        [
+                            "partyHas(byte 235)"
+                        ],
                         [
                             "\"To wish to stay with you!\"\n*\n\"To not leave until there is peace between our races!\"",
                             [
@@ -431,7 +482,10 @@
                         [
                             [
                                 "DPRINT",
-                                "dword 4206, byte 3"
+                                [
+                                    "byte 3",
+                                    "dword 4206"
+                                ]
                             ],
                             [
                                 "JUMP",
@@ -448,7 +502,9 @@
                     "\"May ",
                     [
                         "IF",
-                        "byte 235, isInParty, byte 0, equals",
+                        [
+                            "equals(partyHas(byte 235), byte 0)"
+                        ],
                         [
                             "y"
                         ],
@@ -459,12 +515,18 @@
                     "\n",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     [
                         "IF",
-                        "9, integer, byte 1, equals",
+                        [
+                            "equals(integer(value 9), byte 1)"
+                        ],
                         [
                             "\nDuring your absence, $9 decided to head for the surface, to inform Lord British of your progress.",
                             "WAIT",
@@ -514,7 +576,9 @@
                 [
                     [
                         "IF",
-                        "byte 76, byte 0, isInPartyObj, byte 1, equals",
+                        [
+                            "equals(partyHasObject(byte 76, byte 0), byte 1)"
+                        ],
                         [
                             "\"To find the Hall of Knowledge to the south of the city.\""
                         ],
@@ -544,7 +608,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, 0, flag",
+                        [
+                            "hasBit(byte 235, value 0)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -554,7 +620,10 @@
                         [
                             [
                                 "DPRINT",
-                                "dword 4206, byte 3"
+                                [
+                                    "byte 3",
+                                    "dword 4206"
+                                ]
                             ]
                         ]
                     ],
@@ -570,14 +639,19 @@
                 [
                     [
                         "IF",
-                        "byte 235, 0, flag",
+                        [
+                            "hasBit(byte 235, value 0)"
+                        ],
                         [
                             "\"Good! To know that he very much wanted to speak with you.\""
                         ],
                         [
                             [
                                 "DPRINT",
-                                "dword 4206, byte 3"
+                                [
+                                    "byte 3",
+                                    "dword 4206"
+                                ]
                             ]
                         ]
                     ],
@@ -593,7 +667,10 @@
                 [
                     [
                         "DPRINT",
-                        "dword 4206, byte 0, byte 4, rand"
+                        [
+                            "random(byte 0, byte 4)",
+                            "dword 4206"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -614,7 +691,9 @@
                 [
                     [
                         "IF",
-                        "byte 164, isInParty",
+                        [
+                            "partyHas(byte 164)"
+                        ],
                         [
                             [
                                 "JUMP",
@@ -711,12 +790,18 @@
         "3693": [
             [
                 "ASSIGN",
-                "7, integer",
-                "byte 235, joinParty"
+                [
+                    "integer(value 7)"
+                ],
+                [
+                    "partyJoin(byte 235)"
+                ]
             ],
             [
                 "IF",
-                "7, integer"
+                [
+                    "integer(value 7)"
+                ]
             ],
             [
                 "JUMP",
@@ -732,17 +817,27 @@
         "3761": [
             [
                 "ASSIGN",
-                "8, integer",
-                "24, integer, byte 1, plus"
+                [
+                    "integer(value 8)"
+                ],
+                [
+                    "plus(integer(value 24), byte 1)"
+                ]
             ],
             [
                 "ASSIGN",
-                "9, integer",
-                "byte 0"
+                [
+                    "integer(value 9)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "IF",
-                "8, integer, byte 2, less"
+                [
+                    "less(integer(value 8), byte 2)"
+                ]
             ],
             "\"To wish very much to join you. But to not have enough room in your party for another.\"",
             [
@@ -752,17 +847,27 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "6, integer",
-                "8, integer, byte 1, character"
+                [
+                    "integer(value 6)"
+                ],
+                [
+                    "character(integer(value 8), byte 1)"
+                ]
             ],
             [
                 "IF",
-                "6, integer, byte 4, equals, 6, integer, byte 3, equals, or, 6, integer, byte 2, equals, or"
+                [
+                    "or(or(equals(integer(value 6), byte 4), equals(integer(value 6), byte 3)), equals(integer(value 6), byte 2))"
+                ]
             ],
             [
                 "ASSIGN",
-                "8, integer",
-                "8, integer, byte 1, minus"
+                [
+                    "integer(value 8)"
+                ],
+                [
+                    "minus(integer(value 8), byte 1)"
+                ]
             ],
             [
                 "JUMP",
@@ -770,12 +875,18 @@
             ],
             [
                 "IF",
-                "6, integer, leaveParty",
+                [
+                    "partyLeave(integer(value 6))"
+                ],
                 [
                     [
                         "ASSIGN",
-                        "8, integer",
-                        "8, integer, byte 1, minus"
+                        [
+                            "integer(value 8)"
+                        ],
+                        [
+                            "minus(integer(value 8), byte 1)"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -787,28 +898,42 @@
             "ENDIF",
             [
                 "SETNAME",
-                "6, integer"
+                [
+                    "integer(value 6)"
+                ]
             ],
             [
                 "ASSIGN",
-                "9, string",
-                "34, string"
+                [
+                    "string(value 9)"
+                ],
+                [
+                    "string(value 34)"
+                ]
             ],
             [
                 "IF",
-                "6, integer, isNearby"
+                [
+                    "isNearby(integer(value 6))"
+                ]
             ],
             [
                 "PORTRAIT",
-                "6, integer"
+                [
+                    "integer(value 6)"
+                ]
             ],
             "$9 speaks. \"$G, I'll return to the surface and let everyone know of our progress.\"",
             "WAIT",
             "\n\n",
             [
                 "ASSIGN",
-                "9, integer",
-                "byte 0"
+                [
+                    "integer(value 9)"
+                ],
+                [
+                    "byte 0"
+                ]
             ],
             [
                 "JUMP",
@@ -817,8 +942,12 @@
             "ELSE",
             [
                 "ASSIGN",
-                "9, integer",
-                "byte 1"
+                [
+                    "integer(value 9)"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "JUMP",
@@ -829,11 +958,15 @@
         "4075": [
             [
                 "PORTRAIT",
-                "byte 235"
+                [
+                    "byte 235"
+                ]
             ],
             [
                 "IF",
-                "byte 235, joinParty"
+                [
+                    "partyJoin(byte 235)"
+                ]
             ],
             "\"To not be able to join you right now. To ask again later, perhaps.\"\n",
             "BYE",

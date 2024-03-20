@@ -14,7 +14,9 @@
             "\n",
             [
                 "IF",
-                "byte 235, isInParty"
+                [
+                    "partyHas(byte 235)"
+                ]
             ],
             "\"Aye, and wha' can ye be askin' of me?\"",
             "WAIT",
@@ -26,7 +28,9 @@
             "ENDIF",
             [
                 "IF",
-                "byte 235, 1, flag, byte 0, equals"
+                [
+                    "equals(hasBit(byte 235, value 1), byte 0)"
+                ]
             ],
             [
                 "JUMP",
@@ -38,7 +42,9 @@
             "\n\n\"Well, what does ",
             [
                 "IF",
-                "16, integer"
+                [
+                    "integer(value 16)"
+                ]
             ],
             "her lady",
             "ELSE",
@@ -53,7 +59,9 @@
         "303": [
             [
                 "IF",
-                "byte 235, 0, flag, byte 0, equals"
+                [
+                    "equals(hasBit(byte 235, value 0), byte 0)"
+                ]
             ],
             "\"Well, then the rumors are true!\"",
             "WAIT",
@@ -65,13 +73,19 @@
             "ENDIF",
             [
                 "ASSIGN",
-                "0, integer",
-                "word 277, byte 0, isInPartyObj"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "partyHasObject(word 277, byte 0)"
+                ]
             ],
             "\"Well met, Avatar. ",
             [
                 "IF",
-                "0, integer, word 32769, equals"
+                [
+                    "equals(integer(value 0), word 32769)"
+                ]
             ],
             "An' what can I be doin' for ye this $T?\"",
             "ELSE",
@@ -90,7 +104,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, 0, flag",
+                        [
+                            "hasBit(byte 235, value 0)"
+                        ],
                         [
                             "\"Sure and you're goin' daft, $G.\"",
                             "WAIT",
@@ -115,7 +131,9 @@
                     "\n\n",
                     [
                         "IF",
-                        "byte 235, isInParty",
+                        [
+                            "partyHas(byte 235)"
+                        ],
                         [
                             "\"For now, though, I'm followin' ye, and glad to do it!\""
                         ],
@@ -179,8 +197,12 @@
                     "\"",
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "word 277, byte 0, isInPartyObj"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "partyHasObject(word 277, byte 0)"
+                        ]
                     ],
                     [
                         "JUMP",
@@ -218,7 +240,9 @@
                     "\n\n",
                     [
                         "IF",
-                        "byte 235, 1, flag",
+                        [
+                            "hasBit(byte 235, value 1)"
+                        ],
                         [
                             "\"Aye, and be dumped off in the middle of nowhere again?\"",
                             "WAIT",
@@ -232,18 +256,28 @@
                     ],
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "byte 235, joinParty"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "partyJoin(byte 235)"
+                        ]
                     ],
                     [
                         "IF",
-                        "0, integer, byte 0, equals",
+                        [
+                            "equals(integer(value 0), byte 0)"
+                        ],
                         [
                             "\"Aye, gladly! Let's be on our way.\"\n",
                             [
                                 "SETF",
-                                "byte 235",
-                                "0"
+                                [
+                                    "byte 235"
+                                ],
+                                [
+                                    "value 0"
+                                ]
                             ],
                             "BYE"
                         ],
@@ -251,7 +285,9 @@
                     ],
                     [
                         "IF",
-                        "0, integer, byte 2, equals",
+                        [
+                            "equals(integer(value 0), byte 2)"
+                        ],
                         [
                             "\"Ach, I can tell that you say that to everyone ye meet.\"",
                             "WAIT",
@@ -267,7 +303,9 @@
                     ],
                     [
                         "IF",
-                        "0, integer, byte 1, equals",
+                        [
+                            "equals(integer(value 0), byte 1)"
+                        ],
                         [
                             "If I join ye, where are we gonna go?\"",
                             "WAIT",
@@ -295,7 +333,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, isInParty, byte 0, equals",
+                        [
+                            "equals(partyHas(byte 235), byte 0)"
+                        ],
                         [
                             "\"Leave! Nay, 'tis my house. You do the leavin'!\"",
                             [
@@ -307,12 +347,18 @@
                     ],
                     [
                         "ASSIGN",
-                        "0, integer",
-                        "byte 235, leaveParty"
+                        [
+                            "integer(value 0)"
+                        ],
+                        [
+                            "partyLeave(byte 235)"
+                        ]
                     ],
                     [
                         "IF",
-                        "0, integer, byte 1, equals",
+                        [
+                            "equals(integer(value 0), byte 1)"
+                        ],
                         [
                             "\"Leave?! And jump overboard?!\"",
                             "WAIT",
@@ -327,7 +373,9 @@
                     "\"What? Oh, I suppose a craftsman isn't warrior enough to suit ",
                     [
                         "IF",
-                        "16, integer",
+                        [
+                            "integer(value 16)"
+                        ],
                         [
                             "her lady"
                         ],
@@ -344,8 +392,12 @@
                     "\n\n\"I'm tired of carrying all this junk anyway!\"\n",
                     [
                         "SETF",
-                        "byte 235",
-                        "1"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 1"
+                        ]
                     ],
                     "BYE"
                 ]
@@ -356,7 +408,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, isInParty",
+                        [
+                            "partyHas(byte 235)"
+                        ],
                         [
                             "\"Aye, enough chatting. On with our quest!\"\n",
                             "BYE"
@@ -365,7 +419,9 @@
                     ],
                     [
                         "IF",
-                        "byte 235, 1, flag, byte 0, equals",
+                        [
+                            "equals(hasBit(byte 235, value 1), byte 0)"
+                        ],
                         [
                             "\"May fortune follow ye on thy way!\"\n",
                             "BYE"
@@ -375,7 +431,9 @@
                     "\"Ach, aye! I wouldna want to hinder ",
                     [
                         "IF",
-                        "16, integer",
+                        [
+                            "integer(value 16)"
+                        ],
                         [
                             "her lady"
                         ],
@@ -386,8 +444,12 @@
                     "ship's journey!\"\n",
                     [
                         "SETF",
-                        "byte 235",
-                        "0"
+                        [
+                            "byte 235"
+                        ],
+                        [
+                            "value 0"
+                        ]
                     ],
                     "BYE"
                 ]
@@ -398,7 +460,9 @@
                 [
                     [
                         "IF",
-                        "byte 235, 1, flag",
+                        [
+                            "hasBit(byte 235, value 1)"
+                        ],
                         [
                             "\"Are ye daft? Why would I know anything about $Z?\""
                         ],
@@ -425,7 +489,9 @@
                 [
                     [
                         "IF",
-                        "0, integer, word 32769, equals",
+                        [
+                            "equals(integer(value 0), word 32769)"
+                        ],
                         [
                             "\"Well where is it? I canna see any board on ye!\"",
                             [
@@ -486,17 +552,33 @@
             "\n\nShe hands you the finished pipes.",
             [
                 "DELETE",
-                "0, integer",
-                "word 277",
-                "byte 0",
-                "byte 1"
+                [
+                    "integer(value 0)"
+                ],
+                [
+                    "word 277"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "NEW",
-                "byte 1",
-                "byte 153",
-                "byte 0",
-                "byte 1"
+                [
+                    "byte 1"
+                ],
+                [
+                    "byte 153"
+                ],
+                [
+                    "byte 0"
+                ],
+                [
+                    "byte 1"
+                ]
             ],
             [
                 "JUMP",
