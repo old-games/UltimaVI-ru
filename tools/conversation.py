@@ -438,29 +438,30 @@ def decode(raw_conversation):
     offsets = list(types)
     assert set(types.values()) <= {'integer', 'string'}
 
-    result['end-of-list-marker'] = []
-    result['no-trailing-byte'] = []
     for left, right in zip(offsets, offsets[1:] + [len(raw_conversation)]):
         stream.seek(left)
         if types[left] == 'integer':
             integers = []
 
+            assert left not in blocks
+            blocks[left] = ['INTEGERS', integers]
+
             for _ in range(left, right, 2):
                 if stream.tell() in visited_labels:
                     break
                 if stream.tell() + 1 in visited_labels or stream.tell() + 1 == right:
-                    result['no-trailing-byte'].append(left)
                     integers.append(_read_byte(stream, visited_labels))
+                    blocks[left].append('no-trailing-byte')
                 else:
                     integers.append(_read_word(stream, visited_labels))
-
-            assert left not in blocks
-            blocks[left] = ['INTEGERS', integers]
 
         else:
             assert types[left] == 'string'
             strings = []
             string = bytearray()
+
+            assert left not in blocks
+            blocks[left] = ['STRINGS', strings]
 
             for _ in range(left, right):
                 if stream.tell() in visited_labels:
@@ -474,13 +475,10 @@ def decode(raw_conversation):
 
             if string:
                 if string == b'\xb8':
-                    result['end-of-list-marker'].append(left)
+                    blocks[left].append('end-of-list-marker')
                 else:
-                    result['no-trailing-byte'].append(left)
                     strings.append(string.decode('ascii'))
-
-            assert left not in blocks
-            blocks[left] = ['STRINGS', strings]
+                    blocks[left].append('no-trailing-byte')
 
     result['interaction'] = {label: expanded for k, v in sorted(blocks.items()) for label, expanded in _expand_instructions(k, v, labels)}
 
