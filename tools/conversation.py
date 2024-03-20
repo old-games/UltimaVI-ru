@@ -343,15 +343,15 @@ def decode(data):
     result['f3-after-description'] = _check_byte(stream, visited_labels, 0xf3)
 
     assert _read_byte(stream, visited_labels) == 0xf2
-    result['conversation'] = {stream.tell(): _read_instructions(stream, labels, visited_labels, skip_solo_endif, allow_drop_esac, {None})}
+    blocks = {stream.tell(): _read_instructions(stream, labels, visited_labels, skip_solo_endif, allow_drop_esac, {None})}
 
     while labels - visited_labels:
         label = next(iter(labels - visited_labels))
         stream.seek(label)
-        result['conversation'][label] = _read_instructions(stream, labels, visited_labels, skip_solo_endif, allow_drop_esac, {None})
+        blocks[label] = _read_instructions(stream, labels, visited_labels, skip_solo_endif, allow_drop_esac, {None})
         # FIXME split code with label in the middle, sometimes in the middle of string
 
-    result['conversation'] = {label: expanded for k, v in sorted(result['conversation'].items()) for label, expanded in _expand_instructions(k, v, labels)}
+    result['interaction'] = {label: expanded for k, v in sorted(blocks.items()) for label, expanded in _expand_instructions(k, v, labels)}
 
     #import unittest
     #unittest.TestCase().assertEqual(set(range(len(data))) - visited_labels, set())
