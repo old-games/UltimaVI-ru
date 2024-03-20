@@ -14,7 +14,7 @@
             "\n",
             [
                 "IF",
-                "('byte', 235), 0, 171",
+                "byte 235, 0, flag",
                 [
                     "\"Thou art back!\"",
                     "WAIT",
@@ -35,7 +35,7 @@
             "\n\n\"I need @food, badly!\"",
             [
                 "SETF",
-                "('byte', 235)",
+                "byte 235",
                 "0"
             ],
             "\n",
@@ -112,7 +112,7 @@
                     "WAIT",
                     [
                         "IF",
-                        "('byte', 235), ('word', 404), ('byte', 0), 159, ('byte', 0), 134",
+                        "byte 235, word 404, byte 0, isInActorObj, byte 0, equals",
                         [
                             "\n\n\"You already got it from me.\"",
                             [
@@ -126,8 +126,9 @@
                     "WAIT",
                     "\n\n\"I couldn't eat it.\"",
                     [
-                        "DECL",
-                        "9, 178, 168, ('byte', 0)"
+                        "ASSIGN",
+                        "9, var",
+                        "byte 0"
                     ],
                     "WAIT",
                     "\n\n\"It ought to be worth some @food, surely?\" ",
@@ -180,12 +181,13 @@
         ],
         "1061": [
             [
-                "DECL",
-                "0, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "0, var",
+                "byte 0"
             ],
             [
                 "IF",
-                "0, 178, ('byte', 15), 129",
+                "0, var, byte 15, greater",
                 [
                     [
                         "JUMP",
@@ -195,16 +197,18 @@
                 []
             ],
             [
-                "DECL",
-                "1, 178, 168, ('dword', 1878), 0, 178, 180, ('byte', 0), 199"
+                "ASSIGN",
+                "1, var",
+                "dword 1878, 0, var, data, byte 0, isInPartyObj"
             ],
             [
                 "IF",
-                "1, 178, ('word', 32769), 134",
+                "1, var, word 32769, equals",
                 [
                     [
-                        "DECL",
-                        "0, 178, 168, 0, 178, ('byte', 1), 144"
+                        "ASSIGN",
+                        "0, var",
+                        "0, var, byte 1, plus"
                     ],
                     [
                         "JUMP",
@@ -215,14 +219,14 @@
             ],
             [
                 "IF",
-                "1, 178, ('byte', 1), 134",
+                "1, var, byte 1, equals",
                 [
                     "You share "
                 ],
                 [
                     [
                         "SETNAME",
-                        "1, 178"
+                        "1, var"
                     ],
                     "$Y shares "
                 ]
@@ -230,14 +234,14 @@
             "some food with the pathetic man.",
             [
                 "DELETE",
-                "1, 178",
-                "('dword', 1878), 0, 178, 180",
-                "('byte', 0)",
-                "1, 178, ('dword', 1878), 0, 178, 180, 187"
+                "1, var",
+                "dword 1878, 0, var, data",
+                "byte 0",
+                "1, var, dword 1878, 0, var, data, length"
             ],
             [
                 "ADD_KARMA",
-                "('byte', 1)"
+                "byte 1"
             ],
             "WAIT",
             "\n\n\"Thunff fou,\" Ybarra says, stuffing the food into his mouth.",
@@ -266,10 +270,10 @@
                     "He hands you the map piece and rubs his hands, eagerly awaiting his food.",
                     [
                         "GIVE",
-                        "('word', 404)",
-                        "('byte', 0)",
-                        "('byte', 235)",
-                        "('byte', 1)"
+                        "word 404",
+                        "byte 0",
+                        "byte 235",
+                        "byte 1"
                     ],
                     "WAIT",
                     "\n\n",
@@ -285,7 +289,7 @@
                 [
                     [
                         "IF",
-                        "9, 178, ('byte', 1), 134",
+                        "9, var, byte 1, equals",
                         [
                             [
                                 "JUMP",
@@ -296,8 +300,9 @@
                     ],
                     "\"You must! I'll die! Just a little bit of @food for the map?\" ",
                     [
-                        "DECL",
-                        "9, 178, 168, ('byte', 1)"
+                        "ASSIGN",
+                        "9, var",
+                        "byte 1"
                     ],
                     [
                         "JUMP",
@@ -310,8 +315,8 @@
             "His last shred of hope torn away from him, the withered man leaps at you, screaming \"@Food! @Food!\"\n",
             [
                 "WORKTYPE",
-                "('byte', 235)",
-                "('byte', 153)"
+                "byte 235",
+                "byte 153"
             ],
             "BYE"
         ],
@@ -328,8 +333,8 @@
                     "The man collapses, the last of his energy gone.\n",
                     [
                         "WORKTYPE",
-                        "('byte', 235)",
-                        "('byte', 145)"
+                        "byte 235",
+                        "byte 145"
                     ],
                     "BYE"
                 ]

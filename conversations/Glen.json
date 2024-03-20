@@ -11,12 +11,13 @@
     "conversation": {
         "53": [
             [
-                "DECL",
-                "0, 178, 168, ('word', 339), ('byte', 0), 199"
+                "ASSIGN",
+                "0, var",
+                "word 339, byte 0, isInPartyObj"
             ],
             [
                 "IF",
-                "0, 178, ('word', 32769), 133",
+                "0, var, word 32769, notEquals",
                 [
                     [
                         "JUMP",
@@ -27,14 +28,14 @@
             ],
             [
                 "IF",
-                "('byte', 178), ('byte', 5), 171, ('byte', 235), ('byte', 6), 171, ('byte', 0), 134, 149",
+                "byte 178, byte 5, flag, byte 235, byte 6, flag, byte 0, equals, and",
                 [
                     "\"Ohhh! Silly me, spending so much time with my clients.\" He gestures at the corpses.\n*\n\"I forget little details like paying Mole...\"\n*\n\"I'll have to take care of it right away.\"\n",
                     "WAIT",
                     [
                         "SETF",
-                        "('byte', 235)",
-                        "('byte', 6)"
+                        "byte 235",
+                        "byte 6"
                     ],
                     "\n\"You deserve a reward for helping me straighten this out.\"\n*\n\"That mage over on the table was found just outside of town.\"\n*\n\"He was carrying a couple of enchanted items and some money when the gargoyles got him.\"\n*\"Nobody has been able to find any relatives of his, so you might as well take it all.\"",
                     [
@@ -46,13 +47,13 @@
             ],
             [
                 "IF",
-                "('byte', 178), ('byte', 4), 171, ('byte', 235), ('byte', 5), 171, ('byte', 0), 134, 149",
+                "byte 178, byte 4, flag, byte 235, byte 5, flag, byte 0, equals, and",
                 [
                     "\"That addle-brained, lower class, miserable excuse for a common laborer...\"\n*\n\"I agreed to give him an equipment allowance with his pay.\"\n*\n\"No doubt it's all been squandered at some tavern, along with the rest of his pay.\"\n*\n\"See what he has to say about that!\"\n",
                     [
                         "SETF",
-                        "('byte', 235)",
-                        "('byte', 5)"
+                        "byte 235",
+                        "byte 5"
                     ],
                     "BYE"
                 ],
@@ -60,13 +61,13 @@
             ],
             [
                 "IF",
-                "('byte', 178), ('byte', 3), 171, ('byte', 235), ('byte', 4), 171, ('byte', 0), 134, 149",
+                "byte 178, byte 3, flag, byte 235, byte 4, flag, byte 0, equals, and",
                 [
                     "\"So, his shovel broke? That's no excuse.\"\n*\n\"Tell him he should have bought another one and kept working.\"\n",
                     [
                         "SETF",
-                        "('byte', 235)",
-                        "('byte', 4)"
+                        "byte 235",
+                        "byte 4"
                     ],
                     "BYE"
                 ],
@@ -74,13 +75,13 @@
             ],
             [
                 "IF",
-                "('byte', 178), ('byte', 2), 171, ('byte', 235), ('byte', 3), 171, ('byte', 0), 134, 149",
+                "byte 178, byte 2, flag, byte 235, byte 3, flag, byte 0, equals, and",
                 [
                     "You pass along Mole's message. \"Needs a shovel, does he? Tell him to use the one I gave him when I hired him!\"\n*\n\"No doubt he's forgotten he has it by now, or lost it somewhere...\"\n",
                     [
                         "SETF",
-                        "('byte', 235)",
-                        "('byte', 3)"
+                        "byte 235",
+                        "byte 3"
                     ],
                     "BYE"
                 ],
@@ -95,7 +96,7 @@
                     "\"I am Glen D'Arc, of the @Trinsic D'Arcs.\"",
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ],
                     [
@@ -186,7 +187,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), ('byte', 2), 171",
+                        "byte 235, byte 2, flag",
                         [
                             "\"You can't get good help these days...\"",
                             [
@@ -199,8 +200,8 @@
                     "\"Mole was supposed to have two more graves finished yesterday.\"\n*\n\"I can't stand to talk to him any more - if you see him, tell him I need those graves dug immediately!\"",
                     [
                         "SETF",
-                        "('byte', 235)",
-                        "('byte', 2)"
+                        "byte 235",
+                        "byte 2"
                     ],
                     [
                         "JUMP",
@@ -246,8 +247,9 @@
                 "n",
                 [
                     [
-                        "DECL",
-                        "1, 178, 168, 1, 178"
+                        "ASSIGN",
+                        "1, var",
+                        "1, var"
                     ]
                 ]
             ],
@@ -273,7 +275,7 @@
             ],
             [
                 "IF",
-                "('byte', 1), ('byte', 88), 187, ('byte', 15), 131",
+                "byte 1, byte 88, length, byte 15, less",
                 [
                     "\n\"You're a bit short on gold.\" he says, disappointedly.\n",
                     "BYE"
@@ -283,11 +285,11 @@
             "\n\"Excellent!\" He takes the body, and recites a brief incantation.\n*\nAn eerie green flame engulfs the corpse, consuming it in seconds.\n*\nNothing but ashes remain. The mortician sweeps them up, puts them in an urn, and hands it to ",
             [
                 "SETNAME",
-                "0, 178"
+                "0, var"
             ],
             [
                 "IF",
-                "0, 178, ('byte', 1), 133",
+                "0, var, byte 1, notEquals",
                 [
                     "$Y"
                 ],
@@ -298,24 +300,24 @@
             ".\n*\n",
             [
                 "DELETE",
-                "('byte', 1)",
-                "('byte', 88)",
-                "('byte', 0)",
-                "('byte', 15)"
+                "byte 1",
+                "byte 88",
+                "byte 0",
+                "byte 15"
             ],
             [
                 "DELETE",
-                "0, 178",
-                "('word', 339)",
-                "('byte', 0)",
-                "('byte', 1)"
+                "0, var",
+                "word 339",
+                "byte 0",
+                "byte 1"
             ],
             [
                 "NEW",
-                "0, 178",
-                "('byte', 170)",
-                "('byte', 0)",
-                "('byte', 1)"
+                "0, var",
+                "byte 170",
+                "byte 0",
+                "byte 1"
             ],
             "\"Please come again if any more of your friends need my services.\"\n",
             "BYE"

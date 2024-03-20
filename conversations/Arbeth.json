@@ -14,7 +14,7 @@
         "67": [
             [
                 "IF",
-                "32, 178, ('byte', 146), 134",
+                "32, var, byte 146, equals",
                 [
                     [
                         "JUMP",
@@ -26,7 +26,7 @@
             "He looks up from his mug of ale. ",
             [
                 "IF",
-                "('byte', 235), 0, 171",
+                "byte 235, 0, flag",
                 [
                     "\"Oh, it's you. Hello.\""
                 ],
@@ -43,7 +43,7 @@
         "157": [
             [
                 "IF",
-                "('byte', 235), 0, 171",
+                "byte 235, 0, flag",
                 [
                     "\"Yes?\" he asks, looking like he expects to be beaten any minute. "
                 ],
@@ -60,7 +60,7 @@
                     "He looks around at the ground and mumbles \"Arbeth.\"\n",
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ],
                     [
@@ -130,7 +130,7 @@
                 [
                     [
                         "IF",
-                        "32, 178, ('byte', 146), 133",
+                        "32, var, byte 146, notEquals",
                         [
                             [
                                 "JUMP",
@@ -152,7 +152,7 @@
                 [
                     [
                         "IF",
-                        "32, 178, ('byte', 146), 133",
+                        "32, var, byte 146, notEquals",
                         [
                             [
                                 "JUMP",
@@ -174,7 +174,7 @@
                 [
                     [
                         "IF",
-                        "32, 178, ('byte', 146), 133",
+                        "32, var, byte 146, notEquals",
                         [
                             [
                                 "JUMP",
@@ -313,11 +313,12 @@
         "1535": [
             [
                 "IF",
-                "23, 178, ('byte', 0), 134",
+                "23, var, byte 0, equals",
                 [
                     [
-                        "DECL",
-                        "3, 178, 168, ('byte', 1)"
+                        "ASSIGN",
+                        "3, var",
+                        "byte 1"
                     ],
                     [
                         "JUMP",
@@ -327,29 +328,33 @@
                 []
             ],
             [
-                "DECL",
-                "0, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "0, var",
+                "byte 0"
             ],
             [
-                "DECL",
-                "2, 178, 168, ('byte', 1)"
+                "ASSIGN",
+                "2, var",
+                "byte 1"
             ],
             [
                 "SETNAME",
-                "0, 178, ('byte', 0), 221"
+                "0, var, byte 0, character"
             ],
             "#2. $Y\n",
             [
-                "DECL",
-                "0, 178, 168, 0, 178, ('byte', 1), 144"
+                "ASSIGN",
+                "0, var",
+                "0, var, byte 1, plus"
             ],
             [
-                "DECL",
-                "2, 178, 168, 2, 178, ('byte', 1), 144"
+                "ASSIGN",
+                "2, var",
+                "2, var, byte 1, plus"
             ],
             [
                 "IF",
-                "0, 178, 23, 178, 132",
+                "0, var, 23, var, lessOrEquals",
                 [
                     [
                         "JUMP",
@@ -365,7 +370,7 @@
             ],
             [
                 "IF",
-                "3, 178, ('byte', 0), 134",
+                "3, var, byte 0, equals",
                 [
                     "\"Oh. Sorry,\" he mumbles.\n\n",
                     [
@@ -376,20 +381,23 @@
                 []
             ],
             [
-                "DECL",
-                "3, 178, 168, 3, 178, ('byte', 1), 145"
+                "ASSIGN",
+                "3, var",
+                "3, var, byte 1, minus"
             ],
             [
                 "IF",
-                "3, 178, 23, 178, 129",
+                "3, var, 23, var, greater",
                 [
                     [
-                        "DECL",
-                        "0, 178, 168, ('byte', 0)"
+                        "ASSIGN",
+                        "0, var",
+                        "byte 0"
                     ],
                     [
-                        "DECL",
-                        "2, 178, 168, ('byte', 1)"
+                        "ASSIGN",
+                        "2, var",
+                        "byte 1"
                     ],
                     [
                         "JUMP",
@@ -399,12 +407,13 @@
                 []
             ],
             [
-                "DECL",
-                "3, 178, 168, 3, 178, ('byte', 0), 221"
+                "ASSIGN",
+                "3, var",
+                "3, var, byte 0, character"
             ],
             [
                 "SETNAME",
-                "3, 178"
+                "3, var"
             ],
             "\"'Tis a most difficult job, $Y. It'll cost thee 20 gold!\"",
             "WAIT",
@@ -435,7 +444,7 @@
             ],
             [
                 "IF",
-                "3, 178, ('byte', 71), 187, ('byte', 40), 131",
+                "3, var, byte 71, length, byte 40, less",
                 [
                     "\"Oh, but I'll need twoscore bits of spidersilk to do it!\"",
                     "WAIT",
@@ -448,12 +457,13 @@
                 []
             ],
             [
-                "DECL",
-                "1, 178, 168, ('byte', 71), ('byte', 40), 155, ('byte', 88), ('byte', 20), 155, 144"
+                "ASSIGN",
+                "1, var",
+                "byte 71, byte 40, weight, byte 88, byte 20, weight, plus"
             ],
             [
                 "IF",
-                "3, 178, 154, 1, 178, 144, ('byte', 226), ('byte', 1), 155, 131",
+                "3, var, canCarry, 1, var, plus, byte 226, byte 1, weight, less",
                 [
                     "\"Oh, but you'll not be able to carry it, $Y!\"",
                     "WAIT",
@@ -467,7 +477,7 @@
             ],
             [
                 "IF",
-                "3, 178, ('byte', 88), 187, ('byte', 20), 131",
+                "3, var, byte 88, length, byte 20, less",
                 [
                     "\"You haven't the gold.\"\n",
                     [
@@ -480,17 +490,17 @@
             "Arbeth takes $Y's gold and silk and starts spinning...",
             [
                 "DELETE",
-                "3, 178",
-                "('byte', 88)",
-                "('byte', 0)",
-                "('byte', 20)"
+                "3, var",
+                "byte 88",
+                "byte 0",
+                "byte 20"
             ],
             [
                 "DELETE",
-                "3, 178",
-                "('byte', 71)",
-                "('byte', 0)",
-                "('byte', 40)"
+                "3, var",
+                "byte 71",
+                "byte 0",
+                "byte 40"
             ],
             "WAIT",
             "\n\nSoon he has finished a spool of fine silk thread!",
@@ -500,10 +510,10 @@
             "\n\nArbeth hands $Y the spool of silk.",
             [
                 "NEW",
-                "3, 178",
-                "('byte', 226)",
-                "('byte', 0)",
-                "('byte', 1)"
+                "3, var",
+                "byte 226",
+                "byte 0",
+                "byte 1"
             ],
             "WAIT",
             "\n\n\"You'll have to find a @weaver, of course...\"\n",
@@ -515,11 +525,12 @@
         "2542": [
             [
                 "IF",
-                "23, 178, ('byte', 0), 134",
+                "23, var, byte 0, equals",
                 [
                     [
-                        "DECL",
-                        "3, 178, 168, ('byte', 0)"
+                        "ASSIGN",
+                        "3, var",
+                        "byte 0"
                     ],
                     [
                         "JUMP",
@@ -529,29 +540,33 @@
                 []
             ],
             [
-                "DECL",
-                "0, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "0, var",
+                "byte 0"
             ],
             [
-                "DECL",
-                "2, 178, 168, ('byte', 1)"
+                "ASSIGN",
+                "2, var",
+                "byte 1"
             ],
             [
                 "SETNAME",
-                "0, 178, ('byte', 0), 221"
+                "0, var, byte 0, character"
             ],
             "#2. $Y\n",
             [
-                "DECL",
-                "0, 178, 168, 0, 178, ('byte', 1), 144"
+                "ASSIGN",
+                "0, var",
+                "0, var, byte 1, plus"
             ],
             [
-                "DECL",
-                "2, 178, 168, 2, 178, ('byte', 1), 144"
+                "ASSIGN",
+                "2, var",
+                "2, var, byte 1, plus"
             ],
             [
                 "IF",
-                "0, 178, 23, 178, 132",
+                "0, var, 23, var, lessOrEquals",
                 [
                     [
                         "JUMP",
@@ -567,7 +582,7 @@
             ],
             [
                 "IF",
-                "3, 178, ('byte', 0), 134",
+                "3, var, byte 0, equals",
                 [
                     [
                         "JUMP",
@@ -577,12 +592,13 @@
                 []
             ],
             [
-                "DECL",
-                "3, 178, 168, 3, 178, ('byte', 1), 145"
+                "ASSIGN",
+                "3, var",
+                "3, var, byte 1, minus"
             ],
             [
                 "IF",
-                "3, 178, 23, 178, 129",
+                "3, var, 23, var, greater",
                 [
                     [
                         "JUMP",
@@ -602,7 +618,7 @@
                 [
                     [
                         "IF",
-                        "3, 178, ('byte', 0), 221, 154, ('byte', 225), ('byte', 1), 155, 131",
+                        "3, var, byte 0, character, canCarry, byte 225, byte 1, weight, less",
                         [
                             "\"You look pretty full to me.\"",
                             "WAIT",
@@ -616,31 +632,32 @@
                     ],
                     [
                         "IF",
-                        "3, 178, ('byte', 0), 221, ('byte', 88), 187, ('byte', 3), 130",
+                        "3, var, byte 0, character, byte 88, length, byte 3, greaterOrEquals",
                         [
                             [
                                 "DELETE",
-                                "3, 178, ('byte', 0), 221",
-                                "('byte', 88)",
-                                "('byte', 0)",
-                                "('byte', 3)"
+                                "3, var, byte 0, character",
+                                "byte 88",
+                                "byte 0",
+                                "byte 3"
                             ],
                             [
                                 "NEW",
-                                "3, 178, ('byte', 0), 221",
-                                "('byte', 225)",
-                                "('byte', 0)",
-                                "('byte', 1)"
+                                "3, var, byte 0, character",
+                                "byte 225",
+                                "byte 0",
+                                "byte 1"
                             ],
                             [
                                 "SETNAME",
-                                "3, 178, ('byte', 0), 221"
+                                "3, var, byte 0, character"
                             ],
                             "After accepting $Y's gold, $N hands over the thread.",
                             "WAIT",
                             [
-                                "DECL",
-                                "5, 178, 168, ('byte', 1)"
+                                "ASSIGN",
+                                "5, var",
+                                "byte 1"
                             ],
                             "\n\n",
                             [
@@ -651,7 +668,7 @@
                         [
                             [
                                 "SETNAME",
-                                "3, 178, ('byte', 0), 221"
+                                "3, var, byte 0, character"
                             ],
                             "\"You haven't the gold.\"",
                             "WAIT",
@@ -672,36 +689,43 @@
         ],
         "2945": [
             [
-                "DECL",
-                "0, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "0, var",
+                "byte 0"
             ],
             [
-                "DECL",
-                "2, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "2, var",
+                "byte 0"
             ],
             [
-                "DECL",
-                "3, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "3, var",
+                "byte 0"
             ],
             [
-                "DECL",
-                "1, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "1, var",
+                "byte 0"
             ],
             [
                 "IF",
-                "0, 178, ('byte', 0), 221, ('byte', 190), 187",
+                "0, var, byte 0, character, byte 190, length",
                 [
                     [
-                        "DECL",
-                        "('dword', 3501), 2, 178, 180, 168, 0, 178"
+                        "ASSIGN",
+                        "dword 3501, 2, var, data",
+                        "0, var"
                     ],
                     [
-                        "DECL",
-                        "2, 178, 168, 2, 178, ('byte', 1), 144"
+                        "ASSIGN",
+                        "2, var",
+                        "2, var, byte 1, plus"
                     ],
                     [
-                        "DECL",
-                        "3, 178, 168, ('byte', 1)"
+                        "ASSIGN",
+                        "3, var",
+                        "byte 1"
                     ],
                     [
                         "JUMP",
@@ -711,12 +735,13 @@
                 []
             ],
             [
-                "DECL",
-                "1, 178, 168, 1, 178, ('byte', 1), 144"
+                "ASSIGN",
+                "1, var",
+                "1, var, byte 1, plus"
             ],
             [
                 "IF",
-                "1, 178, ('byte', 7), 131",
+                "1, var, byte 7, less",
                 [
                     [
                         "JUMP",
@@ -726,12 +751,13 @@
                 []
             ],
             [
-                "DECL",
-                "0, 178, 168, 0, 178, ('byte', 1), 144"
+                "ASSIGN",
+                "0, var",
+                "0, var, byte 1, plus"
             ],
             [
                 "IF",
-                "0, 178, 23, 178, 132",
+                "0, var, 23, var, lessOrEquals",
                 [
                     [
                         "JUMP",
@@ -742,7 +768,7 @@
             ],
             [
                 "IF",
-                "3, 178, ('byte', 0), 134",
+                "3, var, byte 0, equals",
                 [
                     "\"None of you has any wool,\" he mutters.",
                     "WAIT",
@@ -756,11 +782,12 @@
             ],
             [
                 "IF",
-                "2, 178, ('byte', 1), 134",
+                "2, var, byte 1, equals",
                 [
                     [
-                        "DECL",
-                        "3, 178, 168, ('dword', 3501), ('byte', 0), 180"
+                        "ASSIGN",
+                        "3, var",
+                        "dword 3501, byte 0, data"
                     ],
                     [
                         "JUMP",
@@ -770,29 +797,33 @@
                 []
             ],
             [
-                "DECL",
-                "0, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "0, var",
+                "byte 0"
             ],
             [
-                "DECL",
-                "1, 178, 168, ('byte', 1)"
+                "ASSIGN",
+                "1, var",
+                "byte 1"
             ],
             [
                 "SETNAME",
-                "('dword', 3501), 0, 178, 180, ('byte', 0), 221"
+                "dword 3501, 0, var, data, byte 0, character"
             ],
             "#1. $Y\n",
             [
-                "DECL",
-                "0, 178, 168, 0, 178, ('byte', 1), 144"
+                "ASSIGN",
+                "0, var",
+                "0, var, byte 1, plus"
             ],
             [
-                "DECL",
-                "1, 178, 168, 1, 178, ('byte', 1), 144"
+                "ASSIGN",
+                "1, var",
+                "1, var, byte 1, plus"
             ],
             [
                 "IF",
-                "0, 178, 2, 178, 131",
+                "0, var, 2, var, less",
                 [
                     [
                         "JUMP",
@@ -808,7 +839,7 @@
             ],
             [
                 "IF",
-                "3, 178, ('byte', 0), 134",
+                "3, var, byte 0, equals",
                 [
                     [
                         "JUMP",
@@ -818,12 +849,13 @@
                 []
             ],
             [
-                "DECL",
-                "3, 178, 168, 3, 178, ('byte', 1), 145"
+                "ASSIGN",
+                "3, var",
+                "3, var, byte 1, minus"
             ],
             [
                 "IF",
-                "3, 178, 2, 178, 130",
+                "3, var, 2, var, greaterOrEquals",
                 [
                     [
                         "JUMP",
@@ -833,20 +865,22 @@
                 []
             ],
             [
-                "DECL",
-                "3, 178, 168, ('dword', 3501), 3, 178, 180"
+                "ASSIGN",
+                "3, var",
+                "dword 3501, 3, var, data"
             ],
             [
-                "DECL",
-                "4, 178, 168, 3, 178, ('byte', 0), 221, ('byte', 190), 187"
+                "ASSIGN",
+                "4, var",
+                "3, var, byte 0, character, byte 190, length"
             ],
             [
                 "SETNAME",
-                "3, 178, ('byte', 0), 221"
+                "3, var, byte 0, character"
             ],
             [
                 "IF",
-                "4, 178, ('byte', 0), 134",
+                "4, var, byte 0, equals",
                 [
                     [
                         "JUMP",
@@ -867,17 +901,17 @@
                     "He hands $Y 6 gold pieces and takes the bale of wool.",
                     [
                         "DELETE",
-                        "3, 178, ('byte', 0), 221",
-                        "('byte', 190)",
-                        "('byte', 0)",
-                        "('byte', 1)"
+                        "3, var, byte 0, character",
+                        "byte 190",
+                        "byte 0",
+                        "byte 1"
                     ],
                     [
                         "NEW",
-                        "3, 178, ('byte', 0), 221",
-                        "('byte', 88)",
-                        "('byte', 0)",
-                        "('byte', 10)"
+                        "3, var, byte 0, character",
+                        "byte 88",
+                        "byte 0",
+                        "byte 10"
                     ],
                     "WAIT",
                     "\n",

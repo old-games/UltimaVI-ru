@@ -14,7 +14,7 @@
             "\n",
             [
                 "IF",
-                "('byte', 235), 198",
+                "byte 235, isInParty",
                 [
                     "\"Aye, and wha' can ye be askin' of me?\"",
                     "WAIT",
@@ -28,7 +28,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), 1, 171, ('byte', 0), 134",
+                "byte 235, 1, flag, byte 0, equals",
                 [
                     [
                         "JUMP",
@@ -42,7 +42,7 @@
             "\n\n\"Well, what does ",
             [
                 "IF",
-                "16, 178",
+                "16, var",
                 [
                     "her lady"
                 ],
@@ -59,7 +59,7 @@
         "303": [
             [
                 "IF",
-                "('byte', 235), 0, 171, ('byte', 0), 134",
+                "byte 235, 0, flag, byte 0, equals",
                 [
                     "\"Well, then the rumors are true!\"",
                     "WAIT",
@@ -72,13 +72,14 @@
                 []
             ],
             [
-                "DECL",
-                "0, 178, 168, ('word', 277), ('byte', 0), 199"
+                "ASSIGN",
+                "0, var",
+                "word 277, byte 0, isInPartyObj"
             ],
             "\"Well met, Avatar. ",
             [
                 "IF",
-                "0, 178, ('word', 32769), 134",
+                "0, var, word 32769, equals",
                 [
                     "An' what can I be doin' for ye this $T?\""
                 ],
@@ -99,7 +100,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), 0, 171",
+                        "byte 235, 0, flag",
                         [
                             "\"Sure and you're goin' daft, $G.\"",
                             "WAIT",
@@ -124,7 +125,7 @@
                     "\n\n",
                     [
                         "IF",
-                        "('byte', 235), 198",
+                        "byte 235, isInParty",
                         [
                             "\"For now, though, I'm followin' ye, and glad to do it!\""
                         ],
@@ -187,8 +188,9 @@
                 [
                     "\"",
                     [
-                        "DECL",
-                        "0, 178, 168, ('word', 277), ('byte', 0), 199"
+                        "ASSIGN",
+                        "0, var",
+                        "word 277, byte 0, isInPartyObj"
                     ],
                     [
                         "JUMP",
@@ -226,7 +228,7 @@
                     "\n\n",
                     [
                         "IF",
-                        "('byte', 235), 1, 171",
+                        "byte 235, 1, flag",
                         [
                             "\"Aye, and be dumped off in the middle of nowhere again?\"",
                             "WAIT",
@@ -239,17 +241,18 @@
                         []
                     ],
                     [
-                        "DECL",
-                        "0, 178, 168, ('byte', 235), 202"
+                        "ASSIGN",
+                        "0, var",
+                        "byte 235, joinParty"
                     ],
                     [
                         "IF",
-                        "0, 178, ('byte', 0), 134",
+                        "0, var, byte 0, equals",
                         [
                             "\"Aye, gladly! Let's be on our way.\"\n",
                             [
                                 "SETF",
-                                "('byte', 235)",
+                                "byte 235",
                                 "0"
                             ],
                             "BYE"
@@ -258,7 +261,7 @@
                     ],
                     [
                         "IF",
-                        "0, 178, ('byte', 2), 134",
+                        "0, var, byte 2, equals",
                         [
                             "\"Ach, I can tell that you say that to everyone ye meet.\"",
                             "WAIT",
@@ -274,7 +277,7 @@
                     ],
                     [
                         "IF",
-                        "0, 178, ('byte', 1), 134",
+                        "0, var, byte 1, equals",
                         [
                             "If I join ye, where are we gonna go?\"",
                             "WAIT",
@@ -302,7 +305,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), 198, ('byte', 0), 134",
+                        "byte 235, isInParty, byte 0, equals",
                         [
                             "\"Leave! Nay, 'tis my house. You do the leavin'!\"",
                             [
@@ -313,12 +316,13 @@
                         []
                     ],
                     [
-                        "DECL",
-                        "0, 178, 168, ('byte', 235), 204"
+                        "ASSIGN",
+                        "0, var",
+                        "byte 235, leaveParty"
                     ],
                     [
                         "IF",
-                        "0, 178, ('byte', 1), 134",
+                        "0, var, byte 1, equals",
                         [
                             "\"Leave?! And jump overboard?!\"",
                             "WAIT",
@@ -333,7 +337,7 @@
                     "\"What? Oh, I suppose a craftsman isn't warrior enough to suit ",
                     [
                         "IF",
-                        "16, 178",
+                        "16, var",
                         [
                             "her lady"
                         ],
@@ -350,7 +354,7 @@
                     "\n\n\"I'm tired of carrying all this junk anyway!\"\n",
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "1"
                     ],
                     "BYE"
@@ -362,7 +366,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), 198",
+                        "byte 235, isInParty",
                         [
                             "\"Aye, enough chatting. On with our quest!\"\n",
                             "BYE"
@@ -371,7 +375,7 @@
                     ],
                     [
                         "IF",
-                        "('byte', 235), 1, 171, ('byte', 0), 134",
+                        "byte 235, 1, flag, byte 0, equals",
                         [
                             "\"May fortune follow ye on thy way!\"\n",
                             "BYE"
@@ -381,7 +385,7 @@
                     "\"Ach, aye! I wouldna want to hinder ",
                     [
                         "IF",
-                        "16, 178",
+                        "16, var",
                         [
                             "her lady"
                         ],
@@ -392,7 +396,7 @@
                     "ship's journey!\"\n",
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ],
                     "BYE"
@@ -404,7 +408,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), 1, 171",
+                        "byte 235, 1, flag",
                         [
                             "\"Are ye daft? Why would I know anything about $Z?\""
                         ],
@@ -431,7 +435,7 @@
                 [
                     [
                         "IF",
-                        "0, 178, ('word', 32769), 134",
+                        "0, var, word 32769, equals",
                         [
                             "\"Well where is it? I canna see any board on ye!\"",
                             [
@@ -492,17 +496,17 @@
             "\n\nShe hands you the finished pipes.",
             [
                 "DELETE",
-                "0, 178",
-                "('word', 277)",
-                "('byte', 0)",
-                "('byte', 1)"
+                "0, var",
+                "word 277",
+                "byte 0",
+                "byte 1"
             ],
             [
                 "NEW",
-                "('byte', 1)",
-                "('byte', 153)",
-                "('byte', 0)",
-                "('byte', 1)"
+                "byte 1",
+                "byte 153",
+                "byte 0",
+                "byte 1"
             ],
             [
                 "JUMP",

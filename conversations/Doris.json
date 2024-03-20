@@ -15,7 +15,7 @@
             "\n\n\"Yes, what do you want",
             [
                 "IF",
-                "('byte', 235), 0, 171",
+                "byte 235, 0, flag",
                 [
                     " now?\""
                 ],
@@ -23,7 +23,7 @@
                     "?\"",
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ]
                 ]
@@ -155,7 +155,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 0), ('byte', 1), 160",
+                        "byte 0, byte 1, rand",
                         [
                             "\"Oh really?\""
                         ],
@@ -181,11 +181,12 @@
                 [
                     [
                         "IF",
-                        "23, 178",
+                        "23, var",
                         [
                             [
-                                "DECL",
-                                "1, 178, 168, 23, 178, ('byte', 1), 144, ('byte', 5), 146"
+                                "ASSIGN",
+                                "1, var",
+                                "23, var, byte 1, plus, byte 5, multiply"
                             ],
                             [
                                 "JUMP",
@@ -216,7 +217,7 @@
         "1226": [
             [
                 "IF",
-                "('byte', 0), ('byte', 0), 221, ('byte', 88), 187, ('byte', 5), 131",
+                "byte 0, byte 0, character, byte 88, length, byte 5, less",
                 [
                     "\"No pay, no stay. 5 gold, cash in advance.\"",
                     [
@@ -227,10 +228,10 @@
                 [
                     [
                         "DELETE",
-                        "('byte', 0), ('byte', 0), 221",
-                        "('byte', 88)",
-                        "('byte', 0)",
-                        "('byte', 5)"
+                        "byte 0, byte 0, character",
+                        "byte 88",
+                        "byte 0",
+                        "byte 5"
                     ],
                     [
                         "JUMP",
@@ -241,20 +242,23 @@
         ],
         "1310": [
             [
-                "DECL",
-                "2, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "2, var",
+                "byte 0"
             ],
             [
-                "DECL",
-                "3, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "3, var",
+                "byte 0"
             ],
             [
-                "DECL",
-                "4, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "4, var",
+                "byte 0"
             ],
             [
                 "IF",
-                "3, 178, 23, 178, 129",
+                "3, var, 23, var, greater",
                 [
                     "\"No pay, no stay.\"",
                     "WAIT",
@@ -267,24 +271,28 @@
                 []
             ],
             [
-                "DECL",
-                "5, 178, 168, 3, 178, ('byte', 0), 221, ('byte', 88), 187"
+                "ASSIGN",
+                "5, var",
+                "3, var, byte 0, character, byte 88, length"
             ],
             [
                 "IF",
-                "5, 178, 1, 178, 131",
+                "5, var, 1, var, less",
                 [
                     [
-                        "DECL",
-                        "1, 178, 168, 1, 178, 5, 178, 145"
+                        "ASSIGN",
+                        "1, var",
+                        "1, var, 5, var, minus"
                     ],
                     [
-                        "DECL",
-                        "2, 178, 168, 2, 178, 5, 178, 144"
+                        "ASSIGN",
+                        "2, var",
+                        "2, var, 5, var, plus"
                     ],
                     [
-                        "DECL",
-                        "3, 178, 168, 3, 178, ('byte', 1), 144"
+                        "ASSIGN",
+                        "3, var",
+                        "3, var, byte 1, plus"
                     ],
                     [
                         "JUMP",
@@ -294,20 +302,24 @@
                 [
                     "Your party takes up a collection to pay for the rooms.",
                     [
-                        "DECL",
-                        "1, 178, 168, 23, 178, ('byte', 1), 144, ('byte', 5), 146"
+                        "ASSIGN",
+                        "1, var",
+                        "23, var, byte 1, plus, byte 5, multiply"
                     ],
                     [
-                        "DECL",
-                        "2, 178, 168, ('byte', 0)"
+                        "ASSIGN",
+                        "2, var",
+                        "byte 0"
                     ],
                     [
-                        "DECL",
-                        "4, 178, 168, 3, 178"
+                        "ASSIGN",
+                        "4, var",
+                        "3, var"
                     ],
                     [
-                        "DECL",
-                        "3, 178, 168, ('byte', 0)"
+                        "ASSIGN",
+                        "3, var",
+                        "byte 0"
                     ],
                     [
                         "JUMP",
@@ -319,14 +331,14 @@
         "1561": [
             [
                 "IF",
-                "3, 178, 4, 178, 134",
+                "3, var, 4, var, equals",
                 [
                     [
                         "DELETE",
-                        "3, 178, ('byte', 0), 221",
-                        "('byte', 88)",
-                        "('byte', 0)",
-                        "1, 178"
+                        "3, var, byte 0, character",
+                        "byte 88",
+                        "byte 0",
+                        "1, var"
                     ],
                     "WAIT",
                     "\n\n",
@@ -338,23 +350,26 @@
                 []
             ],
             [
-                "DECL",
-                "5, 178, 168, 3, 178, ('byte', 0), 221, ('byte', 88), 187"
+                "ASSIGN",
+                "5, var",
+                "3, var, byte 0, character, byte 88, length"
             ],
             [
-                "DECL",
-                "1, 178, 168, 1, 178, 5, 178, 145"
+                "ASSIGN",
+                "1, var",
+                "1, var, 5, var, minus"
             ],
             [
                 "DELETE",
-                "3, 178, ('byte', 0), 221",
-                "('byte', 88)",
-                "('byte', 0)",
-                "5, 178"
+                "3, var, byte 0, character",
+                "byte 88",
+                "byte 0",
+                "5, var"
             ],
             [
-                "DECL",
-                "3, 178, 168, 3, 178, ('byte', 1), 144"
+                "ASSIGN",
+                "3, var",
+                "3, var, byte 1, plus"
             ],
             [
                 "JUMP",

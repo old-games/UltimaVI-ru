@@ -14,7 +14,7 @@
         "79": [
             [
                 "IF",
-                "('byte', 235), 198",
+                "byte 235, isInParty",
                 [
                     "\"Yes, $P?\"",
                     [
@@ -26,7 +26,7 @@
             ],
             [
                 "IF",
-                "32, 178, ('byte', 153), 134",
+                "32, var, byte 153, equals",
                 [
                     "You fail to get her attention in the midst of the brawl.\n",
                     "BYE"
@@ -35,7 +35,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), 0, 171",
+                "byte 235, 0, flag",
                 [
                     "Her face lights up as she recognizes you. \"Hello again, $P!\"",
                     [
@@ -46,7 +46,7 @@
                 [
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ],
                     "\"Oh, you must be $P, the famous Avatar! 'Tis an honor to meet thee.\""
@@ -134,7 +134,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), 198",
+                        "byte 235, isInParty",
                         [
                             "\"Captain who? I know lots of Captains...\"",
                             [
@@ -145,12 +145,13 @@
                         []
                     ],
                     [
-                        "DECL",
-                        "0, 178, 168, ('byte', 113), 215, ('byte', 111), 215, 144, ('byte', 112), 215, 144"
+                        "ASSIGN",
+                        "0, var",
+                        "byte 113, isNearby, byte 111, isNearby, plus, byte 112, isNearby, plus"
                     ],
                     [
                         "IF",
-                        "0, 178, ('byte', 1), 132",
+                        "0, var, byte 1, lessOrEquals",
                         [
                             "\"Captain who? I know lots of Captains...\"",
                             [
@@ -180,18 +181,18 @@
                     "\n\n\"Said he was going to kill as many @gargoyles as he could before they got him.\"",
                     [
                         "IF",
-                        "('byte', 111), 215",
+                        "byte 111, isNearby",
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "('byte', 111)"
+                                "byte 111"
                             ],
                             "\n\n\"That's not true!\" says Captain Fox. \"I can tell you what really happened.\"",
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "('byte', 235)"
+                                "byte 235"
                             ]
                         ],
                         []
@@ -236,7 +237,7 @@
         "1356": [
             [
                 "IF",
-                "('byte', 235), 198",
+                "byte 235, isInParty",
                 [
                     "\"I'd be glad to join you--but I have already!\"",
                     [
@@ -268,12 +269,13 @@
                 []
             ],
             [
-                "DECL",
-                "0, 178, 168, ('byte', 235), 202"
+                "ASSIGN",
+                "0, var",
+                "byte 235, joinParty"
             ],
             [
                 "IF",
-                "0, 178, ('byte', 1), 134",
+                "0, var, byte 1, equals",
                 [
                     "\"Not while you're in that thing!\"",
                     [
@@ -285,7 +287,7 @@
             ],
             [
                 "IF",
-                "0, 178, ('byte', 2), 134",
+                "0, var, byte 2, equals",
                 [
                     "\"You have enough traveling with you already.\"",
                     "WAIT",
@@ -299,7 +301,7 @@
             ],
             [
                 "IF",
-                "0, 178, ('byte', 3), 134",
+                "0, var, byte 3, equals",
                 [
                     [
                         "JUMP",
@@ -314,7 +316,7 @@
         "1764": [
             [
                 "IF",
-                "('byte', 235), 198, ('byte', 0), 134",
+                "byte 235, isInParty, byte 0, equals",
                 [
                     "\"I'd have to @join you before I could leave, silly!\"",
                     [
@@ -325,12 +327,13 @@
                 []
             ],
             [
-                "DECL",
-                "0, 178, 168, ('byte', 235), 204"
+                "ASSIGN",
+                "0, var",
+                "byte 235, leaveParty"
             ],
             [
                 "IF",
-                "0, 178, ('byte', 1), 134",
+                "0, var, byte 1, equals",
                 [
                     "\"Let's get our feet back on solid ground first, okay?\"",
                     [
@@ -342,7 +345,7 @@
             ],
             [
                 "IF",
-                "0, 178, ('byte', 2), 134",
+                "0, var, byte 2, equals",
                 [
                     [
                         "JUMP",

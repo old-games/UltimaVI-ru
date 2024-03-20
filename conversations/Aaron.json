@@ -14,7 +14,7 @@
             "\n",
             [
                 "IF",
-                "('byte', 235), 0, 171",
+                "byte 235, 0, flag",
                 [
                     "\"Hello again, Avatar!\""
                 ],
@@ -31,7 +31,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), 0, 171",
+                        "byte 235, 0, flag",
                         [
                             "\"That's funny. I remember your name!\""
                         ],
@@ -39,7 +39,7 @@
                             "\"My name's Aaron.\"",
                             [
                                 "SETF",
-                                "('byte', 235)",
+                                "byte 235",
                                 "0"
                             ]
                         ]
@@ -78,7 +78,7 @@
                 [
                     [
                         "IF",
-                        "32, 178, ('byte', 144), 133",
+                        "32, var, byte 144, notEquals",
                         [
                             "\"Come to my shop when I'm open!\"",
                             [
@@ -89,12 +89,13 @@
                         []
                     ],
                     [
-                        "DECL",
-                        "0, 178, 168, ('word', 274), ('byte', 0), 199"
+                        "ASSIGN",
+                        "0, var",
+                        "word 274, byte 0, isInPartyObj"
                     ],
                     [
                         "IF",
-                        "0, 178, ('word', 32769), 134",
+                        "0, var, word 32769, equals",
                         [
                             "\"My mill makes smooth boards and planks out of rough-cut logs.\"",
                             [
@@ -106,7 +107,7 @@
                     ],
                     [
                         "SETNAME",
-                        "0, 178"
+                        "0, var"
                     ],
                     "\"Aye, I see $Y has a yew log.\" He inspects the wood with a practiced eye.",
                     "WAIT",
@@ -126,7 +127,7 @@
                     "\"Farewell!\"\n",
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ],
                     "BYE"
@@ -155,7 +156,7 @@
                 [
                     [
                         "IF",
-                        "0, 178, ('byte', 88), 187, ('byte', 5), 131",
+                        "0, var, byte 88, length, byte 5, less",
                         [
                             "\"Sorry, but I can't work for free!\"",
                             "WAIT",
@@ -169,27 +170,27 @@
                     ],
                     [
                         "DELETE",
-                        "0, 178",
-                        "('word', 274)",
-                        "('byte', 0)",
-                        "('byte', 1)"
+                        "0, var",
+                        "word 274",
+                        "byte 0",
+                        "byte 1"
                     ],
                     [
                         "DELETE",
-                        "0, 178",
-                        "('byte', 88)",
-                        "('byte', 0)",
-                        "('byte', 5)"
+                        "0, var",
+                        "byte 88",
+                        "byte 0",
+                        "byte 5"
                     ],
                     "Aaron goes to his saw and turns the log into a flat, sanded board.",
                     "WAIT",
                     "\n\n\"There!\" He hands $Y the finished product.",
                     [
                         "NEW",
-                        "0, 178",
-                        "('word', 277)",
-                        "('byte', 0)",
-                        "('byte', 1)"
+                        "0, var",
+                        "word 277",
+                        "byte 0",
+                        "byte 1"
                     ],
                     [
                         "JUMP",

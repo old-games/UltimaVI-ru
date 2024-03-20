@@ -14,7 +14,7 @@
         "63": [
             [
                 "IF",
-                "32, 178, ('byte', 143), 134",
+                "32, var, byte 143, equals",
                 [
                     [
                         "JUMP",
@@ -25,7 +25,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), 0, 171, ('byte', 235), 1, 171, ('byte', 0), 134, 149",
+                "byte 235, 0, flag, byte 235, 1, flag, byte 0, equals, and",
                 [
                     "\"You're welcome here.\"",
                     [
@@ -38,7 +38,7 @@
             "\"Why you bargin' inta my house?\" he shouts.",
             [
                 "SETF",
-                "('byte', 235)",
+                "byte 235",
                 "1"
             ],
             "WAIT",
@@ -48,7 +48,7 @@
         "226": [
             [
                 "IF",
-                "('byte', 235), 1, 171",
+                "byte 235, 1, flag",
                 [
                     "\"Hah, sneakin' around in my @forest, huh?\"",
                     "WAIT",
@@ -58,17 +58,17 @@
             ],
             [
                 "IF",
-                "('byte', 235), 0, 171, ('byte', 0), 134",
+                "byte 235, 0, flag, byte 0, equals",
                 [
                     "\"I told the last one of ya that came by that I'll have nothin' t'do with yer @wars, so shove off!\"",
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ],
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "1"
                     ],
                     [
@@ -80,7 +80,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), 1, 171",
+                "byte 235, 1, flag",
                 [
                     "\n\n\"I told ya once already that I want to be left @alone!\""
                 ],
@@ -105,7 +105,7 @@
                     "\n\n",
                     [
                         "IF",
-                        "('byte', 235), 1, 171",
+                        "byte 235, 1, flag",
                         [
                             "\"But you ain't one of my friends.\""
                         ],
@@ -125,7 +125,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), 1, 171",
+                        "byte 235, 1, flag",
                         [
                             "He fires a look at you. \"I said only my @friends call me that.\""
                         ],
@@ -183,7 +183,7 @@
                     "\"Aye, this is where I cut trees, and I don't like strangers wanderin' through!\"",
                     [
                         "IF",
-                        "('byte', 235), 1, 171, ('byte', 0), 134",
+                        "byte 235, 1, flag, byte 0, equals",
                         [
                             "WAIT",
                             "\n\n\"You're welcome here, though.\""
@@ -238,7 +238,7 @@
                     "\"Careful in those woods now.",
                     [
                         "IF",
-                        "('byte', 235), 1, 171",
+                        "byte 235, 1, flag",
                         [
                             " Accidents happen....\"\n"
                         ],
@@ -273,7 +273,7 @@
                     "\"I knew it!\"",
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "1"
                     ],
                     [
@@ -289,7 +289,7 @@
                     "\"Oh.\" He seems friendlier now.",
                     [
                         "CLEARF",
-                        "('byte', 235)",
+                        "byte 235",
                         "1"
                     ],
                     [
@@ -310,11 +310,12 @@
                 [
                     [
                         "IF",
-                        "23, 178",
+                        "23, var",
                         [
                             [
-                                "DECL",
-                                "0, 178, 168, ('byte', 1)"
+                                "ASSIGN",
+                                "0, var",
+                                "byte 1"
                             ],
                             [
                                 "JUMP",
@@ -323,8 +324,9 @@
                         ],
                         [
                             [
-                                "DECL",
-                                "3, 178, 168, ('byte', 0), ('byte', 0), 221"
+                                "ASSIGN",
+                                "3, var",
+                                "byte 0, byte 0, character"
                             ],
                             [
                                 "JUMP",
@@ -340,7 +342,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), 1, 171",
+                        "byte 235, 1, flag",
                         [
                             "\"Well, what do ya want then?\""
                         ],
@@ -358,16 +360,17 @@
         "1833": [
             [
                 "SETNAME",
-                "0, 178, ('byte', 1), 145, ('byte', 0), 221"
+                "0, var, byte 1, minus, byte 0, character"
             ],
             "#0) $Y\n",
             [
                 "IF",
-                "0, 178, 23, 178, 132",
+                "0, var, 23, var, lessOrEquals",
                 [
                     [
-                        "DECL",
-                        "0, 178, 168, 0, 178, ('byte', 1), 144"
+                        "ASSIGN",
+                        "0, var",
+                        "0, var, byte 1, plus"
                     ],
                     [
                         "JUMP",
@@ -383,7 +386,7 @@
             ],
             [
                 "IF",
-                "2, 178, ('byte', 0), 134",
+                "2, var, byte 0, equals",
                 [
                     "\"Well, why'd ya say you wanted one?\"",
                     [
@@ -394,16 +397,18 @@
                 []
             ],
             [
-                "DECL",
-                "2, 178, 168, 2, 178, ('byte', 1), 145"
+                "ASSIGN",
+                "2, var",
+                "2, var, byte 1, minus"
             ],
             [
                 "IF",
-                "2, 178, 23, 178, 129",
+                "2, var, 23, var, greater",
                 [
                     [
-                        "DECL",
-                        "0, 178, 168, ('byte', 1)"
+                        "ASSIGN",
+                        "0, var",
+                        "byte 1"
                     ],
                     [
                         "JUMP",
@@ -413,16 +418,17 @@
                 []
             ],
             [
-                "DECL",
-                "3, 178, 168, 2, 178, ('byte', 0), 221"
+                "ASSIGN",
+                "3, var",
+                "2, var, byte 0, character"
             ],
             [
                 "SETNAME",
-                "3, 178"
+                "3, var"
             ],
             [
                 "IF",
-                "3, 178, 154, ('byte', 88), ('byte', 5), 155, 144, ('word', 274), ('byte', 1), 155, 131",
+                "3, var, canCarry, byte 88, byte 5, weight, plus, word 274, byte 1, weight, less",
                 [
                     "\"But $Y can't carry a log!\"",
                     [
@@ -434,7 +440,7 @@
             ],
             [
                 "IF",
-                "3, 178, ('byte', 88), 187, ('byte', 5), 131",
+                "3, var, byte 88, length, byte 5, less",
                 [
                     "\"But $Y don't have 5 gold!\"",
                     [
@@ -455,27 +461,27 @@
                 [
                     [
                         "DELETE",
-                        "3, 178",
-                        "('byte', 88)",
-                        "('byte', 0)",
-                        "('byte', 5)"
+                        "3, var",
+                        "byte 88",
+                        "byte 0",
+                        "byte 5"
                     ],
                     [
                         "NEW",
-                        "3, 178",
-                        "('word', 274)",
-                        "('byte', 0)",
-                        "('byte', 1)"
+                        "3, var",
+                        "word 274",
+                        "byte 0",
+                        "byte 1"
                     ],
                     "$N takes $Y's gold and hands over a fine yew log.",
                     [
                         "IF",
-                        "('byte', 235), 1, 171",
+                        "byte 235, 1, flag",
                         [
                             "*\n\nBen seems friendlier now.",
                             [
                                 "CLEARF",
-                                "('byte', 235)",
+                                "byte 235",
                                 "1"
                             ]
                         ],

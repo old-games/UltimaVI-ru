@@ -14,7 +14,7 @@
         "73": [
             [
                 "IF",
-                "('byte', 235), ('byte', 7), 171",
+                "byte 235, byte 7, flag",
                 [
                     [
                         "JUMP",
@@ -44,7 +44,7 @@
                     "\"My name is Shubin, $G.\"",
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ],
                     [
@@ -82,18 +82,18 @@
                     "\"@Sandy says the mantra of eating is 'yum,' $G. Hee, hee!\"",
                     [
                         "IF",
-                        "('byte', 4), 198",
+                        "byte 4, isInParty",
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "('byte', 4)"
+                                "byte 4"
                             ],
                             "\n\nYou friend Iolo rolls his eyes. \"Such wisdom we can surely do without!\"",
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "('byte', 235)"
+                                "byte 235"
                             ]
                         ],
                         []
@@ -110,7 +110,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), ('byte', 7), 171, ('byte', 1), 154, ('byte', 130), ('byte', 1), 155, 131, 148",
+                        "byte 235, byte 7, flag, byte 1, canCarry, byte 130, byte 1, weight, less, or",
                         [
                             "\"I have no more rolls, $G.\"",
                             [
@@ -224,24 +224,25 @@
                 "y",
                 [
                     [
-                        "DECL",
-                        "0, 178, 168, ('word', 417), ('byte', 0), 199"
+                        "ASSIGN",
+                        "0, var",
+                        "word 417, byte 0, isInPartyObj"
                     ],
                     [
                         "IF",
-                        "0, 178, ('word', 32769), 133",
+                        "0, var, word 32769, notEquals",
                         [
                             "\"Oh, thank you, thank you, thank you!\"",
                             [
                                 "DELETE",
-                                "('byte', 1)",
-                                "('word', 417)",
-                                "('byte', 0)",
-                                "('byte', 1)"
+                                "byte 1",
+                                "word 417",
+                                "byte 0",
+                                "byte 1"
                             ],
                             [
                                 "ADD_KARMA",
-                                "('byte', 5)"
+                                "byte 5"
                             ],
                             [
                                 "JUMP",
@@ -282,15 +283,15 @@
                     "\"Have a whole tray, then.\"",
                     [
                         "NEW",
-                        "('byte', 1)",
-                        "('byte', 130)",
-                        "('byte', 0)",
-                        "('byte', 1)"
+                        "byte 1",
+                        "byte 130",
+                        "byte 0",
+                        "byte 1"
                     ],
                     [
                         "SETF",
-                        "('byte', 235)",
-                        "('byte', 7)"
+                        "byte 235",
+                        "byte 7"
                     ],
                     [
                         "JUMP",

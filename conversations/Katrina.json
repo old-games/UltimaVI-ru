@@ -14,7 +14,7 @@
             "\n",
             [
                 "IF",
-                "('byte', 235), 198",
+                "byte 235, isInParty",
                 [
                     "\"I'm but a simple peasant, $G.\"",
                     "WAIT",
@@ -28,7 +28,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), ('byte', 2), 171",
+                "byte 235, byte 2, flag",
                 [
                     "\"Good $T, $G. Wilt thou allow me to follow you again?\" ",
                     [
@@ -62,7 +62,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), 0, 171",
+                "byte 235, 0, flag",
                 [
                     "\"Good $T, $G! I hope thou hast fared well in thy travels?\" ",
                     [
@@ -97,7 +97,7 @@
             "\"$P! I had heard that thou hadst returned to our land, but I dared not believe it!\"",
             [
                 "SETF",
-                "('byte', 235)",
+                "byte 235",
                 "0"
             ],
             "WAIT",
@@ -145,7 +145,7 @@
                     "\n\"We all do what is expected of us.\"",
                     [
                         "IF",
-                        "('byte', 235), 198, ('byte', 0), 134",
+                        "byte 235, isInParty, byte 0, equals",
                         [
                             "WAIT",
                             "\n\n\"If thou wouldst have me @join thy quest, thou needst but ask.\""
@@ -164,7 +164,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), 198",
+                        "byte 235, isInParty",
                         [
                             "\"Surely I misunderstand thee, $G.\"",
                             "WAIT",
@@ -177,20 +177,21 @@
                         []
                     ],
                     [
-                        "DECL",
-                        "0, 178, 168, ('byte', 235), 202"
+                        "ASSIGN",
+                        "0, var",
+                        "byte 235, joinParty"
                     ],
                     [
                         "IF",
-                        "0, 178, ('byte', 0), 134",
+                        "0, var, byte 0, equals",
                         [
                             "\"Since thou dost think it wise, I wilt join.\"",
                             "WAIT",
                             "\n\n\"I hope I can aid thy quest.\"\n",
                             [
                                 "SETF",
-                                "('byte', 235)",
-                                "('byte', 2)"
+                                "byte 235",
+                                "byte 2"
                             ],
                             "BYE"
                         ],
@@ -198,7 +199,7 @@
                     ],
                     [
                         "IF",
-                        "0, 178, ('byte', 2), 134",
+                        "0, var, byte 2, equals",
                         [
                             "\"I hesitate to deny any request thou might have.\"",
                             "WAIT",
@@ -229,12 +230,13 @@
                 "leav",
                 [
                     [
-                        "DECL",
-                        "0, 178, 168, ('byte', 235), 204"
+                        "ASSIGN",
+                        "0, var",
+                        "byte 235, leaveParty"
                     ],
                     [
                         "IF",
-                        "0, 178, ('byte', 0), 134, 0, 178, ('byte', 2), 134, 148",
+                        "0, var, byte 0, equals, 0, var, byte 2, equals, or",
                         [
                             "\"Whatever thou thinkest best, $G. I'll leave my equipment with thee.\"\n",
                             "BYE"
@@ -283,7 +285,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), 198",
+                        "byte 235, isInParty",
                         [
                             "\"May we live up to the trust placed in us.\"\n"
                         ],
@@ -300,7 +302,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 0), ('byte', 1), 160",
+                        "byte 0, byte 1, rand",
                         [
                             "\"A peasant such as myself knows little about $Z, $G.\""
                         ],

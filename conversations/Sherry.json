@@ -14,7 +14,7 @@
         "32": [
             [
                 "IF",
-                "('byte', 235), 198",
+                "byte 235, isInParty",
                 [
                     [
                         "JUMP",
@@ -26,12 +26,12 @@
             "\"Squeak, squeak, @squeak!\"",
             [
                 "IF",
-                "('byte', 235), ('byte', 7), 171, ('byte', 0), 134, ('byte', 2), 198, 149",
+                "byte 235, byte 7, flag, byte 0, equals, byte 2, isInParty, and",
                 [
                     "WAIT",
                     [
                         "PORTRAIT",
-                        "('byte', 2)"
+                        "byte 2"
                     ],
                     "\n\n\"Talking to a mouse?\" says Dupre.",
                     "WAIT",
@@ -39,12 +39,12 @@
                     "WAIT",
                     [
                         "PORTRAIT",
-                        "('byte', 235)"
+                        "byte 235"
                     ],
                     [
                         "SETF",
-                        "('byte', 235)",
-                        "('byte', 7)"
+                        "byte 235",
+                        "byte 7"
                     ]
                 ],
                 []
@@ -91,7 +91,7 @@
                     "\"I am Lord @British's friend, @Sherry.\"",
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ],
                     [
@@ -150,7 +150,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), ('byte', 5), 171",
+                        "byte 235, byte 5, flag",
                         [
                             [
                                 "JUMP",
@@ -161,8 +161,8 @@
                             "\"Give me some @cheese and ask me again.\"",
                             [
                                 "SETF",
-                                "('byte', 235)",
-                                "('byte', 6)"
+                                "byte 235",
+                                "byte 6"
                             ],
                             [
                                 "JUMP",
@@ -201,7 +201,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), ('byte', 6), 171, ('byte', 0), 134",
+                        "byte 235, byte 6, flag, byte 0, equals",
                         [
                             "\"Nitters @fiblik.\""
                         ],
@@ -219,7 +219,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 1), ('byte', 7), 160, ('byte', 5), 129",
+                        "byte 1, byte 7, rand, byte 5, greater",
                         [
                             "\"Kerchew!\""
                         ],
@@ -237,7 +237,7 @@
         "906": [
             [
                 "IF",
-                "('byte', 235), ('byte', 5), 171",
+                "byte 235, byte 5, flag",
                 [
                     [
                         "JUMP",
@@ -250,8 +250,8 @@
             "\n\n\"Do you have any cheese?\" ",
             [
                 "SETF",
-                "('byte', 235)",
-                "('byte', 6)"
+                "byte 235",
+                "byte 6"
             ],
             [
                 "ASKC",
@@ -270,7 +270,7 @@
             ],
             [
                 "IF",
-                "('byte', 132), ('byte', 0), 199, ('word', 32769), 133",
+                "byte 132, byte 0, isInPartyObj, word 32769, notEquals",
                 [
                     [
                         "JUMP",
@@ -309,23 +309,23 @@
                 [
                     [
                         "DELETE",
-                        "('byte', 132), ('byte', 0), 199",
-                        "('byte', 132)",
-                        "('byte', 0)",
-                        "('byte', 1)"
+                        "byte 132, byte 0, isInPartyObj",
+                        "byte 132",
+                        "byte 0",
+                        "byte 1"
                     ],
                     [
                         "NEW",
-                        "('byte', 235)",
-                        "('byte', 132)",
-                        "('byte', 0)",
-                        "('byte', 1)"
+                        "byte 235",
+                        "byte 132",
+                        "byte 0",
+                        "byte 1"
                     ],
                     "\"Thank you very much!\"",
                     [
                         "SETF",
-                        "('byte', 235)",
-                        "('byte', 5)"
+                        "byte 235",
+                        "byte 5"
                     ],
                     [
                         "JUMP",
@@ -356,12 +356,13 @@
                 "y",
                 [
                     [
-                        "DECL",
-                        "0, 178, 168, ('byte', 235), 202"
+                        "ASSIGN",
+                        "0, var",
+                        "byte 235, joinParty"
                     ],
                     [
                         "IF",
-                        "0, 178, ('byte', 0), 134",
+                        "0, var, byte 0, equals",
                         [
                             "\"Great!\"\n",
                             "BYE"
@@ -370,7 +371,7 @@
                     ],
                     [
                         "IF",
-                        "0, 178, ('byte', 1), 134",
+                        "0, var, byte 1, equals",
                         [
                             "\"Boats make me seasick.\"",
                             [
@@ -382,7 +383,7 @@
                     ],
                     [
                         "IF",
-                        "0, 178, ('byte', 2), 134",
+                        "0, var, byte 2, equals",
                         [
                             "\"With that many people I'd get trampled!\"",
                             [
@@ -398,8 +399,8 @@
         "1347": [
             [
                 "WORKTYPE",
-                "('byte', 235)",
-                "('byte', 154)"
+                "byte 235",
+                "byte 154"
             ],
             "\n",
             "BYE"
@@ -510,12 +511,13 @@
                 ]
             ],
             [
-                "DECL",
-                "0, 178, 168, ('byte', 235), 204"
+                "ASSIGN",
+                "0, var",
+                "byte 235, leaveParty"
             ],
             [
                 "IF",
-                "0, 178, ('byte', 1), 134",
+                "0, var, byte 1, equals",
                 [
                     "\"I'm not leaving until we get out of this thing!\"",
                     [

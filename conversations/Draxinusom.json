@@ -11,18 +11,20 @@
     "conversation": {
         "56": [
             [
-                "DECL",
-                "0, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "0, var",
+                "byte 0"
             ],
             [
-                "DECL",
-                "1, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "1, var",
+                "byte 0"
             ],
             "WAIT",
             "\n",
             [
                 "IF",
-                "21, 178, ('byte', 0), 134",
+                "21, var, byte 0, equals",
                 [
                     "The gargoyle screams, \"An-bal-sil-fer! Klep lem! Por-aylem ter-ort ka!\"\n",
                     "BYE"
@@ -31,7 +33,7 @@
             ],
             [
                 "IF",
-                "('byte', 76), ('byte', 0), 199, ('byte', 1), 134",
+                "byte 76, byte 0, isInPartyObj, byte 1, equals",
                 [
                     "\"To be honored by your presence, noble $P. To feel sorrow that matters of state prevent conversation.\"",
                     "WAIT",
@@ -42,7 +44,7 @@
             ],
             [
                 "IF",
-                "('byte', 164), 198",
+                "byte 164, isInParty",
                 [
                     "\"To refrain from slaying you only because of the presence of the child, False Prophet!\"",
                     "WAIT",
@@ -52,7 +54,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), 0, 171",
+                "byte 235, 0, flag",
                 [
                     "\"To demand to know why you have returned here, False Prophet!\""
                 ],
@@ -60,7 +62,7 @@
                     "\"To express astonishment at your audacity, False Prophet!\"",
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ]
                 ]
@@ -85,8 +87,9 @@
                     "WAIT",
                     "\n\n\"To demand to know why you have come before me!\"",
                     [
-                        "DECL",
-                        "0, 178, 168, 0, 178, ('byte', 1), 144"
+                        "ASSIGN",
+                        "0, var",
+                        "0, var, byte 1, plus"
                     ],
                     [
                         "JUMP",
@@ -100,8 +103,9 @@
                 [
                     "\"To be the leader of our race. To have little time to waste chatting with the False Prophet!\"",
                     [
-                        "DECL",
-                        "0, 178, 168, 0, 178, ('byte', 1), 144"
+                        "ASSIGN",
+                        "0, var",
+                        "0, var, byte 1, plus"
                     ],
                     [
                         "JUMP",
@@ -125,7 +129,7 @@
                 [
                     [
                         "IF",
-                        "0, 178, ('byte', 2), 129",
+                        "0, var, byte 2, greater",
                         [
                             [
                                 "JUMP",
@@ -136,11 +140,12 @@
                     ],
                     [
                         "DPRINT",
-                        "('dword', 2131), 0, 178"
+                        "dword 2131, 0, var"
                     ],
                     [
-                        "DECL",
-                        "0, 178, 168, 0, 178, ('byte', 1), 144"
+                        "ASSIGN",
+                        "0, var",
+                        "0, var, byte 1, plus"
                     ],
                     [
                         "JUMP",
@@ -161,18 +166,18 @@
                     "\n\n\"Hsss....To consent to wear this?\" ",
                     [
                         "IF",
-                        "('byte', 2), 198",
+                        "byte 2, isInParty",
                         [
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "('byte', 2)"
+                                "byte 2"
                             ],
                             "\n\nTrusted Dupre whispers frantically to you, \"You mustn't! It's some sort of magical trap!\"",
                             "WAIT",
                             [
                                 "PORTRAIT",
-                                "('byte', 235)"
+                                "byte 235"
                             ],
                             "\n\nThe gargoyle waits impatiently for an answer. \"Yes or no, False Prophet?\" "
                         ],
@@ -222,7 +227,7 @@
                 [
                     [
                         "IF",
-                        "1, 178",
+                        "1, var",
                         [
                             [
                                 "JUMP",
@@ -232,8 +237,9 @@
                         [
                             "\"To be necessary for surrender! To ask again for your acceptance of this.\"\n\nYour answer: ",
                             [
-                                "DECL",
-                                "1, 178, 168, ('byte', 1)"
+                                "ASSIGN",
+                                "1, var",
+                                "byte 1"
                             ],
                             [
                                 "JUMP",
@@ -250,14 +256,14 @@
                     "The gargoyle hands you the amulet, and you slip the leather loop over your head.",
                     [
                         "NEW",
-                        "('byte', 1)",
-                        "('byte', 76)",
-                        "('byte', 0)",
-                        "('byte', 1)"
+                        "byte 1",
+                        "byte 76",
+                        "byte 0",
+                        "byte 1"
                     ],
                     [
                         "ADD_KARMA",
-                        "('byte', 10)"
+                        "byte 10"
                     ],
                     "WAIT"
                 ]

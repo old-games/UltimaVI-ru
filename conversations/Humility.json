@@ -16,7 +16,7 @@
             "\n\n",
             [
                 "IF",
-                "20, 178, ('byte', 40), 131",
+                "20, var, byte 40, less",
                 [
                     "\"Thou hast much to learn about humility.\"",
                     [
@@ -28,7 +28,7 @@
             ],
             [
                 "IF",
-                "20, 178, ('byte', 80), 131",
+                "20, var, byte 80, less",
                 [
                     "\"Thy deeds have shown admirable humility.\""
                 ],
@@ -51,11 +51,12 @@
             ],
             [
                 "IF",
-                "23, 178, ('byte', 0), 134",
+                "23, var, byte 0, equals",
                 [
                     [
-                        "DECL",
-                        "0, 178, 168, ('byte', 0)"
+                        "ASSIGN",
+                        "0, var",
+                        "byte 0"
                     ],
                     [
                         "JUMP",
@@ -65,30 +66,34 @@
                 []
             ],
             [
-                "DECL",
-                "0, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "0, var",
+                "byte 0"
             ],
             [
-                "DECL",
-                "2, 178, 168, ('byte', 1)"
+                "ASSIGN",
+                "2, var",
+                "byte 1"
             ],
             "\n",
             [
                 "SETNAME",
-                "0, 178, ('byte', 0), 221"
+                "0, var, byte 0, character"
             ],
             "#2. $Y\n",
             [
-                "DECL",
-                "0, 178, 168, 0, 178, ('byte', 1), 144"
+                "ASSIGN",
+                "0, var",
+                "0, var, byte 1, plus"
             ],
             [
-                "DECL",
-                "2, 178, 168, 2, 178, ('byte', 1), 144"
+                "ASSIGN",
+                "2, var",
+                "2, var, byte 1, plus"
             ],
             [
                 "IF",
-                "0, 178, 23, 178, 132",
+                "0, var, 23, var, lessOrEquals",
                 [
                     [
                         "JUMP",
@@ -104,7 +109,7 @@
             ],
             [
                 "IF",
-                "0, 178, ('byte', 0), 134",
+                "0, var, byte 0, equals",
                 [
                     "\n",
                     "BYE"
@@ -112,12 +117,13 @@
                 []
             ],
             [
-                "DECL",
-                "0, 178, 168, 0, 178, ('byte', 1), 145"
+                "ASSIGN",
+                "0, var",
+                "0, var, byte 1, minus"
             ],
             [
                 "IF",
-                "0, 178, 23, 178, 129",
+                "0, var, 23, var, greater",
                 [
                     [
                         "JUMP",
@@ -167,15 +173,15 @@
         "699": [
             [
                 "IF",
-                "('byte', 235), 0, 171, ('byte', 0), 134",
+                "byte 235, 0, flag, byte 0, equals",
                 [
                     [
                         "ADD_KARMA",
-                        "('byte', 10)"
+                        "byte 10"
                     ],
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ]
                 ],
@@ -183,67 +189,69 @@
             ],
             [
                 "IF",
-                "('byte', 192), 0, 171, ('byte', 193), 0, 171, 149, ('byte', 194), 0, 171, 149, ('byte', 195), 0, 171, 149, ('byte', 196), 0, 171, 149, ('byte', 197), 0, 171, 149, ('byte', 198), 0, 171, 149, ('byte', 199), 0, 171, 149",
+                "byte 192, 0, flag, byte 193, 0, flag, and, byte 194, 0, flag, and, byte 195, 0, flag, and, byte 196, 0, flag, and, byte 197, 0, flag, and, byte 198, 0, flag, and, byte 199, 0, flag, and",
                 [
                     [
                         "CLEARF",
-                        "('byte', 192)",
+                        "byte 192",
                         "0"
                     ],
                     [
                         "CLEARF",
-                        "('byte', 193)",
+                        "byte 193",
                         "0"
                     ],
                     [
                         "CLEARF",
-                        "('byte', 194)",
+                        "byte 194",
                         "0"
                     ],
                     [
                         "CLEARF",
-                        "('byte', 195)",
+                        "byte 195",
                         "0"
                     ],
                     [
                         "CLEARF",
-                        "('byte', 196)",
+                        "byte 196",
                         "0"
                     ],
                     [
                         "CLEARF",
-                        "('byte', 197)",
+                        "byte 197",
                         "0"
                     ],
                     [
                         "CLEARF",
-                        "('byte', 198)",
+                        "byte 198",
                         "0"
                     ],
                     [
                         "CLEARF",
-                        "('byte', 199)",
+                        "byte 199",
                         "0"
                     ],
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ]
                 ],
                 []
             ],
             [
-                "DECL",
-                "1, 178, 168, 0, 178, ('byte', 0), 221"
+                "ASSIGN",
+                "1, var",
+                "0, var, byte 0, character"
             ],
             [
-                "DECL",
-                "2, 178, 168, 1, 178, ('byte', 0), 225"
+                "ASSIGN",
+                "2, var",
+                "1, var, byte 0, level"
             ],
             [
                 "IF",
-                "2, 178, ('byte', 7), 129",
+                "2, var, byte 7, greater",
                 [
                     [
                         "JUMP",
@@ -253,20 +261,22 @@
                 []
             ],
             [
-                "DECL",
-                "3, 178, 168, 1, 178, ('byte', 0), 224"
+                "ASSIGN",
+                "3, var",
+                "1, var, byte 0, experience"
             ],
             [
                 "IF",
-                "3, 178, ('dword', 1020), 2, 178, 180, 130",
+                "3, var, dword 1020, 2, var, data, greaterOrEquals",
                 [
                     [
-                        "DECL",
-                        "2, 178, 168, 1, 178, ('byte', 1), 225"
+                        "ASSIGN",
+                        "2, var",
+                        "1, var, byte 1, level"
                     ],
                     [
                         "SETNAME",
-                        "1, 178"
+                        "1, var"
                     ],
                     "\n\n$Y has gained a level!",
                     "WAIT"

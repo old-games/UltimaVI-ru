@@ -12,7 +12,7 @@
         "46": [
             [
                 "SETF",
-                "('byte', 235)",
+                "byte 235",
                 "0"
             ],
             "WAIT",
@@ -23,7 +23,7 @@
             "\n\n",
             [
                 "IF",
-                "26, 178",
+                "26, var",
                 [
                     "\"There is no more wisdom for thee to acquire here, noble Avatar.\"",
                     "WAIT",
@@ -36,7 +36,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), ('byte', 2), 171",
+                "byte 235, byte 2, flag",
                 [
                     "\"Hast thou completed thy journey to the @catacombs?\" ",
                     [
@@ -64,7 +64,7 @@
             ],
             [
                 "IF",
-                "20, 178, ('byte', 40), 131",
+                "20, var, byte 40, less",
                 [
                     "\"Thy deeds make thee unworthy of enlightenment.\"",
                     "WAIT",
@@ -77,7 +77,7 @@
             ],
             [
                 "IF",
-                "20, 178, ('byte', 80), 129",
+                "20, var, byte 80, greater",
                 [
                     "\"Thou hast far to travel and much to achieve, but thy inner fire will surely guide thy way.\""
                 ],
@@ -96,7 +96,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), ('byte', 2), 171",
+                        "byte 235, byte 2, flag",
                         [
                             "\"What is the Mantra of Singularity?\"\n",
                             [
@@ -121,16 +121,19 @@
                 "cont,dili,pass",
                 [
                     [
-                        "DECL",
-                        "0, 178, 168, ('dword', 3487), ('byte', 35), 183"
+                        "ASSIGN",
+                        "0, var",
+                        "dword 3487, byte 35, indexOf"
                     ],
                     [
-                        "DECL",
-                        "0, 179, 168, ('dword', 3487), 0, 178, 180"
+                        "ASSIGN",
+                        "0, svar",
+                        "dword 3487, 0, var, data"
                     ],
                     [
-                        "DECL",
-                        "1, 179, 168, ('dword', 3514), 0, 178, 180"
+                        "ASSIGN",
+                        "1, svar",
+                        "dword 3514, 0, var, data"
                     ],
                     "\"$0 is one of the guiding principles of the gargoyle race.\"",
                     "WAIT",
@@ -190,7 +193,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 0), ('byte', 1), 160",
+                        "byte 0, byte 1, rand",
                         [
                             "\"The answer to that lies elsewhere.\""
                         ],
@@ -228,11 +231,12 @@
                     "\n\nYour final quest has begun!",
                     [
                         "ADD_KARMA",
-                        "('byte', 10)"
+                        "byte 10"
                     ],
                     [
-                        "DECL",
-                        "26, 178, 168, ('byte', 1)"
+                        "ASSIGN",
+                        "26, var",
+                        "byte 1"
                     ],
                     "WAIT",
                     "\n",
@@ -293,8 +297,8 @@
                     "\n\n\"Return when thou hast found these @catacombs.\"",
                     [
                         "SETF",
-                        "('byte', 235)",
-                        "('byte', 2)"
+                        "byte 235",
+                        "byte 2"
                     ],
                     [
                         "JUMP",

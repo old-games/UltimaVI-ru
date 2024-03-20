@@ -12,7 +12,7 @@
         "31": [
             [
                 "IF",
-                "('byte', 235), 198",
+                "byte 235, isInParty",
                 [
                     [
                         "JUMP",
@@ -23,7 +23,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), 0, 171",
+                "byte 235, 0, flag",
                 [
                     "\"Good $T, $P. I hope you have returned to ask me to join you.\""
                 ],
@@ -39,7 +39,7 @@
                 [
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ],
                     "\"It is I, Sentri.\" (He pronounces his name 'Sahn-tray.')",
@@ -115,7 +115,7 @@
         "849": [
             [
                 "IF",
-                "('byte', 235), 198",
+                "byte 235, isInParty",
                 [
                     "\"I have joined you already!\"",
                     [
@@ -143,12 +143,13 @@
             ],
             "\n",
             [
-                "DECL",
-                "0, 178, 168, ('byte', 235), 202"
+                "ASSIGN",
+                "0, var",
+                "byte 235, joinParty"
             ],
             [
                 "IF",
-                "0, 178, ('byte', 1), 134",
+                "0, var, byte 1, equals",
                 [
                     "\"It would be best if you got out of that vessel first.\"",
                     [
@@ -160,7 +161,7 @@
             ],
             [
                 "IF",
-                "0, 178, ('byte', 2), 134",
+                "0, var, byte 2, equals",
                 [
                     "\"You have enough companions now.\"\n*\n\"If you tell one of them to @leave first, then I'll join you.\"",
                     [
@@ -172,7 +173,7 @@
             ],
             [
                 "IF",
-                "0, 178, ('byte', 3), 134",
+                "0, var, byte 3, equals",
                 [
                     [
                         "JUMP",
@@ -200,12 +201,13 @@
             ],
             "\n",
             [
-                "DECL",
-                "0, 178, 168, ('byte', 235), 204"
+                "ASSIGN",
+                "0, var",
+                "byte 235, leaveParty"
             ],
             [
                 "IF",
-                "0, 178, ('byte', 1), 134",
+                "0, var, byte 1, equals",
                 [
                     "\"Let's get our feet back on solid ground first, okay?\"",
                     [

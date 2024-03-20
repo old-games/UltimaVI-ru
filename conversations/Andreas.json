@@ -14,7 +14,7 @@
         "44": [
             [
                 "IF",
-                "('byte', 235), 0, 171",
+                "byte 235, 0, flag",
                 [
                     [
                         "JUMP",
@@ -25,12 +25,12 @@
             ],
             [
                 "SETF",
-                "('byte', 235)",
+                "byte 235",
                 "0"
             ],
             [
                 "IF",
-                "16, 178",
+                "16, var",
                 [
                     "\"Hey, foxy! I bet you'd like me to unsheathe my weapon so you can have a look...\"",
                     [
@@ -52,7 +52,7 @@
         "281": [
             [
                 "IF",
-                "16, 178",
+                "16, var",
                 [
                     "\"Ah, I see you couldn't stay away... I have that effect on women.\""
                 ],
@@ -192,13 +192,13 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), ('byte', 7), 171",
+                        "byte 235, byte 7, flag",
                         [
                             "\"Come again soon.\"\n",
                             [
                                 "CLEARF",
-                                "('byte', 235)",
-                                "('byte', 7)"
+                                "byte 235",
+                                "byte 7"
                             ],
                             "BYE"
                         ],
@@ -206,7 +206,7 @@
                     ],
                     [
                         "IF",
-                        "16, 178, ('byte', 1), 134",
+                        "16, var, byte 1, equals",
                         [
                             "\"I hope we get better acquainted when next we meet.\"",
                             "WAIT",
@@ -225,7 +225,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), ('byte', 7), 171",
+                        "byte 235, byte 7, flag",
                         [
                             [
                                 "JUMP",
@@ -237,7 +237,7 @@
                     "\"Oho, so that's what you're after, you naughty ",
                     [
                         "IF",
-                        "16, 178",
+                        "16, var",
                         [
                             "girl"
                         ],
@@ -250,7 +250,7 @@
                     "\n\n",
                     [
                         "IF",
-                        "16, 178",
+                        "16, var",
                         [
                             "\"For a mere 10 gold pieces, I'll transport you to the heights of ecstasy. Will it be yea or nay?\""
                         ],
@@ -260,7 +260,7 @@
                     ],
                     [
                         "IF",
-                        "23, 178, ('byte', 0), 134",
+                        "23, var, byte 0, equals",
                         [
                             "WAIT",
                             "\n\nA voice in the back of your head asks, \"Do you really have time for this?\"",
@@ -276,17 +276,17 @@
                     "WAIT",
                     [
                         "SETNAME",
-                        "('byte', 1), ('byte', 0), 221"
+                        "byte 1, byte 0, character"
                     ],
                     [
                         "PORTRAIT",
-                        "('byte', 1), ('byte', 0), 221"
+                        "byte 1, byte 0, character"
                     ],
                     "\n\n$Y interrupts. \"`$G, I really doubt we have time for this...\"",
                     "WAIT",
                     [
                         "PORTRAIT",
-                        "('byte', 235)"
+                        "byte 235"
                     ],
                     [
                         "JUMP",
@@ -309,7 +309,7 @@
         "2011": [
             [
                 "IF",
-                "16, 178",
+                "16, var",
                 [
                     "\"Naturally, when so lovely a lady as yourself comes along, I offer, shall we say, my @services.\"",
                     [
@@ -322,18 +322,18 @@
             "\"When the opportunity arises, I do what I can to brighten the lives of the ladies.\"",
             [
                 "IF",
-                "('byte', 62), 198",
+                "byte 62, isInParty",
                 [
                     "WAIT",
                     [
                         "PORTRAIT",
-                        "('byte', 62)"
+                        "byte 62"
                     ],
                     "\n\n\"I'll just bet he does!\"",
                     "WAIT",
                     [
                         "PORTRAIT",
-                        "('byte', 235)"
+                        "byte 235"
                     ],
                     "\n\n"
                 ],
@@ -395,7 +395,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 1), ('byte', 88), 187, ('byte', 10), 131",
+                        "byte 1, byte 88, length, byte 10, less",
                         [
                             "\"Hey, you don't have the money! I don't take charity cases.\"",
                             [
@@ -409,29 +409,29 @@
             ],
             [
                 "DELETE",
-                "('byte', 1)",
-                "('byte', 88)",
-                "('byte', 0)",
-                "('byte', 10)"
+                "byte 1",
+                "byte 88",
+                "byte 0",
+                "byte 10"
             ],
             [
                 "NEW",
-                "('byte', 235)",
-                "('byte', 88)",
-                "('byte', 0)",
-                "('byte', 10)"
+                "byte 235",
+                "byte 88",
+                "byte 0",
+                "byte 10"
             ],
             [
                 "SETF",
-                "('byte', 235)",
-                "('byte', 7)"
+                "byte 235",
+                "byte 7"
             ],
             "The gypsy leads you into a nearby wagon...",
             "WAIT",
             "\n\nAfter a while, you and he wander back to the rest of the caravan, weary but satisfied.",
             [
                 "IF",
-                "23, 178, ('byte', 0), 134",
+                "23, var, byte 0, equals",
                 [
                     "You try to ignore the nagging voice in the back of your head that says you shouldn't have wasted time like that.",
                     [
@@ -444,27 +444,29 @@
             "WAIT",
             [
                 "IF",
-                "('byte', 2), 198",
+                "byte 2, isInParty",
                 [
                     [
-                        "DECL",
-                        "0, 178, 168, ('byte', 2)"
+                        "ASSIGN",
+                        "0, var",
+                        "byte 2"
                     ]
                 ],
                 [
                     [
-                        "DECL",
-                        "0, 178, 168, ('byte', 1), ('byte', 0), 221"
+                        "ASSIGN",
+                        "0, var",
+                        "byte 1, byte 0, character"
                     ]
                 ]
             ],
             [
                 "PORTRAIT",
-                "0, 178"
+                "0, var"
             ],
             [
                 "SETNAME",
-                "0, 178"
+                "0, var"
             ],
             "\n\n$Y scowls. \"Well, you've certainly picked a fine one to be carrying on with.\"",
             "WAIT",
@@ -472,7 +474,7 @@
             "WAIT",
             [
                 "PORTRAIT",
-                "('byte', 235)"
+                "byte 235"
             ],
             "\n\n$N laughs. \"'Tis not a crime to give yourself over to pleasure...\"",
             [
@@ -501,7 +503,7 @@
             "\n\nAfter you're finished, he comes over and puts his arm around your shoulder as he gives you a few pointers on fencing style.",
             [
                 "IF",
-                "('byte', 1), ('byte', 88), 187, ('byte', 25), 131",
+                "byte 1, byte 88, length, byte 25, less",
                 [
                     [
                         "JUMP",
@@ -512,17 +514,17 @@
             ],
             [
                 "DELETE",
-                "('byte', 1)",
-                "('byte', 88)",
-                "('byte', 0)",
-                "('byte', 25)"
+                "byte 1",
+                "byte 88",
+                "byte 0",
+                "byte 25"
             ],
             [
                 "NEW",
-                "('byte', 235)",
-                "('byte', 88)",
-                "('byte', 0)",
-                "('byte', 25)"
+                "byte 235",
+                "byte 88",
+                "byte 0",
+                "byte 25"
             ],
             "WAIT",
             "\n\nYou're not sure, but you think perhaps you felt a slight tug at the pouch you keep your coins in.",
@@ -556,7 +558,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 1), ('byte', 88), 187, ('byte', 7), 131",
+                        "byte 1, byte 88, length, byte 7, less",
                         [
                             "\"Come back when you have the money.\"",
                             [
@@ -568,17 +570,17 @@
                     ],
                     [
                         "DELETE",
-                        "('byte', 1)",
-                        "('byte', 88)",
-                        "('byte', 0)",
-                        "('byte', 7)"
+                        "byte 1",
+                        "byte 88",
+                        "byte 0",
+                        "byte 7"
                     ],
                     [
                         "NEW",
-                        "('byte', 235)",
-                        "('byte', 88)",
-                        "('byte', 0)",
-                        "('byte', 7)"
+                        "byte 235",
+                        "byte 88",
+                        "byte 0",
+                        "byte 7"
                     ],
                     "\"I overheard a bard in a tavern say that it was somewhere on the Isle of the Avatar.\"\n*\n\"Perhaps @Arturos could tell you precisely.\"",
                     [
@@ -607,7 +609,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), ('byte', 7), 171",
+                "byte 235, byte 7, flag",
                 [
                     "\"You have the carefree spirit, but alas, one must be born a gypsy.\""
                 ],

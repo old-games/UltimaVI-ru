@@ -12,7 +12,7 @@
         "44": [
             [
                 "IF",
-                "('byte', 201), ('byte', 6), 171",
+                "byte 201, byte 6, flag",
                 [
                     [
                         "JUMP",
@@ -23,7 +23,7 @@
             ],
             [
                 "IF",
-                "('byte', 201), ('byte', 7), 171, ('byte', 151), ('byte', 77), 199, ('word', 32769), 133, 149",
+                "byte 201, byte 7, flag, byte 151, byte 77, isInPartyObj, word 32769, notEquals, and",
                 [
                     [
                         "JUMP",
@@ -34,14 +34,15 @@
             ],
             [
                 "SETF",
-                "('byte', 201)",
+                "byte 201",
                 "0"
             ],
             "\"Again, '@you' of this plane address 'I' of the Xorinite dimension.\"\n*\n\"By what name do 'you' wish to be addressed at this time?\"\n",
             "ASK",
             [
-                "DECL",
-                "9, 179, 168, 35, 179"
+                "ASSIGN",
+                "9, svar",
+                "35, svar"
             ],
             "\n\"Very well, '$9.' Do 'you' have memory of previous discussions with 'myself?'\" ",
             [
@@ -123,8 +124,8 @@
                     "\"If 'you' present a reasonably dense information source to a 'wisp' unit, arrangements will be made to transfer some suitably valuable commodity into Britannian possession.\"",
                     [
                         "SETF",
-                        "('byte', 201)",
-                        "('byte', 7)"
+                        "byte 201",
+                        "byte 7"
                     ],
                     [
                         "JUMP",
@@ -139,16 +140,16 @@
                     "\"Because of the nature of Britannian memory, 'I' now present the sample information to 'you' again.\"\n*\nThe wisp pulsates, fading from blue to white, then back to blue again.\n*\nAs it does so, a scroll materializes in your hand.\n",
                     [
                         "NEW",
-                        "('byte', 1)",
-                        "('byte', 58)",
-                        "('byte', 112)",
-                        "('byte', 1)"
+                        "byte 1",
+                        "byte 58",
+                        "byte 112",
+                        "byte 1"
                     ],
                     "WAIT",
                     [
                         "SETF",
-                        "('byte', 201)",
-                        "('byte', 3)"
+                        "byte 201",
+                        "byte 3"
                     ],
                     "\n\"This is a simple invocation of magic energy to bring about the cessation of all life.\"\n*\n\"It is not a very useful or powerful form of magic, as it will only affect beings in the same plane where it is invoked.\"\n*\n\"Inform any 'wisp' unit if 'you' have @interest in further exchange.",
                     [
@@ -207,8 +208,8 @@
             ],
             [
                 "SETF",
-                "('byte', 201)",
-                "('byte', 6)"
+                "byte 201",
+                "byte 6"
             ],
             "\nFor a few moments, the wisp pulses, saying nothing.\n*\n\"It is done,\" the wisp says at last, \"Rklbwm have expressed desire to possess this information.\"\n*\n\"Hoping, no doubt, for a bargain, Rklbwm have offered a small quantity of the substance 'gold' in lieu of the customary useful information.\"\n*\n\"But surely 'you' wish 'me' to arrange for Rklbwm to provide information of value to 'you.'\"\n*\n\"Am 'I' correct to assume this?\" ",
             [
@@ -229,16 +230,18 @@
                 [
                     "\"Very well.\"\n*\n\"'You' have not sent enough life units to transport much substance, but it is 'your' decision to make.\"\n*\nThe wisp glows just a trifle brighter for a moment, and suddenly everyone notices that their packs have grown heavier.\n*\n\"It was a pleasure doing business with you.\"\n",
                     [
-                        "DECL",
-                        "0, 178, 168, ('byte', 0)"
+                        "ASSIGN",
+                        "0, var",
+                        "byte 0"
                     ],
                     [
-                        "DECL",
-                        "1, 178, 168, 0, 178, ('byte', 0), 221"
+                        "ASSIGN",
+                        "1, var",
+                        "0, var, byte 0, character"
                     ],
                     [
                         "IF",
-                        "1, 178, ('byte', 0), 134",
+                        "1, var, byte 0, equals",
                         [
                             [
                                 "JUMP",
@@ -249,7 +252,7 @@
                     ],
                     [
                         "IF",
-                        "1, 178, 154, ('byte', 89), ('byte', 1), 155, 131",
+                        "1, var, canCarry, byte 89, byte 1, weight, less",
                         [
                             [
                                 "JUMP",
@@ -259,30 +262,32 @@
                         []
                     ],
                     [
-                        "DECL",
-                        "2, 178, 168, 1, 178, 154, ('byte', 89), ('byte', 1), 155, 147"
+                        "ASSIGN",
+                        "2, var",
+                        "1, var, canCarry, byte 89, byte 1, weight, divide"
                     ],
                     [
                         "IF",
-                        "2, 178, ('word', 255), 129",
+                        "2, var, word 255, greater",
                         [
                             [
-                                "DECL",
-                                "2, 178, 168, ('word', 255)"
+                                "ASSIGN",
+                                "2, var",
+                                "word 255"
                             ]
                         ],
                         []
                     ],
                     [
                         "NEW",
-                        "1, 178",
-                        "('byte', 89)",
-                        "('byte', 0)",
-                        "2, 178"
+                        "1, var",
+                        "byte 89",
+                        "byte 0",
+                        "2, var"
                     ],
                     [
                         "IF",
-                        "2, 178, ('word', 255), 134",
+                        "2, var, word 255, equals",
                         [
                             [
                                 "JUMP",
@@ -292,12 +297,13 @@
                         []
                     ],
                     [
-                        "DECL",
-                        "0, 178, 168, 0, 178, ('byte', 1), 144"
+                        "ASSIGN",
+                        "0, var",
+                        "0, var, byte 1, plus"
                     ],
                     [
                         "IF",
-                        "0, 178, 23, 178, 132",
+                        "0, var, 23, var, lessOrEquals",
                         [
                             [
                                 "JUMP",

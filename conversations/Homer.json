@@ -14,24 +14,24 @@
         "83": [
             [
                 "CLEARF",
-                "('byte', 235)",
-                "('byte', 7)"
+                "byte 235",
+                "byte 7"
             ],
             [
                 "IF",
-                "('word', 400), ('byte', 0), 199, ('word', 32769), 133, ('word', 401), ('byte', 0), 199, ('word', 32769), 133, 149, ('word', 402), ('byte', 0), 199, ('word', 32769), 133, 149, ('word', 403), ('byte', 0), 199, ('word', 32769), 133, 149, ('word', 404), ('byte', 0), 199, ('word', 32769), 133, 149, ('word', 405), ('byte', 0), 199, ('word', 32769), 133, 149, ('word', 406), ('byte', 0), 199, ('word', 32769), 133, 149, ('word', 407), ('byte', 0), 199, ('word', 32769), 133, 149",
+                "word 400, byte 0, isInPartyObj, word 32769, notEquals, word 401, byte 0, isInPartyObj, word 32769, notEquals, and, word 402, byte 0, isInPartyObj, word 32769, notEquals, and, word 403, byte 0, isInPartyObj, word 32769, notEquals, and, word 404, byte 0, isInPartyObj, word 32769, notEquals, and, word 405, byte 0, isInPartyObj, word 32769, notEquals, and, word 406, byte 0, isInPartyObj, word 32769, notEquals, and, word 407, byte 0, isInPartyObj, word 32769, notEquals, and",
                 [
                     [
                         "SETF",
-                        "('byte', 235)",
-                        "('byte', 7)"
+                        "byte 235",
+                        "byte 7"
                     ]
                 ],
                 []
             ],
             [
                 "IF",
-                "('byte', 235), ('byte', 4), 171",
+                "byte 235, byte 4, flag",
                 [
                     "\"You served your purpose by bringing me the cloak... Now I have no further need of you.\"",
                     "WAIT",
@@ -42,12 +42,12 @@
             ],
             [
                 "IF",
-                "('byte', 235), ('byte', 2), 171",
+                "byte 235, byte 2, flag",
                 [
                     [
                         "CLEARF",
-                        "('byte', 235)",
-                        "('byte', 2)"
+                        "byte 235",
+                        "byte 2"
                     ],
                     "\"",
                     [
@@ -59,11 +59,11 @@
             ],
             [
                 "IF",
-                "('byte', 235), 1, 171",
+                "byte 235, 1, flag",
                 [
                     [
                         "CLEARF",
-                        "('byte', 235)",
+                        "byte 235",
                         "1"
                     ],
                     "\"",
@@ -76,7 +76,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), ('byte', 5), 171",
+                "byte 235, byte 5, flag",
                 [
                     [
                         "JUMP",
@@ -87,7 +87,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), ('byte', 6), 171",
+                "byte 235, byte 6, flag",
                 [
                     [
                         "JUMP",
@@ -107,7 +107,7 @@
                     "\n\"Fine, '$Z' - if that's what your name really is... You can call me Homer.\"",
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "0"
                     ],
                     [
@@ -166,7 +166,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 25), ('byte', 0), 199, ('word', 32769), 133",
+                        "byte 25, byte 0, isInPartyObj, word 32769, notEquals",
                         [
                             [
                                 "JUMP",
@@ -199,7 +199,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 25), ('byte', 0), 199, ('word', 32769), 133",
+                        "byte 25, byte 0, isInPartyObj, word 32769, notEquals",
                         [
                             "\"It was buried in a small @cave.\""
                         ],
@@ -219,7 +219,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 25), ('byte', 0), 199, ('word', 32769), 133",
+                        "byte 25, byte 0, isInPartyObj, word 32769, notEquals",
                         [
                             [
                                 "JUMP",
@@ -253,7 +253,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 25), ('byte', 0), 199, ('word', 32769), 133",
+                        "byte 25, byte 0, isInPartyObj, word 32769, notEquals",
                         [
                             "\"Farewell, brother thief.\""
                         ],
@@ -271,7 +271,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 25), ('byte', 0), 199, ('word', 32769), 133",
+                        "byte 25, byte 0, isInPartyObj, word 32769, notEquals",
                         [
                             "\"Can't help you there.\""
                         ],
@@ -322,8 +322,8 @@
             "\n\n\"But remember, only I know where the ninth piece is, so come back here when you've got the other eight.\"\n",
             [
                 "SETF",
-                "('byte', 235)",
-                "('byte', 6)"
+                "byte 235",
+                "byte 6"
             ],
             "BYE"
         ],
@@ -364,7 +364,7 @@
                     "\n\"Can't trust anybody these days...\"\n",
                     [
                         "SUB_KARMA",
-                        "('byte', 10)"
+                        "byte 10"
                     ],
                     "BYE"
                 ]
@@ -375,12 +375,13 @@
                 []
             ],
             [
-                "DECL",
-                "0, 178, 168, ('byte', 81), ('byte', 0), 199"
+                "ASSIGN",
+                "0, var",
+                "byte 81, byte 0, isInPartyObj"
             ],
             [
                 "IF",
-                "0, 178, ('word', 32769), 134",
+                "0, var, word 32769, equals",
                 [
                     "You have no storm cloak to give him.\n",
                     "BYE"
@@ -389,19 +390,19 @@
             ],
             [
                 "GIVE",
-                "('byte', 81)",
-                "('byte', 0)",
-                "0, 178",
-                "('byte', 235)"
+                "byte 81",
+                "byte 0",
+                "0, var",
+                "byte 235"
             ],
             [
                 "ADD_KARMA",
-                "('byte', 10)"
+                "byte 10"
             ],
             [
                 "SETF",
-                "('byte', 235)",
-                "('byte', 4)"
+                "byte 235",
+                "byte 4"
             ],
             "He takes the cloak from you. \"Thanks for keeping your word. There's not many that does, these days...\"\n",
             "BYE"
@@ -430,7 +431,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), ('byte', 7), 171, ('byte', 0), 134",
+                "byte 235, byte 7, flag, byte 0, equals",
                 [
                     "\"Best count again. You need eight pieces before I'll bargain with you.\"",
                     [
@@ -460,8 +461,8 @@
                     "\"Suit yourself, mate, that's the only deal I'll offer.\"\n",
                     [
                         "SETF",
-                        "('byte', 235)",
-                        "('byte', 2)"
+                        "byte 235",
+                        "byte 2"
                     ],
                     "BYE"
                 ]
@@ -481,10 +482,10 @@
             "WAIT",
             [
                 "GIVE",
-                "('word', 408)",
-                "('byte', 0)",
-                "('byte', 235)",
-                "('byte', 1)"
+                "word 408",
+                "byte 0",
+                "byte 235",
+                "byte 1"
             ],
             "\n\n\"You'll keep your word and come right back here with the magic storm cloak, won't you?\" ",
             [
@@ -500,7 +501,7 @@
                     "\n\"Well, then, I won't tell you where you need to dig to find the treasure!\"\n",
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "1"
                     ],
                     "BYE"
@@ -512,8 +513,8 @@
                 [
                     [
                         "SETF",
-                        "('byte', 235)",
-                        "('byte', 5)"
+                        "byte 235",
+                        "byte 5"
                     ]
                 ]
             ],

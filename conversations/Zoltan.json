@@ -12,7 +12,7 @@
         "72": [
             [
                 "IF",
-                "('byte', 135), ('byte', 7), 171",
+                "byte 135, byte 7, flag",
                 [
                     "\"Anyone who would mistreat a dog has no business with Zoltan.\"\n",
                     "BYE"
@@ -21,7 +21,7 @@
             ],
             [
                 "IF",
-                "('byte', 235), 1, 171, ('byte', 0), 134",
+                "byte 235, 1, flag, byte 0, equals",
                 [
                     [
                         "JUMP",
@@ -51,12 +51,12 @@
         "414": [
             [
                 "CLEARF",
-                "('byte', 235)",
-                "('byte', 7)"
+                "byte 235",
+                "byte 7"
             ],
             [
                 "IF",
-                "('byte', 235), 0, 171, ('byte', 0), 134",
+                "byte 235, 0, flag, byte 0, equals",
                 [
                     "\"Huzzah! I am @Zoltan, king of the gypsies!\""
                 ],
@@ -66,7 +66,7 @@
             ],
             [
                 "SETF",
-                "('byte', 235)",
+                "byte 235",
                 "0"
             ],
             "\n",
@@ -317,7 +317,7 @@
                 [
                     [
                         "IF",
-                        "('byte', 235), ('byte', 7), 171",
+                        "byte 235, byte 7, flag",
                         [
                             "\"Farewell! My fellow gypsies and I will @dance to your health and good fortune!\""
                         ],
@@ -381,7 +381,7 @@
             ],
             [
                 "IF",
-                "('byte', 1), ('byte', 88), 187, ('byte', 2), 131",
+                "byte 1, byte 88, length, byte 2, less",
                 [
                     "\n\"Come back when you're not so down on your luck.\"",
                     [
@@ -393,22 +393,22 @@
             ],
             [
                 "DELETE",
-                "('byte', 1)",
-                "('byte', 88)",
-                "('byte', 0)",
-                "('byte', 2)"
+                "byte 1",
+                "byte 88",
+                "byte 0",
+                "byte 2"
             ],
             [
                 "NEW",
-                "('byte', 235)",
-                "('byte', 88)",
-                "('byte', 0)",
-                "('byte', 2)"
+                "byte 235",
+                "byte 88",
+                "byte 0",
+                "byte 2"
             ],
             [
                 "SETF",
-                "('byte', 235)",
-                "('byte', 7)"
+                "byte 235",
+                "byte 7"
             ],
             "\n\"I'll tell you this:\"\n*\n\"Powder kegs are useful for persuading uncooperative doors to open.\"",
             [
@@ -435,7 +435,7 @@
             ],
             [
                 "IF",
-                "('byte', 1), ('byte', 88), 187, ('byte', 10), 131",
+                "byte 1, byte 88, length, byte 10, less",
                 [
                     "\n\"Come back when you have the money.\"",
                     [
@@ -447,22 +447,22 @@
             ],
             [
                 "DELETE",
-                "('byte', 1)",
-                "('byte', 88)",
-                "('byte', 0)",
-                "('byte', 10)"
+                "byte 1",
+                "byte 88",
+                "byte 0",
+                "byte 10"
             ],
             [
                 "NEW",
-                "('byte', 235)",
-                "('byte', 88)",
-                "('byte', 0)",
-                "('byte', 10)"
+                "byte 235",
+                "byte 88",
+                "byte 0",
+                "byte 10"
             ],
             [
                 "SETF",
-                "('byte', 235)",
-                "('byte', 7)"
+                "byte 235",
+                "byte 7"
             ],
             "\n\"Some @gorgio called 'Captain @John' brought us the silver tablet and paid us to take it to the Lycaeum.\"\n*\n\"While we were on the way there, we were ambushed by Captain @Hawkins and his crew.\"\n*\nThe tablet was broken in two during the scuffle. The pirates got away with the bigger half.\"\n*\n\"Hawkins took my finest earring as well - I spit on his mother's grave!\"\n*\n\"Most likely they went to Buccaneer's @Den with their loot.\"\n*\n\"We took the corner of the tablet that they missed to the @Lycaeum and sold it to @Mariah.\"",
             [
@@ -482,7 +482,7 @@
                 [
                     [
                         "SETF",
-                        "('byte', 235)",
+                        "byte 235",
                         "1"
                     ],
                     "\"Hah! I should know better than to expect a gorgio to appreciate a fine gypsy dance.\"\n*\nProudly, he turns his back on you.\n",
@@ -496,7 +496,7 @@
             ],
             [
                 "IF",
-                "0, 178, ('byte', 1), ('byte', 88), 187, 129",
+                "0, var, byte 1, byte 88, length, greater",
                 [
                     "\nYou don't have that much.\n",
                     [
@@ -508,7 +508,7 @@
             ],
             [
                 "IF",
-                "0, 178, ('byte', 0), 134",
+                "0, var, byte 0, equals",
                 [
                     [
                         "JUMP",
@@ -519,26 +519,26 @@
             ],
             [
                 "DELETE",
-                "('byte', 1)",
-                "('byte', 88)",
-                "('byte', 0)",
-                "0, 178"
+                "byte 1",
+                "byte 88",
+                "byte 0",
+                "0, var"
             ],
             [
                 "NEW",
-                "('byte', 235)",
-                "('byte', 88)",
-                "('byte', 0)",
-                "0, 178"
+                "byte 235",
+                "byte 88",
+                "byte 0",
+                "0, var"
             ],
             [
                 "SETF",
-                "('byte', 235)",
-                "('byte', 7)"
+                "byte 235",
+                "byte 7"
             ],
             [
                 "CLEARF",
-                "('byte', 235)",
+                "byte 235",
                 "1"
             ],
             "\nZoltan pockets the money. \"Thanks.\"",
@@ -550,11 +550,12 @@
         "4344": [
             [
                 "IF",
-                "23, 178, ('byte', 0), 129",
+                "23, var, byte 0, greater",
                 [
                     [
-                        "DECL",
-                        "2, 178, 168, ('byte', 1)"
+                        "ASSIGN",
+                        "2, var",
+                        "byte 1"
                     ],
                     [
                         "JUMP",
@@ -564,8 +565,9 @@
                 []
             ],
             [
-                "DECL",
-                "3, 178, 168, ('byte', 0), ('byte', 0), 221"
+                "ASSIGN",
+                "3, var",
+                "byte 0, byte 0, character"
             ],
             [
                 "JUMP",
@@ -574,21 +576,23 @@
         ],
         "4379": [
             [
-                "DECL",
-                "3, 178, 168, 2, 178, ('byte', 1), 145, ('byte', 0), 221"
+                "ASSIGN",
+                "3, var",
+                "2, var, byte 1, minus, byte 0, character"
             ],
             [
                 "SETNAME",
-                "3, 178"
+                "3, var"
             ],
             "#2) $Y\n",
             [
                 "IF",
-                "2, 178, 23, 178, 132",
+                "2, var, 23, var, lessOrEquals",
                 [
                     [
-                        "DECL",
-                        "2, 178, 168, 2, 178, ('byte', 1), 144"
+                        "ASSIGN",
+                        "2, var",
+                        "2, var, byte 1, plus"
                     ],
                     [
                         "JUMP",
@@ -604,7 +608,7 @@
             ],
             [
                 "IF",
-                "2, 178, ('byte', 0), 134, 2, 178, 23, 178, ('byte', 1), 144, 129, 148",
+                "2, var, byte 0, equals, 2, var, 23, var, byte 1, plus, greater, or",
                 [
                     "\n\"What else would you like to know?\"",
                     [
@@ -614,8 +618,9 @@
                 ],
                 [
                     [
-                        "DECL",
-                        "3, 178, 168, 2, 178, ('byte', 1), 145, ('byte', 0), 221"
+                        "ASSIGN",
+                        "3, var",
+                        "2, var, byte 1, minus, byte 0, character"
                     ]
                 ]
             ]
@@ -623,24 +628,27 @@
         "4517": [
             [
                 "SETNAME",
-                "3, 178"
+                "3, var"
             ],
             [
-                "DECL",
-                "1, 178, 168, ('byte', 1)"
+                "ASSIGN",
+                "1, var",
+                "byte 1"
             ],
             [
-                "DECL",
-                "1, 179, 168, ('dword', 5107), 1, 178, ('byte', 1), 145, 180"
+                "ASSIGN",
+                "1, svar",
+                "dword 5107, 1, var, byte 1, minus, data"
             ],
             "#1) $1\n",
             [
-                "DECL",
-                "1, 178, 168, 1, 178, ('byte', 1), 144"
+                "ASSIGN",
+                "1, var",
+                "1, var, byte 1, plus"
             ],
             [
                 "IF",
-                "('dword', 5075), 1, 178, ('byte', 1), 145, 180, ('byte', 0), 129",
+                "dword 5075, 1, var, byte 1, minus, data, byte 0, greater",
                 [
                     [
                         "JUMP",
@@ -656,11 +664,12 @@
             ],
             [
                 "IF",
-                "2, 178, ('byte', 0), 134, 2, 178, 1, 178, 130, 148",
+                "2, var, byte 0, equals, 2, var, 1, var, greaterOrEquals, or",
                 [
                     [
-                        "DECL",
-                        "2, 178, 168, ('byte', 1)"
+                        "ASSIGN",
+                        "2, var",
+                        "byte 1"
                     ],
                     [
                         "JUMP",
@@ -670,20 +679,24 @@
                 []
             ],
             [
-                "DECL",
-                "2, 178, 168, 2, 178, ('byte', 1), 145"
+                "ASSIGN",
+                "2, var",
+                "2, var, byte 1, minus"
             ],
             [
-                "DECL",
-                "1, 178, 168, ('dword', 5091), 2, 178, 180"
+                "ASSIGN",
+                "1, var",
+                "dword 5091, 2, var, data"
             ],
             [
-                "DECL",
-                "1, 179, 168, ('dword', 5107), 2, 178, 180"
+                "ASSIGN",
+                "1, svar",
+                "dword 5107, 2, var, data"
             ],
             [
-                "DECL",
-                "5, 178, 168, ('byte', 0)"
+                "ASSIGN",
+                "5, var",
+                "byte 0"
             ],
             "\"$1 costs #1 per portion.\"",
             "WAIT",
@@ -694,7 +707,7 @@
             ],
             [
                 "IF",
-                "4, 178, ('byte', 0), 134",
+                "4, var, byte 0, equals",
                 [
                     [
                         "JUMP",
@@ -705,7 +718,7 @@
             ],
             [
                 "IF",
-                "3, 178, 154, ('dword', 5075), 2, 178, 180, ('byte', 1), 155, 131",
+                "3, var, canCarry, dword 5075, 2, var, data, byte 1, weight, less",
                 [
                     [
                         "JUMP",
@@ -716,7 +729,7 @@
             ],
             [
                 "IF",
-                "3, 178, ('byte', 88), 187, 1, 178, 131",
+                "3, var, byte 88, length, 1, var, less",
                 [
                     [
                         "JUMP",
@@ -727,35 +740,36 @@
             ],
             [
                 "DELETE",
-                "3, 178",
-                "('byte', 88)",
-                "('byte', 0)",
-                "1, 178"
+                "3, var",
+                "byte 88",
+                "byte 0",
+                "1, var"
             ],
             [
                 "NEW",
-                "3, 178",
-                "('dword', 5075), 2, 178, 180",
-                "('byte', 0)",
-                "('byte', 1)"
+                "3, var",
+                "dword 5075, 2, var, data",
+                "byte 0",
+                "byte 1"
             ],
             [
                 "SETF",
-                "('byte', 235)",
-                "('byte', 7)"
+                "byte 235",
+                "byte 7"
             ],
             [
                 "CLEARF",
-                "('byte', 235)",
+                "byte 235",
                 "1"
             ],
             [
-                "DECL",
-                "5, 178, 168, 5, 178, ('byte', 1), 144"
+                "ASSIGN",
+                "5, var",
+                "5, var, byte 1, plus"
             ],
             [
                 "IF",
-                "5, 178, 4, 178, 134",
+                "5, var, 4, var, equals",
                 [
                     "$N hands $Y the $1.",
                     "WAIT",
@@ -776,7 +790,7 @@
         "4877": [
             [
                 "IF",
-                "5, 178",
+                "5, var",
                 [
                     "\"You can't carry that much!\"",
                     "WAIT",
@@ -802,7 +816,7 @@
         "4976": [
             [
                 "IF",
-                "5, 178",
+                "5, var",
                 [
                     "\"You can't afford that much!\"",
                     "WAIT",
