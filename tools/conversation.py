@@ -425,6 +425,9 @@ def _format_instructions(instructions):
         elif instruction == 'ELSE':
             result.append('else:')
 
+        elif instruction == 'BYE':
+            result.append('bye()')
+
         elif instruction[0] == 'JUMP':
             result.append(f'jump {instruction[1]}')
 
