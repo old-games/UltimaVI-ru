@@ -199,6 +199,7 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, a
         elif code == 0xa2 and allow_solo_endif:
             # Sometimes it happens (Valkadesh).
             _read_byte(stream, visited_labels)
+            result.append('SOLO_ENDIF')
 
         elif code == 0xb0:
             _read_byte(stream, visited_labels)
