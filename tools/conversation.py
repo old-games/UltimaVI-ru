@@ -24,13 +24,17 @@ def _check_byte(stream, visited_labels, byte):
 
 
 def _read_dword(stream, visited_labels):
-    visited_labels |= set(range(stream.tell(), stream.tell()+4))
-    return int.from_bytes(stream.read(4), 'little')
+    data = stream.read(4)
+    assert len(data) == 4
+    visited_labels |= set(range(stream.tell()-4, stream.tell()))
+    return int.from_bytes(data, 'little')
 
 
 def _read_word(stream, visited_labels):
-    visited_labels |= set(range(stream.tell(), stream.tell()+2))
-    return int.from_bytes(stream.read(2), 'little')
+    data = stream.read(2)
+    assert len(data) == 2
+    visited_labels |= set(range(stream.tell()-2, stream.tell()))
+    return int.from_bytes(data, 'little')
 
 
 def _read_string(stream, visited_labels, end):
@@ -152,7 +156,7 @@ def _is_ended(result):
         return False
 
 
-def _read_instructions(stream, labels, visited_labels, data, skip_solo_endif, allow_drop_esac, end):
+def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, allow_drop_esac, end):
     result = []
 
     all_instructions = {
@@ -164,7 +168,7 @@ def _read_instructions(stream, labels, visited_labels, data, skip_solo_endif, al
         0xef,
         0xf7, 0xf8, 0xf9, 0xfb, 0xfc,
     }
-    if skip_solo_endif:
+    if allow_solo_endif:
         all_instructions.add(0xa2)
 
     # TODO there are more instructions in the game
@@ -181,18 +185,18 @@ def _read_instructions(stream, labels, visited_labels, data, skip_solo_endif, al
             _read_byte(stream, visited_labels)
             expression = _one(_read_expressions(stream, visited_labels, data, 0xa7))
             sub_visited_labels = set()
-            instructions = _read_instructions(stream, labels, sub_visited_labels, data, skip_solo_endif, allow_drop_esac, {0xa2, 0xa3})
+            instructions = _read_instructions(stream, labels, sub_visited_labels, data, allow_solo_endif, allow_drop_esac, {0xa2, 0xa3})
             visited_labels |= sub_visited_labels
             if _read_byte(stream, visited_labels) == 0xa3:
                 sub_visited_labels = set()
-                alternative_instructions = _read_instructions(stream, labels, sub_visited_labels, data, skip_solo_endif, allow_drop_esac, {0xa2})
+                alternative_instructions = _read_instructions(stream, labels, sub_visited_labels, data, allow_solo_endif, allow_drop_esac, {0xa2})
                 visited_labels |= sub_visited_labels
                 _read_byte(stream, visited_labels)
             else:
                 alternative_instructions = tuple()
             result.append(('IF', expression, instructions, alternative_instructions))
 
-        elif code == 0xa2 and skip_solo_endif:
+        elif code == 0xa2 and allow_solo_endif:
             # Sometimes it happens (Valkadesh).
             _read_byte(stream, visited_labels)
 
@@ -306,7 +310,7 @@ def _read_instructions(stream, labels, visited_labels, data, skip_solo_endif, al
                 keywords = _read_string(stream, visited_labels, {0xf6})
                 _read_byte(stream, visited_labels)
                 sub_visited_labels = set()
-                instructions = _read_instructions(stream, labels, sub_visited_labels, data, skip_solo_endif, allow_drop_esac, {0xef, 0xee})
+                instructions = _read_instructions(stream, labels, sub_visited_labels, data, allow_solo_endif, allow_drop_esac, {0xef, 0xee})
                 visited_labels |= sub_visited_labels
                 result.append(('KEYWORDS', keywords, instructions))
 
@@ -410,7 +414,7 @@ def decode(raw_conversation):
         'd8fd7702c0201cff8140b573ca59aa91bb65bc2e09370b5bcc1b51e278310020',
     )
 
-    skip_solo_endif = digest == '85f1912ed262ba67a28fdff87c31575d6dd2cea0fbf431ef73e2be77d0958a0d'
+    allow_solo_endif = digest == '85f1912ed262ba67a28fdff87c31575d6dd2cea0fbf431ef73e2be77d0958a0d'
 
     assert _read_byte(stream, visited_labels) == 0xff
     result['id'] = _read_byte(stream, visited_labels)
@@ -418,16 +422,16 @@ def decode(raw_conversation):
     result['f3-after-name'] = _check_byte(stream, visited_labels, 0xf3)
 
     assert _read_byte(stream, visited_labels) == 0xf1
-    result['description'] = _read_instructions(stream, labels, visited_labels, data, skip_solo_endif, allow_drop_esac, {0xf2, 0xf3})
+    result['description'] = _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, allow_drop_esac, {0xf2, 0xf3})
     result['f3-after-description'] = _check_byte(stream, visited_labels, 0xf3)
 
     assert _read_byte(stream, visited_labels) == 0xf2
-    blocks = {stream.tell(): _read_instructions(stream, labels, visited_labels, data, skip_solo_endif, allow_drop_esac, {None})}
+    blocks = {stream.tell(): _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, allow_drop_esac, {None})}
 
     while labels - visited_labels:
         label = next(iter(labels - visited_labels))
         stream.seek(label)
-        blocks[label] = _read_instructions(stream, labels, visited_labels, data, skip_solo_endif, allow_drop_esac, {None})
+        blocks[label] = _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, allow_drop_esac, {None})
         # FIXME split code with label in the middle, sometimes in the middle of string
 
     result['interaction'] = {label: expanded for k, v in sorted(blocks.items()) for label, expanded in _expand_instructions(k, v, labels)}
@@ -437,9 +441,47 @@ def decode(raw_conversation):
     assert set(types.values()) <= {'integer', 'string'}
 
     result['data'] = {}
+    result['end-of-list-marker'] = []
+    result['no-trailing-byte'] = []
     for left, right in zip(offsets, offsets[1:] + [len(raw_conversation)]):
         stream.seek(left)
-        result['data'][left] = [_read_byte(stream, visited_labels) for _ in range(left, right)]
+        if types[left] == 'integer':
+            integers = []
+
+            for _ in range(left, right, 2):
+                if stream.tell() in visited_labels:
+                    break
+                if stream.tell() + 1 in visited_labels or stream.tell() + 1 == right:
+                    result['no-trailing-byte'].append(left)
+                    integers.append(_read_byte(stream, visited_labels))
+                else:
+                    integers.append(_read_word(stream, visited_labels))
+
+            result['data'][left] = integers
+
+        else:
+            assert types[left] == 'string'
+            strings = []
+            string = bytearray()
+
+            for _ in range(left, right):
+                if stream.tell() in visited_labels:
+                    break
+                char = _read_char(stream, visited_labels)
+                if char == b'\x00':
+                    strings.append(string.decode('ascii'))
+                    string = bytearray()
+                else:
+                    string.extend(char)
+
+            if string:
+                if string == b'\xb8':
+                    result['end-of-list-marker'].append(left)
+                else:
+                    result['no-trailing-byte'].append(left)
+                    strings.append(string.decode('ascii'))
+
+            result['data'][left] = strings
 
     assert set(range(len(data))) - visited_labels == set()
     return result
