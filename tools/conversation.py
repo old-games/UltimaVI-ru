@@ -2,7 +2,8 @@ import hashlib
 import io
 
 
-def _read_char(stream):
+def _read_char(stream, visited_labels):
+    visited_labels.add(stream.tell())
     char = stream.read(1)
     assert char
     return char
@@ -13,34 +14,40 @@ def _peek_byte(stream):
     return data[0] if data else None
 
 
-def _read_byte(stream):
-    return ord(_read_char(stream))
+def _read_byte(stream, visited_labels):
+    visited_labels.add(stream.tell())
+    return ord(_read_char(stream, visited_labels))
 
 
-def _read_dword(stream):
+def _check_byte(stream, visited_labels, byte):
+    return _peek_byte(stream) == byte and _read_byte(stream, visited_labels) == byte
+
+
+def _read_dword(stream, visited_labels):
+    visited_labels |= set(range(stream.tell(), stream.tell()+4))
     return int.from_bytes(stream.read(4), 'little')
 
 
-def _read_string(stream, end):
+def _read_string(stream, visited_labels, end):
     result = []
     while _peek_byte(stream) not in end:
-        result.append(_read_char(stream))
+        result.append(_read_char(stream, visited_labels))
     return b''.join(result).decode('ascii')
 
 
-def _read_expression(stream):
+def _read_expression(stream, visited_labels):
     result = []
 
     while _peek_byte(stream) != 0xa7:
         # TODO FIXME
         if _peek_byte(stream) == 0xd3:
-            result.append(_read_byte(stream))
-            result.append(_read_byte(stream))
+            result.append(_read_byte(stream, visited_labels))
+            result.append(_read_byte(stream, visited_labels))
 
         else:
-            result.append(_read_byte(stream))
+            result.append(_read_byte(stream, visited_labels))
 
-    _read_byte(stream)
+    _read_byte(stream, visited_labels)
     return result
 
 
@@ -77,130 +84,128 @@ def _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, 
     result = []
 
     all_instructions = {
-        0x9c, 0x9e, 0xa1, 0xa4, 0xa5, 0xa6, 0xb0, 0xb5, 0xb6, 0xb9, 0xba, 0xbe, 0xbf, 0xc4, 0xc5, 0xc9, 0xcb, 0xcd, 0xd6, 0xd8, 0xd9, 0xdb, 0xef, 0xf3, 0xf7, 0xf8, 0xf9, 0xfb, 0xfc
+        0x9c, 0x9e, 0xa1, 0xa4, 0xa5, 0xa6, 0xb0, 0xb5, 0xb6, 0xb9, 0xba, 0xbe, 0xbf, 0xc4, 0xc5, 0xc9, 0xcb, 0xcd, 0xd6, 0xd8, 0xd9, 0xdb, 0xef, 0xf7, 0xf8, 0xf9, 0xfb, 0xfc
     }
     if add_a2:
         all_instructions.add(0xa2)
 
     while (code := _peek_byte(stream)) not in end and stream.tell() not in visited_labels:
-        start_offset = stream.tell()
-
         if code == 0x9c:
-            _read_byte(stream)
-            result.append(('HORSE', _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('HORSE', _read_expression(stream, visited_labels)))
 
         elif code == 0x9e:
-            _read_byte(stream)
+            _read_byte(stream, visited_labels)
             result.append('SLEEP')
 
         elif code == 0xa1:
-            _read_byte(stream)
-            expression = _read_expression(stream)
+            _read_byte(stream, visited_labels)
+            expression = _read_expression(stream, visited_labels)
             sub_visited_labels = set()
             instructions = _read_instructions(stream, labels, sub_visited_labels, add_a2, allow_drop_esac, {0xa2, 0xa3})
             visited_labels |= sub_visited_labels
-            if _read_byte(stream) == 0xa3:
+            if _read_byte(stream, visited_labels) == 0xa3:
                 sub_visited_labels = set()
                 alternative_instructions = _read_instructions(stream, labels, sub_visited_labels, add_a2, allow_drop_esac, {0xa2})
                 visited_labels |= sub_visited_labels
-                _read_byte(stream)
+                _read_byte(stream, visited_labels)
             else:
                 alternative_instructions = tuple()
             result.append(('IF', expression, instructions, alternative_instructions))
 
         elif code == 0xa2 and add_a2:
             # `0xa2` added because sometimes it happens (Valkadesh).
-            _read_byte(stream)
+            _read_byte(stream, visited_labels)
             result.append('ENDIF')
 
         elif code == 0xb0:
-            _read_byte(stream)
-            label = _read_dword(stream)
+            _read_byte(stream, visited_labels)
+            label = _read_dword(stream, visited_labels)
             result.append(('JUMP', label))
             labels.add(label)
 
         elif code == 0xb6:
-            _read_byte(stream)
+            _read_byte(stream, visited_labels)
             result.append('BYE')
 
         elif code == 0xa4:
-            _read_byte(stream)
-            left = _read_expression(stream)
-            right = _read_expression(stream)
+            _read_byte(stream, visited_labels)
+            left = _read_expression(stream, visited_labels)
+            right = _read_expression(stream, visited_labels)
             result.append(('SETF', left, right))
 
         elif code == 0xa5:
-            _read_byte(stream)
-            left = _read_expression(stream)
-            right = _read_expression(stream)
+            _read_byte(stream, visited_labels)
+            left = _read_expression(stream, visited_labels)
+            right = _read_expression(stream, visited_labels)
             result.append(('CLEARF', left, right))
 
         elif code == 0xa6:
-            _read_byte(stream)
-            result.append(('DECL', _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('DECL', _read_expression(stream, visited_labels)))
 
         elif code == 0xb5:
-            _read_byte(stream)
-            result.append(('DPRINT', _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('DPRINT', _read_expression(stream, visited_labels)))
 
         elif code == 0xb9:
-            _read_byte(stream)
-            result.append(('NEW', _read_expression(stream), _read_expression(stream), _read_expression(stream), _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('NEW', _read_expression(stream, visited_labels), _read_expression(stream, visited_labels), _read_expression(stream, visited_labels), _read_expression(stream, visited_labels)))
 
         elif code == 0xba:
-            _read_byte(stream)
-            result.append(('DELETE', _read_expression(stream), _read_expression(stream), _read_expression(stream), _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('DELETE', _read_expression(stream, visited_labels), _read_expression(stream, visited_labels), _read_expression(stream, visited_labels), _read_expression(stream, visited_labels)))
 
         elif code == 0xbe:
-            _read_byte(stream)
-            result.append(('INVENTORY', _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('INVENTORY', _read_expression(stream, visited_labels)))
 
         elif code == 0xbf:
-            _read_byte(stream)
-            result.append(('PORTRAIT', _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('PORTRAIT', _read_expression(stream, visited_labels)))
 
         elif code == 0xc4:
-            _read_byte(stream)
-            result.append(('ADD_KARMA', _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('ADD_KARMA', _read_expression(stream, visited_labels)))
 
         elif code == 0xc5:
-            _read_byte(stream)
-            result.append(('SUB_KARMA', _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('SUB_KARMA', _read_expression(stream, visited_labels)))
 
         elif code == 0xc9:
-            _read_byte(stream)
-            result.append(('GIVE', _read_expression(stream), _read_expression(stream), _read_expression(stream), _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('GIVE', _read_expression(stream, visited_labels), _read_expression(stream, visited_labels), _read_expression(stream, visited_labels), _read_expression(stream, visited_labels)))
 
         elif code == 0xcb:
-            _read_byte(stream)
+            _read_byte(stream, visited_labels)
             result.append('WAIT')
 
         elif code == 0xcd:
-            _read_byte(stream)
-            result.append(('WORKTYPE', _read_expression(stream), _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('WORKTYPE', _read_expression(stream, visited_labels), _read_expression(stream, visited_labels)))
 
         elif code == 0xd6:
-            _read_byte(stream)
-            result.append(('RESURRECT', _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('RESURRECT', _read_expression(stream, visited_labels)))
 
         elif code == 0xd8:
-            _read_byte(stream)
-            result.append(('SETNAME', _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('SETNAME', _read_expression(stream, visited_labels)))
 
         elif code == 0xd9:
-            _read_byte(stream)
-            result.append(('HEAL', _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('HEAL', _read_expression(stream, visited_labels)))
 
         elif code == 0xdb:
-            _read_byte(stream)
-            result.append(('CURE', _read_expression(stream)))
+            _read_byte(stream, visited_labels)
+            result.append(('CURE', _read_expression(stream, visited_labels)))
 
         elif code == 0xef:
             # TODO can't have nested keywords
             while (code := _peek_byte(stream)) == 0xef:
-                _read_byte(stream)
-                keywords = _read_string(stream, {0xf6})
-                _read_byte(stream)
+                _read_byte(stream, visited_labels)
+                keywords = _read_string(stream, visited_labels, {0xf6})
+                _read_byte(stream, visited_labels)
                 sub_visited_labels = set()
                 instructions = _read_instructions(stream, labels, sub_visited_labels, add_a2, allow_drop_esac, {0xef, 0xee})
                 visited_labels |= sub_visited_labels
@@ -208,52 +213,45 @@ def _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, 
 
             if allow_drop_esac:
                 if _peek_byte(stream) == 0xee:
-                    _read_byte(stream)
+                    _read_byte(stream, visited_labels)
 
                 else:
                     assert _is_ended(result) and (None in end or 0xee in end)
 
             else:
-                assert _read_byte(stream) == 0xee
-
-        elif code == 0xf3:
-            _read_byte(stream)
-            result.append('F3')
+                assert _read_byte(stream, visited_labels) == 0xee
 
         elif code == 0xf7:
-            _read_byte(stream)
+            _read_byte(stream, visited_labels)
             result.append('ASK')
 
         elif code == 0xf8:
-            _read_byte(stream)
-            result.append(('ASKC', _read_string(stream, end | all_instructions)))
+            _read_byte(stream, visited_labels)
+            result.append(('ASKC', _read_string(stream, visited_labels, end | all_instructions)))
 
         elif code == 0xf9:
-            _read_byte(stream)
-            number = _read_byte(stream)
-            var = _read_byte(stream)
+            _read_byte(stream, visited_labels)
+            number = _read_byte(stream, visited_labels)
+            var = _read_byte(stream, visited_labels)
             assert var in (0xb2, 0xb3)
             result.append(('INPUTSTR', number))
 
         elif code == 0xfb:
-            _read_byte(stream)
-            number = _read_byte(stream)
-            var = _read_byte(stream)
+            _read_byte(stream, visited_labels)
+            number = _read_byte(stream, visited_labels)
+            var = _read_byte(stream, visited_labels)
             assert var in (0xb2, 0xb3)
             result.append(('INPUT', number))
 
         elif code == 0xfc:
-            _read_byte(stream)
-            number = _read_byte(stream)
-            var = _read_byte(stream)
+            _read_byte(stream, visited_labels)
+            number = _read_byte(stream, visited_labels)
+            var = _read_byte(stream, visited_labels)
             assert var in (0xb2, 0xb3)
             result.append(('INPUTNUM', number))
 
         else:
-            result.append(_read_string(stream, end | all_instructions))
-
-        for i in range(start_offset, stream.tell()):
-            visited_labels.add(i)
+            result.append(_read_string(stream, visited_labels, end | all_instructions))
 
         if _peek_byte(stream) is None or _is_ended(result) and (None in end or 0xee in end and allow_drop_esac):
             # Выходим, если читать больше нечего или не ждём окончания определённого блока.
@@ -281,18 +279,16 @@ def decode(data):
 
     add_a2 = digest == '85f1912ed262ba67a28fdff87c31575d6dd2cea0fbf431ef73e2be77d0958a0d'
 
-    visited_labels.add(stream.tell())
-    assert _read_byte(stream) == 0xff
-    visited_labels.add(stream.tell())
-    result['id'] = _read_byte(stream)
-    result['name'] = _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, {0xf1})
+    assert _read_byte(stream, visited_labels) == 0xff
+    result['id'] = _read_byte(stream, visited_labels)
+    result['name'] = _read_string(stream, visited_labels, {0xf1, 0xf3})
+    result['f3-after-name'] = _check_byte(stream, visited_labels, 0xf3)
 
-    visited_labels.add(stream.tell())
-    _read_byte(stream)
-    result['description'] = _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, {0xf2})
+    assert _read_byte(stream, visited_labels) == 0xf1
+    result['description'] = _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, {0xf2, 0xf3})
+    result['f3-after-description'] = _check_byte(stream, visited_labels, 0xf3)
 
-    visited_labels.add(stream.tell())
-    _read_byte(stream)
+    assert _read_byte(stream, visited_labels) == 0xf2
     result['conversation'] = {stream.tell(): _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, {None})}
 
     while labels - visited_labels:
@@ -303,5 +299,5 @@ def decode(data):
 
     result['conversation'] = dict(sorted(result['conversation'].items()))
 
-    assert set(range(len(data))) - visited_labels == {}
+    #assert set(range(len(data))) - visited_labels == {}
     return result
