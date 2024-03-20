@@ -275,8 +275,10 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, a
         elif code == 0xc9:
             _read_byte(stream, visited_labels)
             arguments = [_one(_read_expressions(stream, visited_labels, data, 0xa7)) for _ in range(4)]
+
             if arguments[1][0] == 'data': # TODO probably typehint other instructions too.
                 _set_data_type(data, arguments[1][1][0][1], 'integer')
+
             result.append(('GIVE', *arguments))
 
         elif code == 0xcb:
@@ -336,22 +338,19 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, a
         elif code == 0xf9:
             _read_byte(stream, visited_labels)
             number = _read_byte(stream, visited_labels)
-            var = _read_byte(stream, visited_labels)
-            assert var in (0xb2, 0xb3)
+            assert _read_byte(stream, visited_labels) == 0xb3
             result.append(('INPUTSTR', number))
 
         elif code == 0xfb:
             _read_byte(stream, visited_labels)
             number = _read_byte(stream, visited_labels)
-            var = _read_byte(stream, visited_labels)
-            assert var in (0xb2, 0xb3)
+            assert _read_byte(stream, visited_labels) == 0xb2
             result.append(('INPUT', number))
 
         elif code == 0xfc:
             _read_byte(stream, visited_labels)
             number = _read_byte(stream, visited_labels)
-            var = _read_byte(stream, visited_labels)
-            assert var in (0xb2, 0xb3)
+            assert _read_byte(stream, visited_labels) == 0xb2
             result.append(('INPUTNUM', number))
 
         else:
