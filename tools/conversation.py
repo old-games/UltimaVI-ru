@@ -299,5 +299,5 @@ def decode(data):
 
     result['conversation'] = dict(sorted(result['conversation'].items()))
 
-    #assert set(range(len(data))) - visited_labels == {}
+    assert set(range(len(data))) - visited_labels == set()
     return result
