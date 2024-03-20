@@ -40,7 +40,17 @@ def _read_string(stream, visited_labels, end):
     return b''.join(result).decode('ascii')
 
 
-def _read_expression(stream, visited_labels, data, end):
+def _set_data_type(data, offset, type):
+    assert data[offset] in (None, type)
+    data[offset] = type
+
+
+def _one(collection):
+    assert len(collection) == 1
+    return collection[0]
+
+
+def _read_expressions(stream, visited_labels, data, end):
     operators = {
         0x81: 'greater', 0x82: 'greaterOrEquals', 0x83: 'less', 0x84: 'lessOrEquals', 0x85: 'notEquals', 0x86: 'equals',
         0x90: 'plus', 0x91: 'minus', 0x92: 'multiply', 0x93: 'divide', 0x94: 'or', 0x95: 'and',
@@ -83,26 +93,34 @@ def _read_expression(stream, visited_labels, data, end):
 
     # FIXME what is `value`? why not `byte`? can we squeeze them to plain value and decide automatically?
 
-    def format_expression(parts, data):
+    # FIXME what `character` does ? returns string?
+
+    def process_parts(parts, data):
         operator = parts.pop()
         if operator[0] in ('byte', 'word', 'dword', 'value'):
-            return ' '.join(map(str, operator))
+            return operator
 
         else:
             arguments = []
-            for i in range(parameters[operator]):
-                arguments.append(format_expression(parts, data))
+            for _ in range(parameters[operator]):
+                arguments.append(process_parts(parts, data))
+            arguments.reverse()
 
             if operator == 'data':
-                assert arguments[-1].startswith('dword ')
-                data.add(int(arguments[-1].split()[1]))
-                
-            return f'{operator}({", ".join(reversed(arguments))})'
+                assert arguments[0][0] == 'dword'
+                data.setdefault(arguments[0][1], None)
 
-    result = []
+            for argument in arguments:
+                if argument[0] == 'data':
+                    _set_data_type(data, argument[1][0][1], 'integer')
+
+            return (operator, arguments)
+
+    expressions = []
     while parts:
-        result.append(format_expression(parts, data))
-    return result
+        expressions.append(process_parts(parts, data))
+
+    return expressions
 
 
 def _is_ended(result):
@@ -153,7 +171,7 @@ def _read_instructions(stream, labels, visited_labels, data, skip_solo_endif, al
     while (code := _peek_byte(stream)) not in end and stream.tell() not in visited_labels:
         if code == 0x9c:
             _read_byte(stream, visited_labels)
-            result.append(('HORSE', _read_expression(stream, visited_labels, data, 0xa7)))
+            result.append(('HORSE', _one(_read_expressions(stream, visited_labels, data, 0xa7))))
 
         elif code == 0x9e:
             _read_byte(stream, visited_labels)
@@ -161,7 +179,7 @@ def _read_instructions(stream, labels, visited_labels, data, skip_solo_endif, al
 
         elif code == 0xa1:
             _read_byte(stream, visited_labels)
-            expression = _read_expression(stream, visited_labels, data, 0xa7)
+            expression = _one(_read_expressions(stream, visited_labels, data, 0xa7))
             sub_visited_labels = set()
             instructions = _read_instructions(stream, labels, sub_visited_labels, data, skip_solo_endif, allow_drop_esac, {0xa2, 0xa3})
             visited_labels |= sub_visited_labels
@@ -190,51 +208,71 @@ def _read_instructions(stream, labels, visited_labels, data, skip_solo_endif, al
 
         elif code == 0xa4:
             _read_byte(stream, visited_labels)
-            left = _read_expression(stream, visited_labels, data, 0xa7)
-            right = _read_expression(stream, visited_labels, data, 0xa7)
+            left = _one(_read_expressions(stream, visited_labels, data, 0xa7))
+            right = _one(_read_expressions(stream, visited_labels, data, 0xa7))
             result.append(('SETF', left, right))
 
         elif code == 0xa5:
             _read_byte(stream, visited_labels)
-            left = _read_expression(stream, visited_labels, data, 0xa7)
-            right = _read_expression(stream, visited_labels, data, 0xa7)
+            left = _one(_read_expressions(stream, visited_labels, data, 0xa7))
+            right = _one(_read_expressions(stream, visited_labels, data, 0xa7))
             result.append(('CLEARF', left, right))
 
         elif code == 0xa6:
+            # TODO support packing and unpacking
             _read_byte(stream, visited_labels)
-            result.append(('ASSIGN', _read_expression(stream, visited_labels, data, 0xa8), _read_expression(stream, visited_labels, data, 0xa7)))
+            left = _one(_read_expressions(stream, visited_labels, data, 0xa8))
+            right = _one(_read_expressions(stream, visited_labels, data, 0xa7))
+
+            if left[0] == 'data':
+                assert right[0] in ('data', 'integer') # TODO support assigning strings
+                _set_data_type(data, left[1][0][1], 'integer')
+
+            if right[0] == 'data':
+                assert left[0] in ('data', 'string', 'integer') # TODO support assigning strings
+                if left[0] == 'string':
+                    _set_data_type(data, right[1][0][1], 'string')
+                else:
+                    _set_data_type(data, right[1][0][1], 'integer')
+
+            result.append(('ASSIGN', left, right))
 
         elif code == 0xb5:
             _read_byte(stream, visited_labels)
-            result.append(('DPRINT', _read_expression(stream, visited_labels, data, 0xa7)))
+            result.append(('DPRINT', _read_expressions(stream, visited_labels, data, 0xa7)))
 
         elif code == 0xb9:
             _read_byte(stream, visited_labels)
-            result.append(('NEW', _read_expression(stream, visited_labels, data, 0xa7), _read_expression(stream, visited_labels, data, 0xa7), _read_expression(stream, visited_labels, data, 0xa7), _read_expression(stream, visited_labels, data, 0xa7)))
+            arguments = [_one(_read_expressions(stream, visited_labels, data, 0xa7)) for _ in range(4)]
+            result.append(('NEW', *arguments))
 
         elif code == 0xba:
             _read_byte(stream, visited_labels)
-            result.append(('DELETE', _read_expression(stream, visited_labels, data, 0xa7), _read_expression(stream, visited_labels, data, 0xa7), _read_expression(stream, visited_labels, data, 0xa7), _read_expression(stream, visited_labels, data, 0xa7)))
+            arguments = [_one(_read_expressions(stream, visited_labels, data, 0xa7)) for _ in range(4)]
+            result.append(('DELETE', *arguments))
 
         elif code == 0xbe:
             _read_byte(stream, visited_labels)
-            result.append(('INVENTORY', _read_expression(stream, visited_labels, data, 0xa7)))
+            result.append(('INVENTORY', _one(_read_expressions(stream, visited_labels, data, 0xa7))))
 
         elif code == 0xbf:
             _read_byte(stream, visited_labels)
-            result.append(('PORTRAIT', _read_expression(stream, visited_labels, data, 0xa7)))
+            result.append(('PORTRAIT', _one(_read_expressions(stream, visited_labels, data, 0xa7))))
 
         elif code == 0xc4:
             _read_byte(stream, visited_labels)
-            result.append(('ADD_KARMA', _read_expression(stream, visited_labels, data, 0xa7)))
+            result.append(('ADD_KARMA', _one(_read_expressions(stream, visited_labels, data, 0xa7))))
 
         elif code == 0xc5:
             _read_byte(stream, visited_labels)
-            result.append(('SUB_KARMA', _read_expression(stream, visited_labels, data, 0xa7)))
+            result.append(('SUB_KARMA', _one(_read_expressions(stream, visited_labels, data, 0xa7))))
 
         elif code == 0xc9:
             _read_byte(stream, visited_labels)
-            result.append(('GIVE', _read_expression(stream, visited_labels, data, 0xa7), _read_expression(stream, visited_labels, data, 0xa7), _read_expression(stream, visited_labels, data, 0xa7), _read_expression(stream, visited_labels, data, 0xa7)))
+            arguments = [_one(_read_expressions(stream, visited_labels, data, 0xa7)) for _ in range(4)]
+            if arguments[1][0] == 'data': # TODO probably typehint other instructions too.
+                _set_data_type(data, arguments[1][1][0][1], 'integer')
+            result.append(('GIVE', *arguments))
 
         elif code == 0xcb:
             _read_byte(stream, visited_labels)
@@ -242,23 +280,24 @@ def _read_instructions(stream, labels, visited_labels, data, skip_solo_endif, al
 
         elif code == 0xcd:
             _read_byte(stream, visited_labels)
-            result.append(('WORKTYPE', _read_expression(stream, visited_labels, data, 0xa7), _read_expression(stream, visited_labels, data, 0xa7)))
+            arguments = [_one(_read_expressions(stream, visited_labels, data, 0xa7)) for _ in range(2)]
+            result.append(('WORKTYPE', *arguments))
 
         elif code == 0xd6:
             _read_byte(stream, visited_labels)
-            result.append(('RESURRECT', _read_expression(stream, visited_labels, data, 0xa7)))
+            result.append(('RESURRECT', _one(_read_expressions(stream, visited_labels, data, 0xa7))))
 
         elif code == 0xd8:
             _read_byte(stream, visited_labels)
-            result.append(('SETNAME', _read_expression(stream, visited_labels, data, 0xa7)))
+            result.append(('SETNAME', _one(_read_expressions(stream, visited_labels, data, 0xa7))))
 
         elif code == 0xd9:
             _read_byte(stream, visited_labels)
-            result.append(('HEAL', _read_expression(stream, visited_labels, data, 0xa7)))
+            result.append(('HEAL', _one(_read_expressions(stream, visited_labels, data, 0xa7))))
 
         elif code == 0xdb:
             _read_byte(stream, visited_labels)
-            result.append(('CURE', _read_expression(stream, visited_labels, data, 0xa7)))
+            result.append(('CURE', _one(_read_expressions(stream, visited_labels, data, 0xa7))))
 
         elif code == 0xef:
             # TODO can't have nested keywords
@@ -320,11 +359,23 @@ def _read_instructions(stream, labels, visited_labels, data, skip_solo_endif, al
     return result
 
 
+def _format_expression(expression):
+    if expression[0] in ('byte', 'word', 'dword', 'value'):
+        return ' '.join(map(str, expression))
+
+    else:
+        arguments = []
+        for argument in expression[1]:
+            arguments.append(_format_expression(argument))
+
+        return f'{expression[0]}({", ".join(arguments)})'
+
+
 def _expand_instructions(original_label, instructions, labels):
     result = []
     for instruction in instructions:
         if instruction[0] == 'IF':
-            result.append(instruction[:2])
+            result.append((instruction[0], _format_expression(instruction[1])))
             result.extend(instruction[2])
             if instruction[3]:
                 result.append('ELSE')
@@ -346,7 +397,7 @@ def decode(raw_conversation):
     result = {}
     labels = set()
     visited_labels = set()
-    data = set()
+    data = {}
 
     digest = hashlib.sha256(raw_conversation).hexdigest()
 
@@ -381,9 +432,12 @@ def decode(raw_conversation):
 
     result['interaction'] = {label: expanded for k, v in sorted(blocks.items()) for label, expanded in _expand_instructions(k, v, labels)}
 
+    types = dict(sorted(data.items()))
+    offsets = list(types)
+    assert set(types.values()) <= {'integer', 'string'}
+
     result['data'] = {}
-    data = sorted(data)
-    for left, right in zip(data, data[1:] + [len(raw_conversation)]):
+    for left, right in zip(offsets, offsets[1:] + [len(raw_conversation)]):
         stream.seek(left)
         result['data'][left] = [_read_byte(stream, visited_labels) for _ in range(left, right)]
 
