@@ -381,7 +381,7 @@
             ],
             [
                 "IF",
-                "byte 1, byte 88, length, byte 2, less",
+                "byte 1, byte 88, countObj, byte 2, less",
                 [
                     "\n\"Come back when you're not so down on your luck.\"",
                     [
@@ -435,7 +435,7 @@
             ],
             [
                 "IF",
-                "byte 1, byte 88, length, byte 10, less",
+                "byte 1, byte 88, countObj, byte 10, less",
                 [
                     "\n\"Come back when you have the money.\"",
                     [
@@ -496,7 +496,7 @@
             ],
             [
                 "IF",
-                "0, var, byte 1, byte 88, length, greater",
+                "0, integer, byte 1, byte 88, countObj, greater",
                 [
                     "\nYou don't have that much.\n",
                     [
@@ -508,7 +508,7 @@
             ],
             [
                 "IF",
-                "0, var, byte 0, equals",
+                "0, integer, byte 0, equals",
                 [
                     [
                         "JUMP",
@@ -522,14 +522,14 @@
                 "byte 1",
                 "byte 88",
                 "byte 0",
-                "0, var"
+                "0, integer"
             ],
             [
                 "NEW",
                 "byte 235",
                 "byte 88",
                 "byte 0",
-                "0, var"
+                "0, integer"
             ],
             [
                 "SETF",
@@ -550,11 +550,11 @@
         "4344": [
             [
                 "IF",
-                "23, var, byte 0, greater",
+                "23, integer, byte 0, greater",
                 [
                     [
                         "ASSIGN",
-                        "2, var",
+                        "2, integer",
                         "byte 1"
                     ],
                     [
@@ -566,7 +566,7 @@
             ],
             [
                 "ASSIGN",
-                "3, var",
+                "3, integer",
                 "byte 0, byte 0, character"
             ],
             [
@@ -577,22 +577,22 @@
         "4379": [
             [
                 "ASSIGN",
-                "3, var",
-                "2, var, byte 1, minus, byte 0, character"
+                "3, integer",
+                "2, integer, byte 1, minus, byte 0, character"
             ],
             [
                 "SETNAME",
-                "3, var"
+                "3, integer"
             ],
             "#2) $Y\n",
             [
                 "IF",
-                "2, var, 23, var, lessOrEquals",
+                "2, integer, 23, integer, lessOrEquals",
                 [
                     [
                         "ASSIGN",
-                        "2, var",
-                        "2, var, byte 1, plus"
+                        "2, integer",
+                        "2, integer, byte 1, plus"
                     ],
                     [
                         "JUMP",
@@ -608,7 +608,7 @@
             ],
             [
                 "IF",
-                "2, var, byte 0, equals, 2, var, 23, var, byte 1, plus, greater, or",
+                "2, integer, byte 0, equals, 2, integer, 23, integer, byte 1, plus, greater, or",
                 [
                     "\n\"What else would you like to know?\"",
                     [
@@ -619,8 +619,8 @@
                 [
                     [
                         "ASSIGN",
-                        "3, var",
-                        "2, var, byte 1, minus, byte 0, character"
+                        "3, integer",
+                        "2, integer, byte 1, minus, byte 0, character"
                     ]
                 ]
             ]
@@ -628,27 +628,27 @@
         "4517": [
             [
                 "SETNAME",
-                "3, var"
+                "3, integer"
             ],
             [
                 "ASSIGN",
-                "1, var",
+                "1, integer",
                 "byte 1"
             ],
             [
                 "ASSIGN",
-                "1, svar",
-                "dword 5107, 1, var, byte 1, minus, data"
+                "1, string",
+                "dword 5107, 1, integer, byte 1, minus, data"
             ],
             "#1) $1\n",
             [
                 "ASSIGN",
-                "1, var",
-                "1, var, byte 1, plus"
+                "1, integer",
+                "1, integer, byte 1, plus"
             ],
             [
                 "IF",
-                "dword 5075, 1, var, byte 1, minus, data, byte 0, greater",
+                "dword 5075, 1, integer, byte 1, minus, data, byte 0, greater",
                 [
                     [
                         "JUMP",
@@ -664,11 +664,11 @@
             ],
             [
                 "IF",
-                "2, var, byte 0, equals, 2, var, 1, var, greaterOrEquals, or",
+                "2, integer, byte 0, equals, 2, integer, 1, integer, greaterOrEquals, or",
                 [
                     [
                         "ASSIGN",
-                        "2, var",
+                        "2, integer",
                         "byte 1"
                     ],
                     [
@@ -680,22 +680,22 @@
             ],
             [
                 "ASSIGN",
-                "2, var",
-                "2, var, byte 1, minus"
+                "2, integer",
+                "2, integer, byte 1, minus"
             ],
             [
                 "ASSIGN",
-                "1, var",
-                "dword 5091, 2, var, data"
+                "1, integer",
+                "dword 5091, 2, integer, data"
             ],
             [
                 "ASSIGN",
-                "1, svar",
-                "dword 5107, 2, var, data"
+                "1, string",
+                "dword 5107, 2, integer, data"
             ],
             [
                 "ASSIGN",
-                "5, var",
+                "5, integer",
                 "byte 0"
             ],
             "\"$1 costs #1 per portion.\"",
@@ -707,7 +707,7 @@
             ],
             [
                 "IF",
-                "4, var, byte 0, equals",
+                "4, integer, byte 0, equals",
                 [
                     [
                         "JUMP",
@@ -718,7 +718,7 @@
             ],
             [
                 "IF",
-                "3, var, canCarry, dword 5075, 2, var, data, byte 1, weight, less",
+                "3, integer, canCarry, dword 5075, 2, integer, data, byte 1, weight, less",
                 [
                     [
                         "JUMP",
@@ -729,7 +729,7 @@
             ],
             [
                 "IF",
-                "3, var, byte 88, length, 1, var, less",
+                "3, integer, byte 88, countObj, 1, integer, less",
                 [
                     [
                         "JUMP",
@@ -740,15 +740,15 @@
             ],
             [
                 "DELETE",
-                "3, var",
+                "3, integer",
                 "byte 88",
                 "byte 0",
-                "1, var"
+                "1, integer"
             ],
             [
                 "NEW",
-                "3, var",
-                "dword 5075, 2, var, data",
+                "3, integer",
+                "dword 5075, 2, integer, data",
                 "byte 0",
                 "byte 1"
             ],
@@ -764,12 +764,12 @@
             ],
             [
                 "ASSIGN",
-                "5, var",
-                "5, var, byte 1, plus"
+                "5, integer",
+                "5, integer, byte 1, plus"
             ],
             [
                 "IF",
-                "5, var, 4, var, equals",
+                "5, integer, 4, integer, equals",
                 [
                     "$N hands $Y the $1.",
                     "WAIT",
@@ -790,7 +790,7 @@
         "4877": [
             [
                 "IF",
-                "5, var",
+                "5, integer",
                 [
                     "\"You can't carry that much!\"",
                     "WAIT",
@@ -816,7 +816,7 @@
         "4976": [
             [
                 "IF",
-                "5, var",
+                "5, integer",
                 [
                     "\"You can't afford that much!\"",
                     "WAIT",

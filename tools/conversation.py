@@ -48,7 +48,7 @@ def _read_expression(stream, visited_labels, end):
         0x90: 'plus', 0x91: 'minus', 0x92: 'multiply', 0x93: 'divide', 0x94: 'or', 0x95: 'and',
         0x9a: 'canCarry', 0x9b: 'weight', 0x9d: 'hasHorse', 0x9f: 'isInActorObj',
         0xa0: 'rand', 0xab: 'flag',
-        0xb2: 'var', 0xb3: 'svar', 0xb4: 'data', 0xb7: 'indexOf', 0xbb: 'length',
+        0xb2: 'integer', 0xb3: 'string', 0xb4: 'data', 0xb7: 'indexOf', 0xbb: 'countObj',
         0xc6: 'isInParty', 0xc7: 'isInPartyObj', 0xca: 'joinParty', 0xcc: 'leaveParty',
         0xd7: 'isNearby', 0xda: 'isWounded', 0xdc: 'isPoisoned', 0xdd: 'character',
         0xe0: 'experience', 0xe1: 'level', 0xe2: 'strength', 0xe3: 'intelligence', 0xe4: 'dexterity',

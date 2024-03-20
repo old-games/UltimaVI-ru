@@ -120,7 +120,7 @@
                     "\"That'sa nice and friendly. I like you too.\" He comes over and gives you a big hug.",
                     [
                         "IF",
-                        "byte 1, byte 88, length, byte 75, less",
+                        "byte 1, byte 88, countObj, byte 75, less",
                         [
                             [
                                 "JUMP",
@@ -245,7 +245,7 @@
                 [
                     [
                         "IF",
-                        "byte 1, byte 88, length, byte 2, less",
+                        "byte 1, byte 88, countObj, byte 2, less",
                         [
                             "\"Come back whena you have the money.\"",
                             [
@@ -297,7 +297,7 @@
                 [
                     [
                         "ASSIGN",
-                        "0, var",
+                        "0, integer",
                         "byte 1"
                     ]
                 ]
@@ -327,7 +327,7 @@
                 [
                     [
                         "ASSIGN",
-                        "0, var",
+                        "0, integer",
                         "byte 2"
                     ]
                 ]
@@ -335,7 +335,7 @@
             "\"Oh, hey, you picked the Lovers this time. I thinka maybe you should go talk to ",
             [
                 "IF",
-                "16, var",
+                "16, integer",
                 [
                     "Andreas"
                 ],
@@ -366,7 +366,7 @@
                 [
                     [
                         "ASSIGN",
-                        "0, var",
+                        "0, integer",
                         "byte 5"
                     ]
                 ]
@@ -394,7 +394,7 @@
             ],
             [
                 "ASSIGN",
-                "0, var",
+                "0, integer",
                 "byte 6"
             ],
             "\n\"Uh-oh, you justa drew the Death card. That means eithera you're going to kill somebody soon, ora somebody's gonna kill you.\"",
@@ -416,7 +416,7 @@
             ],
             [
                 "ASSIGN",
-                "0, var",
+                "0, integer",
                 "byte 7"
             ],
             "\n\"Allaright, now we're talking. You pickeda the Crow card. That'sa telling you adventuring isa for the birds.\"",
@@ -426,8 +426,8 @@
             "\n",
             [
                 "ASSIGN",
-                "1, var",
-                "0, var, byte 5, multiply"
+                "1, integer",
+                "0, integer, byte 5, multiply"
             ],
             [
                 "IF",
@@ -451,15 +451,15 @@
             "\n\n",
             [
                 "IF",
-                "byte 1, byte 88, length, 1, var, less",
+                "byte 1, byte 88, countObj, 1, integer, less",
                 [
                     "\"Since you don'ta have that much, I'll just settle for what you've got.\"",
                     "WAIT",
                     "\n\n",
                     [
                         "ASSIGN",
-                        "1, var",
-                        "byte 1, byte 88, length"
+                        "1, integer",
+                        "byte 1, byte 88, countObj"
                     ]
                 ],
                 []
@@ -469,14 +469,14 @@
                 "byte 1",
                 "byte 88",
                 "byte 0",
-                "1, var"
+                "1, integer"
             ],
             [
                 "NEW",
                 "byte 235",
                 "byte 88",
                 "byte 0",
-                "1, var"
+                "1, integer"
             ],
             "\"It was a pleasure doinga business with you.\"",
             [
@@ -509,7 +509,7 @@
                     "\"Oh! Well, sure you do, she's a very important map!\"",
                     [
                         "IF",
-                        "23, var",
+                        "23, integer",
                         [
                             "WAIT",
                             "\n\nHe leads you away from the rest of the group. \"Don't want no spyin' ears, ah?\""
@@ -526,7 +526,7 @@
             "\n\n\"So if you want this map you're agonna have to pay - 100 gold! Okay?\" ",
             [
                 "ASSIGN",
-                "0, var",
+                "0, integer",
                 "byte 100"
             ],
             [
@@ -539,7 +539,7 @@
                 [
                     [
                         "IF",
-                        "0, var, byte 50, equals",
+                        "0, integer, byte 50, equals",
                         [
                             "\"Thank you! You have asaved me from amaking a big mistake!\"",
                             "WAIT",
@@ -553,12 +553,12 @@
                     ],
                     [
                         "IF",
-                        "0, var, byte 75, equals",
+                        "0, integer, byte 75, equals",
                         [
                             "\"What, are you nuts? But okay, how'sabout just 50 gold?\" ",
                             [
                                 "ASSIGN",
-                                "0, var",
+                                "0, integer",
                                 "byte 50"
                             ],
                             [
@@ -573,7 +573,7 @@
                     "\n\n\"I sell you this map, this key to infinite wealth, for just 75 gold. Okay?\" ",
                     [
                         "ASSIGN",
-                        "0, var",
+                        "0, integer",
                         "byte 75"
                     ],
                     [
@@ -588,7 +588,7 @@
                 [
                     [
                         "IF",
-                        "byte 1, byte 88, length, 0, var, less",
+                        "byte 1, byte 88, countObj, 0, integer, less",
                         [
                             "\"Hey, what are you, a deadbeat? Come back when you can afford the map!\"",
                             [
@@ -603,7 +603,7 @@
                         "byte 1",
                         "byte 88",
                         "byte 0",
-                        "0, var"
+                        "0, integer"
                     ],
                     [
                         "IF",
