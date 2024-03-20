@@ -467,12 +467,12 @@ def decode(raw_conversation):
             for _ in range(left, right):
                 if stream.tell() in visited_labels:
                     break
-                char = _read_char(stream, visited_labels)
-                if char == b'\x00':
+                byte = _read_byte(stream, visited_labels)
+                if not byte:
                     strings.append(string.decode('ascii'))
                     string = bytearray()
                 else:
-                    string.extend(char)
+                    string.append(byte)
 
             if string:
                 if string == b'\xb8':
