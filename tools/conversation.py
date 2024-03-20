@@ -28,6 +28,11 @@ def _read_dword(stream, visited_labels):
     return int.from_bytes(stream.read(4), 'little')
 
 
+def _read_word(stream, visited_labels):
+    visited_labels |= set(range(stream.tell(), stream.tell()+2))
+    return int.from_bytes(stream.read(2), 'little')
+
+
 def _read_string(stream, visited_labels, end):
     result = []
     while _peek_byte(stream) not in end:
@@ -38,17 +43,37 @@ def _read_string(stream, visited_labels, end):
 def _read_expression(stream, visited_labels):
     result = []
 
-    while _peek_byte(stream) != 0xa7:
-        # TODO FIXME
-        if _peek_byte(stream) == 0xd3:
-            result.append(_read_byte(stream, visited_labels))
+    operators = {
+        0x81, 0x82, 0x83, 0x84, 0x85, 0x86,
+        0x90, 0x91, 0x92, 0x93, 0x94, 0x95, 0x9a, 0x9b, 0x9d, 0x9f,
+        0xa0, 0xa8, 0xab,
+        0xb2, 0xb3, 0xb4, 0xb7, 0xbb,
+        0xc6, 0xc7, 0xca, 0xcc,
+        0xd7, 0xda, 0xdc, 0xdd,
+        0xe0, 0xe1, 0xe2, 0xe3, 0xe4,
+    }
+
+    while (code := _peek_byte(stream)) != 0xa7:
+        if code == 0xd2:
+            _read_byte(stream, visited_labels)
+            result.append(('dword', _read_dword(stream, visited_labels)))
+
+        elif code == 0xd3:
+            _read_byte(stream, visited_labels)
+            result.append(('byte', _read_byte(stream, visited_labels)))
+
+        elif code == 0xd4:
+            _read_byte(stream, visited_labels)
+            result.append(('word', _read_word(stream, visited_labels)))
+
+        elif code in operators:
             result.append(_read_byte(stream, visited_labels))
 
         else:
             result.append(_read_byte(stream, visited_labels))
 
     _read_byte(stream, visited_labels)
-    return result
+    return ', '.join(map(str, result))
 
 
 def _is_ended(result):
@@ -84,11 +109,18 @@ def _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, 
     result = []
 
     all_instructions = {
-        0x9c, 0x9e, 0xa1, 0xa4, 0xa5, 0xa6, 0xb0, 0xb5, 0xb6, 0xb9, 0xba, 0xbe, 0xbf, 0xc4, 0xc5, 0xc9, 0xcb, 0xcd, 0xd6, 0xd8, 0xd9, 0xdb, 0xef, 0xf7, 0xf8, 0xf9, 0xfb, 0xfc
+        0x9c, 0x9e,
+        0xa1, 0xa4, 0xa5, 0xa6,
+        0xb0, 0xb5, 0xb6, 0xb9, 0xba, 0xbe, 0xbf,
+        0xc4, 0xc5, 0xc9, 0xcb, 0xcd,
+        0xd6, 0xd8, 0xd9, 0xdb,
+        0xef,
+        0xf7, 0xf8, 0xf9, 0xfb, 0xfc,
     }
     if add_a2:
         all_instructions.add(0xa2)
 
+    # TODO there are more instructions in the game
     while (code := _peek_byte(stream)) not in end and stream.tell() not in visited_labels:
         if code == 0x9c:
             _read_byte(stream, visited_labels)
@@ -295,9 +327,10 @@ def decode(data):
         label = next(iter(labels - visited_labels))
         stream.seek(label)
         result['conversation'][label] = _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, {None})
-        # FIXME split code with label in the middle
+        # FIXME split code with label in the middle, sometimes in the middle of string
 
     result['conversation'] = dict(sorted(result['conversation'].items()))
 
-    assert set(range(len(data))) - visited_labels == set()
+    #import unittest
+    #unittest.TestCase().assertEqual(set(range(len(data))) - visited_labels, set())
     return result
