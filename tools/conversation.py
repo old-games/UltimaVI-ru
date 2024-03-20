@@ -434,13 +434,10 @@ def decode(raw_conversation):
         blocks[label] = _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, allow_drop_esac, {None})
         # FIXME split code with label in the middle, sometimes in the middle of string
 
-    result['interaction'] = {label: expanded for k, v in sorted(blocks.items()) for label, expanded in _expand_instructions(k, v, labels)}
-
     types = dict(sorted(data.items()))
     offsets = list(types)
     assert set(types.values()) <= {'integer', 'string'}
 
-    result['data'] = {}
     result['end-of-list-marker'] = []
     result['no-trailing-byte'] = []
     for left, right in zip(offsets, offsets[1:] + [len(raw_conversation)]):
@@ -457,7 +454,8 @@ def decode(raw_conversation):
                 else:
                     integers.append(_read_word(stream, visited_labels))
 
-            result['data'][left] = integers
+            assert left not in blocks
+            blocks[left] = ['INTEGERS', integers]
 
         else:
             assert types[left] == 'string'
@@ -481,7 +479,10 @@ def decode(raw_conversation):
                     result['no-trailing-byte'].append(left)
                     strings.append(string.decode('ascii'))
 
-            result['data'][left] = strings
+            assert left not in blocks
+            blocks[left] = ['STRINGS', strings]
+
+    result['interaction'] = {label: expanded for k, v in sorted(blocks.items()) for label, expanded in _expand_instructions(k, v, labels)}
 
     assert set(range(len(data))) - visited_labels == set()
     return result
