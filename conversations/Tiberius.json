@@ -11,16 +11,16 @@
     "f3-after-description": false,
     "interaction": {
         "42": [
-            "print(\"\n\")",
+            "print(\"\\n\")",
             "integer(value 0) = partyHasObject(word 339, byte 0)",
             "if and(notEquals(integer(value 0), word 32769), equals(integer(value 32), byte 144)):",
             "jump 2348",
             "endif",
-            "print(\"\"Greetings, my child\")",
+            "print(\"\\\"Greetings, my child\")",
             "if integer(value 23):",
             "print(\"ren\")",
             "endif",
-            "print(\". What can I do for thee today?\"\n\")",
+            "print(\". What can I do for thee today?\\\"\\n\")",
             "ask()",
             "case \"heal\":",
             "jump 556",
@@ -29,9 +29,9 @@
             "case \"resu\":",
             "integer(value 0) = partyHasObject(word 339, byte 0)",
             "if equals(integer(value 0), word 32769):",
-            "print(\"\"But thou weepest for no reason! None of thy party is dead!\"\")",
+            "print(\"\\\"But thou weepest for no reason! None of thy party is dead!\\\"\")",
             "jump 134",
-            "ELSE",
+            "else:",
             [
                 "SETNAME",
                 [
@@ -47,7 +47,7 @@
             "jump 2395",
             "endif",
             "case \"name\":",
-            "print(\"\"I am Tiberius, healer for this town.\"\")",
+            "print(\"\\\"I am Tiberius, healer for this town.\\\"\")",
             [
                 "SETF",
                 [
@@ -61,27 +61,27 @@
             ],
             "jump 134",
             "case \"job\":",
-            "print(\"\"It is my responsibility to care for the sick and injured.\"\")",
+            "print(\"\\\"It is my responsibility to care for the sick and injured.\\\"\")",
             "wait()",
-            "print(\"\n\n\"I attempt to @heal, @cure, or if needed, @resurrect the fallen.\"\")",
+            "print(\"\\n\\n\\\"I attempt to @heal, @cure, or if needed, @resurrect the fallen.\\\"\")",
             "jump 134",
             "case \"bye,no\":",
-            "print(\"\"Go in peace, my child\")",
+            "print(\"\\\"Go in peace, my child\")",
             "if integer(value 23):",
             "print(\"ren\")",
             "endif",
-            "print(\".\"\n\")",
+            "print(\".\\\"\\n\")",
             "BYE",
             "case \"yes\":",
-            "print(\"\"What can I do for thee?\"\")",
+            "print(\"\\\"What can I do for thee?\\\"\")",
             "jump 134",
             "case \"*\":",
-            "print(\"\"I beg thy pardon?\"\")",
+            "print(\"\\\"I beg thy pardon?\\\"\")",
             "jump 134"
         ],
         "556": [
             "if notEquals(integer(value 32), byte 144):",
-            "print(\"\"Come to my shop when I'm open!\"\")",
+            "print(\"\\\"Come to my shop when I'm open!\\\"\")",
             "jump 134",
             "endif",
             "if greater(integer(value 23), byte 0):",
@@ -93,8 +93,8 @@
             "integer(value 3) = character(byte 0, byte 0)",
             "if isWounded(integer(value 3)):",
             "jump 983",
-            "ELSE",
-            "print(\"\"Fret not, for thou art well.\"\")",
+            "else:",
+            "print(\"\\\"Fret not, for thou art well.\\\"\")",
             "jump 1419",
             "endif"
         ],
@@ -123,7 +123,7 @@
                     ]
                 ]
             ],
-            "print(\"#2) $Y\n\")",
+            "print(\"#2) $Y\\n\")",
             "integer(value 2) = plus(integer(value 2), byte 1)",
             "integer(value 4) = integer(value 3)",
             "integer(value 1) = plus(integer(value 1), byte 1)",
@@ -131,7 +131,7 @@
         ],
         "802": [
             "if equals(integer(value 2), byte 0):",
-            "print(\"\"Fret not, for all of you are well!\"\")",
+            "print(\"\\\"Fret not, for all of you are well!\\\"\")",
             "jump 1419",
             "endif",
             "if equals(integer(value 2), byte 1):",
@@ -150,7 +150,7 @@
                     ]
                 ]
             ],
-            "print(\"#2) $Y\n\"Which of you?\" \")",
+            "print(\"#2) $Y\\n\\\"Which of you?\\\" \")",
             [
                 "INPUTNUM",
                 2
@@ -182,14 +182,14 @@
                     ]
                 ]
             ],
-            "print(\"\"I see thy injury, $Y.\"\")",
+            "print(\"\\\"I see thy injury, $Y.\\\"\")",
             "wait()",
-            "print(\"\n\n\"Wilt thou make an offering of 30 gold?\" \")",
+            "print(\"\\n\\n\\\"Wilt thou make an offering of 30 gold?\\\" \")",
             "askc(\"yn\")",
             "case \"y\":",
             "if less(objectsCount(integer(value 3), byte 88), byte 30):",
             "jump 1216",
-            "ELSE",
+            "else:",
             "print(\"Laying hands upon $Y, Tiberius mends the wounds.\")",
             [
                 "DELETE",
@@ -232,21 +232,21 @@
             "case \"n\":",
             "if less(objectsCount(integer(value 3), byte 88), byte 30):",
             "jump 1216",
-            "ELSE",
-            "print(\"\"If thou wilt not pay, I cannot heal thee.\"\")",
+            "else:",
+            "print(\"\\\"If thou wilt not pay, I cannot heal thee.\\\"\")",
             "jump 1419",
             "endif"
         ],
         "1216": [
             "if less(integer(value 20), byte 40):",
-            "print(\"\"I'm sorry. Without an offering I cannot heal thee.\"\")",
+            "print(\"\\\"I'm sorry. Without an offering I cannot heal thee.\\\"\")",
             "jump 134",
-            "ELSE",
-            "print(\"\"Thou art poor, but thy cause is just.\"\")",
+            "else:",
+            "print(\"\\\"Thou art poor, but thy cause is just.\\\"\")",
             "wait()",
-            "print(\"\n\n\"I will heal thee without payment.\"\")",
+            "print(\"\\n\\n\\\"I will heal thee without payment.\\\"\")",
             "wait()",
-            "print(\"\n\nLaying hands upon $Y, Tiberius mends the wounds.\")",
+            "print(\"\\n\\nLaying hands upon $Y, Tiberius mends the wounds.\")",
             [
                 "HEAL",
                 [
@@ -264,12 +264,12 @@
         ],
         "1419": [
             "wait()",
-            "print(\"\n\n\"Is there aught else I can do for thee?\"\")",
+            "print(\"\\n\\n\\\"Is there aught else I can do for thee?\\\"\")",
             "jump 134"
         ],
         "1467": [
             "if notEquals(integer(value 32), byte 144):",
-            "print(\"\"Come to my shop when I'm open!\"\")",
+            "print(\"\\\"Come to my shop when I'm open!\\\"\")",
             "jump 134",
             "endif",
             "if greater(integer(value 23), byte 0):",
@@ -281,8 +281,8 @@
             "integer(value 3) = character(byte 0, byte 0)",
             "if isPoisoned(integer(value 3)):",
             "jump 1894",
-            "ELSE",
-            "print(\"\"Fret not, for thou art well.\"\")",
+            "else:",
+            "print(\"\\\"Fret not, for thou art well.\\\"\")",
             "jump 1419",
             "endif"
         ],
@@ -311,7 +311,7 @@
                     ]
                 ]
             ],
-            "print(\"#2) $Y\n\")",
+            "print(\"#2) $Y\\n\")",
             "integer(value 2) = plus(integer(value 2), byte 1)",
             "integer(value 4) = integer(value 3)",
             "integer(value 1) = plus(integer(value 1), byte 1)",
@@ -319,7 +319,7 @@
         ],
         "1713": [
             "if equals(integer(value 2), byte 0):",
-            "print(\"\"Fret not, for all of you are well.\"\")",
+            "print(\"\\\"Fret not, for all of you are well.\\\"\")",
             "jump 1419",
             "endif",
             "if equals(integer(value 2), byte 1):",
@@ -338,7 +338,7 @@
                     ]
                 ]
             ],
-            "print(\"#2) $Y\n\"Which of you?\" \")",
+            "print(\"#2) $Y\\n\\\"Which of you?\\\" \")",
             [
                 "INPUTNUM",
                 2
@@ -372,14 +372,14 @@
                     ]
                 ]
             ],
-            "print(\"\"I sense that thou art poisoned, $Y.\"\")",
+            "print(\"\\\"I sense that thou art poisoned, $Y.\\\"\")",
             "wait()",
-            "print(\"\n\n\"Wilt thou make an offering of 10 gold?\" \")",
+            "print(\"\\n\\n\\\"Wilt thou make an offering of 10 gold?\\\" \")",
             "askc(\"yn\")",
             "case \"y\":",
             "if less(objectsCount(integer(value 3), byte 88), byte 10):",
             "jump 2143",
-            "ELSE",
+            "else:",
             "print(\"Laying hands upon $Y, Tiberius removes the poison.\")",
             [
                 "DELETE",
@@ -422,21 +422,21 @@
             "case \"n\":",
             "if less(objectsCount(integer(value 3), byte 88), byte 10):",
             "jump 2143",
-            "ELSE",
-            "print(\"\"If thou wilt not pay, I cannot heal thee.\"\")",
+            "else:",
+            "print(\"\\\"If thou wilt not pay, I cannot heal thee.\\\"\")",
             "jump 1419",
             "endif"
         ],
         "2143": [
             "if less(integer(value 20), byte 40):",
-            "print(\"\"I'm sorry. Without an offering I cannot heal thee.\"\")",
+            "print(\"\\\"I'm sorry. Without an offering I cannot heal thee.\\\"\")",
             "jump 134",
-            "ELSE",
-            "print(\"\"Thou art poor, but thy cause is just.\"\")",
+            "else:",
+            "print(\"\\\"Thou art poor, but thy cause is just.\\\"\")",
             "wait()",
-            "print(\"\n\n\"I will cure thee without payment.\"\")",
+            "print(\"\\n\\n\\\"I will cure thee without payment.\\\"\")",
             "wait()",
-            "print(\"\n\nLaying hands upon $Y, Tiberius removes the poison.\")",
+            "print(\"\\n\\nLaying hands upon $Y, Tiberius removes the poison.\")",
             [
                 "CURE",
                 [
@@ -465,25 +465,25 @@
                     ]
                 ]
             ],
-            "print(\"\"I see that $Y carries a parted friend.\"\")",
+            "print(\"\\\"I see that $Y carries a parted friend.\\\"\")",
             "wait()",
-            "print(\"\n\n\")"
+            "print(\"\\n\\n\")"
         ],
         "2395": [
             "if notEquals(integer(value 32), byte 144):",
-            "print(\"\"Come to my shop when I'm open!\"\")",
+            "print(\"\\\"Come to my shop when I'm open!\\\"\")",
             "jump 134",
             "endif",
-            "print(\"\"Wilt thou make an offering of 400 gold?\" \")",
+            "print(\"\\\"Wilt thou make an offering of 400 gold?\\\" \")",
             "askc(\"yn\")",
             "case \"y\":",
             "if less(objectsCount(integer(value 0), byte 88), word 400):",
             "jump 2574",
-            "ELSE",
+            "else:",
             "jump 2974",
             "endif",
             "case \"n\":",
-            "print(\"\"Then there is naught I can do save grieve with thee.\"\")",
+            "print(\"\\\"Then there is naught I can do save grieve with thee.\\\"\")",
             "jump 134"
         ],
         "2574": [
@@ -492,11 +492,11 @@
             "integer(value 3) = byte 0",
             "integer(value 4) = byte 0",
             "if greater(integer(value 3), integer(value 23)):",
-            "print(\"\"That ain't enough money.\"\")",
+            "print(\"\\\"That ain't enough money.\\\"\")",
             "wait()",
-            "print(\"\n\n\"Thou art #1 gold piece\\s short.\"\")",
+            "print(\"\\n\\n\\\"Thou art #1 gold piece\\\\s short.\\\"\")",
             "wait()",
-            "print(\"\n\n\"Go see a gravedigger. I'll reckon his price'll be lower.\"\")",
+            "print(\"\\n\\n\\\"Go see a gravedigger. I'll reckon his price'll be lower.\\\"\")",
             "jump 134",
             "endif",
             "integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)",
@@ -505,7 +505,7 @@
             "integer(value 2) = plus(integer(value 2), integer(value 5))",
             "integer(value 3) = plus(integer(value 3), byte 1)",
             "jump 2603",
-            "ELSE",
+            "else:",
             "print(\"Your party takes up a collection for their fallen comrade.\")",
             "integer(value 1) = word 400",
             "integer(value 2) = byte 0",
@@ -555,7 +555,7 @@
                 ]
             ],
             "wait()",
-            "print(\"\n\n\")",
+            "print(\"\\n\\n\")",
             "jump 2974",
             "endif",
             "integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)",
@@ -604,11 +604,11 @@
         "2974": [
             "print(\"Tiberius lays hands upon the corpse...\")",
             "wait()",
-            "print(\"\n\n\"Doman...\"\")",
+            "print(\"\\n\\n\\\"Doman...\\\"\")",
             "wait()",
-            "print(\"\n\n\"thixus...\"\")",
+            "print(\"\\n\\n\\\"thixus...\\\"\")",
             "wait()",
-            "print(\"\n\n\"anretu!\"\")",
+            "print(\"\\n\\n\\\"anretu!\\\"\")",
             [
                 "RESURRECT",
                 [
@@ -622,7 +622,7 @@
                 ]
             ],
             "wait()",
-            "print(\"\n\nAnd the dead live again!\")",
+            "print(\"\\n\\nAnd the dead live again!\")",
             "integer(value 0) = partyHasObject(word 339, byte 0)",
             "if notEquals(integer(value 0), word 32769):",
             [
@@ -638,11 +638,11 @@
                 ]
             ],
             "wait()",
-            "print(\"\n\n\"I see that $Y carries another slain friend.\"\")",
+            "print(\"\\n\\n\\\"I see that $Y carries another slain friend.\\\"\")",
             "wait()",
-            "print(\"\n\n\")",
+            "print(\"\\n\\n\")",
             "jump 2395",
-            "ELSE",
+            "else:",
             "jump 134",
             "endif"
         ]

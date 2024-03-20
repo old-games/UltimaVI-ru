@@ -7,15 +7,15 @@
     "description": [
         "print(\"a well-dressed man with a very even temper.\")",
         "wait()",
-        "print(\"\n\")"
+        "print(\"\\n\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "55": [
             "if hasBit(byte 235, value 0):",
-            "print(\"\"Good $T, friend\")",
-            "ELSE",
-            "print(\"\"Greetings, traveler\")",
+            "print(\"\\\"Good $T, friend\")",
+            "else:",
+            "print(\"\\\"Greetings, traveler\")",
             "endif",
             "if integer(value 23):",
             "print(\"s\")",
@@ -23,7 +23,7 @@
             "print(\", and welcome \")",
             "if hasBit(byte 235, value 0):",
             "print(\"back \")",
-            "ELSE",
+            "else:",
             [
                 "SETF",
                 [
@@ -36,10 +36,10 @@
                 ]
             ],
             "endif",
-            "print(\"to the Wayfarer's @Inn!\"\n\")",
+            "print(\"to the Wayfarer's @Inn!\\\"\\n\")",
             "ask()",
             "case \"name\":",
-            "print(\"\"I am Peyton, and this is my place.\" He gestures with his hands.\n\")",
+            "print(\"\\\"I am Peyton, and this is my place.\\\" He gestures with his hands.\\n\")",
             [
                 "SETF",
                 [
@@ -53,29 +53,29 @@
             ],
             "jump 163",
             "case \"peyt\":",
-            "print(\"\"Did you need something?\"\n\")",
+            "print(\"\\\"Did you need something?\\\"\\n\")",
             "jump 163",
             "case \"job\":",
-            "print(\"\"I can offer you a @room for the evening.\"\n\")",
+            "print(\"\\\"I can offer you a @room for the evening.\\\"\\n\")",
             "jump 163",
             "case \"room,inn\":",
             "jump 439",
             "case \"bye\":",
-            "print(\"\"Goodbye. Take care of yourself.\"\n\")",
+            "print(\"\\\"Goodbye. Take care of yourself.\\\"\\n\")",
             "BYE",
             "case \"*\":",
-            "print(\"\"I'm sure you'll have to ask another.\"\n\")",
+            "print(\"\\\"I'm sure you'll have to ask another.\\\"\\n\")",
             "ESAC",
             "jump 163"
         ],
         "439": [
             "integer(value 0) = multiply(plus(integer(value 24), byte 1), byte 8)",
-            "print(\"\"#0 gold for bed and breakfast. Interested?\" \")",
+            "print(\"\\\"#0 gold for bed and breakfast. Interested?\\\" \")",
             "askc(\"yn\")",
             "case \"y\":",
             "if less(objectsCount(byte 1, byte 88), integer(value 0)):",
             "jump 713",
-            "ELSE",
+            "else:",
             [
                 "DELETE",
                 [
@@ -103,21 +103,21 @@
             "jump 589",
             "endif",
             "case \"n\":",
-            "print(\"\"Well, perhaps next time you're in town.\"\n\")",
+            "print(\"\\\"Well, perhaps next time you're in town.\\\"\\n\")",
             "jump 163"
         ],
         "589": [
-            "print(\"You sleep in a comfortable bed...\n\")",
+            "print(\"You sleep in a comfortable bed...\\n\")",
             "SLEEP",
             "wait()",
-            "print(\"\nYou wake rested and eat a large breakfast.\")",
+            "print(\"\\nYou wake rested and eat a large breakfast.\")",
             "wait()",
-            "print(\"\n\n\"Good morning, and have a good day.\"\n\")",
+            "print(\"\\n\\n\\\"Good morning, and have a good day.\\\"\\n\")",
             "jump 163"
         ],
         "713": [
             "if equals(integer(value 24), byte 0):",
-            "print(\"You don't have enough gold for that.\n\")",
+            "print(\"You don't have enough gold for that.\\n\")",
             "jump 163",
             "endif",
             "integer(value 1) = integer(value 0)",
@@ -125,7 +125,7 @@
             "integer(value 6) = byte 0",
             "integer(value 4) = byte 0",
             "if greater(integer(value 6), integer(value 24)):",
-            "print(\"\"I'm sorry, cash in advance. That's our policy.\"\n\")",
+            "print(\"\\\"I'm sorry, cash in advance. That's our policy.\\\"\\n\")",
             "jump 163",
             "endif",
             "integer(value 5) = objectsCount(character(integer(value 6), byte 1), byte 88)",
@@ -134,7 +134,7 @@
             "integer(value 2) = plus(integer(value 2), integer(value 5))",
             "integer(value 6) = plus(integer(value 6), byte 1)",
             "jump 791",
-            "ELSE",
+            "else:",
             "print(\"Your party takes up a collection to pay for the rooms.\")",
             "integer(value 1) = integer(value 0)",
             "integer(value 2) = byte 0",
@@ -184,7 +184,7 @@
                 ]
             ],
             "wait()",
-            "print(\"\n\n\")",
+            "print(\"\\n\\n\")",
             "jump 589",
             "endif",
             "integer(value 5) = objectsCount(character(integer(value 6), byte 1), byte 88)",

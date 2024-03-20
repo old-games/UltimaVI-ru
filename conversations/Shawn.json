@@ -7,19 +7,19 @@
     "description": [
         "print(\"a charismatic man with an engaging smile.\")",
         "wait()",
-        "print(\"\n\")"
+        "print(\"\\n\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "52": [
             "if hasBit(byte 235, value 0):",
-            "print(\"\"Welcome back, stranger.\" He winks at you.\n\")",
-            "ELSE",
-            "print(\"\"Welcome.\" He makes a sweeping gesture with his hat.\n\")",
+            "print(\"\\\"Welcome back, stranger.\\\" He winks at you.\\n\")",
+            "else:",
+            "print(\"\\\"Welcome.\\\" He makes a sweeping gesture with his hat.\\n\")",
             "endif",
             "ask()",
             "case \"name\":",
-            "print(\"\"Shawn, friend.\"\n\")",
+            "print(\"\\\"Shawn, friend.\\\"\\n\")",
             [
                 "SETF",
                 [
@@ -33,10 +33,10 @@
             ],
             "jump 156",
             "case \"buy\":",
-            "print(\"\"Which: @ham, @ale, @mead, @wine, or @rations?\"\n\")",
+            "print(\"\\\"Which: @ham, @ale, @mead, @wine, or @rations?\\\"\\n\")",
             "jump 156",
             "case \"job\":",
-            "print(\"\"I sell @ham, @ale, @mead, @wine, and @rations.\"\n\")",
+            "print(\"\\\"I sell @ham, @ale, @mead, @wine, and @rations.\\\"\\n\")",
             "jump 156",
             "case \"ham\":",
             "jump 1018",
@@ -52,13 +52,13 @@
             "case \"rati\":",
             "jump 1471",
             "case \"shaw\":",
-            "print(\"\"That's it.\"\n\")",
+            "print(\"\\\"That's it.\\\"\\n\")",
             "jump 156",
             "case \"bye\":",
-            "print(\"\"I'm glad you stopped by.\" He gives you a firm handshake.\n\")",
+            "print(\"\\\"I'm glad you stopped by.\\\" He gives you a firm handshake.\\n\")",
             "BYE",
             "case \"*\":",
-            "print(\"\"I'm sorry. Perhaps you could ask someone else.\"\n\")",
+            "print(\"\\\"I'm sorry. Perhaps you could ask someone else.\\\"\\n\")",
             "ESAC",
             "jump 156"
         ],
@@ -90,19 +90,19 @@
                     ]
                 ]
             ],
-            "print(\"#2. $Y\n\")",
+            "print(\"#2. $Y\\n\")",
             "integer(value 0) = plus(integer(value 0), byte 1)",
             "integer(value 2) = plus(integer(value 2), byte 1)",
             "if lessOrEquals(integer(value 0), integer(value 23)):",
             "jump 565",
             "endif",
-            "print(\"\"Which of you?\" \")",
+            "print(\"\\\"Which of you?\\\" \")",
             [
                 "INPUTNUM",
                 3
             ],
             "if equals(integer(value 3), byte 0):",
-            "print(\"\"Very well...\"\n\")",
+            "print(\"\\\"Very well...\\\"\\n\")",
             "jump 156",
             "endif",
             "integer(value 3) = minus(integer(value 3), byte 1)",
@@ -123,17 +123,17 @@
                 ]
             ],
             "integer(value 1) = data(dword 2217, integer(value 4))",
-            "print(\"$N smiles at $Y and says, \"That will cost you #1 gold. Interested?\" \")",
+            "print(\"$N smiles at $Y and says, \\\"That will cost you #1 gold. Interested?\\\" \")",
             "askc(\"yn\")",
             "case \"y\":",
             "jump 812",
             "case \"n\":",
-            "print(\"\"Very well...\"\n\")",
+            "print(\"\\\"Very well...\\\"\\n\")",
             "jump 156"
         ],
         "812": [
             "if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 2223, integer(value 4)), byte 1)):",
-            "print(\"\"You can't carry it, $Y.\"\n\")",
+            "print(\"\\\"You can't carry it, $Y.\\\"\\n\")",
             "jump 156",
             "endif",
             "if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):",
@@ -204,10 +204,10 @@
                     1
                 ]
             ],
-            "print(\"\"Fine!\" After accepting $Y's gold, $N hands over the purchase.\n\")",
+            "print(\"\\\"Fine!\\\" After accepting $Y's gold, $N hands over the purchase.\\n\")",
             "jump 156",
-            "ELSE",
-            "print(\"\"You don't have enough gold, $Y.\"\n\")",
+            "else:",
+            "print(\"\\\"You don't have enough gold, $Y.\\\"\\n\")",
             "jump 156",
             "endif"
         ],
@@ -239,19 +239,19 @@
                     ]
                 ]
             ],
-            "print(\"#2. $Y\n\")",
+            "print(\"#2. $Y\\n\")",
             "integer(value 0) = plus(integer(value 0), byte 1)",
             "integer(value 2) = plus(integer(value 2), byte 1)",
             "if lessOrEquals(integer(value 0), integer(value 23)):",
             "jump 1055",
             "endif",
-            "print(\"\"Which of you?\" \")",
+            "print(\"\\\"Which of you?\\\" \")",
             [
                 "INPUTNUM",
                 3
             ],
             "if equals(integer(value 3), byte 0):",
-            "print(\"\"Very well...\"\n\")",
+            "print(\"\\\"Very well...\\\"\\n\")",
             "jump 156",
             "endif",
             "integer(value 3) = minus(integer(value 3), byte 1)",
@@ -271,11 +271,11 @@
                     ]
                 ]
             ],
-            "print(\"\"It'll cost you 5 gold for the ham. Interested?\" \")",
+            "print(\"\\\"It'll cost you 5 gold for the ham. Interested?\\\" \")",
             "askc(\"yn\")",
             "case \"y\":",
             "if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 5)), weight(byte 133, byte 1)):",
-            "print(\"\"You can't carry it, $Y.\"\n\")",
+            "print(\"\\\"You can't carry it, $Y.\\\"\\n\")",
             "jump 156",
             "endif",
             "if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 5):",
@@ -327,14 +327,14 @@
                     1
                 ]
             ],
-            "print(\"\"Excellent!\" After accepting the gold, $N serves $Y the ham.\n\")",
+            "print(\"\\\"Excellent!\\\" After accepting the gold, $N serves $Y the ham.\\n\")",
             "jump 156",
-            "ELSE",
-            "print(\"\"How were you looking to pay for the meal? Eh?\"\n\")",
+            "else:",
+            "print(\"\\\"How were you looking to pay for the meal? Eh?\\\"\\n\")",
             "jump 156",
             "endif",
             "case \"n\":",
-            "print(\"\"Very well...\"\n\")",
+            "print(\"\\\"Very well...\\\"\\n\")",
             "jump 156"
         ],
         "1471": [
@@ -365,19 +365,19 @@
                     ]
                 ]
             ],
-            "print(\"#1. $Y\n\")",
+            "print(\"#1. $Y\\n\")",
             "integer(value 0) = plus(integer(value 0), byte 1)",
             "integer(value 1) = plus(integer(value 1), byte 1)",
             "if lessOrEquals(integer(value 0), integer(value 23)):",
             "jump 1508",
             "endif",
-            "print(\"\"Which of you?\" \")",
+            "print(\"\\\"Which of you?\\\" \")",
             [
                 "INPUTNUM",
                 3
             ],
             "if equals(integer(value 3), byte 0):",
-            "print(\"\"Very well...\"\n\")",
+            "print(\"\\\"Very well...\\\"\\n\")",
             "jump 156",
             "endif",
             "integer(value 3) = minus(integer(value 3), byte 1)",
@@ -401,19 +401,19 @@
             "integer(value 5) = byte 1",
             "jump 1899",
             "endif",
-            "print(\"$N looks at $Y and says, \"It'll cost you 4 gold for each ration. How many do you want?\" \")",
+            "print(\"$N looks at $Y and says, \\\"It'll cost you 4 gold for each ration. How many do you want?\\\" \")",
             [
                 "INPUT",
                 5
             ],
             "if greater(integer(value 5), byte 100):",
-            "print(\"\"Come now, that's a little much, don't you think?\"\")",
+            "print(\"\\\"Come now, that's a little much, don't you think?\\\"\")",
             "wait()",
-            "print(\"\n\n\")",
+            "print(\"\\n\\n\")",
             "jump 1678",
             "endif",
             "if equals(integer(value 5), byte 0):",
-            "print(\"$N frowns at $Y and says, \"That was a good price.\"\n\")",
+            "print(\"$N frowns at $Y and says, \\\"That was a good price.\\\"\\n\")",
             "jump 156",
             "endif",
             "integer(value 2) = integer(value 5)",
@@ -437,11 +437,11 @@
             "jump 1920",
             "endif",
             "if equals(integer(value 1), byte 1):",
-            "print(\"\"You haven't any room in your pack, $Y.\"\n\")",
+            "print(\"\\\"You haven't any room in your pack, $Y.\\\"\\n\")",
             "jump 156",
             "endif",
             "if equals(integer(value 1), byte 2):",
-            "print(\"\"Mutton rations cost more gold than you have, $Y.\"\n\")",
+            "print(\"\\\"Mutton rations cost more gold than you have, $Y.\\\"\\n\")",
             "jump 156",
             "endif"
         ],
@@ -513,9 +513,9 @@
                     ]
                 ]
             ],
-            "print(\"He hands $Y #2 mutton ration\\s.\")",
+            "print(\"He hands $Y #2 mutton ration\\\\s.\")",
             "wait()",
-            "print(\"\n\n\")",
+            "print(\"\\n\\n\")",
             [
                 "DPRINT",
                 [
@@ -534,7 +534,7 @@
                     ]
                 ]
             ],
-            "print(\"\n\")",
+            "print(\"\\n\")",
             "jump 156"
         ],
         "2217": [

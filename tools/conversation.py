@@ -392,6 +392,8 @@ def _expand_instructions(original_label, instructions, labels):
 
 
 def _format_instructions(instructions):
+    escaping = str.maketrans({'\\': '\\\\', '"': '\\"', '\n': '\\n'})
+
     result = []
     for instruction in instructions:
         # FIXME string escaping
@@ -400,16 +402,16 @@ def _format_instructions(instructions):
 
         # FIXME rename
         elif instruction[0] == 'ASKC':
-            result.append(f'askc("{instruction[1]}")')
+            result.append(f'askc("{instruction[1].translate(escaping)}")')
 
         elif instruction[0] == 'PRINT':
-            result.append(f'print("{instruction[1]}")')
+            result.append(f'print("{instruction[1].translate(escaping)}")')
 
         elif instruction == 'ASK':
             result.append(f'ask()')
 
         elif instruction[0] == 'CASE':
-            result.append(f'case "{instruction[1]}":')
+            result.append(f'case "{instruction[1].translate(escaping)}":')
 
         elif instruction[0] == 'ASSIGN':
             result.append(f'{_format_expression(instruction[1])} = {_format_expression(instruction[2])}')
@@ -420,7 +422,7 @@ def _format_instructions(instructions):
         elif instruction == 'WAIT':
             result.append('wait()')
 
-        elif instruction == 'else':
+        elif instruction == 'ELSE':
             result.append('else:')
 
         elif instruction[0] == 'JUMP':
