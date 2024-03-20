@@ -15,19 +15,17 @@
             "\n\n\"Yes, what do you want",
             [
                 "IF",
-                "byte 235, 0, flag",
-                [
-                    " now?\""
-                ],
-                [
-                    "?\"",
-                    [
-                        "SETF",
-                        "byte 235",
-                        "0"
-                    ]
-                ]
+                "byte 235, 0, flag"
             ],
+            " now?\"",
+            "ELSE",
+            "?\"",
+            [
+                "SETF",
+                "byte 235",
+                "0"
+            ],
+            "ENDIF",
             "\n",
             "ASK",
             [
@@ -217,28 +215,26 @@
         "1226": [
             [
                 "IF",
-                "byte 0, byte 0, character, byte 88, countObj, byte 5, less",
-                [
-                    "\"No pay, no stay. 5 gold, cash in advance.\"",
-                    [
-                        "JUMP",
-                        173
-                    ]
-                ],
-                [
-                    [
-                        "DELETE",
-                        "byte 0, byte 0, character",
-                        "byte 88",
-                        "byte 0",
-                        "byte 5"
-                    ],
-                    [
-                        "JUMP",
-                        1647
-                    ]
-                ]
-            ]
+                "byte 0, byte 0, character, byte 88, countObj, byte 5, less"
+            ],
+            "\"No pay, no stay. 5 gold, cash in advance.\"",
+            [
+                "JUMP",
+                173
+            ],
+            "ELSE",
+            [
+                "DELETE",
+                "byte 0, byte 0, character",
+                "byte 88",
+                "byte 0",
+                "byte 5"
+            ],
+            [
+                "JUMP",
+                1647
+            ],
+            "ENDIF"
         ],
         "1310": [
             [
@@ -258,18 +254,16 @@
             ],
             [
                 "IF",
-                "3, integer, 23, integer, greater",
-                [
-                    "\"No pay, no stay.\"",
-                    "WAIT",
-                    "\n\n\"#1 gold for the lot of you, cash in advance.\"",
-                    [
-                        "JUMP",
-                        173
-                    ]
-                ],
-                []
+                "3, integer, 23, integer, greater"
             ],
+            "\"No pay, no stay.\"",
+            "WAIT",
+            "\n\n\"#1 gold for the lot of you, cash in advance.\"",
+            [
+                "JUMP",
+                173
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "5, integer",
@@ -277,78 +271,74 @@
             ],
             [
                 "IF",
-                "5, integer, 1, integer, less",
-                [
-                    [
-                        "ASSIGN",
-                        "1, integer",
-                        "1, integer, 5, integer, minus"
-                    ],
-                    [
-                        "ASSIGN",
-                        "2, integer",
-                        "2, integer, 5, integer, plus"
-                    ],
-                    [
-                        "ASSIGN",
-                        "3, integer",
-                        "3, integer, byte 1, plus"
-                    ],
-                    [
-                        "JUMP",
-                        1331
-                    ]
-                ],
-                [
-                    "Your party takes up a collection to pay for the rooms.",
-                    [
-                        "ASSIGN",
-                        "1, integer",
-                        "23, integer, byte 1, plus, byte 5, multiply"
-                    ],
-                    [
-                        "ASSIGN",
-                        "2, integer",
-                        "byte 0"
-                    ],
-                    [
-                        "ASSIGN",
-                        "4, integer",
-                        "3, integer"
-                    ],
-                    [
-                        "ASSIGN",
-                        "3, integer",
-                        "byte 0"
-                    ],
-                    [
-                        "JUMP",
-                        1561
-                    ]
-                ]
-            ]
+                "5, integer, 1, integer, less"
+            ],
+            [
+                "ASSIGN",
+                "1, integer",
+                "1, integer, 5, integer, minus"
+            ],
+            [
+                "ASSIGN",
+                "2, integer",
+                "2, integer, 5, integer, plus"
+            ],
+            [
+                "ASSIGN",
+                "3, integer",
+                "3, integer, byte 1, plus"
+            ],
+            [
+                "JUMP",
+                1331
+            ],
+            "ELSE",
+            "Your party takes up a collection to pay for the rooms.",
+            [
+                "ASSIGN",
+                "1, integer",
+                "23, integer, byte 1, plus, byte 5, multiply"
+            ],
+            [
+                "ASSIGN",
+                "2, integer",
+                "byte 0"
+            ],
+            [
+                "ASSIGN",
+                "4, integer",
+                "3, integer"
+            ],
+            [
+                "ASSIGN",
+                "3, integer",
+                "byte 0"
+            ],
+            [
+                "JUMP",
+                1561
+            ],
+            "ENDIF"
         ],
         "1561": [
             [
                 "IF",
-                "3, integer, 4, integer, equals",
-                [
-                    [
-                        "DELETE",
-                        "3, integer, byte 0, character",
-                        "byte 88",
-                        "byte 0",
-                        "1, integer"
-                    ],
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        1647
-                    ]
-                ],
-                []
+                "3, integer, 4, integer, equals"
             ],
+            [
+                "DELETE",
+                "3, integer, byte 0, character",
+                "byte 88",
+                "byte 0",
+                "1, integer"
+            ],
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                1647
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "5, integer",

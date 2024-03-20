@@ -17,14 +17,12 @@
             ],
             [
                 "IF",
-                "byte 235, isInParty",
-                [
-                    "\"Is there something you needed to know?\""
-                ],
-                [
-                    "\"Hello, $P.\""
-                ]
+                "byte 235, isInParty"
             ],
+            "\"Is there something you needed to know?\"",
+            "ELSE",
+            "\"Hello, $P.\"",
+            "ENDIF",
             "\n",
             "ASK",
             [
@@ -263,16 +261,14 @@
         "1689": [
             [
                 "IF",
-                "byte 235, isInParty",
-                [
-                    "\"I have joined you already!\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ],
-                []
+                "byte 235, isInParty"
             ],
+            "\"I have joined you already!\"",
+            [
+                "JUMP",
+                100
+            ],
+            "ENDIF",
             "\"Do you want me to come with you?\" ",
             [
                 "ASKC",
@@ -296,65 +292,55 @@
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals",
-                [
-                    "\n\"Not while you're in that thing!\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ],
-                []
+                "0, integer, byte 1, equals"
             ],
+            "\n\"Not while you're in that thing!\"",
+            [
+                "JUMP",
+                100
+            ],
+            "ENDIF",
             [
                 "IF",
-                "0, integer, byte 2, equals",
-                [
-                    "\n\"You have enough travelling with you already.\"\n*\n\"If you ask one of them to @leave first, I'd be happy to join you.\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ],
-                []
+                "0, integer, byte 2, equals"
             ],
+            "\n\"You have enough travelling with you already.\"\n*\n\"If you ask one of them to @leave first, I'd be happy to join you.\"",
+            [
+                "JUMP",
+                100
+            ],
+            "ENDIF",
             [
                 "IF",
-                "0, integer, byte 3, equals",
-                [
-                    [
-                        "JUMP",
-                        1694
-                    ]
-                ],
-                []
+                "0, integer, byte 3, equals"
             ],
+            [
+                "JUMP",
+                1694
+            ],
+            "ENDIF",
             "\n\"Okay! It will be nice to spend some time on the road again.\"",
             [
                 "IF",
-                "byte 4, isInParty",
-                [
-                    "WAIT",
-                    "\n\nShe runs over and hooks arms with @Iolo, and they dance around and around.\n*\nThey're obviously very happy to see each other again."
-                ],
-                []
+                "byte 4, isInParty"
             ],
+            "WAIT",
+            "\n\nShe runs over and hooks arms with @Iolo, and they dance around and around.\n*\nThey're obviously very happy to see each other again.",
+            "ENDIF",
             "\n",
             "BYE"
         ],
         "2222": [
             [
                 "IF",
-                "byte 235, isInParty, byte 0, equals",
-                [
-                    "\"I'd have to @join you before I could leave, silly!\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ],
-                []
+                "byte 235, isInParty, byte 0, equals"
             ],
+            "\"I'd have to @join you before I could leave, silly!\"",
+            [
+                "JUMP",
+                100
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "0, integer",
@@ -362,37 +348,31 @@
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals",
-                [
-                    "\"Let's get our feet back on solid ground first, okay?\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ],
-                []
+                "0, integer, byte 1, equals"
             ],
+            "\"Let's get our feet back on solid ground first, okay?\"",
+            [
+                "JUMP",
+                100
+            ],
+            "ENDIF",
             [
                 "IF",
-                "0, integer, byte 2, equals",
-                [
-                    [
-                        "JUMP",
-                        2230
-                    ]
-                ],
-                []
+                "0, integer, byte 2, equals"
             ],
+            [
+                "JUMP",
+                2230
+            ],
+            "ENDIF",
             "\"All right. I'll head back home to Minoc. Come let me know if you need me to join you again later.\"\n*\n\"I'll leave all my things here - some of them might come in handy for you.\"",
             [
                 "IF",
-                "byte 4, isInParty",
-                [
-                    "WAIT",
-                    "\n\nShe gives Iolo a big hug before she leaves.\n*\n\"Remember to keep your socks dry,\" she says, \"and I'll see you when the quest is done.\""
-                ],
-                []
+                "byte 4, isInParty"
             ],
+            "WAIT",
+            "\n\nShe gives Iolo a big hug before she leaves.\n*\n\"Remember to keep your socks dry,\" she says, \"and I'll see you when the quest is done.\"",
+            "ENDIF",
             "\n",
             "BYE"
         ]

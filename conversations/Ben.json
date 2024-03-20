@@ -14,27 +14,23 @@
         "63": [
             [
                 "IF",
-                "32, integer, byte 143, equals",
-                [
-                    [
-                        "JUMP",
-                        226
-                    ]
-                ],
-                []
+                "32, integer, byte 143, equals"
             ],
             [
-                "IF",
-                "byte 235, 0, flag, byte 235, 1, flag, byte 0, equals, and",
-                [
-                    "\"You're welcome here.\"",
-                    [
-                        "JUMP",
-                        495
-                    ]
-                ],
-                []
+                "JUMP",
+                226
             ],
+            "ENDIF",
+            [
+                "IF",
+                "byte 235, 0, flag, byte 235, 1, flag, byte 0, equals, and"
+            ],
+            "\"You're welcome here.\"",
+            [
+                "JUMP",
+                495
+            ],
+            "ENDIF",
             "\"Why you bargin' inta my house?\" he shouts.",
             [
                 "SETF",
@@ -48,46 +44,40 @@
         "226": [
             [
                 "IF",
-                "byte 235, 1, flag",
-                [
-                    "\"Hah, sneakin' around in my @forest, huh?\"",
-                    "WAIT",
-                    "\n\n"
-                ],
-                []
+                "byte 235, 1, flag"
             ],
+            "\"Hah, sneakin' around in my @forest, huh?\"",
+            "WAIT",
+            "\n\n",
+            "ENDIF",
             [
                 "IF",
-                "byte 235, 0, flag, byte 0, equals",
-                [
-                    "\"I told the last one of ya that came by that I'll have nothin' t'do with yer @wars, so shove off!\"",
-                    [
-                        "SETF",
-                        "byte 235",
-                        "0"
-                    ],
-                    [
-                        "SETF",
-                        "byte 235",
-                        "1"
-                    ],
-                    [
-                        "JUMP",
-                        495
-                    ]
-                ],
-                []
+                "byte 235, 0, flag, byte 0, equals"
+            ],
+            "\"I told the last one of ya that came by that I'll have nothin' t'do with yer @wars, so shove off!\"",
+            [
+                "SETF",
+                "byte 235",
+                "0"
             ],
             [
-                "IF",
-                "byte 235, 1, flag",
-                [
-                    "\n\n\"I told ya once already that I want to be left @alone!\""
-                ],
-                [
-                    "\"Hullo again, friend.\""
-                ]
+                "SETF",
+                "byte 235",
+                "1"
             ],
+            [
+                "JUMP",
+                495
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "byte 235, 1, flag"
+            ],
+            "\n\n\"I told ya once already that I want to be left @alone!\"",
+            "ELSE",
+            "\"Hullo again, friend.\"",
+            "ENDIF",
             [
                 "JUMP",
                 495
@@ -365,20 +355,18 @@
             "#0) $Y\n",
             [
                 "IF",
-                "0, integer, 23, integer, lessOrEquals",
-                [
-                    [
-                        "ASSIGN",
-                        "0, integer",
-                        "0, integer, byte 1, plus"
-                    ],
-                    [
-                        "JUMP",
-                        1833
-                    ]
-                ],
-                []
+                "0, integer, 23, integer, lessOrEquals"
             ],
+            [
+                "ASSIGN",
+                "0, integer",
+                "0, integer, byte 1, plus"
+            ],
+            [
+                "JUMP",
+                1833
+            ],
+            "ENDIF",
             "\"Who wants it?\" ",
             [
                 "INPUTNUM",
@@ -386,16 +374,14 @@
             ],
             [
                 "IF",
-                "2, integer, byte 0, equals",
-                [
-                    "\"Well, why'd ya say you wanted one?\"",
-                    [
-                        "JUMP",
-                        495
-                    ]
-                ],
-                []
+                "2, integer, byte 0, equals"
             ],
+            "\"Well, why'd ya say you wanted one?\"",
+            [
+                "JUMP",
+                495
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "2, integer",
@@ -403,20 +389,18 @@
             ],
             [
                 "IF",
-                "2, integer, 23, integer, greater",
-                [
-                    [
-                        "ASSIGN",
-                        "0, integer",
-                        "byte 1"
-                    ],
-                    [
-                        "JUMP",
-                        1833
-                    ]
-                ],
-                []
+                "2, integer, 23, integer, greater"
             ],
+            [
+                "ASSIGN",
+                "0, integer",
+                "byte 1"
+            ],
+            [
+                "JUMP",
+                1833
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "3, integer",
@@ -428,28 +412,24 @@
             ],
             [
                 "IF",
-                "3, integer, canCarry, byte 88, byte 5, weight, plus, word 274, byte 1, weight, less",
-                [
-                    "\"But $Y can't carry a log!\"",
-                    [
-                        "JUMP",
-                        495
-                    ]
-                ],
-                []
+                "3, integer, canCarry, byte 88, byte 5, weight, plus, word 274, byte 1, weight, less"
             ],
+            "\"But $Y can't carry a log!\"",
+            [
+                "JUMP",
+                495
+            ],
+            "ENDIF",
             [
                 "IF",
-                "3, integer, byte 88, countObj, byte 5, less",
-                [
-                    "\"But $Y don't have 5 gold!\"",
-                    [
-                        "JUMP",
-                        495
-                    ]
-                ],
-                []
+                "3, integer, byte 88, countObj, byte 5, less"
             ],
+            "\"But $Y don't have 5 gold!\"",
+            [
+                "JUMP",
+                495
+            ],
+            "ENDIF",
             "\"Logs is 5 gold apiece. Ya still want one?\" ",
             [
                 "ASKC",

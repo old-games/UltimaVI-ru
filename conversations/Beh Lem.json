@@ -13,32 +13,28 @@
             "WAIT",
             [
                 "IF",
-                "byte 235, isInParty",
-                [
-                    "\n\"To ask how I can help, mighty $P,\" Beh Lem asks.",
-                    [
-                        "JUMP",
-                        1027
-                    ]
-                ],
-                []
+                "byte 235, isInParty"
             ],
+            "\n\"To ask how I can help, mighty $P,\" Beh Lem asks.",
+            [
+                "JUMP",
+                1027
+            ],
+            "ENDIF",
             [
                 "IF",
-                "21, integer",
-                [
-                    [
-                        "ASSIGN",
-                        "9, integer",
-                        "byte 0"
-                    ],
-                    [
-                        "JUMP",
-                        888
-                    ]
-                ],
-                []
+                "21, integer"
             ],
+            [
+                "ASSIGN",
+                "9, integer",
+                "byte 0"
+            ],
+            [
+                "JUMP",
+                888
+            ],
+            "ENDIF",
             "\nThe gargoyle greets you enthusiastically, but you can't understand him!",
             "WAIT",
             "\n\nSeeing your confusion, he switches to the human language. It's obviously a strain for him.",
@@ -56,59 +52,53 @@
             ],
             [
                 "IF",
-                "0, integer, byte 5, less",
-                [
-                    [
-                        "JUMP",
-                        576
-                    ]
-                ],
-                []
+                "0, integer, byte 5, less"
             ],
+            [
+                "JUMP",
+                576
+            ],
+            "ENDIF",
             "WAIT",
             [
                 "IF",
-                "byte 2, isInParty",
-                [
-                    [
-                        "PORTRAIT",
-                        "byte 2"
-                    ],
-                    [
-                        "SETNAME",
-                        "byte 2"
-                    ],
-                    [
-                        "JUMP",
-                        396
-                    ]
-                ],
-                []
+                "byte 2, isInParty"
             ],
             [
+                "PORTRAIT",
+                "byte 2"
+            ],
+            [
+                "SETNAME",
+                "byte 2"
+            ],
+            [
+                "JUMP",
+                396
+            ],
+            "ENDIF",
+            [
                 "IF",
-                "byte 4, isInParty",
-                [
-                    [
-                        "PORTRAIT",
-                        "byte 4"
-                    ],
-                    [
-                        "SETNAME",
-                        "byte 4"
-                    ],
-                    [
-                        "JUMP",
-                        396
-                    ]
-                ],
-                [
-                    [
-                        "JUMP",
-                        576
-                    ]
-                ]
-            ]
+                "byte 4, isInParty"
+            ],
+            [
+                "PORTRAIT",
+                "byte 4"
+            ],
+            [
+                "SETNAME",
+                "byte 4"
+            ],
+            [
+                "JUMP",
+                396
+            ],
+            "ELSE",
+            [
+                "JUMP",
+                576
+            ],
+            "ENDIF"
         ],
         "396": [
             "\n\n$Y speaks. \"$P, let's away from here.\"",
@@ -214,26 +204,22 @@
             "\n",
             [
                 "IF",
-                "byte 235, 0, flag, byte 0, equals",
-                [
-                    "\"To greet you, human. To recognize you as the False @Prophet!\"",
-                    "WAIT",
-                    [
-                        "JUMP",
-                        1027
-                    ]
-                ],
-                []
+                "byte 235, 0, flag, byte 0, equals"
             ],
+            "\"To greet you, human. To recognize you as the False @Prophet!\"",
+            "WAIT",
+            [
+                "JUMP",
+                1027
+            ],
+            "ENDIF",
             "\"Good $T, my friend",
             [
                 "IF",
-                "23, integer",
-                [
-                    "s"
-                ],
-                []
+                "23, integer"
             ],
+            "s",
+            "ENDIF",
             ". To have met @Valkadesh yet?\"",
             [
                 "JUMP",
@@ -730,15 +716,13 @@
             ],
             [
                 "IF",
-                "7, integer",
-                [
-                    [
-                        "JUMP",
-                        3761
-                    ]
-                ],
-                []
+                "7, integer"
             ],
+            [
+                "JUMP",
+                3761
+            ],
+            "ENDIF",
             "The little gargoyle eagerly joins your group.",
             [
                 "JUMP",
@@ -758,16 +742,14 @@
             ],
             [
                 "IF",
-                "8, integer, byte 2, less",
-                [
-                    "\"To wish very much to join you. But to not have enough room in your party for another.\"",
-                    [
-                        "JUMP",
-                        1027
-                    ]
-                ],
-                []
+                "8, integer, byte 2, less"
             ],
+            "\"To wish very much to join you. But to not have enough room in your party for another.\"",
+            [
+                "JUMP",
+                1027
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "6, integer",
@@ -775,7 +757,20 @@
             ],
             [
                 "IF",
-                "6, integer, byte 4, equals, 6, integer, byte 3, equals, or, 6, integer, byte 2, equals, or",
+                "6, integer, byte 4, equals, 6, integer, byte 3, equals, or, 6, integer, byte 2, equals, or"
+            ],
+            [
+                "ASSIGN",
+                "8, integer",
+                "8, integer, byte 1, minus"
+            ],
+            [
+                "JUMP",
+                3778
+            ],
+            [
+                "IF",
+                "6, integer, leaveParty",
                 [
                     [
                         "ASSIGN",
@@ -785,26 +780,11 @@
                     [
                         "JUMP",
                         3778
-                    ],
-                    [
-                        "IF",
-                        "6, integer, leaveParty",
-                        [
-                            [
-                                "ASSIGN",
-                                "8, integer",
-                                "8, integer, byte 1, minus"
-                            ],
-                            [
-                                "JUMP",
-                                3778
-                            ]
-                        ],
-                        []
                     ]
                 ],
                 []
             ],
+            "ENDIF",
             [
                 "SETNAME",
                 "6, integer"
@@ -816,37 +796,35 @@
             ],
             [
                 "IF",
-                "6, integer, isNearby",
-                [
-                    [
-                        "PORTRAIT",
-                        "6, integer"
-                    ],
-                    "$9 speaks. \"$G, I'll return to the surface and let everyone know of our progress.\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "ASSIGN",
-                        "9, integer",
-                        "byte 0"
-                    ],
-                    [
-                        "JUMP",
-                        4075
-                    ]
-                ],
-                [
-                    [
-                        "ASSIGN",
-                        "9, integer",
-                        "byte 1"
-                    ],
-                    [
-                        "JUMP",
-                        4075
-                    ]
-                ]
-            ]
+                "6, integer, isNearby"
+            ],
+            [
+                "PORTRAIT",
+                "6, integer"
+            ],
+            "$9 speaks. \"$G, I'll return to the surface and let everyone know of our progress.\"",
+            "WAIT",
+            "\n\n",
+            [
+                "ASSIGN",
+                "9, integer",
+                "byte 0"
+            ],
+            [
+                "JUMP",
+                4075
+            ],
+            "ELSE",
+            [
+                "ASSIGN",
+                "9, integer",
+                "byte 1"
+            ],
+            [
+                "JUMP",
+                4075
+            ],
+            "ENDIF"
         ],
         "4075": [
             [
@@ -855,19 +833,17 @@
             ],
             [
                 "IF",
-                "byte 235, joinParty",
-                [
-                    "\"To not be able to join you right now. To ask again later, perhaps.\"\n",
-                    "BYE"
-                ],
-                [
-                    "The little gargoyle eagerly joins your group.",
-                    [
-                        "JUMP",
-                        1027
-                    ]
-                ]
-            ]
+                "byte 235, joinParty"
+            ],
+            "\"To not be able to join you right now. To ask again later, perhaps.\"\n",
+            "BYE",
+            "ELSE",
+            "The little gargoyle eagerly joins your group.",
+            [
+                "JUMP",
+                1027
+            ],
+            "ENDIF"
         ]
     }
 }

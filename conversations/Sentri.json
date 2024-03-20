@@ -12,25 +12,21 @@
         "31": [
             [
                 "IF",
-                "byte 235, isInParty",
-                [
-                    [
-                        "JUMP",
-                        1273
-                    ]
-                ],
-                []
+                "byte 235, isInParty"
             ],
             [
-                "IF",
-                "byte 235, 0, flag",
-                [
-                    "\"Good $T, $P. I hope you have returned to ask me to join you.\""
-                ],
-                [
-                    "\"$P! You have come at last!\""
-                ]
+                "JUMP",
+                1273
             ],
+            "ENDIF",
+            [
+                "IF",
+                "byte 235, 0, flag"
+            ],
+            "\"Good $T, $P. I hope you have returned to ask me to join you.\"",
+            "ELSE",
+            "\"$P! You have come at last!\"",
+            "ENDIF",
             "\n",
             "ASK",
             [
@@ -115,16 +111,14 @@
         "849": [
             [
                 "IF",
-                "byte 235, isInParty",
-                [
-                    "\"I have joined you already!\"",
-                    [
-                        "JUMP",
-                        140
-                    ]
-                ],
-                []
+                "byte 235, isInParty"
             ],
+            "\"I have joined you already!\"",
+            [
+                "JUMP",
+                140
+            ],
+            "ENDIF",
             "\"Shall I join your party?\" ",
             [
                 "ASKC",
@@ -149,39 +143,33 @@
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals",
-                [
-                    "\"It would be best if you got out of that vessel first.\"",
-                    [
-                        "JUMP",
-                        140
-                    ]
-                ],
-                []
+                "0, integer, byte 1, equals"
             ],
+            "\"It would be best if you got out of that vessel first.\"",
+            [
+                "JUMP",
+                140
+            ],
+            "ENDIF",
             [
                 "IF",
-                "0, integer, byte 2, equals",
-                [
-                    "\"You have enough companions now.\"\n*\n\"If you tell one of them to @leave first, then I'll join you.\"",
-                    [
-                        "JUMP",
-                        140
-                    ]
-                ],
-                []
+                "0, integer, byte 2, equals"
             ],
+            "\"You have enough companions now.\"\n*\n\"If you tell one of them to @leave first, then I'll join you.\"",
+            [
+                "JUMP",
+                140
+            ],
+            "ENDIF",
             [
                 "IF",
-                "0, integer, byte 3, equals",
-                [
-                    [
-                        "JUMP",
-                        854
-                    ]
-                ],
-                []
+                "0, integer, byte 3, equals"
             ],
+            [
+                "JUMP",
+                854
+            ],
+            "ENDIF",
             "\"So be it. Now that we are together, surely the realm will be saved.\"\n",
             "BYE"
         ],
@@ -207,16 +195,14 @@
             ],
             [
                 "IF",
-                "0, integer, byte 1, equals",
-                [
-                    "\"Let's get our feet back on solid ground first, okay?\"",
-                    [
-                        "JUMP",
-                        140
-                    ]
-                ],
-                []
+                "0, integer, byte 1, equals"
             ],
+            "\"Let's get our feet back on solid ground first, okay?\"",
+            [
+                "JUMP",
+                140
+            ],
+            "ENDIF",
             "\"Then I shall go wait at Serpent's Hold until you need me again.\"\n*\n\"I'd best leave you my equpiment in case you need it on your quest.\"\n",
             "BYE"
         ]

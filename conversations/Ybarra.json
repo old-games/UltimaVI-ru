@@ -14,18 +14,16 @@
             "\n",
             [
                 "IF",
-                "byte 235, 0, flag",
-                [
-                    "\"Thou art back!\"",
-                    "WAIT",
-                    "\n\n\"Please, please! @Give me some food!\"",
-                    [
-                        "JUMP",
-                        269
-                    ]
-                ],
-                []
+                "byte 235, 0, flag"
             ],
+            "\"Thou art back!\"",
+            "WAIT",
+            "\n\n\"Please, please! @Give me some food!\"",
+            [
+                "JUMP",
+                269
+            ],
+            "ENDIF",
             "It takes a few moments for the man to notice you.",
             "WAIT",
             "\n\n\"Hu--humans!\"",
@@ -187,15 +185,13 @@
             ],
             [
                 "IF",
-                "0, integer, byte 15, greater",
-                [
-                    [
-                        "JUMP",
-                        1360
-                    ]
-                ],
-                []
+                "0, integer, byte 15, greater"
             ],
+            [
+                "JUMP",
+                1360
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "1, integer",
@@ -203,34 +199,30 @@
             ],
             [
                 "IF",
-                "1, integer, word 32769, equals",
-                [
-                    [
-                        "ASSIGN",
-                        "0, integer",
-                        "0, integer, byte 1, plus"
-                    ],
-                    [
-                        "JUMP",
-                        1068
-                    ]
-                ],
-                []
+                "1, integer, word 32769, equals"
             ],
             [
-                "IF",
-                "1, integer, byte 1, equals",
-                [
-                    "You share "
-                ],
-                [
-                    [
-                        "SETNAME",
-                        "1, integer"
-                    ],
-                    "$Y shares "
-                ]
+                "ASSIGN",
+                "0, integer",
+                "0, integer, byte 1, plus"
             ],
+            [
+                "JUMP",
+                1068
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "1, integer, byte 1, equals"
+            ],
+            "You share ",
+            "ELSE",
+            [
+                "SETNAME",
+                "1, integer"
+            ],
+            "$Y shares ",
+            "ENDIF",
             "some food with the pathetic man.",
             [
                 "DELETE",

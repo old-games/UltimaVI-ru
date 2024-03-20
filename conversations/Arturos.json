@@ -212,16 +212,14 @@
             "\n\n\"For justa two gold, ",
             [
                 "IF",
-                "byte 235, byte 6, flag",
-                [
-                    "maybe I can help you finda this silver tablet.\"",
-                    "WAIT",
-                    "\n\n\"And I'll tell you the rest of your future as well. What a bargain! Whadda you say?\" "
-                ],
-                [
-                    "I'll tella you your future. Whadda you say?\" "
-                ]
+                "byte 235, byte 6, flag"
             ],
+            "maybe I can help you finda this silver tablet.\"",
+            "WAIT",
+            "\n\n\"And I'll tell you the rest of your future as well. What a bargain! Whadda you say?\" ",
+            "ELSE",
+            "I'll tella you your future. Whadda you say?\" ",
+            "ENDIF",
             [
                 "ASKC",
                 "yn"
@@ -335,14 +333,12 @@
             "\"Oh, hey, you picked the Lovers this time. I thinka maybe you should go talk to ",
             [
                 "IF",
-                "16, integer",
-                [
-                    "Andreas"
-                ],
-                [
-                    "Wanda"
-                ]
+                "16, integer"
             ],
+            "Andreas",
+            "ELSE",
+            "Wanda",
+            "ENDIF",
             ", you know what I mean?\"",
             "WAIT",
             "\n\n\"That'sa pretty good card. How about another one?\" ",
@@ -431,39 +427,35 @@
             ],
             [
                 "IF",
-                "byte 235, byte 6, flag",
-                [
-                    "\n\"The cards didn't say nothin' about the silver tablet. Guess that means you're not gonna find it.\"",
-                    "WAIT",
-                    "\n\n\"That's life, you know?\"",
-                    [
-                        "CLEARF",
-                        "byte 235",
-                        "byte 6"
-                    ],
-                    "WAIT",
-                    "\n"
-                ],
-                []
+                "byte 235, byte 6, flag"
             ],
+            "\n\"The cards didn't say nothin' about the silver tablet. Guess that means you're not gonna find it.\"",
+            "WAIT",
+            "\n\n\"That's life, you know?\"",
+            [
+                "CLEARF",
+                "byte 235",
+                "byte 6"
+            ],
+            "WAIT",
+            "\n",
+            "ENDIF",
             "\n\"Okay, that'sa #0 extra cards at 5 gold apiece. That makes #1 total.\"",
             "WAIT",
             "\n\n",
             [
                 "IF",
-                "byte 1, byte 88, countObj, 1, integer, less",
-                [
-                    "\"Since you don'ta have that much, I'll just settle for what you've got.\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "ASSIGN",
-                        "1, integer",
-                        "byte 1, byte 88, countObj"
-                    ]
-                ],
-                []
+                "byte 1, byte 88, countObj, 1, integer, less"
             ],
+            "\"Since you don'ta have that much, I'll just settle for what you've got.\"",
+            "WAIT",
+            "\n\n",
+            [
+                "ASSIGN",
+                "1, integer",
+                "byte 1, byte 88, countObj"
+            ],
+            "ENDIF",
             [
                 "DELETE",
                 "byte 1",

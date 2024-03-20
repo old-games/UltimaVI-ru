@@ -12,24 +12,20 @@
         "42": [
             [
                 "IF",
-                "byte 136, isNearby",
-                [
-                    "\"You'll have to excuse me, but the bar's closed right now.\"\n*\n\"@Taynith and I have a lot to talk about.\"\n",
-                    "BYE"
-                ],
-                []
+                "byte 136, isNearby"
             ],
+            "\"You'll have to excuse me, but the bar's closed right now.\"\n*\n\"@Taynith and I have a lot to talk about.\"\n",
+            "BYE",
+            "ENDIF",
             [
                 "IF",
-                "32, integer, byte 144, equals, 32, integer, byte 147, equals, or",
-                [
-                    [
-                        "JUMP",
-                        227
-                    ]
-                ],
-                []
+                "32, integer, byte 144, equals, 32, integer, byte 147, equals, or"
             ],
+            [
+                "JUMP",
+                227
+            ],
+            "ENDIF",
             "\"Come by the Cat's Lair when I'm open for business.\"\n",
             "BYE"
         ],
@@ -41,24 +37,22 @@
             ],
             [
                 "IF",
-                "byte 9, isInParty",
-                [
-                    "\"Ah, I see you've brought me a tasty little mouse to feed my @pets...\"",
-                    "WAIT",
-                    [
-                        "PORTRAIT",
-                        "byte 9"
-                    ],
-                    "\n\n\"Eeeeek!\"",
-                    "WAIT",
-                    [
-                        "PORTRAIT",
-                        "byte 235"
-                    ],
-                    "\n\n\"Don't worry, I was just kidding... Any friend of Lord British is a friend of mine.\"\n*\n"
-                ],
-                []
+                "byte 9, isInParty"
             ],
+            "\"Ah, I see you've brought me a tasty little mouse to feed my @pets...\"",
+            "WAIT",
+            [
+                "PORTRAIT",
+                "byte 9"
+            ],
+            "\n\n\"Eeeeek!\"",
+            "WAIT",
+            [
+                "PORTRAIT",
+                "byte 235"
+            ],
+            "\n\n\"Don't worry, I was just kidding... Any friend of Lord British is a friend of mine.\"\n*\n",
+            "ENDIF",
             "\"Welcome to the Cat's Lair.\"",
             [
                 "JUMP",
@@ -443,20 +437,18 @@
         "2958": [
             [
                 "IF",
-                "23, integer, byte 0, equals",
-                [
-                    [
-                        "ASSIGN",
-                        "3, integer",
-                        "byte 0"
-                    ],
-                    [
-                        "JUMP",
-                        3094
-                    ]
-                ],
-                []
+                "23, integer, byte 0, equals"
             ],
+            [
+                "ASSIGN",
+                "3, integer",
+                "byte 0"
+            ],
+            [
+                "JUMP",
+                3094
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "0, integer",
@@ -484,15 +476,13 @@
             ],
             [
                 "IF",
-                "0, integer, 23, integer, lessOrEquals",
-                [
-                    [
-                        "JUMP",
-                        2992
-                    ]
-                ],
-                []
+                "0, integer, 23, integer, lessOrEquals"
             ],
+            [
+                "JUMP",
+                2992
+            ],
+            "ENDIF",
             "\"Which of you?\" ",
             [
                 "INPUTNUM",
@@ -500,15 +490,13 @@
             ],
             [
                 "IF",
-                "3, integer, byte 0, equals",
-                [
-                    [
-                        "JUMP",
-                        3402
-                    ]
-                ],
-                []
+                "3, integer, byte 0, equals"
             ],
+            [
+                "JUMP",
+                3402
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "3, integer",
@@ -516,15 +504,13 @@
             ],
             [
                 "IF",
-                "3, integer, 23, integer, greater",
-                [
-                    [
-                        "JUMP",
-                        2978
-                    ]
-                ],
-                []
+                "3, integer, 23, integer, greater"
             ],
+            [
+                "JUMP",
+                2978
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "1, integer",
@@ -564,89 +550,83 @@
         "3165": [
             [
                 "IF",
-                "3, integer, byte 0, character, canCarry, byte 88, 1, integer, weight, plus, dword 4866, 4, integer, data, byte 1, weight, less",
-                [
-                    "\"You don't have room to carry it.\"",
-                    [
-                        "ASSIGN",
-                        "5, integer",
-                        "byte 0"
-                    ],
-                    [
-                        "JUMP",
-                        3402
-                    ]
-                ],
-                []
+                "3, integer, byte 0, character, canCarry, byte 88, 1, integer, weight, plus, dword 4866, 4, integer, data, byte 1, weight, less"
+            ],
+            "\"You don't have room to carry it.\"",
+            [
+                "ASSIGN",
+                "5, integer",
+                "byte 0"
             ],
             [
+                "JUMP",
+                3402
+            ],
+            "ENDIF",
+            [
                 "IF",
-                "3, integer, byte 0, character, byte 88, countObj, 1, integer, greaterOrEquals",
-                [
-                    [
-                        "DELETE",
-                        "3, integer, byte 0, character",
-                        "byte 88",
-                        "byte 0",
-                        "1, integer"
-                    ],
-                    [
-                        "NEW",
-                        "3, integer, byte 0, character",
-                        "dword 4866, 4, integer, data",
-                        "byte 0",
-                        "byte 1"
-                    ],
-                    [
-                        "SETNAME",
-                        "3, integer, byte 0, character"
-                    ],
-                    [
-                        "ASSIGN",
-                        "5, integer",
-                        "byte 1"
-                    ],
-                    [
-                        "ASSIGN",
-                        "1, string",
-                        "dword 4872, 4, integer, data"
-                    ],
-                    "\"Here you are.\" $N gives $Y the $1.",
-                    [
-                        "JUMP",
-                        3402
-                    ]
-                ],
-                [
-                    [
-                        "SETNAME",
-                        "3, integer, byte 0, character"
-                    ],
-                    "\"You're a bit short on gold.\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        453
-                    ]
-                ]
-            ]
+                "3, integer, byte 0, character, byte 88, countObj, 1, integer, greaterOrEquals"
+            ],
+            [
+                "DELETE",
+                "3, integer, byte 0, character",
+                "byte 88",
+                "byte 0",
+                "1, integer"
+            ],
+            [
+                "NEW",
+                "3, integer, byte 0, character",
+                "dword 4866, 4, integer, data",
+                "byte 0",
+                "byte 1"
+            ],
+            [
+                "SETNAME",
+                "3, integer, byte 0, character"
+            ],
+            [
+                "ASSIGN",
+                "5, integer",
+                "byte 1"
+            ],
+            [
+                "ASSIGN",
+                "1, string",
+                "dword 4872, 4, integer, data"
+            ],
+            "\"Here you are.\" $N gives $Y the $1.",
+            [
+                "JUMP",
+                3402
+            ],
+            "ELSE",
+            [
+                "SETNAME",
+                "3, integer, byte 0, character"
+            ],
+            "\"You're a bit short on gold.\"",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                453
+            ],
+            "ENDIF"
         ],
         "3402": [
             [
                 "IF",
-                "5, integer",
-                [
-                    "*\n\n\"Drink up and enjoy, for who knows what tomorrow may bring?\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        453
-                    ]
-                ],
-                []
+                "5, integer"
             ],
+            "*\n\n\"Drink up and enjoy, for who knows what tomorrow may bring?\"",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                453
+            ],
+            "ENDIF",
             "\n",
             [
                 "JUMP",
@@ -656,20 +636,18 @@
         "3484": [
             [
                 "IF",
-                "23, integer, byte 0, equals",
-                [
-                    [
-                        "ASSIGN",
-                        "3, integer",
-                        "byte 0"
-                    ],
-                    [
-                        "JUMP",
-                        3620
-                    ]
-                ],
-                []
+                "23, integer, byte 0, equals"
             ],
+            [
+                "ASSIGN",
+                "3, integer",
+                "byte 0"
+            ],
+            [
+                "JUMP",
+                3620
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "0, integer",
@@ -697,15 +675,13 @@
             ],
             [
                 "IF",
-                "0, integer, 23, integer, lessOrEquals",
-                [
-                    [
-                        "JUMP",
-                        3518
-                    ]
-                ],
-                []
+                "0, integer, 23, integer, lessOrEquals"
             ],
+            [
+                "JUMP",
+                3518
+            ],
+            "ENDIF",
             "\"Which of you?\" ",
             [
                 "INPUTNUM",
@@ -713,15 +689,13 @@
             ],
             [
                 "IF",
-                "3, integer, byte 0, equals",
-                [
-                    [
-                        "JUMP",
-                        4081
-                    ]
-                ],
-                []
+                "3, integer, byte 0, equals"
             ],
+            [
+                "JUMP",
+                4081
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "3, integer",
@@ -729,15 +703,13 @@
             ],
             [
                 "IF",
-                "3, integer, 23, integer, greater",
-                [
-                    [
-                        "JUMP",
-                        3504
-                    ]
-                ],
-                []
+                "3, integer, 23, integer, greater"
             ],
+            [
+                "JUMP",
+                3504
+            ],
+            "ENDIF",
             "\"Milk is very good for you, and only 5 crowns for a whole bucket. Want some?\" ",
             [
                 "ASKC",
@@ -842,20 +814,18 @@
         "4087": [
             [
                 "IF",
-                "23, integer, byte 0, equals",
-                [
-                    [
-                        "ASSIGN",
-                        "3, integer",
-                        "byte 0"
-                    ],
-                    [
-                        "JUMP",
-                        4224
-                    ]
-                ],
-                []
+                "23, integer, byte 0, equals"
             ],
+            [
+                "ASSIGN",
+                "3, integer",
+                "byte 0"
+            ],
+            [
+                "JUMP",
+                4224
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "0, integer",
@@ -883,15 +853,13 @@
             ],
             [
                 "IF",
-                "0, integer, 23, integer, lessOrEquals",
-                [
-                    [
-                        "JUMP",
-                        4121
-                    ]
-                ],
-                []
+                "0, integer, 23, integer, lessOrEquals"
             ],
+            [
+                "JUMP",
+                4121
+            ],
+            "ENDIF",
             "\"Which of you?\" ",
             [
                 "INPUTNUM",
@@ -899,16 +867,14 @@
             ],
             [
                 "IF",
-                "3, integer, byte 0, equals",
-                [
-                    "\n",
-                    [
-                        "JUMP",
-                        453
-                    ]
-                ],
-                []
+                "3, integer, byte 0, equals"
             ],
+            "\n",
+            [
+                "JUMP",
+                453
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "3, integer",
@@ -916,31 +882,27 @@
             ],
             [
                 "IF",
-                "3, integer, 23, integer, greater",
-                [
-                    [
-                        "JUMP",
-                        4107
-                    ]
-                ],
-                []
+                "3, integer, 23, integer, greater"
             ],
             [
-                "IF",
-                "3, integer, byte 0, character, canCarry, byte 88, byte 3, weight, plus, byte 129, byte 1, weight, less, 3, integer, byte 0, character, byte 88, countObj, byte 3, less, or",
-                [
-                    [
-                        "ASSIGN",
-                        "9, integer",
-                        "byte 1"
-                    ],
-                    [
-                        "JUMP",
-                        4408
-                    ]
-                ],
-                []
+                "JUMP",
+                4107
             ],
+            "ENDIF",
+            [
+                "IF",
+                "3, integer, byte 0, character, canCarry, byte 88, byte 3, weight, plus, byte 129, byte 1, weight, less, 3, integer, byte 0, character, byte 88, countObj, byte 3, less, or"
+            ],
+            [
+                "ASSIGN",
+                "9, integer",
+                "byte 1"
+            ],
+            [
+                "JUMP",
+                4408
+            ],
+            "ENDIF",
             "\"I sell the finest mutton, and for only 3 gold per serving. How many servings do you want?\" ",
             [
                 "INPUT",
@@ -948,16 +910,14 @@
             ],
             [
                 "IF",
-                "9, integer, word 200, greater",
-                [
-                    [
-                        "ASSIGN",
-                        "9, integer",
-                        "word 200"
-                    ]
-                ],
-                []
+                "9, integer, word 200, greater"
             ],
+            [
+                "ASSIGN",
+                "9, integer",
+                "word 200"
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "8, integer",
@@ -965,15 +925,13 @@
             ],
             [
                 "IF",
-                "9, integer, byte 0, equals",
-                [
-                    [
-                        "JUMP",
-                        453
-                    ]
-                ],
-                []
+                "9, integer, byte 0, equals"
             ],
+            [
+                "JUMP",
+                453
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "0, integer",
@@ -991,51 +949,47 @@
             ],
             [
                 "IF",
-                "3, integer, byte 0, character, canCarry, byte 88, 9, integer, byte 3, multiply, weight, plus, byte 129, 9, integer, weight, less",
-                [
-                    [
-                        "ASSIGN",
-                        "6, integer",
-                        "byte 1"
-                    ],
-                    [
-                        "ASSIGN",
-                        "0, integer",
-                        "byte 1"
-                    ],
-                    [
-                        "ASSIGN",
-                        "9, integer",
-                        "9, integer, byte 1, minus"
-                    ],
-                    [
-                        "JUMP",
-                        4519
-                    ]
-                ],
-                []
+                "3, integer, byte 0, character, canCarry, byte 88, 9, integer, byte 3, multiply, weight, plus, byte 129, 9, integer, weight, less"
             ],
             [
-                "IF",
-                "3, integer, byte 0, character, byte 88, countObj, 9, integer, byte 3, multiply, less",
-                [
-                    [
-                        "ASSIGN",
-                        "7, integer",
-                        "byte 1"
-                    ],
-                    [
-                        "ASSIGN",
-                        "9, integer",
-                        "9, integer, byte 1, minus"
-                    ],
-                    [
-                        "JUMP",
-                        4519
-                    ]
-                ],
-                []
+                "ASSIGN",
+                "6, integer",
+                "byte 1"
             ],
+            [
+                "ASSIGN",
+                "0, integer",
+                "byte 1"
+            ],
+            [
+                "ASSIGN",
+                "9, integer",
+                "9, integer, byte 1, minus"
+            ],
+            [
+                "JUMP",
+                4519
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "3, integer, byte 0, character, byte 88, countObj, 9, integer, byte 3, multiply, less"
+            ],
+            [
+                "ASSIGN",
+                "7, integer",
+                "byte 1"
+            ],
+            [
+                "ASSIGN",
+                "9, integer",
+                "9, integer, byte 1, minus"
+            ],
+            [
+                "JUMP",
+                4519
+            ],
+            "ENDIF",
             [
                 "JUMP",
                 4650
@@ -1044,51 +998,45 @@
         "4519": [
             [
                 "IF",
-                "9, integer",
-                [
-                    [
-                        "JUMP",
-                        4408
-                    ]
-                ],
-                []
+                "9, integer"
             ],
             [
-                "IF",
-                "6, integer",
-                [
-                    [
-                        "SETNAME",
-                        "3, integer, byte 0, character"
-                    ],
-                    "$N looks at $Y. \"You haven't any room in your pack.\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        453
-                    ]
-                ],
-                []
+                "JUMP",
+                4408
             ],
+            "ENDIF",
             [
                 "IF",
-                "7, integer",
-                [
-                    [
-                        "SETNAME",
-                        "3, integer, byte 0, character"
-                    ],
-                    "\"You're a bit short on gold.\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        453
-                    ]
-                ],
-                []
+                "6, integer"
             ],
+            [
+                "SETNAME",
+                "3, integer, byte 0, character"
+            ],
+            "$N looks at $Y. \"You haven't any room in your pack.\"",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                453
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "7, integer"
+            ],
+            [
+                "SETNAME",
+                "3, integer, byte 0, character"
+            ],
+            "\"You're a bit short on gold.\"",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                453
+            ],
+            "ENDIF",
             [
                 "DELETE",
                 "3, integer, byte 0, character",
@@ -1109,22 +1057,20 @@
             ],
             [
                 "IF",
-                "8, integer, 9, integer, equals",
-                [
-                    [
-                        "SETNAME",
-                        "3, integer, byte 0, character"
-                    ],
-                    "$N hands the rations to $Y.",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        453
-                    ]
-                ],
-                []
+                "8, integer, 9, integer, equals"
             ],
+            [
+                "SETNAME",
+                "3, integer, byte 0, character"
+            ],
+            "$N hands the rations to $Y.",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                453
+            ],
+            "ENDIF",
             "He hands $Y #9 mutton ration\\s.",
             "WAIT",
             "\n\n",
@@ -1134,26 +1080,24 @@
             ],
             [
                 "IF",
-                "0, integer",
-                [
-                    "\"That's all you can carry.\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        453
-                    ]
-                ],
-                [
-                    "\"That's all you can afford.\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        453
-                    ]
-                ]
-            ]
+                "0, integer"
+            ],
+            "\"That's all you can carry.\"",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                453
+            ],
+            "ELSE",
+            "\"That's all you can afford.\"",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                453
+            ],
+            "ENDIF"
         ],
         "4886": [
             "\"I think I've got time for a quick game of Nim...\"\n*\n",
@@ -1244,15 +1188,13 @@
             ],
             [
                 "IF",
-                "2, integer, byte 1, equals",
-                [
-                    [
-                        "JUMP",
-                        5699
-                    ]
-                ],
-                []
+                "2, integer, byte 1, equals"
             ],
+            [
+                "JUMP",
+                5699
+            ],
+            "ENDIF",
             "\"Let me just remind you of the rules, in case you don't remember.\"\n",
             "WAIT",
             "\n\"We start with ten pieces.\" He takes some colorful glass beads out of his pocket.\n*\n\"Each player takes turns, taking one, two or three beads out of the pile.\"\n*\n\"Whoever gets the last one wins!\"\n*\n",
@@ -1268,28 +1210,26 @@
             ],
             [
                 "IF",
-                "byte 235, byte 6, flag, 9, integer, byte 0, greater, and, byte 235, byte 4, flag, byte 1, byte 3, rand, byte 3, equals, byte 235, byte 3, flag, byte 0, equals, or, and, or",
-                [
-                    "\"I'll play first this time.\"\n*\n",
-                    [
-                        "SETF",
-                        "byte 235",
-                        "byte 3"
-                    ],
-                    [
-                        "JUMP",
-                        5932
-                    ]
-                ],
-                [
-                    "\"I'll let you play first this time.\"\n*\n",
-                    [
-                        "SETF",
-                        "byte 235",
-                        "byte 4"
-                    ]
-                ]
+                "byte 235, byte 6, flag, 9, integer, byte 0, greater, and, byte 235, byte 4, flag, byte 1, byte 3, rand, byte 3, equals, byte 235, byte 3, flag, byte 0, equals, or, and, or"
             ],
+            "\"I'll play first this time.\"\n*\n",
+            [
+                "SETF",
+                "byte 235",
+                "byte 3"
+            ],
+            [
+                "JUMP",
+                5932
+            ],
+            "ELSE",
+            "\"I'll let you play first this time.\"\n*\n",
+            [
+                "SETF",
+                "byte 235",
+                "byte 4"
+            ],
+            "ENDIF",
             "There are #0 beads left. How many do you take? ",
             [
                 "INPUTNUM",
@@ -1297,15 +1237,13 @@
             ],
             [
                 "IF",
-                "1, integer, byte 0, equals, 1, integer, byte 3, greater, or, 1, integer, 0, integer, greater, or",
-                [
-                    [
-                        "JUMP",
-                        5834
-                    ]
-                ],
-                []
+                "1, integer, byte 0, equals, 1, integer, byte 3, greater, or, 1, integer, 0, integer, greater, or"
             ],
+            [
+                "JUMP",
+                5834
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "0, integer",
@@ -1313,153 +1251,135 @@
             ],
             [
                 "IF",
-                "0, integer, byte 0, equals",
-                [
-                    [
-                        "JUMP",
-                        6357
-                    ]
-                ],
-                []
+                "0, integer, byte 0, equals"
             ],
             [
-                "IF",
-                "0, integer, byte 4, less",
-                [
-                    [
-                        "ASSIGN",
-                        "1, integer",
-                        "0, integer"
-                    ],
-                    [
-                        "JUMP",
-                        6126
-                    ]
-                ],
-                []
+                "JUMP",
+                6357
             ],
+            "ENDIF",
             [
                 "IF",
-                "0, integer, byte 4, equals",
-                [
-                    [
-                        "ASSIGN",
-                        "1, integer",
-                        "byte 1, byte 3, rand"
-                    ],
-                    [
-                        "JUMP",
-                        6126
-                    ]
-                ],
-                []
+                "0, integer, byte 4, less"
             ],
             [
-                "IF",
-                "0, integer, byte 5, equals",
-                [
-                    [
-                        "ASSIGN",
-                        "1, integer",
-                        "byte 1"
-                    ],
-                    [
-                        "JUMP",
-                        6126
-                    ]
-                ],
-                []
+                "ASSIGN",
+                "1, integer",
+                "0, integer"
             ],
             [
-                "IF",
-                "0, integer, byte 6, equals",
-                [
-                    [
-                        "ASSIGN",
-                        "1, integer",
-                        "byte 2"
-                    ],
-                    [
-                        "JUMP",
-                        6126
-                    ]
-                ],
-                []
+                "JUMP",
+                6126
             ],
+            "ENDIF",
             [
                 "IF",
-                "0, integer, byte 7, equals",
-                [
-                    [
-                        "ASSIGN",
-                        "1, integer",
-                        "byte 3"
-                    ],
-                    [
-                        "JUMP",
-                        6126
-                    ]
-                ],
-                []
+                "0, integer, byte 4, equals"
             ],
             [
-                "IF",
-                "0, integer, byte 8, equals",
-                [
-                    [
-                        "ASSIGN",
-                        "1, integer",
-                        "byte 1, byte 3, rand"
-                    ],
-                    [
-                        "JUMP",
-                        6126
-                    ]
-                ],
-                []
+                "ASSIGN",
+                "1, integer",
+                "byte 1, byte 3, rand"
             ],
             [
-                "IF",
-                "0, integer, byte 9, equals",
-                [
-                    [
-                        "ASSIGN",
-                        "1, integer",
-                        "byte 1"
-                    ],
-                    [
-                        "JUMP",
-                        6126
-                    ]
-                ],
-                []
+                "JUMP",
+                6126
             ],
+            "ENDIF",
             [
                 "IF",
-                "0, integer, byte 10, equals, byte 235, byte 6, flag, byte 0, equals, 9, integer, byte 0, equals, or, and",
-                [
-                    [
-                        "ASSIGN",
-                        "1, integer",
-                        "byte 1"
-                    ],
-                    [
-                        "JUMP",
-                        6126
-                    ]
-                ],
-                [
-                    [
-                        "ASSIGN",
-                        "1, integer",
-                        "byte 2"
-                    ],
-                    [
-                        "JUMP",
-                        6126
-                    ]
-                ]
-            ]
+                "0, integer, byte 5, equals"
+            ],
+            [
+                "ASSIGN",
+                "1, integer",
+                "byte 1"
+            ],
+            [
+                "JUMP",
+                6126
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "0, integer, byte 6, equals"
+            ],
+            [
+                "ASSIGN",
+                "1, integer",
+                "byte 2"
+            ],
+            [
+                "JUMP",
+                6126
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "0, integer, byte 7, equals"
+            ],
+            [
+                "ASSIGN",
+                "1, integer",
+                "byte 3"
+            ],
+            [
+                "JUMP",
+                6126
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "0, integer, byte 8, equals"
+            ],
+            [
+                "ASSIGN",
+                "1, integer",
+                "byte 1, byte 3, rand"
+            ],
+            [
+                "JUMP",
+                6126
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "0, integer, byte 9, equals"
+            ],
+            [
+                "ASSIGN",
+                "1, integer",
+                "byte 1"
+            ],
+            [
+                "JUMP",
+                6126
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "0, integer, byte 10, equals, byte 235, byte 6, flag, byte 0, equals, 9, integer, byte 0, equals, or, and"
+            ],
+            [
+                "ASSIGN",
+                "1, integer",
+                "byte 1"
+            ],
+            [
+                "JUMP",
+                6126
+            ],
+            "ELSE",
+            [
+                "ASSIGN",
+                "1, integer",
+                "byte 2"
+            ],
+            [
+                "JUMP",
+                6126
+            ],
+            "ENDIF"
         ],
         "6126": [
             "\"I'll take #1 bead\\s.\"\n*\n",
@@ -1470,31 +1390,27 @@
             ],
             [
                 "IF",
-                "0, integer, byte 0, greater",
-                [
-                    [
-                        "JUMP",
-                        5834
-                    ]
-                ],
-                []
+                "0, integer, byte 0, greater"
             ],
+            [
+                "JUMP",
+                5834
+            ],
+            "ENDIF",
             "\"I won!\"\n*\n\"Don't take it too hard... I've had a lot of practice.\"\n*\n",
             [
                 "IF",
-                "9, integer, byte 0, greater",
-                [
-                    [
-                        "DELETE",
-                        "byte 1",
-                        "byte 88",
-                        "byte 0",
-                        "9, integer"
-                    ],
-                    "\"I'll put your money someplace safe, in case you want to come and win it back later.\"\n*\n"
-                ],
-                []
+                "9, integer, byte 0, greater"
             ],
+            [
+                "DELETE",
+                "byte 1",
+                "byte 88",
+                "byte 0",
+                "9, integer"
+            ],
+            "\"I'll put your money someplace safe, in case you want to come and win it back later.\"\n*\n",
+            "ENDIF",
             [
                 "JUMP",
                 6505
@@ -1504,37 +1420,33 @@
             "\"Well done! You got the last bead.\"",
             [
                 "IF",
-                "9, integer, byte 0, greater",
-                [
-                    " He takes some money out of a pouch and pays off your wager.",
-                    [
-                        "NEW",
-                        "byte 1",
-                        "byte 88",
-                        "byte 0",
-                        "9, integer"
-                    ]
-                ],
-                []
+                "9, integer, byte 0, greater"
             ],
+            " He takes some money out of a pouch and pays off your wager.",
+            [
+                "NEW",
+                "byte 1",
+                "byte 88",
+                "byte 0",
+                "9, integer"
+            ],
+            "ENDIF",
             [
                 "IF",
-                "byte 235, byte 7, flag, 9, integer, byte 0, greater, and",
-                [
-                    [
-                        "SETF",
-                        "byte 235",
-                        "byte 6"
-                    ]
-                ],
-                [
-                    [
-                        "SETF",
-                        "byte 235",
-                        "byte 7"
-                    ]
-                ]
+                "byte 235, byte 7, flag, 9, integer, byte 0, greater, and"
             ],
+            [
+                "SETF",
+                "byte 235",
+                "byte 6"
+            ],
+            "ELSE",
+            [
+                "SETF",
+                "byte 235",
+                "byte 7"
+            ],
+            "ENDIF",
             "\n*\n\"Would you like to @play again?\" ",
             [
                 "ASKC",
@@ -1587,16 +1499,14 @@
             ],
             [
                 "IF",
-                "1, integer, word 32769, equals",
-                [
-                    "\"You must be mistaken.\"",
-                    [
-                        "JUMP",
-                        486
-                    ]
-                ],
-                []
+                "1, integer, word 32769, equals"
             ],
+            "\"You must be mistaken.\"",
+            [
+                "JUMP",
+                486
+            ],
+            "ENDIF",
             [
                 "SETNAME",
                 "1, integer"
@@ -1613,39 +1523,33 @@
             ],
             [
                 "IF",
-                "0, integer, word 200, greater",
-                [
-                    [
-                        "ASSIGN",
-                        "0, integer",
-                        "word 200"
-                    ]
-                ],
-                []
+                "0, integer, word 200, greater"
             ],
             [
-                "IF",
-                "0, integer, byte 50, less",
-                [
-                    "\"Put down some stuff, $Y, so you can carry some gold!\"",
-                    [
-                        "JUMP",
-                        486
-                    ]
-                ],
-                []
+                "ASSIGN",
+                "0, integer",
+                "word 200"
             ],
+            "ENDIF",
+            [
+                "IF",
+                "0, integer, byte 50, less"
+            ],
+            "\"Put down some stuff, $Y, so you can carry some gold!\"",
+            [
+                "JUMP",
+                486
+            ],
+            "ENDIF",
             "\"Great! This is the definitive reference on boardgames.\"\n*\nHe takes the book and gives ",
             [
                 "IF",
-                "1, integer, byte 1, equals",
-                [
-                    "you"
-                ],
-                [
-                    "$Y"
-                ]
+                "1, integer, byte 1, equals"
             ],
+            "you",
+            "ELSE",
+            "$Y",
+            "ENDIF",
             " #0 gold crowns.",
             [
                 "DELETE",

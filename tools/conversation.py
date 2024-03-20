@@ -107,7 +107,7 @@ def _is_ended(result):
         return False
 
 
-def _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, end):
+def _read_instructions(stream, labels, visited_labels, skip_solo_endif, allow_drop_esac, end):
     result = []
 
     all_instructions = {
@@ -119,7 +119,7 @@ def _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, 
         0xef,
         0xf7, 0xf8, 0xf9, 0xfb, 0xfc,
     }
-    if add_a2:
+    if skip_solo_endif:
         all_instructions.add(0xa2)
 
     # TODO there are more instructions in the game
@@ -136,21 +136,20 @@ def _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, 
             _read_byte(stream, visited_labels)
             expression = _read_expression(stream, visited_labels, 0xa7)
             sub_visited_labels = set()
-            instructions = _read_instructions(stream, labels, sub_visited_labels, add_a2, allow_drop_esac, {0xa2, 0xa3})
+            instructions = _read_instructions(stream, labels, sub_visited_labels, skip_solo_endif, allow_drop_esac, {0xa2, 0xa3})
             visited_labels |= sub_visited_labels
             if _read_byte(stream, visited_labels) == 0xa3:
                 sub_visited_labels = set()
-                alternative_instructions = _read_instructions(stream, labels, sub_visited_labels, add_a2, allow_drop_esac, {0xa2})
+                alternative_instructions = _read_instructions(stream, labels, sub_visited_labels, skip_solo_endif, allow_drop_esac, {0xa2})
                 visited_labels |= sub_visited_labels
                 _read_byte(stream, visited_labels)
             else:
                 alternative_instructions = tuple()
             result.append(('IF', expression, instructions, alternative_instructions))
 
-        elif code == 0xa2 and add_a2:
-            # `0xa2` added because sometimes it happens (Valkadesh).
+        elif code == 0xa2 and skip_solo_endif:
+            # Sometimes it happens (Valkadesh).
             _read_byte(stream, visited_labels)
-            result.append('ENDIF')
 
         elif code == 0xb0:
             _read_byte(stream, visited_labels)
@@ -241,7 +240,7 @@ def _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, 
                 keywords = _read_string(stream, visited_labels, {0xf6})
                 _read_byte(stream, visited_labels)
                 sub_visited_labels = set()
-                instructions = _read_instructions(stream, labels, sub_visited_labels, add_a2, allow_drop_esac, {0xef, 0xee})
+                instructions = _read_instructions(stream, labels, sub_visited_labels, skip_solo_endif, allow_drop_esac, {0xef, 0xee})
                 visited_labels |= sub_visited_labels
                 result.append(('KEYWORDS', keywords, instructions))
 
@@ -294,6 +293,27 @@ def _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, 
     return result
 
 
+def _expand_instructions(original_label, instructions, labels):
+    result = []
+    for instruction in instructions:
+        if instruction[0] == 'IF':
+            result.append(instruction[:2])
+            result.extend(instruction[2])
+            if instruction[3]:
+                result.append('ELSE')
+                result.extend(instruction[3])
+            result.append('ENDIF')
+
+        elif instruction[0] == 'KEYWORDS':
+            # FIXME nest in read, expand here, add esac
+            result.append(instruction)
+
+        else:
+            result.append(instruction)
+
+    yield original_label, result # FIXME get rid of original_label
+
+
 def decode(data):
     stream = io.BufferedReader(io.BytesIO(data))
     result = {}
@@ -311,7 +331,7 @@ def decode(data):
         'd8fd7702c0201cff8140b573ca59aa91bb65bc2e09370b5bcc1b51e278310020',
     )
 
-    add_a2 = digest == '85f1912ed262ba67a28fdff87c31575d6dd2cea0fbf431ef73e2be77d0958a0d'
+    skip_solo_endif = digest == '85f1912ed262ba67a28fdff87c31575d6dd2cea0fbf431ef73e2be77d0958a0d'
 
     assert _read_byte(stream, visited_labels) == 0xff
     result['id'] = _read_byte(stream, visited_labels)
@@ -319,19 +339,19 @@ def decode(data):
     result['f3-after-name'] = _check_byte(stream, visited_labels, 0xf3)
 
     assert _read_byte(stream, visited_labels) == 0xf1
-    result['description'] = _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, {0xf2, 0xf3})
+    result['description'] = _read_instructions(stream, labels, visited_labels, skip_solo_endif, allow_drop_esac, {0xf2, 0xf3})
     result['f3-after-description'] = _check_byte(stream, visited_labels, 0xf3)
 
     assert _read_byte(stream, visited_labels) == 0xf2
-    result['conversation'] = {stream.tell(): _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, {None})}
+    result['conversation'] = {stream.tell(): _read_instructions(stream, labels, visited_labels, skip_solo_endif, allow_drop_esac, {None})}
 
     while labels - visited_labels:
         label = next(iter(labels - visited_labels))
         stream.seek(label)
-        result['conversation'][label] = _read_instructions(stream, labels, visited_labels, add_a2, allow_drop_esac, {None})
+        result['conversation'][label] = _read_instructions(stream, labels, visited_labels, skip_solo_endif, allow_drop_esac, {None})
         # FIXME split code with label in the middle, sometimes in the middle of string
 
-    result['conversation'] = dict(sorted(result['conversation'].items()))
+    result['conversation'] = {label: expanded for k, v in sorted(result['conversation'].items()) for label, expanded in _expand_instructions(k, v, labels)}
 
     #import unittest
     #unittest.TestCase().assertEqual(set(range(len(data))) - visited_labels, set())

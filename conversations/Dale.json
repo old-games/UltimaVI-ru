@@ -203,16 +203,14 @@
             ],
             [
                 "IF",
-                "0, integer, byte 77, countObj, byte 5, less",
-                [
-                    "\"Sorry, $Y, you haven't enough gems.\"",
-                    [
-                        "JUMP",
-                        107
-                    ]
-                ],
-                []
+                "0, integer, byte 77, countObj, byte 5, less"
             ],
+            "\"Sorry, $Y, you haven't enough gems.\"",
+            [
+                "JUMP",
+                107
+            ],
+            "ENDIF",
             "\"Aye, $Y, I see the gems you carry.\"",
             "WAIT",
             "\n\n\"Dost thou wish me to craft thee a glass sword?\" ",
@@ -304,20 +302,18 @@
         "1553": [
             [
                 "IF",
-                "23, integer, byte 0, equals",
-                [
-                    [
-                        "ASSIGN",
-                        "3, integer",
-                        "byte 0"
-                    ],
-                    [
-                        "JUMP",
-                        1689
-                    ]
-                ],
-                []
+                "23, integer, byte 0, equals"
             ],
+            [
+                "ASSIGN",
+                "3, integer",
+                "byte 0"
+            ],
+            [
+                "JUMP",
+                1689
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "0, integer",
@@ -345,15 +341,13 @@
             ],
             [
                 "IF",
-                "0, integer, 23, integer, lessOrEquals",
-                [
-                    [
-                        "JUMP",
-                        1587
-                    ]
-                ],
-                []
+                "0, integer, 23, integer, lessOrEquals"
             ],
+            [
+                "JUMP",
+                1587
+            ],
+            "ENDIF",
             "\"Which of you?\" ",
             [
                 "INPUTNUM",
@@ -361,15 +355,13 @@
             ],
             [
                 "IF",
-                "3, integer, byte 0, equals",
-                [
-                    [
-                        "JUMP",
-                        72
-                    ]
-                ],
-                []
+                "3, integer, byte 0, equals"
             ],
+            [
+                "JUMP",
+                72
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "3, integer",
@@ -377,15 +369,13 @@
             ],
             [
                 "IF",
-                "3, integer, 23, integer, greater",
-                [
-                    [
-                        "JUMP",
-                        1573
-                    ]
-                ],
-                []
+                "3, integer, 23, integer, greater"
             ],
+            [
+                "JUMP",
+                1573
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "3, integer",
@@ -413,15 +403,13 @@
             ],
             [
                 "IF",
-                "dword 2151, 0, integer, byte 1, minus, data, byte 0, notEquals",
-                [
-                    [
-                        "JUMP",
-                        1710
-                    ]
-                ],
-                []
+                "dword 2151, 0, integer, byte 1, minus, data, byte 0, notEquals"
             ],
+            [
+                "JUMP",
+                1710
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "7, integer",
@@ -434,26 +422,22 @@
             ],
             [
                 "IF",
-                "0, integer, byte 0, equals",
-                [
-                    [
-                        "JUMP",
-                        72
-                    ]
-                ],
-                []
+                "0, integer, byte 0, equals"
             ],
             [
-                "IF",
-                "0, integer, 7, integer, greaterOrEquals",
-                [
-                    [
-                        "JUMP",
-                        1689
-                    ]
-                ],
-                []
+                "JUMP",
+                72
             ],
+            "ENDIF",
+            [
+                "IF",
+                "0, integer, 7, integer, greaterOrEquals"
+            ],
+            [
+                "JUMP",
+                1689
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "0, integer",
@@ -500,54 +484,50 @@
         "1916": [
             [
                 "IF",
-                "3, integer, canCarry, byte 88, 1, integer, weight, plus, dword 2151, 0, integer, data, byte 1, weight, less",
-                [
-                    "\"But 'twould make thee o'erburdened, $Y!\"",
-                    "WAIT",
-                    "\n",
-                    [
-                        "JUMP",
-                        72
-                    ]
-                ],
-                []
+                "3, integer, canCarry, byte 88, 1, integer, weight, plus, dword 2151, 0, integer, data, byte 1, weight, less"
             ],
+            "\"But 'twould make thee o'erburdened, $Y!\"",
+            "WAIT",
+            "\n",
+            [
+                "JUMP",
+                72
+            ],
+            "ENDIF",
             [
                 "IF",
-                "3, integer, byte 88, countObj, 1, integer, greaterOrEquals",
-                [
-                    [
-                        "DELETE",
-                        "3, integer",
-                        "byte 88",
-                        "byte 0",
-                        "1, integer"
-                    ],
-                    [
-                        "NEW",
-                        "3, integer",
-                        "dword 2151, 0, integer, data",
-                        "byte 0",
-                        "byte 1"
-                    ],
-                    "\"Excellent!\"\n\nAfter accepting $Y's gold, $N hands over the $1.",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        1689
-                    ]
-                ],
-                [
-                    "\"But thou hast not enough gold, $Y!\"",
-                    "WAIT",
-                    "\n",
-                    [
-                        "JUMP",
-                        72
-                    ]
-                ]
-            ]
+                "3, integer, byte 88, countObj, 1, integer, greaterOrEquals"
+            ],
+            [
+                "DELETE",
+                "3, integer",
+                "byte 88",
+                "byte 0",
+                "1, integer"
+            ],
+            [
+                "NEW",
+                "3, integer",
+                "dword 2151, 0, integer, data",
+                "byte 0",
+                "byte 1"
+            ],
+            "\"Excellent!\"\n\nAfter accepting $Y's gold, $N hands over the $1.",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                1689
+            ],
+            "ELSE",
+            "\"But thou hast not enough gold, $Y!\"",
+            "WAIT",
+            "\n",
+            [
+                "JUMP",
+                72
+            ],
+            "ENDIF"
         ]
     }
 }

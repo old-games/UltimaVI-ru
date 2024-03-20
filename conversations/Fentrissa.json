@@ -19,14 +19,12 @@
             ],
             [
                 "IF",
-                "byte 235, 0, flag",
-                [
-                    "\"Smell that salt air, friend. Brings a tear to me eye...\"\n"
-                ],
-                [
-                    "\"Welcome, welcome!\" She slaps you heartily on the back.\n"
-                ]
+                "byte 235, 0, flag"
             ],
+            "\"Smell that salt air, friend. Brings a tear to me eye...\"\n",
+            "ELSE",
+            "\"Welcome, welcome!\" She slaps you heartily on the back.\n",
+            "ENDIF",
             [
                 "ASSIGN",
                 "1, integer",
@@ -288,20 +286,18 @@
         "1165": [
             [
                 "IF",
-                "23, integer, byte 0, equals",
-                [
-                    [
-                        "ASSIGN",
-                        "3, integer",
-                        "byte 0"
-                    ],
-                    [
-                        "JUMP",
-                        1301
-                    ]
-                ],
-                []
+                "23, integer, byte 0, equals"
             ],
+            [
+                "ASSIGN",
+                "3, integer",
+                "byte 0"
+            ],
+            [
+                "JUMP",
+                1301
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "0, integer",
@@ -329,15 +325,13 @@
             ],
             [
                 "IF",
-                "0, integer, 23, integer, lessOrEquals",
-                [
-                    [
-                        "JUMP",
-                        1199
-                    ]
-                ],
-                []
+                "0, integer, 23, integer, lessOrEquals"
             ],
+            [
+                "JUMP",
+                1199
+            ],
+            "ENDIF",
             "\"Which of you?\" ",
             [
                 "INPUTNUM",
@@ -345,15 +339,13 @@
             ],
             [
                 "IF",
-                "3, integer, byte 0, equals",
-                [
-                    [
-                        "JUMP",
-                        1584
-                    ]
-                ],
-                []
+                "3, integer, byte 0, equals"
             ],
+            [
+                "JUMP",
+                1584
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "3, integer",
@@ -361,15 +353,13 @@
             ],
             [
                 "IF",
-                "3, integer, 23, integer, greater",
-                [
-                    [
-                        "JUMP",
-                        1185
-                    ]
-                ],
-                []
+                "3, integer, 23, integer, greater"
             ],
+            [
+                "JUMP",
+                1185
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "4, integer",
@@ -447,16 +437,14 @@
         "1584": [
             [
                 "IF",
-                "5, integer",
-                [
-                    "\"Sail her straight.\"\n",
-                    [
-                        "JUMP",
-                        194
-                    ]
-                ],
-                []
+                "5, integer"
             ],
+            "\"Sail her straight.\"\n",
+            [
+                "JUMP",
+                194
+            ],
+            "ENDIF",
             "\"You'll ne'er find a better craft.\"\n",
             [
                 "JUMP",
@@ -486,24 +474,22 @@
             ],
             [
                 "IF",
-                "6, integer, 23, integer, greater",
-                [
-                    [
-                        "JUMP",
-                        1960
-                    ],
-                    "\"Your party hasn't enough money.\"",
-                    "WAIT",
-                    "\n\n\"It looks like you're #1 gold piece\\s short.\"",
-                    "WAIT",
-                    "\n\n\"Sorry.\"\n",
-                    [
-                        "JUMP",
-                        194
-                    ]
-                ],
-                []
+                "6, integer, 23, integer, greater"
             ],
+            [
+                "JUMP",
+                1960
+            ],
+            "\"Your party hasn't enough money.\"",
+            "WAIT",
+            "\n\n\"It looks like you're #1 gold piece\\s short.\"",
+            "WAIT",
+            "\n\n\"Sorry.\"\n",
+            [
+                "JUMP",
+                194
+            ],
+            "ENDIF",
             [
                 "ASSIGN",
                 "7, integer",
@@ -516,52 +502,50 @@
             ],
             [
                 "IF",
-                "7, integer, 1, integer, less",
-                [
-                    [
-                        "ASSIGN",
-                        "1, integer",
-                        "1, integer, 7, integer, minus"
-                    ],
-                    [
-                        "ASSIGN",
-                        "2, integer",
-                        "2, integer, 7, integer, plus"
-                    ],
-                    [
-                        "DELETE",
-                        "6, integer, byte 0, character",
-                        "byte 88",
-                        "byte 0",
-                        "7, integer"
-                    ],
-                    [
-                        "ASSIGN",
-                        "6, integer",
-                        "6, integer, byte 1, plus"
-                    ],
-                    [
-                        "JUMP",
-                        1693
-                    ]
-                ],
-                [
-                    [
-                        "DELETE",
-                        "6, integer, byte 0, character",
-                        "byte 88",
-                        "byte 0",
-                        "1, integer"
-                    ],
-                    "Your party takes up a collection for the deed.",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        1471
-                    ]
-                ]
-            ]
+                "7, integer, 1, integer, less"
+            ],
+            [
+                "ASSIGN",
+                "1, integer",
+                "1, integer, 7, integer, minus"
+            ],
+            [
+                "ASSIGN",
+                "2, integer",
+                "2, integer, 7, integer, plus"
+            ],
+            [
+                "DELETE",
+                "6, integer, byte 0, character",
+                "byte 88",
+                "byte 0",
+                "7, integer"
+            ],
+            [
+                "ASSIGN",
+                "6, integer",
+                "6, integer, byte 1, plus"
+            ],
+            [
+                "JUMP",
+                1693
+            ],
+            "ELSE",
+            [
+                "DELETE",
+                "6, integer, byte 0, character",
+                "byte 88",
+                "byte 0",
+                "1, integer"
+            ],
+            "Your party takes up a collection for the deed.",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                1471
+            ],
+            "ENDIF"
         ],
         "1960": [
             [
@@ -583,15 +567,13 @@
             ],
             [
                 "IF",
-                "8, integer, 23, integer, less",
-                [
-                    [
-                        "JUMP",
-                        1967
-                    ]
-                ],
-                []
+                "8, integer, 23, integer, less"
             ],
+            [
+                "JUMP",
+                1967
+            ],
+            "ENDIF",
             [
                 "JUMP",
                 1705

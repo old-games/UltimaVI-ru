@@ -14,72 +14,64 @@
         "84": [
             [
                 "IF",
-                "byte 147, isNearby, byte 0, equals",
-                [
-                    [
-                        "JUMP",
-                        318
-                    ]
-                ],
-                []
+                "byte 147, isNearby, byte 0, equals"
             ],
             [
+                "JUMP",
+                318
+            ],
+            "ENDIF",
+            [
                 "IF",
-                "16, integer, byte 1, equals",
-                [
-                    "\"Excuse me, ma'am. We are, um, indisposed.\" He returns his attentions to Sylaina.\n",
-                    "BYE"
-                ],
-                [
-                    "\"Pardon me, sir, but I hate to keep my dear one waiting.\"",
-                    "WAIT",
-                    "\n\n\"You understand, of course.\" He returns his attentions to Sylaina.\n",
-                    "BYE"
-                ]
-            ]
+                "16, integer, byte 1, equals"
+            ],
+            "\"Excuse me, ma'am. We are, um, indisposed.\" He returns his attentions to Sylaina.\n",
+            "BYE",
+            "ELSE",
+            "\"Pardon me, sir, but I hate to keep my dear one waiting.\"",
+            "WAIT",
+            "\n\n\"You understand, of course.\" He returns his attentions to Sylaina.\n",
+            "BYE",
+            "ENDIF"
         ],
         "318": [
             "\"Greetings, ",
             [
                 "IF",
-                "23, integer",
-                [
-                    "folks.\"",
-                    [
-                        "JUMP",
-                        352
-                    ]
-                ],
-                [
-                    "$G.\""
-                ]
+                "23, integer"
             ],
+            "folks.\"",
+            [
+                "JUMP",
+                352
+            ],
+            "ELSE",
+            "$G.\"",
+            "ENDIF",
             [
                 "IF",
-                "byte 4, isInParty, byte 235, byte 4, flag, byte 0, equals, and",
-                [
-                    "WAIT",
-                    [
-                        "PORTRAIT",
-                        "byte 4"
-                    ],
-                    "\n\n\"Why, hello there, my friend. You've grown a bit since we met last.\"",
-                    "WAIT",
-                    "\n\n\"I'm afraid I can't recall your name; you'll have to forgive me.\"",
-                    "WAIT",
-                    [
-                        "PORTRAIT",
-                        "byte 235"
-                    ],
-                    "\n\n\"It has been a while, Master Iolo.\"",
-                    [
-                        "SETF",
-                        "byte 235",
-                        "byte 4"
-                    ]
-                ],
-                []
+                "byte 4, isInParty, byte 235, byte 4, flag, byte 0, equals, and"
             ],
+            "WAIT",
+            [
+                "PORTRAIT",
+                "byte 4"
+            ],
+            "\n\n\"Why, hello there, my friend. You've grown a bit since we met last.\"",
+            "WAIT",
+            "\n\n\"I'm afraid I can't recall your name; you'll have to forgive me.\"",
+            "WAIT",
+            [
+                "PORTRAIT",
+                "byte 235"
+            ],
+            "\n\n\"It has been a while, Master Iolo.\"",
+            [
+                "SETF",
+                "byte 235",
+                "byte 4"
+            ],
+            "ENDIF",
             "\n",
             "ASK",
             [

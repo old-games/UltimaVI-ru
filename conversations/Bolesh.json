@@ -14,15 +14,13 @@
             "\n",
             [
                 "IF",
-                "21, integer",
-                [
-                    [
-                        "JUMP",
-                        201
-                    ]
-                ],
-                []
+                "21, integer"
             ],
+            [
+                "JUMP",
+                201
+            ],
+            "ENDIF",
             "The gargoyle struggles to sit up.",
             "WAIT",
             "\n\nHe shouts, \"An-bal-sil-fer! Agra-lem! Agra-lem!\"",
@@ -33,45 +31,41 @@
         "201": [
             [
                 "IF",
-                "byte 235, 0, flag",
-                [
-                    [
-                        "JUMP",
-                        520
-                    ]
-                ],
-                []
+                "byte 235, 0, flag"
             ],
             [
+                "JUMP",
+                520
+            ],
+            "ENDIF",
+            [
                 "IF",
-                "byte 76, byte 0, isInPartyObj, byte 1, notEquals",
-                [
-                    "The gargoyle struggles to sit up.",
-                    "WAIT",
-                    "\n\nHe shouts, \"The False Prophet! Guards! Guards!\"",
-                    "WAIT",
-                    "\n\nThe gargoyle collapses, outraged but exhausted.\n",
-                    "BYE"
-                ],
-                [
-                    "The gargoyle struggles to sit up.",
-                    "WAIT",
-                    "\n\n\"The False Prophet!\"",
-                    "WAIT",
-                    "\n\n\"But to wear the Amulet of Submission?\"",
-                    "WAIT",
-                    "\n\n\"Then to express awe at your honor and courage.\"",
-                    [
-                        "SETF",
-                        "byte 235",
-                        "0"
-                    ],
-                    [
-                        "JUMP",
-                        551
-                    ]
-                ]
-            ]
+                "byte 76, byte 0, isInPartyObj, byte 1, notEquals"
+            ],
+            "The gargoyle struggles to sit up.",
+            "WAIT",
+            "\n\nHe shouts, \"The False Prophet! Guards! Guards!\"",
+            "WAIT",
+            "\n\nThe gargoyle collapses, outraged but exhausted.\n",
+            "BYE",
+            "ELSE",
+            "The gargoyle struggles to sit up.",
+            "WAIT",
+            "\n\n\"The False Prophet!\"",
+            "WAIT",
+            "\n\n\"But to wear the Amulet of Submission?\"",
+            "WAIT",
+            "\n\n\"Then to express awe at your honor and courage.\"",
+            [
+                "SETF",
+                "byte 235",
+                "0"
+            ],
+            [
+                "JUMP",
+                551
+            ],
+            "ENDIF"
         ],
         "520": [
             "\"Greetings again, honored one.\"\n",

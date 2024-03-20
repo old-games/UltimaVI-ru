@@ -14,25 +14,21 @@
             "\n",
             [
                 "IF",
-                "21, integer, byte 1, equals, byte 76, byte 0, isInPartyObj, byte 1, equals, and",
-                [
-                    [
-                        "JUMP",
-                        281
-                    ]
-                ],
-                []
+                "21, integer, byte 1, equals, byte 76, byte 0, isInPartyObj, byte 1, equals, and"
             ],
             [
-                "IF",
-                "21, integer",
-                [
-                    "\"The False Prophet!\" the gargoyle screams. \"Guards! Guards!\""
-                ],
-                [
-                    "\"An-bal-sil-fer!\" the gargoyle screams. \"Agra-lem! Agra-Lem!\""
-                ]
+                "JUMP",
+                281
             ],
+            "ENDIF",
+            [
+                "IF",
+                "21, integer"
+            ],
+            "\"The False Prophet!\" the gargoyle screams. \"Guards! Guards!\"",
+            "ELSE",
+            "\"An-bal-sil-fer!\" the gargoyle screams. \"Agra-lem! Agra-Lem!\"",
+            "ENDIF",
             "WAIT",
             "\n\nSuddenly realizing that he is holding a weapon, the gargoyle attacks!\n",
             [
@@ -45,23 +41,21 @@
         "281": [
             [
                 "IF",
-                "byte 235, 0, flag",
-                [
-                    "\"To ask how I can help you, noble one.\""
-                ],
-                [
-                    "\"The False Prophet!\"",
-                    "WAIT",
-                    "\n\n\"To thank you for your upcoming sacrifice.\"",
-                    "WAIT",
-                    "\n\n\"To greatly respect your nobility and courage.\"",
-                    [
-                        "SETF",
-                        "byte 235",
-                        "0"
-                    ]
-                ]
+                "byte 235, 0, flag"
             ],
+            "\"To ask how I can help you, noble one.\"",
+            "ELSE",
+            "\"The False Prophet!\"",
+            "WAIT",
+            "\n\n\"To thank you for your upcoming sacrifice.\"",
+            "WAIT",
+            "\n\n\"To greatly respect your nobility and courage.\"",
+            [
+                "SETF",
+                "byte 235",
+                "0"
+            ],
+            "ENDIF",
             "\n",
             "ASK",
             [
@@ -370,16 +364,14 @@
         "3365": [
             [
                 "IF",
-                "32, integer, byte 144, notEquals",
-                [
-                    "\"To ask you to see me at my shop!\"",
-                    [
-                        "JUMP",
-                        450
-                    ]
-                ],
-                []
+                "32, integer, byte 144, notEquals"
             ],
+            "\"To ask you to see me at my shop!\"",
+            [
+                "JUMP",
+                450
+            ],
+            "ENDIF",
             "\"Ah, to see you admire these boomerangs, the work of my @master.\"",
             "WAIT",
             "\n\n\"To regret being unable to create boomerangs myself.\"",
@@ -387,16 +379,14 @@
             "\n\n\"To have only a few left in stock",
             [
                 "IF",
-                "byte 49, byte 1, weight, byte 1, canCarry, greater",
-                [
-                    ".\"",
-                    [
-                        "JUMP",
-                        450
-                    ]
-                ],
-                []
+                "byte 49, byte 1, weight, byte 1, canCarry, greater"
             ],
+            ".\"",
+            [
+                "JUMP",
+                450
+            ],
+            "ENDIF",
             ", but to offer you one.\"",
             "WAIT",
             "\n\nDo you accept the gift? ",
@@ -469,16 +459,14 @@
         "4014": [
             [
                 "IF",
-                "32, integer, byte 144, notEquals",
-                [
-                    "\"To ask that you see me at my shop!\"",
-                    [
-                        "JUMP",
-                        450
-                    ]
-                ],
-                []
+                "32, integer, byte 144, notEquals"
             ],
+            "\"To ask that you see me at my shop!\"",
+            [
+                "JUMP",
+                450
+            ],
+            "ENDIF",
             "\"Yes, to be a very interesting weapon.\"",
             "WAIT",
             "\n\n\"To knock out even a large animal with just a single pouch of this powder!\"",
@@ -488,15 +476,13 @@
             "\n\n\"Unfortunately, to make this powder from @plants that can no longer be found.\"",
             [
                 "IF",
-                "byte 91, byte 1, weight, byte 1, canCarry, greater",
-                [
-                    [
-                        "JUMP",
-                        450
-                    ]
-                ],
-                []
+                "byte 91, byte 1, weight, byte 1, canCarry, greater"
             ],
+            [
+                "JUMP",
+                450
+            ],
+            "ENDIF",
             "WAIT",
             "\n\n\"Here, to offer you one.\"",
             "WAIT",

@@ -14,27 +14,23 @@
             "\n",
             [
                 "IF",
-                "byte 235, 1, flag, byte 0, equals",
-                [
-                    [
-                        "JUMP",
-                        177
-                    ]
-                ],
-                []
+                "byte 235, 1, flag, byte 0, equals"
             ],
             [
-                "IF",
-                "byte 0, byte 1, rand",
-                [
-                    [
-                        "CLEARF",
-                        "byte 235",
-                        "1"
-                    ]
-                ],
-                []
+                "JUMP",
+                177
             ],
+            "ENDIF",
+            [
+                "IF",
+                "byte 0, byte 1, rand"
+            ],
+            [
+                "CLEARF",
+                "byte 235",
+                "1"
+            ],
+            "ENDIF",
             "\"Get out! Flee before the awesome wrath of the mad mage Sutek!\"\n",
             [
                 "WORKTYPE",
@@ -46,21 +42,19 @@
         "177": [
             [
                 "IF",
-                "byte 235, 0, flag",
-                [
-                    "\"What brings you back to disturb the musings of the @mad mage Sutek again?\""
-                ],
-                [
-                    "\"So, Avatar, you disturb the musings of the @mad mage Sutek!\"",
-                    "WAIT",
-                    "\n\n\"What wisdom dost thou seek?\"",
-                    [
-                        "SETF",
-                        "byte 235",
-                        "0"
-                    ]
-                ]
+                "byte 235, 0, flag"
             ],
+            "\"What brings you back to disturb the musings of the @mad mage Sutek again?\"",
+            "ELSE",
+            "\"So, Avatar, you disturb the musings of the @mad mage Sutek!\"",
+            "WAIT",
+            "\n\n\"What wisdom dost thou seek?\"",
+            [
+                "SETF",
+                "byte 235",
+                "0"
+            ],
+            "ENDIF",
             "\n",
             "ASK",
             [
@@ -212,26 +206,24 @@
         "1722": [
             [
                 "IF",
-                "byte 235, 1, flag",
-                [
-                    "WAIT",
-                    "\n\n\"Thy question is answered.\"",
-                    "WAIT",
-                    "\n\n\"Now flee before the awesome wrath of the mad mage Sutek!\"\n",
-                    [
-                        "WORKTYPE",
-                        "byte 235",
-                        "byte 153"
-                    ],
-                    "BYE"
-                ],
-                [
-                    [
-                        "JUMP",
-                        359
-                    ]
-                ]
-            ]
+                "byte 235, 1, flag"
+            ],
+            "WAIT",
+            "\n\n\"Thy question is answered.\"",
+            "WAIT",
+            "\n\n\"Now flee before the awesome wrath of the mad mage Sutek!\"\n",
+            [
+                "WORKTYPE",
+                "byte 235",
+                "byte 153"
+            ],
+            "BYE",
+            "ELSE",
+            [
+                "JUMP",
+                359
+            ],
+            "ENDIF"
         ],
         "1835": [
             "WAIT",
