@@ -5,98 +5,44 @@
     "name": "Loubet",
     "f3-after-name": false,
     "description": [
-        "a tall and dashing gentleman.",
-        "WAIT",
-        "\n"
+        "print(\"a tall and dashing gentleman.\")",
+        "wait()",
+        "print(\"\n\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "41": [
-            "He greets you with an elaborate bow and flourish. \"Good $T, mon ami",
-            [
-                "IF",
-                "equals(integer(value 16), byte 1)"
-            ],
-            "e",
-            "ENDIF",
-            "!\"",
-            [
-                "IF",
-                "hasBit(byte 235, byte 7)"
-            ],
-            [
-                "JUMP",
-                566
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 32), byte 144)"
-            ],
-            "WAIT",
-            "\n\n\"'Ave you come to moi for @instruction?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"You 'ave but to ask, mah friend.\"",
-            [
-                "JUMP",
-                566
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "JUMP",
-                244
-            ],
+            "print(\"He greets you with an elaborate bow and flourish. \"Good $T, mon ami\")",
+            "if equals(integer(value 16), byte 1):",
+            "print(\"e\")",
+            "endif",
+            "print(\"!\"\")",
+            "if hasBit(byte 235, byte 7):",
+            "jump 566",
+            "endif",
+            "if equals(integer(value 32), byte 144):",
+            "wait()",
+            "print(\"\n\n\"'Ave you come to moi for @instruction?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"You 'ave but to ask, mah friend.\"\")",
+            "jump 566",
+            "case \"y\":",
+            "jump 244",
             "ESAC",
             "ELSE",
-            [
-                "JUMP",
-                566
-            ],
-            "ENDIF"
+            "jump 566",
+            "endif"
         ],
         "244": [
-            "Loubet hands you a foil and a mask of golden mesh.",
-            "WAIT",
-            "\n\nHe shows you the correct stance, then you spar for a bit.",
-            "WAIT",
-            "\n\n\"Now ze off hand, $G... Mon dieu, you are (how you say it?) ambidextrous! Very good, mah friend.\"",
-            "WAIT",
-            "\n\nM'sieur Loubet is a skilled teacher, and you feel like you've really learned something.",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "dexterity",
-                    [
-                        [
-                            "byte",
-                            1
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
+            "print(\"Loubet hands you a foil and a mask of golden mesh.\")",
+            "wait()",
+            "print(\"\n\nHe shows you the correct stance, then you spar for a bit.\")",
+            "wait()",
+            "print(\"\n\n\"Now ze off hand, $G... Mon dieu, you are (how you say it?) ambidextrous! Very good, mah friend.\"\")",
+            "wait()",
+            "print(\"\n\nM'sieur Loubet is a skilled teacher, and you feel like you've really learned something.\")",
+            "integer(value 0) = dexterity(byte 1, byte 1)",
             [
                 "SETF",
                 [
@@ -108,117 +54,66 @@
                     7
                 ]
             ],
-            [
-                "JUMP",
-                566
-            ]
+            "jump 566"
         ],
         "566": [
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "prac,ask,less"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, byte 7)"
-            ],
-            "\"But no! You are too skilled, I 'ave nothing more to teach you!\"",
-            [
-                "JUMP",
-                566
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "notEquals(integer(value 32), byte 144)"
-            ],
-            "\"Practice? Here? Surely you jest!\"",
-            "WAIT",
-            "\n\n\"No, come to ma salle sometime, zen we will spar, yes?\"",
-            [
-                "JUMP",
-                566
-            ],
+            "print(\"\n\")",
+            "ask()",
+            "case \"prac,ask,less\":",
+            "if hasBit(byte 235, byte 7):",
+            "print(\"\"But no! You are too skilled, I 'ave nothing more to teach you!\"\")",
+            "jump 566",
+            "endif",
+            "if notEquals(integer(value 32), byte 144):",
+            "print(\"\"Practice? Here? Surely you jest!\"\")",
+            "wait()",
+            "print(\"\n\n\"No, come to ma salle sometime, zen we will spar, yes?\"\")",
+            "jump 566",
             "ELSE",
-            [
-                "JUMP",
-                244
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "fenc,inst"
-            ],
-            "\"Oui, I teach ze fencing",
-            [
-                "IF",
-                "equals(integer(value 32), byte 144)"
-            ],
-            " here in my salle, my school.\"",
+            "jump 244",
+            "endif",
+            "case \"fenc,inst\":",
+            "print(\"\"Oui, I teach ze fencing\")",
+            "if equals(integer(value 32), byte 144):",
+            "print(\" here in my salle, my school.\"\")",
             "ELSE",
-            ".\"",
-            "ENDIF",
-            "WAIT",
-            "\n\n\"Is very difficult sometimes. Most fighters, zey have no subtlety, no finesse.\"",
-            "WAIT",
-            "\n\nHe turns up his nose and sniffs aristocratically.",
-            "WAIT",
-            "\n",
-            [
-                "IF",
-                "hasBit(byte 235, byte 7)"
-            ],
-            "\"Zey are not like you, mah friend! You are most talented!\"",
-            [
-                "JUMP",
-                566
-            ],
-            "ENDIF",
-            "\"But you, you look much better than that, my friend.\"",
-            "WAIT",
-            "\n\n\"",
-            [
-                "IF",
-                "equals(integer(value 32), byte 144)"
-            ],
-            "Just ask",
+            "print(\".\"\")",
+            "endif",
+            "wait()",
+            "print(\"\n\n\"Is very difficult sometimes. Most fighters, zey have no subtlety, no finesse.\"\")",
+            "wait()",
+            "print(\"\n\nHe turns up his nose and sniffs aristocratically.\")",
+            "wait()",
+            "print(\"\n\")",
+            "if hasBit(byte 235, byte 7):",
+            "print(\"\"Zey are not like you, mah friend! You are most talented!\"\")",
+            "jump 566",
+            "endif",
+            "print(\"\"But you, you look much better than that, my friend.\"\")",
+            "wait()",
+            "print(\"\n\n\"\")",
+            "if equals(integer(value 32), byte 144):",
+            "print(\"Just ask\")",
             "ELSE",
-            "Come to ma salle sometime",
-            "ENDIF",
-            " and I'll give you a @lesson!\"",
-            [
-                "JUMP",
-                566
-            ],
-            [
-                "CASE",
-                "name"
-            ],
-            "\"I am M'sieur Loubet.",
-            [
-                "IF",
-                "equals(integer(value 32), byte 144)"
-            ],
-            "\"",
-            "WAIT",
-            "\n\n\"@Touche!\" He wields his foil casually, lunging at an imaginary target.",
-            "WAIT",
-            "\n\n\"",
+            "print(\"Come to ma salle sometime\")",
+            "endif",
+            "print(\" and I'll give you a @lesson!\"\")",
+            "jump 566",
+            "case \"name\":",
+            "print(\"\"I am M'sieur Loubet.\")",
+            "if equals(integer(value 32), byte 144):",
+            "print(\"\"\")",
+            "wait()",
+            "print(\"\n\n\"@Touche!\" He wields his foil casually, lunging at an imaginary target.\")",
+            "wait()",
+            "print(\"\n\n\"\")",
             "ELSE",
-            " ",
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "But you already know who I am, silly person!\"",
-            [
-                "JUMP",
-                566
-            ],
-            "ENDIF",
+            "print(\" \")",
+            "endif",
+            "if hasBit(byte 235, value 0):",
+            "print(\"But you already know who I am, silly person!\"\")",
+            "jump 566",
+            "endif",
             [
                 "SETF",
                 [
@@ -230,83 +125,44 @@
                     0
                 ]
             ],
-            "Much pleased to meet you, ",
-            [
-                "IF",
-                "integer(value 16)"
-            ],
-            "madame",
+            "print(\"Much pleased to meet you, \")",
+            "if integer(value 16):",
+            "print(\"madame\")",
             "ELSE",
-            "m'sieur",
-            "ENDIF",
-            ".\"",
-            [
-                "JUMP",
-                566
-            ],
-            [
-                "CASE",
-                "touc"
-            ],
-            "\"Zat simply means 'touch.' In fencing we score by touching ze opponent with ze foil @tip.\"",
-            [
-                "JUMP",
-                566
-            ],
-            [
-                "CASE",
-                "foil,tip,scor"
-            ],
-            "\"Zey are blunt on ze end, see?\"",
-            "WAIT",
-            "\n\n\"Ze first third of ze blade (near ze 'andle) is 'forte'--strong. It is good to parry with zis part of ze sword.\"",
-            "WAIT",
-            "\n\n\"Ze rest of ze blade is 'foible'--weak and flexible.\"",
-            "WAIT",
-            "\n\n\"Ze foil, she is a very delicate thing. There must be much skill, yes?\"",
-            "WAIT",
-            "\n\n\"You must 'old ze sword like a living bird:\"",
-            "WAIT",
-            "\n\n\"Too loose and she flies away. Too tight and she smothers. Just right, and...\"",
-            "WAIT",
-            "\n\n\"She sings very sweet!\" He strikes metal and the foil makes a pleasant @ringing noise.",
-            [
-                "JUMP",
-                566
-            ],
-            [
-                "CASE",
-                "nois,plea,ring,hear"
-            ],
-            "SHINGGG!",
-            [
-                "JUMP",
-                566
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"I am ze @fencing @instructor.\"",
-            [
-                "JUMP",
-                566
-            ],
-            [
-                "CASE",
-                "bye,au r"
-            ],
-            "\"Au revoir!\"\n",
+            "print(\"m'sieur\")",
+            "endif",
+            "print(\".\"\")",
+            "jump 566",
+            "case \"touc\":",
+            "print(\"\"Zat simply means 'touch.' In fencing we score by touching ze opponent with ze foil @tip.\"\")",
+            "jump 566",
+            "case \"foil,tip,scor\":",
+            "print(\"\"Zey are blunt on ze end, see?\"\")",
+            "wait()",
+            "print(\"\n\n\"Ze first third of ze blade (near ze 'andle) is 'forte'--strong. It is good to parry with zis part of ze sword.\"\")",
+            "wait()",
+            "print(\"\n\n\"Ze rest of ze blade is 'foible'--weak and flexible.\"\")",
+            "wait()",
+            "print(\"\n\n\"Ze foil, she is a very delicate thing. There must be much skill, yes?\"\")",
+            "wait()",
+            "print(\"\n\n\"You must 'old ze sword like a living bird:\"\")",
+            "wait()",
+            "print(\"\n\n\"Too loose and she flies away. Too tight and she smothers. Just right, and...\"\")",
+            "wait()",
+            "print(\"\n\n\"She sings very sweet!\" He strikes metal and the foil makes a pleasant @ringing noise.\")",
+            "jump 566",
+            "case \"nois,plea,ring,hear\":",
+            "print(\"SHINGGG!\")",
+            "jump 566",
+            "case \"job\":",
+            "print(\"\"I am ze @fencing @instructor.\"\")",
+            "jump 566",
+            "case \"bye,au r\":",
+            "print(\"\"Au revoir!\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"I cannot 'elp you with zat.\"",
-            [
-                "JUMP",
-                566
-            ]
+            "case \"*\":",
+            "print(\"\"I cannot 'elp you with zat.\"\")",
+            "jump 566"
         ]
     }
 }

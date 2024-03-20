@@ -5,37 +5,19 @@
     "name": "Brandon",
     "f3-after-name": false,
     "description": [
-        "a golden-haired young man.",
-        "WAIT"
+        "print(\"a golden-haired young man.\")",
+        "wait()"
     ],
     "f3-after-description": false,
     "interaction": {
         "38": [
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            8
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    6
-                ]
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"Avatar! Good $T, $G! How has thy quest gone?\"",
+            "integer(value 8) = byte 6",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"Avatar! Good $T, $G! How has thy quest gone?\"\")",
             "ELSE",
-            "\"Hey! The Avatar! Good $T, $G!\"",
-            "WAIT",
-            "\n\n\"You've come to me to aid thee in thy quest! What an honor!\"",
+            "print(\"\"Hey! The Avatar! Good $T, $G!\"\")",
+            "wait()",
+            "print(\"\n\n\"You've come to me to aid thee in thy quest! What an honor!\"\")",
             [
                 "SETF",
                 [
@@ -47,487 +29,105 @@
                     0
                 ]
             ],
-            "ENDIF",
-            "WAIT",
-            [
-                "JUMP",
-                236
-            ]
+            "endif",
+            "wait()",
+            "jump 236"
         ],
         "205": [
-            "\n\"What else can I do for thee?\"\n"
+            "print(\"\n\"What else can I do for thee?\"\n\")"
         ],
         "236": [
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "buy"
-            ],
-            "\"I have a large inventory, so be more specific:\"",
-            "WAIT",
-            "\n\n\"Dost thou want @arms or @armor?\"",
-            [
-                "JUMP",
-                236
-            ],
-            [
-                "CASE",
-                "arms"
-            ],
-            [
-                "IF",
-                "notEquals(integer(value 32), byte 144)"
-            ],
-            "\"Come by my shop when I'm open!\"",
-            [
-                "JUMP",
-                236
-            ],
+            "print(\"\n\")",
+            "ask()",
+            "case \"buy\":",
+            "print(\"\"I have a large inventory, so be more specific:\"\")",
+            "wait()",
+            "print(\"\n\n\"Dost thou want @arms or @armor?\"\")",
+            "jump 236",
+            "case \"arms\":",
+            "if notEquals(integer(value 32), byte 144):",
+            "print(\"\"Come by my shop when I'm open!\"\")",
+            "jump 236",
             "ELSE",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            9
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "JUMP",
-                2157
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "armo"
-            ],
-            [
-                "IF",
-                "notEquals(integer(value 32), byte 144)"
-            ],
-            "\"Come by my shop when I'm open!\"",
-            [
-                "JUMP",
-                236
-            ],
+            "integer(value 9) = byte 0",
+            "jump 2157",
+            "endif",
+            "case \"armo\":",
+            "if notEquals(integer(value 32), byte 144):",
+            "print(\"\"Come by my shop when I'm open!\"\")",
+            "jump 236",
             "ELSE",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            9
-                        ]
-                    ]
-                ],
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            8
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                2157
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "sell"
-            ],
-            [
-                "IF",
-                "notEquals(integer(value 32), byte 144)"
-            ],
-            "\"Come by my shop when I'm open!\"",
-            [
-                "JUMP",
-                236
-            ],
+            "integer(value 9) = integer(value 8)",
+            "jump 2157",
+            "endif",
+            "case \"sell\":",
+            "if notEquals(integer(value 32), byte 144):",
+            "print(\"\"Come by my shop when I'm open!\"\")",
+            "jump 236",
             "ELSE",
-            [
-                "JUMP",
-                1235
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "job"
-            ],
-            "\"Oh, I'm not important like you. I'm just a weaponsmith--and only a @journeyman at that.\"",
-            [
-                "JUMP",
-                236
-            ],
-            [
-                "CASE",
-                "jour"
-            ],
-            "\"Aye, just a few years ago I was a simple apprentice.\"",
-            "WAIT",
-            "\n\n\"Now I @supply arms to all Trinsic!\"",
-            [
-                "JUMP",
-                236
-            ],
-            [
-                "CASE",
-                "name"
-            ],
-            "\"My name's Brandon, $G, and I'm honored to meet thee!\"",
-            [
-                "JUMP",
-                236
-            ],
-            [
-                "CASE",
-                "join"
-            ],
-            "\"That would be a great honor! I'd love to!\"",
-            "WAIT",
-            "\n\nThe man comes to his senses.",
-            "WAIT",
-            "\n\n\"But no, I can't. I've responsibilites here, especially @now.\"",
-            [
-                "JUMP",
-                236
-            ],
-            [
-                "CASE",
-                "well,good,fine,okay,grea"
-            ],
-            "\"And glad I am to hear it!\"",
-            [
-                "JUMP",
-                236
-            ],
-            [
-                "CASE",
-                "now,supp"
-            ],
-            "\"I have to make @weapons to help fight the gargoyles!\"",
-            [
-                "JUMP",
-                236
-            ],
-            [
-                "CASE",
-                "bye,noth"
-            ],
-            "\"Farewell! May thy quest succeed, Avatar!\"\n",
+            "jump 1235",
+            "endif",
+            "case \"job\":",
+            "print(\"\"Oh, I'm not important like you. I'm just a weaponsmith--and only a @journeyman at that.\"\")",
+            "jump 236",
+            "case \"jour\":",
+            "print(\"\"Aye, just a few years ago I was a simple apprentice.\"\")",
+            "wait()",
+            "print(\"\n\n\"Now I @supply arms to all Trinsic!\"\")",
+            "jump 236",
+            "case \"name\":",
+            "print(\"\"My name's Brandon, $G, and I'm honored to meet thee!\"\")",
+            "jump 236",
+            "case \"join\":",
+            "print(\"\"That would be a great honor! I'd love to!\"\")",
+            "wait()",
+            "print(\"\n\nThe man comes to his senses.\")",
+            "wait()",
+            "print(\"\n\n\"But no, I can't. I've responsibilites here, especially @now.\"\")",
+            "jump 236",
+            "case \"well,good,fine,okay,grea\":",
+            "print(\"\"And glad I am to hear it!\"\")",
+            "jump 236",
+            "case \"now,supp\":",
+            "print(\"\"I have to make @weapons to help fight the gargoyles!\"\")",
+            "jump 236",
+            "case \"bye,noth\":",
+            "print(\"\"Farewell! May thy quest succeed, Avatar!\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "weap"
-            ],
-            "\"Perhaps you'd like to @buy some. I'd be honored to have thee as a customer.\"",
-            [
-                "JUMP",
-                236
-            ],
-            [
-                "CASE",
-                "*"
-            ],
-            "\"Beg pardon, $G?\"",
-            [
-                "JUMP",
-                236
-            ]
+            "case \"weap\":",
+            "print(\"\"Perhaps you'd like to @buy some. I'd be honored to have thee as a customer.\"\")",
+            "jump 236",
+            "case \"*\":",
+            "print(\"\"Beg pardon, $G?\"\")",
+            "jump 236"
         ],
         "1235": [
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "IF",
-                "hasObject(character(integer(value 0), byte 0), data(dword 2806, integer(value 1)), byte 0)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            2975
-                        ],
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    2
-                                ]
-                            ]
-                        ]
-                    ]
-                ],
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    2
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
-            [
-                "JUMP",
-                1343
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "data(dword 2806, integer(value 1))"
-            ],
-            [
-                "JUMP",
-                1263
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "lessOrEquals(integer(value 0), integer(value 23))"
-            ],
-            [
-                "JUMP",
-                1256
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 3), byte 0)"
-            ],
-            "\"Sorry, none of you has anything I need.\"",
-            "WAIT",
-            "\n",
-            [
-                "JUMP",
-                205
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 2), byte 1)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "character",
-                    [
-                        [
-                            "data",
-                            [
-                                [
-                                    "dword",
-                                    2975
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
+            "integer(value 0) = byte 0",
+            "integer(value 2) = byte 0",
+            "integer(value 3) = byte 0",
+            "integer(value 1) = byte 0",
+            "if hasObject(character(integer(value 0), byte 0), data(dword 2806, integer(value 1)), byte 0):",
+            "data(dword 2975, integer(value 2)) = integer(value 0)",
+            "integer(value 2) = plus(integer(value 2), byte 1)",
+            "integer(value 3) = byte 1",
+            "jump 1343",
+            "endif",
+            "integer(value 1) = plus(integer(value 1), byte 1)",
+            "if data(dword 2806, integer(value 1)):",
+            "jump 1263",
+            "endif",
+            "integer(value 0) = plus(integer(value 0), byte 1)",
+            "if lessOrEquals(integer(value 0), integer(value 23)):",
+            "jump 1256",
+            "endif",
+            "if equals(integer(value 3), byte 0):",
+            "print(\"\"Sorry, none of you has anything I need.\"\")",
+            "wait()",
+            "print(\"\n\")",
+            "jump 205",
+            "endif",
+            "if equals(integer(value 2), byte 1):",
+            "integer(value 3) = character(data(dword 2975, byte 0), byte 0)",
             [
                 "SETNAME",
                 [
@@ -540,30 +140,12 @@
                     ]
                 ]
             ],
-            "\"Aye, $Y has something of interest...\"",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                1620
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
+            "print(\"\"Aye, $Y has something of interest...\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 1620",
+            "endif",
+            "integer(value 1) = byte 1",
             [
                 "SETNAME",
                 [
@@ -603,329 +185,41 @@
                     ]
                 ]
             ],
-            "#1) $Y\n",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "lessOrEquals(integer(value 1), integer(value 2))"
-            ],
-            [
-                "JUMP",
-                1503
-            ],
-            "ENDIF",
-            "\"Which of you?\" ",
+            "print(\"#1) $Y\n\")",
+            "integer(value 1) = plus(integer(value 1), byte 1)",
+            "if lessOrEquals(integer(value 1), integer(value 2)):",
+            "jump 1503",
+            "endif",
+            "print(\"\"Which of you?\" \")",
             [
                 "INPUTNUM",
                 3
             ],
-            [
-                "IF",
-                "equals(integer(value 3), byte 0)"
-            ],
-            [
-                "JUMP",
-                2126
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "minus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "greaterOrEquals(integer(value 3), integer(value 2))"
-            ],
-            [
-                "JUMP",
-                1496
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "character",
-                    [
-                        [
-                            "data",
-                            [
-                                [
-                                    "dword",
-                                    2975
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            5
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "IF",
-                "equals(hasObject(integer(value 3), data(dword 2806, integer(value 0)), byte 0), byte 0)"
-            ],
-            [
-                "JUMP",
-                1681
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            2945
-                        ],
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    5
-                                ]
-                            ]
-                        ]
-                    ]
-                ],
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            5
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    5
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "data(dword 2806, integer(value 0))"
-            ],
-            [
-                "JUMP",
-                1634
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 5), byte 1)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            6
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            2945
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                1845
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
-            "#0) ",
+            "if equals(integer(value 3), byte 0):",
+            "jump 2126",
+            "endif",
+            "integer(value 3) = minus(integer(value 3), byte 1)",
+            "if greaterOrEquals(integer(value 3), integer(value 2)):",
+            "jump 1496",
+            "endif",
+            "integer(value 3) = character(data(dword 2975, integer(value 3)), byte 0)",
+            "integer(value 0) = byte 0",
+            "integer(value 5) = byte 0",
+            "if equals(hasObject(integer(value 3), data(dword 2806, integer(value 0)), byte 0), byte 0):",
+            "jump 1681",
+            "endif",
+            "data(dword 2945, integer(value 5)) = integer(value 0)",
+            "integer(value 5) = plus(integer(value 5), byte 1)",
+            "integer(value 0) = plus(integer(value 0), byte 1)",
+            "if data(dword 2806, integer(value 0)):",
+            "jump 1634",
+            "endif",
+            "if equals(integer(value 5), byte 1):",
+            "integer(value 6) = data(dword 2945, byte 0)",
+            "jump 1845",
+            "endif",
+            "integer(value 0) = byte 1",
+            "print(\"#0) \")",
             [
                 "DPRINT",
                 [
@@ -962,177 +256,25 @@
                     ]
                 ]
             ],
-            "\n",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "lessOrEquals(integer(value 0), integer(value 5))"
-            ],
-            [
-                "JUMP",
-                1740
-            ],
-            "ENDIF",
-            "\"Which item?\" ",
+            "print(\"\n\")",
+            "integer(value 0) = plus(integer(value 0), byte 1)",
+            "if lessOrEquals(integer(value 0), integer(value 5)):",
+            "jump 1740",
+            "endif",
+            "print(\"\"Which item?\" \")",
             [
                 "INPUTNUM",
                 6
             ],
-            [
-                "IF",
-                "greater(integer(value 6), integer(value 5))"
-            ],
-            [
-                "JUMP",
-                1620
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 6), byte 0)"
-            ],
-            [
-                "JUMP",
-                2126
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            6
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            2945
-                        ],
-                        [
-                            "minus",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            6
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            2830
-                        ],
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    6
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            7
-                        ]
-                    ]
-                ],
-                [
-                    "divide",
-                    [
-                        [
-                            "data",
-                            [
-                                [
-                                    "dword",
-                                    2784
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            6
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            2
-                        ]
-                    ]
-                ]
-            ],
+            "if greater(integer(value 6), integer(value 5)):",
+            "jump 1620",
+            "endif",
+            "if equals(integer(value 6), byte 0):",
+            "jump 2126",
+            "endif",
+            "integer(value 6) = data(dword 2945, minus(integer(value 6), byte 1))",
+            "string(value 0) = data(dword 2830, integer(value 6))",
+            "integer(value 7) = divide(data(dword 2784, integer(value 6)), byte 2)",
             [
                 "SETNAME",
                 [
@@ -1145,39 +287,21 @@
                     ]
                 ]
             ],
-            "\"Will you take #7 gold for that $0, $Y?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            [
-                "IF",
-                "equals(integer(value 5), byte 1)"
-            ],
-            "\"Perhaps some other time, then.\"",
-            "WAIT",
-            "\n",
-            [
-                "JUMP",
-                205
-            ],
+            "print(\"\"Will you take #7 gold for that $0, $Y?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "if equals(integer(value 5), byte 1):",
+            "print(\"\"Perhaps some other time, then.\"\")",
+            "wait()",
+            "print(\"\n\")",
+            "jump 205",
             "ELSE",
-            "\"Perhaps something else then?\"",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                1620
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "y"
-            ],
+            "print(\"\"Perhaps something else then?\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 1620",
+            "endif",
+            "case \"y\":",
             [
                 "SETNAME",
                 [
@@ -1190,7 +314,7 @@
                     ]
                 ]
             ],
-            "\"Done!\" $N hands $Y #7 gold pieces and takes the $0.",
+            "print(\"\"Done!\" $N hands $Y #7 gold pieces and takes the $0.\")",
             [
                 "DELETE",
                 [
@@ -1258,91 +382,28 @@
                     ]
                 ]
             ],
-            [
-                "IF",
-                "equals(integer(value 5), byte 1)"
-            ],
-            "\n",
-            [
-                "JUMP",
-                205
-            ],
+            "if equals(integer(value 5), byte 1):",
+            "print(\"\n\")",
+            "jump 205",
             "ELSE",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                1620
-            ],
-            "ENDIF"
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 1620",
+            "endif"
         ],
         "2126": [
-            "\"Changed your mind, eh?\"",
-            "WAIT",
-            "\n",
-            [
-                "JUMP",
-                205
-            ]
+            "print(\"\"Changed your mind, eh?\"\")",
+            "wait()",
+            "print(\"\n\")",
+            "jump 205"
         ],
         "2157": [
-            [
-                "IF",
-                "equals(integer(value 23), byte 0)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
-            [
-                "JUMP",
-                2303
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
+            "if equals(integer(value 23), byte 0):",
+            "integer(value 3) = byte 1",
+            "jump 2303",
+            "endif",
+            "integer(value 0) = byte 0",
+            "integer(value 2) = byte 1",
             [
                 "SETNAME",
                 [
@@ -1364,454 +425,61 @@
                     ]
                 ]
             ],
-            "#2) $Y\n",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    2
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "lessOrEquals(integer(value 0), integer(value 23))"
-            ],
-            [
-                "JUMP",
-                2191
-            ],
-            "ENDIF",
-            "\"Which of you?\" ",
+            "print(\"#2) $Y\n\")",
+            "integer(value 0) = plus(integer(value 0), byte 1)",
+            "integer(value 2) = plus(integer(value 2), byte 1)",
+            "if lessOrEquals(integer(value 0), integer(value 23)):",
+            "jump 2191",
+            "endif",
+            "print(\"\"Which of you?\" \")",
             [
                 "INPUTNUM",
                 3
             ],
-            [
-                "IF",
-                "equals(integer(value 3), byte 0)"
-            ],
-            [
-                "JUMP",
-                2126
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "minus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "greater(integer(value 3), integer(value 23))"
-            ],
-            [
-                "JUMP",
-                2177
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "character",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            2830
-                        ],
-                        [
-                            "plus",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            9
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "minus",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    0
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            1
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            "#0) $0\n",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "and(integer(value 9), notEquals(data(dword 2806, plus(integer(value 9), minus(integer(value 0), byte 1))), byte 0))"
-            ],
-            [
-                "JUMP",
-                2310
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "and(equals(integer(value 9), byte 0), lessOrEquals(integer(value 0), integer(value 8)))"
-            ],
-            [
-                "JUMP",
-                2310
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            7
-                        ]
-                    ]
-                ],
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            "\"Which item?\" ",
+            "if equals(integer(value 3), byte 0):",
+            "jump 2126",
+            "endif",
+            "integer(value 3) = minus(integer(value 3), byte 1)",
+            "if greater(integer(value 3), integer(value 23)):",
+            "jump 2177",
+            "endif",
+            "integer(value 3) = character(integer(value 3), byte 0)",
+            "integer(value 0) = byte 1",
+            "string(value 0) = data(dword 2830, plus(integer(value 9), minus(integer(value 0), byte 1)))",
+            "print(\"#0) $0\n\")",
+            "integer(value 0) = plus(integer(value 0), byte 1)",
+            "if and(integer(value 9), notEquals(data(dword 2806, plus(integer(value 9), minus(integer(value 0), byte 1))), byte 0)):",
+            "jump 2310",
+            "endif",
+            "if and(equals(integer(value 9), byte 0), lessOrEquals(integer(value 0), integer(value 8))):",
+            "jump 2310",
+            "endif",
+            "integer(value 7) = integer(value 0)",
+            "print(\"\"Which item?\" \")",
             [
                 "INPUTNUM",
                 0
             ],
-            [
-                "IF",
-                "equals(integer(value 0), byte 0)"
-            ],
-            [
-                "JUMP",
-                2126
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "greaterOrEquals(integer(value 0), integer(value 7))"
-            ],
-            [
-                "JUMP",
-                2303
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "minus",
-                    [
-                        [
-                            "plus",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            9
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            2784
-                        ],
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            2830
-                        ],
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            "\"That $1 costs #1 gold.\"",
-            "WAIT",
-            "\n\n\"Interested?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "JUMP",
-                2543
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            [
-                "JUMP",
-                2303
-            ]
+            "if equals(integer(value 0), byte 0):",
+            "jump 2126",
+            "endif",
+            "if greaterOrEquals(integer(value 0), integer(value 7)):",
+            "jump 2303",
+            "endif",
+            "integer(value 0) = minus(plus(integer(value 9), integer(value 0)), byte 1)",
+            "integer(value 1) = data(dword 2784, integer(value 0))",
+            "string(value 1) = data(dword 2830, integer(value 0))",
+            "print(\"\"That $1 costs #1 gold.\"\")",
+            "wait()",
+            "print(\"\n\n\"Interested?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "jump 2543",
+            "case \"n\":",
+            "jump 2303"
         ],
         "2543": [
-            [
-                "IF",
-                "less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 2806, integer(value 0)), byte 1))"
-            ],
+            "if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 2806, integer(value 0)), byte 1)):",
             [
                 "SETNAME",
                 [
@@ -1824,18 +492,12 @@
                     ]
                 ]
             ],
-            "\"But 'twould make thee o'erburdened, $Y!\"",
-            "WAIT",
-            "\n",
-            [
-                "JUMP",
-                205
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1))"
-            ],
+            "print(\"\"But 'twould make thee o'erburdened, $Y!\"\")",
+            "wait()",
+            "print(\"\n\")",
+            "jump 205",
+            "endif",
+            "if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):",
             [
                 "DELETE",
                 [
@@ -1915,13 +577,10 @@
                     ]
                 ]
             ],
-            "\"Excellent!\"\n\nAfter accepting $Y's gold, $N hands over the $1.",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                2303
-            ],
+            "print(\"\"Excellent!\"\n\nAfter accepting $Y's gold, $N hands over the $1.\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 2303",
             "ELSE",
             [
                 "SETNAME",
@@ -1935,14 +594,11 @@
                     ]
                 ]
             ],
-            "\"But thou hast not enough gold, $Y!\"",
-            "WAIT",
-            "\n",
-            [
-                "JUMP",
-                205
-            ],
-            "ENDIF"
+            "print(\"\"But thou hast not enough gold, $Y!\"\")",
+            "wait()",
+            "print(\"\n\")",
+            "jump 205",
+            "endif"
         ],
         "2784": [
             [

@@ -5,112 +5,32 @@
     "name": "Beh Lem",
     "f3-after-name": false,
     "description": [
-        "a small, light-skinned gargoyle."
+        "print(\"a small, light-skinned gargoyle.\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "43": [
-            "WAIT",
-            [
-                "IF",
-                "partyHas(byte 235)"
-            ],
-            "\n\"To ask how I can help, mighty $P,\" Beh Lem asks.",
-            [
-                "JUMP",
-                1027
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "integer(value 21)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            9
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "JUMP",
-                888
-            ],
-            "ENDIF",
-            "\nThe gargoyle greets you enthusiastically, but you can't understand him!",
-            "WAIT",
-            "\n\nSeeing your confusion, he switches to the human language. It's obviously a strain for him.",
-            "WAIT",
-            "\n\n\"Hello. I little human @speak.\"",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "less(integer(value 0), byte 5)"
-            ],
-            [
-                "JUMP",
-                576
-            ],
-            "ENDIF",
-            "WAIT",
-            [
-                "IF",
-                "partyHas(byte 2)"
-            ],
+            "wait()",
+            "if partyHas(byte 235):",
+            "print(\"\n\"To ask how I can help, mighty $P,\" Beh Lem asks.\")",
+            "jump 1027",
+            "endif",
+            "if integer(value 21):",
+            "integer(value 9) = byte 0",
+            "jump 888",
+            "endif",
+            "print(\"\nThe gargoyle greets you enthusiastically, but you can't understand him!\")",
+            "wait()",
+            "print(\"\n\nSeeing your confusion, he switches to the human language. It's obviously a strain for him.\")",
+            "wait()",
+            "print(\"\n\n\"Hello. I little human @speak.\"\")",
+            "integer(value 0) = byte 0",
+            "integer(value 0) = plus(integer(value 0), byte 1)",
+            "if less(integer(value 0), byte 5):",
+            "jump 576",
+            "endif",
+            "wait()",
+            "if partyHas(byte 2):",
             [
                 "PORTRAIT",
                 [
@@ -125,15 +45,9 @@
                     2
                 ]
             ],
-            [
-                "JUMP",
-                396
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "partyHas(byte 4)"
-            ],
+            "jump 396",
+            "endif",
+            "if partyHas(byte 4):",
             [
                 "PORTRAIT",
                 [
@@ -148,36 +62,21 @@
                     4
                 ]
             ],
-            [
-                "JUMP",
-                396
-            ],
+            "jump 396",
             "ELSE",
-            [
-                "JUMP",
-                576
-            ],
-            "ENDIF"
+            "jump 576",
+            "endif"
         ],
         "396": [
-            "\n\n$Y speaks. \"$P, let's away from here.\"",
-            "WAIT",
-            "\n\n\"There's naught of use this creature can tell us. Agreed?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "The confused gargoyle waves good-bye.\n",
+            "print(\"\n\n$Y speaks. \"$P, let's away from here.\"\")",
+            "wait()",
+            "print(\"\n\n\"There's naught of use this creature can tell us. Agreed?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"The confused gargoyle waves good-bye.\n\")",
             "BYE",
-            [
-                "CASE",
-                "n"
-            ],
-            "\"As you wish, $G.\"",
+            "case \"n\":",
+            "print(\"\"As you wish, $G.\"\")",
             [
                 "PORTRAIT",
                 [
@@ -185,199 +84,82 @@
                     235
                 ]
             ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
+            "integer(value 0) = byte 0",
             "ESAC"
         ],
         "576": [
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "john,capt"
-            ],
-            "\"Captain John friend. He come here. I wait here.\"",
-            [
-                "JUMP",
-                328
-            ],
-            [
-                "CASE",
-                "name"
-            ],
-            "\"No name. I Beh Lem.\"",
-            [
-                "JUMP",
-                328
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"I wait here. @Captain John come.\"",
-            [
-                "JUMP",
-                328
-            ],
-            [
-                "CASE",
-                "spea,huma,litt,lang,read"
-            ],
-            "\"@Captain John teach I human speak,\" the gargoyle says haltingly.",
-            [
-                "JUMP",
-                328
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "The confused gargoyle waves good-bye.\n",
+            "print(\"\n\")",
+            "ask()",
+            "case \"john,capt\":",
+            "print(\"\"Captain John friend. He come here. I wait here.\"\")",
+            "jump 328",
+            "case \"name\":",
+            "print(\"\"No name. I Beh Lem.\"\")",
+            "jump 328",
+            "case \"job\":",
+            "print(\"\"I wait here. @Captain John come.\"\")",
+            "jump 328",
+            "case \"spea,huma,litt,lang,read\":",
+            "print(\"\"@Captain John teach I human speak,\" the gargoyle says haltingly.\")",
+            "jump 328",
+            "case \"bye\":",
+            "print(\"The confused gargoyle waves good-bye.\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "The gargoyle shrugs.",
-            [
-                "JUMP",
-                328
-            ]
+            "case \"*\":",
+            "print(\"The gargoyle shrugs.\")",
+            "jump 328"
         ],
         "888": [
-            "\n",
-            [
-                "IF",
-                "equals(hasBit(byte 235, value 0), byte 0)"
-            ],
-            "\"To greet you, human. To recognize you as the False @Prophet!\"",
-            "WAIT",
-            [
-                "JUMP",
-                1027
-            ],
-            "ENDIF",
-            "\"Good $T, my friend",
-            [
-                "IF",
-                "integer(value 23)"
-            ],
-            "s",
-            "ENDIF",
-            ". To have met @Valkadesh yet?\"",
-            [
-                "JUMP",
-                1027
-            ]
+            "print(\"\n\")",
+            "if equals(hasBit(byte 235, value 0), byte 0):",
+            "print(\"\"To greet you, human. To recognize you as the False @Prophet!\"\")",
+            "wait()",
+            "jump 1027",
+            "endif",
+            "print(\"\"Good $T, my friend\")",
+            "if integer(value 23):",
+            "print(\"s\")",
+            "endif",
+            "print(\". To have met @Valkadesh yet?\"\")",
+            "jump 1027"
         ],
         "1027": [
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "capt,john,frie"
-            ],
-            "\"To know Captain John! To help him and @Valkedesh in their work,\" the youngster says proudly.",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "true"
-            ],
-            "\"To not receive a true name until I have proved myself @worthy.\"",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "name"
-            ],
-            "\"To be called Beh Lem, which means 'just one.' To have not yet received a @true name.\"",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "wort,prov"
-            ],
-            "\"To not deserve a name yet. But to get one someday, just like my father @Valkadesh!\"",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            [
-                "IF",
-                "partyHas(byte 235)"
-            ],
-            "\"To be here to help you, noble $P.\"",
+            "print(\"\n\")",
+            "ask()",
+            "case \"capt,john,frie\":",
+            "print(\"\"To know Captain John! To help him and @Valkedesh in their work,\" the youngster says proudly.\")",
+            "jump 1027",
+            "case \"true\":",
+            "print(\"\"To not receive a true name until I have proved myself @worthy.\"\")",
+            "jump 1027",
+            "case \"name\":",
+            "print(\"\"To be called Beh Lem, which means 'just one.' To have not yet received a @true name.\"\")",
+            "jump 1027",
+            "case \"wort,prov\":",
+            "print(\"\"To not deserve a name yet. But to get one someday, just like my father @Valkadesh!\"\")",
+            "jump 1027",
+            "case \"job\":",
+            "if partyHas(byte 235):",
+            "print(\"\"To be here to help you, noble $P.\"\")",
             "ELSE",
-            "\"To be here to wait for Captain @John.\"",
-            "ENDIF",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "fath,scho,valk"
-            ],
-            [
-                "IF",
-                "partyHas(byte 235)"
-            ],
-            [
-                "JUMP",
-                3117
-            ],
+            "print(\"\"To be here to wait for Captain @John.\"\")",
+            "endif",
+            "jump 1027",
+            "case \"fath,scho,valk\":",
+            "if partyHas(byte 235):",
+            "jump 3117",
             "ELSE",
-            "\"To very much respect Valkadesh my father.\"",
-            "WAIT",
-            "\n\n\"To want to be a scholar someday just like him!\"\n",
-            "WAIT",
-            [
-                "JUMP",
-                2973
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "dire"
-            ],
-            "\"To ask what directions were unclear?\"",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "join"
-            ],
-            [
-                "IF",
-                "partyHas(byte 235)"
-            ],
+            "print(\"\"To very much respect Valkadesh my father.\"\")",
+            "wait()",
+            "print(\"\n\n\"To want to be a scholar someday just like him!\"\n\")",
+            "wait()",
+            "jump 2973",
+            "endif",
+            "case \"dire\":",
+            "print(\"\"To ask what directions were unclear?\"\")",
+            "jump 1027",
+            "case \"join\":",
+            "if partyHas(byte 235):",
             [
                 "DPRINT",
                 [
@@ -391,77 +173,32 @@
                     ]
                 ]
             ],
-            [
-                "JUMP",
-                1027
-            ],
+            "jump 1027",
             "ELSE",
-            [
-                "JUMP",
-                3693
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "sacr"
-            ],
-            "\"To not know much about that. But to be sure that @Valkadesh would know!\"",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "cont,dili,pass"
-            ],
-            "\"To be one of our guiding @principles.\"",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "prin"
-            ],
-            "\"To be surprised that you don't know that!\"",
-            "WAIT",
-            "\n\n\"To have three guiding principles - @control, @diligence, and @passion.\"",
-            "WAIT",
-            "\n\n\"To be the basis of all gargoyle beliefs.\"",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "fals,prop"
-            ],
-            "\"To be feared by everybody - everybody except me and @Valkadesh, my father!\"",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "guid"
-            ],
-            [
-                "JUMP",
-                3213
-            ],
-            [
-                "CASE",
-                "leav"
-            ],
-            [
-                "IF",
-                "partyHas(byte 235)"
-            ],
-            "\"To wish to stay with you!\"\n*\n\"To not leave until there is peace between our races!\"",
-            [
-                "JUMP",
-                1027
-            ],
+            "jump 3693",
+            "endif",
+            "case \"sacr\":",
+            "print(\"\"To not know much about that. But to be sure that @Valkadesh would know!\"\")",
+            "jump 1027",
+            "case \"cont,dili,pass\":",
+            "print(\"\"To be one of our guiding @principles.\"\")",
+            "jump 1027",
+            "case \"prin\":",
+            "print(\"\"To be surprised that you don't know that!\"\")",
+            "wait()",
+            "print(\"\n\n\"To have three guiding principles - @control, @diligence, and @passion.\"\")",
+            "wait()",
+            "print(\"\n\n\"To be the basis of all gargoyle beliefs.\"\")",
+            "jump 1027",
+            "case \"fals,prop\":",
+            "print(\"\"To be feared by everybody - everybody except me and @Valkadesh, my father!\"\")",
+            "jump 1027",
+            "case \"guid\":",
+            "jump 3213",
+            "case \"leav\":",
+            "if partyHas(byte 235):",
+            "print(\"\"To wish to stay with you!\"\n*\n\"To not leave until there is peace between our races!\"\")",
+            "jump 1027",
             "ELSE",
             [
                 "DPRINT",
@@ -476,25 +213,16 @@
                     ]
                 ]
             ],
-            [
-                "JUMP",
-                1027
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"May ",
-            [
-                "IF",
-                "equals(partyHas(byte 235), byte 0)"
-            ],
-            "y",
-            "ENDIF",
-            "our persistence and precision lead to success!\"",
-            "WAIT",
-            "\n",
+            "jump 1027",
+            "endif",
+            "case \"bye\":",
+            "print(\"\"May \")",
+            "if equals(partyHas(byte 235), byte 0):",
+            "print(\"y\")",
+            "endif",
+            "print(\"our persistence and precision lead to success!\"\")",
+            "wait()",
+            "print(\"\n\")",
             [
                 "SETF",
                 [
@@ -506,78 +234,33 @@
                     0
                 ]
             ],
-            [
-                "IF",
-                "equals(integer(value 9), byte 1)"
-            ],
-            "\nDuring your absence, $9 decided to head for the surface, to inform Lord British of your progress.",
-            "WAIT",
-            "\n",
-            "ENDIF",
+            "if equals(integer(value 9), byte 1):",
+            "print(\"\nDuring your absence, $9 decided to head for the surface, to inform Lord British of your progress.\")",
+            "wait()",
+            "print(\"\n\")",
+            "endif",
             "BYE",
-            [
-                "CASE",
-                "lava,pits"
-            ],
-            "\"To be in danger from the lava! To stay far away!\"",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "moun"
-            ],
-            "\"To walk clockwise around the mountains from Hythloth to reach my father's @house.\"",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "hous"
-            ],
-            "\"To find the house of Valkadesh my father through the pass east of the @Hall.\"",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "hall,know"
-            ],
-            [
-                "IF",
-                "equals(partyHasObject(byte 76, byte 0), byte 1)"
-            ],
-            "\"To find the Hall of Knowledge to the south of the city.\"",
+            "case \"lava,pits\":",
+            "print(\"\"To be in danger from the lava! To stay far away!\"\")",
+            "jump 1027",
+            "case \"moun\":",
+            "print(\"\"To walk clockwise around the mountains from Hythloth to reach my father's @house.\"\")",
+            "jump 1027",
+            "case \"hous\":",
+            "print(\"\"To find the house of Valkadesh my father through the pass east of the @Hall.\"\")",
+            "jump 1027",
+            "case \"hall,know\":",
+            "if equals(partyHasObject(byte 76, byte 0), byte 1):",
+            "print(\"\"To find the Hall of Knowledge to the south of the city.\"\")",
             "ELSE",
-            "\"To avoid the Hall! To talk to @Valkadesh first!\"",
-            "ENDIF",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "all,ever"
-            ],
-            [
-                "JUMP",
-                3213
-            ],
-            [
-                "CASE",
-                "no"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            [
-                "JUMP",
-                3117
-            ],
+            "print(\"\"To avoid the Hall! To talk to @Valkadesh first!\"\")",
+            "endif",
+            "jump 1027",
+            "case \"all,ever\":",
+            "jump 3213",
+            "case \"no\":",
+            "if hasBit(byte 235, value 0):",
+            "jump 3117",
             "ELSE",
             [
                 "DPRINT",
@@ -592,20 +275,11 @@
                     ]
                 ]
             ],
-            "ENDIF",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "yes"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"Good! To know that he very much wanted to speak with you.\"",
+            "endif",
+            "jump 1027",
+            "case \"yes\":",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"Good! To know that he very much wanted to speak with you.\"\")",
             "ELSE",
             [
                 "DPRINT",
@@ -620,15 +294,9 @@
                     ]
                 ]
             ],
-            "ENDIF",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "*"
-            ],
+            "endif",
+            "jump 1027",
+            "case \"*\":",
             [
                 "DPRINT",
                 [
@@ -651,321 +319,74 @@
                     ]
                 ]
             ],
-            [
-                "JUMP",
-                1027
-            ]
+            "jump 1027"
         ],
         "2973": [
-            "\n\"To wish to meet Valkadesh?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "IF",
-                "partyHas(byte 164)"
-            ],
-            [
-                "JUMP",
-                3117
-            ],
+            "print(\"\n\"To wish to meet Valkadesh?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "if partyHas(byte 164):",
+            "jump 3117",
             "ELSE",
-            "\"To go with you and @guide you there!\"",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                3693
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Oh.\" The little gargoyle seems saddened.",
-            [
-                "JUMP",
-                1027
-            ]
+            "print(\"\"To go with you and @guide you there!\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 3693",
+            "endif",
+            "case \"n\":",
+            "print(\"\"Oh.\" The little gargoyle seems saddened.\")",
+            "jump 1027"
         ],
         "3117": [
-            "\"To wish @directions to the house of Valkadesh?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "JUMP",
-                3213
-            ],
+            "print(\"\"To wish @directions to the house of Valkadesh?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "jump 3213",
             "ESAC",
-            "\n\"Then to not understand you.\"",
-            [
-                "JUMP",
-                1027
-            ],
-            "\"To go from the entrance to Hythloth westward, following the @mountains.\"",
-            "WAIT",
-            "\n\n\"Then to turn north, at the @Hall of Knowledge.\"",
-            "WAIT",
-            "\n\n\"To walk east along the mountains until you come to a narrow pass.\"",
-            "WAIT",
-            "\n\n\"To find the @house of Valkadesh through the pass!\"",
-            "WAIT",
-            "\n\n\"To see it at 40 degrees south, 65 degrees east by the sextant.\"",
-            "WAIT",
-            "\n\n\"But to take care! To avoid the @lava pits and the @Hall of Knowledge!\"",
-            "WAIT",
-            "\n\n\"To understand these @directions?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"Good!\"",
-            [
-                "JUMP",
-                1027
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"To ask what was unclear?\"",
-            [
-                "JUMP",
-                1027
-            ]
+            "print(\"\n\"Then to not understand you.\"\")",
+            "jump 1027",
+            "print(\"\"To go from the entrance to Hythloth westward, following the @mountains.\"\")",
+            "wait()",
+            "print(\"\n\n\"Then to turn north, at the @Hall of Knowledge.\"\")",
+            "wait()",
+            "print(\"\n\n\"To walk east along the mountains until you come to a narrow pass.\"\")",
+            "wait()",
+            "print(\"\n\n\"To find the @house of Valkadesh through the pass!\"\")",
+            "wait()",
+            "print(\"\n\n\"To see it at 40 degrees south, 65 degrees east by the sextant.\"\")",
+            "wait()",
+            "print(\"\n\n\"But to take care! To avoid the @lava pits and the @Hall of Knowledge!\"\")",
+            "wait()",
+            "print(\"\n\n\"To understand these @directions?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"\"Good!\"\")",
+            "jump 1027",
+            "case \"n\":",
+            "print(\"\"To ask what was unclear?\"\")",
+            "jump 1027"
         ],
         "3693": [
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            7
-                        ]
-                    ]
-                ],
-                [
-                    "partyJoin",
-                    [
-                        [
-                            "byte",
-                            235
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "integer(value 7)"
-            ],
-            [
-                "JUMP",
-                3761
-            ],
-            "ENDIF",
-            "The little gargoyle eagerly joins your group.",
-            [
-                "JUMP",
-                1027
-            ]
+            "integer(value 7) = partyJoin(byte 235)",
+            "if integer(value 7):",
+            "jump 3761",
+            "endif",
+            "print(\"The little gargoyle eagerly joins your group.\")",
+            "jump 1027"
         ],
         "3761": [
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            8
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    24
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            9
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "IF",
-                "less(integer(value 8), byte 2)"
-            ],
-            "\"To wish very much to join you. But to not have enough room in your party for another.\"",
-            [
-                "JUMP",
-                1027
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            6
-                        ]
-                    ]
-                ],
-                [
-                    "character",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    8
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "or(or(equals(integer(value 6), byte 4), equals(integer(value 6), byte 3)), equals(integer(value 6), byte 2))"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            8
-                        ]
-                    ]
-                ],
-                [
-                    "minus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    8
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                3778
-            ],
-            [
-                "IF",
-                [
-                    "partyLeave",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    6
-                                ]
-                            ]
-                        ]
-                    ]
-                ],
-                [
-                    [
-                        "ASSIGN",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    8
-                                ]
-                            ]
-                        ],
-                        [
-                            "minus",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            8
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        3778
-                    ]
-                ],
-                []
-            ],
-            "ENDIF",
+            "integer(value 8) = plus(integer(value 24), byte 1)",
+            "integer(value 9) = byte 0",
+            "if less(integer(value 8), byte 2):",
+            "print(\"\"To wish very much to join you. But to not have enough room in your party for another.\"\")",
+            "jump 1027",
+            "endif",
+            "integer(value 6) = character(integer(value 8), byte 1)",
+            "if or(or(equals(integer(value 6), byte 4), equals(integer(value 6), byte 3)), equals(integer(value 6), byte 2)):",
+            "integer(value 8) = minus(integer(value 8), byte 1)",
+            "jump 3778",
+            "if partyLeave(integer(value 6)):",
+            "endif",
             [
                 "SETNAME",
                 [
@@ -978,31 +399,8 @@
                     ]
                 ]
             ],
-            [
-                "ASSIGN",
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            9
-                        ]
-                    ]
-                ],
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            34
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "isNearby(integer(value 6))"
-            ],
+            "string(value 9) = string(value 34)",
+            "if isNearby(integer(value 6)):",
             [
                 "PORTRAIT",
                 [
@@ -1015,51 +413,15 @@
                     ]
                 ]
             ],
-            "$9 speaks. \"$G, I'll return to the surface and let everyone know of our progress.\"",
-            "WAIT",
-            "\n\n",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            9
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "JUMP",
-                4075
-            ],
+            "print(\"$9 speaks. \"$G, I'll return to the surface and let everyone know of our progress.\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "integer(value 9) = byte 0",
+            "jump 4075",
             "ELSE",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            9
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
-            [
-                "JUMP",
-                4075
-            ],
-            "ENDIF"
+            "integer(value 9) = byte 1",
+            "jump 4075",
+            "endif"
         ],
         "4075": [
             [
@@ -1069,19 +431,13 @@
                     235
                 ]
             ],
-            [
-                "IF",
-                "partyJoin(byte 235)"
-            ],
-            "\"To not be able to join you right now. To ask again later, perhaps.\"\n",
+            "if partyJoin(byte 235):",
+            "print(\"\"To not be able to join you right now. To ask again later, perhaps.\"\n\")",
             "BYE",
             "ELSE",
-            "The little gargoyle eagerly joins your group.",
-            [
-                "JUMP",
-                1027
-            ],
-            "ENDIF"
+            "print(\"The little gargoyle eagerly joins your group.\")",
+            "jump 1027",
+            "endif"
         ]
     }
 }

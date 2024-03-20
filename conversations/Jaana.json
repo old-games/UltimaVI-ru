@@ -5,81 +5,39 @@
     "name": "Jaana",
     "f3-after-name": false,
     "description": [
-        "the druidess Jaana."
+        "print(\"the druidess Jaana.\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "28": [
-            "WAIT",
-            "\n",
-            [
-                "IF",
-                "partyHas(byte 235)"
-            ],
-            "\"I fear I know little that would help in this situation, $G.\"",
-            [
-                "JUMP",
-                785
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, byte 2)"
-            ],
-            "\"Good $T, $G. Hast thou need of my services again?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"Ask me to @join and I will, gladly, $G!\"",
-            [
-                "JUMP",
-                785
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Very well. Thou needst but ask...\"",
-            [
-                "JUMP",
-                785
-            ],
+            "wait()",
+            "print(\"\n\")",
+            "if partyHas(byte 235):",
+            "print(\"\"I fear I know little that would help in this situation, $G.\"\")",
+            "jump 785",
+            "endif",
+            "if hasBit(byte 235, byte 2):",
+            "print(\"\"Good $T, $G. Hast thou need of my services again?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"\"Ask me to @join and I will, gladly, $G!\"\")",
+            "jump 785",
+            "case \"n\":",
+            "print(\"\"Very well. Thou needst but ask...\"\")",
+            "jump 785",
             "ESAC",
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"Good $T, $G! Hast thou fared well in thy travels?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"Joyous news! Thou must tell me of it sometime.\"",
-            [
-                "JUMP",
-                785
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Mayhap I could help. Ask me to @join thy band, $G, and gladly I will!\"",
-            [
-                "JUMP",
-                785
-            ],
+            "endif",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"Good $T, $G! Hast thou fared well in thy travels?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"\"Joyous news! Thou must tell me of it sometime.\"\")",
+            "jump 785",
+            "case \"n\":",
+            "print(\"\"Mayhap I could help. Ask me to @join thy band, $G, and gladly I will!\"\")",
+            "jump 785",
             "ESAC",
-            "ENDIF",
+            "endif",
             [
                 "SETF",
                 [
@@ -91,98 +49,45 @@
                     0
                 ]
             ],
-            "\"$P! 'Tis a great joy and relief to see thou hast returned to Britannia, $G!\"",
-            "WAIT",
-            "\n\n",
-            [
-                "IF",
-                "integer(value 23)"
-            ],
-            "She greets your other traveling companions.",
-            "WAIT",
-            "\n\nEveryone seems pleased to be reunited, albeit under tense circumstances.",
-            "WAIT",
-            "\n\n",
-            "ENDIF",
-            "\"Mayhap I can help thee in thy struggle against the @gargoyles.\"",
-            "WAIT",
-            "\n\n\"Thou needst but ask and I will gladly @join, $G.\"\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"Why, my name's Jaana, $G.\"",
-            "WAIT",
-            "\n\n\"Surely my help in thy previous quests was not so insignificant that thou hast forgotten it!\"",
-            [
-                "JUMP",
-                785
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"Since thy last visit to Britannia, I have lived in Yew, blessing crops and tending to sick animals.\"",
-            "WAIT",
-            "\n\n\"Though I know 'tis unbecoming of a simple druid to do so, I miss the excitement of our quests together!\"",
-            [
-                "IF",
-                "partyHas(byte 235)"
-            ],
-            [
-                "JUMP",
-                785
-            ],
-            "ENDIF",
-            "WAIT",
-            "\n\n\"I would gladly @join thee, $G, if thou had a use for my skills.\"",
-            [
-                "JUMP",
-                785
-            ],
-            [
-                "CASE",
-                "join"
-            ],
-            [
-                "IF",
-                "partyHas(byte 235)"
-            ],
-            "\"Surely I misunderstand thee, $G.\"",
-            "WAIT",
-            "\n\n\"Am I not already a member of thy band?\"",
-            [
-                "JUMP",
-                785
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "partyJoin",
-                    [
-                        [
-                            "byte",
-                            235
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(integer(value 0), byte 0)"
-            ],
-            "\"Gladly, $G!\"\n",
+            "print(\"\"$P! 'Tis a great joy and relief to see thou hast returned to Britannia, $G!\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "if integer(value 23):",
+            "print(\"She greets your other traveling companions.\")",
+            "wait()",
+            "print(\"\n\nEveryone seems pleased to be reunited, albeit under tense circumstances.\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "endif",
+            "print(\"\"Mayhap I can help thee in thy struggle against the @gargoyles.\"\")",
+            "wait()",
+            "print(\"\n\n\"Thou needst but ask and I will gladly @join, $G.\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"Why, my name's Jaana, $G.\"\")",
+            "wait()",
+            "print(\"\n\n\"Surely my help in thy previous quests was not so insignificant that thou hast forgotten it!\"\")",
+            "jump 785",
+            "case \"job\":",
+            "print(\"\"Since thy last visit to Britannia, I have lived in Yew, blessing crops and tending to sick animals.\"\")",
+            "wait()",
+            "print(\"\n\n\"Though I know 'tis unbecoming of a simple druid to do so, I miss the excitement of our quests together!\"\")",
+            "if partyHas(byte 235):",
+            "jump 785",
+            "endif",
+            "wait()",
+            "print(\"\n\n\"I would gladly @join thee, $G, if thou had a use for my skills.\"\")",
+            "jump 785",
+            "case \"join\":",
+            "if partyHas(byte 235):",
+            "print(\"\"Surely I misunderstand thee, $G.\"\")",
+            "wait()",
+            "print(\"\n\n\"Am I not already a member of thy band?\"\")",
+            "jump 785",
+            "endif",
+            "integer(value 0) = partyJoin(byte 235)",
+            "if equals(integer(value 0), byte 0):",
+            "print(\"\"Gladly, $G!\"\n\")",
             [
                 "SETF",
                 [
@@ -195,132 +100,61 @@
                 ]
             ],
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 0), byte 2)"
-            ],
-            "\"Nay, $G, thou seemst to have enough companions as it is.\"",
-            "WAIT",
-            "\n\n\"Mayhap if one of them left your band, thou might have more need of me.\"",
-            [
-                "JUMP",
-                785
-            ],
+            "endif",
+            "if equals(integer(value 0), byte 2):",
+            "print(\"\"Nay, $G, thou seemst to have enough companions as it is.\"\")",
+            "wait()",
+            "print(\"\n\n\"Mayhap if one of them left your band, thou might have more need of me.\"\")",
+            "jump 785",
             "ELSE",
-            "\"Let us discuss such matters ashore.\"",
-            "WAIT",
-            "\n\n\"I can barely think out here a'sea!\"",
-            "WAIT",
-            "\n\nFor the first time, you notice that Jaana seems definitely seasick!",
-            [
-                "JUMP",
-                785
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "leav"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "partyLeave",
-                    [
-                        [
-                            "byte",
-                            235
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(integer(value 0), byte 0)"
-            ],
-            "\"Whatever thou thinkest best, $G.\"\n*\n\"Thou mayst keep my supplies.\"\n",
+            "print(\"\"Let us discuss such matters ashore.\"\")",
+            "wait()",
+            "print(\"\n\n\"I can barely think out here a'sea!\"\")",
+            "wait()",
+            "print(\"\n\nFor the first time, you notice that Jaana seems definitely seasick!\")",
+            "jump 785",
+            "endif",
+            "case \"leav\":",
+            "integer(value 0) = partyLeave(byte 235)",
+            "if equals(integer(value 0), byte 0):",
+            "print(\"\"Whatever thou thinkest best, $G.\"\n*\n\"Thou mayst keep my supplies.\"\n\")",
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 0), byte 2)"
-            ],
-            "\"Perhaps I misunderstand, $G.\"",
-            "WAIT",
-            "\n\n\"I cannot leave thy party since I am not in it!\"",
-            [
-                "JUMP",
-                785
-            ],
+            "endif",
+            "if equals(integer(value 0), byte 2):",
+            "print(\"\"Perhaps I misunderstand, $G.\"\")",
+            "wait()",
+            "print(\"\n\n\"I cannot leave thy party since I am not in it!\"\")",
+            "jump 785",
             "ELSE",
-            "\"Let us discuss such matters ashore.\"",
-            "WAIT",
-            "\n\n\"I can barely think out here a'sea!\"",
-            "WAIT",
-            "\n\nFor the first time, you notice that Jaana seems definitely seasick!",
-            [
-                "JUMP",
-                785
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "garg"
-            ],
-            "\"I know little of the gargoyles, $G, save what rumors I hear.\"",
-            "WAIT",
-            "\n\n\"But I know that the gargoyles are fierce fighters, and a great threat to the land!\"",
-            [
-                "JUMP",
-                785
-            ],
-            [
-                "CASE",
-                "ench,nico"
-            ],
-            "\"I've heard that Nicodemus the enchanter lives between two rivers.\"",
-            [
-                "JUMP",
-                785
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            [
-                "IF",
-                "partyHas(byte 235)"
-            ],
-            "\"May the virtues guide us in our quest!\"\n",
+            "print(\"\"Let us discuss such matters ashore.\"\")",
+            "wait()",
+            "print(\"\n\n\"I can barely think out here a'sea!\"\")",
+            "wait()",
+            "print(\"\n\nFor the first time, you notice that Jaana seems definitely seasick!\")",
+            "jump 785",
+            "endif",
+            "case \"garg\":",
+            "print(\"\"I know little of the gargoyles, $G, save what rumors I hear.\"\")",
+            "wait()",
+            "print(\"\n\n\"But I know that the gargoyles are fierce fighters, and a great threat to the land!\"\")",
+            "jump 785",
+            "case \"ench,nico\":",
+            "print(\"\"I've heard that Nicodemus the enchanter lives between two rivers.\"\")",
+            "jump 785",
+            "case \"bye\":",
+            "if partyHas(byte 235):",
+            "print(\"\"May the virtues guide us in our quest!\"\n\")",
             "ELSE",
-            "\"Farewell! Return when thou hast more news of thy quest!\"\n",
-            "ENDIF",
+            "print(\"\"Farewell! Return when thou hast more news of thy quest!\"\n\")",
+            "endif",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            [
-                "IF",
-                "random(byte 0, byte 1)"
-            ],
-            "\"Alas, I know nothing of $Z, $G.\"",
+            "case \"*\":",
+            "if random(byte 0, byte 1):",
+            "print(\"\"Alas, I know nothing of $Z, $G.\"\")",
             "ELSE",
-            "\"Beg pardon?\"",
-            "ENDIF",
-            [
-                "JUMP",
-                785
-            ]
+            "print(\"\"Beg pardon?\"\")",
+            "endif",
+            "jump 785"
         ]
     }
 }

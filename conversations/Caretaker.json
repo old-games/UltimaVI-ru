@@ -5,28 +5,22 @@
     "name": "Caretaker",
     "f3-after-name": false,
     "description": [
-        "an old, winged gargoyle. An odd device crafted of glass and metal rests upon his face."
+        "print(\"an old, winged gargoyle. An odd device crafted of glass and metal rests upon his face.\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "99": [
-            "WAIT",
-            "\n",
-            [
-                "IF",
-                "equals(integer(value 21), byte 0)"
-            ],
-            "The gargoyle ignores you and continues writing.\n",
+            "wait()",
+            "print(\"\n\")",
+            "if equals(integer(value 21), byte 0):",
+            "print(\"The gargoyle ignores you and continues writing.\n\")",
             "BYE",
-            "ENDIF",
-            "\"Yes? To inquire about the reason for ",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "yet another ",
+            "endif",
+            "print(\"\"Yes? To inquire about the reason for \")",
+            "if hasBit(byte 235, value 0):",
+            "print(\"yet another \")",
             "ELSE",
-            "this ",
+            "print(\"this \")",
             [
                 "SETF",
                 [
@@ -38,175 +32,85 @@
                     0
                 ]
             ],
-            "ENDIF",
-            "interruption.\"",
-            [
-                "JUMP",
-                246
-            ]
+            "endif",
+            "print(\"interruption.\"\")",
+            "jump 246"
         ],
         "246": [
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "code"
-            ],
-            "\"To suppose that you are making a joke.\"",
-            "WAIT",
-            "\n\n\"To know as well as you that you took the Codex to your side of the world!\"",
-            [
-                "JUMP",
-                246
-            ],
-            [
-                "CASE",
-                "temp,sing"
-            ],
-            "\"To not be a signpost!\"",
-            "WAIT",
-            "\n\n\"To find the Temple of Singularity in the mountains to the north - if you can @fly!\"",
-            [
-                "JUMP",
-                246
-            ],
-            [
-                "CASE",
-                "fly"
-            ],
-            "\"To be unable to reach the mountain-locked Temple of Singularity on foot.\"",
-            "WAIT",
-            "\n\n\"To only be able to reach that holy place if you are a winged gargoyle.\"",
-            "WAIT",
-            "\n\n\"To find this most fitting and proper.\"",
-            "WAIT",
-            "\n\n\"To see no reason to let human riff-raff into the Temple.\"",
-            [
-                "JUMP",
-                246
-            ],
-            [
-                "CASE",
-                "lens"
-            ],
-            "\"To find what you seek in the @Vortex Chamber.\"",
-            [
-                "JUMP",
-                246
-            ],
-            [
-                "CASE",
-                "book,ritu"
-            ],
-            "\"To find what you seek in the @Librum Chamber.\"",
-            [
-                "JUMP",
-                246
-            ],
-            [
-                "CASE",
-                "cube"
-            ],
-            "\"To regret that that item is lost, stolen by human thieves years ago.\"",
-            "WAIT",
-            "\n\n\"To have heard the humans mention the name @Stonegate as they fled.\"",
-            "WAIT",
-            "\n\n\"To have heard them say they would sail through Lost Hope Bay.\"",
-            "WAIT",
-            "\n\n\"To know nothing more about its whereabouts.\"",
-            [
-                "JUMP",
-                246
-            ],
-            [
-                "CASE",
-                "moon"
-            ],
-            "\"To admit ignorance regarding the location of the moonstones.\"",
-            [
-                "JUMP",
-                246
-            ],
-            [
-                "CASE",
-                "ston,gate"
-            ],
-            "\"To suspect it to be someplace in the human-filled Underworld.\"",
-            [
-                "JUMP",
-                246
-            ],
-            [
-                "CASE",
-                "name"
-            ],
-            "\"To be called the Caretaker, in lieu of a name.\"",
-            "WAIT",
-            "\n\n\"To be honored by being allowed to perform my @duties as caretaker of this @Hall.\"",
-            [
-                "JUMP",
-                246
-            ],
-            [
-                "CASE",
-                "job,dut,care"
-            ],
-            "\"To care for my race's artifacts that rest here in the @Hall of Knowledge.\"",
-            [
-                "JUMP",
-                246
-            ],
-            [
-                "CASE",
-                "hall,know"
-            ],
-            "\"To keep the treasured artifacts of our race here in this Hall, in the three @chambers.\"",
-            [
-                "JUMP",
-                246
-            ],
-            [
-                "CASE",
-                "cham,vort,libr,huma"
-            ],
-            "\"To have three rooms here:\"",
-            "WAIT",
-            "\n\n\"To keep artifacts from the @Underworld in the Human Chamber, to the east.\"",
-            "WAIT",
-            "\n\n\"To keep valuable books in the Librum Chamber, to the west.\"",
-            "WAIT",
-            "\n\n\"And to keep the @Cube and the @Lens in the Vortex Chamber, to the south.\"",
-            "WAIT",
-            [
-                "JUMP",
-                246
-            ],
-            [
-                "CASE",
-                "unde"
-            ],
-            "\"Yes, the Underworld. To believe you know it as 'Britannia.'\"",
-            [
-                "JUMP",
-                246
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "Without another word, the gargoyle returns to his work.\n",
+            "print(\"\n\")",
+            "ask()",
+            "case \"code\":",
+            "print(\"\"To suppose that you are making a joke.\"\")",
+            "wait()",
+            "print(\"\n\n\"To know as well as you that you took the Codex to your side of the world!\"\")",
+            "jump 246",
+            "case \"temp,sing\":",
+            "print(\"\"To not be a signpost!\"\")",
+            "wait()",
+            "print(\"\n\n\"To find the Temple of Singularity in the mountains to the north - if you can @fly!\"\")",
+            "jump 246",
+            "case \"fly\":",
+            "print(\"\"To be unable to reach the mountain-locked Temple of Singularity on foot.\"\")",
+            "wait()",
+            "print(\"\n\n\"To only be able to reach that holy place if you are a winged gargoyle.\"\")",
+            "wait()",
+            "print(\"\n\n\"To find this most fitting and proper.\"\")",
+            "wait()",
+            "print(\"\n\n\"To see no reason to let human riff-raff into the Temple.\"\")",
+            "jump 246",
+            "case \"lens\":",
+            "print(\"\"To find what you seek in the @Vortex Chamber.\"\")",
+            "jump 246",
+            "case \"book,ritu\":",
+            "print(\"\"To find what you seek in the @Librum Chamber.\"\")",
+            "jump 246",
+            "case \"cube\":",
+            "print(\"\"To regret that that item is lost, stolen by human thieves years ago.\"\")",
+            "wait()",
+            "print(\"\n\n\"To have heard the humans mention the name @Stonegate as they fled.\"\")",
+            "wait()",
+            "print(\"\n\n\"To have heard them say they would sail through Lost Hope Bay.\"\")",
+            "wait()",
+            "print(\"\n\n\"To know nothing more about its whereabouts.\"\")",
+            "jump 246",
+            "case \"moon\":",
+            "print(\"\"To admit ignorance regarding the location of the moonstones.\"\")",
+            "jump 246",
+            "case \"ston,gate\":",
+            "print(\"\"To suspect it to be someplace in the human-filled Underworld.\"\")",
+            "jump 246",
+            "case \"name\":",
+            "print(\"\"To be called the Caretaker, in lieu of a name.\"\")",
+            "wait()",
+            "print(\"\n\n\"To be honored by being allowed to perform my @duties as caretaker of this @Hall.\"\")",
+            "jump 246",
+            "case \"job,dut,care\":",
+            "print(\"\"To care for my race's artifacts that rest here in the @Hall of Knowledge.\"\")",
+            "jump 246",
+            "case \"hall,know\":",
+            "print(\"\"To keep the treasured artifacts of our race here in this Hall, in the three @chambers.\"\")",
+            "jump 246",
+            "case \"cham,vort,libr,huma\":",
+            "print(\"\"To have three rooms here:\"\")",
+            "wait()",
+            "print(\"\n\n\"To keep artifacts from the @Underworld in the Human Chamber, to the east.\"\")",
+            "wait()",
+            "print(\"\n\n\"To keep valuable books in the Librum Chamber, to the west.\"\")",
+            "wait()",
+            "print(\"\n\n\"And to keep the @Cube and the @Lens in the Vortex Chamber, to the south.\"\")",
+            "wait()",
+            "jump 246",
+            "case \"unde\":",
+            "print(\"\"Yes, the Underworld. To believe you know it as 'Britannia.'\"\")",
+            "jump 246",
+            "case \"bye\":",
+            "print(\"Without another word, the gargoyle returns to his work.\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"To lack any time for idle chatter.\"",
-            "WAIT",
-            "\n\n\"To desire you to get to the point and then depart.\"",
-            [
-                "JUMP",
-                246
-            ]
+            "case \"*\":",
+            "print(\"\"To lack any time for idle chatter.\"\")",
+            "wait()",
+            "print(\"\n\n\"To desire you to get to the point and then depart.\"\")",
+            "jump 246"
         ]
     }
 }

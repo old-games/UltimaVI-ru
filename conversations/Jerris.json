@@ -5,72 +5,42 @@
     "name": "Jerris",
     "f3-after-name": false,
     "description": [
-        "a slender man with boots that come up to his thighs.",
-        "WAIT",
-        "\n"
+        "print(\"a slender man with boots that come up to his thighs.\")",
+        "wait()",
+        "print(\"\n\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "64": [
-            [
-                "IF",
-                "equals(integer(value 32), byte 153)"
-            ],
-            "\"Don't you know it's rude to interrupt a man when he's brawling?\"\n",
+            "if equals(integer(value 32), byte 153):",
+            "print(\"\"Don't you know it's rude to interrupt a man when he's brawling?\"\n\")",
             "BYE",
-            "ENDIF",
-            "\"Hello there, $G.\"",
-            [
-                "IF",
-                "notEquals(integer(value 32), byte 144)"
-            ],
-            [
-                "JUMP",
-                397
-            ],
-            "ENDIF",
-            "\n\n\"Care to join me in a drink?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Not a mead drinker, I guess.\" He shrugs.",
-            [
-                "JUMP",
-                397
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "He hands you a mug for a swallow.",
-            "WAIT",
-            "\n\nIt is warmed @mead, sweet and bubbly, with a cinnamon stick in it.",
-            "WAIT",
-            "\n\n\"Comes from Verity Isle,\" he says.",
+            "endif",
+            "print(\"\"Hello there, $G.\"\")",
+            "if notEquals(integer(value 32), byte 144):",
+            "jump 397",
+            "endif",
+            "print(\"\n\n\"Care to join me in a drink?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Not a mead drinker, I guess.\" He shrugs.\")",
+            "jump 397",
+            "case \"y\":",
+            "print(\"He hands you a mug for a swallow.\")",
+            "wait()",
+            "print(\"\n\nIt is warmed @mead, sweet and bubbly, with a cinnamon stick in it.\")",
+            "wait()",
+            "print(\"\n\n\"Comes from Verity Isle,\" he says.\")",
             "ESAC",
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "veri,mead,isle,mug"
-            ],
-            "\"It's mostly made of honey. Ask a brewer.\"",
-            [
-                "JUMP",
-                397
-            ],
-            [
-                "CASE",
-                "name"
-            ],
-            "\"Jerris is my name. And yourself?\"\n",
-            "ASK",
-            "\n\"Pleased to make your acquaintance.\"",
+            "print(\"\n\")",
+            "ask()",
+            "case \"veri,mead,isle,mug\":",
+            "print(\"\"It's mostly made of honey. Ask a brewer.\"\")",
+            "jump 397",
+            "case \"name\":",
+            "print(\"\"Jerris is my name. And yourself?\"\n\")",
+            "ask()",
+            "print(\"\n\"Pleased to make your acquaintance.\"\")",
             [
                 "SETF",
                 [
@@ -82,101 +52,44 @@
                     0
                 ]
             ],
-            [
-                "JUMP",
-                397
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"Some day I hope to join @Zellivan's Stalwarts and be a guard.\"",
-            [
-                "JUMP",
-                397
-            ],
-            [
-                "CASE",
-                "zell,stal,guar"
-            ],
-            "\"When that last earthquake struck, I was pinned 'neath a great tree branch.\"",
-            "WAIT",
-            "\n\n\"Lord Zellivan himself hoisted it up while a guard pulled me clear.\"",
-            [
-                "JUMP",
-                397
-            ],
-            [
-                "CASE",
-                "mous,rat"
-            ],
-            "\"It was a rat, as sure as the world is flat.\"",
-            "WAIT",
-            "\n\n\"Darndest thing, too.\"",
-            "WAIT",
-            "\n\n\"Nomaan dropped the rune and the rat took it into a little @hole.\"",
-            [
-                "JUMP",
-                397
-            ],
-            [
-                "CASE",
-                "hole,rune"
-            ],
-            [
-                "JUMP",
-                1157
-            ],
-            [
-                "CASE",
-                "mant"
-            ],
-            "\"It's in the refrain of the @song.\"",
-            [
-                "JUMP",
-                397
-            ],
-            [
-                "CASE",
-                "sing,song,refr"
-            ],
-            "\"Well, I'd rather not sing alone. Get Culham to play it.\"",
-            [
-                "JUMP",
-                397
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Goodbye.\"\n",
+            "jump 397",
+            "case \"job\":",
+            "print(\"\"Some day I hope to join @Zellivan's Stalwarts and be a guard.\"\")",
+            "jump 397",
+            "case \"zell,stal,guar\":",
+            "print(\"\"When that last earthquake struck, I was pinned 'neath a great tree branch.\"\")",
+            "wait()",
+            "print(\"\n\n\"Lord Zellivan himself hoisted it up while a guard pulled me clear.\"\")",
+            "jump 397",
+            "case \"mous,rat\":",
+            "print(\"\"It was a rat, as sure as the world is flat.\"\")",
+            "wait()",
+            "print(\"\n\n\"Darndest thing, too.\"\")",
+            "wait()",
+            "print(\"\n\n\"Nomaan dropped the rune and the rat took it into a little @hole.\"\")",
+            "jump 397",
+            "case \"hole,rune\":",
+            "jump 1157",
+            "case \"mant\":",
+            "print(\"\"It's in the refrain of the @song.\"\")",
+            "jump 397",
+            "case \"sing,song,refr\":",
+            "print(\"\"Well, I'd rather not sing alone. Get Culham to play it.\"\")",
+            "jump 397",
+            "case \"bye\":",
+            "print(\"\"Goodbye.\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"Sorry, $G.  I can't help ye with that.\"",
-            [
-                "JUMP",
-                397
-            ]
+            "case \"*\":",
+            "print(\"\"Sorry, $G.  I can't help ye with that.\"\")",
+            "jump 397"
         ],
         "1157": [
-            "\"It's right there. On the north wall. See it?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Look carefully, $G. Ye will see it if ye keep on looking.\"",
-            [
-                "IF",
-                "partyHas(byte 3)"
-            ],
-            "WAIT",
+            "print(\"\"It's right there. On the north wall. See it?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Look carefully, $G. Ye will see it if ye keep on looking.\"\")",
+            "if partyHas(byte 3):",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -184,8 +97,8 @@
                     3
                 ]
             ],
-            "\n\nShamino points to a spot west of the bar where the wall meets the ground. \"There it is.\"",
-            "WAIT",
+            "print(\"\n\nShamino points to a spot west of the bar where the wall meets the ground. \"There it is.\"\")",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -193,20 +106,11 @@
                     50
                 ]
             ],
-            "ENDIF",
-            [
-                "JUMP",
-                397
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"Obviously a rat hole.\"",
-            [
-                "JUMP",
-                397
-            ]
+            "endif",
+            "jump 397",
+            "case \"y\":",
+            "print(\"\"Obviously a rat hole.\"\")",
+            "jump 397"
         ]
     }
 }

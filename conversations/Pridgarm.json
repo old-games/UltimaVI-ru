@@ -5,67 +5,28 @@
     "name": "Pridgarm",
     "f3-after-name": false,
     "description": [
-        "an old man, tall and thin. He spends all his time whittling."
+        "print(\"an old man, tall and thin. He spends all his time whittling.\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "72": [
-            "WAIT",
-            "\n",
-            [
-                "IF",
-                "equals(hasBit(byte 235, byte 2), byte 0)"
-            ],
-            [
-                "JUMP",
-                476
-            ],
-            "ENDIF",
-            "\"Good $T, $G. Done with the key yet?\"",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "partyHasObject",
-                    [
-                        [
-                            "byte",
-                            64
-                        ],
-                        [
-                            "byte",
-                            11
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(integer(value 0), word 32769)"
-            ],
-            "\"Well, where is it?\"\n",
-            "ASK",
-            "\n\"Well, that does me no good.\"",
-            "WAIT",
-            "\n\n\"Need it here.\"",
-            "WAIT",
-            "\n\nWithout another word, the jailer returns to his carving.\n",
+            "wait()",
+            "print(\"\n\")",
+            "if equals(hasBit(byte 235, byte 2), byte 0):",
+            "jump 476",
+            "endif",
+            "print(\"\"Good $T, $G. Done with the key yet?\"\")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "integer(value 0) = partyHasObject(byte 64, byte 11)",
+            "if equals(integer(value 0), word 32769):",
+            "print(\"\"Well, where is it?\"\n\")",
+            "ask()",
+            "print(\"\n\"Well, that does me no good.\"\")",
+            "wait()",
+            "print(\"\n\n\"Need it here.\"\")",
+            "wait()",
+            "print(\"\n\nWithout another word, the jailer returns to his carving.\n\")",
             "BYE",
             "ELSE",
             [
@@ -92,7 +53,7 @@
                     235
                 ]
             ],
-            "\"Much obliged,\" the taciturn jailer says as he takes the key.\n",
+            "print(\"\"Much obliged,\" the taciturn jailer says as he takes the key.\n\")",
             [
                 "CLEARF",
                 [
@@ -112,69 +73,33 @@
                 ]
             ],
             "BYE",
-            "ENDIF",
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Well, bring it back to me when you are.\"",
-            "WAIT",
-            "\n\nWithout another word, the jailer returns to his carving.\n",
+            "endif",
+            "case \"n\":",
+            "print(\"\"Well, bring it back to me when you are.\"\")",
+            "wait()",
+            "print(\"\n\nWithout another word, the jailer returns to his carving.\n\")",
             "BYE"
         ],
         "476": [
-            "\"Good $T, $G. What can I do for you?\"\n",
-            "ASK",
-            [
-                "CASE",
-                "thie,robb"
-            ],
-            "\"He's in @solitary, right over there.\"",
-            [
-                "JUMP",
-                513
-            ],
-            [
-                "CASE",
-                "lock,see,meet,talk,soli,ther"
-            ],
-            "\"You'll need my @key to get in there.\"",
-            [
-                "JUMP",
-                513
-            ],
-            [
-                "CASE",
-                "key,your,give,plea"
-            ],
-            "\"Yup, I could give you the key....\"",
-            "WAIT",
-            "\n\n\"But not without Her Ladyship's @permission.\"",
-            [
-                "JUMP",
-                513
-            ],
-            [
-                "CASE",
-                "perm,impo,ques,avat,lett,lady,must,need"
-            ],
-            [
-                "JUMP",
-                1362
-            ],
-            [
-                "CASE",
-                "brib,mone,pay,give"
-            ],
-            [
-                "JUMP",
-                1657
-            ],
-            [
-                "CASE",
-                "name"
-            ],
-            "\"Name's Pridgarm.\"",
+            "print(\"\"Good $T, $G. What can I do for you?\"\n\")",
+            "ask()",
+            "case \"thie,robb\":",
+            "print(\"\"He's in @solitary, right over there.\"\")",
+            "jump 513",
+            "case \"lock,see,meet,talk,soli,ther\":",
+            "print(\"\"You'll need my @key to get in there.\"\")",
+            "jump 513",
+            "case \"key,your,give,plea\":",
+            "print(\"\"Yup, I could give you the key....\"\")",
+            "wait()",
+            "print(\"\n\n\"But not without Her Ladyship's @permission.\"\")",
+            "jump 513",
+            "case \"perm,impo,ques,avat,lett,lady,must,need\":",
+            "jump 1362",
+            "case \"brib,mone,pay,give\":",
+            "jump 1657",
+            "case \"name\":",
+            "print(\"\"Name's Pridgarm.\"\")",
             [
                 "SETF",
                 [
@@ -186,123 +111,45 @@
                     0
                 ]
             ],
-            [
-                "JUMP",
-                513
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"I mind the @jail.\"",
-            "WAIT",
-            "\n\n\"Got a @prisoner in @solitary right now.\"",
-            [
-                "JUMP",
-                513
-            ],
-            [
-                "CASE",
-                "jail"
-            ],
-            "\"Got four of the cleanest @cells you could ask fer.\"",
-            [
-                "JUMP",
-                513
-            ],
-            [
-                "CASE",
-                "cell"
-            ],
-            [
-                "JUMP",
-                1802
-            ],
-            [
-                "CASE",
-                "pris"
-            ],
-            "\"Feller broke into the @grave of His Lordship, the late Mayor.\"",
-            [
-                "JUMP",
-                513
-            ],
-            [
-                "CASE",
-                "rune,fami,free,feed,kids,rele,deal,go,allo,trad,brok,grav,lord"
-            ],
-            "\"'Taint my place to talk about that. You should go see Her Ladyship, the Mayor.\"",
-            [
-                "JUMP",
-                513
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "The jailer nods and says \"$T.\"\n",
+            "jump 513",
+            "case \"job\":",
+            "print(\"\"I mind the @jail.\"\")",
+            "wait()",
+            "print(\"\n\n\"Got a @prisoner in @solitary right now.\"\")",
+            "jump 513",
+            "case \"jail\":",
+            "print(\"\"Got four of the cleanest @cells you could ask fer.\"\")",
+            "jump 513",
+            "case \"cell\":",
+            "jump 1802",
+            "case \"pris\":",
+            "print(\"\"Feller broke into the @grave of His Lordship, the late Mayor.\"\")",
+            "jump 513",
+            "case \"rune,fami,free,feed,kids,rele,deal,go,allo,trad,brok,grav,lord\":",
+            "print(\"\"'Taint my place to talk about that. You should go see Her Ladyship, the Mayor.\"\")",
+            "jump 513",
+            "case \"bye\":",
+            "print(\"The jailer nods and says \"$T.\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            [
-                "IF",
-                "random(byte 0, byte 1)"
-            ],
-            "\"Don't know nothing about that.\"",
+            "case \"*\":",
+            "if random(byte 0, byte 1):",
+            "print(\"\"Don't know nothing about that.\"\")",
             "ELSE",
-            "The old man simply shrugs and keeps on whittling.",
-            "ENDIF",
-            [
-                "JUMP",
-                513
-            ]
+            "print(\"The old man simply shrugs and keeps on whittling.\")",
+            "endif",
+            "jump 513"
         ],
         "1362": [
-            "\"You got a letter of permission from Her Ladyship?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "partyHasObject",
-                    [
-                        [
-                            "byte",
-                            152
-                        ],
-                        [
-                            "byte",
-                            121
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(integer(value 0), word 32769)"
-            ],
-            "\"Gotta have a letter if you want to see the thief.\"",
+            "print(\"\"You got a letter of permission from Her Ladyship?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "integer(value 0) = partyHasObject(byte 152, byte 121)",
+            "if equals(integer(value 0), word 32769):",
+            "print(\"\"Gotta have a letter if you want to see the thief.\"\")",
             "ELSE",
-            "\"Okay, here's the key.\"",
-            "WAIT",
-            "\n\n\"Give it back when you're done.\"",
+            "print(\"\"Okay, here's the key.\"\")",
+            "wait()",
+            "print(\"\n\n\"Give it back when you're done.\"\")",
             [
                 "DELETE",
                 [
@@ -369,69 +216,33 @@
                     5
                 ]
             ],
-            "ENDIF",
-            [
-                "JUMP",
-                513
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Well, gotta have a letter if you want to see the thief.\"",
-            [
-                "JUMP",
-                513
-            ]
+            "endif",
+            "jump 513",
+            "case \"n\":",
+            "print(\"\"Well, gotta have a letter if you want to see the thief.\"\")",
+            "jump 513"
         ],
         "1657": [
-            "\"You offering me a bribe?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "He thinks for a moment.",
-            "WAIT",
-            "\n\n\"Nope. Sorry, not interested.\"",
-            [
-                "JUMP",
-                513
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Pity. Never been offered a bribe before.\"",
-            [
-                "JUMP",
-                513
-            ]
+            "print(\"\"You offering me a bribe?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"He thinks for a moment.\")",
+            "wait()",
+            "print(\"\n\n\"Nope. Sorry, not interested.\"\")",
+            "jump 513",
+            "case \"n\":",
+            "print(\"\"Pity. Never been offered a bribe before.\"\")",
+            "jump 513"
         ],
         "1802": [
-            "\"Say, you looking to get the keys to my jail cells?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Okay. Never had nobody sound so interested in jest hearing about the jail before.\"",
-            [
-                "JUMP",
-                513
-            ],
+            "print(\"\"Say, you looking to get the keys to my jail cells?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Okay. Never had nobody sound so interested in jest hearing about the jail before.\"\")",
+            "jump 513",
             "ESAC",
-            "\n\"Well, ya know, I shouldn't do this.\"*\n\n\"But Her Ladyship is a little too strict about who she puts in here.\"*\n\n\"So I make up fer it by being a little careless with the keys, if you take my meaning.\"*\n\nHe tosses you some keys, then turns his back on you.\n",
-            [
-                "IF",
-                "equals(hasObject(byte 1, byte 64, byte 7), byte 0)"
-            ],
+            "print(\"\n\"Well, ya know, I shouldn't do this.\"*\n\n\"But Her Ladyship is a little too strict about who she puts in here.\"*\n\n\"So I make up fer it by being a little careless with the keys, if you take my meaning.\"*\n\nHe tosses you some keys, then turns his back on you.\n\")",
+            "if equals(hasObject(byte 1, byte 64, byte 7), byte 0):",
             [
                 "NEW",
                 [
@@ -451,11 +262,8 @@
                     1
                 ]
             ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(hasObject(byte 1, byte 64, byte 8), byte 0)"
-            ],
+            "endif",
+            "if equals(hasObject(byte 1, byte 64, byte 8), byte 0):",
             [
                 "NEW",
                 [
@@ -475,11 +283,8 @@
                     1
                 ]
             ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(hasObject(byte 1, byte 64, byte 9), byte 0)"
-            ],
+            "endif",
+            "if equals(hasObject(byte 1, byte 64, byte 9), byte 0):",
             [
                 "NEW",
                 [
@@ -499,11 +304,8 @@
                     1
                 ]
             ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(hasObject(byte 1, byte 64, byte 10), byte 0)"
-            ],
+            "endif",
+            "if equals(hasObject(byte 1, byte 64, byte 10), byte 0):",
             [
                 "NEW",
                 [
@@ -523,7 +325,7 @@
                     1
                 ]
             ],
-            "ENDIF",
+            "endif",
             "BYE"
         ]
     }

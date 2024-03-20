@@ -5,32 +5,26 @@
     "name": "Ybarra",
     "f3-after-name": false,
     "description": [
-        "a sunken-faced, starving man, dressed in rags."
+        "print(\"a sunken-faced, starving man, dressed in rags.\")"
     ],
     "f3-after-description": true,
     "interaction": {
         "57": [
-            "WAIT",
-            "\n",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"Thou art back!\"",
-            "WAIT",
-            "\n\n\"Please, please! @Give me some food!\"",
-            [
-                "JUMP",
-                269
-            ],
-            "ENDIF",
-            "It takes a few moments for the man to notice you.",
-            "WAIT",
-            "\n\n\"Hu--humans!\"",
-            "WAIT",
-            "\n\n\"Please, you must help me!\" he says weakly.",
-            "WAIT",
-            "\n\n\"I need @food, badly!\"",
+            "wait()",
+            "print(\"\n\")",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"Thou art back!\"\")",
+            "wait()",
+            "print(\"\n\n\"Please, please! @Give me some food!\"\")",
+            "jump 269",
+            "endif",
+            "print(\"It takes a few moments for the man to notice you.\")",
+            "wait()",
+            "print(\"\n\n\"Hu--humans!\"\")",
+            "wait()",
+            "print(\"\n\n\"Please, you must help me!\" he says weakly.\")",
+            "wait()",
+            "print(\"\n\n\"I need @food, badly!\"\")",
             [
                 "SETF",
                 [
@@ -42,247 +36,75 @@
                     0
                 ]
             ],
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"Ybarra. Ybarra's my name.\"",
-            [
-                "JUMP",
-                269
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"Lost here, no job now.\"",
-            "WAIT",
-            "\n\n\"I used to sail under Captain Hawkins on the Empire.\"",
-            "WAIT",
-            "\n\n\"We had @food then!\"",
-            "WAIT",
-            "\n\n\"But those days are gone....\"",
-            [
-                "JUMP",
-                269
-            ],
-            [
-                "CASE",
-                "food"
-            ],
-            "\"Yes, @food! The last thing I ate was my @belt.\"",
-            "WAIT",
-            "\n\n\"And that was three weeks ago.\"",
-            "WAIT",
-            "\n\n\"If only you could @give me some food...\"",
-            [
-                "JUMP",
-                269
-            ],
-            [
-                "CASE",
-                "belt"
-            ],
-            "\"Not very tasty, but it was filling.\"",
-            [
-                "JUMP",
-                269
-            ],
-            [
-                "CASE",
-                "give,spar"
-            ],
-            [
-                "JUMP",
-                1061
-            ],
-            [
-                "CASE",
-                "map,piec"
-            ],
-            "\"Map? Map. Map.\"",
-            "WAIT",
-            [
-                "IF",
-                "equals(hasObject(byte 235, word 404, byte 0), byte 0)"
-            ],
-            "\n\n\"You already got it from me.\"",
-            [
-                "JUMP",
-                269
-            ],
-            "ENDIF",
-            "\n\n\"Oh, the map. Yes, I still have that.\"",
-            "WAIT",
-            "\n\n\"I couldn't eat it.\"",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            9
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            "WAIT",
-            "\n\n\"It ought to be worth some @food, surely?\" ",
-            [
-                "JUMP",
-                1469
-            ],
-            [
-                "CASE",
-                "join"
-            ],
-            "\"Leave here? No!\"",
-            "WAIT",
-            "\n\"I've almost gotten the tunnels figured out!\"",
-            "WAIT",
-            "\n\n\"Just a few more days and I'll be free!\"",
-            "WAIT",
-            "\n\n\"But I must have @food!\"",
-            [
-                "JUMP",
-                269
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Don't go! I need @food... @food...\"\n",
-            "WAIT",
-            [
-                "JUMP",
-                1769
-            ],
-            [
-                "CASE",
-                "*"
-            ],
-            "\"Huh?\"",
-            [
-                "JUMP",
-                269
-            ]
+            "print(\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"Ybarra. Ybarra's my name.\"\")",
+            "jump 269",
+            "case \"job\":",
+            "print(\"\"Lost here, no job now.\"\")",
+            "wait()",
+            "print(\"\n\n\"I used to sail under Captain Hawkins on the Empire.\"\")",
+            "wait()",
+            "print(\"\n\n\"We had @food then!\"\")",
+            "wait()",
+            "print(\"\n\n\"But those days are gone....\"\")",
+            "jump 269",
+            "case \"food\":",
+            "print(\"\"Yes, @food! The last thing I ate was my @belt.\"\")",
+            "wait()",
+            "print(\"\n\n\"And that was three weeks ago.\"\")",
+            "wait()",
+            "print(\"\n\n\"If only you could @give me some food...\"\")",
+            "jump 269",
+            "case \"belt\":",
+            "print(\"\"Not very tasty, but it was filling.\"\")",
+            "jump 269",
+            "case \"give,spar\":",
+            "jump 1061",
+            "case \"map,piec\":",
+            "print(\"\"Map? Map. Map.\"\")",
+            "wait()",
+            "if equals(hasObject(byte 235, word 404, byte 0), byte 0):",
+            "print(\"\n\n\"You already got it from me.\"\")",
+            "jump 269",
+            "endif",
+            "print(\"\n\n\"Oh, the map. Yes, I still have that.\"\")",
+            "wait()",
+            "print(\"\n\n\"I couldn't eat it.\"\")",
+            "integer(value 9) = byte 0",
+            "wait()",
+            "print(\"\n\n\"It ought to be worth some @food, surely?\" \")",
+            "jump 1469",
+            "case \"join\":",
+            "print(\"\"Leave here? No!\"\")",
+            "wait()",
+            "print(\"\n\"I've almost gotten the tunnels figured out!\"\")",
+            "wait()",
+            "print(\"\n\n\"Just a few more days and I'll be free!\"\")",
+            "wait()",
+            "print(\"\n\n\"But I must have @food!\"\")",
+            "jump 269",
+            "case \"bye\":",
+            "print(\"\"Don't go! I need @food... @food...\"\n\")",
+            "wait()",
+            "jump 1769",
+            "case \"*\":",
+            "print(\"\"Huh?\"\")",
+            "jump 269"
         ],
         "1061": [
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "IF",
-                "greater(integer(value 0), byte 15)"
-            ],
-            [
-                "JUMP",
-                1360
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "partyHasObject",
-                    [
-                        [
-                            "data",
-                            [
-                                [
-                                    "dword",
-                                    1878
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(integer(value 1), word 32769)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                1068
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 1), byte 1)"
-            ],
-            "You share ",
+            "integer(value 0) = byte 0",
+            "if greater(integer(value 0), byte 15):",
+            "jump 1360",
+            "endif",
+            "integer(value 1) = partyHasObject(data(dword 1878, integer(value 0)), byte 0)",
+            "if equals(integer(value 1), word 32769):",
+            "integer(value 0) = plus(integer(value 0), byte 1)",
+            "jump 1068",
+            "endif",
+            "if equals(integer(value 1), byte 1):",
+            "print(\"You share \")",
             "ELSE",
             [
                 "SETNAME",
@@ -296,9 +118,9 @@
                     ]
                 ]
             ],
-            "$Y shares ",
-            "ENDIF",
-            "some food with the pathetic man.",
+            "print(\"$Y shares \")",
+            "endif",
+            "print(\"some food with the pathetic man.\")",
             [
                 "DELETE",
                 [
@@ -372,31 +194,22 @@
                     1
                 ]
             ],
-            "WAIT",
-            "\n\n\"Thunff fou,\" Ybarra says, stuffing the food into his mouth.",
-            "WAIT",
-            "\n\nAfter finishing the offered meal, however, Ybarra still seemes starved.",
-            [
-                "JUMP",
-                269
-            ]
+            "wait()",
+            "print(\"\n\n\"Thunff fou,\" Ybarra says, stuffing the food into his mouth.\")",
+            "wait()",
+            "print(\"\n\nAfter finishing the offered meal, however, Ybarra still seemes starved.\")",
+            "jump 269"
         ],
         "1360": [
-            "Suddenly, you realize that you have no food to give him!",
-            "WAIT",
-            "\n\n\"No @food?\" he asks. \"Then thou art doomed too!\"\n",
+            "print(\"Suddenly, you realize that you have no food to give him!\")",
+            "wait()",
+            "print(\"\n\n\"No @food?\" he asks. \"Then thou art doomed too!\"\n\")",
             "BYE"
         ],
         "1469": [
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "He hands you the map piece and rubs his hands, eagerly awaiting his food.",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"He hands you the map piece and rubs his hands, eagerly awaiting his food.\")",
             [
                 "GIVE",
                 [
@@ -416,49 +229,19 @@
                     1
                 ]
             ],
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                1061
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            [
-                "IF",
-                "equals(integer(value 9), byte 1)"
-            ],
-            [
-                "JUMP",
-                1661
-            ],
-            "ENDIF",
-            "\"You must! I'll die! Just a little bit of @food for the map?\" ",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            9
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
-            [
-                "JUMP",
-                1469
-            ]
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 1061",
+            "case \"n\":",
+            "if equals(integer(value 9), byte 1):",
+            "jump 1661",
+            "endif",
+            "print(\"\"You must! I'll die! Just a little bit of @food for the map?\" \")",
+            "integer(value 9) = byte 1",
+            "jump 1469"
         ],
         "1661": [
-            "His last shred of hope torn away from him, the withered man leaps at you, screaming \"@Food! @Food!\"\n",
+            "print(\"His last shred of hope torn away from him, the withered man leaps at you, screaming \"@Food! @Food!\"\n\")",
             [
                 "WORKTYPE",
                 [
@@ -473,16 +256,10 @@
             "BYE"
         ],
         "1769": [
-            "\n\"Can I have a little before you go?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "The man collapses, the last of his energy gone.\n",
+            "print(\"\n\"Can I have a little before you go?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"The man collapses, the last of his energy gone.\n\")",
             [
                 "WORKTYPE",
                 [
@@ -495,14 +272,8 @@
                 ]
             ],
             "BYE",
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "JUMP",
-                1061
-            ]
+            "case \"y\":",
+            "jump 1061"
         ],
         "1878": [
             [

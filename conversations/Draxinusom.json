@@ -5,76 +5,34 @@
     "name": "Draxinusom",
     "f3-after-name": false,
     "description": [
-        "a large, winged gargoyle of regal bearing."
+        "print(\"a large, winged gargoyle of regal bearing.\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "56": [
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            "WAIT",
-            "\n",
-            [
-                "IF",
-                "equals(integer(value 21), byte 0)"
-            ],
-            "The gargoyle screams, \"An-bal-sil-fer! Klep lem! Por-aylem ter-ort ka!\"\n",
+            "integer(value 0) = byte 0",
+            "integer(value 1) = byte 0",
+            "wait()",
+            "print(\"\n\")",
+            "if equals(integer(value 21), byte 0):",
+            "print(\"The gargoyle screams, \"An-bal-sil-fer! Klep lem! Por-aylem ter-ort ka!\"\n\")",
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "equals(partyHasObject(byte 76, byte 0), byte 1)"
-            ],
-            "\"To be honored by your presence, noble $P. To feel sorrow that matters of state prevent conversation.\"",
-            "WAIT",
-            "\n\n\"To summon you when proper time for your sacrifice has come.\"\n",
+            "endif",
+            "if equals(partyHasObject(byte 76, byte 0), byte 1):",
+            "print(\"\"To be honored by your presence, noble $P. To feel sorrow that matters of state prevent conversation.\"\")",
+            "wait()",
+            "print(\"\n\n\"To summon you when proper time for your sacrifice has come.\"\n\")",
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "partyHas(byte 164)"
-            ],
-            "\"To refrain from slaying you only because of the presence of the child, False Prophet!\"",
-            "WAIT",
-            "\n\n",
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"To demand to know why you have returned here, False Prophet!\"",
+            "endif",
+            "if partyHas(byte 164):",
+            "print(\"\"To refrain from slaying you only because of the presence of the child, False Prophet!\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "endif",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"To demand to know why you have returned here, False Prophet!\"\")",
             "ELSE",
-            "\"To express astonishment at your audacity, False Prophet!\"",
+            "print(\"\"To express astonishment at your audacity, False Prophet!\"\")",
             [
                 "SETF",
                 [
@@ -86,118 +44,30 @@
                     0
                 ]
             ],
-            "ENDIF",
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "surr,sacr"
-            ],
-            [
-                "JUMP",
-                1978
-            ],
-            [
-                "CASE",
-                "name"
-            ],
-            "\"To be named Draxinusom, leader of our race.\"",
-            "WAIT",
-            "\n\n\"To demand to know why you have come before me!\"",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                562
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"To be the leader of our race. To have little time to waste chatting with the False Prophet!\"",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                562
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Flee, False Prophet! To seize you for sacrifice the instant my army returns from the Underworld!\"",
-            "WAIT",
-            "\n",
+            "endif",
+            "print(\"\n\")",
+            "ask()",
+            "case \"surr,sacr\":",
+            "jump 1978",
+            "case \"name\":",
+            "print(\"\"To be named Draxinusom, leader of our race.\"\")",
+            "wait()",
+            "print(\"\n\n\"To demand to know why you have come before me!\"\")",
+            "integer(value 0) = plus(integer(value 0), byte 1)",
+            "jump 562",
+            "case \"job\":",
+            "print(\"\"To be the leader of our race. To have little time to waste chatting with the False Prophet!\"\")",
+            "integer(value 0) = plus(integer(value 0), byte 1)",
+            "jump 562",
+            "case \"bye\":",
+            "print(\"\"Flee, False Prophet! To seize you for sacrifice the instant my army returns from the Underworld!\"\")",
+            "wait()",
+            "print(\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            [
-                "IF",
-                "greater(integer(value 0), byte 2)"
-            ],
-            [
-                "JUMP",
-                1875
-            ],
-            "ENDIF",
+            "case \"*\":",
+            "if greater(integer(value 0), byte 2):",
+            "jump 1875",
+            "endif",
             [
                 "DPRINT",
                 [
@@ -216,56 +86,18 @@
                     ]
                 ]
             ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                562
-            ]
+            "integer(value 0) = plus(integer(value 0), byte 1)",
+            "jump 562"
         ],
         "957": [
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "seer,scho,sacr,talk,valk,naxa"
-            ],
-            "The gargoyle shows you a crystal amulet dangling from a leather cord.",
-            "WAIT",
-            "\n\n\"Hsss....To consent to wear this?\" ",
-            [
-                "IF",
-                "partyHas(byte 2)"
-            ],
-            "WAIT",
+            "print(\"\n\")",
+            "ask()",
+            "case \"seer,scho,sacr,talk,valk,naxa\":",
+            "print(\"The gargoyle shows you a crystal amulet dangling from a leather cord.\")",
+            "wait()",
+            "print(\"\n\n\"Hsss....To consent to wear this?\" \")",
+            "if partyHas(byte 2):",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -273,8 +105,8 @@
                     2
                 ]
             ],
-            "\n\nTrusted Dupre whispers frantically to you, \"You mustn't! It's some sort of magical trap!\"",
-            "WAIT",
+            "print(\"\n\nTrusted Dupre whispers frantically to you, \"You mustn't! It's some sort of magical trap!\"\")",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -282,80 +114,32 @@
                     235
                 ]
             ],
-            "\n\nThe gargoyle waits impatiently for an answer. \"Yes or no, False Prophet?\" ",
-            "ENDIF",
-            [
-                "JUMP",
-                1432
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"To have known it all along!\"",
-            "WAIT",
-            "\"To be a fool for trusting the False Prophet for a moment!\"",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                1875
-            ],
-            [
-                "CASE",
-                "*"
-            ],
-            "\"To be suspicious of thy motives...\"",
-            [
-                "JUMP",
-                957
-            ]
+            "print(\"\n\nThe gargoyle waits impatiently for an answer. \"Yes or no, False Prophet?\" \")",
+            "endif",
+            "jump 1432",
+            "case \"bye\":",
+            "print(\"\"To have known it all along!\"\")",
+            "wait()",
+            "print(\"\"To be a fool for trusting the False Prophet for a moment!\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 1875",
+            "case \"*\":",
+            "print(\"\"To be suspicious of thy motives...\"\")",
+            "jump 957"
         ],
         "1432": [
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            [
-                "IF",
-                "integer(value 1)"
-            ],
-            [
-                "JUMP",
-                1875
-            ],
+            "askc(\"yn\")",
+            "case \"n\":",
+            "if integer(value 1):",
+            "jump 1875",
             "ELSE",
-            "\"To be necessary for surrender! To ask again for your acceptance of this.\"\n\nYour answer: ",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
-            [
-                "JUMP",
-                1432
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "y"
-            ],
-            "The gargoyle hands you the amulet, and you slip the leather loop over your head.",
+            "print(\"\"To be necessary for surrender! To ask again for your acceptance of this.\"\n\nYour answer: \")",
+            "integer(value 1) = byte 1",
+            "jump 1432",
+            "endif",
+            "case \"y\":",
+            "print(\"The gargoyle hands you the amulet, and you slip the leather loop over your head.\")",
             [
                 "NEW",
                 [
@@ -382,83 +166,44 @@
                     10
                 ]
             ],
-            "WAIT",
+            "wait()",
             "ESAC",
-            "\n\n\"To surprise me with the nobility of your deed. To no longer be a threat to my people.\"",
-            "WAIT",
-            "\n\n\"To bid you to travel among my people, talk to them, learn our ways.\"",
-            "WAIT",
-            "\n\n\"To inform you when the time of your sacrifice has come.\"\n",
+            "print(\"\n\n\"To surprise me with the nobility of your deed. To no longer be a threat to my people.\"\")",
+            "wait()",
+            "print(\"\n\n\"To bid you to travel among my people, talk to them, learn our ways.\"\")",
+            "wait()",
+            "print(\"\n\n\"To inform you when the time of your sacrifice has come.\"\n\")",
             "BYE"
         ],
         "1875": [
-            "\"Begone, False Prophet! To seize you for sacrifice the instant my army returns from the Underworld!\"",
-            "WAIT",
-            "\n",
+            "print(\"\"Begone, False Prophet! To seize you for sacrifice the instant my army returns from the Underworld!\"\")",
+            "wait()",
+            "print(\"\n\")",
             "BYE"
         ],
         "1978": [
-            "\"To be here to surrender?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            [
-                "JUMP",
-                1875
-            ],
+            "print(\"\"To be here to surrender?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "jump 1875",
             "ESAC",
-            [
-                "CASE",
-                "y"
-            ],
-            "\"To be willing to die to save my people?\" ",
+            "case \"y\":",
+            "print(\"\"To be willing to die to save my people?\" \")",
             "ESAC",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            [
-                "JUMP",
-                1875
-            ],
+            "askc(\"yn\")",
+            "case \"n\":",
+            "jump 1875",
             "ESAC",
-            [
-                "CASE",
-                "y"
-            ],
-            "\"To grant me your life?\" ",
+            "case \"y\":",
+            "print(\"\"To grant me your life?\" \")",
             "ESAC",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            [
-                "JUMP",
-                1875
-            ],
+            "askc(\"yn\")",
+            "case \"n\":",
+            "jump 1875",
             "ESAC",
-            [
-                "CASE",
-                "y"
-            ],
-            "\"Why?\"",
-            [
-                "JUMP",
-                957
-            ]
+            "case \"y\":",
+            "print(\"\"Why?\"\")",
+            "jump 957"
         ]
     }
 }

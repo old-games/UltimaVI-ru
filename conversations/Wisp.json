@@ -5,29 +5,17 @@
     "name": "Wisp",
     "f3-after-name": false,
     "description": [
-        "a strange, glowing ball of energy.\n*"
+        "print(\"a strange, glowing ball of energy.\n*\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "44": [
-            [
-                "IF",
-                "hasBit(byte 201, byte 6)"
-            ],
-            [
-                "JUMP",
-                80
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "and(hasBit(byte 201, byte 7), notEquals(partyHasObject(byte 151, byte 77), word 32769))"
-            ],
-            [
-                "JUMP",
-                3486
-            ],
-            "ENDIF",
+            "if hasBit(byte 201, byte 6):",
+            "jump 80",
+            "endif",
+            "if and(hasBit(byte 201, byte 7), notEquals(partyHasObject(byte 151, byte 77), word 32769)):",
+            "jump 3486",
+            "endif",
             [
                 "SETF",
                 [
@@ -39,96 +27,34 @@
                     0
                 ]
             ],
-            "\"Again, '@you' of this plane address 'I' of the Xorinite dimension.\"\n*\n\"By what name do 'you' wish to be addressed at this time?\"\n",
-            "ASK",
-            [
-                "ASSIGN",
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            9
-                        ]
-                    ]
-                ],
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            35
-                        ]
-                    ]
-                ]
-            ],
-            "\n\"Very well, '$9.' Do 'you' have memory of previous discussions with 'myself?'\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"Good. Tedious repetition should then be unnecessary on this occasion. Of what would 'you' speak?\"",
-            [
-                "JUMP",
-                1044
-            ],
+            "print(\"\"Again, '@you' of this plane address 'I' of the Xorinite dimension.\"\n*\n\"By what name do 'you' wish to be addressed at this time?\"\n\")",
+            "ask()",
+            "string(value 9) = string(value 35)",
+            "print(\"\n\"Very well, '$9.' Do 'you' have memory of previous discussions with 'myself?'\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"\"Good. Tedious repetition should then be unnecessary on this occasion. Of what would 'you' speak?\"\")",
+            "jump 1044",
             "ESAC",
-            "\n\"So be it. 'I' must often repeat information when conversing with the life of Britannia, it seems.\"\n*\n\"'I' do not see how each unit of life here can have different memories, different desires, but again 'I' inform Britannia that it is not so in 'my' realm.\"\n*\n\"Those which 'you' know as 'wisp' in Britannia are projections of the life of Xorinia.\"\n*\n\"'I' extend into many planes beside this one.\"\n*\n\"Britannia communicates with 'me' very seldom, and is known by those of very few other planes.\"\n*\n\"Every time 'I' speak with Britannia, it seems 'I' must explain 'my' nature again, as 'I' have just done.\"\n*\n\"That is very strange.\"\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"The concept of 'name' is one 'I' still do not grasp.\"\n*\n\"'I' believe that when 'you' ask 'me' to use '$9' as a form of address, it has something to do with 'name.'\"\n*\n\"When Britannia addressed me with the name '@Zog,' an attempt was made to explain.\"*\n\"But still 'I' do not understand.\"",
-            [
-                "JUMP",
-                1044
-            ],
-            [
-                "CASE",
-                "you"
-            ],
-            "\"'I' and 'you' are words that seem to have no meaning.\"\n*\n\"'I' mimic the way 'you' use them in this language out of courtesy.\"",
-            [
-                "JUMP",
-                1044
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"Xorinia serves as a conduit for @information between different planes.\"\n*\n\"In exchange, these planes provide information that can be used to improve Xorinia.\"\n*\n\"Occasionally payment is accepted in the form of @substance, but this is not preferred.\"",
-            [
-                "JUMP",
-                1044
-            ],
-            [
-                "CASE",
-                "cond,info,exch"
-            ],
-            "\"Britannia has never participated in the interplanar exchange of information.\"\n*\n\"'I' have presented a sample known in Britannian terms as a '@secret', but no further interest has been shown.\"",
-            [
-                "JUMP",
-                1044
-            ],
-            [
-                "CASE",
-                "subs"
-            ],
-            "\"Actual physical materials are so plentiful throughout the multiverse that they are of little value.\"\n*\n\"Information has much greater worth.\"",
-            [
-                "JUMP",
-                1044
-            ],
-            [
-                "CASE",
-                "paym,inte"
-            ],
-            "\"If 'you' present a reasonably dense information source to a 'wisp' unit, arrangements will be made to transfer some suitably valuable commodity into Britannian possession.\"",
+            "print(\"\n\"So be it. 'I' must often repeat information when conversing with the life of Britannia, it seems.\"\n*\n\"'I' do not see how each unit of life here can have different memories, different desires, but again 'I' inform Britannia that it is not so in 'my' realm.\"\n*\n\"Those which 'you' know as 'wisp' in Britannia are projections of the life of Xorinia.\"\n*\n\"'I' extend into many planes beside this one.\"\n*\n\"Britannia communicates with 'me' very seldom, and is known by those of very few other planes.\"\n*\n\"Every time 'I' speak with Britannia, it seems 'I' must explain 'my' nature again, as 'I' have just done.\"\n*\n\"That is very strange.\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"The concept of 'name' is one 'I' still do not grasp.\"\n*\n\"'I' believe that when 'you' ask 'me' to use '$9' as a form of address, it has something to do with 'name.'\"\n*\n\"When Britannia addressed me with the name '@Zog,' an attempt was made to explain.\"*\n\"But still 'I' do not understand.\"\")",
+            "jump 1044",
+            "case \"you\":",
+            "print(\"\"'I' and 'you' are words that seem to have no meaning.\"\n*\n\"'I' mimic the way 'you' use them in this language out of courtesy.\"\")",
+            "jump 1044",
+            "case \"job\":",
+            "print(\"\"Xorinia serves as a conduit for @information between different planes.\"\n*\n\"In exchange, these planes provide information that can be used to improve Xorinia.\"\n*\n\"Occasionally payment is accepted in the form of @substance, but this is not preferred.\"\")",
+            "jump 1044",
+            "case \"cond,info,exch\":",
+            "print(\"\"Britannia has never participated in the interplanar exchange of information.\"\n*\n\"'I' have presented a sample known in Britannian terms as a '@secret', but no further interest has been shown.\"\")",
+            "jump 1044",
+            "case \"subs\":",
+            "print(\"\"Actual physical materials are so plentiful throughout the multiverse that they are of little value.\"\n*\n\"Information has much greater worth.\"\")",
+            "jump 1044",
+            "case \"paym,inte\":",
+            "print(\"\"If 'you' present a reasonably dense information source to a 'wisp' unit, arrangements will be made to transfer some suitably valuable commodity into Britannian possession.\"\")",
             [
                 "SETF",
                 [
@@ -140,15 +66,9 @@
                     7
                 ]
             ],
-            [
-                "JUMP",
-                1044
-            ],
-            [
-                "CASE",
-                "secr"
-            ],
-            "\"Because of the nature of Britannian memory, 'I' now present the sample information to 'you' again.\"\n*\nThe wisp pulsates, fading from blue to white, then back to blue again.\n*\nAs it does so, a scroll materializes in your hand.\n",
+            "jump 1044",
+            "case \"secr\":",
+            "print(\"\"Because of the nature of Britannian memory, 'I' now present the sample information to 'you' again.\"\n*\nThe wisp pulsates, fading from blue to white, then back to blue again.\n*\nAs it does so, a scroll materializes in your hand.\n\")",
             [
                 "NEW",
                 [
@@ -168,7 +88,7 @@
                     1
                 ]
             ],
-            "WAIT",
+            "wait()",
             [
                 "SETF",
                 [
@@ -180,52 +100,25 @@
                     3
                 ]
             ],
-            "\n\"This is a simple invocation of magic energy to bring about the cessation of all life.\"\n*\n\"It is not a very useful or powerful form of magic, as it will only affect beings in the same plane where it is invoked.\"\n*\n\"Inform any 'wisp' unit if 'you' have @interest in further exchange.",
-            [
-                "JUMP",
-                1044
-            ],
-            [
-                "CASE",
-                "zog"
-            ],
-            "\"Once when 'I' offered sample information to Britannia, the name 'Zog' was given by the life unit that received it.\"\n*\n\"No further contact with Britannia was obtainable for some time after this.\"\n*\n\"Perhaps misuse of the sample information was responsible.\"",
-            [
-                "JUMP",
-                1044
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"'I' find it unusual that 'you' find it so important to inform 'me' of the imminent cessation of proximity between one unit of Britannian life and one of Xorinite.\"\n*\n\"Nonetheless, in accordance with 'your' custom:\nGoodbye, '$9.'\"\n",
+            "print(\"\n\"This is a simple invocation of magic energy to bring about the cessation of all life.\"\n*\n\"It is not a very useful or powerful form of magic, as it will only affect beings in the same plane where it is invoked.\"\n*\n\"Inform any 'wisp' unit if 'you' have @interest in further exchange.\")",
+            "jump 1044",
+            "case \"zog\":",
+            "print(\"\"Once when 'I' offered sample information to Britannia, the name 'Zog' was given by the life unit that received it.\"\n*\n\"No further contact with Britannia was obtainable for some time after this.\"\n*\n\"Perhaps misuse of the sample information was responsible.\"\")",
+            "jump 1044",
+            "case \"bye\":",
+            "print(\"\"'I' find it unusual that 'you' find it so important to inform 'me' of the imminent cessation of proximity between one unit of Britannian life and one of Xorinite.\"\n*\n\"Nonetheless, in accordance with 'your' custom:\nGoodbye, '$9.'\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"The vagaries of the language 'you' speak are quite beyond 'me.'\"\n*\n\"Perhaps another line of inquiry would prove more 'fruitful.'\"",
+            "case \"*\":",
+            "print(\"\"The vagaries of the language 'you' speak are quite beyond 'me.'\"\n*\n\"Perhaps another line of inquiry would prove more 'fruitful.'\"\")",
             "ESAC",
-            [
-                "JUMP",
-                1044
-            ]
+            "jump 1044"
         ],
         "3486": [
-            "\"The volume 'you' bear with the symbol pattern representing the sounds 'The Book of Lost Mantras' is a prime source of high density information.\"\n*\n\"Do 'you' wish to 'me' to locate a client who is willing to make an exchange for it at this time?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"The ways of Britannia are strange indeed.\"",
-            [
-                "JUMP",
-                1044
-            ],
+            "print(\"\"The volume 'you' bear with the symbol pattern representing the sounds 'The Book of Lost Mantras' is a prime source of high density information.\"\n*\n\"Do 'you' wish to 'me' to locate a client who is willing to make an exchange for it at this time?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"The ways of Britannia are strange indeed.\"\")",
+            "jump 1044",
             "ESAC",
             [
                 "SETF",
@@ -238,152 +131,26 @@
                     6
                 ]
             ],
-            "\nFor a few moments, the wisp pulses, saying nothing.\n*\n\"It is done,\" the wisp says at last, \"Rklbwm have expressed desire to possess this information.\"\n*\n\"Hoping, no doubt, for a bargain, Rklbwm have offered a small quantity of the substance 'gold' in lieu of the customary useful information.\"\n*\n\"But surely 'you' wish 'me' to arrange for Rklbwm to provide information of value to 'you.'\"\n*\n\"Am 'I' correct to assume this?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"Then so be it. Here is useful information from the Rklbwm:\"*\n\n'If a substance with a partially reflective surface is positioned so that its third index of refraction matches the wavelength coefficient of the output of a polarized light source, and the resulting beam is focused on an ionized crystal suspended in a unipolar magnetic field, matter can be converted into useful electromagnetic radiation at an efficiency rate of 96 to 98 percent, depending on the desired output frequency.'*\n\n\"It was a pleasure doing business with you.\"\n",
+            "print(\"\nFor a few moments, the wisp pulses, saying nothing.\n*\n\"It is done,\" the wisp says at last, \"Rklbwm have expressed desire to possess this information.\"\n*\n\"Hoping, no doubt, for a bargain, Rklbwm have offered a small quantity of the substance 'gold' in lieu of the customary useful information.\"\n*\n\"But surely 'you' wish 'me' to arrange for Rklbwm to provide information of value to 'you.'\"\n*\n\"Am 'I' correct to assume this?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"\"Then so be it. Here is useful information from the Rklbwm:\"*\n\n'If a substance with a partially reflective surface is positioned so that its third index of refraction matches the wavelength coefficient of the output of a polarized light source, and the resulting beam is focused on an ionized crystal suspended in a unipolar magnetic field, matter can be converted into useful electromagnetic radiation at an efficiency rate of 96 to 98 percent, depending on the desired output frequency.'*\n\n\"It was a pleasure doing business with you.\"\n\")",
             "BYE",
             "ESAC",
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Very well.\"\n*\n\"'You' have not sent enough life units to transport much substance, but it is 'your' decision to make.\"\n*\nThe wisp glows just a trifle brighter for a moment, and suddenly everyone notices that their packs have grown heavier.\n*\n\"It was a pleasure doing business with you.\"\n",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "character",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(integer(value 1), byte 0)"
-            ],
-            [
-                "JUMP",
-                5160
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "less(canCarry(integer(value 1)), weight(byte 89, byte 1))"
-            ],
-            [
-                "JUMP",
-                5160
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "divide",
-                    [
-                        [
-                            "canCarry",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            1
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "weight",
-                            [
-                                [
-                                    "byte",
-                                    89
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "greater(integer(value 2), word 255)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "word",
-                    255
-                ]
-            ],
-            "ENDIF",
+            "case \"n\":",
+            "print(\"\"Very well.\"\n*\n\"'You' have not sent enough life units to transport much substance, but it is 'your' decision to make.\"\n*\nThe wisp glows just a trifle brighter for a moment, and suddenly everyone notices that their packs have grown heavier.\n*\n\"It was a pleasure doing business with you.\"\n\")",
+            "integer(value 0) = byte 0",
+            "integer(value 1) = character(integer(value 0), byte 0)",
+            "if equals(integer(value 1), byte 0):",
+            "jump 5160",
+            "endif",
+            "if less(canCarry(integer(value 1)), weight(byte 89, byte 1)):",
+            "jump 5160",
+            "endif",
+            "integer(value 2) = divide(canCarry(integer(value 1)), weight(byte 89, byte 1))",
+            "if greater(integer(value 2), word 255):",
+            "integer(value 2) = word 255",
+            "endif",
             [
                 "NEW",
                 [
@@ -413,54 +180,13 @@
                     ]
                 ]
             ],
-            [
-                "IF",
-                "equals(integer(value 2), word 255)"
-            ],
-            [
-                "JUMP",
-                5062
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "lessOrEquals(integer(value 0), integer(value 23))"
-            ],
-            [
-                "JUMP",
-                5062
-            ],
-            "ENDIF",
+            "if equals(integer(value 2), word 255):",
+            "jump 5062",
+            "endif",
+            "integer(value 0) = plus(integer(value 0), byte 1)",
+            "if lessOrEquals(integer(value 0), integer(value 23)):",
+            "jump 5062",
+            "endif",
             "BYE"
         ]
     }

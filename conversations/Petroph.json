@@ -5,37 +5,25 @@
     "name": "Petroph",
     "f3-after-name": false,
     "description": [
-        "a giant of a man with a solemn stare.",
-        "WAIT",
-        "\n"
+        "print(\"a giant of a man with a solemn stare.\")",
+        "wait()",
+        "print(\"\n\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "50": [
-            [
-                "IF",
-                "hasBit(byte 235, value 1)"
-            ],
-            "\"What you back for? I thought you not like my @inn.\"\n",
-            [
-                "JUMP",
-                154
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"Heylo again.\"\n",
+            "if hasBit(byte 235, value 1):",
+            "print(\"\"What you back for? I thought you not like my @inn.\"\n\")",
+            "jump 154",
+            "endif",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"Heylo again.\"\n\")",
             "ELSE",
-            "\"Heylo to you.\"\n",
-            "ENDIF",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"@Petroph.\"\n",
+            "print(\"\"Heylo to you.\"\n\")",
+            "endif",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"@Petroph.\"\n\")",
             [
                 "SETF",
                 [
@@ -47,118 +35,35 @@
                     0
                 ]
             ],
-            [
-                "JUMP",
-                154
-            ],
-            [
-                "CASE",
-                "petr"
-            ],
-            "\"Da, Petroph.\"\n",
-            [
-                "JUMP",
-                154
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"I am keeping the @inn, here at King's Ransom.\"\n",
-            [
-                "JUMP",
-                154
-            ],
-            [
-                "CASE",
-                "room,inn"
-            ],
-            [
-                "JUMP",
-                401
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, value 1)"
-            ],
-            "\"Da, goodbye and good riddance!\"\n",
+            "jump 154",
+            "case \"petr\":",
+            "print(\"\"Da, Petroph.\"\n\")",
+            "jump 154",
+            "case \"job\":",
+            "print(\"\"I am keeping the @inn, here at King's Ransom.\"\n\")",
+            "jump 154",
+            "case \"room,inn\":",
+            "jump 401",
+            "case \"bye\":",
+            "if hasBit(byte 235, value 1):",
+            "print(\"\"Da, goodbye and good riddance!\"\n\")",
             "ELSE",
-            "\"Have a nice day.\"\n",
-            "ENDIF",
+            "print(\"\"Have a nice day.\"\n\")",
+            "endif",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"You speak too quick. What was that?\"\n",
-            [
-                "JUMP",
-                154
-            ]
+            "case \"*\":",
+            "print(\"\"You speak too quick. What was that?\"\n\")",
+            "jump 154"
         ],
         "401": [
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "multiply",
-                    [
-                        [
-                            "plus",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            23
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            6
-                        ]
-                    ]
-                ]
-            ],
-            "\"#0 gold for you to stay and have meal, good?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "IF",
-                "less(objectsCount(byte 1, byte 88), integer(value 0))"
-            ],
-            "\"Must pay in advance for rooms. Sorry, is policy.\"\n",
-            [
-                "JUMP",
-                154
-            ],
-            "ENDIF",
+            "integer(value 0) = multiply(plus(integer(value 23), byte 1), byte 6)",
+            "print(\"\"#0 gold for you to stay and have meal, good?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "if less(objectsCount(byte 1, byte 88), integer(value 0)):",
+            "print(\"\"Must pay in advance for rooms. Sorry, is policy.\"\n\")",
+            "jump 154",
+            "endif",
             [
                 "DELETE",
                 [
@@ -194,22 +99,16 @@
                     1
                 ]
             ],
-            "You sleep in a comfortable bed...\n",
+            "print(\"You sleep in a comfortable bed...\n\")",
             "SLEEP",
-            "\nYou wake rested and eat a large breakfast.",
-            "WAIT",
-            "\n\n\"Good morning to you.\"\n",
-            [
-                "JUMP",
-                154
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"What, maybe you don't like my inn?\"",
-            "WAIT",
-            "\n\n\"Well, maybe I don't like you either!\"\n",
+            "print(\"\nYou wake rested and eat a large breakfast.\")",
+            "wait()",
+            "print(\"\n\n\"Good morning to you.\"\n\")",
+            "jump 154",
+            "case \"n\":",
+            "print(\"\"What, maybe you don't like my inn?\"\")",
+            "wait()",
+            "print(\"\n\n\"Well, maybe I don't like you either!\"\n\")",
             [
                 "SETF",
                 [
@@ -221,10 +120,7 @@
                     1
                 ]
             ],
-            [
-                "JUMP",
-                154
-            ]
+            "jump 154"
         ]
     }
 }

@@ -5,27 +5,18 @@
     "name": "Gertan",
     "f3-after-name": false,
     "description": [
-        "a burly man, who looks a little healthier than the other patients.\n*"
+        "print(\"a burly man, who looks a little healthier than the other patients.\n*\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "78": [
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            [
-                "JUMP",
-                229
-            ],
-            "ENDIF",
-            "\"Good (cough) day, $G. What is thy name?\"\n",
-            "ASK",
-            "\n\"I am called Gertan. My fellows and I are recovering from a fierce @battle.\"",
-            [
-                "IF",
-                "equals(string(value 35), string(value 25))"
-            ],
+            "if hasBit(byte 235, value 0):",
+            "jump 229",
+            "endif",
+            "print(\"\"Good (cough) day, $G. What is thy name?\"\n\")",
+            "ask()",
+            "print(\"\n\"I am called Gertan. My fellows and I are recovering from a fierce @battle.\"\")",
+            "if equals(string(value 35), string(value 25)):",
             [
                 "SETF",
                 [
@@ -37,121 +28,49 @@
                     0
                 ]
             ],
-            "ENDIF",
-            [
-                "JUMP",
-                262
-            ]
+            "endif",
+            "jump 262"
         ],
         "229": [
-            "\"Tis good to see thee again, $P.\"\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"Gertan, my friend.\"",
-            [
-                "JUMP",
-                262
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"I lead my men into @battle whenever @Geoffrey sends me.\"",
-            [
-                "JUMP",
-                262
-            ],
-            [
-                "CASE",
-                "geof"
-            ],
-            "\"He is the captain of the guard.\"",
-            [
-                "JUMP",
-                262
-            ],
-            [
-                "CASE",
-                "capt,guar"
-            ],
-            "\"Aye.\"",
-            [
-                "JUMP",
-                262
-            ],
-            [
-                "CASE",
-                "fier,batt,shri,comp"
-            ],
-            "\"We sought to liberate the Shrine of Compassion.\"\n*\n\"My men fought valiantly, but the gargoyles were too much for us. They didst @slay more than half our party.\"",
-            [
-                "JUMP",
-                262
-            ],
-            [
-                "CASE",
-                "garg,slay,foug"
-            ],
-            "\"Aye, I doubt not they were using foul @magic of some kind.\"",
-            [
-                "JUMP",
-                262
-            ],
-            [
-                "CASE",
-                "foul,magi"
-            ],
-            "\"A moonstone was upon the shrine, surrounded by a strange violet glow.\"\n*\n\"I tried to get to it, but 'twas surrounded by some kind of force @field.\"",
-            [
-                "JUMP",
-                262
-            ],
-            [
-                "CASE",
-                "moon,ston,forc,fiel,glow,viol"
-            ],
-            "\"'Tis a matter beyond my comprehension.\"",
-            [
-                "JUMP",
-                262
-            ],
-            [
-                "CASE",
-                "cave,frei"
-            ],
-            "\"Hast thou heard, then, of the time I slew the great @dragon Freitag? Ah, that was a long time ago.\"",
-            [
-                "JUMP",
-                262
-            ],
-            [
-                "CASE",
-                "drag,slew"
-            ],
-            "\"Those were the days...\"",
-            [
-                "JUMP",
-                262
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"May thy efforts meet with more success than mine!\"\n",
+            "print(\"\"Tis good to see thee again, $P.\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"Gertan, my friend.\"\")",
+            "jump 262",
+            "case \"job\":",
+            "print(\"\"I lead my men into @battle whenever @Geoffrey sends me.\"\")",
+            "jump 262",
+            "case \"geof\":",
+            "print(\"\"He is the captain of the guard.\"\")",
+            "jump 262",
+            "case \"capt,guar\":",
+            "print(\"\"Aye.\"\")",
+            "jump 262",
+            "case \"fier,batt,shri,comp\":",
+            "print(\"\"We sought to liberate the Shrine of Compassion.\"\n*\n\"My men fought valiantly, but the gargoyles were too much for us. They didst @slay more than half our party.\"\")",
+            "jump 262",
+            "case \"garg,slay,foug\":",
+            "print(\"\"Aye, I doubt not they were using foul @magic of some kind.\"\")",
+            "jump 262",
+            "case \"foul,magi\":",
+            "print(\"\"A moonstone was upon the shrine, surrounded by a strange violet glow.\"\n*\n\"I tried to get to it, but 'twas surrounded by some kind of force @field.\"\")",
+            "jump 262",
+            "case \"moon,ston,forc,fiel,glow,viol\":",
+            "print(\"\"'Tis a matter beyond my comprehension.\"\")",
+            "jump 262",
+            "case \"cave,frei\":",
+            "print(\"\"Hast thou heard, then, of the time I slew the great @dragon Freitag? Ah, that was a long time ago.\"\")",
+            "jump 262",
+            "case \"drag,slew\":",
+            "print(\"\"Those were the days...\"\")",
+            "jump 262",
+            "case \"bye\":",
+            "print(\"\"May thy efforts meet with more success than mine!\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"I cannot help thee with that.\"",
+            "case \"*\":",
+            "print(\"\"I cannot help thee with that.\"\")",
             "ESAC",
-            [
-                "JUMP",
-                262
-            ]
+            "jump 262"
         ]
     }
 }

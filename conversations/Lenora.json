@@ -5,34 +5,25 @@
     "name": "Lenora",
     "f3-after-name": false,
     "description": [
-        "a tall, stern woman, with graying red hair and a perpetual scowl."
+        "print(\"a tall, stern woman, with graying red hair and a perpetual scowl.\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "75": [
-            "WAIT",
-            "\n",
-            [
-                "IF",
-                "hasBit(byte 235, value 1)"
-            ],
-            "\"Well, Avatar. I graciously grant thee another interview.\"",
-            "WAIT",
-            "\n\n\"I certainly hope thou wilt be more respectful this time.\"",
-            [
-                "JUMP",
-                355
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"Welcome again, worthy Avatar, to my hall.\"",
+            "wait()",
+            "print(\"\n\")",
+            "if hasBit(byte 235, value 1):",
+            "print(\"\"Well, Avatar. I graciously grant thee another interview.\"\")",
+            "wait()",
+            "print(\"\n\n\"I certainly hope thou wilt be more respectful this time.\"\")",
+            "jump 355",
+            "endif",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"Welcome again, worthy Avatar, to my hall.\"\")",
             "ELSE",
-            "\"Welcome, worthy Avatar, to the Hall of Justice.\"",
-            "WAIT",
-            "\n\n\"How may we assist thee in thy quest?\"",
+            "print(\"\"Welcome, worthy Avatar, to the Hall of Justice.\"\")",
+            "wait()",
+            "print(\"\n\n\"How may we assist thee in thy quest?\"\")",
             [
                 "SETF",
                 [
@@ -44,172 +35,79 @@
                     0
                 ]
             ],
-            "ENDIF",
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"I am Lenora, Lady Mayor of Yew.\"",
-            [
-                "JUMP",
-                355
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"It is my honor to preside over this town and its @courts.\"\n*\n\"We also provide the finest @wood in the realm.\"",
-            [
-                "JUMP",
-                355
-            ],
-            [
-                "CASE",
-                "wood,log"
-            ],
-            "\"Go ask Ben the logger.\"\n*\n\"Head west from here into the forest until you can go no further.\"\n*\n\"Then look for a way through the trees to the north.\"",
-            [
-                "JUMP",
-                355
-            ],
-            [
-                "CASE",
-                "cour"
-            ],
-            "\"In Yew we take pride in our system of @justice.\"",
-            [
-                "JUMP",
-                355
-            ],
-            [
-                "CASE",
-                "just"
-            ],
-            "\"Indeed, the @Rune of Justice itself was sent here for safekeeping.\"",
-            [
-                "JUMP",
-                355
-            ],
-            [
-                "CASE",
-                "rune"
-            ],
-            "\"A thief stole the rune from the grave of our most respected resident, the former Lord Mayor.\"",
-            "WAIT",
-            "\n\n\"Even though the @thief was caught, we have not yet found the rune.\"",
-            [
-                "JUMP",
-                355
-            ],
-            [
-                "CASE",
-                "thie,caug,wher"
-            ],
-            "\"The thief is in the jail, awaiting the carriage of justice.\"",
-            [
-                "JUMP",
-                355
-            ],
-            [
-                "CASE",
-                "mant"
-            ],
-            "\"'Tis most strange, Avatar, that thou knowest not the Mantra of Justice.\"",
-            "WAIT",
-            "\n\n\"How can that be?\"\n",
-            [
-                "JUMP",
-                2054
-            ],
-            [
-                "CASE",
-                "lett,perm"
-            ],
-            "\"A letter of permission?\"",
-            "WAIT",
-            "\n\n\"Dost thou truly need to speak with that reprehensible thief?\" ",
-            [
-                "JUMP",
-                2377
-            ],
-            [
-                "CASE",
-                "rele,deal,let,free,trad,swap,allo,go,out"
-            ],
-            "\"What, free the thief in return for the rune? Never!\"",
-            "WAIT",
-            "\n\n\"To do so would betray everything the rune itself stands for!\"",
-            "WAIT",
-            "\n\n\"Better to leave it lost.\"",
-            [
-                "JUMP",
-                355
-            ],
-            [
-                "CASE",
-                "kid,chil,fami,feed"
-            ],
-            "\"What? What stories has that thief been telling you?\"",
-            "WAIT",
-            "\n\n\"He has no family--he's just a drifter!\"",
-            "WAIT",
-            "\n\n\"Don't be taken in by his @lies.\"",
-            [
-                "JUMP",
-                355
-            ],
-            [
-                "CASE",
-                "lie"
-            ],
-            "\"Tell him he's not fooling anyone.\"",
-            [
-                "JUMP",
-                355
-            ],
-            [
-                "CASE",
-                "ench,nico"
-            ],
-            "\"Nicodemus the enchanter lives near here. His house lies between two rivers.\"",
-            [
-                "JUMP",
-                355
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"May you find that which thou deservest on thy quest.\"\n",
+            "endif",
+            "print(\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"I am Lenora, Lady Mayor of Yew.\"\")",
+            "jump 355",
+            "case \"job\":",
+            "print(\"\"It is my honor to preside over this town and its @courts.\"\n*\n\"We also provide the finest @wood in the realm.\"\")",
+            "jump 355",
+            "case \"wood,log\":",
+            "print(\"\"Go ask Ben the logger.\"\n*\n\"Head west from here into the forest until you can go no further.\"\n*\n\"Then look for a way through the trees to the north.\"\")",
+            "jump 355",
+            "case \"cour\":",
+            "print(\"\"In Yew we take pride in our system of @justice.\"\")",
+            "jump 355",
+            "case \"just\":",
+            "print(\"\"Indeed, the @Rune of Justice itself was sent here for safekeeping.\"\")",
+            "jump 355",
+            "case \"rune\":",
+            "print(\"\"A thief stole the rune from the grave of our most respected resident, the former Lord Mayor.\"\")",
+            "wait()",
+            "print(\"\n\n\"Even though the @thief was caught, we have not yet found the rune.\"\")",
+            "jump 355",
+            "case \"thie,caug,wher\":",
+            "print(\"\"The thief is in the jail, awaiting the carriage of justice.\"\")",
+            "jump 355",
+            "case \"mant\":",
+            "print(\"\"'Tis most strange, Avatar, that thou knowest not the Mantra of Justice.\"\")",
+            "wait()",
+            "print(\"\n\n\"How can that be?\"\n\")",
+            "jump 2054",
+            "case \"lett,perm\":",
+            "print(\"\"A letter of permission?\"\")",
+            "wait()",
+            "print(\"\n\n\"Dost thou truly need to speak with that reprehensible thief?\" \")",
+            "jump 2377",
+            "case \"rele,deal,let,free,trad,swap,allo,go,out\":",
+            "print(\"\"What, free the thief in return for the rune? Never!\"\")",
+            "wait()",
+            "print(\"\n\n\"To do so would betray everything the rune itself stands for!\"\")",
+            "wait()",
+            "print(\"\n\n\"Better to leave it lost.\"\")",
+            "jump 355",
+            "case \"kid,chil,fami,feed\":",
+            "print(\"\"What? What stories has that thief been telling you?\"\")",
+            "wait()",
+            "print(\"\n\n\"He has no family--he's just a drifter!\"\")",
+            "wait()",
+            "print(\"\n\n\"Don't be taken in by his @lies.\"\")",
+            "jump 355",
+            "case \"lie\":",
+            "print(\"\"Tell him he's not fooling anyone.\"\")",
+            "jump 355",
+            "case \"ench,nico\":",
+            "print(\"\"Nicodemus the enchanter lives near here. His house lies between two rivers.\"\")",
+            "jump 355",
+            "case \"bye\":",
+            "print(\"\"May you find that which thou deservest on thy quest.\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            [
-                "IF",
-                "random(byte 0, byte 1)"
-            ],
-            "\"Noble Avatar, the affairs of state weigh heavily upon my time. Pray be precise in thy questioning.\"",
+            "case \"*\":",
+            "if random(byte 0, byte 1):",
+            "print(\"\"Noble Avatar, the affairs of state weigh heavily upon my time. Pray be precise in thy questioning.\"\")",
             "ELSE",
-            "\"Noble Avatar, we hardly have time to chat about $Z in view of the perils facing our land!\"",
-            "ENDIF",
-            [
-                "JUMP",
-                355
-            ]
+            "print(\"\"Noble Avatar, we hardly have time to chat about $Z in view of the perils facing our land!\"\")",
+            "endif",
+            "jump 355"
         ],
         "2054": [
-            "ASK",
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Hmpf! Well, mayhap 'twould be best for you to seek such wisdom elsewhere!\"",
-            "WAIT",
-            "\n\n\"Thou may return when thou seest fit to answer my question!\"\n",
+            "ask()",
+            "case \"bye\":",
+            "print(\"\"Hmpf! Well, mayhap 'twould be best for you to seek such wisdom elsewhere!\"\")",
+            "wait()",
+            "print(\"\n\n\"Thou may return when thou seest fit to answer my question!\"\n\")",
             [
                 "SETF",
                 [
@@ -222,15 +120,12 @@
                 ]
             ],
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"Hmmm...well, no matter,\" she says suspiciously.",
-            "WAIT",
-            "\n\n\"I suppose 'twould be improper to deny anything the Avatar requires.\"",
-            "WAIT",
-            "\n\n\"The Mantra of Justice is 'beh.'\"",
+            "case \"*\":",
+            "print(\"\"Hmmm...well, no matter,\" she says suspiciously.\")",
+            "wait()",
+            "print(\"\n\n\"I suppose 'twould be improper to deny anything the Avatar requires.\"\")",
+            "wait()",
+            "print(\"\n\n\"The Mantra of Justice is 'beh.'\"\")",
             [
                 "CLEARF",
                 [
@@ -242,21 +137,12 @@
                     1
                 ]
             ],
-            [
-                "JUMP",
-                355
-            ]
+            "jump 355"
         ],
         "2377": [
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"Very well then.\" Putting quill to parchment, she drafts a quick letter.*\n\n\"The jailer will now let you in, or verily shall he answer to me!\"",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"\"Very well then.\" Putting quill to parchment, she drafts a quick letter.*\n\n\"The jailer will now let you in, or verily shall he answer to me!\"\")",
             [
                 "CLEARF",
                 [
@@ -287,17 +173,11 @@
                     1
                 ]
             ],
-            [
-                "JUMP",
-                355
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Then why dost thou waste my time with frivolous requests?!\"",
-            "WAIT",
-            "\n\n\"Begone, Avatar, and return when thou hast more serious business on thy mind!\"\n",
+            "jump 355",
+            "case \"n\":",
+            "print(\"\"Then why dost thou waste my time with frivolous requests?!\"\")",
+            "wait()",
+            "print(\"\n\n\"Begone, Avatar, and return when thou hast more serious business on thy mind!\"\n\")",
             [
                 "SETF",
                 [

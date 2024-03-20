@@ -5,37 +5,28 @@
     "name": "Koranada",
     "f3-after-name": false,
     "description": [
-        "a dignified man wearing a loose jacket decorated with a serpent.",
-        "WAIT",
-        "\n"
+        "print(\"a dignified man wearing a loose jacket decorated with a serpent.\")",
+        "wait()",
+        "print(\"\n\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "78": [
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"It is good to see thee again, $P.\"",
-            [
-                "JUMP",
-                292
-            ],
-            "ENDIF",
-            "\"Hello, adventurer",
-            [
-                "IF",
-                "integer(value 23)"
-            ],
-            "s",
-            "ENDIF",
-            "!\"",
-            "WAIT",
-            "\n\n\"As guildmaster, I welcome thee in the name of the Order of the Silver Serpent.\"",
-            "WAIT",
-            "\n\n\"What is thy name?\"\n",
-            "ASK",
-            "\n\"Well met, $G Avatar!\"",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"It is good to see thee again, $P.\"\")",
+            "jump 292",
+            "endif",
+            "print(\"\"Hello, adventurer\")",
+            "if integer(value 23):",
+            "print(\"s\")",
+            "endif",
+            "print(\"!\"\")",
+            "wait()",
+            "print(\"\n\n\"As guildmaster, I welcome thee in the name of the Order of the Silver Serpent.\"\")",
+            "wait()",
+            "print(\"\n\n\"What is thy name?\"\n\")",
+            "ask()",
+            "print(\"\n\"Well met, $G Avatar!\"\")",
             [
                 "SETF",
                 [
@@ -47,248 +38,119 @@
                     0
                 ]
             ],
-            [
-                "JUMP",
-                292
-            ]
+            "jump 292"
         ],
         "292": [
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"I am Koranada, son of Kulebra.\"",
-            "WAIT",
-            "\n\n\"My father was a brave @lighthouse keeper.\"",
-            [
-                "JUMP",
-                292
-            ],
-            [
-                "CASE",
-                "job,ligh"
-            ],
-            "\"An earthquake destroyed the lighthouse, else I would have inherited the position of keeper in Greyhaven.\"",
-            "WAIT",
-            "\n\n\"I traveled to Serpent's Hold to join the @Order instead.\"",
-            [
-                "JUMP",
-                292
-            ],
-            [
-                "CASE",
-                "orde,hold,guil"
-            ],
-            "\"We stand for the principle of @Courage.\"",
-            "WAIT",
-            "\n\n",
-            [
-                "IF",
-                "and(hasBit(byte 235, byte 7), notEquals(partyHasObject(byte 16, byte 0), word 32769))"
-            ],
-            "\"We are honored by thy membership, worthy Avatar!\"",
-            [
-                "JUMP",
-                292
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, byte 7)"
-            ],
-            "\"Acquire a Silver Serpent @shield and thou wilt be admitted to the order, $G $P.\"",
-            [
-                "JUMP",
-                292
-            ],
-            "ENDIF",
-            "\"Dost thou wish to join the Order of the Silver Serpent?\" ",
-            [
-                "JUMP",
-                2376
-            ],
-            [
-                "CASE",
-                "cour,brav"
-            ],
-            "\"Go and speak to de Hugh. Observe what he believes to be courage.\"",
-            "WAIT",
-            "\n\n\"Though he is a fine fighter, he has yet to prove himself worthy of our @order.\"",
-            [
-                "JUMP",
-                292
-            ],
-            [
-                "CASE",
-                "shie"
-            ],
-            "\"The Serpent Shield of our order is a sacred symbol of our brotherhood of bravery.\"",
-            "WAIT",
-            "\n\n",
-            [
-                "IF",
-                "notEquals(partyHasObject(byte 16, byte 0), word 32769)"
-            ],
-            "\"Carry it with pride!\"",
-            [
-                "JUMP",
-                292
-            ],
-            "ENDIF",
-            "\"Its making is a magical @process.\"",
-            [
-                "IF",
-                "equals(hasBit(byte 235, byte 7), byte 1)"
-            ],
-            "WAIT",
-            "\n\"@Gherick the Smithy will help thee make one.\"",
-            "ENDIF",
-            [
-                "JUMP",
-                292
-            ],
-            [
-                "CASE",
-                "magi,proc"
-            ],
-            "\"'Tis secret, as well.\"",
-            [
-                "JUMP",
-                292
-            ],
-            [
-                "CASE",
-                "gher"
-            ],
-            "\"You will most likely find him at Siege Crafters.\"",
-            [
-                "JUMP",
-                292
-            ],
-            [
-                "CASE",
-                "join"
-            ],
-            "\"I have responsibilities here",
-            [
-                "IF",
-                "hasBit(byte 235, byte 7)"
-            ],
-            ",$G. But I am honored by the offer.\"",
-            [
-                "JUMP",
-                292
-            ],
-            "ENDIF",
-            ". However...\"",
-            "WAIT",
-            "\n\n\"Dost thou wish to join the Order of the Silver Serpent?\" ",
-            [
-                "JUMP",
-                2376
-            ],
-            [
-                "CASE",
-                "rune"
-            ],
-            "\"Without the meaning, such a symbol is just a meaningless scratching.\"",
-            "WAIT",
-            "\n\n\"We @meditate on valour here.\"",
-            [
-                "JUMP",
-                292
-            ],
-            [
-                "CASE",
-                "mant,medi"
-            ],
-            "\"A mantra is a concept, a special word to be turned over and over in the mind.\"",
-            "WAIT",
-            "\n\n\"When we meditate on a mantra, we do so in order to find the @meaning of that virtue.\"",
-            [
-                "JUMP",
-                292
-            ],
-            [
-                "CASE",
-                "mean"
-            ],
-            "\"It is not enough just to know a mantra or possess a rune.\"",
-            "WAIT",
-            "\n\n\"In order to be @virtuous, one must act virtuously.\"",
-            [
-                "JUMP",
-                292
-            ],
-            [
-                "CASE",
-                "virt,avat"
-            ],
-            "\"Sometimes one virtue conflicts with another, though both be numbered amongst the virtues of the Avatar.\"",
-            "WAIT",
-            "\n\n\"The hero seeks to act with an awareness of these conflicts instead of merely following instinct.\"",
-            "WAIT",
-            "\n\n\"My teacher @Conor taught me this.\"",
-            [
-                "JUMP",
-                292
-            ],
-            [
-                "CASE",
-                "cono"
-            ],
-            "\"A dear friend. He was guildmaster here when I was in training.\"",
-            "WAIT",
-            "\n\n\"He lives humbly in New Magincia now.\"",
-            [
-                "JUMP",
-                292
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Fare thee well.\"\n",
+            "print(\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"I am Koranada, son of Kulebra.\"\")",
+            "wait()",
+            "print(\"\n\n\"My father was a brave @lighthouse keeper.\"\")",
+            "jump 292",
+            "case \"job,ligh\":",
+            "print(\"\"An earthquake destroyed the lighthouse, else I would have inherited the position of keeper in Greyhaven.\"\")",
+            "wait()",
+            "print(\"\n\n\"I traveled to Serpent's Hold to join the @Order instead.\"\")",
+            "jump 292",
+            "case \"orde,hold,guil\":",
+            "print(\"\"We stand for the principle of @Courage.\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "if and(hasBit(byte 235, byte 7), notEquals(partyHasObject(byte 16, byte 0), word 32769)):",
+            "print(\"\"We are honored by thy membership, worthy Avatar!\"\")",
+            "jump 292",
+            "endif",
+            "if hasBit(byte 235, byte 7):",
+            "print(\"\"Acquire a Silver Serpent @shield and thou wilt be admitted to the order, $G $P.\"\")",
+            "jump 292",
+            "endif",
+            "print(\"\"Dost thou wish to join the Order of the Silver Serpent?\" \")",
+            "jump 2376",
+            "case \"cour,brav\":",
+            "print(\"\"Go and speak to de Hugh. Observe what he believes to be courage.\"\")",
+            "wait()",
+            "print(\"\n\n\"Though he is a fine fighter, he has yet to prove himself worthy of our @order.\"\")",
+            "jump 292",
+            "case \"shie\":",
+            "print(\"\"The Serpent Shield of our order is a sacred symbol of our brotherhood of bravery.\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "if notEquals(partyHasObject(byte 16, byte 0), word 32769):",
+            "print(\"\"Carry it with pride!\"\")",
+            "jump 292",
+            "endif",
+            "print(\"\"Its making is a magical @process.\"\")",
+            "if equals(hasBit(byte 235, byte 7), byte 1):",
+            "wait()",
+            "print(\"\n\"@Gherick the Smithy will help thee make one.\"\")",
+            "endif",
+            "jump 292",
+            "case \"magi,proc\":",
+            "print(\"\"'Tis secret, as well.\"\")",
+            "jump 292",
+            "case \"gher\":",
+            "print(\"\"You will most likely find him at Siege Crafters.\"\")",
+            "jump 292",
+            "case \"join\":",
+            "print(\"\"I have responsibilities here\")",
+            "if hasBit(byte 235, byte 7):",
+            "print(\",$G. But I am honored by the offer.\"\")",
+            "jump 292",
+            "endif",
+            "print(\". However...\"\")",
+            "wait()",
+            "print(\"\n\n\"Dost thou wish to join the Order of the Silver Serpent?\" \")",
+            "jump 2376",
+            "case \"rune\":",
+            "print(\"\"Without the meaning, such a symbol is just a meaningless scratching.\"\")",
+            "wait()",
+            "print(\"\n\n\"We @meditate on valour here.\"\")",
+            "jump 292",
+            "case \"mant,medi\":",
+            "print(\"\"A mantra is a concept, a special word to be turned over and over in the mind.\"\")",
+            "wait()",
+            "print(\"\n\n\"When we meditate on a mantra, we do so in order to find the @meaning of that virtue.\"\")",
+            "jump 292",
+            "case \"mean\":",
+            "print(\"\"It is not enough just to know a mantra or possess a rune.\"\")",
+            "wait()",
+            "print(\"\n\n\"In order to be @virtuous, one must act virtuously.\"\")",
+            "jump 292",
+            "case \"virt,avat\":",
+            "print(\"\"Sometimes one virtue conflicts with another, though both be numbered amongst the virtues of the Avatar.\"\")",
+            "wait()",
+            "print(\"\n\n\"The hero seeks to act with an awareness of these conflicts instead of merely following instinct.\"\")",
+            "wait()",
+            "print(\"\n\n\"My teacher @Conor taught me this.\"\")",
+            "jump 292",
+            "case \"cono\":",
+            "print(\"\"A dear friend. He was guildmaster here when I was in training.\"\")",
+            "wait()",
+            "print(\"\n\n\"He lives humbly in New Magincia now.\"\")",
+            "jump 292",
+            "case \"bye\":",
+            "print(\"\"Fare thee well.\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"That I cannot help thee with.\"",
+            "case \"*\":",
+            "print(\"\"That I cannot help thee with.\"\")",
             "ESAC",
-            [
-                "JUMP",
-                292
-            ]
+            "jump 292"
         ],
         "2376": [
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"There will always be a place here for thee, $G.\"",
-            [
-                "JUMP",
-                292
-            ],
-            [
-                "CASE",
-                "y"
-            ],
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"There will always be a place here for thee, $G.\"\")",
+            "jump 292",
+            "case \"y\":",
             "ESAC",
-            "\"We would be greatly honored if thou wouldst join us, Avatar.\"",
-            "WAIT",
-            "\n\"Thy deeds speak well of thee, $P.\"",
-            "WAIT",
-            "\n\n\"I shall waive the usual requirements since thy adventures are more than sufficient proof of thy courage.\"",
-            "WAIT",
-            "\n\n\"However, thou must still create thine own shield.\"",
+            "print(\"\"We would be greatly honored if thou wouldst join us, Avatar.\"\")",
+            "wait()",
+            "print(\"\n\"Thy deeds speak well of thee, $P.\"\")",
+            "wait()",
+            "print(\"\n\n\"I shall waive the usual requirements since thy adventures are more than sufficient proof of thy courage.\"\")",
+            "wait()",
+            "print(\"\n\n\"However, thou must still create thine own shield.\"\")",
             [
                 "SETF",
                 [
@@ -300,10 +162,7 @@
                     7
                 ]
             ],
-            [
-                "JUMP",
-                292
-            ]
+            "jump 292"
         ]
     }
 }

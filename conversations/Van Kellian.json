@@ -5,26 +5,20 @@
     "name": "Van Kellian",
     "f3-after-name": false,
     "description": [
-        "a man dressed in velvets and silks of yellow, green and blue.",
-        "WAIT",
-        "\n\nHis voice is rich and mellow.",
-        "WAIT",
-        "\n"
+        "print(\"a man dressed in velvets and silks of yellow, green and blue.\")",
+        "wait()",
+        "print(\"\n\nHis voice is rich and mellow.\")",
+        "wait()",
+        "print(\"\n\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "110": [
-            [
-                "IF",
-                "equals(integer(value 32), byte 153)"
-            ],
-            "He glances behind him and ducks, as if expecting someone to throw something at him.\n*\n\"Bit of a brawl going on just now. Be glad to talk to you some other time.\"\n",
+            "if equals(integer(value 32), byte 153):",
+            "print(\"He glances behind him and ducks, as if expecting someone to throw something at him.\n*\n\"Bit of a brawl going on just now. Be glad to talk to you some other time.\"\n\")",
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "equals(hasBit(byte 235, value 0), byte 0)"
-            ],
+            "endif",
+            "if equals(hasBit(byte 235, value 0), byte 0):",
             [
                 "SETF",
                 [
@@ -36,43 +30,28 @@
                     0
                 ]
             ],
-            "\"How do you do. I am the bard Van Kellian.\"",
-            "WAIT",
-            "\n\n\"Please, speak your name, $G.\"\n",
-            "ASK",
-            "\n\"A pleasure, to be sure, $Z.\"",
+            "print(\"\"How do you do. I am the bard Van Kellian.\"\")",
+            "wait()",
+            "print(\"\n\n\"Please, speak your name, $G.\"\n\")",
+            "ask()",
+            "print(\"\n\"A pleasure, to be sure, $Z.\"\")",
             "ELSE",
-            "\"A very good $T to ye, my friend.\"",
-            [
-                "JUMP",
-                445
-            ],
-            "ENDIF",
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"Call me Van.\"",
-            [
-                "JUMP",
-                445
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"Why, singing is my trade.\"",
-            "WAIT",
-            "\n\n\"Songs to soothe the soul and refresh the mind.\"",
-            "WAIT",
-            "\n\n\"Shall I sing for ye?\" ",
-            [
-                "IF",
-                "partyHas(byte 4)"
-            ],
-            "WAIT",
+            "print(\"\"A very good $T to ye, my friend.\"\")",
+            "jump 445",
+            "endif",
+            "print(\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"Call me Van.\"\")",
+            "jump 445",
+            "case \"job\":",
+            "print(\"\"Why, singing is my trade.\"\")",
+            "wait()",
+            "print(\"\n\n\"Songs to soothe the soul and refresh the mind.\"\")",
+            "wait()",
+            "print(\"\n\n\"Shall I sing for ye?\" \")",
+            "if partyHas(byte 4):",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -80,10 +59,10 @@
                     4
                 ]
             ],
-            "\n\nIolo rolls his eyes and whispers to you.",
-            "WAIT",
-            "\n\n\"He believes he does us a favor. This I must hear.\"",
-            "WAIT",
+            "print(\"\n\nIolo rolls his eyes and whispers to you.\")",
+            "wait()",
+            "print(\"\n\n\"He believes he does us a favor. This I must hear.\"\")",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -91,68 +70,35 @@
                     235
                 ]
             ],
-            "\n\n\"Well? How about a @song?\" ",
-            "ENDIF",
-            [
-                "JUMP",
-                2045
-            ],
-            [
-                "CASE",
-                "sing,song"
-            ],
-            "\"'Tis such a topsy-turvy world ",
-            "WAIT",
-            "When my sweet lady-love whirls by ",
-            "WAIT",
-            "\nI would that I could catch her eye ",
-            "WAIT",
-            "\nSing ho eyo he hum!\"",
-            [
-                "JUMP",
-                445
-            ],
-            [
-                "CASE",
-                "mant"
-            ],
-            "\"Did ye know that the mantra of pride is 'mul?' A @beggar told me that.\"",
-            [
-                "JUMP",
-                445
-            ],
-            [
-                "CASE",
-                "prid,begg,mul"
-            ],
-            "\"There is little enough dignity in the life of a beggar.\"",
-            "WAIT",
-            "\n\n\"I gave him a few coins, of course.\"",
-            [
-                "JUMP",
-                445
-            ],
-            [
-                "CASE",
-                "stel,star"
-            ],
-            "\"Starhelm and I have often debated the nature of the gargoyle @Sin 'Vraal.\"",
-            [
-                "JUMP",
-                445
-            ],
-            [
-                "CASE",
-                "sin,vraa,'vra"
-            ],
-            "\"If Lord British suffers him to live, then I will not harm him.\"",
-            "WAIT",
-            "\n\n\"What possible threat could one @gargoyle living alone in the Dry Lands be?\"",
-            [
-                "IF",
-                "isNearby(byte 45)"
-            ],
-            "WAIT",
+            "print(\"\n\n\"Well? How about a @song?\" \")",
+            "endif",
+            "jump 2045",
+            "case \"sing,song\":",
+            "print(\"\"'Tis such a topsy-turvy world \")",
+            "wait()",
+            "print(\"When my sweet lady-love whirls by \")",
+            "wait()",
+            "print(\"\nI would that I could catch her eye \")",
+            "wait()",
+            "print(\"\nSing ho eyo he hum!\"\")",
+            "jump 445",
+            "case \"mant\":",
+            "print(\"\"Did ye know that the mantra of pride is 'mul?' A @beggar told me that.\"\")",
+            "jump 445",
+            "case \"prid,begg,mul\":",
+            "print(\"\"There is little enough dignity in the life of a beggar.\"\")",
+            "wait()",
+            "print(\"\n\n\"I gave him a few coins, of course.\"\")",
+            "jump 445",
+            "case \"stel,star\":",
+            "print(\"\"Starhelm and I have often debated the nature of the gargoyle @Sin 'Vraal.\"\")",
+            "jump 445",
+            "case \"sin,vraa,'vra\":",
+            "print(\"\"If Lord British suffers him to live, then I will not harm him.\"\")",
+            "wait()",
+            "print(\"\n\n\"What possible threat could one @gargoyle living alone in the Dry Lands be?\"\")",
+            "if isNearby(byte 45):",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -160,16 +106,16 @@
                     45
                 ]
             ],
-            "\n\nStelnar says \"I'll tell ye, Van.\"",
-            "WAIT",
-            "\n\n\"If ye let one gargoyle live, ",
-            "WAIT",
-            "then ye'll be tempted to spare trolls, ",
-            "WAIT",
-            "and then even cyclopses.\"",
-            "WAIT",
-            "\n\n\"And then ye forget valour, and soon ye are overrun by monsters!\"",
-            "WAIT",
+            "print(\"\n\nStelnar says \"I'll tell ye, Van.\"\")",
+            "wait()",
+            "print(\"\n\n\"If ye let one gargoyle live, \")",
+            "wait()",
+            "print(\"then ye'll be tempted to spare trolls, \")",
+            "wait()",
+            "print(\"and then even cyclopses.\"\")",
+            "wait()",
+            "print(\"\n\n\"And then ye forget valour, and soon ye are overrun by monsters!\"\")",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -177,23 +123,14 @@
                     235
                 ]
             ],
-            "ENDIF",
-            [
-                "JUMP",
-                445
-            ],
-            [
-                "CASE",
-                "valo,comp"
-            ],
-            "\"Valour comes from the courage to be virtuous.\"",
-            "WAIT",
-            "\n\n\"Just as compassion comes from a love of all mankind.\"",
-            [
-                "IF",
-                "isNearby(byte 45)"
-            ],
-            "WAIT",
+            "endif",
+            "jump 445",
+            "case \"valo,comp\":",
+            "print(\"\"Valour comes from the courage to be virtuous.\"\")",
+            "wait()",
+            "print(\"\n\n\"Just as compassion comes from a love of all mankind.\"\")",
+            "if isNearby(byte 45):",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -201,8 +138,8 @@
                     45
                 ]
             ],
-            "\n\n\"Aha! That means monsters are not deserving of mercy!\" says Stelnar",
-            "WAIT",
+            "print(\"\n\n\"Aha! That means monsters are not deserving of mercy!\" says Stelnar\")",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -210,70 +147,40 @@
                     235
                 ]
             ],
-            "\n\n\"Courage grows. Why not love?\"",
-            "ENDIF",
-            [
-                "JUMP",
-                445
-            ],
-            [
-                "CASE",
-                "garg"
-            ],
-            "\"Well, I hear their skin is stony and rough.\"",
-            "WAIT",
-            "\n\"Their cries are fierce yowlings to make the blood run cold with fear.\"",
-            "WAIT",
-            "\n\n\"Though, mind ye, I myself have never faced one in combat.\"",
-            [
-                "JUMP",
-                445
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Good $T, and farewell.\"\n",
+            "print(\"\n\n\"Courage grows. Why not love?\"\")",
+            "endif",
+            "jump 445",
+            "case \"garg\":",
+            "print(\"\"Well, I hear their skin is stony and rough.\"\")",
+            "wait()",
+            "print(\"\n\"Their cries are fierce yowlings to make the blood run cold with fear.\"\")",
+            "wait()",
+            "print(\"\n\n\"Though, mind ye, I myself have never faced one in combat.\"\")",
+            "jump 445",
+            "case \"bye\":",
+            "print(\"\"Good $T, and farewell.\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"Hmm. No, I cannot help ye with that.\"",
+            "case \"*\":",
+            "print(\"\"Hmm. No, I cannot help ye with that.\"\")",
             "ESAC",
-            [
-                "JUMP",
-                445
-            ]
+            "jump 445"
         ],
         "2045": [
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Well, perhaps another time, then.\"",
-            [
-                "CASE",
-                "y"
-            ],
-            "The bard plays a harp and sings.",
-            "WAIT",
-            "\n\n\"Tho' she disdains to speak to me ",
-            "WAIT",
-            "\nAh how I pine and sigh for her ",
-            "WAIT",
-            "\nI would that I were handsome- o ",
-            "WAIT",
-            "\nSing ho eyo he hum!\"",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Well, perhaps another time, then.\"\")",
+            "case \"y\":",
+            "print(\"The bard plays a harp and sings.\")",
+            "wait()",
+            "print(\"\n\n\"Tho' she disdains to speak to me \")",
+            "wait()",
+            "print(\"\nAh how I pine and sigh for her \")",
+            "wait()",
+            "print(\"\nI would that I were handsome- o \")",
+            "wait()",
+            "print(\"\nSing ho eyo he hum!\"\")",
             "ESAC",
-            [
-                "JUMP",
-                445
-            ]
+            "jump 445"
         ]
     }
 }

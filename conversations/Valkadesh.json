@@ -5,264 +5,133 @@
     "name": "Valkadesh",
     "f3-after-name": false,
     "description": [
-        "a tall, thin, winged gargoyle.\n"
+        "print(\"a tall, thin, winged gargoyle.\n\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "44": [
-            [
-                "IF",
-                "equals(integer(value 21), byte 0)"
-            ],
-            [
-                "JUMP",
-                3333
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"Greetings, friend '$P.\"",
-            "WAIT",
-            "\n\n",
+            "if equals(integer(value 21), byte 0):",
+            "jump 3333",
+            "endif",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"Greetings, friend '$P.\"\")",
+            "wait()",
+            "print(\"\n\n\")",
             "ELSE",
-            [
-                "JUMP",
-                344
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(partyHasObject(byte 76, byte 0), byte 1)"
-            ],
-            "\"To see you have done the honorable thing.\"",
-            "WAIT",
-            "\n\"To have earned much respect from my people by doing this!\"",
+            "jump 344",
+            "endif",
+            "if equals(partyHasObject(byte 76, byte 0), byte 1):",
+            "print(\"\"To see you have done the honorable thing.\"\")",
+            "wait()",
+            "print(\"\n\"To have earned much respect from my people by doing this!\"\")",
             "ELSE",
-            "\"To hope your travels have brought you wisdom?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"To wish to hear about it!\"",
-            [
-                "CASE",
-                "n"
-            ],
-            "\"To regret that, and to wish to aid you.\"",
+            "print(\"\"To hope your travels have brought you wisdom?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"\"To wish to hear about it!\"\")",
+            "case \"n\":",
+            "print(\"\"To regret that, and to wish to aid you.\"\")",
             "ESAC",
-            "ENDIF",
-            [
-                "JUMP",
-                805
-            ]
+            "endif",
+            "jump 805"
         ],
         "344": [
-            "\"To offer greetings, False Prophet.\"",
-            "WAIT",
-            "\n\n\"To have waited long for you to return to this side of the world.\"",
-            "WAIT",
-            "\n\n\"To believe that the Book of Prophecies is wrong.\"",
-            "WAIT",
-            "\n\n\"To believe that I can reason with you, persuade you to spare my people.\"",
-            "WAIT",
-            "\n\n\"To wish to address you honorably: To ask your name?\"\n",
-            "ASK",
-            [
-                "CASE",
-                "*"
-            ],
+            "print(\"\"To offer greetings, False Prophet.\"\")",
+            "wait()",
+            "print(\"\n\n\"To have waited long for you to return to this side of the world.\"\")",
+            "wait()",
+            "print(\"\n\n\"To believe that the Book of Prophecies is wrong.\"\")",
+            "wait()",
+            "print(\"\n\n\"To believe that I can reason with you, persuade you to spare my people.\"\")",
+            "wait()",
+            "print(\"\n\n\"To wish to address you honorably: To ask your name?\"\n\")",
+            "ask()",
+            "case \"*\":",
             "ESAC",
-            [
-                "ASSIGN",
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            35
-                        ]
-                    ]
-                ]
-            ],
-            "\"Noble '$0, to see that you are a being of honor and respect.\"",
-            "WAIT",
-            "\n\n\"To not betray that honor - to return the @Codex!\"",
-            "WAIT",
-            "\n\n\"To save my people from the @prophecy!\"",
+            "string(value 0) = string(value 35)",
+            "print(\"\"Noble '$0, to see that you are a being of honor and respect.\"\")",
+            "wait()",
+            "print(\"\n\n\"To not betray that honor - to return the @Codex!\"\")",
+            "wait()",
+            "print(\"\n\n\"To save my people from the @prophecy!\"\")",
             "SOLO_ENDIF",
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"To be called Valkadesh Wis-lem, Valkadesh the Scholar.\"",
-            "WAIT",
-            "\n\n\"To have been given a @partial name. To have yet to achieve full honor.\"",
-            [
-                "JUMP",
-                805
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"To be a Scholar. To be seeking a way to avert the @prophecy.\"",
-            [
-                "JUMP",
-                805
-            ],
-            [
-                "CASE",
-                "part,full,hono"
-            ],
-            "\"To be greatly honored by even a partial name.\"",
-            "WAIT",
-            "\n\n\"To be customary among my people to give names only to those most worthy.\"",
-            [
-                "JUMP",
-                805
-            ],
-            [
-                "CASE",
-                "prop"
-            ],
-            "\"To be written in the Book of Prophecies that you would destroy our world.\"",
-            "WAIT",
-            "\n\n\"To also be written that only the @sacrifice of the False Prophet would save us.\"",
-            [
-                "JUMP",
-                805
-            ],
-            [
-                "CASE",
-                "code"
-            ],
-            "\"To believe that it is not too late.\"",
-            "WAIT",
-            "\n\n\"To beg you to return the Codex.\"",
-            "WAIT",
-            "\n\n\"Avert the @prophecy! Save your life, and my people's lives as well!\"",
-            [
-                "JUMP",
-                805
-            ],
-            [
-                "CASE",
-                "sacr"
-            ],
-            "\"To be the only alternative to returning the Codex.\"",
-            "WAIT",
-            "\n\n\"Without the Codex, to have no @choice but to sacrifice your life!\"",
-            [
-                "JUMP",
-                805
-            ],
-            [
-                "CASE",
-                "choi"
-            ],
-            "\"Wait! To know that sacrifice has three meanings: of self, of others and of valuables.\"",
-            "WAIT",
-            "\n\n\"Perhaps to find a better @answer in one of those other meanings.\"",
-            [
-                "JUMP",
-                805
-            ],
-            [
-                "CASE",
-                "find,answ"
-            ],
-            "\"To be unable to help more.\"",
-            "WAIT",
-            "\n\n\"To suggest you seek out @Naxatilor himself for further enlightenment.\"",
-            [
-                "JUMP",
-                805
-            ],
-            [
-                "CASE",
-                "naxa,seer"
-            ],
-            "\"To learn much from Naxatilor, the wisest gargoyle.\"",
-            "WAIT",
-            "\n\n\"To find his chambers just to the northeast of the Hall of Knowledge.\"",
-            "WAIT",
-            "\n\n\"To suggest you go there and ask him of sacrifice.\"",
-            [
-                "JUMP",
-                805
-            ],
-            [
-                "CASE",
-                "drax,lead,inqu"
-            ],
-            "\"To go to Draxinusom, the Inquisitor and leader of my race.\"",
-            "WAIT",
-            "\n\n\"To find his chambers just to the northwest of the Hall of Knowledge.\"",
-            "WAIT",
-            "\n\n\"To @surrender to him, that you may travel @freely in our land.\"",
-            [
-                "JUMP",
-                805
-            ],
-            [
-                "CASE",
-                "free"
-            ],
-            "\"To know that the moons are not properly aligned yet for the ritual.\"",
-            "WAIT",
-            "\n\n\"To assure you that you will not be sacrificed for many weeks.\"",
-            "WAIT",
-            "\n\n\"To assure you further that surrender is the only way you can travel among my people.\"",
-            [
-                "JUMP",
-                805
-            ],
-            [
-                "CASE",
-                "surr"
-            ],
-            [
-                "IF",
-                "equals(partyHasObject(byte 76, byte 0), byte 1)"
-            ],
-            "\"To have done the honorable thing and now be respected and unfeared by my people.\"",
+            "print(\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"To be called Valkadesh Wis-lem, Valkadesh the Scholar.\"\")",
+            "wait()",
+            "print(\"\n\n\"To have been given a @partial name. To have yet to achieve full honor.\"\")",
+            "jump 805",
+            "case \"job\":",
+            "print(\"\"To be a Scholar. To be seeking a way to avert the @prophecy.\"\")",
+            "jump 805",
+            "case \"part,full,hono\":",
+            "print(\"\"To be greatly honored by even a partial name.\"\")",
+            "wait()",
+            "print(\"\n\n\"To be customary among my people to give names only to those most worthy.\"\")",
+            "jump 805",
+            "case \"prop\":",
+            "print(\"\"To be written in the Book of Prophecies that you would destroy our world.\"\")",
+            "wait()",
+            "print(\"\n\n\"To also be written that only the @sacrifice of the False Prophet would save us.\"\")",
+            "jump 805",
+            "case \"code\":",
+            "print(\"\"To believe that it is not too late.\"\")",
+            "wait()",
+            "print(\"\n\n\"To beg you to return the Codex.\"\")",
+            "wait()",
+            "print(\"\n\n\"Avert the @prophecy! Save your life, and my people's lives as well!\"\")",
+            "jump 805",
+            "case \"sacr\":",
+            "print(\"\"To be the only alternative to returning the Codex.\"\")",
+            "wait()",
+            "print(\"\n\n\"Without the Codex, to have no @choice but to sacrifice your life!\"\")",
+            "jump 805",
+            "case \"choi\":",
+            "print(\"\"Wait! To know that sacrifice has three meanings: of self, of others and of valuables.\"\")",
+            "wait()",
+            "print(\"\n\n\"Perhaps to find a better @answer in one of those other meanings.\"\")",
+            "jump 805",
+            "case \"find,answ\":",
+            "print(\"\"To be unable to help more.\"\")",
+            "wait()",
+            "print(\"\n\n\"To suggest you seek out @Naxatilor himself for further enlightenment.\"\")",
+            "jump 805",
+            "case \"naxa,seer\":",
+            "print(\"\"To learn much from Naxatilor, the wisest gargoyle.\"\")",
+            "wait()",
+            "print(\"\n\n\"To find his chambers just to the northeast of the Hall of Knowledge.\"\")",
+            "wait()",
+            "print(\"\n\n\"To suggest you go there and ask him of sacrifice.\"\")",
+            "jump 805",
+            "case \"drax,lead,inqu\":",
+            "print(\"\"To go to Draxinusom, the Inquisitor and leader of my race.\"\")",
+            "wait()",
+            "print(\"\n\n\"To find his chambers just to the northwest of the Hall of Knowledge.\"\")",
+            "wait()",
+            "print(\"\n\n\"To @surrender to him, that you may travel @freely in our land.\"\")",
+            "jump 805",
+            "case \"free\":",
+            "print(\"\"To know that the moons are not properly aligned yet for the ritual.\"\")",
+            "wait()",
+            "print(\"\n\n\"To assure you that you will not be sacrificed for many weeks.\"\")",
+            "wait()",
+            "print(\"\n\n\"To assure you further that surrender is the only way you can travel among my people.\"\")",
+            "jump 805",
+            "case \"surr\":",
+            "if equals(partyHasObject(byte 76, byte 0), byte 1):",
+            "print(\"\"To have done the honorable thing and now be respected and unfeared by my people.\"\")",
             "ELSE",
-            "\"To travel to the @Inquisitor.\"",
-            "WAIT",
-            "\n\n\"To tell the Inquisitor that you surrender.\"",
-            "WAIT",
-            "\n\n\"Then to be no longer a threat, and no longer be feared.\"",
-            "ENDIF",
-            [
-                "JUMP",
-                805
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"May your precision and persistence lead to success!\"\n",
+            "print(\"\"To travel to the @Inquisitor.\"\")",
+            "wait()",
+            "print(\"\n\n\"To tell the Inquisitor that you surrender.\"\")",
+            "wait()",
+            "print(\"\n\n\"Then to be no longer a threat, and no longer be feared.\"\")",
+            "endif",
+            "jump 805",
+            "case \"bye\":",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"May your precision and persistence lead to success!\"\n\")",
             "BYE",
             "ELSE",
             [
@@ -276,78 +145,48 @@
                     0
                 ]
             ],
-            "As you turn to leave, the gargoyle stops you.",
-            "WAIT",
-            "\n\n\"Wait,\" he calls. \"To be feared and hated by all gargoyles.\"",
-            "WAIT",
-            "\n\n\"To be unsafe for you right now, False Prophet.\"",
-            "WAIT",
-            "\n\n\"To surrender is only answer.\"",
-            "WAIT",
-            "\n\n\"To surrender to Inquisitor.\"",
-            "WAIT",
-            "\n\n\"Then to be no longer a threat, and then not to be feared by my people!\"",
-            "WAIT",
-            "\n\n\"To surrender to the @Inquisitor, and then to be @free to look for the solution.\"",
-            [
-                "JUMP",
-                805
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"To be confused by your accent.\"",
-            "WAIT",
-            "\n\n\"To ask what $Z means?\"",
-            [
-                "JUMP",
-                805
-            ]
+            "print(\"As you turn to leave, the gargoyle stops you.\")",
+            "wait()",
+            "print(\"\n\n\"Wait,\" he calls. \"To be feared and hated by all gargoyles.\"\")",
+            "wait()",
+            "print(\"\n\n\"To be unsafe for you right now, False Prophet.\"\")",
+            "wait()",
+            "print(\"\n\n\"To surrender is only answer.\"\")",
+            "wait()",
+            "print(\"\n\n\"To surrender to Inquisitor.\"\")",
+            "wait()",
+            "print(\"\n\n\"Then to be no longer a threat, and then not to be feared by my people!\"\")",
+            "wait()",
+            "print(\"\n\n\"To surrender to the @Inquisitor, and then to be @free to look for the solution.\"\")",
+            "jump 805",
+            "endif",
+            "case \"*\":",
+            "print(\"\"To be confused by your accent.\"\")",
+            "wait()",
+            "print(\"\n\n\"To ask what $Z means?\"\")",
+            "jump 805"
         ],
         "3333": [
-            "The gargoyle smiles, but his grin is somehow disturbing.",
-            "WAIT",
-            "\n\n\"I human @friend. Walk talk you.\"\n",
-            "ASK",
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Want much to talk.\"",
-            "WAIT",
-            "\n\n\"@Captain John speak; Captain John go!\"\n",
+            "print(\"The gargoyle smiles, but his grin is somehow disturbing.\")",
+            "wait()",
+            "print(\"\n\n\"I human @friend. Walk talk you.\"\n\")",
+            "ask()",
+            "case \"bye\":",
+            "print(\"\"Want much to talk.\"\")",
+            "wait()",
+            "print(\"\n\n\"@Captain John speak; Captain John go!\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "frie"
-            ],
-            "\"@Captain John gargoyle friend. Captain John speak.\"",
-            [
-                "JUMP",
-                3425
-            ],
-            [
-                "CASE",
-                "capt,john"
-            ],
-            "\"Must Captain John go. Only he speak. Must go!\"",
-            [
-                "JUMP",
-                3425
-            ],
-            [
-                "CASE",
-                "*"
-            ],
-            "In a thick accent, the gargoyle croaks, \"I bad with human language.\"",
-            "WAIT",
-            "\n\n\"With @Captain John must to speak.\"",
-            [
-                "JUMP",
-                3425
-            ]
+            "case \"frie\":",
+            "print(\"\"@Captain John gargoyle friend. Captain John speak.\"\")",
+            "jump 3425",
+            "case \"capt,john\":",
+            "print(\"\"Must Captain John go. Only he speak. Must go!\"\")",
+            "jump 3425",
+            "case \"*\":",
+            "print(\"In a thick accent, the gargoyle croaks, \"I bad with human language.\"\")",
+            "wait()",
+            "print(\"\n\n\"With @Captain John must to speak.\"\")",
+            "jump 3425"
         ]
     }
 }

@@ -5,35 +5,26 @@
     "name": "Aaron",
     "f3-after-name": false,
     "description": [
-        "a plump blond man with curly blond hair and a cheerful face.",
-        "WAIT"
+        "print(\"a plump blond man with curly blond hair and a cheerful face.\")",
+        "wait()"
     ],
     "f3-after-description": false,
     "interaction": {
         "70": [
-            "\n",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"Hello again, Avatar!\"",
+            "print(\"\n\")",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"Hello again, Avatar!\"\")",
             "ELSE",
-            "\"Hello hello!\"",
-            "ENDIF",
-            "WAIT",
-            "\n\n\"What can I do for you this $T?\"\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"That's funny. I remember your name!\"",
+            "print(\"\"Hello hello!\"\")",
+            "endif",
+            "wait()",
+            "print(\"\n\n\"What can I do for you this $T?\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"That's funny. I remember your name!\"\")",
             "ELSE",
-            "\"My name's Aaron.\"",
+            "print(\"\"My name's Aaron.\"\")",
             [
                 "SETF",
                 [
@@ -45,78 +36,24 @@
                     0
                 ]
             ],
-            "ENDIF",
-            [
-                "JUMP",
-                150
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"I run the sawmill! Is there anything I can do for thee?\"",
-            [
-                "JUMP",
-                150
-            ],
-            [
-                "CASE",
-                "saw"
-            ],
-            "\"Yes, I saw logs into @boards.\"",
-            [
-                "JUMP",
-                150
-            ],
-            [
-                "CASE",
-                "boar,log"
-            ],
-            [
-                "IF",
-                "notEquals(integer(value 32), byte 144)"
-            ],
-            "\"Come to my shop when I'm open!\"",
-            [
-                "JUMP",
-                150
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "partyHasObject",
-                    [
-                        [
-                            "word",
-                            274
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(integer(value 0), word 32769)"
-            ],
-            "\"My mill makes smooth boards and planks out of rough-cut logs.\"",
-            [
-                "JUMP",
-                150
-            ],
-            "ENDIF",
+            "endif",
+            "jump 150",
+            "case \"job\":",
+            "print(\"\"I run the sawmill! Is there anything I can do for thee?\"\")",
+            "jump 150",
+            "case \"saw\":",
+            "print(\"\"Yes, I saw logs into @boards.\"\")",
+            "jump 150",
+            "case \"boar,log\":",
+            "if notEquals(integer(value 32), byte 144):",
+            "print(\"\"Come to my shop when I'm open!\"\")",
+            "jump 150",
+            "endif",
+            "integer(value 0) = partyHasObject(word 274, byte 0)",
+            "if equals(integer(value 0), word 32769):",
+            "print(\"\"My mill makes smooth boards and planks out of rough-cut logs.\"\")",
+            "jump 150",
+            "endif",
             [
                 "SETNAME",
                 [
@@ -129,20 +66,14 @@
                     ]
                 ]
             ],
-            "\"Aye, I see $Y has a yew log.\" He inspects the wood with a practiced eye.",
-            "WAIT",
-            "\n\n\"Good grain. Yes, I can make a fine board out of this log.\"",
-            "WAIT",
-            "\n\n\"But it will cost thee 5 gold, $Y!\"\n\n\"Still interested?\" ",
-            [
-                "JUMP",
-                733
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Farewell!\"\n",
+            "print(\"\"Aye, I see $Y has a yew log.\" He inspects the wood with a practiced eye.\")",
+            "wait()",
+            "print(\"\n\n\"Good grain. Yes, I can make a fine board out of this log.\"\")",
+            "wait()",
+            "print(\"\n\n\"But it will cost thee 5 gold, $Y!\"\n\n\"Still interested?\" \")",
+            "jump 733",
+            "case \"bye\":",
+            "print(\"\"Farewell!\"\n\")",
             [
                 "SETF",
                 [
@@ -155,37 +86,19 @@
                 ]
             ],
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"Beg pardon?\"",
-            [
-                "JUMP",
-                150
-            ]
+            "case \"*\":",
+            "print(\"\"Beg pardon?\"\")",
+            "jump 150"
         ],
         "733": [
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "IF",
-                "less(objectsCount(integer(value 0), byte 88), byte 5)"
-            ],
-            "\"Sorry, but I can't work for free!\"",
-            "WAIT",
-            "\n\n\"Come back when you have the 5 gold!\"",
-            [
-                "JUMP",
-                150
-            ],
-            "ENDIF",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "if less(objectsCount(integer(value 0), byte 88), byte 5):",
+            "print(\"\"Sorry, but I can't work for free!\"\")",
+            "wait()",
+            "print(\"\n\n\"Come back when you have the 5 gold!\"\")",
+            "jump 150",
+            "endif",
             [
                 "DELETE",
                 [
@@ -234,9 +147,9 @@
                     5
                 ]
             ],
-            "Aaron goes to his saw and turns the log into a flat, sanded board.",
-            "WAIT",
-            "\n\n\"There!\" He hands $Y the finished product.",
+            "print(\"Aaron goes to his saw and turns the log into a flat, sanded board.\")",
+            "wait()",
+            "print(\"\n\n\"There!\" He hands $Y the finished product.\")",
             [
                 "NEW",
                 [
@@ -261,19 +174,10 @@
                     1
                 ]
             ],
-            [
-                "JUMP",
-                150
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Oh. Well, perhaps some other time then.\"",
-            [
-                "JUMP",
-                150
-            ]
+            "jump 150",
+            "case \"n\":",
+            "print(\"\"Oh. Well, perhaps some other time then.\"\")",
+            "jump 150"
         ]
     }
 }

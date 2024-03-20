@@ -5,36 +5,18 @@
     "name": "Immanuelle",
     "f3-after-name": false,
     "description": [
-        "a sultry, dark-skinned woman dressed in riding-leathers.",
-        "WAIT",
-        "\n"
+        "print(\"a sultry, dark-skinned woman dressed in riding-leathers.\")",
+        "wait()",
+        "print(\"\n\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "72": [
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            9
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    60
-                ]
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"Hello again, my friend",
+            "integer(value 9) = byte 60",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"Hello again, my friend\")",
             "ELSE",
-            "\"Hello, stranger",
+            "print(\"\"Hello, stranger\")",
             [
                 "SETF",
                 [
@@ -46,346 +28,91 @@
                     0
                 ]
             ],
-            "ENDIF",
-            [
-                "IF",
-                "integer(value 23)"
-            ],
-            "s. What can I do for you",
+            "endif",
+            "if integer(value 23):",
+            "print(\"s. What can I do for you\")",
             "ELSE",
-            ". What can I do for thee",
-            "ENDIF",
-            " this $T?\"\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"Some call me Immanuelle, $G.\"",
-            "WAIT",
-            "\n\n\"Others call me...something @else.\"",
-            "WAIT",
-            "\n\nShe winks at you.",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "some,else"
-            ],
-            [
-                "IF",
-                "equals(integer(value 16), byte 0)"
-            ],
-            "\"Perhaps some time I will @show you...\"",
+            "print(\". What can I do for thee\")",
+            "endif",
+            "print(\" this $T?\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"Some call me Immanuelle, $G.\"\")",
+            "wait()",
+            "print(\"\n\n\"Others call me...something @else.\"\")",
+            "wait()",
+            "print(\"\n\nShe winks at you.\")",
+            "jump 196",
+            "case \"some,else\":",
+            "if equals(integer(value 16), byte 0):",
+            "print(\"\"Perhaps some time I will @show you...\"\")",
             "ELSE",
-            "\"I think you get the idea.\"",
-            "ENDIF",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "show"
-            ],
-            "\"Not here.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"I raise horses here, in the stables.\"",
-            "WAIT",
-            "\n\n\"I also sell @horses, if you wish to @buy one.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "sell,hors"
-            ],
-            "\"I can hardly bear to part with any of these magnificent beasts.\"",
-            "WAIT",
-            "\n\n\"But there are a few that fail to please me.\"",
-            "WAIT",
-            "\n\n\"If you wish to @buy one of them, just say the word.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "buy"
-            ],
-            [
-                "IF",
-                "notEquals(integer(value 32), byte 143)"
-            ],
-            "\"Come to my shop when I'm open!\"",
-            [
-                "JUMP",
-                196
-            ],
+            "print(\"\"I think you get the idea.\"\")",
+            "endif",
+            "jump 196",
+            "case \"show\":",
+            "print(\"\"Not here.\"\")",
+            "jump 196",
+            "case \"job\":",
+            "print(\"\"I raise horses here, in the stables.\"\")",
+            "wait()",
+            "print(\"\n\n\"I also sell @horses, if you wish to @buy one.\"\")",
+            "jump 196",
+            "case \"sell,hors\":",
+            "print(\"\"I can hardly bear to part with any of these magnificent beasts.\"\")",
+            "wait()",
+            "print(\"\n\n\"But there are a few that fail to please me.\"\")",
+            "wait()",
+            "print(\"\n\n\"If you wish to @buy one of them, just say the word.\"\")",
+            "jump 196",
+            "case \"buy\":",
+            "if notEquals(integer(value 32), byte 143):",
+            "print(\"\"Come to my shop when I'm open!\"\")",
+            "jump 196",
             "ELSE",
-            [
-                "JUMP",
-                851
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Come back again soon!\"",
-            [
-                "IF",
-                "equals(integer(value 16), byte 0)"
-            ],
-            "WAIT",
-            "\n\nAs you leave, she blows you a kiss.",
-            "ENDIF",
-            "\n",
+            "jump 851",
+            "endif",
+            "case \"bye\":",
+            "print(\"\"Come back again soon!\"\")",
+            "if equals(integer(value 16), byte 0):",
+            "wait()",
+            "print(\"\n\nAs you leave, she blows you a kiss.\")",
+            "endif",
+            "print(\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"Beg pardon, $G?\"",
-            [
-                "JUMP",
-                196
-            ]
+            "case \"*\":",
+            "print(\"\"Beg pardon, $G?\"\")",
+            "jump 196"
         ],
         "851": [
-            [
-                "IF",
-                "greater(integer(value 23), byte 0)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            4
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "JUMP",
-                951
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "character",
-                    [
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "hasHorse(integer(value 3))"
-            ],
-            "\"But thou already hast a horse!\"",
-            [
-                "JUMP",
-                196
-            ],
+            "if greater(integer(value 23), byte 0):",
+            "integer(value 1) = byte 0",
+            "integer(value 2) = byte 0",
+            "integer(value 4) = byte 0",
+            "jump 951",
+            "endif",
+            "integer(value 3) = character(byte 0, byte 0)",
+            "if hasHorse(integer(value 3)):",
+            "print(\"\"But thou already hast a horse!\"\")",
+            "jump 196",
             "ELSE",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            4
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
-            [
-                "JUMP",
-                1252
-            ],
-            "ENDIF"
+            "integer(value 4) = byte 1",
+            "jump 1252",
+            "endif"
         ],
         "951": [
-            [
-                "IF",
-                "greater(integer(value 1), integer(value 23))"
-            ],
-            [
-                "JUMP",
-                1058
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "character",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "hasHorse(integer(value 3))"
-            ],
-            [
-                "JUMP",
-                1043
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 4), byte 0)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            4
-                        ]
-                    ]
-                ],
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    2
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                1043
-            ],
-            "ENDIF",
+            "if greater(integer(value 1), integer(value 23)):",
+            "jump 1058",
+            "endif",
+            "integer(value 3) = character(integer(value 1), byte 0)",
+            "if hasHorse(integer(value 3)):",
+            "jump 1043",
+            "endif",
+            "if equals(integer(value 4), byte 0):",
+            "integer(value 4) = integer(value 3)",
+            "integer(value 2) = plus(integer(value 2), byte 1)",
+            "jump 1043",
+            "endif",
             [
                 "SETNAME",
                 [
@@ -398,134 +125,21 @@
                     ]
                 ]
             ],
-            "#2) $Y\n",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    2
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            4
-                        ]
-                    ]
-                ],
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                951
-            ]
+            "print(\"#2) $Y\n\")",
+            "integer(value 2) = plus(integer(value 2), byte 1)",
+            "integer(value 4) = integer(value 3)",
+            "integer(value 1) = plus(integer(value 1), byte 1)",
+            "jump 951"
         ],
         "1058": [
-            [
-                "IF",
-                "equals(integer(value 2), byte 0)"
-            ],
-            "\"But all of you are already on horses!\"",
-            [
-                "JUMP",
-                196
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 2), byte 1)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            4
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                1252
-            ],
-            "ENDIF",
+            "if equals(integer(value 2), byte 0):",
+            "print(\"\"But all of you are already on horses!\"\")",
+            "jump 196",
+            "endif",
+            "if equals(integer(value 2), byte 1):",
+            "integer(value 3) = integer(value 4)",
+            "jump 1252",
+            "endif",
             [
                 "SETNAME",
                 [
@@ -538,166 +152,28 @@
                     ]
                 ]
             ],
-            "#2) $Y\n",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            4
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            "\"Which of you?\" ",
+            "print(\"#2) $Y\n\")",
+            "integer(value 4) = byte 0",
+            "print(\"\"Which of you?\" \")",
             [
                 "INPUTNUM",
                 2
             ],
-            [
-                "IF",
-                "equals(integer(value 2), byte 0)"
-            ],
-            [
-                "JUMP",
-                196
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "character",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(hasHorse(integer(value 3)), byte 0)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "minus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    2
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 2), byte 0)"
-            ],
-            [
-                "JUMP",
-                1252
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "lessOrEquals(integer(value 1), integer(value 23))"
-            ],
-            [
-                "JUMP",
-                1187
-            ],
-            "ENDIF"
+            "if equals(integer(value 2), byte 0):",
+            "jump 196",
+            "endif",
+            "integer(value 1) = byte 0",
+            "integer(value 3) = character(integer(value 1), byte 0)",
+            "if equals(hasHorse(integer(value 3)), byte 0):",
+            "integer(value 2) = minus(integer(value 2), byte 1)",
+            "endif",
+            "if equals(integer(value 2), byte 0):",
+            "jump 1252",
+            "endif",
+            "integer(value 1) = plus(integer(value 1), byte 1)",
+            "if lessOrEquals(integer(value 1), integer(value 23)):",
+            "jump 1187",
+            "endif"
         ],
         "1252": [
             [
@@ -712,29 +188,17 @@
                     ]
                 ]
             ],
-            "\"Aye, $Y, thou hast need of a horse.\"",
-            "WAIT",
-            "\n\n",
-            [
-                "IF",
-                "less(objectsCount(integer(value 3), byte 88), integer(value 9))"
-            ],
-            "\"But thou canst not afford one!\"",
-            [
-                "JUMP",
-                1532
-            ],
-            "ENDIF",
-            "\"My price is #9 gold pieces, no less. Interested?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"Good!\" $N takes $Y's gold, and hands over the reins of a fine horse.",
+            "print(\"\"Aye, $Y, thou hast need of a horse.\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "if less(objectsCount(integer(value 3), byte 88), integer(value 9)):",
+            "print(\"\"But thou canst not afford one!\"\")",
+            "jump 1532",
+            "endif",
+            "print(\"\"My price is #9 gold pieces, no less. Interested?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"\"Good!\" $N takes $Y's gold, and hands over the reins of a fine horse.\")",
             [
                 "DELETE",
                 [
@@ -776,95 +240,29 @@
                     ]
                 ]
             ],
-            [
-                "JUMP",
-                1532
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Perhaps some other time then.\"",
-            [
-                "JUMP",
-                1532
-            ]
+            "jump 1532",
+            "case \"n\":",
+            "print(\"\"Perhaps some other time then.\"\")",
+            "jump 1532"
         ],
         "1532": [
-            [
-                "IF",
-                "integer(value 4)"
-            ],
-            [
-                "JUMP",
-                196
-            ],
-            "ENDIF",
-            "WAIT",
-            "\n\n\"How about ",
-            [
-                "IF",
-                "greater(integer(value 23), byte 1)"
-            ],
-            "one of thy friends",
+            "if integer(value 4):",
+            "jump 196",
+            "endif",
+            "wait()",
+            "print(\"\n\n\"How about \")",
+            "if greater(integer(value 23), byte 1):",
+            "print(\"one of thy friends\")",
             "ELSE",
-            "thy friend",
-            "ENDIF",
-            "?\"",
-            "WAIT",
-            "\n\n",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            4
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "JUMP",
-                951
-            ]
+            "print(\"thy friend\")",
+            "endif",
+            "print(\"?\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "integer(value 1) = byte 0",
+            "integer(value 2) = byte 0",
+            "integer(value 4) = byte 0",
+            "jump 951"
         ]
     }
 }

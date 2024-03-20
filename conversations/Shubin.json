@@ -5,41 +5,29 @@
     "name": "Shubin",
     "f3-after-name": false,
     "description": [
-        "a man with a wide bottom. His voice is almost like a woman's.",
-        "WAIT",
-        "\n"
+        "print(\"a man with a wide bottom. His voice is almost like a woman's.\")",
+        "wait()",
+        "print(\"\n\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "73": [
-            [
-                "IF",
-                "hasBit(byte 235, byte 7)"
-            ],
-            [
-                "JUMP",
-                198
-            ],
-            "ENDIF",
-            "\"Ooh, you look so thin! Here, have a bite of bread.\"",
-            "WAIT",
-            "\nHe gives you a @roll; it is still warm from the oven.",
-            [
-                "JUMP",
-                221
-            ]
+            "if hasBit(byte 235, byte 7):",
+            "jump 198",
+            "endif",
+            "print(\"\"Ooh, you look so thin! Here, have a bite of bread.\"\")",
+            "wait()",
+            "print(\"\nHe gives you a @roll; it is still warm from the oven.\")",
+            "jump 221"
         ],
         "198": [
-            "\"Why, hello there, $G.\"\n"
+            "print(\"\"Why, hello there, $G.\"\n\")"
         ],
         "221": [
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"My name is Shubin, $G.\"",
+            "print(\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"My name is Shubin, $G.\"\")",
             [
                 "SETF",
                 [
@@ -51,38 +39,17 @@
                     0
                 ]
             ],
-            [
-                "JUMP",
-                221
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"I'm a @cook, $G.\"",
-            [
-                "JUMP",
-                221
-            ],
-            [
-                "CASE",
-                "sand"
-            ],
-            "\"He is my friend.\"",
-            [
-                "JUMP",
-                221
-            ],
-            [
-                "CASE",
-                "mant"
-            ],
-            "\"@Sandy says the mantra of eating is 'yum,' $G. Hee, hee!\"",
-            [
-                "IF",
-                "partyHas(byte 4)"
-            ],
-            "WAIT",
+            "jump 221",
+            "case \"job\":",
+            "print(\"\"I'm a @cook, $G.\"\")",
+            "jump 221",
+            "case \"sand\":",
+            "print(\"\"He is my friend.\"\")",
+            "jump 221",
+            "case \"mant\":",
+            "print(\"\"@Sandy says the mantra of eating is 'yum,' $G. Hee, hee!\"\")",
+            "if partyHas(byte 4):",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -90,8 +57,8 @@
                     4
                 ]
             ],
-            "\n\nYou friend Iolo rolls his eyes. \"Such wisdom we can surely do without!\"",
-            "WAIT",
+            "print(\"\n\nYou friend Iolo rolls his eyes. \"Such wisdom we can surely do without!\"\")",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -99,141 +66,48 @@
                     235
                 ]
             ],
-            "ENDIF",
-            [
-                "JUMP",
-                221
-            ],
-            [
-                "CASE",
-                "thin,roll"
-            ],
-            [
-                "IF",
-                "or(hasBit(byte 235, byte 7), less(canCarry(byte 1), weight(byte 130, byte 1)))"
-            ],
-            "\"I have no more rolls, $G.\"",
-            [
-                "JUMP",
-                221
-            ],
-            "ENDIF",
-            [
-                "JUMP",
-                1101
-            ],
-            [
-                "CASE",
-                "cook"
-            ],
-            "\"Being a cook is like being an @adventurer, $G.\"",
-            [
-                "JUMP",
-                221
-            ],
-            [
-                "CASE",
-                "adve"
-            ],
-            "\"Yes, $G. I must gather up all my ingredients with @care.\"",
-            [
-                "JUMP",
-                221
-            ],
-            [
-                "CASE",
-                "care"
-            ],
-            "\"So that I have the right @ingredients, $G.\"",
-            [
-                "JUMP",
-                221
-            ],
-            [
-                "CASE",
-                "ingr"
-            ],
-            "\"Adventurers are always searching for this or that, $G. So are cooks.\"",
-            "WAIT",
-            "\n\n\"Do you know of Magincian Pastry?\" ",
-            [
-                "JUMP",
-                1259
-            ],
-            [
-                "CASE",
-                "drag,egg"
-            ],
-            "\"Have you one with you?\" ",
-            [
-                "JUMP",
-                962
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Goodbye, $G.\"\n",
+            "endif",
+            "jump 221",
+            "case \"thin,roll\":",
+            "if or(hasBit(byte 235, byte 7), less(canCarry(byte 1), weight(byte 130, byte 1))):",
+            "print(\"\"I have no more rolls, $G.\"\")",
+            "jump 221",
+            "endif",
+            "jump 1101",
+            "case \"cook\":",
+            "print(\"\"Being a cook is like being an @adventurer, $G.\"\")",
+            "jump 221",
+            "case \"adve\":",
+            "print(\"\"Yes, $G. I must gather up all my ingredients with @care.\"\")",
+            "jump 221",
+            "case \"care\":",
+            "print(\"\"So that I have the right @ingredients, $G.\"\")",
+            "jump 221",
+            "case \"ingr\":",
+            "print(\"\"Adventurers are always searching for this or that, $G. So are cooks.\"\")",
+            "wait()",
+            "print(\"\n\n\"Do you know of Magincian Pastry?\" \")",
+            "jump 1259",
+            "case \"drag,egg\":",
+            "print(\"\"Have you one with you?\" \")",
+            "jump 962",
+            "case \"bye\":",
+            "print(\"\"Goodbye, $G.\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"That's one of the eight @mantras, isn't it?\"",
+            "case \"*\":",
+            "print(\"\"That's one of the eight @mantras, isn't it?\"\")",
             "ESAC",
-            [
-                "JUMP",
-                221
-            ]
+            "jump 221"
         ],
         "962": [
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Oh, do not tease old Shubin so, $G!\"",
-            [
-                "JUMP",
-                221
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "partyHasObject",
-                    [
-                        [
-                            "word",
-                            417
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "notEquals(integer(value 0), word 32769)"
-            ],
-            "\"Oh, thank you, thank you, thank you!\"",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Oh, do not tease old Shubin so, $G!\"\")",
+            "jump 221",
+            "case \"y\":",
+            "integer(value 0) = partyHasObject(word 417, byte 0)",
+            "if notEquals(integer(value 0), word 32769):",
+            "print(\"\"Oh, thank you, thank you, thank you!\"\")",
             [
                 "DELETE",
                 [
@@ -260,37 +134,19 @@
                     5
                 ]
             ],
-            [
-                "JUMP",
-                221
-            ],
+            "jump 221",
             "ELSE",
-            [
-                "JUMP",
-                968
-            ],
-            "ENDIF"
+            "jump 968",
+            "endif"
         ],
         "1101": [
-            "He ask anxiously \"Do you like it, $G?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Such a picky eater. No wonder you're so skinny, $G.\"",
-            [
-                "JUMP",
-                221
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"Have a whole tray, then.\"",
+            "print(\"He ask anxiously \"Do you like it, $G?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Such a picky eater. No wonder you're so skinny, $G.\"\")",
+            "jump 221",
+            "case \"y\":",
+            "print(\"\"Have a whole tray, then.\"\")",
             [
                 "NEW",
                 [
@@ -321,59 +177,29 @@
                     7
                 ]
             ],
-            [
-                "JUMP",
-                221
-            ]
+            "jump 221"
         ],
         "1259": [
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"It is a marvellous dish, $G. My friend Sandy gave me the recipe...\"\n*\n\"I'm only missing one ingredient...\"",
-            [
-                "JUMP",
-                1456
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"Well, I'd like to make it, $G, but I cannot get one of the ingredients...\"",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"It is a marvellous dish, $G. My friend Sandy gave me the recipe...\"\n*\n\"I'm only missing one ingredient...\"\")",
+            "jump 1456",
+            "case \"y\":",
+            "print(\"\"Well, I'd like to make it, $G, but I cannot get one of the ingredients...\"\")",
             "ESAC",
-            "WAIT",
-            "\n\n\"I sure would appreciate it if you brought it back for me if you came across one in your travels, $G...\"",
-            "WAIT",
-            "\n\n\"If you could find time for old Shubin, that is...\"",
-            "WAIT",
-            "\n\n\"Would it be too much trouble to bring me back a dragon's @egg, $G?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "He sighs. \"Well, $G, it did no harm to ask, I suppose.\"",
-            [
-                "JUMP",
-                221
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"I just know you will remember Shubin, $G. Thank you.\"",
-            [
-                "JUMP",
-                221
-            ]
+            "wait()",
+            "print(\"\n\n\"I sure would appreciate it if you brought it back for me if you came across one in your travels, $G...\"\")",
+            "wait()",
+            "print(\"\n\n\"If you could find time for old Shubin, that is...\"\")",
+            "wait()",
+            "print(\"\n\n\"Would it be too much trouble to bring me back a dragon's @egg, $G?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"He sighs. \"Well, $G, it did no harm to ask, I suppose.\"\")",
+            "jump 221",
+            "case \"n\":",
+            "print(\"\"I just know you will remember Shubin, $G. Thank you.\"\")",
+            "jump 221"
         ]
     }
 }

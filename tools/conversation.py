@@ -352,7 +352,7 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, e
             result.append(('INPUTNUM', number))
 
         else:
-            result.append(_read_string(stream, visited_labels, end | all_instructions))
+            result.append(('PRINT', _read_string(stream, visited_labels, end | all_instructions)))
 
         # FIXME move to main while
         if _peek_byte(stream) is None or _is_ended(result) and None in end:
@@ -378,7 +378,7 @@ def _expand_instructions(original_label, instructions, labels):
     result = []
     for instruction in instructions:
         if instruction[0] == 'IF':
-            result.append((instruction[0], _format_expression(instruction[1])))
+            result.append((instruction[0], instruction[1]))
             result.extend(instruction[2])
             if instruction[3]:
                 result.append('ELSE')
@@ -389,6 +389,47 @@ def _expand_instructions(original_label, instructions, labels):
             result.append(instruction)
 
     yield original_label, result # FIXME get rid of original_label
+
+
+def _format_instructions(instructions):
+    result = []
+    for instruction in instructions:
+        # FIXME string escaping
+        if instruction[0] == 'IF':
+            result.append(f'if {_format_expression(instruction[1])}:')
+
+        # FIXME rename
+        elif instruction[0] == 'ASKC':
+            result.append(f'askc("{instruction[1]}")')
+
+        elif instruction[0] == 'PRINT':
+            result.append(f'print("{instruction[1]}")')
+
+        elif instruction == 'ASK':
+            result.append(f'ask()')
+
+        elif instruction[0] == 'CASE':
+            result.append(f'case "{instruction[1]}":')
+
+        elif instruction[0] == 'ASSIGN':
+            result.append(f'{_format_expression(instruction[1])} = {_format_expression(instruction[2])}')
+
+        elif instruction == 'ENDIF':
+            result.append('endif')
+
+        elif instruction == 'WAIT':
+            result.append('wait()')
+
+        elif instruction == 'else':
+            result.append('else:')
+
+        elif instruction[0] == 'JUMP':
+            result.append(f'jump {instruction[1]}')
+
+        else:
+            result.append(instruction)
+
+    return result
 
 
 def decode(raw_conversation):
@@ -408,7 +449,7 @@ def decode(raw_conversation):
     result['f3-after-name'] = _check_byte(stream, visited_labels, 0xf3)
 
     assert _read_byte(stream, visited_labels) == 0xf1
-    result['description'] = _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, {0xf2, 0xf3})
+    result['description'] = _format_instructions(_read_instructions(stream, labels, visited_labels, data, allow_solo_endif, {0xf2, 0xf3}))
     result['f3-after-description'] = _check_byte(stream, visited_labels, 0xf3)
 
     assert _read_byte(stream, visited_labels) == 0xf2
@@ -468,7 +509,7 @@ def decode(raw_conversation):
                     strings.append(string.decode('ascii'))
                     blocks[left].append('no-trailing-byte')
 
-    result['interaction'] = {label: expanded for k, v in sorted(blocks.items()) for label, expanded in _expand_instructions(k, v, labels)}
+    result['interaction'] = {label: _format_instructions(expanded) for k, v in sorted(blocks.items()) for label, expanded in _expand_instructions(k, v, labels)}
 
     assert set(range(len(data))) - visited_labels == set()
     return result

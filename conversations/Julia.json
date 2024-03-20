@@ -5,275 +5,111 @@
     "name": "Julia",
     "f3-after-name": false,
     "description": [
-        "a sturdy woman with calloused hands and a loud manner."
+        "print(\"a sturdy woman with calloused hands and a loud manner.\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "63": [
-            "WAIT",
-            "\n",
-            [
-                "IF",
-                "partyHas(byte 235)"
-            ],
-            "\"Aye, and wha' can ye be askin' of me?\"",
-            "WAIT",
-            "\n\n\"Sure an' I don't think I can be helpin' ya with this!\"",
-            [
-                "JUMP",
-                502
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(hasBit(byte 235, value 1), byte 0)"
-            ],
-            [
-                "JUMP",
-                303
-            ],
-            "ENDIF",
-            "\"Aye, so the great Avatar deigns to return, does he?\"",
-            "WAIT",
-            "\n\n\"Well, what does ",
-            [
-                "IF",
-                "integer(value 16)"
-            ],
-            "her lady",
+            "wait()",
+            "print(\"\n\")",
+            "if partyHas(byte 235):",
+            "print(\"\"Aye, and wha' can ye be askin' of me?\"\")",
+            "wait()",
+            "print(\"\n\n\"Sure an' I don't think I can be helpin' ya with this!\"\")",
+            "jump 502",
+            "endif",
+            "if equals(hasBit(byte 235, value 1), byte 0):",
+            "jump 303",
+            "endif",
+            "print(\"\"Aye, so the great Avatar deigns to return, does he?\"\")",
+            "wait()",
+            "print(\"\n\n\"Well, what does \")",
+            "if integer(value 16):",
+            "print(\"her lady\")",
             "ELSE",
-            "his lord",
-            "ENDIF",
-            "ship want now?\"",
-            [
-                "JUMP",
-                502
-            ]
+            "print(\"his lord\")",
+            "endif",
+            "print(\"ship want now?\"\")",
+            "jump 502"
         ],
         "303": [
-            [
-                "IF",
-                "equals(hasBit(byte 235, value 0), byte 0)"
-            ],
-            "\"Well, then the rumors are true!\"",
-            "WAIT",
-            "\n\n\"'Tis well and good that ye have returned to our land, Avatar!\"",
-            [
-                "JUMP",
-                502
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "partyHasObject",
-                    [
-                        [
-                            "word",
-                            277
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            "\"Well met, Avatar. ",
-            [
-                "IF",
-                "equals(integer(value 0), word 32769)"
-            ],
-            "An' what can I be doin' for ye this $T?\"",
+            "if equals(hasBit(byte 235, value 0), byte 0):",
+            "print(\"\"Well, then the rumors are true!\"\")",
+            "wait()",
+            "print(\"\n\n\"'Tis well and good that ye have returned to our land, Avatar!\"\")",
+            "jump 502",
+            "endif",
+            "integer(value 0) = partyHasObject(word 277, byte 0)",
+            "print(\"\"Well met, Avatar. \")",
+            "if equals(integer(value 0), word 32769):",
+            "print(\"An' what can I be doin' for ye this $T?\"\")",
             "ELSE",
-            [
-                "JUMP",
-                2598
-            ],
-            "ENDIF"
+            "jump 2598",
+            "endif"
         ],
         "502": [
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"Sure and you're goin' daft, $G.\"",
-            "WAIT",
-            "\n\n\"I be named Julia, same as the last time we met!\"",
+            "print(\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"Sure and you're goin' daft, $G.\"\")",
+            "wait()",
+            "print(\"\n\n\"I be named Julia, same as the last time we met!\"\")",
             "ELSE",
-            "\"Named Julia I am, $G, and pleased to meet ye.\"",
-            "ENDIF",
-            [
-                "JUMP",
-                502
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"Instruments I make, the finest in the land.\"",
-            "WAIT",
-            "\n\n",
-            [
-                "IF",
-                "partyHas(byte 235)"
-            ],
-            "\"For now, though, I'm followin' ye, and glad to do it!\"",
+            "print(\"\"Named Julia I am, $G, and pleased to meet ye.\"\")",
+            "endif",
+            "jump 502",
+            "case \"job\":",
+            "print(\"\"Instruments I make, the finest in the land.\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "if partyHas(byte 235):",
+            "print(\"\"For now, though, I'm followin' ye, and glad to do it!\"\")",
             "ELSE",
-            "\"Not to be immodest, but I'm respected by all the @Guild!\"",
-            "WAIT",
-            "\n\n\"Ach, but give it all up I would for a life of @adventure like your own...\"",
-            "ENDIF",
-            [
-                "JUMP",
-                502
-            ],
-            [
-                "CASE",
-                "guil"
-            ],
-            "\"If ye would like to be a member too, go talk to @Selganor.\"",
-            [
-                "JUMP",
-                502
-            ],
-            [
-                "CASE",
-                "selg"
-            ],
-            "\"He's the guildmaster.\"",
-            [
-                "JUMP",
-                502
-            ],
-            [
-                "CASE",
-                "pan,pipe"
-            ],
-            "\"Sent you to me they did? Aye, I can believe that.\"",
-            "WAIT",
-            "\n\n\"Now the panpipes are a tricky instrument.\"",
-            "WAIT",
-            "\n\n\"You gotta have the finest wood.\"",
-            "WAIT",
-            "\n\"If you want to learn how to make pipes, you'll need to bring a yew @board.\"",
-            "WAIT",
-            "\n\n\"But it must be freshly @cut!\"",
-            [
-                "JUMP",
-                502
-            ],
-            [
-                "CASE",
-                "yew,boar"
-            ],
-            "\"",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "partyHasObject",
-                    [
-                        [
-                            "word",
-                            277
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                2598
-            ],
-            [
-                "CASE",
-                "fres,cut"
-            ],
-            [
-                "JUMP",
-                2867
-            ],
-            [
-                "CASE",
-                "life,adve"
-            ],
-            "\"Aye, I'd @join you if ye wish.\"",
-            [
-                "JUMP",
-                502
-            ],
-            [
-                "CASE",
-                "join"
-            ],
-            "\"Join ye? Me?\"",
-            "WAIT",
-            "\n\n",
-            [
-                "IF",
-                "hasBit(byte 235, value 1)"
-            ],
-            "\"Aye, and be dumped off in the middle of nowhere again?\"",
-            "WAIT",
-            "\n\n\"Not likely! Find some other sap to do your bidding!\"",
-            [
-                "JUMP",
-                502
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "partyJoin",
-                    [
-                        [
-                            "byte",
-                            235
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(integer(value 0), byte 0)"
-            ],
-            "\"Aye, gladly! Let's be on our way.\"\n",
+            "print(\"\"Not to be immodest, but I'm respected by all the @Guild!\"\")",
+            "wait()",
+            "print(\"\n\n\"Ach, but give it all up I would for a life of @adventure like your own...\"\")",
+            "endif",
+            "jump 502",
+            "case \"guil\":",
+            "print(\"\"If ye would like to be a member too, go talk to @Selganor.\"\")",
+            "jump 502",
+            "case \"selg\":",
+            "print(\"\"He's the guildmaster.\"\")",
+            "jump 502",
+            "case \"pan,pipe\":",
+            "print(\"\"Sent you to me they did? Aye, I can believe that.\"\")",
+            "wait()",
+            "print(\"\n\n\"Now the panpipes are a tricky instrument.\"\")",
+            "wait()",
+            "print(\"\n\n\"You gotta have the finest wood.\"\")",
+            "wait()",
+            "print(\"\n\"If you want to learn how to make pipes, you'll need to bring a yew @board.\"\")",
+            "wait()",
+            "print(\"\n\n\"But it must be freshly @cut!\"\")",
+            "jump 502",
+            "case \"yew,boar\":",
+            "print(\"\"\")",
+            "integer(value 0) = partyHasObject(word 277, byte 0)",
+            "jump 2598",
+            "case \"fres,cut\":",
+            "jump 2867",
+            "case \"life,adve\":",
+            "print(\"\"Aye, I'd @join you if ye wish.\"\")",
+            "jump 502",
+            "case \"join\":",
+            "print(\"\"Join ye? Me?\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "if hasBit(byte 235, value 1):",
+            "print(\"\"Aye, and be dumped off in the middle of nowhere again?\"\")",
+            "wait()",
+            "print(\"\n\n\"Not likely! Find some other sap to do your bidding!\"\")",
+            "jump 502",
+            "endif",
+            "integer(value 0) = partyJoin(byte 235)",
+            "if equals(integer(value 0), byte 0):",
+            "print(\"\"Aye, gladly! Let's be on our way.\"\n\")",
             [
                 "SETF",
                 [
@@ -286,104 +122,51 @@
                 ]
             ],
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 0), byte 2)"
-            ],
-            "\"Ach, I can tell that you say that to everyone ye meet.\"",
-            "WAIT",
-            "\n\n\"Ask me again when you haven't as many companions.\"",
-            [
-                "JUMP",
-                502
-            ],
+            "endif",
+            "if equals(integer(value 0), byte 2):",
+            "print(\"\"Ach, I can tell that you say that to everyone ye meet.\"\")",
+            "wait()",
+            "print(\"\n\n\"Ask me again when you haven't as many companions.\"\")",
+            "jump 502",
             "ELSE",
-            "\"What are ye, daft? ",
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 0), byte 1)"
-            ],
-            "If I join ye, where are we gonna go?\"",
-            "WAIT",
-            "\n\n\"Nay, $G. Ask me when we're ashore.\"",
-            [
-                "JUMP",
-                502
-            ],
+            "print(\"\"What are ye, daft? \")",
+            "endif",
+            "if equals(integer(value 0), byte 1):",
+            "print(\"If I join ye, where are we gonna go?\"\")",
+            "wait()",
+            "print(\"\n\n\"Nay, $G. Ask me when we're ashore.\"\")",
+            "jump 502",
             "ELSE",
-            "I'm already in your band!\"",
-            "WAIT",
-            "\n\n\"Though now I'm not so sure I want to be led by a crazy person...\"",
-            [
-                "JUMP",
-                502
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "leav"
-            ],
-            [
-                "IF",
-                "equals(partyHas(byte 235), byte 0)"
-            ],
-            "\"Leave! Nay, 'tis my house. You do the leavin'!\"",
-            [
-                "JUMP",
-                502
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "partyLeave",
-                    [
-                        [
-                            "byte",
-                            235
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(integer(value 0), byte 1)"
-            ],
-            "\"Leave?! And jump overboard?!\"",
-            "WAIT",
-            "\n\n\"Ach, I get it. You're makin' a wee joke!\"",
-            [
-                "JUMP",
-                502
-            ],
-            "ENDIF",
-            "\"What? Oh, I suppose a craftsman isn't warrior enough to suit ",
-            [
-                "IF",
-                "integer(value 16)"
-            ],
-            "her lady",
+            "print(\"I'm already in your band!\"\")",
+            "wait()",
+            "print(\"\n\n\"Though now I'm not so sure I want to be led by a crazy person...\"\")",
+            "jump 502",
+            "endif",
+            "case \"leav\":",
+            "if equals(partyHas(byte 235), byte 0):",
+            "print(\"\"Leave! Nay, 'tis my house. You do the leavin'!\"\")",
+            "jump 502",
+            "endif",
+            "integer(value 0) = partyLeave(byte 235)",
+            "if equals(integer(value 0), byte 1):",
+            "print(\"\"Leave?! And jump overboard?!\"\")",
+            "wait()",
+            "print(\"\n\n\"Ach, I get it. You're makin' a wee joke!\"\")",
+            "jump 502",
+            "endif",
+            "print(\"\"What? Oh, I suppose a craftsman isn't warrior enough to suit \")",
+            "if integer(value 16):",
+            "print(\"her lady\")",
             "ELSE",
-            "his lord",
-            "ENDIF",
-            "ship's tastes!\"",
-            "WAIT",
-            "\n\n\"Well, that's fine and dandy with me!\"",
-            "WAIT",
-            "\n\n\"A good $T and a good bye to the lot of ye!\"",
-            "WAIT",
-            "\n\n\"I'm tired of carrying all this junk anyway!\"\n",
+            "print(\"his lord\")",
+            "endif",
+            "print(\"ship's tastes!\"\")",
+            "wait()",
+            "print(\"\n\n\"Well, that's fine and dandy with me!\"\")",
+            "wait()",
+            "print(\"\n\n\"A good $T and a good bye to the lot of ye!\"\")",
+            "wait()",
+            "print(\"\n\n\"I'm tired of carrying all this junk anyway!\"\n\")",
             [
                 "SETF",
                 [
@@ -396,34 +179,22 @@
                 ]
             ],
             "BYE",
-            [
-                "CASE",
-                "bye"
-            ],
-            [
-                "IF",
-                "partyHas(byte 235)"
-            ],
-            "\"Aye, enough chatting. On with our quest!\"\n",
+            "case \"bye\":",
+            "if partyHas(byte 235):",
+            "print(\"\"Aye, enough chatting. On with our quest!\"\n\")",
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "equals(hasBit(byte 235, value 1), byte 0)"
-            ],
-            "\"May fortune follow ye on thy way!\"\n",
+            "endif",
+            "if equals(hasBit(byte 235, value 1), byte 0):",
+            "print(\"\"May fortune follow ye on thy way!\"\n\")",
             "BYE",
-            "ENDIF",
-            "\"Ach, aye! I wouldna want to hinder ",
-            [
-                "IF",
-                "integer(value 16)"
-            ],
-            "her lady",
+            "endif",
+            "print(\"\"Ach, aye! I wouldna want to hinder \")",
+            "if integer(value 16):",
+            "print(\"her lady\")",
             "ELSE",
-            "his lord",
-            "ENDIF",
-            "ship's journey!\"\n",
+            "print(\"his lord\")",
+            "endif",
+            "print(\"ship's journey!\"\n\")",
             [
                 "SETF",
                 [
@@ -436,88 +207,55 @@
                 ]
             ],
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, value 1)"
-            ],
-            "\"Are ye daft? Why would I know anything about $Z?\"",
+            "case \"*\":",
+            "if hasBit(byte 235, value 1):",
+            "print(\"\"Are ye daft? Why would I know anything about $Z?\"\")",
             "ELSE",
-            "\"Nay, $G, I know nothing about $Z.\"",
-            "ENDIF",
-            [
-                "JUMP",
-                502
-            ]
+            "print(\"\"Nay, $G, I know nothing about $Z.\"\")",
+            "endif",
+            "jump 502"
         ],
         "2598": [
-            "Do ye have a fine yew board for me this $T?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "IF",
-                "equals(integer(value 0), word 32769)"
-            ],
-            "\"Well where is it? I canna see any board on ye!\"",
-            [
-                "JUMP",
-                502
-            ],
+            "print(\"Do ye have a fine yew board for me this $T?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "if equals(integer(value 0), word 32769):",
+            "print(\"\"Well where is it? I canna see any board on ye!\"\")",
+            "jump 502",
             "ELSE",
-            "\"Ach, aye, and good wood it is, too. A fine set of pipes this will make!\"",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                3086
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "n"
-            ],
-            "\"No? What are ye, daft? I canna be makin' pipes without wood!\"",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                2867
-            ]
+            "print(\"\"Ach, aye, and good wood it is, too. A fine set of pipes this will make!\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 3086",
+            "endif",
+            "case \"n\":",
+            "print(\"\"No? What are ye, daft? I canna be makin' pipes without wood!\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 2867"
         ],
         "2867": [
-            "\"Go to Yew where they grow the best wood in Britannia.\"",
-            "WAIT",
-            "\n\n\"Buy a freshly-cut yew log and take it to a sawmill.\"",
-            "WAIT",
-            "\n\n\"Have 'em cut it into a board, and bring it back here.\"",
-            "WAIT",
-            "\n\n\"Then I'll show ye how panpipes are made!\"",
-            [
-                "JUMP",
-                502
-            ]
+            "print(\"\"Go to Yew where they grow the best wood in Britannia.\"\")",
+            "wait()",
+            "print(\"\n\n\"Buy a freshly-cut yew log and take it to a sawmill.\"\")",
+            "wait()",
+            "print(\"\n\n\"Have 'em cut it into a board, and bring it back here.\"\")",
+            "wait()",
+            "print(\"\n\n\"Then I'll show ye how panpipes are made!\"\")",
+            "jump 502"
         ],
         "3086": [
-            "Julia sets the wood down on a bench and starts carving.",
-            "WAIT",
-            "\n\nAs you watch, the rough board slowly turns into smooth wood rods.",
-            "WAIT",
-            "\nThen she hollows out each rod and pegs them all together.",
-            "WAIT",
-            "\n\nLastly, she notches each tube and cuts them all to the proper lengths.",
-            "WAIT",
-            "\n\n\"An' there it is, $G, a set of panpipes fit for any bard in the land!\"",
-            "WAIT",
-            "\n\nShe hands you the finished pipes.",
+            "print(\"Julia sets the wood down on a bench and starts carving.\")",
+            "wait()",
+            "print(\"\n\nAs you watch, the rough board slowly turns into smooth wood rods.\")",
+            "wait()",
+            "print(\"\nThen she hollows out each rod and pegs them all together.\")",
+            "wait()",
+            "print(\"\n\nLastly, she notches each tube and cuts them all to the proper lengths.\")",
+            "wait()",
+            "print(\"\n\n\"An' there it is, $G, a set of panpipes fit for any bard in the land!\"\")",
+            "wait()",
+            "print(\"\n\nShe hands you the finished pipes.\")",
             [
                 "DELETE",
                 [
@@ -561,10 +299,7 @@
                     1
                 ]
             ],
-            [
-                "JUMP",
-                502
-            ]
+            "jump 502"
         ]
     }
 }

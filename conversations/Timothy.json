@@ -5,34 +5,25 @@
     "name": "Timothy",
     "f3-after-name": false,
     "description": [
-        "a man with sea-blue eyes and a warm smile.",
-        "WAIT",
-        "\n"
+        "print(\"a man with sea-blue eyes and a warm smile.\")",
+        "wait()",
+        "print(\"\n\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "55": [
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"Welcome back, my friend",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"Welcome back, my friend\")",
             "ELSE",
-            "\"Welcome, welcome, friend",
-            "ENDIF",
-            [
-                "IF",
-                "integer(value 23)"
-            ],
-            "s",
-            "ENDIF",
-            ". Here for @lodging this fine $T?\"\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"@Timothy.\" He flashes a friendly smile and nods.\n",
+            "print(\"\"Welcome, welcome, friend\")",
+            "endif",
+            "if integer(value 23):",
+            "print(\"s\")",
+            "endif",
+            "print(\". Here for @lodging this fine $T?\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"@Timothy.\" He flashes a friendly smile and nods.\n\")",
             [
                 "SETF",
                 [
@@ -44,144 +35,46 @@
                     0
                 ]
             ],
-            [
-                "JUMP",
-                153
-            ],
-            [
-                "CASE",
-                "timo"
-            ],
-            "\"I'm named after my @uncle. He was a kind soul.\"\n",
-            [
-                "JUMP",
-                153
-            ],
-            [
-                "CASE",
-                "uncl"
-            ],
-            "\"Sir Timothy Enders Daverstock. He was a famous @knight in these parts.\"\n",
-            [
-                "JUMP",
-                153
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"It is a busy one - this job, that is. I find it rewarding, though, meeting friendly faces.\"",
-            "WAIT",
-            "\n\n\"Maybe you want a @room, eh?\"\n",
-            [
-                "JUMP",
-                153
-            ],
-            [
-                "CASE",
-                "yes,room,inn,lodg"
-            ],
-            [
-                "JUMP",
-                789
-            ],
-            [
-                "CASE",
-                "famo,knig"
-            ],
-            "\"He is perhaps best known for his courage in @battle.\"\n",
-            [
-                "JUMP",
-                153
-            ],
-            [
-                "CASE",
-                "cour,batt"
-            ],
-            "\"He once held off a score of men while his own fled to safety across a bridge.\"\n",
-            [
-                "JUMP",
-                153
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Farewell, friend",
-            [
-                "IF",
-                "integer(value 23)"
-            ],
-            "s",
-            "ENDIF",
-            ". Travel safely.\"\n",
+            "jump 153",
+            "case \"timo\":",
+            "print(\"\"I'm named after my @uncle. He was a kind soul.\"\n\")",
+            "jump 153",
+            "case \"uncl\":",
+            "print(\"\"Sir Timothy Enders Daverstock. He was a famous @knight in these parts.\"\n\")",
+            "jump 153",
+            "case \"job\":",
+            "print(\"\"It is a busy one - this job, that is. I find it rewarding, though, meeting friendly faces.\"\")",
+            "wait()",
+            "print(\"\n\n\"Maybe you want a @room, eh?\"\n\")",
+            "jump 153",
+            "case \"yes,room,inn,lodg\":",
+            "jump 789",
+            "case \"famo,knig\":",
+            "print(\"\"He is perhaps best known for his courage in @battle.\"\n\")",
+            "jump 153",
+            "case \"cour,batt\":",
+            "print(\"\"He once held off a score of men while his own fled to safety across a bridge.\"\n\")",
+            "jump 153",
+            "case \"bye\":",
+            "print(\"\"Farewell, friend\")",
+            "if integer(value 23):",
+            "print(\"s\")",
+            "endif",
+            "print(\". Travel safely.\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"Hmm... Nope, can't help you there.\"\n",
-            [
-                "JUMP",
-                153
-            ]
+            "case \"*\":",
+            "print(\"\"Hmm... Nope, can't help you there.\"\n\")",
+            "jump 153"
         ],
         "789": [
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "multiply",
-                    [
-                        [
-                            "plus",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            23
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            5
-                        ]
-                    ]
-                ]
-            ],
-            "\"#0 gold for you to stay and have a meal, good?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "IF",
-                "less(objectsCount(byte 1, byte 88), integer(value 0))"
-            ],
-            "\"I'm sorry, but we require cash in advance for our rooms.\"\n",
+            "integer(value 0) = multiply(plus(integer(value 23), byte 1), byte 5)",
+            "print(\"\"#0 gold for you to stay and have a meal, good?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "if less(objectsCount(byte 1, byte 88), integer(value 0)):",
+            "print(\"\"I'm sorry, but we require cash in advance for our rooms.\"\n\")",
             "BYE",
-            "ENDIF",
+            "endif",
             [
                 "DELETE",
                 [
@@ -206,24 +99,15 @@
                     ]
                 ]
             ],
-            "You sleep in a comfortable bed...\n",
+            "print(\"You sleep in a comfortable bed...\n\")",
             "SLEEP",
-            "\nYou wake rested and eat a large breakfast.",
-            "WAIT",
-            "\n\n\"Good morning, have a good day.\"\n",
-            [
-                "JUMP",
-                153
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Perhaps some other time, then.\"\n",
-            [
-                "JUMP",
-                153
-            ]
+            "print(\"\nYou wake rested and eat a large breakfast.\")",
+            "wait()",
+            "print(\"\n\n\"Good morning, have a good day.\"\n\")",
+            "jump 153",
+            "case \"n\":",
+            "print(\"\"Perhaps some other time, then.\"\n\")",
+            "jump 153"
         ]
     }
 }

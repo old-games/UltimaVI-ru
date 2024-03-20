@@ -5,48 +5,24 @@
     "name": "Taynith",
     "f3-after-name": false,
     "description": [
-        "a mysterious gypsy woman wearing an ankh pendant.\n*"
+        "print(\"a mysterious gypsy woman wearing an ankh pendant.\n*\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "62": [
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    99
-                ]
-            ],
-            [
-                "IF",
-                "isNearby(byte 110)"
-            ],
-            "\"My chances to visit Dr. @Cat come all too seldom.\"\n*\n\"Seek me out later and I will speak with you.\"\n",
+            "integer(value 1) = byte 99",
+            "if isNearby(byte 110):",
+            "print(\"\"My chances to visit Dr. @Cat come all too seldom.\"\n*\n\"Seek me out later and I will speak with you.\"\n\")",
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 135, byte 7)"
-            ],
-            "\"I have no time for those who are cruel to animals.\"\n",
+            "endif",
+            "if hasBit(byte 135, byte 7):",
+            "print(\"\"I have no time for those who are cruel to animals.\"\n\")",
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"Welcome back, Avatar.\"",
+            "endif",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"Welcome back, Avatar.\"\")",
             "ELSE",
-            "\"You are the Avatar. I had a vision that you would come to seek aid from me.\"",
+            "print(\"\"You are the Avatar. I had a vision that you would come to seek aid from me.\"\")",
             [
                 "SETF",
                 [
@@ -58,201 +34,78 @@
                     0
                 ]
             ],
-            "ENDIF",
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"Some know me as @Taynith. That is what you may call me.\"",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "tayn,know,call,pati"
-            ],
-            "\"Seek not my @true name. Let 'Taynith' suffice.\"",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "true"
-            ],
-            "\"You try my patience.\"",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "job,aid"
-            ],
-            "\"I tell @fortunes - for a price.\"",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "tell,fort,sell,buy,pric,cons,tile,futu"
-            ],
-            [
-                "JUMP",
-                1676
-            ],
-            [
-                "CASE",
-                "advi"
-            ],
-            [
-                "JUMP",
-                1440
-            ],
-            [
-                "CASE",
-                "gorg"
-            ],
-            "\"A gorgio - that's almost as good as being a gypsy!\"",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Our @paths will cross again. I have foreseen it.\"\n",
+            "endif",
+            "print(\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"Some know me as @Taynith. That is what you may call me.\"\")",
+            "jump 353",
+            "case \"tayn,know,call,pati\":",
+            "print(\"\"Seek not my @true name. Let 'Taynith' suffice.\"\")",
+            "jump 353",
+            "case \"true\":",
+            "print(\"\"You try my patience.\"\")",
+            "jump 353",
+            "case \"job,aid\":",
+            "print(\"\"I tell @fortunes - for a price.\"\")",
+            "jump 353",
+            "case \"tell,fort,sell,buy,pric,cons,tile,futu\":",
+            "jump 1676",
+            "case \"advi\":",
+            "jump 1440",
+            "case \"gorg\":",
+            "print(\"\"A gorgio - that's almost as good as being a gypsy!\"\")",
+            "jump 353",
+            "case \"bye\":",
+            "print(\"\"Our @paths will cross again. I have foreseen it.\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "capt,john"
-            ],
-            "\"Captain John? Yes, he brought us a silver tablet some time ago, to deliver to the Lycaeum.\"\n*\n\"@Zoltan took care of the deal, so he could tell you more than I.\"",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "silv,tabl,lyca"
-            ],
-            "\"Ask @Zoltan about it.\"",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "zolt"
-            ],
-            "\"King of the gypsies, sure as my name's Taynith.\"",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "path"
-            ],
-            "\"My path leads to @Paws, as soon as I have time to visit there.\"",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "paw"
-            ],
-            "\"My good @friend Dr. Cat lives there.\"",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "frie,dr,cat"
-            ],
-            "\"Ask him about the duck sometime.\"",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "ask,duck"
-            ],
-            "\"Yes, ask him!\"",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "lyca"
-            ],
-            "\"@Zoltan can tell you where it is.\"",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "penu"
-            ],
-            [
-                "IF",
-                "hasBit(byte 41, value 0)"
-            ],
-            "\"I sense that you have met her already.\"",
+            "case \"capt,john\":",
+            "print(\"\"Captain John? Yes, he brought us a silver tablet some time ago, to deliver to the Lycaeum.\"\n*\n\"@Zoltan took care of the deal, so he could tell you more than I.\"\")",
+            "jump 353",
+            "case \"silv,tabl,lyca\":",
+            "print(\"\"Ask @Zoltan about it.\"\")",
+            "jump 353",
+            "case \"zolt\":",
+            "print(\"\"King of the gypsies, sure as my name's Taynith.\"\")",
+            "jump 353",
+            "case \"path\":",
+            "print(\"\"My path leads to @Paws, as soon as I have time to visit there.\"\")",
+            "jump 353",
+            "case \"paw\":",
+            "print(\"\"My good @friend Dr. Cat lives there.\"\")",
+            "jump 353",
+            "case \"frie,dr,cat\":",
+            "print(\"\"Ask him about the duck sometime.\"\")",
+            "jump 353",
+            "case \"ask,duck\":",
+            "print(\"\"Yes, ask him!\"\")",
+            "jump 353",
+            "case \"lyca\":",
+            "print(\"\"@Zoltan can tell you where it is.\"\")",
+            "jump 353",
+            "case \"penu\":",
+            "if hasBit(byte 41, value 0):",
+            "print(\"\"I sense that you have met her already.\"\")",
             "ELSE",
-            "\"There is no need for me to direct you there. You are destined to meet her.\"",
-            "ENDIF",
-            [
-                "JUMP",
-                353
-            ],
-            [
-                "CASE",
-                "*"
-            ],
-            "\"No doubt.\"",
+            "print(\"\"There is no need for me to direct you there. You are destined to meet her.\"\")",
+            "endif",
+            "jump 353",
+            "case \"*\":",
+            "print(\"\"No doubt.\"\")",
             "ESAC",
-            [
-                "JUMP",
-                353
-            ]
+            "jump 353"
         ],
         "1440": [
-            "\"My advice will cost you two gold. Do you still want it?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Very well.\"",
-            [
-                "JUMP",
-                353
-            ],
+            "print(\"\"My advice will cost you two gold. Do you still want it?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Very well.\"\")",
+            "jump 353",
             "ESAC",
-            [
-                "IF",
-                "less(objectsCount(byte 1, byte 88), byte 2)"
-            ],
-            "\n\"Best check your purse.\"",
-            [
-                "JUMP",
-                353
-            ],
-            "ENDIF",
+            "if less(objectsCount(byte 1, byte 88), byte 2):",
+            "print(\"\n\"Best check your purse.\"\")",
+            "jump 353",
+            "endif",
             [
                 "DELETE",
                 [
@@ -291,36 +144,18 @@
                     2
                 ]
             ],
-            "\n\"Look through the books at the @Lycaeum. You might learn something useful there.\"",
-            [
-                "JUMP",
-                353
-            ],
-            "\"I charge six gold to cast my tiles. Are you interested?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Very well.\"",
-            [
-                "JUMP",
-                353
-            ],
+            "print(\"\n\"Look through the books at the @Lycaeum. You might learn something useful there.\"\")",
+            "jump 353",
+            "print(\"\"I charge six gold to cast my tiles. Are you interested?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Very well.\"\")",
+            "jump 353",
             "ESAC",
-            [
-                "IF",
-                "less(objectsCount(byte 1, byte 88), byte 6)"
-            ],
-            "\n\"Best check your purse.\"",
-            [
-                "JUMP",
-                353
-            ],
-            "ENDIF",
+            "if less(objectsCount(byte 1, byte 88), byte 6):",
+            "print(\"\n\"Best check your purse.\"\")",
+            "jump 353",
+            "endif",
             [
                 "DELETE",
                 [
@@ -359,43 +194,13 @@
                     6
                 ]
             ],
-            "\nFrom the folds of her cloak, she withdraws a velvet pouch.\n\n*After shaking it gently, she casts forth three small squares of ivory, each with an image etched into its surface and a title at the bottom.",
-            "WAIT",
-            "\n\nThe tiles are:\n\n",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "random",
-                    [
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            4
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(integer(value 2), integer(value 1))"
-            ],
-            [
-                "JUMP",
-                2046
-            ],
-            "ENDIF",
+            "print(\"\nFrom the folds of her cloak, she withdraws a velvet pouch.\n\n*After shaking it gently, she casts forth three small squares of ivory, each with an image etched into its surface and a title at the bottom.\")",
+            "wait()",
+            "print(\"\n\nThe tiles are:\n\n\")",
+            "integer(value 2) = random(byte 0, byte 4)",
+            "if equals(integer(value 2), integer(value 1)):",
+            "jump 2046",
+            "endif",
             [
                 "DPRINT",
                 [
@@ -414,33 +219,10 @@
                     ]
                 ]
             ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ]
-            ],
-            "\n*\n\"If you consult the tiles another time, perhaps they will have more to say of your @future.\"",
-            [
-                "JUMP",
-                353
-            ],
-            "'Panda', 'Coin', and 'Bead of Glass'.\n*\nTaynith says: \"There is something made of glass that plays a very important role in your future, but the signs are unclear.\"*\n\n\"Seek out @Penumbra. Her crystal ball should hold more of an affinity for this item.\"\n*\n\"If you pay her enough, she can tell you more than I.\"\u0000'Abyss', 'Mountains', and 'Maelstrom'.\n*\nTaynith says: \"This is strange.\"\n\n*\"The tiles show that to accomplish your ends, you must go down very far, then up very far, but you will not end up back where you started.\"*\n\n\"The 'Maelstrom' indicates something important as well, but I cannot determine what it means.\"\u0000'Path', 'War', and 'Rogue'.\n*\nThe 'War' tile is particularly striking. It depicts a dragon and a tiger, each about to bite the others tail.\n*\nTaynith says: \"Britannia is on a path towards all out war, that is plain enough.\"\n*\n\"The 'Rogue' is one who would go against the wishes of his Lord to find another path.\"\u0000'Bead of Glass', 'Maelstrom', and 'Clever Fish'.\n*\nTaynith frowns. \"I cannot interpret this pattern. I'm afraid you'll have to seek its meaning on your own.\"\u0000'Shaman', 'Blademaster', and 'Clever Fish'.\n*\nTaynith says: \"All of these things and more must you be to find success in your quest.\"\u0000"
+            "integer(value 1) = integer(value 2)",
+            "print(\"\n*\n\"If you consult the tiles another time, perhaps they will have more to say of your @future.\"\")",
+            "jump 353",
+            "print(\"'Panda', 'Coin', and 'Bead of Glass'.\n*\nTaynith says: \"There is something made of glass that plays a very important role in your future, but the signs are unclear.\"*\n\n\"Seek out @Penumbra. Her crystal ball should hold more of an affinity for this item.\"\n*\n\"If you pay her enough, she can tell you more than I.\"\u0000'Abyss', 'Mountains', and 'Maelstrom'.\n*\nTaynith says: \"This is strange.\"\n\n*\"The tiles show that to accomplish your ends, you must go down very far, then up very far, but you will not end up back where you started.\"*\n\n\"The 'Maelstrom' indicates something important as well, but I cannot determine what it means.\"\u0000'Path', 'War', and 'Rogue'.\n*\nThe 'War' tile is particularly striking. It depicts a dragon and a tiger, each about to bite the others tail.\n*\nTaynith says: \"Britannia is on a path towards all out war, that is plain enough.\"\n*\n\"The 'Rogue' is one who would go against the wishes of his Lord to find another path.\"\u0000'Bead of Glass', 'Maelstrom', and 'Clever Fish'.\n*\nTaynith frowns. \"I cannot interpret this pattern. I'm afraid you'll have to seek its meaning on your own.\"\u0000'Shaman', 'Blademaster', and 'Clever Fish'.\n*\nTaynith says: \"All of these things and more must you be to find success in your quest.\"\u0000\")"
         ]
     }
 }

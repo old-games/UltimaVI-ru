@@ -5,80 +5,50 @@
     "name": "Naxatilor",
     "f3-after-name": false,
     "description": [
-        "a dark, rough-skinned gargoyle."
+        "print(\"a dark, rough-skinned gargoyle.\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "44": [
-            "WAIT",
-            "\n",
-            [
-                "IF",
-                "equals(integer(value 21), byte 0)"
-            ],
-            "The venerable gargoyle does not acknowledge your presence.\n",
+            "wait()",
+            "print(\"\n\")",
+            "if equals(integer(value 21), byte 0):",
+            "print(\"The venerable gargoyle does not acknowledge your presence.\n\")",
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "notEquals(partyHasObject(byte 76, byte 0), byte 1)"
-            ],
-            "\"To have nothing to say to you, False Prophet!\"\n",
+            "endif",
+            "if notEquals(partyHasObject(byte 76, byte 0), byte 1):",
+            "print(\"\"To have nothing to say to you, False Prophet!\"\n\")",
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, byte 2)"
-            ],
-            [
-                "JUMP",
-                3054
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"To greet you again, $P.\"",
-            [
-                "JUMP",
-                822
-            ],
-            "ENDIF",
-            "\"To greet you, $P, Avatar of the Underworld.\"",
-            "WAIT",
-            "\n\n\"To see the Amulet of Submission around your neck.\"",
-            "WAIT",
-            "\n\n\"To consider your acceptance of this both noble and wise.\"",
-            "WAIT",
-            "\n\n",
-            [
-                "IF",
-                "less(integer(value 20), byte 40)"
-            ],
-            "\"To observe by your aura that such honorable deeds are rare for you.\"",
-            "WAIT",
-            "\n\n\"To not be surprised, then, that you are @fated to destroy a world.\"",
-            [
-                "JUMP",
-                822
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "less(integer(value 20), byte 80)"
-            ],
-            "\"To observe by your aura that you are not a being of evil.\"",
-            "WAIT",
-            "\n\n\"To regret for your sake, then, that you are @fated to destroy a world.\"",
-            [
-                "JUMP",
-                822
-            ],
-            "ENDIF",
-            "\"To observe by your aura that you are truly a being of honor.\"",
-            "WAIT",
-            "\n\n\"To be surprised, then, that you are @fated to destroy a world.\"",
+            "endif",
+            "if hasBit(byte 235, byte 2):",
+            "jump 3054",
+            "endif",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"To greet you again, $P.\"\")",
+            "jump 822",
+            "endif",
+            "print(\"\"To greet you, $P, Avatar of the Underworld.\"\")",
+            "wait()",
+            "print(\"\n\n\"To see the Amulet of Submission around your neck.\"\")",
+            "wait()",
+            "print(\"\n\n\"To consider your acceptance of this both noble and wise.\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "if less(integer(value 20), byte 40):",
+            "print(\"\"To observe by your aura that such honorable deeds are rare for you.\"\")",
+            "wait()",
+            "print(\"\n\n\"To not be surprised, then, that you are @fated to destroy a world.\"\")",
+            "jump 822",
+            "endif",
+            "if less(integer(value 20), byte 80):",
+            "print(\"\"To observe by your aura that you are not a being of evil.\"\")",
+            "wait()",
+            "print(\"\n\n\"To regret for your sake, then, that you are @fated to destroy a world.\"\")",
+            "jump 822",
+            "endif",
+            "print(\"\"To observe by your aura that you are truly a being of honor.\"\")",
+            "wait()",
+            "print(\"\n\n\"To be surprised, then, that you are @fated to destroy a world.\"\")",
             [
                 "SETF",
                 [
@@ -90,106 +60,58 @@
                     0
                 ]
             ],
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "scho,valk"
-            ],
-            "\"To have spoken to Scholar Valkadesh?\"",
-            "WAIT",
-            "\n\n\"Then surely to know what harm you have caused my world!\"",
-            "WAIT",
-            "\n\n\"To have no @choice but to return the Codex!\"",
-            [
-                "JUMP",
-                822
-            ],
-            [
-                "CASE",
-                "fate,dest,worl"
-            ],
-            "\"To have wreaked great havoc in this land by your theft of the Codex!\"",
-            "WAIT",
-            "\n\n\"To have no @choice but to return it!\"",
-            [
-                "JUMP",
-                822
-            ],
-            [
-                "CASE",
-                "choi,retu"
-            ],
-            "\"To see only two alternatives: to return the @Codex, or to give up your life.\"",
-            [
-                "JUMP",
-                822
-            ],
-            [
-                "CASE",
-                "sacr"
-            ],
-            "\"Hss...Yes, to know of the three meanings of that word.\"",
-            "WAIT",
-            "\n\n\"To ask to which type of sacrifice you refer: @self, @others or items of @value?\"",
-            [
-                "JUMP",
-                822
-            ],
-            [
-                "CASE",
-                "self"
-            ],
-            "\"To admire your willingness to sacrifice your life for the good of my people.\"",
-            "WAIT",
-            "\n\n\"But to doubt that that is the meaning of the prophecy.\"",
-            [
-                "JUMP",
-                822
-            ],
-            [
-                "CASE",
-                "othe"
-            ],
-            "\"What?!\"",
-            "WAIT",
-            "\n\n\"To suggest that you can atone for your misdeed by bathing in the blood of others?!\"",
-            "WAIT",
-            "\n\n",
-            [
-                "IF",
-                "less(integer(value 20), byte 40)"
-            ],
-            "\"To find such thoughts well in keeping with the blackness of your aura!\"",
+            "print(\"\n\")",
+            "ask()",
+            "case \"scho,valk\":",
+            "print(\"\"To have spoken to Scholar Valkadesh?\"\")",
+            "wait()",
+            "print(\"\n\n\"Then surely to know what harm you have caused my world!\"\")",
+            "wait()",
+            "print(\"\n\n\"To have no @choice but to return the Codex!\"\")",
+            "jump 822",
+            "case \"fate,dest,worl\":",
+            "print(\"\"To have wreaked great havoc in this land by your theft of the Codex!\"\")",
+            "wait()",
+            "print(\"\n\n\"To have no @choice but to return it!\"\")",
+            "jump 822",
+            "case \"choi,retu\":",
+            "print(\"\"To see only two alternatives: to return the @Codex, or to give up your life.\"\")",
+            "jump 822",
+            "case \"sacr\":",
+            "print(\"\"Hss...Yes, to know of the three meanings of that word.\"\")",
+            "wait()",
+            "print(\"\n\n\"To ask to which type of sacrifice you refer: @self, @others or items of @value?\"\")",
+            "jump 822",
+            "case \"self\":",
+            "print(\"\"To admire your willingness to sacrifice your life for the good of my people.\"\")",
+            "wait()",
+            "print(\"\n\n\"But to doubt that that is the meaning of the prophecy.\"\")",
+            "jump 822",
+            "case \"othe\":",
+            "print(\"\"What?!\"\")",
+            "wait()",
+            "print(\"\n\n\"To suggest that you can atone for your misdeed by bathing in the blood of others?!\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "if less(integer(value 20), byte 40):",
+            "print(\"\"To find such thoughts well in keeping with the blackness of your aura!\"\")",
             "ELSE",
-            "\"To find such thoughts unworthy of your honorable aura!\"",
-            "ENDIF",
-            [
-                "JUMP",
-                822
-            ],
-            [
-                "CASE",
-                "valu,item"
-            ],
-            "\"To know of only one item of true value--the Codex itself.\"",
-            "WAIT",
-            "\n\n\"Surely not to destroy the Codex!?\" ",
-            [
-                "JUMP",
-                3883
-            ],
-            [
-                "CASE",
-                "vort,ritu,retu"
-            ],
-            "\"To direct you to go to the Hall of Knowledge, south of here.\"",
-            "WAIT",
-            "\n\n\"There to read the Book of Ritual.\"",
-            "WAIT",
-            "\n\n\"There also to get the Vortex Lens!\"",
-            "WAIT",
-            "\n\n\"Then to return here, where I will tell you what must be done!\"",
+            "print(\"\"To find such thoughts unworthy of your honorable aura!\"\")",
+            "endif",
+            "jump 822",
+            "case \"valu,item\":",
+            "print(\"\"To know of only one item of true value--the Codex itself.\"\")",
+            "wait()",
+            "print(\"\n\n\"Surely not to destroy the Codex!?\" \")",
+            "jump 3883",
+            "case \"vort,ritu,retu\":",
+            "print(\"\"To direct you to go to the Hall of Knowledge, south of here.\"\")",
+            "wait()",
+            "print(\"\n\n\"There to read the Book of Ritual.\"\")",
+            "wait()",
+            "print(\"\n\n\"There also to get the Vortex Lens!\"\")",
+            "wait()",
+            "print(\"\n\n\"Then to return here, where I will tell you what must be done!\"\")",
             [
                 "SETF",
                 [
@@ -201,153 +123,81 @@
                     2
                 ]
             ],
-            [
-                "JUMP",
-                822
-            ],
-            [
-                "CASE",
-                "both,peop"
-            ],
-            "\"To be able to see the @Vortex from both sides of the world!\"",
-            "WAIT",
-            "\n\n\"To benefit both races equally if the Codex is @returned there!\"",
-            [
-                "JUMP",
-                822
-            ],
-            [
-                "CASE",
-                "name"
-            ],
-            "\"To be called Naxatilor.\"",
-            [
-                "JUMP",
-                822
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"To be a seer, mystic advisor to my people.\"",
-            "WAIT",
-            "\n\n\"But to be unable to avert what is written in the Book of Prophecies.\"",
-            [
-                "JUMP",
-                822
-            ],
-            [
-                "CASE",
-                "lens,huma,seco"
-            ],
-            "\"To be sure to show the human lensmaker the Vortex Lens.\"",
-            "WAIT",
-            "\n\n\"Also to be sure to tell the human lensmaker that his lens must be concave!\"",
-            "WAIT",
-            "\n\n\"To be most important--concave!\"",
-            [
-                "JUMP",
-                822
-            ],
-            [
-                "CASE",
-                "code"
-            ],
-            "\"To know not where the Codex is.\"",
-            "WAIT",
-            "\n\n\"But to remember that Captain Bolesh just returned from the Codex!\"",
-            "WAIT",
-            "\n\n\"To suggest you seek him. To try the healer's house to the north.\"",
-            [
-                "JUMP",
-                822
-            ],
-            [
-                "CASE",
-                "hall,know"
-            ],
-            "\"To find the Vortex Lens in the Hall of Knowledge, south of here.\"",
-            [
-                "JUMP",
-                822
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, byte 2)"
-            ],
-            "\"Farewell! To return when you have visited the Hall of Knowledge!\"\n",
+            "jump 822",
+            "case \"both,peop\":",
+            "print(\"\"To be able to see the @Vortex from both sides of the world!\"\")",
+            "wait()",
+            "print(\"\n\n\"To benefit both races equally if the Codex is @returned there!\"\")",
+            "jump 822",
+            "case \"name\":",
+            "print(\"\"To be called Naxatilor.\"\")",
+            "jump 822",
+            "case \"job\":",
+            "print(\"\"To be a seer, mystic advisor to my people.\"\")",
+            "wait()",
+            "print(\"\n\n\"But to be unable to avert what is written in the Book of Prophecies.\"\")",
+            "jump 822",
+            "case \"lens,huma,seco\":",
+            "print(\"\"To be sure to show the human lensmaker the Vortex Lens.\"\")",
+            "wait()",
+            "print(\"\n\n\"Also to be sure to tell the human lensmaker that his lens must be concave!\"\")",
+            "wait()",
+            "print(\"\n\n\"To be most important--concave!\"\")",
+            "jump 822",
+            "case \"code\":",
+            "print(\"\"To know not where the Codex is.\"\")",
+            "wait()",
+            "print(\"\n\n\"But to remember that Captain Bolesh just returned from the Codex!\"\")",
+            "wait()",
+            "print(\"\n\n\"To suggest you seek him. To try the healer's house to the north.\"\")",
+            "jump 822",
+            "case \"hall,know\":",
+            "print(\"\"To find the Vortex Lens in the Hall of Knowledge, south of here.\"\")",
+            "jump 822",
+            "case \"bye\":",
+            "if hasBit(byte 235, byte 2):",
+            "print(\"\"Farewell! To return when you have visited the Hall of Knowledge!\"\n\")",
             "ELSE",
-            "\"Farewell, $P. To return when there is more we can discuss.\"\n",
-            "ENDIF",
+            "print(\"\"Farewell, $P. To return when there is more we can discuss.\"\n\")",
+            "endif",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"To have no time to discuss that.\"",
-            [
-                "JUMP",
-                822
-            ]
+            "case \"*\":",
+            "print(\"\"To have no time to discuss that.\"\")",
+            "jump 822"
         ],
         "3054": [
-            [
-                "IF",
-                "equals(partyHasObject(word 395, byte 0), word 32769)"
-            ],
-            [
-                "JUMP",
-                3272
-            ],
+            "if equals(partyHasObject(word 395, byte 0), word 32769):",
+            "jump 3272",
             "ELSE",
-            "\"Yes, to see that the Vortex Lens is no longer whole.\"",
-            "WAIT",
-            "\n\n\"To go to the lensmaker, whose house is northeast of here.\"",
-            "WAIT",
-            "\n\n\"To get the lens repaired there!\"",
-            "WAIT",
-            "\n\n\"Then to return here with the whole lens!\"\n",
+            "print(\"\"Yes, to see that the Vortex Lens is no longer whole.\"\")",
+            "wait()",
+            "print(\"\n\n\"To go to the lensmaker, whose house is northeast of here.\"\")",
+            "wait()",
+            "print(\"\n\n\"To get the lens repaired there!\"\")",
+            "wait()",
+            "print(\"\n\n\"Then to return here with the whole lens!\"\n\")",
             "BYE",
-            "ENDIF"
+            "endif"
         ],
         "3272": [
-            [
-                "IF",
-                "equals(partyHasObject(word 396, byte 0), word 32769)"
-            ],
-            "\"To require the Vortex Lens, foolish human!\"",
-            "WAIT",
-            "\n\n\"To waste no more time!\"",
-            "WAIT",
-            "\n\n\"To go to the @Hall of Knowledge and get the lens!\"",
-            "WAIT",
-            "\n\n\"To bring it to me personally, Avatar!\"",
-            [
-                "JUMP",
-                822
-            ],
-            "ENDIF",
-            "\"Good, to see that you have the Vortex Lens.\"",
-            "WAIT",
-            "\n\n\"To have read the Book of Ritual as well?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Then to go to the Hall of Knowledge and do so!\"\n",
+            "if equals(partyHasObject(word 396, byte 0), word 32769):",
+            "print(\"\"To require the Vortex Lens, foolish human!\"\")",
+            "wait()",
+            "print(\"\n\n\"To waste no more time!\"\")",
+            "wait()",
+            "print(\"\n\n\"To go to the @Hall of Knowledge and get the lens!\"\")",
+            "wait()",
+            "print(\"\n\n\"To bring it to me personally, Avatar!\"\")",
+            "jump 822",
+            "endif",
+            "print(\"\"Good, to see that you have the Vortex Lens.\"\")",
+            "wait()",
+            "print(\"\n\n\"To have read the Book of Ritual as well?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Then to go to the Hall of Knowledge and do so!\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "y"
-            ],
+            "case \"y\":",
             [
                 "CLEARF",
                 [
@@ -359,44 +209,29 @@
                     2
                 ]
             ],
-            "\"Good. To be unable to reverse the ritual myself.\"",
-            "WAIT",
-            "\n\n\"But to know that the Codex itself will say how to return it to the Vortex.\"",
-            "WAIT",
-            "\n\n\"To know also that you will need a second lens.\"",
-            "WAIT",
-            "\n\n\"To require a human-crafted @lens, so that your people may also see the @Codex.\"",
-            [
-                "JUMP",
-                822
-            ]
+            "print(\"\"Good. To be unable to reverse the ritual myself.\"\")",
+            "wait()",
+            "print(\"\n\n\"But to know that the Codex itself will say how to return it to the Vortex.\"\")",
+            "wait()",
+            "print(\"\n\n\"To know also that you will need a second lens.\"\")",
+            "wait()",
+            "print(\"\n\n\"To require a human-crafted @lens, so that your people may also see the @Codex.\"\")",
+            "jump 822"
         ],
         "3883": [
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"To be utterly without hope in the face of such ignorance.\"",
-            "WAIT",
-            "\n\n\"To refuse to converse with a daemon.\"\n",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"\"To be utterly without hope in the face of such ignorance.\"\")",
+            "wait()",
+            "print(\"\n\n\"To refuse to converse with a daemon.\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Perhaps to have another alternative...\"",
-            "WAIT",
-            "\n\n\"Yes! To return the Codex to the @Vortex!\"",
-            "WAIT",
-            "\n\n\"To then be available to @both our peoples!\"",
-            [
-                "JUMP",
-                822
-            ]
+            "case \"n\":",
+            "print(\"\"Perhaps to have another alternative...\"\")",
+            "wait()",
+            "print(\"\n\n\"Yes! To return the Codex to the @Vortex!\"\")",
+            "wait()",
+            "print(\"\n\n\"To then be available to @both our peoples!\"\")",
+            "jump 822"
         ]
     }
 }

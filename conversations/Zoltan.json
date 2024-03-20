@@ -5,42 +5,24 @@
     "name": "Zoltan",
     "f3-after-name": false,
     "description": [
-        "a lively soul of a gypsy, with a bit of a wild look to him.\n*"
+        "print(\"a lively soul of a gypsy, with a bit of a wild look to him.\n*\")"
     ],
     "f3-after-description": true,
     "interaction": {
         "72": [
-            [
-                "IF",
-                "hasBit(byte 135, byte 7)"
-            ],
-            "\"Anyone who would mistreat a dog has no business with Zoltan.\"\n",
+            "if hasBit(byte 135, byte 7):",
+            "print(\"\"Anyone who would mistreat a dog has no business with Zoltan.\"\n\")",
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "equals(hasBit(byte 235, value 1), byte 0)"
-            ],
-            [
-                "JUMP",
-                414
-            ],
-            "ENDIF",
-            "\"Hah! You again! You are no friend to Zoltan.\"\n*\n\"I dance for you, and how do you repay me?\"\n*\n\"Perhaps a few coins might ease the sting of your insult.\"\n*\nDo you give him any money? ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "JUMP",
-                4182
-            ],
+            "endif",
+            "if equals(hasBit(byte 235, value 1), byte 0):",
+            "jump 414",
+            "endif",
+            "print(\"\"Hah! You again! You are no friend to Zoltan.\"\n*\n\"I dance for you, and how do you repay me?\"\n*\n\"Perhaps a few coins might ease the sting of your insult.\"\n*\nDo you give him any money? \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "jump 4182",
             "ESAC",
-            "\n\"So be it. Leave me before I place a gypsy curse on you!\"\n",
+            "print(\"\n\"So be it. Leave me before I place a gypsy curse on you!\"\n\")",
             "BYE",
             [
                 "CLEARF",
@@ -53,14 +35,11 @@
                     7
                 ]
             ],
-            [
-                "IF",
-                "equals(hasBit(byte 235, value 0), byte 0)"
-            ],
-            "\"Huzzah! I am @Zoltan, king of the gypsies!\"",
+            "if equals(hasBit(byte 235, value 0), byte 0):",
+            "print(\"\"Huzzah! I am @Zoltan, king of the gypsies!\"\")",
             "ELSE",
-            "\"Huzzah! I am still @Zoltan, king of the gypsies!\"",
-            "ENDIF",
+            "print(\"\"Huzzah! I am still @Zoltan, king of the gypsies!\"\")",
+            "endif",
             [
                 "SETF",
                 [
@@ -72,272 +51,101 @@
                     0
                 ]
             ],
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "name,job"
-            ],
-            "\"As I said, I am Zoltan, @king of the @gypsies!\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "zolt"
-            ],
-            "\"Yes, Zoltan, @king of the @gypsies!\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "king"
-            ],
-            "\"I have no lands nor @castles, as most rulers do. Nay, for I am the king of the open @road.\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "artu"
-            ],
-            "\"Arturos? Never heard of him.\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "duck"
-            ],
-            "He licks his lips and smiles. \"A duck? No, haven't seen any around here.\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "land,cast"
-            ],
-            "\"You cannot tie a gypsy down to a single place.\"\n*\n\"We are free @spirits, and must roam like the @wind throughout the land.\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "road"
-            ],
-            "\"The roads @wander everywhere, just like a gypsy!\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "wind"
-            ],
-            "\"The four winds - they are gypsies too!\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "roam,wand"
-            ],
-            "\"As a gypsy's body wanders, so does his mind.\"\n*\n\"Just now I am thinking of what you might @buy from me today.\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "free,spir"
-            ],
-            "\"Aye, my spirit is free, but my @advice is not.\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "gyps"
-            ],
-            "\"Ask my people for @advice, or what they have to @sell.\"\n*\n\"Gypsies see and hear much, and occasionally happen across items of interest...\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "advi"
-            ],
-            [
-                "JUMP",
-                2887
-            ],
-            [
-                "CASE",
-                "silv,tabl"
-            ],
-            [
-                "JUMP",
-                3209
-            ],
-            [
-                "CASE",
-                "hawk"
-            ],
-            "\"He's the lowest scum I ever met.\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "bucc,den"
-            ],
-            "\"It's no place for an honest soul like you.\"\n*\n\"But if you're determined to go, I hear it's on an island due east of @Paws.\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "paws"
-            ],
-            "\"We pass Paws often in our travels. @Taynith likes to go drinking there.\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "lyca"
-            ],
-            "\"It's on the same island as @Moonglow.\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "moon"
-            ],
-            "\"It's on the same island as the @Lycaeum.\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "mari"
-            ],
-            "\"She knows how to be generous to poor wandering gypsies. You should follow her example!\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "capt,john"
-            ],
-            "\"Captain John? I talked to him when he gave us the silver tablet for @Mariah.\"\n*\n\"He's madder than a gremlin! Claims as he's been living with the gargoyles.\"\n*\n\"He talks as if there's nothing evil about them.\"\n*\n\"He said the tablet had something to do with translating.\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "gorg"
-            ],
-            "\"Either you're a gorgio or my name's not @Zoltan!\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "kari,tayn"
-            ],
-            "\"There are no women like gypsy women!\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, byte 7)"
-            ],
-            "\"Farewell! My fellow gypsies and I will @dance to your health and good fortune!\"",
+            "print(\"\n\")",
+            "ask()",
+            "case \"name,job\":",
+            "print(\"\"As I said, I am Zoltan, @king of the @gypsies!\"\")",
+            "jump 532",
+            "case \"zolt\":",
+            "print(\"\"Yes, Zoltan, @king of the @gypsies!\"\")",
+            "jump 532",
+            "case \"king\":",
+            "print(\"\"I have no lands nor @castles, as most rulers do. Nay, for I am the king of the open @road.\"\")",
+            "jump 532",
+            "case \"artu\":",
+            "print(\"\"Arturos? Never heard of him.\"\")",
+            "jump 532",
+            "case \"duck\":",
+            "print(\"He licks his lips and smiles. \"A duck? No, haven't seen any around here.\"\")",
+            "jump 532",
+            "case \"land,cast\":",
+            "print(\"\"You cannot tie a gypsy down to a single place.\"\n*\n\"We are free @spirits, and must roam like the @wind throughout the land.\"\")",
+            "jump 532",
+            "case \"road\":",
+            "print(\"\"The roads @wander everywhere, just like a gypsy!\"\")",
+            "jump 532",
+            "case \"wind\":",
+            "print(\"\"The four winds - they are gypsies too!\"\")",
+            "jump 532",
+            "case \"roam,wand\":",
+            "print(\"\"As a gypsy's body wanders, so does his mind.\"\n*\n\"Just now I am thinking of what you might @buy from me today.\"\")",
+            "jump 532",
+            "case \"free,spir\":",
+            "print(\"\"Aye, my spirit is free, but my @advice is not.\"\")",
+            "jump 532",
+            "case \"gyps\":",
+            "print(\"\"Ask my people for @advice, or what they have to @sell.\"\n*\n\"Gypsies see and hear much, and occasionally happen across items of interest...\"\")",
+            "jump 532",
+            "case \"advi\":",
+            "jump 2887",
+            "case \"silv,tabl\":",
+            "jump 3209",
+            "case \"hawk\":",
+            "print(\"\"He's the lowest scum I ever met.\"\")",
+            "jump 532",
+            "case \"bucc,den\":",
+            "print(\"\"It's no place for an honest soul like you.\"\n*\n\"But if you're determined to go, I hear it's on an island due east of @Paws.\"\")",
+            "jump 532",
+            "case \"paws\":",
+            "print(\"\"We pass Paws often in our travels. @Taynith likes to go drinking there.\"\")",
+            "jump 532",
+            "case \"lyca\":",
+            "print(\"\"It's on the same island as @Moonglow.\"\")",
+            "jump 532",
+            "case \"moon\":",
+            "print(\"\"It's on the same island as the @Lycaeum.\"\")",
+            "jump 532",
+            "case \"mari\":",
+            "print(\"\"She knows how to be generous to poor wandering gypsies. You should follow her example!\"\")",
+            "jump 532",
+            "case \"capt,john\":",
+            "print(\"\"Captain John? I talked to him when he gave us the silver tablet for @Mariah.\"\n*\n\"He's madder than a gremlin! Claims as he's been living with the gargoyles.\"\n*\n\"He talks as if there's nothing evil about them.\"\n*\n\"He said the tablet had something to do with translating.\"\")",
+            "jump 532",
+            "case \"gorg\":",
+            "print(\"\"Either you're a gorgio or my name's not @Zoltan!\"\")",
+            "jump 532",
+            "case \"kari,tayn\":",
+            "print(\"\"There are no women like gypsy women!\"\")",
+            "jump 532",
+            "case \"bye\":",
+            "if hasBit(byte 235, byte 7):",
+            "print(\"\"Farewell! My fellow gypsies and I will @dance to your health and good fortune!\"\")",
             "ELSE",
-            "\"Farewell.\"",
-            "ENDIF",
-            "\n",
+            "print(\"\"Farewell.\"\")",
+            "endif",
+            "print(\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "danc"
-            ],
-            "@Karina produces a fiddle from somewhere and begins to play a tune at a very high tempo.\n*\nZoltan dances a wild dance for you, leaping and capering about frantically.\n*\nHis chest glistens with sweat as he walks up to you expectantly.\n\n",
-            [
-                "JUMP",
-                4018
-            ],
-            [
-                "CASE",
-                "fine,magi,sale,sell,buy,good,item,inte,reag"
-            ],
-            [
-                "JUMP",
-                4344
-            ],
-            [
-                "CASE",
-                "*"
-            ],
-            "\"Why worry yourself with that?\"\n*\n\"Perhaps you'd like to look over some of the fine @reagents I have for sale.\"",
+            "case \"danc\":",
+            "print(\"@Karina produces a fiddle from somewhere and begins to play a tune at a very high tempo.\n*\nZoltan dances a wild dance for you, leaping and capering about frantically.\n*\nHis chest glistens with sweat as he walks up to you expectantly.\n\n\")",
+            "jump 4018",
+            "case \"fine,magi,sale,sell,buy,good,item,inte,reag\":",
+            "jump 4344",
+            "case \"*\":",
+            "print(\"\"Why worry yourself with that?\"\n*\n\"Perhaps you'd like to look over some of the fine @reagents I have for sale.\"\")",
             "ESAC",
-            [
-                "JUMP",
-                532
-            ]
+            "jump 532"
         ],
         "2887": [
-            "\"Tell you what. Since I'm in a good mood, I'll only charge you two gold coins. Is it a deal?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Whatever you say.\"",
-            [
-                "JUMP",
-                532
-            ],
+            "print(\"\"Tell you what. Since I'm in a good mood, I'll only charge you two gold coins. Is it a deal?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Whatever you say.\"\")",
+            "jump 532",
             "ESAC",
-            [
-                "IF",
-                "less(objectsCount(byte 1, byte 88), byte 2)"
-            ],
-            "\n\"Come back when you're not so down on your luck.\"",
-            [
-                "JUMP",
-                532
-            ],
-            "ENDIF",
+            "if less(objectsCount(byte 1, byte 88), byte 2):",
+            "print(\"\n\"Come back when you're not so down on your luck.\"\")",
+            "jump 532",
+            "endif",
             [
                 "DELETE",
                 [
@@ -387,36 +195,18 @@
                     7
                 ]
             ],
-            "\n\"I'll tell you this:\"\n*\n\"Powder kegs are useful for persuading uncooperative doors to open.\"",
-            [
-                "JUMP",
-                532
-            ],
-            "\"I'd be glad to help you out. But 'tis a hard life, sometimes, being a gypsy.\"\n*\n\"You'd be willing to pay ten gold for the information, would you?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Let me know if you change your mind.\"",
-            [
-                "JUMP",
-                532
-            ],
+            "print(\"\n\"I'll tell you this:\"\n*\n\"Powder kegs are useful for persuading uncooperative doors to open.\"\")",
+            "jump 532",
+            "print(\"\"I'd be glad to help you out. But 'tis a hard life, sometimes, being a gypsy.\"\n*\n\"You'd be willing to pay ten gold for the information, would you?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Let me know if you change your mind.\"\")",
+            "jump 532",
             "ESAC",
-            [
-                "IF",
-                "less(objectsCount(byte 1, byte 88), byte 10)"
-            ],
-            "\n\"Come back when you have the money.\"",
-            [
-                "JUMP",
-                532
-            ],
-            "ENDIF",
+            "if less(objectsCount(byte 1, byte 88), byte 10):",
+            "print(\"\n\"Come back when you have the money.\"\")",
+            "jump 532",
+            "endif",
             [
                 "DELETE",
                 [
@@ -466,20 +256,11 @@
                     7
                 ]
             ],
-            "\n\"Some @gorgio called 'Captain @John' brought us the silver tablet and paid us to take it to the Lycaeum.\"\n*\n\"While we were on the way there, we were ambushed by Captain @Hawkins and his crew.\"\n*\nThe tablet was broken in two during the scuffle. The pirates got away with the bigger half.\"\n*\n\"Hawkins took my finest earring as well - I spit on his mother's grave!\"\n*\n\"Most likely they went to Buccaneer's @Den with their loot.\"\n*\n\"We took the corner of the tablet that they missed to the @Lycaeum and sold it to @Mariah.\"",
-            [
-                "JUMP",
-                532
-            ],
-            "Do you give him any money? ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
+            "print(\"\n\"Some @gorgio called 'Captain @John' brought us the silver tablet and paid us to take it to the Lycaeum.\"\n*\n\"While we were on the way there, we were ambushed by Captain @Hawkins and his crew.\"\n*\nThe tablet was broken in two during the scuffle. The pirates got away with the bigger half.\"\n*\n\"Hawkins took my finest earring as well - I spit on his mother's grave!\"\n*\n\"Most likely they went to Buccaneer's @Den with their loot.\"\n*\n\"We took the corner of the tablet that they missed to the @Lycaeum and sold it to @Mariah.\"\")",
+            "jump 532",
+            "print(\"Do you give him any money? \")",
+            "askc(\"yn\")",
+            "case \"n\":",
             [
                 "SETF",
                 [
@@ -491,33 +272,21 @@
                     1
                 ]
             ],
-            "\"Hah! I should know better than to expect a gorgio to appreciate a fine gypsy dance.\"\n*\nProudly, he turns his back on you.\n",
+            "print(\"\"Hah! I should know better than to expect a gorgio to appreciate a fine gypsy dance.\"\n*\nProudly, he turns his back on you.\n\")",
             "BYE",
             "ESAC",
-            "\nHow much do you give? ",
+            "print(\"\nHow much do you give? \")",
             [
                 "INPUT",
                 0
             ],
-            [
-                "IF",
-                "greater(integer(value 0), objectsCount(byte 1, byte 88))"
-            ],
-            "\nYou don't have that much.\n",
-            [
-                "JUMP",
-                4182
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 0), byte 0)"
-            ],
-            [
-                "JUMP",
-                4051
-            ],
-            "ENDIF",
+            "if greater(integer(value 0), objectsCount(byte 1, byte 88)):",
+            "print(\"\nYou don't have that much.\n\")",
+            "jump 4182",
+            "endif",
+            "if equals(integer(value 0), byte 0):",
+            "jump 4051",
+            "endif",
             [
                 "DELETE",
                 [
@@ -588,104 +357,15 @@
                     1
                 ]
             ],
-            "\nZoltan pockets the money. \"Thanks.\"",
-            [
-                "JUMP",
-                532
-            ],
-            [
-                "IF",
-                "greater(integer(value 23), byte 0)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
-            [
-                "JUMP",
-                4379
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "character",
-                    [
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                4517
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "character",
-                    [
-                        [
-                            "minus",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            2
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
+            "print(\"\nZoltan pockets the money. \"Thanks.\"\")",
+            "jump 532",
+            "if greater(integer(value 23), byte 0):",
+            "integer(value 2) = byte 1",
+            "jump 4379",
+            "endif",
+            "integer(value 3) = character(byte 0, byte 0)",
+            "jump 4517",
+            "integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)",
             [
                 "SETNAME",
                 [
@@ -698,101 +378,22 @@
                     ]
                 ]
             ],
-            "#2) $Y\n",
-            [
-                "IF",
-                "lessOrEquals(integer(value 2), integer(value 23))"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    2
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                4379
-            ],
-            "ENDIF",
-            "\"Which of you?\" ",
+            "print(\"#2) $Y\n\")",
+            "if lessOrEquals(integer(value 2), integer(value 23)):",
+            "integer(value 2) = plus(integer(value 2), byte 1)",
+            "jump 4379",
+            "endif",
+            "print(\"\"Which of you?\" \")",
             [
                 "INPUTNUM",
                 2
             ],
-            [
-                "IF",
-                "or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1)))"
-            ],
-            "\n\"What else would you like to know?\"",
-            [
-                "JUMP",
-                532
-            ],
+            "if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):",
+            "print(\"\n\"What else would you like to know?\"\")",
+            "jump 532",
             "ELSE",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "character",
-                    [
-                        [
-                            "minus",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            2
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            "ENDIF",
+            "integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)",
+            "endif",
             [
                 "SETNAME",
                 [
@@ -805,271 +406,42 @@
                     ]
                 ]
             ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            5107
-                        ],
-                        [
-                            "minus",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            1
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            "#1) $1\n",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "greater(data(dword 5075, minus(integer(value 1), byte 1)), byte 0)"
-            ],
-            [
-                "JUMP",
-                4528
-            ],
-            "ENDIF",
-            "\"Which of these?\" ",
+            "integer(value 1) = byte 1",
+            "string(value 1) = data(dword 5107, minus(integer(value 1), byte 1))",
+            "print(\"#1) $1\n\")",
+            "integer(value 1) = plus(integer(value 1), byte 1)",
+            "if greater(data(dword 5075, minus(integer(value 1), byte 1)), byte 0):",
+            "jump 4528",
+            "endif",
+            "print(\"\"Which of these?\" \")",
             [
                 "INPUTNUM",
                 2
             ],
-            [
-                "IF",
-                "or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1)))"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
-            [
-                "JUMP",
-                532
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "minus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    2
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            5091
-                        ],
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    2
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            5107
-                        ],
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    2
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            5
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            "\"$1 costs #1 per portion.\"",
-            "WAIT",
-            "\n\n\"How many do you want?\" ",
+            "if or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1))):",
+            "integer(value 2) = byte 1",
+            "jump 532",
+            "endif",
+            "integer(value 2) = minus(integer(value 2), byte 1)",
+            "integer(value 1) = data(dword 5091, integer(value 2))",
+            "string(value 1) = data(dword 5107, integer(value 2))",
+            "integer(value 5) = byte 0",
+            "print(\"\"$1 costs #1 per portion.\"\")",
+            "wait()",
+            "print(\"\n\n\"How many do you want?\" \")",
             [
                 "INPUT",
                 4
             ],
-            [
-                "IF",
-                "equals(integer(value 4), byte 0)"
-            ],
-            [
-                "JUMP",
-                4517
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "less(canCarry(integer(value 3)), weight(data(dword 5075, integer(value 2)), byte 1))"
-            ],
-            [
-                "JUMP",
-                4877
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "less(objectsCount(integer(value 3), byte 88), integer(value 1))"
-            ],
-            [
-                "JUMP",
-                4976
-            ],
-            "ENDIF",
+            "if equals(integer(value 4), byte 0):",
+            "jump 4517",
+            "endif",
+            "if less(canCarry(integer(value 3)), weight(data(dword 5075, integer(value 2)), byte 1)):",
+            "jump 4877",
+            "endif",
+            "if less(objectsCount(integer(value 3), byte 88), integer(value 1)):",
+            "jump 4976",
+            "endif",
             [
                 "DELETE",
                 [
@@ -1159,98 +531,42 @@
                     1
                 ]
             ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            5
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    5
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(integer(value 5), integer(value 4))"
-            ],
-            "$N hands $Y the $1.",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                4517
-            ],
+            "integer(value 5) = plus(integer(value 5), byte 1)",
+            "if equals(integer(value 5), integer(value 4)):",
+            "print(\"$N hands $Y the $1.\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 4517",
             "ELSE",
-            [
-                "JUMP",
-                4742
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "integer(value 5)"
-            ],
-            "\"You can't carry that much!\"",
-            "WAIT",
-            "\n\n\"I'll just give you #5.\"",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                4517
-            ],
+            "jump 4742",
+            "endif",
+            "if integer(value 5):",
+            "print(\"\"You can't carry that much!\"\")",
+            "wait()",
+            "print(\"\n\n\"I'll just give you #5.\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 4517",
             "ELSE",
-            "\"You can't carry any!\"",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                4517
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "integer(value 5)"
-            ],
-            "\"You can't afford that much!\"",
-            "WAIT",
-            "\n\n\"I'll give you #5.\"",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                4517
-            ],
+            "print(\"\"You can't carry any!\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 4517",
+            "endif",
+            "if integer(value 5):",
+            "print(\"\"You can't afford that much!\"\")",
+            "wait()",
+            "print(\"\n\n\"I'll give you #5.\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 4517",
             "ELSE",
-            "\"You can't afford any $1!\"",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                4517
-            ],
-            "ENDIF",
-            "B\u0000C\u0000D\u0000F\u0000G\u0000H\u0000\u0000\u0000\u0000\u0000\u0003\u0000\u0002\u0000\u0001\u0000\u0001\u0000\u0002\u0000\u0003\u0000\u0000\u0000\u0000\u0000Blood Moss\u0000Garlic\u0000Ginseng\u0000Nightshade\u0000Spider Silk\u0000Sulfurous Ash\u0000 \u0000 \u0000"
+            "print(\"\"You can't afford any $1!\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 4517",
+            "endif",
+            "print(\"B\u0000C\u0000D\u0000F\u0000G\u0000H\u0000\u0000\u0000\u0000\u0000\u0003\u0000\u0002\u0000\u0001\u0000\u0001\u0000\u0002\u0000\u0003\u0000\u0000\u0000\u0000\u0000Blood Moss\u0000Garlic\u0000Ginseng\u0000Nightshade\u0000Spider Silk\u0000Sulfurous Ash\u0000 \u0000 \u0000\")"
         ],
         "5075": [
             [

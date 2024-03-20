@@ -5,97 +5,31 @@
     "name": "Wanda",
     "f3-after-name": false,
     "description": [
-        "a gypsy wench with a voluptuous figure.",
-        "WAIT",
-        "\n"
+        "print(\"a gypsy wench with a voluptuous figure.\")",
+        "wait()",
+        "print(\"\n\")"
     ],
     "f3-after-description": true,
     "interaction": {
         "51": [
-            [
-                "IF",
-                "integer(value 16)"
-            ],
-            "\"Hello, wench. How goes it?\"",
-            [
-                "ASSIGN",
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            2887
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
+            "if integer(value 16):",
+            "print(\"\"Hello, wench. How goes it?\"\")",
+            "string(value 0) = data(dword 2887, byte 0)",
             "ELSE",
-            "\"Well, hello handsome! Looking for a little... relaxation?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"Well this is the place!\"",
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Ha! You must be afraid of what your mother might think.\"",
+            "print(\"\"Well, hello handsome! Looking for a little... relaxation?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"\"Well this is the place!\"\")",
+            "case \"n\":",
+            "print(\"\"Ha! You must be afraid of what your mother might think.\"\")",
             "ESAC",
-            [
-                "ASSIGN",
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            2887
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                268
-            ],
-            "ENDIF",
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"They call me '@Wicked Wanda,' $0.\"",
+            "string(value 0) = data(dword 2887, byte 0)",
+            "jump 268",
+            "endif",
+            "print(\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"They call me '@Wicked Wanda,' $0.\"\")",
             [
                 "SETF",
                 [
@@ -107,143 +41,59 @@
                     0
                 ]
             ],
-            [
-                "JUMP",
-                268
-            ],
-            [
-                "CASE",
-                "wick,wand"
-            ],
-            "\"If we can find someplace @private, I'll gladly show you how I got my nickname...\"",
-            [
-                "JUMP",
-                268
-            ],
-            [
-                "CASE",
-                "plac,rela,find,priv,show,nick,pay,swee,sale"
-            ],
-            [
-                "IF",
-                "random(byte 0, byte 1)"
-            ],
-            "\"Hmm, sounds like I've piqued your interest...\"",
-            [
-                "JUMP",
-                268
-            ],
-            "ENDIF",
-            "\"Why ",
-            [
-                "IF",
-                "integer(value 16)"
-            ],
-            "madam",
+            "jump 268",
+            "case \"wick,wand\":",
+            "print(\"\"If we can find someplace @private, I'll gladly show you how I got my nickname...\"\")",
+            "jump 268",
+            "case \"plac,rela,find,priv,show,nick,pay,swee,sale\":",
+            "if random(byte 0, byte 1):",
+            "print(\"\"Hmm, sounds like I've piqued your interest...\"\")",
+            "jump 268",
+            "endif",
+            "print(\"\"Why \")",
+            "if integer(value 16):",
+            "print(\"madam\")",
             "ELSE",
-            "sirrah",
-            "ENDIF",
-            ", are you trying to insinuate something?\"",
-            "WAIT",
-            "\n\nShe breaks into a fit of giggles.",
-            [
-                "JUMP",
-                268
-            ],
-            [
-                "CASE",
-                "sex,screw,boff,suck,head,lay,roll,hay,kink,make"
-            ],
-            [
-                "JUMP",
-                1658
-            ],
-            [
-                "CASE",
-                "map"
-            ],
-            "\"We don't have... Oh, wait, there was something!\"",
-            "WAIT",
-            "\n\n\"@Arturos, he, uh, found a map last time we were up at Empath @Abbey.\"",
-            [
-                "JUMP",
-                268
-            ],
-            [
-                "CASE",
-                "artu"
-            ],
-            "\"He'll tell your @fortune for you, $0. Just ask him!\"",
-            [
-                "JUMP",
-                268
-            ],
-            [
-                "CASE",
-                "fort"
-            ],
-            "\"That's right.\"",
-            [
-                "JUMP",
-                268
-            ],
-            [
-                "CASE",
-                "empa,abbe"
-            ],
-            "\"I don't care much for them. They're all too stuck up.\"",
-            [
-                "JUMP",
-                268
-            ],
-            [
-                "CASE",
-                "silv,tabl"
-            ],
-            "\"@Andreas has a silver tablet you could ask him about.\"",
-            "WAIT",
-            "\n\n\"But I have something much @sweeter for sale...\"",
-            [
-                "JUMP",
-                268
-            ],
-            [
-                "CASE",
-                "andr"
-            ],
-            [
-                "IF",
-                "integer(value 16)"
-            ],
-            "\"He could show you a real good time, honey!\"",
-            [
-                "JUMP",
-                268
-            ],
-            "ENDIF",
-            "\"He's in the same line of work as I am--but I think I'm more your type!\"",
-            [
-                "JUMP",
-                268
-            ],
-            [
-                "CASE",
-                "late,time,rest"
-            ],
-            "\"'Tis tiring work, you know.\"",
-            [
-                "JUMP",
-                268
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, byte 7)"
-            ],
-            "\"'Twas a business doing pleasure with you... I hope you come again soon!\"\n",
+            "print(\"sirrah\")",
+            "endif",
+            "print(\", are you trying to insinuate something?\"\")",
+            "wait()",
+            "print(\"\n\nShe breaks into a fit of giggles.\")",
+            "jump 268",
+            "case \"sex,screw,boff,suck,head,lay,roll,hay,kink,make\":",
+            "jump 1658",
+            "case \"map\":",
+            "print(\"\"We don't have... Oh, wait, there was something!\"\")",
+            "wait()",
+            "print(\"\n\n\"@Arturos, he, uh, found a map last time we were up at Empath @Abbey.\"\")",
+            "jump 268",
+            "case \"artu\":",
+            "print(\"\"He'll tell your @fortune for you, $0. Just ask him!\"\")",
+            "jump 268",
+            "case \"fort\":",
+            "print(\"\"That's right.\"\")",
+            "jump 268",
+            "case \"empa,abbe\":",
+            "print(\"\"I don't care much for them. They're all too stuck up.\"\")",
+            "jump 268",
+            "case \"silv,tabl\":",
+            "print(\"\"@Andreas has a silver tablet you could ask him about.\"\")",
+            "wait()",
+            "print(\"\n\n\"But I have something much @sweeter for sale...\"\")",
+            "jump 268",
+            "case \"andr\":",
+            "if integer(value 16):",
+            "print(\"\"He could show you a real good time, honey!\"\")",
+            "jump 268",
+            "endif",
+            "print(\"\"He's in the same line of work as I am--but I think I'm more your type!\"\")",
+            "jump 268",
+            "case \"late,time,rest\":",
+            "print(\"\"'Tis tiring work, you know.\"\")",
+            "jump 268",
+            "case \"bye\":",
+            "if hasBit(byte 235, byte 7):",
+            "print(\"\"'Twas a business doing pleasure with you... I hope you come again soon!\"\n\")",
             [
                 "CLEARF",
                 [
@@ -256,15 +106,12 @@
                 ]
             ],
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 16), byte 1)"
-            ],
-            "\"See you around... And if you meet anyone tall, dark and handsome, send 'em my way!\"",
+            "endif",
+            "if equals(integer(value 16), byte 1):",
+            "print(\"\"See you around... And if you meet anyone tall, dark and handsome, send 'em my way!\"\")",
             "ELSE",
-            "\"If you ever decide you need a break from adventuring, come find me again.\"",
-            "ENDIF",
+            "print(\"\"If you ever decide you need a break from adventuring, come find me again.\"\")",
+            "endif",
             [
                 "CLEARF",
                 [
@@ -276,43 +123,25 @@
                     7
                 ]
             ],
-            "\n",
+            "print(\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"Why concern yourself with that, $0?\"\n*\n\"Surely you can think of something more pleasant...\"",
+            "case \"*\":",
+            "print(\"\"Why concern yourself with that, $0?\"\n*\n\"Surely you can think of something more pleasant...\"\")",
             "ESAC",
-            [
-                "JUMP",
-                268
-            ]
+            "jump 268"
         ],
         "1658": [
-            [
-                "IF",
-                "hasBit(byte 235, byte 7)"
-            ],
-            "\"Again, so soon? Nay, come back later, when I've had a little time to @rest.\"",
-            [
-                "JUMP",
-                268
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 16), byte 1)"
-            ],
-            "\"I don't get many lady customers... but why not? You're sure this is what you want?\"",
+            "if hasBit(byte 235, byte 7):",
+            "print(\"\"Again, so soon? Nay, come back later, when I've had a little time to @rest.\"\")",
+            "jump 268",
+            "endif",
+            "if equals(integer(value 16), byte 1):",
+            "print(\"\"I don't get many lady customers... but why not? You're sure this is what you want?\"\")",
             "ELSE",
-            "\"I've a cot in my wagon... 15 gold's the price--and I don't haggle! Interested, $0?\"",
-            "ENDIF",
-            "WAIT",
-            [
-                "IF",
-                "integer(value 23)"
-            ],
+            "print(\"\"I've a cot in my wagon... 15 gold's the price--and I don't haggle! Interested, $0?\"\")",
+            "endif",
+            "wait()",
+            "if integer(value 23):",
             [
                 "SETNAME",
                 [
@@ -345,8 +174,8 @@
                     ]
                 ]
             ],
-            "\n\n$Y speaks. \"I don't think we have time for this...\"",
-            "WAIT",
+            "print(\"\n\n$Y speaks. \"I don't think we have time for this...\"\")",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -355,92 +184,23 @@
                 ]
             ],
             "ELSE",
-            "\n\nA voice in the back of your head asks, \"Do you really have time for this?\"",
-            "WAIT",
-            "ENDIF",
-            "\n\n\"Come on, $0. Cross my palm with 15 gold and I'll show you a good time. Okay?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Fine! Come back when you get permission from your mother!\"",
-            [
-                "IF",
-                "equals(integer(value 16), byte 0)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            2887
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            "ENDIF",
-            [
-                "JUMP",
-                268
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "IF",
-                "less(objectsCount(byte 1, byte 88), byte 15)"
-            ],
-            "\"Hey, I don't give credit! No pay, no play, capish?\"",
-            [
-                "ASSIGN",
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            2887
-                        ],
-                        [
-                            "byte",
-                            3
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                268
-            ],
-            "ENDIF",
+            "print(\"\n\nA voice in the back of your head asks, \"Do you really have time for this?\"\")",
+            "wait()",
+            "endif",
+            "print(\"\n\n\"Come on, $0. Cross my palm with 15 gold and I'll show you a good time. Okay?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Fine! Come back when you get permission from your mother!\"\")",
+            "if equals(integer(value 16), byte 0):",
+            "string(value 0) = data(dword 2887, byte 0)",
+            "endif",
+            "jump 268",
+            "case \"y\":",
+            "if less(objectsCount(byte 1, byte 88), byte 15):",
+            "print(\"\"Hey, I don't give credit! No pay, no play, capish?\"\")",
+            "string(value 0) = data(dword 2887, byte 3)",
+            "jump 268",
+            "endif",
             [
                 "DELETE",
                 [
@@ -471,40 +231,13 @@
                     7
                 ]
             ],
-            [
-                "ASSIGN",
-                [
-                    "string",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "data",
-                    [
-                        [
-                            "dword",
-                            2887
-                        ],
-                        [
-                            "byte",
-                            2
-                        ]
-                    ]
-                ]
-            ],
-            "Taking you by the hand, the gyspy wench leads you off to her wagon.",
-            "WAIT",
-            "\nAfter a time, you return to your comrades.",
+            "string(value 0) = data(dword 2887, byte 2)",
+            "print(\"Taking you by the hand, the gyspy wench leads you off to her wagon.\")",
+            "wait()",
+            "print(\"\nAfter a time, you return to your comrades.\")",
             "ESAC",
-            "WAIT",
-            [
-                "IF",
-                "integer(value 23)"
-            ],
+            "wait()",
+            "if integer(value 23):",
             [
                 "SETNAME",
                 [
@@ -537,10 +270,10 @@
                     ]
                 ]
             ],
-            "\n\n\"That's a fine way to be carrying on when all of Britannia is in danger!\"",
-            "WAIT",
-            "\n\n\"When our quest is complete, then there will be time enough for wenching!\"",
-            "WAIT",
+            "print(\"\n\n\"That's a fine way to be carrying on when all of Britannia is in danger!\"\")",
+            "wait()",
+            "print(\"\n\n\"When our quest is complete, then there will be time enough for wenching!\"\")",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -548,14 +281,11 @@
                     235
                 ]
             ],
-            "\n\n\"Nothing's wrong with a little fun. There's plenty of time... as long as there's plenty of gold!\"",
+            "print(\"\n\n\"Nothing's wrong with a little fun. There's plenty of time... as long as there's plenty of gold!\"\")",
             "ELSE",
-            "You try to ignore the nagging voice in the back of your mind that keeps saying, \"You shouldn't have wasted time like that.\"",
-            "ENDIF",
-            [
-                "JUMP",
-                268
-            ]
+            "print(\"You try to ignore the nagging voice in the back of your mind that keeps saying, \"You shouldn't have wasted time like that.\"\")",
+            "endif",
+            "jump 268"
         ],
         "2887": [
             [

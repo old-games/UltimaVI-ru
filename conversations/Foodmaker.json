@@ -5,35 +5,23 @@
     "name": "Foodmaker",
     "f3-after-name": false,
     "description": [
-        "a large and boisterous gargoyle.*\n\nHe carries a 'knife' large enough to be a sword!",
-        "WAIT"
+        "print(\"a large and boisterous gargoyle.*\n\nHe carries a 'knife' large enough to be a sword!\")",
+        "wait()"
     ],
     "f3-after-description": false,
     "interaction": {
         "97": [
-            "\n",
-            [
-                "IF",
-                "and(equals(integer(value 21), byte 1), equals(partyHasObject(byte 76, byte 0), byte 1))"
-            ],
-            [
-                "JUMP",
-                372
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "integer(value 21)"
-            ],
-            "\"The False Prophet!\" the gargoyle shouts. \"Begone, begone!\"",
+            "print(\"\n\")",
+            "if and(equals(integer(value 21), byte 1), equals(partyHasObject(byte 76, byte 0), byte 1)):",
+            "jump 372",
+            "endif",
+            "if integer(value 21):",
+            "print(\"\"The False Prophet!\" the gargoyle shouts. \"Begone, begone!\"\")",
             "ELSE",
-            "\"An-bal-sil-fer!\" the gargoyle shouts. \"Gres por! Gres por!\"",
-            "ENDIF",
-            "WAIT",
-            [
-                "IF",
-                "partyHas(byte 4)"
-            ],
+            "print(\"\"An-bal-sil-fer!\" the gargoyle shouts. \"Gres por! Gres por!\"\")",
+            "endif",
+            "wait()",
+            "if partyHas(byte 4):",
             [
                 "PORTRAIT",
                 [
@@ -41,237 +29,100 @@
                     4
                 ]
             ],
-            "\n\nHalf-jokingly, Iolo says, \"We'd better do as he says.\"",
-            "WAIT",
-            "\n\n\"After all, we don't know what kind of meat that is!\n",
+            "print(\"\n\nHalf-jokingly, Iolo says, \"We'd better do as he says.\"\")",
+            "wait()",
+            "print(\"\n\n\"After all, we don't know what kind of meat that is!\n\")",
             "BYE",
             "ELSE",
-            "\n",
+            "print(\"\n\")",
             "BYE",
-            "ENDIF"
+            "endif"
         ],
         "372": [
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"To welcome you back, False Prophet!\"",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"To welcome you back, False Prophet!\"\")",
             "ELSE",
-            "\"The False Prophet!\"",
-            "WAIT",
-            "\n\n\"To welcome you to my place of cooking.\"",
-            "ENDIF",
-            "WAIT",
-            "\n\n\"To offer you the best @food in all the world!\"\n",
-            "ASK",
-            [
-                "CASE",
-                "food"
-            ],
-            [
-                "IF",
-                "notEquals(integer(value 32), byte 143)"
-            ],
-            "\"To not have food on me. To have you visit my shop.\"",
-            [
-                "JUMP",
-                530
-            ],
-            "ENDIF",
-            [
-                "JUMP",
-                1586
-            ],
-            [
-                "CASE",
-                "hors,meat"
-            ],
-            "\"To be famous among all gargoyles for the quality of my horseflesh!\"",
-            [
-                "JUMP",
-                530
-            ],
-            [
-                "CASE",
-                "name"
-            ],
-            "\"To be called Foodmaker, not having a name yet.\"",
-            "WAIT",
-            "\n\n\"But to be the finest cook in the land!\"",
-            "WAIT",
-            "\n\n\"To receive a name someday soon for my skill!\"",
-            [
-                "JUMP",
-                530
-            ],
-            [
-                "CASE",
-                "good"
-            ],
-            "\"The goodscrafter? To be pathetic!\" the huge gargoyle scowls.",
-            "WAIT",
-            "\n\n\"To have self-pity, when strength and long work will give success!\"",
-            "WAIT",
-            "\n\n\"To wish to hear no more about that creature.\"",
-            [
-                "JUMP",
-                530
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"To cook and serve food for all the gargoyles who live in these parts!\"",
-            "WAIT",
-            "\n\n\"Also to guide and instruct the @wingless ones in cooking chores.\"",
-            [
-                "JUMP",
-                530
-            ],
-            [
-                "CASE",
-                "wing"
-            ],
-            "\"To have to watch their every move!\"",
-            "WAIT",
-            "\n\n\"But to acknowledge that they are vital to our society.\"",
-            [
-                "JUMP",
-                530
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            [
-                "JUMP",
-                2448
-            ],
+            "print(\"\"The False Prophet!\"\")",
+            "wait()",
+            "print(\"\n\n\"To welcome you to my place of cooking.\"\")",
+            "endif",
+            "wait()",
+            "print(\"\n\n\"To offer you the best @food in all the world!\"\n\")",
+            "ask()",
+            "case \"food\":",
+            "if notEquals(integer(value 32), byte 143):",
+            "print(\"\"To not have food on me. To have you visit my shop.\"\")",
+            "jump 530",
+            "endif",
+            "jump 1586",
+            "case \"hors,meat\":",
+            "print(\"\"To be famous among all gargoyles for the quality of my horseflesh!\"\")",
+            "jump 530",
+            "case \"name\":",
+            "print(\"\"To be called Foodmaker, not having a name yet.\"\")",
+            "wait()",
+            "print(\"\n\n\"But to be the finest cook in the land!\"\")",
+            "wait()",
+            "print(\"\n\n\"To receive a name someday soon for my skill!\"\")",
+            "jump 530",
+            "case \"good\":",
+            "print(\"\"The goodscrafter? To be pathetic!\" the huge gargoyle scowls.\")",
+            "wait()",
+            "print(\"\n\n\"To have self-pity, when strength and long work will give success!\"\")",
+            "wait()",
+            "print(\"\n\n\"To wish to hear no more about that creature.\"\")",
+            "jump 530",
+            "case \"job\":",
+            "print(\"\"To cook and serve food for all the gargoyles who live in these parts!\"\")",
+            "wait()",
+            "print(\"\n\n\"Also to guide and instruct the @wingless ones in cooking chores.\"\")",
+            "jump 530",
+            "case \"wing\":",
+            "print(\"\"To have to watch their every move!\"\")",
+            "wait()",
+            "print(\"\n\n\"But to acknowledge that they are vital to our society.\"\")",
+            "jump 530",
+            "case \"bye\":",
+            "if hasBit(byte 235, value 0):",
+            "jump 2448",
             "ELSE",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "random",
-                    [
-                        [
-                            "byte",
-                            1
-                        ],
-                        [
-                            "plus",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            23
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "JUMP",
-                2151
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "wine,bunc,grap,plan"
-            ],
-            "\"Well, yes, of course to have that as well.\"",
-            "WAIT",
-            "\n\n\"But to be famous for my roast horseflesh!\"",
-            "WAIT",
-            "\n\n\"To offer you some of this fine @food!\"",
-            [
-                "JUMP",
-                530
-            ],
-            [
-                "CASE",
-                "*"
-            ],
-            "\"To not know what $Z is.\"",
-            "WAIT",
-            "\n\n\"But to gladly cook it for you if you tell me the recipe!\"",
-            [
-                "JUMP",
-                530
-            ]
+            "integer(value 2) = random(byte 1, plus(integer(value 23), byte 1))",
+            "integer(value 0) = byte 0",
+            "jump 2151",
+            "endif",
+            "case \"wine,bunc,grap,plan\":",
+            "print(\"\"Well, yes, of course to have that as well.\"\")",
+            "wait()",
+            "print(\"\n\n\"But to be famous for my roast horseflesh!\"\")",
+            "wait()",
+            "print(\"\n\n\"To offer you some of this fine @food!\"\")",
+            "jump 530",
+            "case \"*\":",
+            "print(\"\"To not know what $Z is.\"\")",
+            "wait()",
+            "print(\"\n\n\"But to gladly cook it for you if you tell me the recipe!\"\")",
+            "jump 530"
         ],
         "1586": [
-            "\"Yes, yes! To offer you this finely roasted @meat!\"",
-            "WAIT",
-            "\n\nWith a few strokes of his huge knife, the gargoyle cuts you a slice of @meat.",
-            "WAIT",
-            "\n\nDo you take the meat? ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "You",
-            [
-                "IF",
-                "integer(value 23)"
-            ],
-            "r party eats the profferred food.",
+            "print(\"\"Yes, yes! To offer you this finely roasted @meat!\"\")",
+            "wait()",
+            "print(\"\n\nWith a few strokes of his huge knife, the gargoyle cuts you a slice of @meat.\")",
+            "wait()",
+            "print(\"\n\nDo you take the meat? \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"You\")",
+            "if integer(value 23):",
+            "print(\"r party eats the profferred food.\")",
             "ELSE",
-            " eat the profferred food.",
-            "ENDIF",
-            "WAIT",
-            "\n\nThe flavor is unlike anything you've had before.",
-            [
-                "IF",
-                "equals(and(integer(value 23), partyHas(byte 4)), byte 0)"
-            ],
-            [
-                "JUMP",
-                530
-            ],
-            "ENDIF",
-            "WAIT",
+            "print(\" eat the profferred food.\")",
+            "endif",
+            "wait()",
+            "print(\"\n\nThe flavor is unlike anything you've had before.\")",
+            "if equals(and(integer(value 23), partyHas(byte 4)), byte 0):",
+            "jump 530",
+            "endif",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -279,8 +130,8 @@
                     4
                 ]
             ],
-            "\n\nIolo speaks. \"I wonder what sort of @meat this is, $P.\"",
-            "WAIT",
+            "print(\"\n\nIolo speaks. \"I wonder what sort of @meat this is, $P.\"\")",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -288,28 +139,16 @@
                     235
                 ]
             ],
-            "\n\nThe gargoyle beams with pride. \"To ask you: Is it not the best @meat you have ever eaten?\"",
-            [
-                "JUMP",
-                530
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"To be saddened by your not liking!\"",
-            "WAIT",
-            "\n\n\"To know of no finer cooker of @horseflesh than myself!\"",
-            [
-                "JUMP",
-                530
-            ]
+            "print(\"\n\nThe gargoyle beams with pride. \"To ask you: Is it not the best @meat you have ever eaten?\"\")",
+            "jump 530",
+            "case \"n\":",
+            "print(\"\"To be saddened by your not liking!\"\")",
+            "wait()",
+            "print(\"\n\n\"To know of no finer cooker of @horseflesh than myself!\"\")",
+            "jump 530"
         ],
         "2151": [
-            [
-                "IF",
-                "greater(integer(value 0), integer(value 24))"
-            ],
+            "if greater(integer(value 0), integer(value 24)):",
             [
                 "SETF",
                 [
@@ -321,96 +160,14 @@
                     0
                 ]
             ],
-            [
-                "JUMP",
-                2448
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    5
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "character",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "greater(weight(byte 135, integer(value 2)), canCarry(integer(value 1)))"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "JUMP",
-                2151
-            ],
-            "ENDIF",
+            "jump 2448",
+            "endif",
+            "integer(value 2) = byte 5",
+            "integer(value 1) = character(integer(value 0), byte 0)",
+            "if greater(weight(byte 135, integer(value 2)), canCarry(integer(value 1))):",
+            "integer(value 0) = plus(integer(value 0), byte 1)",
+            "jump 2151",
+            "endif",
             [
                 "SETF",
                 [
@@ -422,19 +179,13 @@
                     0
                 ]
             ],
-            "\"Wait!\"",
-            "WAIT",
-            "\n\n\"To give you some fine horseflesh to take with you on your trip!\"",
-            "WAIT",
-            "\n\nDo you accept his gift? ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
+            "print(\"\"Wait!\"\")",
+            "wait()",
+            "print(\"\n\n\"To give you some fine horseflesh to take with you on your trip!\"\")",
+            "wait()",
+            "print(\"\n\nDo you accept his gift? \")",
+            "askc(\"yn\")",
+            "case \"y\":",
             [
                 "NEW",
                 [
@@ -476,36 +227,24 @@
                     ]
                 ]
             ],
-            "The chef gives ",
-            [
-                "IF",
-                "equals(integer(value 1), byte 1)"
-            ],
-            "you",
+            "print(\"The chef gives \")",
+            "if equals(integer(value 1), byte 1):",
+            "print(\"you\")",
             "ELSE",
-            "$Y",
-            "ENDIF",
-            " #2 horse chop\\s.",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                2448
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Well then, to save it here for you!\"",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                2448
-            ]
+            "print(\"$Y\")",
+            "endif",
+            "print(\" #2 horse chop\\s.\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 2448",
+            "case \"n\":",
+            "print(\"\"Well then, to save it here for you!\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 2448"
         ],
         "2448": [
-            "\"To welcome you to come back when you are hungry again!\"\n",
+            "print(\"\"To welcome you to come back when you are hungry again!\"\n\")",
             "BYE"
         ]
     }

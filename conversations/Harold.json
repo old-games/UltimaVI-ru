@@ -5,21 +5,18 @@
     "name": "Harold",
     "f3-after-name": false,
     "description": [
-        "a tall, muscular man with a solemn look on his face.",
-        "WAIT"
+        "print(\"a tall, muscular man with a solemn look on his face.\")",
+        "wait()"
     ],
     "f3-after-description": false,
     "interaction": {
         "63": [
-            "\n\"Welcome, $G.\"",
-            "WAIT",
-            "\n\n\"What can I do for you?\"\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"My name is Harold.\"",
+            "print(\"\n\"Welcome, $G.\"\")",
+            "wait()",
+            "print(\"\n\n\"What can I do for you?\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"My name is Harold.\"\")",
             [
                 "SETF",
                 [
@@ -31,101 +28,26 @@
                     0
                 ]
             ],
-            [
-                "JUMP",
-                105
-            ],
-            [
-                "CASE",
-                "buy,hors,shoe"
-            ],
-            [
-                "JUMP",
-                258
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"@Horseshoes are my living.\"",
-            [
-                "JUMP",
-                105
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Farewell.\"\n",
+            "jump 105",
+            "case \"buy,hors,shoe\":",
+            "jump 258",
+            "case \"job\":",
+            "print(\"\"@Horseshoes are my living.\"\")",
+            "jump 105",
+            "case \"bye\":",
+            "print(\"\"Farewell.\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"I can't help you with that.\"",
-            [
-                "JUMP",
-                105
-            ]
+            "case \"*\":",
+            "print(\"\"I can't help you with that.\"\")",
+            "jump 105"
         ],
         "258": [
-            [
-                "IF",
-                "equals(integer(value 23), byte 0)"
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "JUMP",
-                394
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
+            "if equals(integer(value 23), byte 0):",
+            "integer(value 3) = byte 0",
+            "jump 394",
+            "endif",
+            "integer(value 0) = byte 0",
+            "integer(value 2) = byte 1",
             [
                 "SETNAME",
                 [
@@ -147,153 +69,33 @@
                     ]
                 ]
             ],
-            "#2. $Y\n",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            2
-                        ]
-                    ]
-                ],
-                [
-                    "plus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    2
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "lessOrEquals(integer(value 0), integer(value 23))"
-            ],
-            [
-                "JUMP",
-                292
-            ],
-            "ENDIF",
-            "\"Which of you?\" ",
+            "print(\"#2. $Y\n\")",
+            "integer(value 0) = plus(integer(value 0), byte 1)",
+            "integer(value 2) = plus(integer(value 2), byte 1)",
+            "if lessOrEquals(integer(value 0), integer(value 23)):",
+            "jump 292",
+            "endif",
+            "print(\"\"Which of you?\" \")",
             [
                 "INPUTNUM",
                 3
             ],
-            [
-                "IF",
-                "equals(integer(value 3), byte 0)"
-            ],
-            [
-                "JUMP",
-                79
-            ],
-            "ENDIF",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            3
-                        ]
-                    ]
-                ],
-                [
-                    "minus",
-                    [
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "greater(integer(value 3), integer(value 23))"
-            ],
-            [
-                "JUMP",
-                278
-            ],
-            "ENDIF",
-            "\"It'll cost you 2 gold for the horseshoes, interested?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "IF",
-                "less(canCarry(character(integer(value 3), byte 0)), weight(byte 202, byte 1))"
-            ],
-            "\"You look pretty full to me.\"",
-            "WAIT",
-            [
-                "JUMP",
-                79
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 2)"
-            ],
+            "if equals(integer(value 3), byte 0):",
+            "jump 79",
+            "endif",
+            "integer(value 3) = minus(integer(value 3), byte 1)",
+            "if greater(integer(value 3), integer(value 23)):",
+            "jump 278",
+            "endif",
+            "print(\"\"It'll cost you 2 gold for the horseshoes, interested?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "if less(canCarry(character(integer(value 3), byte 0)), weight(byte 202, byte 1)):",
+            "print(\"\"You look pretty full to me.\"\")",
+            "wait()",
+            "jump 79",
+            "endif",
+            "if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 2):",
             [
                 "DELETE",
                 [
@@ -381,28 +183,10 @@
                     ]
                 ]
             ],
-            "\"Here you go.\"",
-            "WAIT",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            5
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    1
-                ]
-            ],
-            [
-                "JUMP",
-                79
-            ],
+            "print(\"\"Here you go.\"\")",
+            "wait()",
+            "integer(value 5) = byte 1",
+            "jump 79",
             "ELSE",
             [
                 "SETNAME",
@@ -425,22 +209,13 @@
                     ]
                 ]
             ],
-            "\"Best check your coinpouch again.\"",
-            "WAIT",
-            [
-                "JUMP",
-                79
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "n"
-            ],
-            "Very well.\"",
-            [
-                "JUMP",
-                105
-            ]
+            "print(\"\"Best check your coinpouch again.\"\")",
+            "wait()",
+            "jump 79",
+            "endif",
+            "case \"n\":",
+            "print(\"Very well.\"\")",
+            "jump 105"
         ]
     }
 }

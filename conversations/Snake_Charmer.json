@@ -5,16 +5,13 @@
     "name": "Snake_Charmer",
     "f3-after-name": false,
     "description": [
-        "an old winged gargoyle."
+        "print(\"an old winged gargoyle.\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "40": [
-            [
-                "IF",
-                "equals(integer(value 21), byte 0)"
-            ],
-            "The gargoyle shouts, \"An-bal-sil-fer!\" and flees!\n",
+            "if equals(integer(value 21), byte 0):",
+            "print(\"The gargoyle shouts, \"An-bal-sil-fer!\" and flees!\n\")",
             [
                 "WORKTYPE",
                 [
@@ -27,12 +24,9 @@
                 ]
             ],
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "notEquals(partyHasObject(byte 76, byte 0), byte 1)"
-            ],
-            "The gargoyle shouts, \"The False Prophet!\" and flees!\n",
+            "endif",
+            "if notEquals(partyHasObject(byte 76, byte 0), byte 1):",
+            "print(\"The gargoyle shouts, \"The False Prophet!\" and flees!\n\")",
             [
                 "WORKTYPE",
                 [
@@ -45,18 +39,15 @@
                 ]
             ],
             "BYE",
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"To feel honored by your visit, False Prophet.\"",
+            "endif",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"To feel honored by your visit, False Prophet.\"\")",
             "ELSE",
-            "The gargoyle seems afraid of you at first.",
-            "WAIT",
-            "\n\nThen he notices the amulet around your neck.",
-            "WAIT",
-            "\n\n\"To--to feel honored to address you, False Prophet.\"",
+            "print(\"The gargoyle seems afraid of you at first.\")",
+            "wait()",
+            "print(\"\n\nThen he notices the amulet around your neck.\")",
+            "wait()",
+            "print(\"\n\n\"To--to feel honored to address you, False Prophet.\"\")",
             [
                 "SETF",
                 [
@@ -68,84 +59,45 @@
                     0
                 ]
             ],
-            "ENDIF",
-            "WAIT",
-            "\n\n\"To ask what you wish of a simple @snakecharmer?\"\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "The gargoyle laughs nervously.",
-            "WAIT",
-            "\n\n\"To lack a name, of course.",
-            "WAIT",
-            "\n\n\"To be called simply by my @job, snakecharmer.\"",
-            [
-                "JUMP",
-                435
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"To summon the silver @snake, and to direct the young warriors in defeating it.\"",
-            "WAIT",
-            "\n\n\"Then to extract the venom so that I can make the @battle-drug.\"",
-            [
-                "JUMP",
-                435
-            ],
-            [
-                "CASE",
-                "veno,batt,drug"
-            ],
-            "\"To make the drug for our bravest warriors, who take it and turn into fighting daemons!\"",
-            "WAIT",
-            "\n\n\"To express sorrow that the drug is fatal, but to express awe and respect for the warriors' sacrifice.\"",
-            [
-                "JUMP",
-                435
-            ],
-            [
-                "CASE",
-                "snak,silv,summ,char"
-            ],
-            "\"To use the great @horn to summon the silver snake.\"",
-            "WAIT",
-            "\n\n\"To always require many warriors to defeat the creature!\"",
-            [
-                "JUMP",
-                435
-            ],
-            [
-                "CASE",
-                "horn"
-            ],
-            "\"To find the horn just north of my house.\"",
-            "WAIT",
-            "\n\n\"But to warn you never to blow the horn!\"",
-            "WAIT",
-            "\n\n\"To be in grave peril from the snake without a squad of warriors!\"",
-            [
-                "JUMP",
-                435
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"To express my thanks for the sacrifice you have chosen to make!\"\n",
+            "endif",
+            "wait()",
+            "print(\"\n\n\"To ask what you wish of a simple @snakecharmer?\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"The gargoyle laughs nervously.\")",
+            "wait()",
+            "print(\"\n\n\"To lack a name, of course.\")",
+            "wait()",
+            "print(\"\n\n\"To be called simply by my @job, snakecharmer.\"\")",
+            "jump 435",
+            "case \"job\":",
+            "print(\"\"To summon the silver @snake, and to direct the young warriors in defeating it.\"\")",
+            "wait()",
+            "print(\"\n\n\"Then to extract the venom so that I can make the @battle-drug.\"\")",
+            "jump 435",
+            "case \"veno,batt,drug\":",
+            "print(\"\"To make the drug for our bravest warriors, who take it and turn into fighting daemons!\"\")",
+            "wait()",
+            "print(\"\n\n\"To express sorrow that the drug is fatal, but to express awe and respect for the warriors' sacrifice.\"\")",
+            "jump 435",
+            "case \"snak,silv,summ,char\":",
+            "print(\"\"To use the great @horn to summon the silver snake.\"\")",
+            "wait()",
+            "print(\"\n\n\"To always require many warriors to defeat the creature!\"\")",
+            "jump 435",
+            "case \"horn\":",
+            "print(\"\"To find the horn just north of my house.\"\")",
+            "wait()",
+            "print(\"\n\n\"But to warn you never to blow the horn!\"\")",
+            "wait()",
+            "print(\"\n\n\"To be in grave peril from the snake without a squad of warriors!\"\")",
+            "jump 435",
+            "case \"bye\":",
+            "print(\"\"To express my thanks for the sacrifice you have chosen to make!\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"To be but a simple snake charmer, unfamiliar with matters such as that.\"",
-            [
-                "JUMP",
-                435
-            ]
+            "case \"*\":",
+            "print(\"\"To be but a simple snake charmer, unfamiliar with matters such as that.\"\")",
+            "jump 435"
         ]
     }
 }

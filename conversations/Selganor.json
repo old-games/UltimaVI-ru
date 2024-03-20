@@ -5,45 +5,30 @@
     "name": "Selganor",
     "f3-after-name": false,
     "description": [
-        "a slender, graceful man tuning a lute.",
-        "WAIT",
-        "\n"
+        "print(\"a slender, graceful man tuning a lute.\")",
+        "wait()",
+        "print(\"\n\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "52": [
-            [
-                "IF",
-                "equals(hasBit(byte 235, byte 5), byte 0)"
-            ],
-            [
-                "JUMP",
-                2863
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, byte 7)"
-            ],
-            "\"Hello. There's something I need to ask you, what was it...\"",
-            "WAIT",
-            "\n\n\"Oh, yes, now I remember!\"",
-            "WAIT",
-            "\n\n",
-            [
-                "JUMP",
-                1968
-            ],
-            "ENDIF",
-            "\"Hail and welcome, $P!\"\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"My name is Selganor. 'Tis a name with a long @history...\"",
-            "WAIT",
-            "\n\n\"But you have the look of one with more important @business.\"",
+            "if equals(hasBit(byte 235, byte 5), byte 0):",
+            "jump 2863",
+            "endif",
+            "if hasBit(byte 235, byte 7):",
+            "print(\"\"Hello. There's something I need to ask you, what was it...\"\")",
+            "wait()",
+            "print(\"\n\n\"Oh, yes, now I remember!\"\")",
+            "wait()",
+            "print(\"\n\n\")",
+            "jump 1968",
+            "endif",
+            "print(\"\"Hail and welcome, $P!\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"My name is Selganor. 'Tis a name with a long @history...\"\")",
+            "wait()",
+            "print(\"\n\n\"But you have the look of one with more important @business.\"\")",
             [
                 "SETF",
                 [
@@ -55,97 +40,40 @@
                     0
                 ]
             ],
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "selg,hist"
-            ],
-            "\"It means 'seeker of the @crystal'. Perhaps I'll tell you more some other time.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "seek,crys"
-            ],
-            "\"That's quite a @tale.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "tale"
-            ],
-            "\"Indeed.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "impo,busi"
-            ],
-            "\"Perhaps you're interested in joining the @guild.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"I am the @guildmaster of artisans.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "rune"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, byte 6)"
-            ],
-            "\"I already loaned you the rune.\"",
-            [
-                "JUMP",
-                196
-            ],
-            "ENDIF",
-            "\"I'd be glad to loan you the rune, but only members of the @guild are allowed to handle it.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "loan,memb,guil,arti,join"
-            ],
-            [
-                "IF",
-                "hasBit(byte 235, byte 6)"
-            ],
-            "\"Wait a minute... You're already a member of the guild!\"",
-            [
-                "JUMP",
-                196
-            ],
-            "ENDIF",
-            "\"If you want to join the guild, you need to do two things.\"",
-            "WAIT",
-            "\n\n\"First, you need to make a set of @panpipes. @Julia can teach you how to that.\"",
-            "WAIT",
-            "\n\n\"You also need to commit '@Stones' to memory. 'Tis a simple tune - ask @Gwenno to play it for thee.\"",
-            [
-                "IF",
-                "equals(hasBit(byte 235, byte 6), byte 0)"
-            ],
+            "jump 196",
+            "case \"selg,hist\":",
+            "print(\"\"It means 'seeker of the @crystal'. Perhaps I'll tell you more some other time.\"\")",
+            "jump 196",
+            "case \"seek,crys\":",
+            "print(\"\"That's quite a @tale.\"\")",
+            "jump 196",
+            "case \"tale\":",
+            "print(\"\"Indeed.\"\")",
+            "jump 196",
+            "case \"impo,busi\":",
+            "print(\"\"Perhaps you're interested in joining the @guild.\"\")",
+            "jump 196",
+            "case \"job\":",
+            "print(\"\"I am the @guildmaster of artisans.\"\")",
+            "jump 196",
+            "case \"rune\":",
+            "if hasBit(byte 235, byte 6):",
+            "print(\"\"I already loaned you the rune.\"\")",
+            "jump 196",
+            "endif",
+            "print(\"\"I'd be glad to loan you the rune, but only members of the @guild are allowed to handle it.\"\")",
+            "jump 196",
+            "case \"loan,memb,guil,arti,join\":",
+            "if hasBit(byte 235, byte 6):",
+            "print(\"\"Wait a minute... You're already a member of the guild!\"\")",
+            "jump 196",
+            "endif",
+            "print(\"\"If you want to join the guild, you need to do two things.\"\")",
+            "wait()",
+            "print(\"\n\n\"First, you need to make a set of @panpipes. @Julia can teach you how to that.\"\")",
+            "wait()",
+            "print(\"\n\n\"You also need to commit '@Stones' to memory. 'Tis a simple tune - ask @Gwenno to play it for thee.\"\")",
+            "if equals(hasBit(byte 235, byte 6), byte 0):",
             [
                 "SETF",
                 [
@@ -157,56 +85,26 @@
                     7
                 ]
             ],
-            "ENDIF",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "pan,pipe,ston"
-            ],
-            [
-                "JUMP",
-                1968
-            ],
-            [
-                "CASE",
-                "juli"
-            ],
-            [
-                "IF",
-                "partyHas(byte 67)"
-            ],
-            "\"Yes, ask her about it.\"",
+            "endif",
+            "jump 196",
+            "case \"pan,pipe,ston\":",
+            "jump 1968",
+            "case \"juli\":",
+            "if partyHas(byte 67):",
+            "print(\"\"Yes, ask her about it.\"\")",
             "ELSE",
-            "\"She made my @lute - and most of our other instruments as well.\"",
-            "WAIT",
-            "\n\n\"She lives just across the road, next door to Lady @Isabella.\"",
-            "ENDIF",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "isab"
-            ],
-            "\"She's the mayor.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "gwen"
-            ],
-            "\"I know she's around here somewhere...\"",
-            [
-                "IF",
-                "isNearby(byte 66)"
-            ],
-            "WAIT",
+            "print(\"\"She made my @lute - and most of our other instruments as well.\"\")",
+            "wait()",
+            "print(\"\n\n\"She lives just across the road, next door to Lady @Isabella.\"\")",
+            "endif",
+            "jump 196",
+            "case \"isab\":",
+            "print(\"\"She's the mayor.\"\")",
+            "jump 196",
+            "case \"gwen\":",
+            "print(\"\"I know she's around here somewhere...\"\")",
+            "if isNearby(byte 66):",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -214,8 +112,8 @@
                     66
                 ]
             ],
-            "\n\n\"I'm right here, Selganor!\"",
-            "WAIT",
+            "print(\"\n\n\"I'm right here, Selganor!\"\")",
+            "wait()",
             [
                 "PORTRAIT",
                 [
@@ -223,128 +121,65 @@
                     235
                 ]
             ],
-            "\n\n\"Ah, I knew you'd be somewhere close by.\"",
-            "ENDIF",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "lute,inst"
-            ],
-            "\"I prefer stringed instruments. They make such lovely sounds.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "ball"
-            ],
-            "\"Oh, are you looking for the man who invented the balloon?\" He stares upward, stroking his chin pensively.",
-            "WAIT",
-            "\n\n\"Ah yes, now I remember. He flew to @Sutek's castle.\"",
-            "WAIT",
-            "\n\n\"Said something about a big job he had to do there.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "sute,cast,flew"
-            ],
-            "\"Sutek lives on an @island, far to the south.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "isla"
-            ],
-            "\"It's east of Serpent's Hold.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"It was nice talking to you.\"\n",
+            "print(\"\n\n\"Ah, I knew you'd be somewhere close by.\"\")",
+            "endif",
+            "jump 196",
+            "case \"lute,inst\":",
+            "print(\"\"I prefer stringed instruments. They make such lovely sounds.\"\")",
+            "jump 196",
+            "case \"ball\":",
+            "print(\"\"Oh, are you looking for the man who invented the balloon?\" He stares upward, stroking his chin pensively.\")",
+            "wait()",
+            "print(\"\n\n\"Ah yes, now I remember. He flew to @Sutek's castle.\"\")",
+            "wait()",
+            "print(\"\n\n\"Said something about a big job he had to do there.\"\")",
+            "jump 196",
+            "case \"sute,cast,flew\":",
+            "print(\"\"Sutek lives on an @island, far to the south.\"\")",
+            "jump 196",
+            "case \"isla\":",
+            "print(\"\"It's east of Serpent's Hold.\"\")",
+            "jump 196",
+            "case \"bye\":",
+            "print(\"\"It was nice talking to you.\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"I don't think I can help you there.\"",
+            "case \"*\":",
+            "print(\"\"I don't think I can help you there.\"\")",
             "ESAC",
-            [
-                "JUMP",
-                196
-            ]
+            "jump 196"
         ],
         "1968": [
-            [
-                "IF",
-                "hasBit(byte 235, byte 6)"
-            ],
-            "\"You should play your panpipes often - 'twill lighten your step on the long road ahead.\"",
-            [
-                "JUMP",
-                196
-            ],
-            "ENDIF",
-            "\"Have you made a set of panpipes?\"",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Oh. Well, @Julia can show you how if you need help.\"",
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "IF",
-                "equals(partyHasObject(byte 153, byte 0), word 32769)"
-            ],
-            "\"But I don't see any!\"",
-            [
-                "JUMP",
-                196
-            ],
-            "ENDIF",
+            "if hasBit(byte 235, byte 6):",
+            "print(\"\"You should play your panpipes often - 'twill lighten your step on the long road ahead.\"\")",
+            "jump 196",
+            "endif",
+            "print(\"\"Have you made a set of panpipes?\"\")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Oh. Well, @Julia can show you how if you need help.\"\")",
+            "jump 196",
+            "case \"y\":",
+            "if equals(partyHasObject(byte 153, byte 0), word 32769):",
+            "print(\"\"But I don't see any!\"\")",
+            "jump 196",
+            "endif",
             "ESAC",
-            "He inspects the pipes. \"Very good, very good indeed.\"",
-            "WAIT",
-            "\n\n\"Now tell me the sequence of notes in 'Stones' and I'll induct you into the guild.\"",
-            "WAIT",
-            "\n\n\"Numeric notation will be fine.\"\n",
-            "ASK",
-            [
-                "CASE",
-                "678987,8767653"
-            ],
-            "\"Excellent!\" He strums a chord on his lute, then taps you lightly once on each shoulder with it.",
-            "WAIT",
-            "\n\"You are now a full member of the guild of artisans.\"",
-            "WAIT",
-            "\n\nHe reaches into a belt-pouch, takes out the Rune of Sacrifice, and hands it to you.",
-            "WAIT",
-            "\n\n\"I'm sure you'll be needing this in your travels.\"",
-            "WAIT",
-            "\n\"I know you'll find some solution to this gargoyle problem.\"",
+            "print(\"He inspects the pipes. \"Very good, very good indeed.\"\")",
+            "wait()",
+            "print(\"\n\n\"Now tell me the sequence of notes in 'Stones' and I'll induct you into the guild.\"\")",
+            "wait()",
+            "print(\"\n\n\"Numeric notation will be fine.\"\n\")",
+            "ask()",
+            "case \"678987,8767653\":",
+            "print(\"\"Excellent!\" He strums a chord on his lute, then taps you lightly once on each shoulder with it.\")",
+            "wait()",
+            "print(\"\n\"You are now a full member of the guild of artisans.\"\")",
+            "wait()",
+            "print(\"\n\nHe reaches into a belt-pouch, takes out the Rune of Sacrifice, and hands it to you.\")",
+            "wait()",
+            "print(\"\n\n\"I'm sure you'll be needing this in your travels.\"\")",
+            "wait()",
+            "print(\"\n\"I know you'll find some solution to this gargoyle problem.\"\")",
             [
                 "GIVE",
                 [
@@ -386,200 +221,71 @@
                     7
                 ]
             ],
-            [
-                "JUMP",
-                196
-            ],
-            [
-                "CASE",
-                "*"
-            ],
-            "\"No, I'm afraid that's not it. Gwenno can help you learn the notes.\"",
-            [
-                "JUMP",
-                196
-            ]
+            "jump 196",
+            "case \"*\":",
+            "print(\"\"No, I'm afraid that's not it. Gwenno can help you learn the notes.\"\")",
+            "jump 196"
         ],
         "2863": [
-            "\"Oh, hello. Maybe you can help me with something.\"\n*\n\"My nephew is studying alchemy, and he needs to know this.\"\n*\n",
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            6
-                        ]
-                    ]
-                ],
-                [
-                    "random",
-                    [
-                        [
-                            "byte",
-                            1
-                        ],
-                        [
-                            "byte",
-                            4
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(integer(value 6), byte 1)"
-            ],
-            [
-                "JUMP",
-                3040
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 6), byte 2)"
-            ],
-            [
-                "JUMP",
-                3209
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 6), byte 3)"
-            ],
-            [
-                "JUMP",
-                3391
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "equals(integer(value 6), byte 4)"
-            ],
-            [
-                "JUMP",
-                3543
-            ],
-            "ENDIF",
-            "\"What kind of fork should mandrake roots be prepared with?\"\n",
-            "ASK",
-            [
-                "CASE",
-                "silv"
-            ],
-            [
-                "JUMP",
-                3691
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            [
-                "JUMP",
-                3739
-            ],
-            [
-                "CASE",
-                "*"
-            ],
-            "\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"",
-            [
-                "JUMP",
-                3099
-            ]
+            "print(\"\"Oh, hello. Maybe you can help me with something.\"\n*\n\"My nephew is studying alchemy, and he needs to know this.\"\n*\n\")",
+            "integer(value 6) = random(byte 1, byte 4)",
+            "if equals(integer(value 6), byte 1):",
+            "jump 3040",
+            "endif",
+            "if equals(integer(value 6), byte 2):",
+            "jump 3209",
+            "endif",
+            "if equals(integer(value 6), byte 3):",
+            "jump 3391",
+            "endif",
+            "if equals(integer(value 6), byte 4):",
+            "jump 3543",
+            "endif",
+            "print(\"\"What kind of fork should mandrake roots be prepared with?\"\n\")",
+            "ask()",
+            "case \"silv\":",
+            "jump 3691",
+            "case \"bye\":",
+            "jump 3739",
+            "case \"*\":",
+            "print(\"\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"\")",
+            "jump 3099"
         ],
         "3209": [
-            "\"What part of the nightshade mushroom is used in spellcasting?\"\n",
-            "ASK",
-            [
-                "CASE",
-                "fung,cap,spor"
-            ],
-            [
-                "JUMP",
-                3691
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            [
-                "JUMP",
-                3739
-            ],
-            [
-                "CASE",
-                "*"
-            ],
-            "\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"",
-            [
-                "JUMP",
-                3272
-            ]
+            "print(\"\"What part of the nightshade mushroom is used in spellcasting?\"\n\")",
+            "ask()",
+            "case \"fung,cap,spor\":",
+            "jump 3691",
+            "case \"bye\":",
+            "jump 3739",
+            "case \"*\":",
+            "print(\"\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"\")",
+            "jump 3272"
         ],
         "3391": [
-            "\"Where does sulfurous ash come from?\"\n",
-            "ASK",
-            [
-                "CASE",
-                "volc,erup"
-            ],
-            [
-                "JUMP",
-                3691
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            [
-                "JUMP",
-                3739
-            ],
-            [
-                "CASE",
-                "*"
-            ],
-            "\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"",
-            [
-                "JUMP",
-                3428
-            ]
+            "print(\"\"Where does sulfurous ash come from?\"\n\")",
+            "ask()",
+            "case \"volc,erup\":",
+            "jump 3691",
+            "case \"bye\":",
+            "jump 3739",
+            "case \"*\":",
+            "print(\"\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"\")",
+            "jump 3428"
         ],
         "3543": [
-            "\"What are black pearls used for?\"\n",
-            "ASK",
-            [
-                "CASE",
-                "kine,prop"
-            ],
-            [
-                "JUMP",
-                3691
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            [
-                "JUMP",
-                3739
-            ],
-            [
-                "CASE",
-                "*"
-            ],
-            "\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"",
-            [
-                "JUMP",
-                3576
-            ]
+            "print(\"\"What are black pearls used for?\"\n\")",
+            "ask()",
+            "case \"kine,prop\":",
+            "jump 3691",
+            "case \"bye\":",
+            "jump 3739",
+            "case \"*\":",
+            "print(\"\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"\")",
+            "jump 3576"
         ],
         "3691": [
-            "\"Thanks! Now what can I do for you?\"",
+            "print(\"\"Thanks! Now what can I do for you?\"\")",
             [
                 "SETF",
                 [
@@ -591,13 +297,10 @@
                     5
                 ]
             ],
-            [
-                "JUMP",
-                196
-            ]
+            "jump 196"
         ],
         "3739": [
-            "\"Hmmmm... I wish I knew the answer to that question...\"\n*\nHe turns away from you absent-mindedly.\n",
+            "print(\"\"Hmmmm... I wish I knew the answer to that question...\"\n*\nHe turns away from you absent-mindedly.\n\")",
             "BYE"
         ]
     }

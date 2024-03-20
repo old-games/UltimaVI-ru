@@ -5,57 +5,42 @@
     "name": "Bolesh",
     "f3-after-name": false,
     "description": [
-        "a strong, winged gargoyle warrior. He is sorely wounded."
+        "print(\"a strong, winged gargoyle warrior. He is sorely wounded.\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "66": [
-            "WAIT",
-            "\n",
-            [
-                "IF",
-                "integer(value 21)"
-            ],
-            [
-                "JUMP",
-                201
-            ],
-            "ENDIF",
-            "The gargoyle struggles to sit up.",
-            "WAIT",
-            "\n\nHe shouts, \"An-bal-sil-fer! Agra-lem! Agra-lem!\"",
-            "WAIT",
-            "\n\nThe gargoyle collapses, exhausted.\n",
+            "wait()",
+            "print(\"\n\")",
+            "if integer(value 21):",
+            "jump 201",
+            "endif",
+            "print(\"The gargoyle struggles to sit up.\")",
+            "wait()",
+            "print(\"\n\nHe shouts, \"An-bal-sil-fer! Agra-lem! Agra-lem!\"\")",
+            "wait()",
+            "print(\"\n\nThe gargoyle collapses, exhausted.\n\")",
             "BYE"
         ],
         "201": [
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            [
-                "JUMP",
-                520
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "notEquals(partyHasObject(byte 76, byte 0), byte 1)"
-            ],
-            "The gargoyle struggles to sit up.",
-            "WAIT",
-            "\n\nHe shouts, \"The False Prophet! Guards! Guards!\"",
-            "WAIT",
-            "\n\nThe gargoyle collapses, outraged but exhausted.\n",
+            "if hasBit(byte 235, value 0):",
+            "jump 520",
+            "endif",
+            "if notEquals(partyHasObject(byte 76, byte 0), byte 1):",
+            "print(\"The gargoyle struggles to sit up.\")",
+            "wait()",
+            "print(\"\n\nHe shouts, \"The False Prophet! Guards! Guards!\"\")",
+            "wait()",
+            "print(\"\n\nThe gargoyle collapses, outraged but exhausted.\n\")",
             "BYE",
             "ELSE",
-            "The gargoyle struggles to sit up.",
-            "WAIT",
-            "\n\n\"The False Prophet!\"",
-            "WAIT",
-            "\n\n\"But to wear the Amulet of Submission?\"",
-            "WAIT",
-            "\n\n\"Then to express awe at your honor and courage.\"",
+            "print(\"The gargoyle struggles to sit up.\")",
+            "wait()",
+            "print(\"\n\n\"The False Prophet!\"\")",
+            "wait()",
+            "print(\"\n\n\"But to wear the Amulet of Submission?\"\")",
+            "wait()",
+            "print(\"\n\n\"Then to express awe at your honor and courage.\"\")",
             [
                 "SETF",
                 [
@@ -67,111 +52,57 @@
                     0
                 ]
             ],
-            [
-                "JUMP",
-                551
-            ],
-            "ENDIF"
+            "jump 551",
+            "endif"
         ],
         "520": [
-            "\"Greetings again, honored one.\"\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"To be named Bolesh Us-agra-lem, Bolesh the Troop-@Leader.\"",
-            [
-                "JUMP",
-                551
-            ],
-            [
-                "CASE",
-                "job,lead"
-            ],
-            "\"To lead what remains of our forces into battle.\"",
-            "WAIT",
-            "\n\n\"To have recently returned from a mission to your side of the world.\"",
-            "WAIT",
-            "\n\n\"To have tried to reach the @Codex.\"",
-            [
-                "JUMP",
-                551
-            ],
-            [
-                "CASE",
-                "code"
-            ],
-            "\"To have had victory between our claws, but to have been thwarted on the verge of success!\"",
-            "WAIT",
-            "\n\n\"To have encountered an impervious @force field around the Codex.\"",
-            [
-                "JUMP",
-                551
-            ],
-            [
-                "CASE",
-                "forc,fiel"
-            ],
-            "\"To know that such a field surrounded the Codex when my people possessed it.\"",
-            "WAIT",
-            "\n\n\"To remember that only those on sacred @quests for wisdom could pass.\"",
-            [
-                "JUMP",
-                551
-            ],
-            [
-                "CASE",
-                "sacr,ques"
-            ],
-            "\"To receive a sacred quest at the @Temple of Singularity.\"",
-            "WAIT",
-            "\n\n\"But to be uncertain whether a human's request would be answered there.\"",
-            [
-                "JUMP",
-                551
-            ],
-            [
-                "CASE",
-                "temp,sing"
-            ],
-            "\"To find the temple in the mountains to the north.\"",
-            "WAIT",
-            "\n\n\"To need to fly to get there, though!\"",
-            [
-                "JUMP",
-                551
-            ],
-            [
-                "CASE",
-                "fly"
-            ],
-            "\"Yes, to be accessible only to the superior winged gargoyles.\"",
-            "WAIT",
-            "\n\n\"To be totally unreachable by land-bound worker gargoyles!\"",
-            "WAIT",
-            "\n\n\"To suppose that it is totally unreachable by land-bound humans as well.\"",
-            [
-                "JUMP",
-                551
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Farewell, False Prophet.\"",
-            "WAIT",
-            "\n\n\"To honor my people with your sacrifice.\"\n",
+            "print(\"\"Greetings again, honored one.\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"To be named Bolesh Us-agra-lem, Bolesh the Troop-@Leader.\"\")",
+            "jump 551",
+            "case \"job,lead\":",
+            "print(\"\"To lead what remains of our forces into battle.\"\")",
+            "wait()",
+            "print(\"\n\n\"To have recently returned from a mission to your side of the world.\"\")",
+            "wait()",
+            "print(\"\n\n\"To have tried to reach the @Codex.\"\")",
+            "jump 551",
+            "case \"code\":",
+            "print(\"\"To have had victory between our claws, but to have been thwarted on the verge of success!\"\")",
+            "wait()",
+            "print(\"\n\n\"To have encountered an impervious @force field around the Codex.\"\")",
+            "jump 551",
+            "case \"forc,fiel\":",
+            "print(\"\"To know that such a field surrounded the Codex when my people possessed it.\"\")",
+            "wait()",
+            "print(\"\n\n\"To remember that only those on sacred @quests for wisdom could pass.\"\")",
+            "jump 551",
+            "case \"sacr,ques\":",
+            "print(\"\"To receive a sacred quest at the @Temple of Singularity.\"\")",
+            "wait()",
+            "print(\"\n\n\"But to be uncertain whether a human's request would be answered there.\"\")",
+            "jump 551",
+            "case \"temp,sing\":",
+            "print(\"\"To find the temple in the mountains to the north.\"\")",
+            "wait()",
+            "print(\"\n\n\"To need to fly to get there, though!\"\")",
+            "jump 551",
+            "case \"fly\":",
+            "print(\"\"Yes, to be accessible only to the superior winged gargoyles.\"\")",
+            "wait()",
+            "print(\"\n\n\"To be totally unreachable by land-bound worker gargoyles!\"\")",
+            "wait()",
+            "print(\"\n\n\"To suppose that it is totally unreachable by land-bound humans as well.\"\")",
+            "jump 551",
+            "case \"bye\":",
+            "print(\"\"Farewell, False Prophet.\"\")",
+            "wait()",
+            "print(\"\n\n\"To honor my people with your sacrifice.\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "Weakly, the gargoyle says, \"What?\"",
-            [
-                "JUMP",
-                551
-            ]
+            "case \"*\":",
+            "print(\"Weakly, the gargoyle says, \"What?\"\")",
+            "jump 551"
         ]
     }
 }

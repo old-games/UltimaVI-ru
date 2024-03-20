@@ -5,74 +5,38 @@
     "name": "Papa",
     "f3-after-name": false,
     "description": [
-        "a huge male cyclops."
+        "print(\"a huge male cyclops.\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "28": [
-            "WAIT",
-            "\n",
-            [
-                "IF",
-                "hasBit(byte 235, byte 2)"
-            ],
-            "\"Hoh, hoh. You back!\"",
-            "WAIT",
-            "\n\n\"You bring good fish.\"",
-            "WAIT",
-            "\n\n\"Bring more?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "JUMP",
-                845
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"No fish?\" The cyclops seems sad.",
-            [
-                "JUMP",
-                232
-            ],
+            "wait()",
+            "print(\"\n\")",
+            "if hasBit(byte 235, byte 2):",
+            "print(\"\"Hoh, hoh. You back!\"\")",
+            "wait()",
+            "print(\"\n\n\"You bring good fish.\"\")",
+            "wait()",
+            "print(\"\n\n\"Bring more?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "jump 845",
+            "case \"n\":",
+            "print(\"\"No fish?\" The cyclops seems sad.\")",
+            "jump 232",
             "ESAC",
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            "\"Hoh! You bring fish?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "JUMP",
-                845
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Get @fish!\"",
-            [
-                "JUMP",
-                232
-            ],
+            "endif",
+            "if hasBit(byte 235, value 0):",
+            "print(\"\"Hoh! You bring fish?\" \")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "jump 845",
+            "case \"n\":",
+            "print(\"\"Get @fish!\"\")",
+            "jump 232",
             "ESAC",
-            "ENDIF",
-            "\"Who you?\"",
+            "endif",
+            "print(\"\"Who you?\"\")",
             [
                 "SETF",
                 [
@@ -84,195 +48,75 @@
                     0
                 ]
             ],
-            "\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "\"Me cyclops.\"",
-            "WAIT",
-            "\n\n\"@Tiny one say me 'Papa.'\"",
-            [
-                "JUMP",
-                232
-            ],
-            [
-                "CASE",
-                "tiny,one"
-            ],
-            "\"Find him on shore.\"",
-            "WAIT",
-            "\n\n\"One-eye little one die long ago.\"",
-            "WAIT",
-            "\n\n\"Female want little one, so keep tiny one.\"",
-            "WAIT",
-            "\n\n\"Not strong like one-eye little one.\"",
-            [
-                "JUMP",
-                232
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"Live here! Eat, hunt!\"",
-            [
-                "JUMP",
-                232
-            ],
-            [
-                "CASE",
-                "cell"
-            ],
-            "\"Cellar no go. @Locked.\"",
-            [
-                "JUMP",
-                232
-            ],
-            [
-                "CASE",
-                "lock,key"
-            ],
-            [
-                "IF",
-                "hasObject(byte 235, byte 64, byte 13)"
-            ],
-            "\"Got key. Want key?\" ",
-            [
-                "JUMP",
-                745
-            ],
+            "print(\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"\"Me cyclops.\"\")",
+            "wait()",
+            "print(\"\n\n\"@Tiny one say me 'Papa.'\"\")",
+            "jump 232",
+            "case \"tiny,one\":",
+            "print(\"\"Find him on shore.\"\")",
+            "wait()",
+            "print(\"\n\n\"One-eye little one die long ago.\"\")",
+            "wait()",
+            "print(\"\n\n\"Female want little one, so keep tiny one.\"\")",
+            "wait()",
+            "print(\"\n\n\"Not strong like one-eye little one.\"\")",
+            "jump 232",
+            "case \"job\":",
+            "print(\"\"Live here! Eat, hunt!\"\")",
+            "jump 232",
+            "case \"cell\":",
+            "print(\"\"Cellar no go. @Locked.\"\")",
+            "jump 232",
+            "case \"lock,key\":",
+            "if hasObject(byte 235, byte 64, byte 13):",
+            "print(\"\"Got key. Want key?\" \")",
+            "jump 745",
             "ELSE",
-            "\"No got key.\"",
-            [
-                "JUMP",
-                232
-            ],
-            "ENDIF",
-            [
-                "CASE",
-                "big,bloc,blac,cube"
-            ],
-            "\"Mine. In @cellar. No get!\"",
-            [
-                "JUMP",
-                232
-            ],
-            [
-                "CASE",
-                "fish"
-            ],
-            "\"Fish good.\"",
-            "WAIT",
-            "\n\n\"Like eat much fish!\"",
-            [
-                "JUMP",
-                232
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"Come back, bring ",
-            [
-                "IF",
-                "hasBit(byte 235, byte 2)"
-            ],
-            "more ",
-            "ENDIF",
-            "fish!\"\n",
+            "print(\"\"No got key.\"\")",
+            "jump 232",
+            "endif",
+            "case \"big,bloc,blac,cube\":",
+            "print(\"\"Mine. In @cellar. No get!\"\")",
+            "jump 232",
+            "case \"fish\":",
+            "print(\"\"Fish good.\"\")",
+            "wait()",
+            "print(\"\n\n\"Like eat much fish!\"\")",
+            "jump 232",
+            "case \"bye\":",
+            "print(\"\"Come back, bring \")",
+            "if hasBit(byte 235, byte 2):",
+            "print(\"more \")",
+            "endif",
+            "print(\"fish!\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"What mean $Z?\"",
-            [
-                "JUMP",
-                232
-            ]
+            "case \"*\":",
+            "print(\"\"What mean $Z?\"\")",
+            "jump 232"
         ],
         "745": [
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"Want fish!\"",
-            "WAIT",
-            "\n\n\"Use pole, get fish.\"",
-            "WAIT",
-            "\n\n\"Want key, bring fish!\"",
-            [
-                "JUMP",
-                232
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Why ask no want?\"",
-            [
-                "JUMP",
-                232
-            ]
+            "askc(\"yn\")",
+            "case \"y\":",
+            "print(\"\"Want fish!\"\")",
+            "wait()",
+            "print(\"\n\n\"Use pole, get fish.\"\")",
+            "wait()",
+            "print(\"\n\n\"Want key, bring fish!\"\")",
+            "jump 232",
+            "case \"n\":",
+            "print(\"\"Why ask no want?\"\")",
+            "jump 232"
         ],
         "845": [
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            1
-                        ]
-                    ]
-                ],
-                [
-                    "byte",
-                    0
-                ]
-            ],
-            [
-                "ASSIGN",
-                [
-                    "integer",
-                    [
-                        [
-                            "value",
-                            0
-                        ]
-                    ]
-                ],
-                [
-                    "partyHasObject",
-                    [
-                        [
-                            "word",
-                            265
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "IF",
-                "equals(integer(value 0), word 32769)"
-            ],
-            "\"Where fish? No smell fish.\"",
-            [
-                "JUMP",
-                232
-            ],
-            "ENDIF",
+            "integer(value 1) = byte 0",
+            "integer(value 0) = partyHasObject(word 265, byte 0)",
+            "if equals(integer(value 0), word 32769):",
+            "print(\"\"Where fish? No smell fish.\"\")",
+            "jump 232",
+            "endif",
             [
                 "DELETE",
                 [
@@ -297,19 +141,13 @@
                     1
                 ]
             ],
-            [
-                "IF",
-                "hasBit(byte 235, byte 2)"
-            ],
-            "\"Good fish! Good friend!\"",
-            [
-                "JUMP",
-                232
-            ],
-            "ENDIF",
-            "\"Good fish! Here, key.\"",
-            "WAIT",
-            "\n\nThe cyclops hands you a large, rusted key.",
+            "if hasBit(byte 235, byte 2):",
+            "print(\"\"Good fish! Good friend!\"\")",
+            "jump 232",
+            "endif",
+            "print(\"\"Good fish! Here, key.\"\")",
+            "wait()",
+            "print(\"\n\nThe cyclops hands you a large, rusted key.\")",
             [
                 "GIVE",
                 [
@@ -340,10 +178,7 @@
                     2
                 ]
             ],
-            [
-                "JUMP",
-                232
-            ]
+            "jump 232"
         ]
     }
 }

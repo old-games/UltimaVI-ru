@@ -5,32 +5,20 @@
     "name": "Ariana",
     "f3-after-name": false,
     "description": [
-        "a cute little girl with short hair.\n*"
+        "print(\"a cute little girl with short hair.\n*\")"
     ],
     "f3-after-description": false,
     "interaction": {
         "47": [
-            [
-                "IF",
-                "hasBit(byte 235, byte 7)"
-            ],
-            [
-                "JUMP",
-                2104
-            ],
-            "ENDIF",
-            [
-                "IF",
-                "hasBit(byte 235, value 0)"
-            ],
-            [
-                "JUMP",
-                180
-            ],
-            "ENDIF",
-            "\"My parents told me never to talk to strangers. What's your name?\"\n",
-            "ASK",
-            "\n\"Ok. Now I can talk to you!\"",
+            "if hasBit(byte 235, byte 7):",
+            "jump 2104",
+            "endif",
+            "if hasBit(byte 235, value 0):",
+            "jump 180",
+            "endif",
+            "print(\"\"My parents told me never to talk to strangers. What's your name?\"\n\")",
+            "ask()",
+            "print(\"\n\"Ok. Now I can talk to you!\"\")",
             [
                 "SETF",
                 [
@@ -42,121 +30,49 @@
                     0
                 ]
             ],
-            [
-                "JUMP",
-                198
-            ]
+            "jump 198"
         ],
         "180": [
-            "\"Oh, hello again.\"\n",
-            "ASK",
-            [
-                "CASE",
-                "name"
-            ],
-            "She curtsies gracefully. \"Ariana is my name.\"",
-            [
-                "JUMP",
-                198
-            ],
-            [
-                "CASE",
-                "job"
-            ],
-            "\"I'm learning to be a @bard. I like to @play the harpsichord best.\"",
-            [
-                "JUMP",
-                198
-            ],
-            [
-                "CASE",
-                "bard"
-            ],
-            "\"I want to be a bard when I grow up. They have more @fun than anybody!\"",
-            [
-                "JUMP",
-                198
-            ],
-            [
-                "CASE",
-                "comp"
-            ],
-            "\"They taught me all about compassion. They say it's very important for bards.\"",
-            [
-                "JUMP",
-                198
-            ],
-            [
-                "CASE",
-                "mant"
-            ],
-            "\"I can't remember it now... And @Kenneth just taught it to me last week...\"\n*\n\"Wait, I know! It's 'mo!'\"\n*\n\"Or maybe it was 'om'... Or 'mu,' or 'um'... It was something like that.\"",
-            [
-                "JUMP",
-                198
-            ],
-            [
-                "CASE",
-                "rune"
-            ],
-            [
-                "JUMP",
-                1475
-            ],
-            [
-                "CASE",
-                "song,music,play,harp"
-            ],
-            [
-                "JUMP",
-                843
-            ],
-            [
-                "CASE",
-                "fun"
-            ],
-            "\"Oh yes, lots of it!\"",
-            [
-                "JUMP",
-                198
-            ],
-            [
-                "CASE",
-                "ken"
-            ],
-            "\"He's my teacher.\"",
-            [
-                "JUMP",
-                198
-            ],
-            [
-                "CASE",
-                "bye"
-            ],
-            "\"See you later.\"\n",
+            "print(\"\"Oh, hello again.\"\n\")",
+            "ask()",
+            "case \"name\":",
+            "print(\"She curtsies gracefully. \"Ariana is my name.\"\")",
+            "jump 198",
+            "case \"job\":",
+            "print(\"\"I'm learning to be a @bard. I like to @play the harpsichord best.\"\")",
+            "jump 198",
+            "case \"bard\":",
+            "print(\"\"I want to be a bard when I grow up. They have more @fun than anybody!\"\")",
+            "jump 198",
+            "case \"comp\":",
+            "print(\"\"They taught me all about compassion. They say it's very important for bards.\"\")",
+            "jump 198",
+            "case \"mant\":",
+            "print(\"\"I can't remember it now... And @Kenneth just taught it to me last week...\"\n*\n\"Wait, I know! It's 'mo!'\"\n*\n\"Or maybe it was 'om'... Or 'mu,' or 'um'... It was something like that.\"\")",
+            "jump 198",
+            "case \"rune\":",
+            "jump 1475",
+            "case \"song,music,play,harp\":",
+            "jump 843",
+            "case \"fun\":",
+            "print(\"\"Oh yes, lots of it!\"\")",
+            "jump 198",
+            "case \"ken\":",
+            "print(\"\"He's my teacher.\"\")",
+            "jump 198",
+            "case \"bye\":",
+            "print(\"\"See you later.\"\n\")",
             "BYE",
-            [
-                "CASE",
-                "*"
-            ],
-            "\"What do you mean?\"",
+            "case \"*\":",
+            "print(\"\"What do you mean?\"\")",
             "ESAC",
-            [
-                "JUMP",
-                198
-            ]
+            "jump 198"
         ],
         "843": [
-            "\"I've been studying to be a bard since I was this many.\" She holds up three fingers.\n*\n\"I'd like to play something for you, but I'm not good enough yet.\"\n*\nShe looks away for a moment, then turns back to you, blushing slightly.\n*\n\"Will you come back to hear my music when I am older, if you can?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "The little girl sniffles, seeming suddenly on the verge of tears.\n\n*\"I'm sorry,\" she says, \"I shouldn't have asked.\" She turns her back, as if ashamed to face you.\n",
+            "print(\"\"I've been studying to be a bard since I was this many.\" She holds up three fingers.\n*\n\"I'd like to play something for you, but I'm not good enough yet.\"\n*\nShe looks away for a moment, then turns back to you, blushing slightly.\n*\n\"Will you come back to hear my music when I am older, if you can?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"The little girl sniffles, seeming suddenly on the verge of tears.\n\n*\"I'm sorry,\" she says, \"I shouldn't have asked.\" She turns her back, as if ashamed to face you.\n\")",
             [
                 "SUB_KARMA",
                 [
@@ -165,15 +81,9 @@
                 ]
             ],
             "BYE",
-            [
-                "CASE",
-                "y"
-            ],
-            "The little girl's face breaks out into a smile bright enough to light up the whole room.\n*\n\"Really? I would like that very much.\"",
-            [
-                "IF",
-                "equals(hasBit(byte 235, byte 4), byte 0)"
-            ],
+            "case \"y\":",
+            "print(\"The little girl's face breaks out into a smile bright enough to light up the whole room.\n*\n\"Really? I would like that very much.\"\")",
+            "if equals(hasBit(byte 235, byte 4), byte 0):",
             [
                 "ADD_KARMA",
                 [
@@ -192,58 +102,28 @@
                     4
                 ]
             ],
-            "ENDIF",
+            "endif",
             "ESAC",
-            [
-                "JUMP",
-                198
-            ]
+            "jump 198"
         ],
         "1475": [
-            [
-                "IF",
-                "hasBit(byte 235, byte 6)"
-            ],
-            "\"I already gave it to you, silly. I hope you can figure out how to use it.\"",
-            [
-                "JUMP",
-                198
-            ],
-            "ENDIF",
-            "\"I have the Rune of Compassion. Isn't it pretty?\" She reaches into her pocket and takes it out to show you.*\n\n\"Do you need it for something?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Ok.\"",
-            [
-                "JUMP",
-                198
-            ],
+            "if hasBit(byte 235, byte 6):",
+            "print(\"\"I already gave it to you, silly. I hope you can figure out how to use it.\"\")",
+            "jump 198",
+            "endif",
+            "print(\"\"I have the Rune of Compassion. Isn't it pretty?\" She reaches into her pocket and takes it out to show you.*\n\n\"Do you need it for something?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"Ok.\"\")",
+            "jump 198",
             "ESAC",
-            "\n\"Are you on an important quest?\" ",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"I'd best hold onto it then. I was told to look after it carefully.\"",
-            [
-                "JUMP",
-                198
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            "\"I'm not supposed to let anyone else have it. But if you truly need it...\"\n*\n\"I don't know what I should do.\"\n*\n\"I know! My parents run the Blue Boar Tavern. Go ask them if you can borrow the rune.\"\n*\n\"If they say 'tis okay, I'll give it to you.\"",
+            "print(\"\n\"Are you on an important quest?\" \")",
+            "askc(\"yn\")",
+            "case \"n\":",
+            "print(\"\"I'd best hold onto it then. I was told to look after it carefully.\"\")",
+            "jump 198",
+            "case \"y\":",
+            "print(\"\"I'm not supposed to let anyone else have it. But if you truly need it...\"\n*\n\"I don't know what I should do.\"\n*\n\"I know! My parents run the Blue Boar Tavern. Go ask them if you can borrow the rune.\"\n*\n\"If they say 'tis okay, I'll give it to you.\"\")",
             [
                 "SETF",
                 [
@@ -267,36 +147,18 @@
                 ]
             ],
             "ESAC",
-            [
-                "JUMP",
-                198
-            ]
+            "jump 198"
         ],
         "2104": [
-            "\"Hi! Did you get permission from my parents to borrow the rune?\"",
-            [
-                "ASKC",
-                "yn"
-            ],
-            [
-                "CASE",
-                "y"
-            ],
-            [
-                "IF",
-                "less(canCarry(character(integer(value 3), byte 0)), weight(byte 243, byte 1))"
-            ],
-            "\"Oh, you're carrying too much right now. You'd better come back for it later.\"",
-            [
-                "JUMP",
-                198
-            ],
-            "ENDIF",
-            "\"Then here you are.\" She hands you the rune. \"I wish you the best of luck on your quest.\"",
-            [
-                "IF",
-                "hasBit(byte 235, byte 5)"
-            ],
+            "print(\"\"Hi! Did you get permission from my parents to borrow the rune?\"\")",
+            "askc(\"yn\")",
+            "case \"y\":",
+            "if less(canCarry(character(integer(value 3), byte 0)), weight(byte 243, byte 1)):",
+            "print(\"\"Oh, you're carrying too much right now. You'd better come back for it later.\"\")",
+            "jump 198",
+            "endif",
+            "print(\"\"Then here you are.\" She hands you the rune. \"I wish you the best of luck on your quest.\"\")",
+            "if hasBit(byte 235, byte 5):",
             [
                 "SUB_KARMA",
                 [
@@ -304,7 +166,7 @@
                     10
                 ]
             ],
-            "ENDIF",
+            "endif",
             [
                 "CLEARF",
                 [
@@ -346,19 +208,10 @@
                     1
                 ]
             ],
-            [
-                "JUMP",
-                198
-            ],
-            [
-                "CASE",
-                "n"
-            ],
-            "\"Well, if you get their permission later, let me know.\"",
-            [
-                "JUMP",
-                198
-            ]
+            "jump 198",
+            "case \"n\":",
+            "print(\"\"Well, if you get their permission later, let me know.\"\")",
+            "jump 198"
         ]
     }
 }
