@@ -61,276 +61,193 @@
             "\n",
             "ASK",
             [
-                "KEYWORDS",
-                "buy",
+                "CASE",
+                "buy"
+            ],
+            "\"I have a large inventory, so be more specific:\"",
+            "WAIT",
+            "\n\n\"Dost thou want @arms or @armor?\"",
+            [
+                "JUMP",
+                236
+            ],
+            [
+                "CASE",
+                "arms"
+            ],
+            [
+                "IF",
+                "notEquals(integer(value 32), byte 144)"
+            ],
+            "\"Come by my shop when I'm open!\"",
+            [
+                "JUMP",
+                236
+            ],
+            "ELSE",
+            [
+                "ASSIGN",
                 [
-                    "\"I have a large inventory, so be more specific:\"",
-                    "WAIT",
-                    "\n\n\"Dost thou want @arms or @armor?\"",
+                    "integer",
                     [
-                        "JUMP",
-                        236
+                        [
+                            "value",
+                            9
+                        ]
                     ]
+                ],
+                [
+                    "byte",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "arms",
+                "JUMP",
+                2157
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "armo"
+            ],
+            [
+                "IF",
+                "notEquals(integer(value 32), byte 144)"
+            ],
+            "\"Come by my shop when I'm open!\"",
+            [
+                "JUMP",
+                236
+            ],
+            "ELSE",
+            [
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "notEquals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
+                            "value",
+                            9
+                        ]
+                    ]
+                ],
+                [
+                    "integer",
+                    [
                         [
-                            "\"Come by my shop when I'm open!\"",
-                            [
-                                "JUMP",
-                                236
-                            ]
-                        ],
-                        [
-                            [
-                                "ASSIGN",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            9
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                2157
-                            ]
+                            "value",
+                            8
                         ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "armo",
-                [
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Come by my shop when I'm open!\"",
-                            [
-                                "JUMP",
-                                236
-                            ]
-                        ],
-                        [
-                            [
-                                "ASSIGN",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            9
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            8
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                2157
-                            ]
-                        ]
-                    ]
-                ]
+                "JUMP",
+                2157
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "sell"
             ],
             [
-                "KEYWORDS",
-                "sell",
-                [
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Come by my shop when I'm open!\"",
-                            [
-                                "JUMP",
-                                236
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                1235
-                            ]
-                        ]
-                    ]
-                ]
+                "IF",
+                "notEquals(integer(value 32), byte 144)"
+            ],
+            "\"Come by my shop when I'm open!\"",
+            [
+                "JUMP",
+                236
+            ],
+            "ELSE",
+            [
+                "JUMP",
+                1235
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "job"
+            ],
+            "\"Oh, I'm not important like you. I'm just a weaponsmith--and only a @journeyman at that.\"",
+            [
+                "JUMP",
+                236
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"Oh, I'm not important like you. I'm just a weaponsmith--and only a @journeyman at that.\"",
-                    [
-                        "JUMP",
-                        236
-                    ]
-                ]
+                "CASE",
+                "jour"
+            ],
+            "\"Aye, just a few years ago I was a simple apprentice.\"",
+            "WAIT",
+            "\n\n\"Now I @supply arms to all Trinsic!\"",
+            [
+                "JUMP",
+                236
             ],
             [
-                "KEYWORDS",
-                "jour",
-                [
-                    "\"Aye, just a few years ago I was a simple apprentice.\"",
-                    "WAIT",
-                    "\n\n\"Now I @supply arms to all Trinsic!\"",
-                    [
-                        "JUMP",
-                        236
-                    ]
-                ]
+                "CASE",
+                "name"
+            ],
+            "\"My name's Brandon, $G, and I'm honored to meet thee!\"",
+            [
+                "JUMP",
+                236
             ],
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "\"My name's Brandon, $G, and I'm honored to meet thee!\"",
-                    [
-                        "JUMP",
-                        236
-                    ]
-                ]
+                "CASE",
+                "join"
+            ],
+            "\"That would be a great honor! I'd love to!\"",
+            "WAIT",
+            "\n\nThe man comes to his senses.",
+            "WAIT",
+            "\n\n\"But no, I can't. I've responsibilites here, especially @now.\"",
+            [
+                "JUMP",
+                236
             ],
             [
-                "KEYWORDS",
-                "join",
-                [
-                    "\"That would be a great honor! I'd love to!\"",
-                    "WAIT",
-                    "\n\nThe man comes to his senses.",
-                    "WAIT",
-                    "\n\n\"But no, I can't. I've responsibilites here, especially @now.\"",
-                    [
-                        "JUMP",
-                        236
-                    ]
-                ]
+                "CASE",
+                "well,good,fine,okay,grea"
+            ],
+            "\"And glad I am to hear it!\"",
+            [
+                "JUMP",
+                236
             ],
             [
-                "KEYWORDS",
-                "well,good,fine,okay,grea",
-                [
-                    "\"And glad I am to hear it!\"",
-                    [
-                        "JUMP",
-                        236
-                    ]
-                ]
+                "CASE",
+                "now,supp"
+            ],
+            "\"I have to make @weapons to help fight the gargoyles!\"",
+            [
+                "JUMP",
+                236
             ],
             [
-                "KEYWORDS",
-                "now,supp",
-                [
-                    "\"I have to make @weapons to help fight the gargoyles!\"",
-                    [
-                        "JUMP",
-                        236
-                    ]
-                ]
+                "CASE",
+                "bye,noth"
+            ],
+            "\"Farewell! May thy quest succeed, Avatar!\"\n",
+            "BYE",
+            [
+                "CASE",
+                "weap"
+            ],
+            "\"Perhaps you'd like to @buy some. I'd be honored to have thee as a customer.\"",
+            [
+                "JUMP",
+                236
             ],
             [
-                "KEYWORDS",
-                "bye,noth",
-                [
-                    "\"Farewell! May thy quest succeed, Avatar!\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "*"
             ],
+            "\"Beg pardon, $G?\"",
             [
-                "KEYWORDS",
-                "weap",
-                [
-                    "\"Perhaps you'd like to @buy some. I'd be honored to have thee as a customer.\"",
-                    [
-                        "JUMP",
-                        236
-                    ]
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"Beg pardon, $G?\"",
-                    [
-                        "JUMP",
-                        236
-                    ]
-                ]
+                "JUMP",
+                236
             ]
         ],
         "1235": [
@@ -1234,172 +1151,130 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
+                "CASE",
+                "n"
+            ],
+            [
+                "IF",
+                "equals(integer(value 5), byte 1)"
+            ],
+            "\"Perhaps some other time, then.\"",
+            "WAIT",
+            "\n",
+            [
+                "JUMP",
+                205
+            ],
+            "ELSE",
+            "\"Perhaps something else then?\"",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                1620
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "y"
+            ],
+            [
+                "SETNAME",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "equals",
+                            "value",
+                            3
+                        ]
+                    ]
+                ]
+            ],
+            "\"Done!\" $N hands $Y #7 gold pieces and takes the $0.",
+            [
+                "DELETE",
+                [
+                    "integer",
+                    [
+                        [
+                            "value",
+                            3
+                        ]
+                    ]
+                ],
+                [
+                    "data",
+                    [
+                        [
+                            "dword",
+                            2806
+                        ],
+                        [
+                            "integer",
                             [
                                 [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            5
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
+                                    "value",
+                                    6
                                 ]
                             ]
-                        ],
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
+                ]
+            ],
+            [
+                "NEW",
+                [
+                    "integer",
+                    [
                         [
-                            "\"Perhaps some other time, then.\"",
-                            "WAIT",
-                            "\n",
-                            [
-                                "JUMP",
-                                205
-                            ]
-                        ],
+                            "value",
+                            3
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "integer",
+                    [
                         [
-                            "\"Perhaps something else then?\"",
-                            "WAIT",
-                            "\n\n",
-                            [
-                                "JUMP",
-                                1620
-                            ]
+                            "value",
+                            7
                         ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    [
-                        "SETNAME",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ]
-                    ],
-                    "\"Done!\" $N hands $Y #7 gold pieces and takes the $0.",
-                    [
-                        "DELETE",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "data",
-                            [
-                                [
-                                    "dword",
-                                    2806
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            6
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ],
-                    [
-                        "NEW",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            88
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    7
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            5
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "\n",
-                            [
-                                "JUMP",
-                                205
-                            ]
-                        ],
-                        [
-                            "WAIT",
-                            "\n\n",
-                            [
-                                "JUMP",
-                                1620
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                "IF",
+                "equals(integer(value 5), byte 1)"
+            ],
+            "\n",
+            [
+                "JUMP",
+                205
+            ],
+            "ELSE",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                1620
+            ],
+            "ENDIF"
         ],
         "2126": [
             "\"Changed your mind, eh?\"",
@@ -1916,24 +1791,20 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    [
-                        "JUMP",
-                        2543
-                    ]
-                ]
+                "CASE",
+                "y"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    [
-                        "JUMP",
-                        2303
-                    ]
-                ]
+                "JUMP",
+                2543
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "JUMP",
+                2303
             ]
         ],
         "2543": [
@@ -2074,85 +1945,95 @@
             "ENDIF"
         ],
         "2784": [
-            "INTEGERS",
             [
-                35,
-                20,
-                40,
-                50,
-                55,
-                75,
-                15,
-                25,
-                350,
-                200,
-                100
+                "INTEGERS",
+                [
+                    35,
+                    20,
+                    40,
+                    50,
+                    55,
+                    75,
+                    15,
+                    25,
+                    350,
+                    200,
+                    100
+                ]
             ]
         ],
         "2806": [
-            "INTEGERS",
             [
-                39,
-                35,
-                43,
-                45,
-                44,
-                46,
-                3,
-                12,
-                23,
-                8,
-                22,
-                0
+                "INTEGERS",
+                [
+                    39,
+                    35,
+                    43,
+                    45,
+                    44,
+                    46,
+                    3,
+                    12,
+                    23,
+                    8,
+                    22,
+                    0
+                ]
             ]
         ],
         "2830": [
-            "STRINGS",
             [
-                "Mace",
-                "Main Gauche",
-                "Sword",
-                "2-Hnd Axe",
-                "2-Hnd Hammer",
-                "2-Hnd Sword",
-                "Iron Helm",
-                "Kite Shield",
-                "Magic Armour",
-                "Magic Helm",
-                "Plate Mail"
+                "STRINGS",
+                [
+                    "Mace",
+                    "Main Gauche",
+                    "Sword",
+                    "2-Hnd Axe",
+                    "2-Hnd Hammer",
+                    "2-Hnd Sword",
+                    "Iron Helm",
+                    "Kite Shield",
+                    "Magic Armour",
+                    "Magic Helm",
+                    "Plate Mail"
+                ]
             ]
         ],
         "2945": [
-            "INTEGERS",
             [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0
+                "INTEGERS",
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
             ]
         ],
         "2975": [
-            "INTEGERS",
             [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0
+                "INTEGERS",
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
             ]
         ]
     }

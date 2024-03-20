@@ -72,198 +72,145 @@
             "\n",
             "ASK",
             [
-                "KEYWORDS",
-                "heal",
-                [
-                    [
-                        "JUMP",
-                        724
-                    ]
-                ]
+                "CASE",
+                "heal"
             ],
             [
-                "KEYWORDS",
-                "cure",
-                [
-                    [
-                        "JUMP",
-                        1555
-                    ]
-                ]
+                "JUMP",
+                724
             ],
             [
-                "KEYWORDS",
-                "resu",
+                "CASE",
+                "cure"
+            ],
+            [
+                "JUMP",
+                1555
+            ],
+            [
+                "CASE",
+                "resu"
+            ],
+            [
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "ASSIGN",
                         [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "partyHasObject",
-                            [
-                                [
-                                    "word",
-                                    339
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
+                            "value",
+                            0
                         ]
-                    ],
+                    ]
+                ],
+                [
+                    "partyHasObject",
                     [
-                        "IF",
                         [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    32769
-                                ]
-                            ]
+                            "word",
+                            339
                         ],
                         [
-                            "\"But gladly can I say that none of your party is dead!\"",
-                            [
-                                "JUMP",
-                                236
-                            ]
-                        ],
-                        [
-                            [
-                                "SETNAME",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                2453
-                            ]
+                            "byte",
+                            0
                         ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "\"My name is Tara.\"",
-                    [
-                        "JUMP",
-                        236
-                    ]
-                ]
+                "IF",
+                "equals(integer(value 0), word 32769)"
             ],
+            "\"But gladly can I say that none of your party is dead!\"",
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I'm the healer for this town.\"",
-                    "WAIT",
-                    "\n\n\"I've cared for the @unfit here for threescore years!\"",
-                    [
-                        "JUMP",
-                        236
-                    ]
-                ]
+                "JUMP",
+                236
             ],
+            "ELSE",
             [
-                "KEYWORDS",
-                "unfi",
+                "SETNAME",
                 [
-                    "\"Those who need @healing, @curing, or to be @resurrected.\"",
+                    "integer",
                     [
-                        "JUMP",
-                        236
-                    ]
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "mant,sacr",
-                [
-                    "\"'Cah,' that is the word of sacrifice.\"",
-                    [
-                        "JUMP",
-                        236
-                    ]
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "bye,no",
-                [
-                    "\"Farewell!\"\n",
-                    "BYE"
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "yes",
-                [
-                    "\"What can I do for thee?\"",
-                    [
-                        "JUMP",
-                        236
-                    ]
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "*",
-                [
-                    [
-                        "IF",
                         [
-                            "random",
-                            [
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"I don't understand $Z.\""
-                        ],
-                        [
-                            "\"I beg thy pardon?\""
+                            "value",
+                            0
                         ]
-                    ],
-                    [
-                        "JUMP",
-                        236
                     ]
                 ]
+            ],
+            [
+                "JUMP",
+                2453
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "name"
+            ],
+            "\"My name is Tara.\"",
+            [
+                "JUMP",
+                236
+            ],
+            [
+                "CASE",
+                "job"
+            ],
+            "\"I'm the healer for this town.\"",
+            "WAIT",
+            "\n\n\"I've cared for the @unfit here for threescore years!\"",
+            [
+                "JUMP",
+                236
+            ],
+            [
+                "CASE",
+                "unfi"
+            ],
+            "\"Those who need @healing, @curing, or to be @resurrected.\"",
+            [
+                "JUMP",
+                236
+            ],
+            [
+                "CASE",
+                "mant,sacr"
+            ],
+            "\"'Cah,' that is the word of sacrifice.\"",
+            [
+                "JUMP",
+                236
+            ],
+            [
+                "CASE",
+                "bye,no"
+            ],
+            "\"Farewell!\"\n",
+            "BYE",
+            [
+                "CASE",
+                "yes"
+            ],
+            "\"What can I do for thee?\"",
+            [
+                "JUMP",
+                236
+            ],
+            [
+                "CASE",
+                "*"
+            ],
+            [
+                "IF",
+                "random(byte 0, byte 1)"
+            ],
+            "\"I don't understand $Z.\"",
+            "ELSE",
+            "\"I beg thy pardon?\"",
+            "ENDIF",
+            [
+                "JUMP",
+                236
             ]
         ],
         "724": [
@@ -789,139 +736,79 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(objectsCount(integer(value 3), byte 88), byte 30)"
+            ],
+            [
+                "JUMP",
+                1311
+            ],
+            "ELSE",
+            "Tara approaches $Y and binds the wounds.",
+            [
+                "DELETE",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "less",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    30
-                                ]
-                            ]
-                        ],
+                            "value",
+                            3
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    30
+                ]
+            ],
+            [
+                "HEAL",
+                [
+                    "integer",
+                    [
                         [
-                            [
-                                "JUMP",
-                                1311
-                            ]
-                        ],
-                        [
-                            "Tara approaches $Y and binds the wounds.",
-                            [
-                                "DELETE",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    88
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    30
-                                ]
-                            ],
-                            [
-                                "HEAL",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                236
-                            ]
+                            "value",
+                            3
                         ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    [
-                        "IF",
-                        [
-                            "less",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    30
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                1311
-                            ]
-                        ],
-                        [
-                            "\"If thou wilt not pay, I cannot heal thee.\"",
-                            [
-                                "JUMP",
-                                1507
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                "JUMP",
+                236
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "IF",
+                "less(objectsCount(integer(value 3), byte 88), byte 30)"
+            ],
+            [
+                "JUMP",
+                1311
+            ],
+            "ELSE",
+            "\"If thou wilt not pay, I cannot heal thee.\"",
+            [
+                "JUMP",
+                1507
+            ],
+            "ENDIF"
         ],
         "1311": [
             [
@@ -1488,141 +1375,81 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(objectsCount(integer(value 3), byte 88), byte 10)"
+            ],
+            [
+                "JUMP",
+                2174
+            ],
+            "ELSE",
+            "Tara grabs a vial and pours it down $Y's throat.",
+            "WAIT",
+            "\n\n$Y feels much better.",
+            [
+                "DELETE",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "less",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    10
-                                ]
-                            ]
-                        ],
+                            "value",
+                            3
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    10
+                ]
+            ],
+            [
+                "CURE",
+                [
+                    "integer",
+                    [
                         [
-                            [
-                                "JUMP",
-                                2174
-                            ]
-                        ],
-                        [
-                            "Tara grabs a vial and pours it down $Y's throat.",
-                            "WAIT",
-                            "\n\n$Y feels much better.",
-                            [
-                                "DELETE",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    88
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    10
-                                ]
-                            ],
-                            [
-                                "CURE",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                1507
-                            ]
+                            "value",
+                            3
                         ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    [
-                        "IF",
-                        [
-                            "less",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    10
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                2174
-                            ]
-                        ],
-                        [
-                            "\"If thou wilt not pay, I cannot heal thee.\"",
-                            [
-                                "JUMP",
-                                1507
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                "JUMP",
+                1507
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "IF",
+                "less(objectsCount(integer(value 3), byte 88), byte 10)"
+            ],
+            [
+                "JUMP",
+                2174
+            ],
+            "ELSE",
+            "\"If thou wilt not pay, I cannot heal thee.\"",
+            [
+                "JUMP",
+                1507
+            ],
+            "ENDIF"
         ],
         "2174": [
             [
@@ -1681,63 +1508,31 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    [
-                        "IF",
-                        [
-                            "less",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    0
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    400
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                2587
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                2926
-                            ]
-                        ]
-                    ]
-                ]
+                "CASE",
+                "y"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"Then there is naught I can do save grieve with thee.\"",
-                    [
-                        "JUMP",
-                        236
-                    ]
-                ]
+                "IF",
+                "less(objectsCount(integer(value 0), byte 88), word 400)"
+            ],
+            [
+                "JUMP",
+                2587
+            ],
+            "ELSE",
+            [
+                "JUMP",
+                2926
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "n"
+            ],
+            "\"Then there is naught I can do save grieve with thee.\"",
+            [
+                "JUMP",
+                236
             ]
         ],
         "2587": [

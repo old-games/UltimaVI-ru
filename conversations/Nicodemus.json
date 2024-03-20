@@ -14,142 +14,112 @@
             "\n\"Good $T, Avatar. For what purpose hast thou come?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "buy,reag",
+                "CASE",
+                "buy,reag"
+            ],
+            [
+                "JUMP",
+                1684
+            ],
+            [
+                "CASE",
+                "lear,spel"
+            ],
+            [
+                "JUMP",
+                584
+            ],
+            [
+                "CASE",
+                "book"
+            ],
+            [
+                "JUMP",
+                2456
+            ],
+            [
+                "CASE",
+                "sta"
+            ],
+            [
+                "JUMP",
+                2855
+            ],
+            [
+                "CASE",
+                "name"
+            ],
+            "\"I am Nicodemus.\"",
+            [
+                "SETF",
                 [
-                    [
-                        "JUMP",
-                        1684
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "lear,spel",
-                [
-                    [
-                        "JUMP",
-                        584
-                    ]
-                ]
+                "JUMP",
+                104
             ],
             [
-                "KEYWORDS",
-                "book",
-                [
-                    [
-                        "JUMP",
-                        2456
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"Why, bless me, I work here!\"",
+            "WAIT",
+            "\n\n\"I sell @reagents, teach @spells, and craft magic @staves.\"",
+            "WAIT",
+            "\n\n\"I also do a little @experimenting.\"",
+            [
+                "JUMP",
+                104
             ],
             [
-                "KEYWORDS",
-                "sta",
-                [
-                    [
-                        "JUMP",
-                        2855
-                    ]
-                ]
+                "CASE",
+                "expe"
+            ],
+            "\"Oh, nothing a great adventurer such as yourself would be @interested in.\"",
+            [
+                "JUMP",
+                104
             ],
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "\"I am Nicodemus.\"",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            0
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        104
-                    ]
-                ]
+                "CASE",
+                "inte"
+            ],
+            "He gets a suspicious look in his eyes.",
+            "WAIT",
+            "\n\n\"Don't be too nosy, ",
+            [
+                "IF",
+                "integer(value 16)"
+            ],
+            "girlie!\"",
+            "ELSE",
+            "sonny!\"",
+            "ENDIF",
+            [
+                "JUMP",
+                104
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"Why, bless me, I work here!\"",
-                    "WAIT",
-                    "\n\n\"I sell @reagents, teach @spells, and craft magic @staves.\"",
-                    "WAIT",
-                    "\n\n\"I also do a little @experimenting.\"",
-                    [
-                        "JUMP",
-                        104
-                    ]
-                ]
+                "CASE",
+                "bye"
             ],
+            "\"Come back anytime!\"\n",
+            "BYE",
             [
-                "KEYWORDS",
-                "expe",
-                [
-                    "\"Oh, nothing a great adventurer such as yourself would be @interested in.\"",
-                    [
-                        "JUMP",
-                        104
-                    ]
-                ]
+                "CASE",
+                "*"
             ],
+            "\"Nope, nope, I won't talk about that!\"",
             [
-                "KEYWORDS",
-                "inte",
-                [
-                    "He gets a suspicious look in his eyes.",
-                    "WAIT",
-                    "\n\n\"Don't be too nosy, ",
-                    [
-                        "IF",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    16
-                                ]
-                            ]
-                        ],
-                        [
-                            "girlie!\""
-                        ],
-                        [
-                            "sonny!\""
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        104
-                    ]
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Come back anytime!\"\n",
-                    "BYE"
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"Nope, nope, I won't talk about that!\"",
-                    [
-                        "JUMP",
-                        104
-                    ]
-                ]
+                "JUMP",
+                104
             ]
         ],
         "584": [
@@ -1050,108 +1020,104 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            "$N hands $Y a piece of rune-covered parchment.",
+            [
+                "DELETE",
                 [
-                    "$N hands $Y a piece of rune-covered parchment.",
+                    "integer",
                     [
-                        "DELETE",
                         [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            88
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    5
-                                ]
-                            ]
+                            "value",
+                            3
                         ]
-                    ],
+                    ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "integer",
                     [
-                        "NEW",
                         [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            58
-                        ],
-                        [
-                            "data",
-                            [
-                                [
-                                    "dword",
-                                    3554
-                                ],
-                                [
-                                    "plus",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    0
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    4
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
+                            "value",
+                            5
                         ]
-                    ],
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        980
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
+                "NEW",
                 [
+                    "integer",
                     [
-                        "JUMP",
-                        980
+                        [
+                            "value",
+                            3
+                        ]
                     ]
+                ],
+                [
+                    "byte",
+                    58
+                ],
+                [
+                    "data",
+                    [
+                        [
+                            "dword",
+                            3554
+                        ],
+                        [
+                            "plus",
+                            [
+                                [
+                                    "integer",
+                                    [
+                                        [
+                                            "value",
+                                            0
+                                        ]
+                                    ]
+                                ],
+                                [
+                                    "integer",
+                                    [
+                                        [
+                                            "value",
+                                            4
+                                        ]
+                                    ]
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    1
                 ]
+            ],
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                980
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "JUMP",
+                980
             ]
         ],
         "1684": [
@@ -2057,112 +2023,98 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "DELETE",
                 [
+                    "integer",
                     [
-                        "DELETE",
                         [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            88
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            45
+                            "value",
+                            3
                         ]
-                    ],
-                    [
-                        "NEW",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            57
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        104
                     ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    45
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
+                "NEW",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    23
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Perhaps one of thy friends then.\"",
-                            "WAIT",
-                            "\n\n",
-                            [
-                                "ASSIGN",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            2
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                2488
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                104
-                            ]
+                            "value",
+                            3
                         ]
                     ]
+                ],
+                [
+                    "byte",
+                    57
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
                 ]
-            ]
+            ],
+            [
+                "JUMP",
+                104
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "IF",
+                "integer(value 23)"
+            ],
+            "\"Perhaps one of thy friends then.\"",
+            "WAIT",
+            "\n\n",
+            [
+                "ASSIGN",
+                [
+                    "integer",
+                    [
+                        [
+                            "value",
+                            2
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    1
+                ]
+            ],
+            [
+                "JUMP",
+                2488
+            ],
+            "ELSE",
+            [
+                "JUMP",
+                104
+            ],
+            "ENDIF"
         ],
         "2855": [
             "\"Yes, I make magical yew staves.\"",
@@ -2177,87 +2129,73 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
+                "CASE",
+                "n"
+            ],
+            "\"Perhaps some other time, then.\"",
+            [
+                "JUMP",
+                104
+            ],
+            [
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "integer(value 23)"
+            ],
+            [
+                "ASSIGN",
                 [
-                    "\"Perhaps some other time, then.\"",
+                    "integer",
                     [
-                        "JUMP",
-                        104
+                        [
+                            "value",
+                            2
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    1
+                ]
+            ],
+            [
+                "JUMP",
+                3163
+            ],
+            "ELSE",
+            [
+                "ASSIGN",
+                [
+                    "integer",
+                    [
+                        [
+                            "value",
+                            3
+                        ]
+                    ]
+                ],
+                [
+                    "character",
+                    [
+                        [
+                            "byte",
+                            0
+                        ],
+                        [
+                            "byte",
+                            0
+                        ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    [
-                        "IF",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    23
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "ASSIGN",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            2
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                3163
-                            ]
-                        ],
-                        [
-                            [
-                                "ASSIGN",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "character",
-                                    [
-                                        [
-                                            "byte",
-                                            0
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                3265
-                            ]
-                        ]
-                    ]
-                ]
-            ]
+                "JUMP",
+                3265
+            ],
+            "ENDIF"
         ],
         "3163": [
             [
@@ -2494,226 +2432,238 @@
             ]
         ],
         "3437": [
-            "INTEGERS",
             [
-                66,
-                67,
-                68,
-                71,
-                72,
-                0,
-                0,
-                0
+                "INTEGERS",
+                [
+                    66,
+                    67,
+                    68,
+                    71,
+                    72,
+                    0,
+                    0,
+                    0
+                ]
             ]
         ],
         "3453": [
-            "INTEGERS",
             [
-                2,
-                1,
-                1,
-                1,
-                2,
-                0,
-                0,
-                0
+                "INTEGERS",
+                [
+                    2,
+                    1,
+                    1,
+                    1,
+                    2,
+                    0,
+                    0,
+                    0
+                ]
             ]
         ],
         "3469": [
-            "STRINGS",
             [
-                "Blood Moss",
-                "Garlic",
-                "Ginseng",
-                "Spider Silk",
-                "Sulfurous Ash",
-                " ",
-                " ",
-                " "
+                "STRINGS",
+                [
+                    "Blood Moss",
+                    "Garlic",
+                    "Ginseng",
+                    "Spider Silk",
+                    "Sulfurous Ash",
+                    " ",
+                    " ",
+                    " "
+                ]
             ]
         ],
         "3527": [
-            "STRINGS",
             [
-                "th",
-                "st",
-                "nd",
-                "rd",
-                "th",
-                "th",
-                "th",
-                "th",
-                "th"
+                "STRINGS",
+                [
+                    "th",
+                    "st",
+                    "nd",
+                    "rd",
+                    "th",
+                    "th",
+                    "th",
+                    "th",
+                    "th"
+                ]
             ]
         ],
         "3554": [
-            "INTEGERS",
             [
-                2,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                20,
-                23,
-                24,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                36,
-                38,
-                40,
-                41,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                49,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                66,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                80,
-                82,
-                85,
-                89,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                97,
-                103,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0
+                "INTEGERS",
+                [
+                    2,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    20,
+                    23,
+                    24,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    36,
+                    38,
+                    40,
+                    41,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    49,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    66,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    80,
+                    82,
+                    85,
+                    89,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    97,
+                    103,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
             ]
         ],
         "3714": [
-            "STRINGS",
             [
-                "Detect Trap",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                "Sleep",
-                "Unlock Magic",
-                "Untrap",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                "Magic Lock",
-                "Mass Sleep",
-                "Protection",
-                "Repel Undead",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                "Conjure",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                "Insect Swarm",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                "Charm",
-                "Confuse",
-                "Mass Protect",
-                "Web",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                "Enchant",
-                "Mass Invisibility",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " ",
-                " "
+                "STRINGS",
+                [
+                    "Detect Trap",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    "Sleep",
+                    "Unlock Magic",
+                    "Untrap",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    "Magic Lock",
+                    "Mass Sleep",
+                    "Protection",
+                    "Repel Undead",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    "Conjure",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    "Insect Swarm",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    "Charm",
+                    "Confuse",
+                    "Mass Protect",
+                    "Web",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    "Enchant",
+                    "Mass Invisibility",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " ",
+                    " "
+                ]
             ]
         ]
     }

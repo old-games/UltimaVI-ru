@@ -128,35 +128,34 @@ def _read_expressions(stream, visited_labels, data, end):
 
 
 def _is_ended(result):
-    # TODO include this to _read_instructions call
-    if not result:
-        return False
-    elif result[-1] == 'BYE' or result[-1][0] == 'JUMP':
-        return True
-    elif result[-1][0] == 'IF':
-        return _is_ended(result[-1][2]) and _is_ended(result[-1][3])
-    elif result[-1][0] == 'KEYWORDS':
-        # FIXME skips in keywords, check if it is full set, nested keywords
-        keywords = []
-        choices = None
-        for i in range(len(result)-1, -1, -1):
-            if result[i][0] == 'ASKC':
-                choices = result[i][1]
-            elif result[i][0] != 'KEYWORDS':
-                break
-            elif not _is_ended(result[i][2]):
-                return False
-            else:
-                keywords.extend(result[i][1].split(','))
-        if '*' in keywords or choices is not None and set(choices) == set(keywords):
-            return True
-        else:
-            return False
-    else:
-        return False
+    # TODO include this to _read_instructions call on the fly updating last_block
+    branch_ended = False
+    keywords_covered = set()
+    for i in range(len(result)-1, -1, -1):
+        if result[i] == 'BYE' or result[i][0] == 'JUMP':
+            branch_ended = True
+        elif result[i][0] == 'IF':
+            # Ветка завершена если или до IF или после или в обеих ветках IF будет jump FIXME typos
+            branch_ended = branch_ended or _is_ended(result[i][2]) and _is_ended(result[i][3])
+        elif result[i][0] == 'CASE':
+            # TODO support nested cases
+            keywords = result[i][1].split(',')
+            if branch_ended:
+                if '*' in keywords:
+                    return True
+                keywords_covered |= set(keywords)
+            branch_ended = False
+        elif result[i][0] == 'ASK':
+            keywords_covered = set()
+        elif result[i][0] == 'ASKC':
+            if keywords_covered >= set(result[i][1]):
+                return True
+            keywords_covered = set()
+    return branch_ended
+    # TODO надо проходить не в обратном порядке, а по тому пути (по возможным путям) по которому мы пришли из заданной точки. Может быть и как попало ок.
 
 
-def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, allow_drop_esac, end):
+def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, end):
     result = []
 
     all_instructions = {
@@ -165,7 +164,7 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, a
         0xb0, 0xb5, 0xb6, 0xb9, 0xba, 0xbe, 0xbf,
         0xc4, 0xc5, 0xc9, 0xcb, 0xcd,
         0xd6, 0xd8, 0xd9, 0xdb,
-        0xef,
+        0xee, 0xef,
         0xf7, 0xf8, 0xf9, 0xfb, 0xfc,
     }
     if allow_solo_endif:
@@ -173,6 +172,14 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, a
 
     # TODO there are more instructions in the game
     while (code := _peek_byte(stream)) not in end and stream.tell() not in visited_labels:
+        offset = stream.tell()
+        # FIXME linearize and get rid of end
+        # FIXME get rid of expand
+        # FIXME dont save to result, save to interaction
+        # FIXME merge data with interaction
+        # FIXME read till the end for look , add ff, f1, f2, f3 manually
+        # FIXME get rid of json, make it custom
+
         if code == 0x9c:
             _read_byte(stream, visited_labels)
             result.append(('HORSE', _one(_read_expressions(stream, visited_labels, data, 0xa7))))
@@ -185,11 +192,11 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, a
             _read_byte(stream, visited_labels)
             expression = _one(_read_expressions(stream, visited_labels, data, 0xa7))
             sub_visited_labels = set()
-            instructions = _read_instructions(stream, labels, sub_visited_labels, data, allow_solo_endif, allow_drop_esac, {0xa2, 0xa3})
+            instructions = _read_instructions(stream, labels, sub_visited_labels, data, allow_solo_endif, {0xa2, 0xa3})
             visited_labels |= sub_visited_labels
             if _read_byte(stream, visited_labels) == 0xa3:
-                sub_visited_labels = set()
-                alternative_instructions = _read_instructions(stream, labels, sub_visited_labels, data, allow_solo_endif, allow_drop_esac, {0xa2})
+                sub_visited_labels = set() # FIXME does it help?
+                alternative_instructions = _read_instructions(stream, labels, sub_visited_labels, data, allow_solo_endif, {0xa2})
                 visited_labels |= sub_visited_labels
                 _read_byte(stream, visited_labels)
             else:
@@ -197,15 +204,15 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, a
             result.append(('IF', expression, instructions, alternative_instructions))
 
         elif code == 0xa2 and allow_solo_endif:
-            # Sometimes it happens (Valkadesh).
+            # Happens once, with Valkadesh.
             _read_byte(stream, visited_labels)
             result.append('SOLO_ENDIF')
 
         elif code == 0xb0:
             _read_byte(stream, visited_labels)
             label = _read_dword(stream, visited_labels)
-            result.append(('JUMP', label))
             labels.add(label)
+            result.append(('JUMP', label))
 
         elif code == 0xb6:
             _read_byte(stream, visited_labels)
@@ -306,26 +313,17 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, a
             _read_byte(stream, visited_labels)
             result.append(('CURE', _one(_read_expressions(stream, visited_labels, data, 0xa7))))
 
+        elif code == 0xee:
+            _read_byte(stream, visited_labels)
+            # May be absent
+            result.append('ESAC')
+
         elif code == 0xef:
             # TODO can't have nested keywords
-            while (code := _peek_byte(stream)) == 0xef:
-                _read_byte(stream, visited_labels)
-                keywords = _read_string(stream, visited_labels, {0xf6})
-                _read_byte(stream, visited_labels)
-                sub_visited_labels = set()
-                instructions = _read_instructions(stream, labels, sub_visited_labels, data, allow_solo_endif, allow_drop_esac, {0xef, 0xee})
-                visited_labels |= sub_visited_labels
-                result.append(('KEYWORDS', keywords, instructions))
-
-            if allow_drop_esac:
-                if _peek_byte(stream) == 0xee:
-                    _read_byte(stream, visited_labels)
-
-                else:
-                    assert _is_ended(result) and (None in end or 0xee in end)
-
-            else:
-                assert _read_byte(stream, visited_labels) == 0xee
+            _read_byte(stream, visited_labels)
+            keywords = _read_string(stream, visited_labels, {0xf6})
+            _read_byte(stream, visited_labels)
+            result.append(('CASE', keywords))
 
         elif code == 0xf7:
             _read_byte(stream, visited_labels)
@@ -356,7 +354,8 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, a
         else:
             result.append(_read_string(stream, visited_labels, end | all_instructions))
 
-        if _peek_byte(stream) is None or _is_ended(result) and (None in end or 0xee in end and allow_drop_esac):
+        # FIXME move to main while
+        if _peek_byte(stream) is None or _is_ended(result) and None in end:
             # Выходим, если читать больше нечего или не ждём окончания определённого блока.
             break
 
@@ -386,10 +385,6 @@ def _expand_instructions(original_label, instructions, labels):
                 result.extend(instruction[3])
             result.append('ENDIF')
 
-        elif instruction[0] == 'KEYWORDS':
-            # FIXME nest in read, expand here, add esac
-            result.append(instruction)
-
         else:
             result.append(instruction)
 
@@ -405,15 +400,6 @@ def decode(raw_conversation):
 
     digest = hashlib.sha256(raw_conversation).hexdigest()
 
-    allow_drop_esac = digest in (
-        '57e9da766ab59e6022b3446805f98a93869505a21217595fd87a8ef91e00d634',
-        '7e8924944c3a1a04c8311b0b7ceab5c255d916854a761431e8385f5645774eb0',
-        '8464e3db9e7067ecb8c681f343377bbe208acc7a99cab0c333c22d1bdb65bb68',
-        'e7bd3bf7f3d17519d53bbf02929a3fd05dc0600e9891dd21cb18be21f7117481',
-        'd28ad8bf501c1a64aca497885364a71799cb68c30dbdade68524b1767e953773',
-        'd8fd7702c0201cff8140b573ca59aa91bb65bc2e09370b5bcc1b51e278310020',
-    )
-
     allow_solo_endif = digest == '85f1912ed262ba67a28fdff87c31575d6dd2cea0fbf431ef73e2be77d0958a0d'
 
     assert _read_byte(stream, visited_labels) == 0xff
@@ -422,16 +408,18 @@ def decode(raw_conversation):
     result['f3-after-name'] = _check_byte(stream, visited_labels, 0xf3)
 
     assert _read_byte(stream, visited_labels) == 0xf1
-    result['description'] = _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, allow_drop_esac, {0xf2, 0xf3})
+    result['description'] = _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, {0xf2, 0xf3})
     result['f3-after-description'] = _check_byte(stream, visited_labels, 0xf3)
 
     assert _read_byte(stream, visited_labels) == 0xf2
-    blocks = {stream.tell(): _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, allow_drop_esac, {None})}
+    blocks = {stream.tell(): _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, {None})}
 
+    # TODO support jumps to the middle of unknown blocks with branches
+    # FIXME at least detect it
     while labels - visited_labels:
         label = next(iter(labels - visited_labels))
         stream.seek(label)
-        blocks[label] = _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, allow_drop_esac, {None})
+        blocks[label] = _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, {None})
         # FIXME split code with label in the middle, sometimes in the middle of string
 
     types = dict(sorted(data.items()))
@@ -444,7 +432,7 @@ def decode(raw_conversation):
             integers = []
 
             assert left not in blocks
-            blocks[left] = ['INTEGERS', integers]
+            blocks[left] = [['INTEGERS', integers]]
 
             for _ in range(left, right, 2):
                 if stream.tell() in visited_labels:
@@ -461,7 +449,7 @@ def decode(raw_conversation):
             string = bytearray()
 
             assert left not in blocks
-            blocks[left] = ['STRINGS', strings]
+            blocks[left] = [['STRINGS', strings]]
 
             for _ in range(left, right):
                 if stream.tell() in visited_labels:

@@ -58,181 +58,108 @@
             " this $T?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "\"Some call me Immanuelle, $G.\"",
-                    "WAIT",
-                    "\n\n\"Others call me...something @else.\"",
-                    "WAIT",
-                    "\n\nShe winks at you.",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "name"
+            ],
+            "\"Some call me Immanuelle, $G.\"",
+            "WAIT",
+            "\n\n\"Others call me...something @else.\"",
+            "WAIT",
+            "\n\nShe winks at you.",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "some,else",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            16
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Perhaps some time I will @show you...\""
-                        ],
-                        [
-                            "\"I think you get the idea.\""
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "some,else"
             ],
             [
-                "KEYWORDS",
-                "show",
-                [
-                    "\"Not here.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "IF",
+                "equals(integer(value 16), byte 0)"
+            ],
+            "\"Perhaps some time I will @show you...\"",
+            "ELSE",
+            "\"I think you get the idea.\"",
+            "ENDIF",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I raise horses here, in the stables.\"",
-                    "WAIT",
-                    "\n\n\"I also sell @horses, if you wish to @buy one.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "show"
+            ],
+            "\"Not here.\"",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "sell,hors",
-                [
-                    "\"I can hardly bear to part with any of these magnificent beasts.\"",
-                    "WAIT",
-                    "\n\n\"But there are a few that fail to please me.\"",
-                    "WAIT",
-                    "\n\n\"If you wish to @buy one of them, just say the word.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I raise horses here, in the stables.\"",
+            "WAIT",
+            "\n\n\"I also sell @horses, if you wish to @buy one.\"",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "buy",
-                [
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    143
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Come to my shop when I'm open!\"",
-                            [
-                                "JUMP",
-                                196
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                851
-                            ]
-                        ]
-                    ]
-                ]
+                "CASE",
+                "sell,hors"
+            ],
+            "\"I can hardly bear to part with any of these magnificent beasts.\"",
+            "WAIT",
+            "\n\n\"But there are a few that fail to please me.\"",
+            "WAIT",
+            "\n\n\"If you wish to @buy one of them, just say the word.\"",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Come back again soon!\"",
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            16
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "WAIT",
-                            "\n\nAs you leave, she blows you a kiss."
-                        ],
-                        []
-                    ],
-                    "\n",
-                    "BYE"
-                ]
+                "CASE",
+                "buy"
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"Beg pardon, $G?\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "IF",
+                "notEquals(integer(value 32), byte 143)"
+            ],
+            "\"Come to my shop when I'm open!\"",
+            [
+                "JUMP",
+                196
+            ],
+            "ELSE",
+            [
+                "JUMP",
+                851
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"Come back again soon!\"",
+            [
+                "IF",
+                "equals(integer(value 16), byte 0)"
+            ],
+            "WAIT",
+            "\n\nAs you leave, she blows you a kiss.",
+            "ENDIF",
+            "\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"Beg pardon, $G?\"",
+            [
+                "JUMP",
+                196
             ]
         ],
         "851": [
@@ -804,67 +731,63 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            "\"Good!\" $N takes $Y's gold, and hands over the reins of a fine horse.",
+            [
+                "DELETE",
                 [
-                    "\"Good!\" $N takes $Y's gold, and hands over the reins of a fine horse.",
+                    "integer",
                     [
-                        "DELETE",
                         [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            88
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    9
-                                ]
-                            ]
+                            "value",
+                            3
                         ]
-                    ],
+                    ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "integer",
                     [
-                        "HORSE",
                         [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
+                            "value",
+                            9
                         ]
-                    ],
-                    [
-                        "JUMP",
-                        1532
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
+                "HORSE",
                 [
-                    "\"Perhaps some other time then.\"",
+                    "integer",
                     [
-                        "JUMP",
-                        1532
+                        [
+                            "value",
+                            3
+                        ]
                     ]
                 ]
+            ],
+            [
+                "JUMP",
+                1532
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            "\"Perhaps some other time then.\"",
+            [
+                "JUMP",
+                1532
             ]
         ],
         "1532": [

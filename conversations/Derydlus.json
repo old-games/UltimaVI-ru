@@ -35,169 +35,126 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
-                []
+                "CASE",
+                "y"
             ],
             [
-                "KEYWORDS",
-                "n",
-                []
+                "CASE",
+                "n"
             ],
+            "ESAC",
             "\"Some people think @Penumbra's a hoax. But she knows her stuff. You should bear with her - she can truly be of great assistance to you.\"",
             "ENDIF",
             "\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "\"Derydlus. And what was yours again?\"\n",
-                    "ASK",
-                    "\n\"Oh, yes, of course. Come, have a seat.\"",
-                    [
-                        "JUMP",
-                        346
-                    ]
-                ]
+                "CASE",
+                "name"
+            ],
+            "\"Derydlus. And what was yours again?\"\n",
+            "ASK",
+            "\n\"Oh, yes, of course. Come, have a seat.\"",
+            [
+                "JUMP",
+                346
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"Trying to discover all the subtleties of Frasier's @Folly is almost a career in itself!\"\n*\nHe smiles.",
-                    [
-                        "JUMP",
-                        346
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"Trying to discover all the subtleties of Frasier's @Folly is almost a career in itself!\"\n*\nHe smiles.",
+            [
+                "JUMP",
+                346
             ],
             [
-                "KEYWORDS",
-                "drin",
-                [
-                    "\"Aye, this is the home of Frasier's @Folly!\"",
-                    [
-                        "JUMP",
-                        346
-                    ]
-                ]
+                "CASE",
+                "drin"
+            ],
+            "\"Aye, this is the home of Frasier's @Folly!\"",
+            [
+                "JUMP",
+                346
             ],
             [
-                "KEYWORDS",
-                "subt,disc,fras,foll",
-                [
-                    "\"In all the towns of Britannia, you'll find no better brew.\"",
-                    [
-                        "JUMP",
-                        346
-                    ]
-                ]
+                "CASE",
+                "subt,disc,fras,foll"
+            ],
+            "\"In all the towns of Britannia, you'll find no better brew.\"",
+            [
+                "JUMP",
+                346
             ],
             [
-                "KEYWORDS",
-                "mand",
-                [
-                    "\"Here's to Mandrake!\"",
-                    [
-                        "JUMP",
-                        346
-                    ]
-                ]
+                "CASE",
+                "mand"
+            ],
+            "\"Here's to Mandrake!\"",
+            [
+                "JUMP",
+                346
             ],
             [
-                "KEYWORDS",
-                "manr",
+                "CASE",
+                "manr"
+            ],
+            "\"My drinking buddy! Let's drink a toast to him, wherever he is.\"",
+            [
+                "IF",
+                "isNearby(byte 40)"
+            ],
+            "WAIT",
+            [
+                "PORTRAIT",
                 [
-                    "\"My drinking buddy! Let's drink a toast to him, wherever he is.\"",
-                    [
-                        "IF",
-                        [
-                            "isNearby",
-                            [
-                                [
-                                    "byte",
-                                    40
-                                ]
-                            ]
-                        ],
-                        [
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    40
-                                ]
-                            ],
-                            "\n\n\"I'll drink to that!\"",
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "JUMP",
-                        346
-                    ]
+                    "byte",
+                    40
                 ]
             ],
+            "\n\n\"I'll drink to that!\"",
+            "WAIT",
             [
-                "KEYWORDS",
-                "penu",
+                "PORTRAIT",
                 [
-                    "\"She's a strange one, but she has the gift.\"",
-                    [
-                        "JUMP",
-                        346
-                    ]
+                    "byte",
+                    235
                 ]
             ],
+            "ENDIF",
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Leaving already? And you're not even wobbling yet...\"\n",
-                    "BYE"
-                ]
+                "JUMP",
+                346
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    [
-                        "IF",
-                        [
-                            "random",
-                            [
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"I'll drink to that,\" he says, suiting action to words."
-                        ],
-                        [
-                            "\"`$Z? Aye, indeed! A toast to $Z!\""
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        346
-                    ]
-                ]
+                "CASE",
+                "penu"
+            ],
+            "\"She's a strange one, but she has the gift.\"",
+            [
+                "JUMP",
+                346
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"Leaving already? And you're not even wobbling yet...\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            [
+                "IF",
+                "random(byte 0, byte 1)"
+            ],
+            "\"I'll drink to that,\" he says, suiting action to words.",
+            "ELSE",
+            "\"`$Z? Aye, indeed! A toast to $Z!\"",
+            "ENDIF",
+            [
+                "JUMP",
+                346
             ]
         ]
     }

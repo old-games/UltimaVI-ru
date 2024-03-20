@@ -97,124 +97,106 @@
             "\n",
             "ASK",
             [
-                "KEYWORDS",
-                "heal,cure",
-                [
-                    [
-                        "JUMP",
-                        1426
-                    ]
-                ]
+                "CASE",
+                "heal,cure"
             ],
             [
-                "KEYWORDS",
-                "resu,dead",
-                [
-                    "\"To ask me to raise the dead?\"",
-                    "WAIT",
-                    "\n\n\"To apologize, but that is beyond my power.\"",
-                    "WAIT",
-                    "\n\n\"To doubt that anyone can do that!\"",
-                    [
-                        "JUMP",
-                        517
-                    ]
-                ]
+                "JUMP",
+                1426
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"May fortune prevent the need for your return!\"\n",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            0
-                        ]
-                    ],
-                    "BYE"
-                ]
+                "CASE",
+                "resu,dead"
+            ],
+            "\"To ask me to raise the dead?\"",
+            "WAIT",
+            "\n\n\"To apologize, but that is beyond my power.\"",
+            "WAIT",
+            "\n\n\"To doubt that anyone can do that!\"",
+            [
+                "JUMP",
+                517
             ],
             [
-                "KEYWORDS",
-                "name",
+                "CASE",
+                "bye"
+            ],
+            "\"May fortune prevent the need for your return!\"\n",
+            [
+                "SETF",
                 [
-                    "\"To be nameless, being only a healer.\"",
-                    [
-                        "JUMP",
-                        517
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
+            "BYE",
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"To be entrusted with the tasks of @healing those wounded and @curing those sick.\"",
-                    "WAIT",
-                    "\n\n\"To do this for all, as a service to society.\"",
-                    [
-                        "JUMP",
-                        517
-                    ]
-                ]
+                "CASE",
+                "name"
+            ],
+            "\"To be nameless, being only a healer.\"",
+            [
+                "JUMP",
+                517
             ],
             [
-                "KEYWORDS",
-                "good",
-                [
-                    "\"The goodscrafter? To regret his condition.\"",
-                    "WAIT",
-                    "\n\n\"To know that he is in great pain after the loss of his @family.\"",
-                    [
-                        "JUMP",
-                        517
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"To be entrusted with the tasks of @healing those wounded and @curing those sick.\"",
+            "WAIT",
+            "\n\n\"To do this for all, as a service to society.\"",
+            [
+                "JUMP",
+                517
             ],
             [
-                "KEYWORDS",
-                "fami",
-                [
-                    "\"To know that his family was lost when the edges of the world @fell off.\"",
-                    "WAIT",
-                    "\n\n\"But to have less and less patience for his dispassionate self-pity.\"",
-                    [
-                        "JUMP",
-                        517
-                    ]
-                ]
+                "CASE",
+                "good"
+            ],
+            "\"The goodscrafter? To regret his condition.\"",
+            "WAIT",
+            "\n\n\"To know that he is in great pain after the loss of his @family.\"",
+            [
+                "JUMP",
+                517
             ],
             [
-                "KEYWORDS",
-                "fell,off",
-                [
-                    "\"Yes, during the cataclysms.\"",
-                    "WAIT",
-                    "\n\n\"To have lost friends myself during that bad time.\"",
-                    "WAIT",
-                    "\n\n\"But to maintain the struggle for life diligently!\"",
-                    [
-                        "JUMP",
-                        517
-                    ]
-                ]
+                "CASE",
+                "fami"
+            ],
+            "\"To know that his family was lost when the edges of the world @fell off.\"",
+            "WAIT",
+            "\n\n\"But to have less and less patience for his dispassionate self-pity.\"",
+            [
+                "JUMP",
+                517
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"To be a healer, dedicated only to my @job. To know nothing about $Z.\"",
-                    [
-                        "JUMP",
-                        517
-                    ]
-                ]
+                "CASE",
+                "fell,off"
+            ],
+            "\"Yes, during the cataclysms.\"",
+            "WAIT",
+            "\n\n\"To have lost friends myself during that bad time.\"",
+            "WAIT",
+            "\n\n\"But to maintain the struggle for life diligently!\"",
+            [
+                "JUMP",
+                517
+            ],
+            [
+                "CASE",
+                "*"
+            ],
+            "\"To be a healer, dedicated only to my @job. To know nothing about $Z.\"",
+            [
+                "JUMP",
+                517
             ]
         ],
         "1426": [
@@ -815,68 +797,45 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(integer(value 9), byte 2)"
+            ],
+            [
+                "JUMP",
+                2390
+            ],
+            "ELSE",
+            [
+                "SETF",
                 [
-                    [
-                        "IF",
-                        [
-                            "less",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            9
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    2
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                2390
-                            ]
-                        ],
-                        [
-                            [
-                                "SETF",
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "byte",
-                                    2
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                2040
-                            ]
-                        ]
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    2
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "The gargoyle shrugs.\n\n\"To assure you that it is safe and invigorating.\"",
-                    "WAIT",
-                    "\n\n\"But not to force anyone to act against their will.\"",
-                    "WAIT",
-                    [
-                        "JUMP",
-                        517
-                    ]
-                ]
+                "JUMP",
+                2040
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "n"
+            ],
+            "The gargoyle shrugs.\n\n\"To assure you that it is safe and invigorating.\"",
+            "WAIT",
+            "\n\n\"But not to force anyone to act against their will.\"",
+            "WAIT",
+            [
+                "JUMP",
+                517
             ]
         ],
         "2390": [

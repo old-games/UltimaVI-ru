@@ -16,66 +16,56 @@
             "\n\n\"What can I do for you?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
+                "CASE",
+                "name"
+            ],
+            "\"My name is Harold.\"",
+            [
+                "SETF",
                 [
-                    "\"My name is Harold.\"",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            0
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        105
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "buy,hors,shoe",
-                [
-                    [
-                        "JUMP",
-                        258
-                    ]
-                ]
+                "JUMP",
+                105
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"@Horseshoes are my living.\"",
-                    [
-                        "JUMP",
-                        105
-                    ]
-                ]
+                "CASE",
+                "buy,hors,shoe"
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Farewell.\"\n",
-                    "BYE"
-                ]
+                "JUMP",
+                258
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"I can't help you with that.\"",
-                    [
-                        "JUMP",
-                        105
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"@Horseshoes are my living.\"",
+            [
+                "JUMP",
+                105
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"Farewell.\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"I can't help you with that.\"",
+            [
+                "JUMP",
+                105
             ]
         ],
         "258": [
@@ -286,253 +276,170 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(canCarry(character(integer(value 3), byte 0)), weight(byte 202, byte 1))"
+            ],
+            "\"You look pretty full to me.\"",
+            "WAIT",
+            [
+                "JUMP",
+                79
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 2)"
+            ],
+            [
+                "DELETE",
                 [
+                    "character",
                     [
-                        "IF",
                         [
-                            "less",
+                            "integer",
                             [
                                 [
-                                    "canCarry",
-                                    [
-                                        [
-                                            "character",
-                                            [
-                                                [
-                                                    "integer",
-                                                    [
-                                                        [
-                                                            "value",
-                                                            3
-                                                        ]
-                                                    ]
-                                                ],
-                                                [
-                                                    "byte",
-                                                    0
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "weight",
-                                    [
-                                        [
-                                            "byte",
-                                            202
-                                        ],
-                                        [
-                                            "byte",
-                                            1
-                                        ]
-                                    ]
+                                    "value",
+                                    3
                                 ]
                             ]
                         ],
                         [
-                            "\"You look pretty full to me.\"",
-                            "WAIT",
-                            [
-                                "JUMP",
-                                79
-                            ]
-                        ],
-                        []
-                    ],
+                            "byte",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    2
+                ]
+            ],
+            [
+                "NEW",
+                [
+                    "character",
                     [
-                        "IF",
                         [
-                            "greaterOrEquals",
+                            "integer",
                             [
                                 [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "character",
-                                            [
-                                                [
-                                                    "integer",
-                                                    [
-                                                        [
-                                                            "value",
-                                                            3
-                                                        ]
-                                                    ]
-                                                ],
-                                                [
-                                                    "byte",
-                                                    0
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    2
+                                    "value",
+                                    3
                                 ]
                             ]
                         ],
                         [
+                            "byte",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    202
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
+                ]
+            ],
+            [
+                "SETNAME",
+                [
+                    "character",
+                    [
+                        [
+                            "integer",
                             [
-                                "DELETE",
                                 [
-                                    "character",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    88
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    2
+                                    "value",
+                                    3
                                 ]
-                            ],
-                            [
-                                "NEW",
-                                [
-                                    "character",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    202
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ],
-                            [
-                                "SETNAME",
-                                [
-                                    "character",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            "\"Here you go.\"",
-                            "WAIT",
-                            [
-                                "ASSIGN",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            5
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                79
                             ]
                         ],
                         [
-                            [
-                                "SETNAME",
-                                [
-                                    "character",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            "\"Best check your coinpouch again.\"",
-                            "WAIT",
-                            [
-                                "JUMP",
-                                79
-                            ]
+                            "byte",
+                            0
                         ]
                     ]
                 ]
             ],
+            "\"Here you go.\"",
+            "WAIT",
             [
-                "KEYWORDS",
-                "n",
+                "ASSIGN",
                 [
-                    "Very well.\"",
+                    "integer",
                     [
-                        "JUMP",
-                        105
+                        [
+                            "value",
+                            5
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    1
+                ]
+            ],
+            [
+                "JUMP",
+                79
+            ],
+            "ELSE",
+            [
+                "SETNAME",
+                [
+                    "character",
+                    [
+                        [
+                            "integer",
+                            [
+                                [
+                                    "value",
+                                    3
+                                ]
+                            ]
+                        ],
+                        [
+                            "byte",
+                            0
+                        ]
                     ]
                 ]
+            ],
+            "\"Best check your coinpouch again.\"",
+            "WAIT",
+            [
+                "JUMP",
+                79
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "n"
+            ],
+            "Very well.\"",
+            [
+                "JUMP",
+                105
             ]
         ]
     }

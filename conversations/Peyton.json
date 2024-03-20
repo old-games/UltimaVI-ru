@@ -48,74 +48,63 @@
             "to the Wayfarer's @Inn!\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
+                "CASE",
+                "name"
+            ],
+            "\"I am Peyton, and this is my place.\" He gestures with his hands.\n",
+            [
+                "SETF",
                 [
-                    "\"I am Peyton, and this is my place.\" He gestures with his hands.\n",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            0
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        163
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "peyt",
-                [
-                    "\"Did you need something?\"\n",
-                    [
-                        "JUMP",
-                        163
-                    ]
-                ]
+                "JUMP",
+                163
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I can offer you a @room for the evening.\"\n",
-                    [
-                        "JUMP",
-                        163
-                    ]
-                ]
+                "CASE",
+                "peyt"
+            ],
+            "\"Did you need something?\"\n",
+            [
+                "JUMP",
+                163
             ],
             [
-                "KEYWORDS",
-                "room,inn",
-                [
-                    [
-                        "JUMP",
-                        439
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I can offer you a @room for the evening.\"\n",
+            [
+                "JUMP",
+                163
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Goodbye. Take care of yourself.\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "room,inn"
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"I'm sure you'll have to ask another.\"\n"
-                ]
+                "JUMP",
+                439
             ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"Goodbye. Take care of yourself.\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"I'm sure you'll have to ask another.\"\n",
+            "ESAC",
             [
                 "JUMP",
                 163
@@ -167,87 +156,55 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(objectsCount(byte 1, byte 88), integer(value 0))"
+            ],
+            [
+                "JUMP",
+                713
+            ],
+            "ELSE",
+            [
+                "DELETE",
                 [
+                    "byte",
+                    1
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "less",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "byte",
-                                            1
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                713
-                            ]
-                        ],
-                        [
-                            [
-                                "DELETE",
-                                [
-                                    "byte",
-                                    1
-                                ],
-                                [
-                                    "byte",
-                                    88
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                589
-                            ]
+                            "value",
+                            0
                         ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"Well, perhaps next time you're in town.\"\n",
-                    [
-                        "JUMP",
-                        163
-                    ]
-                ]
+                "JUMP",
+                589
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "n"
+            ],
+            "\"Well, perhaps next time you're in town.\"\n",
+            [
+                "JUMP",
+                163
             ]
         ],
         "589": [

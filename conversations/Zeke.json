@@ -62,131 +62,110 @@
             "\n\n\"What d'ya need?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "\"@Zeke the one-armed @beekeep, it is.\"\n",
-                    [
-                        "JUMP",
-                        193
-                    ]
-                ]
+                "CASE",
+                "name"
+            ],
+            "\"@Zeke the one-armed @beekeep, it is.\"\n",
+            [
+                "JUMP",
+                193
             ],
             [
-                "KEYWORDS",
-                "zeke",
-                [
-                    "\"Lost me arm and gained that name in @battle.\" He flashes a yellowed grin at you.\n",
-                    [
-                        "JUMP",
-                        193
-                    ]
-                ]
+                "CASE",
+                "zeke"
+            ],
+            "\"Lost me arm and gained that name in @battle.\" He flashes a yellowed grin at you.\n",
+            [
+                "JUMP",
+                193
             ],
             [
-                "KEYWORDS",
-                "batt",
-                [
-                    "\"'Twas a horrid affair, but @Mondain had to be thwarted.\"\n",
-                    [
-                        "JUMP",
-                        193
-                    ]
-                ]
+                "CASE",
+                "batt"
+            ],
+            "\"'Twas a horrid affair, but @Mondain had to be thwarted.\"\n",
+            [
+                "JUMP",
+                193
             ],
             [
-                "KEYWORDS",
-                "mond",
-                [
-                    "\"You must be new here.\" He looks to the ground.",
-                    "WAIT",
-                    "\n\n\"He brought an age of great evil unto our land.\"",
-                    "WAIT",
-                    "\n\n\"Yet try and tell today's children of the age of darkness...\"",
-                    "WAIT",
-                    "\n\n\"They believe nothing can go wrong, as long as the Avatar lives.\"\n",
-                    [
-                        "JUMP",
-                        193
-                    ]
-                ]
+                "CASE",
+                "mond"
+            ],
+            "\"You must be new here.\" He looks to the ground.",
+            "WAIT",
+            "\n\n\"He brought an age of great evil unto our land.\"",
+            "WAIT",
+            "\n\n\"Yet try and tell today's children of the age of darkness...\"",
+            "WAIT",
+            "\n\n\"They believe nothing can go wrong, as long as the Avatar lives.\"\n",
+            [
+                "JUMP",
+                193
             ],
             [
-                "KEYWORDS",
-                "buy,hone",
-                [
-                    [
-                        "JUMP",
-                        1183
-                    ]
-                ]
+                "CASE",
+                "buy,hone"
             ],
             [
-                "KEYWORDS",
-                "sell",
-                [
-                    [
-                        "JUMP",
-                        1721
-                    ]
-                ]
+                "JUMP",
+                1183
             ],
             [
-                "KEYWORDS",
-                "bee",
-                [
-                    "\"Bees are true friends. They work all day, making honey and scattering pollen.\"",
-                    "WAIT",
-                    "\n\n\"All we have to do is provide them with @hives.\"",
-                    "WAIT",
-                    "\n\nHe laughs. \"And get stung once in a while!\"\n",
-                    [
-                        "JUMP",
-                        193
-                    ]
-                ]
+                "CASE",
+                "sell"
             ],
             [
-                "KEYWORDS",
-                "hive",
-                [
-                    "\"I buys all my hives from a nice lady in Minoc named Michelle.\"",
-                    "WAIT",
-                    "\n\n\"She weaves them out of straw.\"\n",
-                    [
-                        "JUMP",
-                        193
-                    ]
-                ]
+                "JUMP",
+                1721
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I'm the @beekeeper here at the abbey.\"",
-                    "WAIT",
-                    "\n\n\"If you want to @buy @honey, or @sell me a honey jar I'm all ears (if only one-armed).\"\n",
-                    [
-                        "JUMP",
-                        193
-                    ]
-                ]
+                "CASE",
+                "bee"
+            ],
+            "\"Bees are true friends. They work all day, making honey and scattering pollen.\"",
+            "WAIT",
+            "\n\n\"All we have to do is provide them with @hives.\"",
+            "WAIT",
+            "\n\nHe laughs. \"And get stung once in a while!\"\n",
+            [
+                "JUMP",
+                193
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Have a nice $T.\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "hive"
+            ],
+            "\"I buys all my hives from a nice lady in Minoc named Michelle.\"",
+            "WAIT",
+            "\n\n\"She weaves them out of straw.\"\n",
+            [
+                "JUMP",
+                193
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "He scratches his head and looks around.\n"
-                ]
+                "CASE",
+                "job"
             ],
+            "\"I'm the @beekeeper here at the abbey.\"",
+            "WAIT",
+            "\n\n\"If you want to @buy @honey, or @sell me a honey jar I'm all ears (if only one-armed).\"\n",
+            [
+                "JUMP",
+                193
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"Have a nice $T.\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "He scratches his head and looks around.\n",
+            "ESAC",
             [
                 "JUMP",
                 193
@@ -400,273 +379,172 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, byte 10)), weight(byte 184, byte 1))"
+            ],
+            "\"You look pretty full to me.\"",
+            "WAIT",
+            "\n",
+            [
+                "JUMP",
+                174
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 10)"
+            ],
+            [
+                "DELETE",
                 [
+                    "character",
                     [
-                        "IF",
                         [
-                            "less",
+                            "integer",
                             [
                                 [
-                                    "plus",
-                                    [
-                                        [
-                                            "canCarry",
-                                            [
-                                                [
-                                                    "character",
-                                                    [
-                                                        [
-                                                            "integer",
-                                                            [
-                                                                [
-                                                                    "value",
-                                                                    3
-                                                                ]
-                                                            ]
-                                                        ],
-                                                        [
-                                                            "byte",
-                                                            0
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "weight",
-                                            [
-                                                [
-                                                    "byte",
-                                                    88
-                                                ],
-                                                [
-                                                    "byte",
-                                                    10
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "weight",
-                                    [
-                                        [
-                                            "byte",
-                                            184
-                                        ],
-                                        [
-                                            "byte",
-                                            1
-                                        ]
-                                    ]
+                                    "value",
+                                    3
                                 ]
                             ]
                         ],
                         [
-                            "\"You look pretty full to me.\"",
-                            "WAIT",
-                            "\n",
-                            [
-                                "JUMP",
-                                174
-                            ]
-                        ],
-                        []
-                    ],
+                            "byte",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    10
+                ]
+            ],
+            [
+                "NEW",
+                [
+                    "character",
                     [
-                        "IF",
                         [
-                            "greaterOrEquals",
+                            "integer",
                             [
                                 [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "character",
-                                            [
-                                                [
-                                                    "integer",
-                                                    [
-                                                        [
-                                                            "value",
-                                                            3
-                                                        ]
-                                                    ]
-                                                ],
-                                                [
-                                                    "byte",
-                                                    0
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    10
+                                    "value",
+                                    3
                                 ]
                             ]
                         ],
                         [
+                            "byte",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    184
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
+                ]
+            ],
+            [
+                "SETNAME",
+                [
+                    "character",
+                    [
+                        [
+                            "integer",
                             [
-                                "DELETE",
                                 [
-                                    "character",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    88
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    10
+                                    "value",
+                                    3
                                 ]
-                            ],
-                            [
-                                "NEW",
-                                [
-                                    "character",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    184
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ],
-                            [
-                                "SETNAME",
-                                [
-                                    "character",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            "\"Excellent!\" After accepting $Y's gold, $N hands over the honey.",
-                            "WAIT",
-                            [
-                                "ASSIGN",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            5
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ],
-                            "\n\n",
-                            [
-                                "JUMP",
-                                1657
                             ]
                         ],
                         [
-                            [
-                                "SETNAME",
-                                [
-                                    "character",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            "$N looks at $Y. \"You ain't that good-looking. My price is 10 gold.\"",
-                            "WAIT",
-                            "\n",
-                            [
-                                "JUMP",
-                                174
-                            ]
+                            "byte",
+                            0
                         ]
                     ]
                 ]
             ],
+            "\"Excellent!\" After accepting $Y's gold, $N hands over the honey.",
+            "WAIT",
             [
-                "KEYWORDS",
-                "n",
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "JUMP",
-                        1657
+                        [
+                            "value",
+                            5
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    1
+                ]
+            ],
+            "\n\n",
+            [
+                "JUMP",
+                1657
+            ],
+            "ELSE",
+            [
+                "SETNAME",
+                [
+                    "character",
+                    [
+                        [
+                            "integer",
+                            [
+                                [
+                                    "value",
+                                    3
+                                ]
+                            ]
+                        ],
+                        [
+                            "byte",
+                            0
+                        ]
                     ]
                 ]
+            ],
+            "$N looks at $Y. \"You ain't that good-looking. My price is 10 gold.\"",
+            "WAIT",
+            "\n",
+            [
+                "JUMP",
+                174
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "JUMP",
+                1657
             ]
         ],
         "1657": [
@@ -1195,93 +1073,89 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            "\"Done!\" He hands $Y 7 gold pieces and takes the honey jar.",
+            [
+                "DELETE",
                 [
-                    "\"Done!\" He hands $Y 7 gold pieces and takes the honey jar.",
+                    "character",
                     [
-                        "DELETE",
                         [
-                            "character",
+                            "integer",
                             [
                                 [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
+                                    "value",
+                                    3
                                 ]
                             ]
                         ],
                         [
                             "byte",
-                            183
-                        ],
-                        [
-                            "byte",
                             0
-                        ],
-                        [
-                            "byte",
-                            1
                         ]
-                    ],
-                    [
-                        "NEW",
-                        [
-                            "character",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            88
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            7
-                        ]
-                    ],
-                    "WAIT",
-                    "\n",
-                    [
-                        "JUMP",
-                        174
                     ]
+                ],
+                [
+                    "byte",
+                    183
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
+                "NEW",
                 [
+                    "character",
                     [
-                        "JUMP",
-                        2279
+                        [
+                            "integer",
+                            [
+                                [
+                                    "value",
+                                    3
+                                ]
+                            ]
+                        ],
+                        [
+                            "byte",
+                            0
+                        ]
                     ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    7
                 ]
+            ],
+            "WAIT",
+            "\n",
+            [
+                "JUMP",
+                174
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "JUMP",
+                2279
             ]
         ],
         "2236": [
@@ -1303,16 +1177,18 @@
             ]
         ],
         "2329": [
-            "INTEGERS",
             [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0
+                "INTEGERS",
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
             ]
         ]
     }

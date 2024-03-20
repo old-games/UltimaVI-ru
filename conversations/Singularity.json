@@ -48,16 +48,15 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    "\"What is the Mantra of Singularity?\"\n",
-                    [
-                        "JUMP",
-                        1638
-                    ]
-                ]
+                "CASE",
+                "y"
             ],
+            "\"What is the Mantra of Singularity?\"\n",
+            [
+                "JUMP",
+                1638
+            ],
+            "ESAC",
             "\n\"Which catacomb dost thou seek?\"",
             [
                 "JUMP",
@@ -89,49 +88,74 @@
             "\n\n\"What do you seek, Avatar?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "sacr,ques,code,mant",
+                "CASE",
+                "sacr,ques,code,mant"
+            ],
+            [
+                "IF",
+                "hasBit(byte 235, byte 2)"
+            ],
+            "\"What is the Mantra of Singularity?\"\n",
+            [
+                "JUMP",
+                1638
+            ],
+            "ELSE",
+            "\"Look deep inside thyself, Avatar, and answer this:\"",
+            "WAIT",
+            "\n\"For whom dost thou truly seek the Codex?\"\n",
+            [
+                "JUMP",
+                2380
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "cont,dili,pass"
+            ],
+            [
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "hasBit",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "byte",
-                                    2
-                                ]
-                            ]
+                            "value",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "indexOf",
+                    [
+                        [
+                            "dword",
+                            3487
                         ],
                         [
-                            "\"What is the Mantra of Singularity?\"\n",
-                            [
-                                "JUMP",
-                                1638
-                            ]
-                        ],
-                        [
-                            "\"Look deep inside thyself, Avatar, and answer this:\"",
-                            "WAIT",
-                            "\n\"For whom dost thou truly seek the Codex?\"\n",
-                            [
-                                "JUMP",
-                                2380
-                            ]
+                            "byte",
+                            35
                         ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "cont,dili,pass",
+                "ASSIGN",
                 [
+                    "string",
                     [
-                        "ASSIGN",
+                        [
+                            "value",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "data",
+                    [
+                        [
+                            "dword",
+                            3487
+                        ],
                         [
                             "integer",
                             [
@@ -140,247 +164,172 @@
                                     0
                                 ]
                             ]
+                        ]
+                    ]
+                ]
+            ],
+            [
+                "ASSIGN",
+                [
+                    "string",
+                    [
+                        [
+                            "value",
+                            1
+                        ]
+                    ]
+                ],
+                [
+                    "data",
+                    [
+                        [
+                            "dword",
+                            3514
                         ],
                         [
-                            "indexOf",
-                            [
-                                [
-                                    "dword",
-                                    3487
-                                ],
-                                [
-                                    "byte",
-                                    35
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
-                        "ASSIGN",
-                        [
-                            "string",
+                            "integer",
                             [
                                 [
                                     "value",
                                     0
                                 ]
                             ]
-                        ],
-                        [
-                            "data",
-                            [
-                                [
-                                    "dword",
-                                    3487
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ]
                         ]
-                    ],
-                    [
-                        "ASSIGN",
-                        [
-                            "string",
-                            [
-                                [
-                                    "value",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "data",
-                            [
-                                [
-                                    "dword",
-                                    3514
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ]
-                    ],
-                    "\"$0 is one of the guiding principles of the gargoyle race.\"",
-                    "WAIT",
-                    "\n\n\"Go thou into the @Catacombs of $0, near the coast to the $1 of here.\"",
-                    "WAIT",
-                    "\n\n\"There you will find the being who most exemplifies this @principle.\"",
-                    [
-                        "JUMP",
-                        798
                     ]
                 ]
             ],
+            "\"$0 is one of the guiding principles of the gargoyle race.\"",
+            "WAIT",
+            "\n\n\"Go thou into the @Catacombs of $0, near the coast to the $1 of here.\"",
+            "WAIT",
+            "\n\n\"There you will find the being who most exemplifies this @principle.\"",
             [
-                "KEYWORDS",
-                "prin,thre",
-                [
-                    "\"The three principles of @Control, @Passion and @Diligence form the basis of the gargoyle way of life.\"",
-                    [
-                        "JUMP",
-                        798
-                    ]
-                ]
+                "JUMP",
+                798
             ],
             [
-                "KEYWORDS",
-                "name,job",
-                [
-                    "\"Thou hast reached the Altar of Singularity. What dost thou seek?\"",
-                    [
-                        "JUMP",
-                        798
-                    ]
-                ]
+                "CASE",
+                "prin,thre"
+            ],
+            "\"The three principles of @Control, @Passion and @Diligence form the basis of the gargoyle way of life.\"",
+            [
+                "JUMP",
+                798
             ],
             [
-                "KEYWORDS",
-                "cata",
-                [
-                    "\"Which catacomb dost thou seek?\"",
-                    [
-                        "JUMP",
-                        798
-                    ]
-                ]
+                "CASE",
+                "name,job"
+            ],
+            "\"Thou hast reached the Altar of Singularity. What dost thou seek?\"",
+            [
+                "JUMP",
+                798
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "The mystic voice falls silent, and you leave the altar.\n",
-                    "BYE"
-                ]
+                "CASE",
+                "cata"
+            ],
+            "\"Which catacomb dost thou seek?\"",
+            [
+                "JUMP",
+                798
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    [
-                        "IF",
-                        [
-                            "random",
-                            [
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"The answer to that lies elsewhere.\""
-                        ],
-                        [
-                            "\"The answer to that lies within thyself.\""
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        798
-                    ]
-                ]
+                "CASE",
+                "bye"
+            ],
+            "The mystic voice falls silent, and you leave the altar.\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            [
+                "IF",
+                "random(byte 0, byte 1)"
+            ],
+            "\"The answer to that lies elsewhere.\"",
+            "ELSE",
+            "\"The answer to that lies within thyself.\"",
+            "ENDIF",
+            [
+                "JUMP",
+                798
             ]
         ],
         "1638": [
             "ASK",
             [
-                "KEYWORDS",
-                "un-or-us,unorus",
+                "CASE",
+                "un-or-us,unorus"
+            ],
+            "\"Let the principle of control guide thy quest.\"",
+            "WAIT",
+            "\n\n\"Let the principle of passion drive thy quest.\"",
+            "WAIT",
+            "\n\n\"Let the principle of diligence maintain thy quest.\"",
+            "WAIT",
+            "\n\n\"Then wilt thou truly achieve the unified spirit and singularity of purpose that is necessary for success in all endeavors.\"",
+            "WAIT",
+            "\n\n\"This is the gargoyle way; let it be thy way as well.\"",
+            "WAIT",
+            "\n\nThe altar glows with a cold blue flame.",
+            "WAIT",
+            "\n\nYou feel compelled to seek out the Codex.",
+            "WAIT",
+            "\n\nYour final quest has begun!",
+            [
+                "ADD_KARMA",
                 [
-                    "\"Let the principle of control guide thy quest.\"",
-                    "WAIT",
-                    "\n\n\"Let the principle of passion drive thy quest.\"",
-                    "WAIT",
-                    "\n\n\"Let the principle of diligence maintain thy quest.\"",
-                    "WAIT",
-                    "\n\n\"Then wilt thou truly achieve the unified spirit and singularity of purpose that is necessary for success in all endeavors.\"",
-                    "WAIT",
-                    "\n\n\"This is the gargoyle way; let it be thy way as well.\"",
-                    "WAIT",
-                    "\n\nThe altar glows with a cold blue flame.",
-                    "WAIT",
-                    "\n\nYou feel compelled to seek out the Codex.",
-                    "WAIT",
-                    "\n\nYour final quest has begun!",
+                    "byte",
+                    10
+                ]
+            ],
+            [
+                "ASSIGN",
+                [
+                    "integer",
                     [
-                        "ADD_KARMA",
                         [
-                            "byte",
-                            10
+                            "value",
+                            26
                         ]
-                    ],
-                    [
-                        "ASSIGN",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    26
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ],
-                    "WAIT",
-                    "\n",
-                    "BYE"
+                    ]
+                ],
+                [
+                    "byte",
+                    1
                 ]
             ],
+            "WAIT",
+            "\n",
+            "BYE",
             [
-                "KEYWORDS",
-                "un-us-or,us-un-or,us-or-un,or-us-un,or-un-us",
-                [
-                    [
-                        "JUMP",
-                        1656
-                    ]
-                ]
+                "CASE",
+                "un-us-or,us-un-or,us-or-un,or-us-un,or-un-us"
             ],
             [
-                "KEYWORDS",
-                "unusor,usunor,usorun,orusun,orunus",
-                [
-                    [
-                        "JUMP",
-                        1656
-                    ]
-                ]
+                "JUMP",
+                1656
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"You have not yet become familiar with the wisdom of the gargoyle race.\"",
-                    "WAIT",
-                    "\n\n\"Continue thy search.\"",
-                    [
-                        "JUMP",
-                        798
-                    ]
-                ]
+                "CASE",
+                "unusor,usunor,usorun,orusun,orunus"
+            ],
+            [
+                "JUMP",
+                1656
+            ],
+            [
+                "CASE",
+                "*"
+            ],
+            "\"You have not yet become familiar with the wisdom of the gargoyle race.\"",
+            "WAIT",
+            "\n\n\"Continue thy search.\"",
+            [
+                "JUMP",
+                798
             ]
         ],
         "2320": [
@@ -389,119 +338,111 @@
         "2380": [
             "ASK",
             [
-                "KEYWORDS",
-                "both,our,peac,all,ever",
+                "CASE",
+                "both,our,peac,all,ever"
+            ],
+            "\"Thy answer is wise.\"",
+            "WAIT",
+            "\n\n\"But how canst thou truly work for the good of a race whose ways thou dost not understand?\"",
+            "WAIT",
+            "\n\n\"Go thou into the @Catacombs of @Control, @Passion and @Diligence.\"",
+            "WAIT",
+            "\n\n\"In each wilt thou find the final resting place of the being who most exemplifies that @principle.\"",
+            "WAIT",
+            "\n\n\"Return when thou hast found these @catacombs.\"",
+            [
+                "SETF",
                 [
-                    "\"Thy answer is wise.\"",
-                    "WAIT",
-                    "\n\n\"But how canst thou truly work for the good of a race whose ways thou dost not understand?\"",
-                    "WAIT",
-                    "\n\n\"Go thou into the @Catacombs of @Control, @Passion and @Diligence.\"",
-                    "WAIT",
-                    "\n\n\"In each wilt thou find the final resting place of the being who most exemplifies that @principle.\"",
-                    "WAIT",
-                    "\n\n\"Return when thou hast found these @catacombs.\"",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            2
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        798
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    2
                 ]
             ],
             [
-                "KEYWORDS",
-                "huma,me,my,lord,brit",
-                [
-                    "\"Thy answer is foolish.\"",
-                    "WAIT",
-                    "\n\n\"A journey made for selfish reasons can never be a sacred quest, regardless of its goal.\"",
-                    "WAIT",
-                    [
-                        "JUMP",
-                        2320
-                    ]
-                ]
+                "JUMP",
+                798
             ],
             [
-                "KEYWORDS",
-                "garg,seer,scho,inqu,lead",
-                [
-                    "\"Thy answer is foolish.\"",
-                    "WAIT",
-                    "\n\n\"There is no nobility or honor in betraying one's own race for the sake of another.\"",
-                    "WAIT",
-                    "\n\n\"Such a path can never be a sacred quest.\"",
-                    "WAIT",
-                    [
-                        "JUMP",
-                        2320
-                    ]
-                ]
+                "CASE",
+                "huma,me,my,lord,brit"
+            ],
+            "\"Thy answer is foolish.\"",
+            "WAIT",
+            "\n\n\"A journey made for selfish reasons can never be a sacred quest, regardless of its goal.\"",
+            "WAIT",
+            [
+                "JUMP",
+                2320
             ],
             [
-                "KEYWORDS",
-                "valk,beh,naxa,drax,bole",
-                [
-                    "\"Thy answer is foolish.\"",
-                    "WAIT",
-                    "\n\n\"Thy compassion is acknowledged, but compassion is not the key to success.\"",
-                    "WAIT",
-                    "\n\n\"The motive must be as one with the goal for a journey to become a sacred quest.\"",
-                    "WAIT",
-                    [
-                        "JUMP",
-                        2320
-                    ]
-                ]
+                "CASE",
+                "garg,seer,scho,inqu,lead"
+            ],
+            "\"Thy answer is foolish.\"",
+            "WAIT",
+            "\n\n\"There is no nobility or honor in betraying one's own race for the sake of another.\"",
+            "WAIT",
+            "\n\n\"Such a path can never be a sacred quest.\"",
+            "WAIT",
+            [
+                "JUMP",
+                2320
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Return when thou canst truly answer this question.\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "valk,beh,naxa,drax,bole"
+            ],
+            "\"Thy answer is foolish.\"",
+            "WAIT",
+            "\n\n\"Thy compassion is acknowledged, but compassion is not the key to success.\"",
+            "WAIT",
+            "\n\n\"The motive must be as one with the goal for a journey to become a sacred quest.\"",
+            "WAIT",
+            [
+                "JUMP",
+                2320
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"Thy answer is foolish.\"",
-                    "WAIT",
-                    "\n\n\"Thy mind must be focused clearly on thy path for thy journey to become a sacred quest.\"",
-                    "WAIT",
-                    [
-                        "JUMP",
-                        2320
-                    ]
-                ]
+                "CASE",
+                "bye"
+            ],
+            "\"Return when thou canst truly answer this question.\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"Thy answer is foolish.\"",
+            "WAIT",
+            "\n\n\"Thy mind must be focused clearly on thy path for thy journey to become a sacred quest.\"",
+            "WAIT",
+            [
+                "JUMP",
+                2320
             ]
         ],
         "3487": [
-            "STRINGS",
             [
-                "Control",
-                "Diligence",
-                "Passion"
+                "STRINGS",
+                [
+                    "Control",
+                    "Diligence",
+                    "Passion"
+                ]
             ],
             "end-of-list-marker"
         ],
         "3514": [
-            "STRINGS",
             [
-                "west",
-                "south",
-                "east"
+                "STRINGS",
+                [
+                    "west",
+                    "south",
+                    "east"
+                ]
             ]
         ]
     }

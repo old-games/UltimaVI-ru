@@ -36,230 +36,151 @@
             "\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
+                "CASE",
+                "name"
+            ],
+            "\"My name is Shubin, $G.\"",
+            [
+                "SETF",
                 [
-                    "\"My name is Shubin, $G.\"",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            0
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        221
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I'm a @cook, $G.\"",
-                    [
-                        "JUMP",
-                        221
-                    ]
-                ]
+                "JUMP",
+                221
             ],
             [
-                "KEYWORDS",
-                "sand",
-                [
-                    "\"He is my friend.\"",
-                    [
-                        "JUMP",
-                        221
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I'm a @cook, $G.\"",
+            [
+                "JUMP",
+                221
             ],
             [
-                "KEYWORDS",
-                "mant",
-                [
-                    "\"@Sandy says the mantra of eating is 'yum,' $G. Hee, hee!\"",
-                    [
-                        "IF",
-                        [
-                            "partyHas",
-                            [
-                                [
-                                    "byte",
-                                    4
-                                ]
-                            ]
-                        ],
-                        [
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    4
-                                ]
-                            ],
-                            "\n\nYou friend Iolo rolls his eyes. \"Such wisdom we can surely do without!\"",
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "JUMP",
-                        221
-                    ]
-                ]
+                "CASE",
+                "sand"
+            ],
+            "\"He is my friend.\"",
+            [
+                "JUMP",
+                221
             ],
             [
-                "KEYWORDS",
-                "thin,roll",
+                "CASE",
+                "mant"
+            ],
+            "\"@Sandy says the mantra of eating is 'yum,' $G. Hee, hee!\"",
+            [
+                "IF",
+                "partyHas(byte 4)"
+            ],
+            "WAIT",
+            [
+                "PORTRAIT",
                 [
-                    [
-                        "IF",
-                        [
-                            "or",
-                            [
-                                [
-                                    "hasBit",
-                                    [
-                                        [
-                                            "byte",
-                                            235
-                                        ],
-                                        [
-                                            "byte",
-                                            7
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "less",
-                                    [
-                                        [
-                                            "canCarry",
-                                            [
-                                                [
-                                                    "byte",
-                                                    1
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "weight",
-                                            [
-                                                [
-                                                    "byte",
-                                                    130
-                                                ],
-                                                [
-                                                    "byte",
-                                                    1
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"I have no more rolls, $G.\"",
-                            [
-                                "JUMP",
-                                221
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "JUMP",
-                        1101
-                    ]
+                    "byte",
+                    4
                 ]
+            ],
+            "\n\nYou friend Iolo rolls his eyes. \"Such wisdom we can surely do without!\"",
+            "WAIT",
+            [
+                "PORTRAIT",
+                [
+                    "byte",
+                    235
+                ]
+            ],
+            "ENDIF",
+            [
+                "JUMP",
+                221
             ],
             [
-                "KEYWORDS",
-                "cook",
-                [
-                    "\"Being a cook is like being an @adventurer, $G.\"",
-                    [
-                        "JUMP",
-                        221
-                    ]
-                ]
+                "CASE",
+                "thin,roll"
             ],
             [
-                "KEYWORDS",
-                "adve",
-                [
-                    "\"Yes, $G. I must gather up all my ingredients with @care.\"",
-                    [
-                        "JUMP",
-                        221
-                    ]
-                ]
+                "IF",
+                "or(hasBit(byte 235, byte 7), less(canCarry(byte 1), weight(byte 130, byte 1)))"
+            ],
+            "\"I have no more rolls, $G.\"",
+            [
+                "JUMP",
+                221
+            ],
+            "ENDIF",
+            [
+                "JUMP",
+                1101
             ],
             [
-                "KEYWORDS",
-                "care",
-                [
-                    "\"So that I have the right @ingredients, $G.\"",
-                    [
-                        "JUMP",
-                        221
-                    ]
-                ]
+                "CASE",
+                "cook"
+            ],
+            "\"Being a cook is like being an @adventurer, $G.\"",
+            [
+                "JUMP",
+                221
             ],
             [
-                "KEYWORDS",
-                "ingr",
-                [
-                    "\"Adventurers are always searching for this or that, $G. So are cooks.\"",
-                    "WAIT",
-                    "\n\n\"Do you know of Magincian Pastry?\" ",
-                    [
-                        "JUMP",
-                        1259
-                    ]
-                ]
+                "CASE",
+                "adve"
+            ],
+            "\"Yes, $G. I must gather up all my ingredients with @care.\"",
+            [
+                "JUMP",
+                221
             ],
             [
-                "KEYWORDS",
-                "drag,egg",
-                [
-                    "\"Have you one with you?\" ",
-                    [
-                        "JUMP",
-                        962
-                    ]
-                ]
+                "CASE",
+                "care"
+            ],
+            "\"So that I have the right @ingredients, $G.\"",
+            [
+                "JUMP",
+                221
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Goodbye, $G.\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "ingr"
+            ],
+            "\"Adventurers are always searching for this or that, $G. So are cooks.\"",
+            "WAIT",
+            "\n\n\"Do you know of Magincian Pastry?\" ",
+            [
+                "JUMP",
+                1259
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"That's one of the eight @mantras, isn't it?\""
-                ]
+                "CASE",
+                "drag,egg"
             ],
+            "\"Have you one with you?\" ",
+            [
+                "JUMP",
+                962
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"Goodbye, $G.\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"That's one of the eight @mantras, isn't it?\"",
+            "ESAC",
             [
                 "JUMP",
                 221
@@ -271,107 +192,84 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
+                "CASE",
+                "n"
+            ],
+            "\"Oh, do not tease old Shubin so, $G!\"",
+            [
+                "JUMP",
+                221
+            ],
+            [
+                "CASE",
+                "y"
+            ],
+            [
+                "ASSIGN",
                 [
-                    "\"Oh, do not tease old Shubin so, $G!\"",
+                    "integer",
                     [
-                        "JUMP",
-                        221
+                        [
+                            "value",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "partyHasObject",
+                    [
+                        [
+                            "word",
+                            417
+                        ],
+                        [
+                            "byte",
+                            0
+                        ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "y",
+                "IF",
+                "notEquals(integer(value 0), word 32769)"
+            ],
+            "\"Oh, thank you, thank you, thank you!\"",
+            [
+                "DELETE",
                 [
-                    [
-                        "ASSIGN",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "partyHasObject",
-                            [
-                                [
-                                    "word",
-                                    417
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    32769
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Oh, thank you, thank you, thank you!\"",
-                            [
-                                "DELETE",
-                                [
-                                    "byte",
-                                    1
-                                ],
-                                [
-                                    "word",
-                                    417
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ],
-                            [
-                                "ADD_KARMA",
-                                [
-                                    "byte",
-                                    5
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                221
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                968
-                            ]
-                        ]
-                    ]
+                    "byte",
+                    1
+                ],
+                [
+                    "word",
+                    417
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
                 ]
-            ]
+            ],
+            [
+                "ADD_KARMA",
+                [
+                    "byte",
+                    5
+                ]
+            ],
+            [
+                "JUMP",
+                221
+            ],
+            "ELSE",
+            [
+                "JUMP",
+                968
+            ],
+            "ENDIF"
         ],
         "1101": [
             "He ask anxiously \"Do you like it, $G?\" ",
@@ -380,56 +278,52 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
+                "CASE",
+                "n"
+            ],
+            "\"Such a picky eater. No wonder you're so skinny, $G.\"",
+            [
+                "JUMP",
+                221
+            ],
+            [
+                "CASE",
+                "y"
+            ],
+            "\"Have a whole tray, then.\"",
+            [
+                "NEW",
                 [
-                    "\"Such a picky eater. No wonder you're so skinny, $G.\"",
-                    [
-                        "JUMP",
-                        221
-                    ]
+                    "byte",
+                    1
+                ],
+                [
+                    "byte",
+                    130
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
                 ]
             ],
             [
-                "KEYWORDS",
-                "y",
+                "SETF",
                 [
-                    "\"Have a whole tray, then.\"",
-                    [
-                        "NEW",
-                        [
-                            "byte",
-                            1
-                        ],
-                        [
-                            "byte",
-                            130
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ],
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            7
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        221
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    7
                 ]
+            ],
+            [
+                "JUMP",
+                221
             ]
         ],
         "1259": [
@@ -438,23 +332,20 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"It is a marvellous dish, $G. My friend Sandy gave me the recipe...\"\n*\n\"I'm only missing one ingredient...\"",
-                    [
-                        "JUMP",
-                        1456
-                    ]
-                ]
+                "CASE",
+                "n"
+            ],
+            "\"It is a marvellous dish, $G. My friend Sandy gave me the recipe...\"\n*\n\"I'm only missing one ingredient...\"",
+            [
+                "JUMP",
+                1456
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    "\"Well, I'd like to make it, $G, but I cannot get one of the ingredients...\""
-                ]
+                "CASE",
+                "y"
             ],
+            "\"Well, I'd like to make it, $G, but I cannot get one of the ingredients...\"",
+            "ESAC",
             "WAIT",
             "\n\n\"I sure would appreciate it if you brought it back for me if you came across one in your travels, $G...\"",
             "WAIT",
@@ -466,26 +357,22 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    "He sighs. \"Well, $G, it did no harm to ask, I suppose.\"",
-                    [
-                        "JUMP",
-                        221
-                    ]
-                ]
+                "CASE",
+                "y"
+            ],
+            "He sighs. \"Well, $G, it did no harm to ask, I suppose.\"",
+            [
+                "JUMP",
+                221
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"I just know you will remember Shubin, $G. Thank you.\"",
-                    [
-                        "JUMP",
-                        221
-                    ]
-                ]
+                "CASE",
+                "n"
+            ],
+            "\"I just know you will remember Shubin, $G. Thank you.\"",
+            [
+                "JUMP",
+                221
             ]
         ]
     }

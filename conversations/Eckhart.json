@@ -31,422 +31,234 @@
             "\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
+                "CASE",
+                "name"
+            ],
+            "\"Eckhart the vinekeeper, at your service, ",
+            [
+                "IF",
+                "equals(integer(value 16), byte 1)"
+            ],
+            "ma'am.\"",
+            "ELSE",
+            "sir.\"",
+            "ENDIF",
+            [
+                "SETF",
                 [
-                    "\"Eckhart the vinekeeper, at your service, ",
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            16
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "ma'am.\""
-                        ],
-                        [
-                            "sir.\""
-                        ]
-                    ],
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            0
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        252
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "bees,hone,mead",
+                "JUMP",
+                252
+            ],
+            [
+                "CASE",
+                "bees,hone,mead"
+            ],
+            "You notice the bees have regular aerial routes all about the vineyard.",
+            "WAIT",
+            "\n\n\"Zeke keeps bees on the other side of the abbey, $G.\"",
+            [
+                "JUMP",
+                252
+            ],
+            [
+                "CASE",
+                "job"
+            ],
+            "\"I care for the @garden and tend the @vines.\"",
+            [
+                "JUMP",
+                252
+            ],
+            [
+                "CASE",
+                "gard,care"
+            ],
+            "\"Some of our rosebushes were planted by druids hundreds of years ago.\"",
+            "WAIT",
+            "\n\n\"Eventually, we became the Brotherhood of the Rose.\"",
+            [
+                "JUMP",
+                252
+            ],
+            [
+                "CASE",
+                "vine,tend"
+            ],
+            [
+                "IF",
+                "equals(integer(value 32), byte 144)"
+            ],
+            "\"These rows,\" he gestures, \"are ",
+            "ELSE",
+            "\"Here at the abbey we grow ",
+            "ENDIF",
+            "@seedless grapes.\"",
+            [
+                "JUMP",
+                252
+            ],
+            [
+                "CASE",
+                "seed,less"
+            ],
+            "\"Amazing, ain't it, $G. The @enchanter made them for us.\"",
+            "WAIT",
+            "\n\n\"Now I grow new vines by grafting seedless @grapevines onto regular rootstocks.\"",
+            [
+                "JUMP",
+                252
+            ],
+            [
+                "CASE",
+                "nico,ench"
+            ],
+            "\"Yes, $G. He lives east of here, between two rivers.\"",
+            "WAIT",
+            "\n\n\"His hut be due north of Britain, or so they tell me.\"",
+            [
+                "JUMP",
+                252
+            ],
+            [
+                "CASE",
+                "grap"
+            ],
+            [
+                "IF",
+                "notEquals(integer(value 32), byte 144)"
+            ],
+            "\"Visit me in the fields some time and I'll give you some!\"",
+            [
+                "JUMP",
+                252
+            ],
+            "ENDIF",
+            "\"Now those grapes there are for making @wine.\"",
+            [
+                "IF",
+                "partyHas(byte 2)"
+            ],
+            "WAIT",
+            [
+                "PORTRAIT",
                 [
-                    "You notice the bees have regular aerial routes all about the vineyard.",
-                    "WAIT",
-                    "\n\n\"Zeke keeps bees on the other side of the abbey, $G.\"",
-                    [
-                        "JUMP",
-                        252
-                    ]
+                    "byte",
+                    2
+                ]
+            ],
+            "\n\nDupre says \"I cannot say which I like better: wine from grapes or mead from honey!\"",
+            [
+                "PORTRAIT",
+                [
+                    "byte",
+                    235
+                ]
+            ],
+            "ENDIF",
+            "WAIT",
+            "\n\n\"And these over here are for eating.\"",
+            [
+                "IF",
+                "and(notEquals(partyHasObject(byte 95, byte 0), word 32769), equals(hasBit(byte 235, byte 7), byte 1))"
+            ],
+            [
+                "JUMP",
+                252
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "less(canCarry(byte 1), weight(byte 95, byte 1))"
+            ],
+            [
+                "JUMP",
+                252
+            ],
+            "ENDIF",
+            [
+                "SETF",
+                [
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    7
                 ]
             ],
             [
-                "KEYWORDS",
-                "job",
+                "NEW",
                 [
-                    "\"I care for the @garden and tend the @vines.\"",
-                    [
-                        "JUMP",
-                        252
-                    ]
+                    "byte",
+                    1
+                ],
+                [
+                    "byte",
+                    95
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
                 ]
             ],
+            "WAIT",
+            "\n\nHe gives you a plump little bunch of sweet table grapes.",
             [
-                "KEYWORDS",
-                "gard,care",
-                [
-                    "\"Some of our rosebushes were planted by druids hundreds of years ago.\"",
-                    "WAIT",
-                    "\n\n\"Eventually, we became the Brotherhood of the Rose.\"",
-                    [
-                        "JUMP",
-                        252
-                    ]
-                ]
+                "JUMP",
+                252
             ],
             [
-                "KEYWORDS",
-                "vine,tend",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"These rows,\" he gestures, \"are "
-                        ],
-                        [
-                            "\"Here at the abbey we grow "
-                        ]
-                    ],
-                    "@seedless grapes.\"",
-                    [
-                        "JUMP",
-                        252
-                    ]
-                ]
+                "CASE",
+                "wine"
+            ],
+            "\"Ask @Faren of that.\"",
+            [
+                "JUMP",
+                252
             ],
             [
-                "KEYWORDS",
-                "seed,less",
-                [
-                    "\"Amazing, ain't it, $G. The @enchanter made them for us.\"",
-                    "WAIT",
-                    "\n\n\"Now I grow new vines by grafting seedless @grapevines onto regular rootstocks.\"",
-                    [
-                        "JUMP",
-                        252
-                    ]
-                ]
+                "CASE",
+                "fare"
+            ],
+            "\"Yes, Faren--the local winemaker.\"",
+            [
+                "JUMP",
+                252
             ],
             [
-                "KEYWORDS",
-                "nico,ench",
-                [
-                    "\"Yes, $G. He lives east of here, between two rivers.\"",
-                    "WAIT",
-                    "\n\n\"His hut be due north of Britain, or so they tell me.\"",
-                    [
-                        "JUMP",
-                        252
-                    ]
-                ]
+                "CASE",
+                "bye"
             ],
             [
-                "KEYWORDS",
-                "grap",
-                [
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Visit me in the fields some time and I'll give you some!\"",
-                            [
-                                "JUMP",
-                                252
-                            ]
-                        ],
-                        []
-                    ],
-                    "\"Now those grapes there are for making @wine.\"",
-                    [
-                        "IF",
-                        [
-                            "partyHas",
-                            [
-                                [
-                                    "byte",
-                                    2
-                                ]
-                            ]
-                        ],
-                        [
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    2
-                                ]
-                            ],
-                            "\n\nDupre says \"I cannot say which I like better: wine from grapes or mead from honey!\"",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ]
-                        ],
-                        []
-                    ],
-                    "WAIT",
-                    "\n\n\"And these over here are for eating.\"",
-                    [
-                        "IF",
-                        [
-                            "and",
-                            [
-                                [
-                                    "notEquals",
-                                    [
-                                        [
-                                            "partyHasObject",
-                                            [
-                                                [
-                                                    "byte",
-                                                    95
-                                                ],
-                                                [
-                                                    "byte",
-                                                    0
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "word",
-                                            32769
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "equals",
-                                    [
-                                        [
-                                            "hasBit",
-                                            [
-                                                [
-                                                    "byte",
-                                                    235
-                                                ],
-                                                [
-                                                    "byte",
-                                                    7
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            1
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                252
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "IF",
-                        [
-                            "less",
-                            [
-                                [
-                                    "canCarry",
-                                    [
-                                        [
-                                            "byte",
-                                            1
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "weight",
-                                    [
-                                        [
-                                            "byte",
-                                            95
-                                        ],
-                                        [
-                                            "byte",
-                                            1
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                252
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            7
-                        ]
-                    ],
-                    [
-                        "NEW",
-                        [
-                            "byte",
-                            1
-                        ],
-                        [
-                            "byte",
-                            95
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ],
-                    "WAIT",
-                    "\n\nHe gives you a plump little bunch of sweet table grapes.",
-                    [
-                        "JUMP",
-                        252
-                    ]
-                ]
+                "IF",
+                "equals(integer(value 32), byte 144)"
             ],
+            "He waves and turns back to work.\n",
+            "ELSE",
+            "Eckhart waves goodbye.\n",
+            "ENDIF",
+            "BYE",
             [
-                "KEYWORDS",
-                "wine",
-                [
-                    "\"Ask @Faren of that.\"",
-                    [
-                        "JUMP",
-                        252
-                    ]
-                ]
+                "CASE",
+                "*"
             ],
+            "\"Beg pardon, $G?\"",
             [
-                "KEYWORDS",
-                "fare",
-                [
-                    "\"Yes, Faren--the local winemaker.\"",
-                    [
-                        "JUMP",
-                        252
-                    ]
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "bye",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            "He waves and turns back to work.\n"
-                        ],
-                        [
-                            "Eckhart waves goodbye.\n"
-                        ]
-                    ],
-                    "BYE"
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"Beg pardon, $G?\"",
-                    [
-                        "JUMP",
-                        252
-                    ]
-                ]
+                "JUMP",
+                252
             ]
         ]
     }

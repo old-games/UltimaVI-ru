@@ -32,98 +32,72 @@
             "ENDIF",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
+                "CASE",
+                "name"
+            ],
+            "\"@Petroph.\"\n",
+            [
+                "SETF",
                 [
-                    "\"@Petroph.\"\n",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            0
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        154
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "petr",
-                [
-                    "\"Da, Petroph.\"\n",
-                    [
-                        "JUMP",
-                        154
-                    ]
-                ]
+                "JUMP",
+                154
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I am keeping the @inn, here at King's Ransom.\"\n",
-                    [
-                        "JUMP",
-                        154
-                    ]
-                ]
+                "CASE",
+                "petr"
+            ],
+            "\"Da, Petroph.\"\n",
+            [
+                "JUMP",
+                154
             ],
             [
-                "KEYWORDS",
-                "room,inn",
-                [
-                    [
-                        "JUMP",
-                        401
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I am keeping the @inn, here at King's Ransom.\"\n",
+            [
+                "JUMP",
+                154
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    [
-                        "IF",
-                        [
-                            "hasBit",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "value",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Da, goodbye and good riddance!\"\n"
-                        ],
-                        [
-                            "\"Have a nice day.\"\n"
-                        ]
-                    ],
-                    "BYE"
-                ]
+                "CASE",
+                "room,inn"
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"You speak too quick. What was that?\"\n",
-                    [
-                        "JUMP",
-                        154
-                    ]
-                ]
+                "JUMP",
+                401
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            [
+                "IF",
+                "hasBit(byte 235, value 1)"
+            ],
+            "\"Da, goodbye and good riddance!\"\n",
+            "ELSE",
+            "\"Have a nice day.\"\n",
+            "ENDIF",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"You speak too quick. What was that?\"\n",
+            [
+                "JUMP",
+                154
             ]
         ],
         "401": [
@@ -172,116 +146,84 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(objectsCount(byte 1, byte 88), integer(value 0))"
+            ],
+            "\"Must pay in advance for rooms. Sorry, is policy.\"\n",
+            [
+                "JUMP",
+                154
+            ],
+            "ENDIF",
+            [
+                "DELETE",
                 [
+                    "byte",
+                    1
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "integer",
                     [
-                        "IF",
-                        [
-                            "less",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "byte",
-                                            1
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Must pay in advance for rooms. Sorry, is policy.\"\n",
-                            [
-                                "JUMP",
-                                154
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "DELETE",
-                        [
-                            "byte",
-                            1
-                        ],
-                        [
-                            "byte",
-                            88
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
-                        "CLEARF",
-                        [
-                            "byte",
-                            235
-                        ],
                         [
                             "value",
-                            1
+                            0
                         ]
-                    ],
-                    "You sleep in a comfortable bed...\n",
-                    "SLEEP",
-                    "\nYou wake rested and eat a large breakfast.",
-                    "WAIT",
-                    "\n\n\"Good morning to you.\"\n",
-                    [
-                        "JUMP",
-                        154
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
+                "CLEARF",
                 [
-                    "\"What, maybe you don't like my inn?\"",
-                    "WAIT",
-                    "\n\n\"Well, maybe I don't like you either!\"\n",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            1
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        154
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    1
                 ]
+            ],
+            "You sleep in a comfortable bed...\n",
+            "SLEEP",
+            "\nYou wake rested and eat a large breakfast.",
+            "WAIT",
+            "\n\n\"Good morning to you.\"\n",
+            [
+                "JUMP",
+                154
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            "\"What, maybe you don't like my inn?\"",
+            "WAIT",
+            "\n\n\"Well, maybe I don't like you either!\"\n",
+            [
+                "SETF",
+                [
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    1
+                ]
+            ],
+            [
+                "JUMP",
+                154
             ]
         ]
     }

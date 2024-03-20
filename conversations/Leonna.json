@@ -61,131 +61,98 @@
             "\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "\"My name is Leonna.\"",
-                    [
-                        "JUMP",
-                        318
-                    ]
-                ]
+                "CASE",
+                "name"
+            ],
+            "\"My name is Leonna.\"",
+            [
+                "JUMP",
+                318
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I used to @captain my own ship.\"",
-                    "WAIT",
-                    "\n\n\"But I fell on hard times, and now I sail with @Leodon on the @Hind.\"",
-                    [
-                        "JUMP",
-                        318
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I used to @captain my own ship.\"",
+            "WAIT",
+            "\n\n\"But I fell on hard times, and now I sail with @Leodon on the @Hind.\"",
+            [
+                "JUMP",
+                318
             ],
             [
-                "KEYWORDS",
-                "hind,ship,sail",
-                [
-                    "\"A fine old vessel, the Golden Hind.\"",
-                    "WAIT",
-                    "\n\n\"Alas, I have little to do while she's being @repaired.\"",
-                    [
-                        "JUMP",
-                        318
-                    ]
-                ]
+                "CASE",
+                "hind,ship,sail"
+            ],
+            "\"A fine old vessel, the Golden Hind.\"",
+            "WAIT",
+            "\n\n\"Alas, I have little to do while she's being @repaired.\"",
+            [
+                "JUMP",
+                318
             ],
             [
-                "KEYWORDS",
-                "litt,repa,join",
-                [
-                    [
-                        "JUMP",
-                        1356
-                    ]
-                ]
+                "CASE",
+                "litt,repa,join"
             ],
             [
-                "KEYWORDS",
-                "leav",
-                [
-                    [
-                        "JUMP",
-                        1764
-                    ]
-                ]
+                "JUMP",
+                1356
             ],
             [
-                "KEYWORDS",
-                "leod",
-                [
-                    "\"There's none I'd rather ship out with.\"",
-                    [
-                        "JUMP",
-                        318
-                    ]
-                ]
+                "CASE",
+                "leav"
             ],
             [
-                "KEYWORDS",
-                "capt",
+                "JUMP",
+                1764
+            ],
+            [
+                "CASE",
+                "leod"
+            ],
+            "\"There's none I'd rather ship out with.\"",
+            [
+                "JUMP",
+                318
+            ],
+            [
+                "CASE",
+                "capt"
+            ],
+            [
+                "IF",
+                "partyHas(byte 235)"
+            ],
+            "\"Captain who? I know lots of Captains...\"",
+            [
+                "JUMP",
+                318
+            ],
+            "ENDIF",
+            [
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "partyHas",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Captain who? I know lots of Captains...\"",
-                            [
-                                "JUMP",
-                                318
-                            ]
-                        ],
-                        []
-                    ],
+                            "value",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "plus",
                     [
-                        "ASSIGN",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
                         [
                             "plus",
                             [
                                 [
-                                    "plus",
+                                    "isNearby",
                                     [
                                         [
-                                            "isNearby",
-                                            [
-                                                [
-                                                    "byte",
-                                                    113
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "isNearby",
-                                            [
-                                                [
-                                                    "byte",
-                                                    111
-                                                ]
-                                            ]
+                                            "byte",
+                                            113
                                         ]
                                     ]
                                 ],
@@ -194,124 +161,97 @@
                                     [
                                         [
                                             "byte",
-                                            112
+                                            111
                                         ]
                                     ]
                                 ]
                             ]
-                        ]
-                    ],
-                    [
-                        "IF",
-                        [
-                            "lessOrEquals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
                         ],
-                        [
-                            "\"Captain who? I know lots of Captains...\"",
-                            [
-                                "JUMP",
-                                318
-                            ]
-                        ],
-                        []
-                    ],
-                    "When you say 'Captain,' all the pirates at the table turn to you expectantly.",
-                    "WAIT",
-                    "\n\nWhen they realize you weren't talking to them, they return to their business.",
-                    [
-                        "JUMP",
-                        318
-                    ]
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "john",
-                [
-                    "\"Captain John is a madman!\"",
-                    "WAIT",
-                    "\n\n\"He went down in Hythloth seeking a way to the other side of the world.\"",
-                    "WAIT",
-                    "\n\n\"Said he was going to kill as many @gargoyles as he could before they got him.\"",
-                    [
-                        "IF",
                         [
                             "isNearby",
                             [
                                 [
                                     "byte",
-                                    111
+                                    112
                                 ]
                             ]
-                        ],
-                        [
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    111
-                                ]
-                            ],
-                            "\n\n\"That's not true!\" says Captain Fox. \"I can tell you what really happened.\"",
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "JUMP",
-                        318
+                        ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "garg",
-                [
-                    "\"Please, let's not talk about them.\"",
-                    [
-                        "JUMP",
-                        318
-                    ]
-                ]
+                "IF",
+                "lessOrEquals(integer(value 0), byte 1)"
+            ],
+            "\"Captain who? I know lots of Captains...\"",
+            [
+                "JUMP",
+                318
+            ],
+            "ENDIF",
+            "When you say 'Captain,' all the pirates at the table turn to you expectantly.",
+            "WAIT",
+            "\n\nWhen they realize you weren't talking to them, they return to their business.",
+            [
+                "JUMP",
+                318
             ],
             [
-                "KEYWORDS",
-                "bye",
+                "CASE",
+                "john"
+            ],
+            "\"Captain John is a madman!\"",
+            "WAIT",
+            "\n\n\"He went down in Hythloth seeking a way to the other side of the world.\"",
+            "WAIT",
+            "\n\n\"Said he was going to kill as many @gargoyles as he could before they got him.\"",
+            [
+                "IF",
+                "isNearby(byte 111)"
+            ],
+            "WAIT",
+            [
+                "PORTRAIT",
                 [
-                    "\"Talk to you later.\"\n",
-                    "BYE"
+                    "byte",
+                    111
                 ]
+            ],
+            "\n\n\"That's not true!\" says Captain Fox. \"I can tell you what really happened.\"",
+            "WAIT",
+            [
+                "PORTRAIT",
+                [
+                    "byte",
+                    235
+                ]
+            ],
+            "ENDIF",
+            [
+                "JUMP",
+                318
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"I can't help you with that.\""
-                ]
+                "CASE",
+                "garg"
             ],
+            "\"Please, let's not talk about them.\"",
+            [
+                "JUMP",
+                318
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"Talk to you later.\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"I can't help you with that.\"",
+            "ESAC",
             [
                 "JUMP",
                 318
@@ -334,21 +274,19 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"Okay. I guess I'll just stay here for now.\"",
-                    [
-                        "JUMP",
-                        318
-                    ]
-                ]
+                "CASE",
+                "n"
+            ],
+            "\"Okay. I guess I'll just stay here for now.\"",
+            [
+                "JUMP",
+                318
             ],
             [
-                "KEYWORDS",
-                "y",
-                []
+                "CASE",
+                "y"
             ],
+            "ESAC",
             [
                 "ASSIGN",
                 [

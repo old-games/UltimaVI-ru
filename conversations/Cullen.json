@@ -43,86 +43,72 @@
             "\n\nAs he shakes your hand enthusiastically, clouds of flour fly off his clothes.\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "\"I'm Cullen, Cullen the @Baker.\"",
-                    [
-                        "JUMP",
-                        184
-                    ]
-                ]
+                "CASE",
+                "name"
+            ],
+            "\"I'm Cullen, Cullen the @Baker.\"",
+            [
+                "JUMP",
+                184
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I'd have thought that'd be obvious! I'm a @baker!\"",
-                    "WAIT",
-                    "\n\nAs he laughs heartily, more clouds of flour rise off his clothing.",
-                    "WAIT",
-                    "\n\n\"You can @buy bakery goods from me or perhaps you have some flour to @sell, eh?\"",
-                    [
-                        "JUMP",
-                        184
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I'd have thought that'd be obvious! I'm a @baker!\"",
+            "WAIT",
+            "\n\nAs he laughs heartily, more clouds of flour rise off his clothing.",
+            "WAIT",
+            "\n\n\"You can @buy bakery goods from me or perhaps you have some flour to @sell, eh?\"",
+            [
+                "JUMP",
+                184
             ],
             [
-                "KEYWORDS",
-                "bake",
-                [
-                    "\"I bake goods for Lord British himself!\" the man says proudly.",
-                    "WAIT",
-                    "\n\n\"If you'd like to @buy some, just say the word!\"",
-                    [
-                        "JUMP",
-                        184
-                    ]
-                ]
+                "CASE",
+                "bake"
+            ],
+            "\"I bake goods for Lord British himself!\" the man says proudly.",
+            "WAIT",
+            "\n\n\"If you'd like to @buy some, just say the word!\"",
+            [
+                "JUMP",
+                184
             ],
             [
-                "KEYWORDS",
-                "buy",
-                [
-                    [
-                        "JUMP",
-                        695
-                    ]
-                ]
+                "CASE",
+                "buy"
             ],
             [
-                "KEYWORDS",
-                "sell,flou",
-                [
-                    [
-                        "JUMP",
-                        1941
-                    ]
-                ]
+                "JUMP",
+                695
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Come again soon!\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "sell,flou"
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"Hmmm... $Z...\"",
-                    "WAIT",
-                    "\n\n\"$Z...\"",
-                    "WAIT",
-                    "\n\n\"Nope, I don't know anything about that!\"",
-                    [
-                        "JUMP",
-                        184
-                    ]
-                ]
+                "JUMP",
+                1941
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"Come again soon!\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"Hmmm... $Z...\"",
+            "WAIT",
+            "\n\n\"$Z...\"",
+            "WAIT",
+            "\n\n\"Nope, I don't know anything about that!\"",
+            [
+                "JUMP",
+                184
             ]
         ],
         "695": [
@@ -903,131 +889,79 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    [
-                        "JUMP",
-                        893
-                    ]
-                ]
+                "CASE",
+                "y"
             ],
             [
-                "KEYWORDS",
-                "n",
+                "JUMP",
+                893
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "IF",
+                "equals(integer(value 23), byte 0)"
+            ],
+            "\"Perhaps some other time, then.\"",
+            [
+                "JUMP",
+                184
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "greater(integer(value 23), byte 1)"
+            ],
+            "\"Perhaps one of thy friends, then?\"\n\n",
+            [
+                "JUMP",
+                695
+            ],
+            "ENDIF",
+            "\"Perhaps thy friend, then?\"\n\n",
+            [
+                "IF",
+                "integer(value 9)"
+            ],
+            [
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            23
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Perhaps some other time, then.\"",
-                            [
-                                "JUMP",
-                                184
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "IF",
-                        [
-                            "greater",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            23
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Perhaps one of thy friends, then?\"\n\n",
-                            [
-                                "JUMP",
-                                695
-                            ]
-                        ],
-                        []
-                    ],
-                    "\"Perhaps thy friend, then?\"\n\n",
-                    [
-                        "IF",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    9
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "ASSIGN",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "ASSIGN",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
+                            "value",
+                            3
                         ]
-                    ],
-                    [
-                        "JUMP",
-                        893
                     ]
+                ],
+                [
+                    "byte",
+                    0
                 ]
+            ],
+            "ELSE",
+            [
+                "ASSIGN",
+                [
+                    "integer",
+                    [
+                        [
+                            "value",
+                            3
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    1
+                ]
+            ],
+            "ENDIF",
+            [
+                "JUMP",
+                893
             ]
         ],
         "1941": [
@@ -1604,93 +1538,89 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            "\"Done!\" He hands $Y 5 gold pieces and takes the sack of flour.",
+            [
+                "DELETE",
                 [
-                    "\"Done!\" He hands $Y 5 gold pieces and takes the sack of flour.",
+                    "character",
                     [
-                        "DELETE",
                         [
-                            "character",
+                            "integer",
                             [
                                 [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
+                                    "value",
+                                    3
                                 ]
                             ]
                         ],
                         [
                             "byte",
-                            167
-                        ],
-                        [
-                            "byte",
                             0
-                        ],
-                        [
-                            "byte",
-                            1
                         ]
-                    ],
-                    [
-                        "NEW",
-                        [
-                            "character",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            88
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            5
-                        ]
-                    ],
-                    "WAIT",
-                    "\n",
-                    [
-                        "JUMP",
-                        2627
                     ]
+                ],
+                [
+                    "byte",
+                    167
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
+                "NEW",
                 [
+                    "character",
                     [
-                        "JUMP",
-                        2577
+                        [
+                            "integer",
+                            [
+                                [
+                                    "value",
+                                    3
+                                ]
+                            ]
+                        ],
+                        [
+                            "byte",
+                            0
+                        ]
                     ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    5
                 ]
+            ],
+            "WAIT",
+            "\n",
+            [
+                "JUMP",
+                2627
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "JUMP",
+                2577
             ]
         ],
         "2539": [
@@ -1719,41 +1649,49 @@
             ]
         ],
         "2667": [
-            "INTEGERS",
             [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0
+                "INTEGERS",
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
             ]
         ],
         "2683": [
-            "INTEGERS",
             [
-                3,
-                5,
-                1
+                "INTEGERS",
+                [
+                    3,
+                    5,
+                    1
+                ]
             ]
         ],
         "2689": [
-            "INTEGERS",
             [
-                128,
-                131,
-                130,
-                0
+                "INTEGERS",
+                [
+                    128,
+                    131,
+                    130,
+                    0
+                ]
             ]
         ],
         "2697": [
-            "STRINGS",
             [
-                "Bread",
-                "Cake",
-                "Rolls"
+                "STRINGS",
+                [
+                    "Bread",
+                    "Cake",
+                    "Rolls"
+                ]
             ]
         ]
     }

@@ -38,355 +38,249 @@
             "\"Hail and welcome, $P!\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
+                "CASE",
+                "name"
+            ],
+            "\"My name is Selganor. 'Tis a name with a long @history...\"",
+            "WAIT",
+            "\n\n\"But you have the look of one with more important @business.\"",
+            [
+                "SETF",
                 [
-                    "\"My name is Selganor. 'Tis a name with a long @history...\"",
-                    "WAIT",
-                    "\n\n\"But you have the look of one with more important @business.\"",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            0
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        196
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "selg,hist",
-                [
-                    "\"It means 'seeker of the @crystal'. Perhaps I'll tell you more some other time.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "seek,crys",
-                [
-                    "\"That's quite a @tale.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "selg,hist"
+            ],
+            "\"It means 'seeker of the @crystal'. Perhaps I'll tell you more some other time.\"",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "tale",
-                [
-                    "\"Indeed.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "seek,crys"
+            ],
+            "\"That's quite a @tale.\"",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "impo,busi",
-                [
-                    "\"Perhaps you're interested in joining the @guild.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "tale"
+            ],
+            "\"Indeed.\"",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I am the @guildmaster of artisans.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "impo,busi"
+            ],
+            "\"Perhaps you're interested in joining the @guild.\"",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "rune",
-                [
-                    [
-                        "IF",
-                        [
-                            "hasBit",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "byte",
-                                    6
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"I already loaned you the rune.\"",
-                            [
-                                "JUMP",
-                                196
-                            ]
-                        ],
-                        []
-                    ],
-                    "\"I'd be glad to loan you the rune, but only members of the @guild are allowed to handle it.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I am the @guildmaster of artisans.\"",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "loan,memb,guil,arti,join",
-                [
-                    [
-                        "IF",
-                        [
-                            "hasBit",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "byte",
-                                    6
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Wait a minute... You're already a member of the guild!\"",
-                            [
-                                "JUMP",
-                                196
-                            ]
-                        ],
-                        []
-                    ],
-                    "\"If you want to join the guild, you need to do two things.\"",
-                    "WAIT",
-                    "\n\n\"First, you need to make a set of @panpipes. @Julia can teach you how to that.\"",
-                    "WAIT",
-                    "\n\n\"You also need to commit '@Stones' to memory. 'Tis a simple tune - ask @Gwenno to play it for thee.\"",
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "hasBit",
-                                    [
-                                        [
-                                            "byte",
-                                            235
-                                        ],
-                                        [
-                                            "byte",
-                                            6
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "SETF",
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "byte",
-                                    7
-                                ]
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "rune"
             ],
             [
-                "KEYWORDS",
-                "pan,pipe,ston",
-                [
-                    [
-                        "JUMP",
-                        1968
-                    ]
-                ]
+                "IF",
+                "hasBit(byte 235, byte 6)"
+            ],
+            "\"I already loaned you the rune.\"",
+            [
+                "JUMP",
+                196
+            ],
+            "ENDIF",
+            "\"I'd be glad to loan you the rune, but only members of the @guild are allowed to handle it.\"",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "juli",
-                [
-                    [
-                        "IF",
-                        [
-                            "partyHas",
-                            [
-                                [
-                                    "byte",
-                                    67
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Yes, ask her about it.\""
-                        ],
-                        [
-                            "\"She made my @lute - and most of our other instruments as well.\"",
-                            "WAIT",
-                            "\n\n\"She lives just across the road, next door to Lady @Isabella.\""
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "loan,memb,guil,arti,join"
             ],
             [
-                "KEYWORDS",
-                "isab",
-                [
-                    "\"She's the mayor.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "IF",
+                "hasBit(byte 235, byte 6)"
+            ],
+            "\"Wait a minute... You're already a member of the guild!\"",
+            [
+                "JUMP",
+                196
+            ],
+            "ENDIF",
+            "\"If you want to join the guild, you need to do two things.\"",
+            "WAIT",
+            "\n\n\"First, you need to make a set of @panpipes. @Julia can teach you how to that.\"",
+            "WAIT",
+            "\n\n\"You also need to commit '@Stones' to memory. 'Tis a simple tune - ask @Gwenno to play it for thee.\"",
+            [
+                "IF",
+                "equals(hasBit(byte 235, byte 6), byte 0)"
             ],
             [
-                "KEYWORDS",
-                "gwen",
+                "SETF",
                 [
-                    "\"I know she's around here somewhere...\"",
-                    [
-                        "IF",
-                        [
-                            "isNearby",
-                            [
-                                [
-                                    "byte",
-                                    66
-                                ]
-                            ]
-                        ],
-                        [
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    66
-                                ]
-                            ],
-                            "\n\n\"I'm right here, Selganor!\"",
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ],
-                            "\n\n\"Ah, I knew you'd be somewhere close by.\""
-                        ],
-                        []
-                    ],
-                    [
-                        "JUMP",
-                        196
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    7
                 ]
+            ],
+            "ENDIF",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "lute,inst",
-                [
-                    "\"I prefer stringed instruments. They make such lovely sounds.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "pan,pipe,ston"
             ],
             [
-                "KEYWORDS",
-                "ball",
-                [
-                    "\"Oh, are you looking for the man who invented the balloon?\" He stares upward, stroking his chin pensively.",
-                    "WAIT",
-                    "\n\n\"Ah yes, now I remember. He flew to @Sutek's castle.\"",
-                    "WAIT",
-                    "\n\n\"Said something about a big job he had to do there.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "JUMP",
+                1968
             ],
             [
-                "KEYWORDS",
-                "sute,cast,flew",
-                [
-                    "\"Sutek lives on an @island, far to the south.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "juli"
             ],
             [
-                "KEYWORDS",
-                "isla",
-                [
-                    "\"It's east of Serpent's Hold.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "IF",
+                "partyHas(byte 67)"
+            ],
+            "\"Yes, ask her about it.\"",
+            "ELSE",
+            "\"She made my @lute - and most of our other instruments as well.\"",
+            "WAIT",
+            "\n\n\"She lives just across the road, next door to Lady @Isabella.\"",
+            "ENDIF",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"It was nice talking to you.\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "isab"
+            ],
+            "\"She's the mayor.\"",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "*",
+                "CASE",
+                "gwen"
+            ],
+            "\"I know she's around here somewhere...\"",
+            [
+                "IF",
+                "isNearby(byte 66)"
+            ],
+            "WAIT",
+            [
+                "PORTRAIT",
                 [
-                    "\"I don't think I can help you there.\""
+                    "byte",
+                    66
                 ]
             ],
+            "\n\n\"I'm right here, Selganor!\"",
+            "WAIT",
+            [
+                "PORTRAIT",
+                [
+                    "byte",
+                    235
+                ]
+            ],
+            "\n\n\"Ah, I knew you'd be somewhere close by.\"",
+            "ENDIF",
+            [
+                "JUMP",
+                196
+            ],
+            [
+                "CASE",
+                "lute,inst"
+            ],
+            "\"I prefer stringed instruments. They make such lovely sounds.\"",
+            [
+                "JUMP",
+                196
+            ],
+            [
+                "CASE",
+                "ball"
+            ],
+            "\"Oh, are you looking for the man who invented the balloon?\" He stares upward, stroking his chin pensively.",
+            "WAIT",
+            "\n\n\"Ah yes, now I remember. He flew to @Sutek's castle.\"",
+            "WAIT",
+            "\n\n\"Said something about a big job he had to do there.\"",
+            [
+                "JUMP",
+                196
+            ],
+            [
+                "CASE",
+                "sute,cast,flew"
+            ],
+            "\"Sutek lives on an @island, far to the south.\"",
+            [
+                "JUMP",
+                196
+            ],
+            [
+                "CASE",
+                "isla"
+            ],
+            "\"It's east of Serpent's Hold.\"",
+            [
+                "JUMP",
+                196
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"It was nice talking to you.\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"I don't think I can help you there.\"",
+            "ESAC",
             [
                 "JUMP",
                 196
@@ -409,55 +303,29 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"Oh. Well, @Julia can show you how if you need help.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
-                ]
+                "CASE",
+                "n"
+            ],
+            "\"Oh. Well, @Julia can show you how if you need help.\"",
+            [
+                "JUMP",
+                196
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "partyHasObject",
-                                    [
-                                        [
-                                            "byte",
-                                            153
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    32769
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"But I don't see any!\"",
-                            [
-                                "JUMP",
-                                196
-                            ]
-                        ],
-                        []
-                    ]
-                ]
+                "CASE",
+                "y"
             ],
+            [
+                "IF",
+                "equals(partyHasObject(byte 153, byte 0), word 32769)"
+            ],
+            "\"But I don't see any!\"",
+            [
+                "JUMP",
+                196
+            ],
+            "ENDIF",
+            "ESAC",
             "He inspects the pipes. \"Very good, very good indeed.\"",
             "WAIT",
             "\n\n\"Now tell me the sequence of notes in 'Stones' and I'll induct you into the guild.\"",
@@ -465,75 +333,71 @@
             "\n\n\"Numeric notation will be fine.\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "678987,8767653",
+                "CASE",
+                "678987,8767653"
+            ],
+            "\"Excellent!\" He strums a chord on his lute, then taps you lightly once on each shoulder with it.",
+            "WAIT",
+            "\n\"You are now a full member of the guild of artisans.\"",
+            "WAIT",
+            "\n\nHe reaches into a belt-pouch, takes out the Rune of Sacrifice, and hands it to you.",
+            "WAIT",
+            "\n\n\"I'm sure you'll be needing this in your travels.\"",
+            "WAIT",
+            "\n\"I know you'll find some solution to this gargoyle problem.\"",
+            [
+                "GIVE",
                 [
-                    "\"Excellent!\" He strums a chord on his lute, then taps you lightly once on each shoulder with it.",
-                    "WAIT",
-                    "\n\"You are now a full member of the guild of artisans.\"",
-                    "WAIT",
-                    "\n\nHe reaches into a belt-pouch, takes out the Rune of Sacrifice, and hands it to you.",
-                    "WAIT",
-                    "\n\n\"I'm sure you'll be needing this in your travels.\"",
-                    "WAIT",
-                    "\n\"I know you'll find some solution to this gargoyle problem.\"",
-                    [
-                        "GIVE",
-                        [
-                            "byte",
-                            246
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ],
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            6
-                        ]
-                    ],
-                    [
-                        "CLEARF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            7
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        196
-                    ]
+                    "byte",
+                    246
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    1
                 ]
             ],
             [
-                "KEYWORDS",
-                "*",
+                "SETF",
                 [
-                    "\"No, I'm afraid that's not it. Gwenno can help you learn the notes.\"",
-                    [
-                        "JUMP",
-                        196
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    6
                 ]
+            ],
+            [
+                "CLEARF",
+                [
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    7
+                ]
+            ],
+            [
+                "JUMP",
+                196
+            ],
+            [
+                "CASE",
+                "*"
+            ],
+            "\"No, I'm afraid that's not it. Gwenno can help you learn the notes.\"",
+            [
+                "JUMP",
+                196
             ]
         ],
         "2863": [
@@ -602,140 +466,116 @@
             "\"What kind of fork should mandrake roots be prepared with?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "silv",
-                [
-                    [
-                        "JUMP",
-                        3691
-                    ]
-                ]
+                "CASE",
+                "silv"
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    [
-                        "JUMP",
-                        3739
-                    ]
-                ]
+                "JUMP",
+                3691
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"",
-                    [
-                        "JUMP",
-                        3099
-                    ]
-                ]
+                "CASE",
+                "bye"
+            ],
+            [
+                "JUMP",
+                3739
+            ],
+            [
+                "CASE",
+                "*"
+            ],
+            "\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"",
+            [
+                "JUMP",
+                3099
             ]
         ],
         "3209": [
             "\"What part of the nightshade mushroom is used in spellcasting?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "fung,cap,spor",
-                [
-                    [
-                        "JUMP",
-                        3691
-                    ]
-                ]
+                "CASE",
+                "fung,cap,spor"
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    [
-                        "JUMP",
-                        3739
-                    ]
-                ]
+                "JUMP",
+                3691
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"",
-                    [
-                        "JUMP",
-                        3272
-                    ]
-                ]
+                "CASE",
+                "bye"
+            ],
+            [
+                "JUMP",
+                3739
+            ],
+            [
+                "CASE",
+                "*"
+            ],
+            "\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"",
+            [
+                "JUMP",
+                3272
             ]
         ],
         "3391": [
             "\"Where does sulfurous ash come from?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "volc,erup",
-                [
-                    [
-                        "JUMP",
-                        3691
-                    ]
-                ]
+                "CASE",
+                "volc,erup"
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    [
-                        "JUMP",
-                        3739
-                    ]
-                ]
+                "JUMP",
+                3691
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"",
-                    [
-                        "JUMP",
-                        3428
-                    ]
-                ]
+                "CASE",
+                "bye"
+            ],
+            [
+                "JUMP",
+                3739
+            ],
+            [
+                "CASE",
+                "*"
+            ],
+            "\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"",
+            [
+                "JUMP",
+                3428
             ]
         ],
         "3543": [
             "\"What are black pearls used for?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "kine,prop",
-                [
-                    [
-                        "JUMP",
-                        3691
-                    ]
-                ]
+                "CASE",
+                "kine,prop"
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    [
-                        "JUMP",
-                        3739
-                    ]
-                ]
+                "JUMP",
+                3691
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"",
-                    [
-                        "JUMP",
-                        3576
-                    ]
-                ]
+                "CASE",
+                "bye"
+            ],
+            [
+                "JUMP",
+                3739
+            ],
+            [
+                "CASE",
+                "*"
+            ],
+            "\"No, that doesn't sound right. If only I had a Compendium to look it up in...\"",
+            [
+                "JUMP",
+                3576
             ]
         ],
         "3691": [

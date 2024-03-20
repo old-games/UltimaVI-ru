@@ -62,153 +62,84 @@
             " @meat?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "\"@Hendle the Slaughterman.\"\n",
-                    [
-                        "JUMP",
-                        181
-                    ]
-                ]
+                "CASE",
+                "name"
+            ],
+            "\"@Hendle the Slaughterman.\"\n",
+            [
+                "JUMP",
+                181
             ],
             [
-                "KEYWORDS",
-                "hend,slau",
-                [
-                    "\"Yep.\"\n",
-                    [
-                        "JUMP",
-                        181
-                    ]
-                ]
+                "CASE",
+                "hend,slau"
+            ],
+            "\"Yep.\"\n",
+            [
+                "JUMP",
+                181
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"As ya can see, I slaughter the beef and pork which you can then buy.\"\n"
-                        ],
-                        [
-                            "\"I slaughter beef and pork.\"",
-                            "WAIT",
-                            "\n\n\"Makes me a bit unpopular 'ere in the pub!\" he laughs.\n"
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        181
-                    ]
-                ]
+                "CASE",
+                "job"
             ],
             [
-                "KEYWORDS",
-                "buy,meat",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                775
-                            ]
-                        ],
-                        []
-                    ],
-                    "\"Strewth! If I carried it around with me, I'd be even more unpopular!\"",
-                    "WAIT",
-                    "\n\nHe laughs, then continues, \"Nay, friend, come to my shop later.\"",
-                    "WAIT",
-                    "\n\n\"I'll fix ya up then.\"\n",
-                    [
-                        "JUMP",
-                        181
-                    ]
-                ]
+                "IF",
+                "equals(integer(value 32), byte 144)"
+            ],
+            "\"As ya can see, I slaughter the beef and pork which you can then buy.\"\n",
+            "ELSE",
+            "\"I slaughter beef and pork.\"",
+            "WAIT",
+            "\n\n\"Makes me a bit unpopular 'ere in the pub!\" he laughs.\n",
+            "ENDIF",
+            [
+                "JUMP",
+                181
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Be careful out there.\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "buy,meat"
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            "He stops chopping and scratches his chin. \"Say what?\"\n"
-                        ],
-                        [
-                            "He takes a swig from his mug and asks, \"What d'ya mean?\"\n"
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        181
-                    ]
-                ]
+                "IF",
+                "equals(integer(value 32), byte 144)"
+            ],
+            [
+                "JUMP",
+                775
+            ],
+            "ENDIF",
+            "\"Strewth! If I carried it around with me, I'd be even more unpopular!\"",
+            "WAIT",
+            "\n\nHe laughs, then continues, \"Nay, friend, come to my shop later.\"",
+            "WAIT",
+            "\n\n\"I'll fix ya up then.\"\n",
+            [
+                "JUMP",
+                181
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"Be careful out there.\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            [
+                "IF",
+                "equals(integer(value 32), byte 144)"
+            ],
+            "He stops chopping and scratches his chin. \"Say what?\"\n",
+            "ELSE",
+            "He takes a swig from his mug and asks, \"What d'ya mean?\"\n",
+            "ENDIF",
+            [
+                "JUMP",
+                181
             ]
         ],
         "775": [
@@ -697,210 +628,114 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
+                "CASE",
+                "n"
+            ],
+            "\"Whatever.\"\n",
+            [
+                "JUMP",
+                181
+            ],
+            [
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(integer(value 9), byte 1))"
+            ],
+            "\"You look pretty full to me, $Y.\"\n",
+            [
+                "JUMP",
+                181
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1))"
+            ],
+            [
+                "DELETE",
                 [
-                    "\"Whatever.\"\n",
+                    "integer",
                     [
-                        "JUMP",
-                        181
+                        [
+                            "value",
+                            3
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "integer",
+                    [
+                        [
+                            "value",
+                            1
+                        ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "y",
+                "NEW",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "less",
-                            [
-                                [
-                                    "plus",
-                                    [
-                                        [
-                                            "canCarry",
-                                            [
-                                                [
-                                                    "integer",
-                                                    [
-                                                        [
-                                                            "value",
-                                                            3
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "weight",
-                                            [
-                                                [
-                                                    "byte",
-                                                    88
-                                                ],
-                                                [
-                                                    "integer",
-                                                    [
-                                                        [
-                                                            "value",
-                                                            1
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "weight",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    9
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            1
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"You look pretty full to me, $Y.\"\n",
-                            [
-                                "JUMP",
-                                181
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "IF",
-                        [
-                            "greaterOrEquals",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            1
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "DELETE",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    88
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            1
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            [
-                                "NEW",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            9
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ],
-                            "\"Excellent!\" After accepting $Y's gold, $N hands over the food.\n",
-                            [
-                                "JUMP",
-                                181
-                            ]
-                        ],
-                        [
-                            "\"You don't have enough gold, $Y.\"\n",
-                            [
-                                "JUMP",
-                                181
-                            ]
+                            "value",
+                            3
                         ]
                     ]
+                ],
+                [
+                    "integer",
+                    [
+                        [
+                            "value",
+                            9
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
                 ]
-            ]
+            ],
+            "\"Excellent!\" After accepting $Y's gold, $N hands over the food.\n",
+            [
+                "JUMP",
+                181
+            ],
+            "ELSE",
+            "\"You don't have enough gold, $Y.\"\n",
+            [
+                "JUMP",
+                181
+            ],
+            "ENDIF"
         ],
         "1472": [
-            "INTEGERS",
             [
-                3,
-                4,
-                3,
-                6,
-                8,
-                9
+                "INTEGERS",
+                [
+                    3,
+                    4,
+                    3,
+                    6,
+                    8,
+                    9
+                ]
             ]
         ]
     }

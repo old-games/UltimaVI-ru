@@ -40,251 +40,170 @@
             "\n\n\"What can I do for you?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
+                "CASE",
+                "name"
+            ],
+            "\"My name is Fyodor. What is thy name?\"\n",
+            "ASK",
+            "\n\"Pleased to meet thee, `$Z.\"",
+            [
+                "SETF",
                 [
-                    "\"My name is Fyodor. What is thy name?\"\n",
-                    "ASK",
-                    "\n\"Pleased to meet thee, `$Z.\"",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            0
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        153
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I make cloth upon my @loom. Perhaps you'd like to @buy some.\"",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "JUMP",
+                153
             ],
             [
-                "KEYWORDS",
-                "buy",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    146
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                1598
-                            ]
-                        ],
-                        [
-                            "\"I fear I have none with me, $G.\"",
-                            "WAIT",
-                            "\n\n\"Come back when I'm at my loom; I'll help thee then.\"",
-                            [
-                                "JUMP",
-                                153
-                            ]
-                        ]
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I make cloth upon my @loom. Perhaps you'd like to @buy some.\"",
+            [
+                "JUMP",
+                153
             ],
             [
-                "KEYWORDS",
-                "sell",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    146
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                2197
-                            ]
-                        ],
-                        [
-                            "\"But I don't need wool here, $G!\"",
-                            "WAIT",
-                            "\n\n\"Come back when I'm at my loom; I'll deal with thee then.\"",
-                            [
-                                "JUMP",
-                                153
-                            ]
-                        ]
-                    ]
-                ]
+                "CASE",
+                "buy"
             ],
             [
-                "KEYWORDS",
-                "clot,loom",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    146
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"I push the pedals with my feet--like this.\"",
-                            "WAIT",
-                            "\n\n\"Then I pull these levers.\"",
-                            "WAIT",
-                            "\n\n\"The pattern depends on which combinations of levers and pedals I move.\"",
-                            "WAIT",
-                            "\n\n\"My father's loom was not so complicated as mine. This design came from one of Lord British's old @books.\"",
-                            [
-                                "JUMP",
-                                153
-                            ]
-                        ],
-                        []
-                    ],
-                    "\"I work on a large new loom. The plans for it were found in one of Lord British's old @books.\"",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "IF",
+                "equals(integer(value 32), byte 146)"
             ],
             [
-                "KEYWORDS",
-                "lord,brit,old,book",
-                [
-                    "\"Lord British treasures antiques. There is one book for which he hath offered a reward:",
-                    "WAIT",
-                    "\n\n\"'The Wizard of @Oz.'\"",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "JUMP",
+                1598
+            ],
+            "ELSE",
+            "\"I fear I have none with me, $G.\"",
+            "WAIT",
+            "\n\n\"Come back when I'm at my loom; I'll help thee then.\"",
+            [
+                "JUMP",
+                153
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "sell"
             ],
             [
-                "KEYWORDS",
-                "wiza,oz",
-                [
-                    "\"By Master L. Frank Baum, I believe.\"",
-                    "WAIT",
-                    "\n\n\"It concerns a girl adventurer, a strange land, and a clever @balloonist.\"",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "IF",
+                "equals(integer(value 32), byte 146)"
             ],
             [
-                "KEYWORDS",
-                "ball",
-                [
-                    "\"Are they not made of @silk, in the form of a great bag?\"",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "JUMP",
+                2197
+            ],
+            "ELSE",
+            "\"But I don't need wool here, $G!\"",
+            "WAIT",
+            "\n\n\"Come back when I'm at my loom; I'll deal with thee then.\"",
+            [
+                "JUMP",
+                153
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "clot,loom"
             ],
             [
-                "KEYWORDS",
-                "silk,bag",
-                [
-                    "\"'Tis a wondrous strong stuff, silk, and very light.\"",
-                    "WAIT",
-                    "\n\n\"I regret that I am not skillful enough to weave silk.\"",
-                    "WAIT",
-                    "\n\n\"In New Magincia, however, lives the silk-weaver @Charlotte.\"",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "IF",
+                "equals(integer(value 32), byte 146)"
+            ],
+            "\"I push the pedals with my feet--like this.\"",
+            "WAIT",
+            "\n\n\"Then I pull these levers.\"",
+            "WAIT",
+            "\n\n\"The pattern depends on which combinations of levers and pedals I move.\"",
+            "WAIT",
+            "\n\n\"My father's loom was not so complicated as mine. This design came from one of Lord British's old @books.\"",
+            [
+                "JUMP",
+                153
+            ],
+            "ENDIF",
+            "\"I work on a large new loom. The plans for it were found in one of Lord British's old @books.\"",
+            [
+                "JUMP",
+                153
             ],
             [
-                "KEYWORDS",
-                "char",
-                [
-                    "\"She is the only person I know of who can weave silk.\"",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "CASE",
+                "lord,brit,old,book"
+            ],
+            "\"Lord British treasures antiques. There is one book for which he hath offered a reward:",
+            "WAIT",
+            "\n\n\"'The Wizard of @Oz.'\"",
+            [
+                "JUMP",
+                153
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"May our paths cross again some day.\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "wiza,oz"
+            ],
+            "\"By Master L. Frank Baum, I believe.\"",
+            "WAIT",
+            "\n\n\"It concerns a girl adventurer, a strange land, and a clever @balloonist.\"",
+            [
+                "JUMP",
+                153
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"That I cannot help thee with.\"",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "CASE",
+                "ball"
+            ],
+            "\"Are they not made of @silk, in the form of a great bag?\"",
+            [
+                "JUMP",
+                153
+            ],
+            [
+                "CASE",
+                "silk,bag"
+            ],
+            "\"'Tis a wondrous strong stuff, silk, and very light.\"",
+            "WAIT",
+            "\n\n\"I regret that I am not skillful enough to weave silk.\"",
+            "WAIT",
+            "\n\n\"In New Magincia, however, lives the silk-weaver @Charlotte.\"",
+            [
+                "JUMP",
+                153
+            ],
+            [
+                "CASE",
+                "char"
+            ],
+            "\"She is the only person I know of who can weave silk.\"",
+            [
+                "JUMP",
+                153
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"May our paths cross again some day.\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"That I cannot help thee with.\"",
+            [
+                "JUMP",
+                153
             ]
         ],
         "1598": [
@@ -534,63 +453,59 @@
             "\"@Cloth or @thread, $Y?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "clot",
+                "CASE",
+                "clot"
+            ],
+            [
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "ASSIGN",
                         [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
+                            "value",
                             0
                         ]
-                    ],
-                    [
-                        "JUMP",
-                        1814
                     ]
+                ],
+                [
+                    "byte",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "thre",
+                "JUMP",
+                1814
+            ],
+            [
+                "CASE",
+                "thre"
+            ],
+            [
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "ASSIGN",
                         [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
+                            "value",
+                            0
                         ]
                     ]
+                ],
+                [
+                    "byte",
+                    1
                 ]
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    [
-                        "JUMP",
-                        1618
-                    ]
-                ]
+                "CASE",
+                "*"
             ],
+            [
+                "JUMP",
+                1618
+            ]
+        ],
+        "1814": [
             [
                 "ASSIGN",
                 [
@@ -657,272 +572,170 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 2822, integer(value 0)), byte 1))"
+            ],
+            "\"You look pretty full to me.\"",
+            "WAIT",
+            "\n",
+            [
+                "JUMP",
+                128
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 30)"
+            ],
+            [
+                "DELETE",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "less",
-                            [
-                                [
-                                    "plus",
-                                    [
-                                        [
-                                            "canCarry",
-                                            [
-                                                [
-                                                    "integer",
-                                                    [
-                                                        [
-                                                            "value",
-                                                            3
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "weight",
-                                            [
-                                                [
-                                                    "byte",
-                                                    88
-                                                ],
-                                                [
-                                                    "integer",
-                                                    [
-                                                        [
-                                                            "value",
-                                                            1
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "weight",
-                                    [
-                                        [
-                                            "data",
-                                            [
-                                                [
-                                                    "dword",
-                                                    2822
-                                                ],
-                                                [
-                                                    "integer",
-                                                    [
-                                                        [
-                                                            "value",
-                                                            0
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            1
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"You look pretty full to me.\"",
-                            "WAIT",
-                            "\n",
-                            [
-                                "JUMP",
-                                128
-                            ]
-                        ],
-                        []
-                    ],
+                            "value",
+                            3
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "data",
                     [
-                        "IF",
                         [
-                            "greaterOrEquals",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    30
-                                ]
-                            ]
+                            "dword",
+                            2818
                         ],
                         [
+                            "integer",
                             [
-                                "DELETE",
                                 [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    88
-                                ],
-                                [
-                                    "byte",
+                                    "value",
                                     0
-                                ],
-                                [
-                                    "data",
-                                    [
-                                        [
-                                            "dword",
-                                            2818
-                                        ],
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    0
-                                                ]
-                                            ]
-                                        ]
-                                    ]
                                 ]
-                            ],
-                            [
-                                "NEW",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "data",
-                                    [
-                                        [
-                                            "dword",
-                                            2822
-                                        ],
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    0
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ],
-                            [
-                                "ASSIGN",
-                                [
-                                    "string",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "data",
-                                    [
-                                        [
-                                            "dword",
-                                            2826
-                                        ],
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    0
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            "\"Excellent!\" After accepting $Y's gold, $N hands over the $0.",
-                            "WAIT",
-                            [
-                                "ASSIGN",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            5
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ],
-                            "\n\n",
-                            [
-                                "JUMP",
-                                2134
-                            ]
-                        ],
-                        [
-                            "\"You haven't the money.\"",
-                            "WAIT",
-                            "\n",
-                            [
-                                "JUMP",
-                                128
                             ]
                         ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
+                "NEW",
                 [
+                    "integer",
                     [
-                        "JUMP",
-                        2134
+                        [
+                            "value",
+                            3
+                        ]
+                    ]
+                ],
+                [
+                    "data",
+                    [
+                        [
+                            "dword",
+                            2822
+                        ],
+                        [
+                            "integer",
+                            [
+                                [
+                                    "value",
+                                    0
+                                ]
+                            ]
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
+                ]
+            ],
+            [
+                "ASSIGN",
+                [
+                    "string",
+                    [
+                        [
+                            "value",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "data",
+                    [
+                        [
+                            "dword",
+                            2826
+                        ],
+                        [
+                            "integer",
+                            [
+                                [
+                                    "value",
+                                    0
+                                ]
+                            ]
+                        ]
                     ]
                 ]
+            ],
+            "\"Excellent!\" After accepting $Y's gold, $N hands over the $0.",
+            "WAIT",
+            [
+                "ASSIGN",
+                [
+                    "integer",
+                    [
+                        [
+                            "value",
+                            5
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    1
+                ]
+            ],
+            "\n\n",
+            [
+                "JUMP",
+                2134
+            ],
+            "ELSE",
+            "\"You haven't the money.\"",
+            "WAIT",
+            "\n",
+            [
+                "JUMP",
+                128
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "JUMP",
+                2134
             ]
         ],
         "2134": [
@@ -1522,75 +1335,71 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            "\"Done!\" He hands $Y 8 gold pieces and takes the wool.",
+            [
+                "DELETE",
                 [
-                    "\"Done!\" He hands $Y 8 gold pieces and takes the wool.",
+                    "integer",
                     [
-                        "DELETE",
                         [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            190
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            1
+                            "value",
+                            3
                         ]
-                    ],
-                    [
-                        "NEW",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            88
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            8
-                        ]
-                    ],
-                    "WAIT",
-                    "\n",
-                    [
-                        "JUMP",
-                        128
                     ]
+                ],
+                [
+                    "byte",
+                    190
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
+                "NEW",
                 [
+                    "integer",
                     [
-                        "JUMP",
-                        2771
+                        [
+                            "value",
+                            3
+                        ]
                     ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    8
                 ]
+            ],
+            "WAIT",
+            "\n",
+            [
+                "JUMP",
+                128
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "JUMP",
+                2771
             ]
         ],
         "2734": [
@@ -1612,37 +1421,45 @@
             ]
         ],
         "2802": [
-            "INTEGERS",
             [
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0,
-                0
+                "INTEGERS",
+                [
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0,
+                    0
+                ]
             ]
         ],
         "2818": [
-            "INTEGERS",
             [
-                20,
-                5
+                "INTEGERS",
+                [
+                    20,
+                    5
+                ]
             ]
         ],
         "2822": [
-            "INTEGERS",
             [
-                185,
-                225
+                "INTEGERS",
+                [
+                    185,
+                    225
+                ]
             ]
         ],
         "2826": [
-            "STRINGS",
             [
-                "cloth",
-                "thread"
+                "STRINGS",
+                [
+                    "cloth",
+                    "thread"
+                ]
             ]
         ]
     }

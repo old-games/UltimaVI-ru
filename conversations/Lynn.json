@@ -51,72 +51,60 @@
             "\"How can I help thee this fine $T?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "\"I'm Lynn.\"",
-                    "WAIT",
-                    "\n\n\"Thou needn't tell me thy name, $P. The Avatar is famous throughout the land!\"",
-                    [
-                        "JUMP",
-                        140
-                    ]
-                ]
+                "CASE",
+                "name"
+            ],
+            "\"I'm Lynn.\"",
+            "WAIT",
+            "\n\n\"Thou needn't tell me thy name, $P. The Avatar is famous throughout the land!\"",
+            [
+                "JUMP",
+                140
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I am a fletcher.\"",
-                    "WAIT",
-                    "\n\n\"I make @arrows and @bolts for the armies of Lord British himself!\"",
-                    [
-                        "JUMP",
-                        140
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I am a fletcher.\"",
+            "WAIT",
+            "\n\n\"I make @arrows and @bolts for the armies of Lord British himself!\"",
+            [
+                "JUMP",
+                140
             ],
             [
-                "KEYWORDS",
-                "buy,arro,bolt",
-                [
-                    [
-                        "JUMP",
-                        541
-                    ]
-                ]
+                "CASE",
+                "buy,arro,bolt"
             ],
             [
-                "KEYWORDS",
-                "sell",
-                [
-                    "\"I have all I need, and have no reason to purchase anything more.\"",
-                    "WAIT",
-                    "\n\n\"But I appreciate thy offer.\"",
-                    [
-                        "JUMP",
-                        140
-                    ]
-                ]
+                "JUMP",
+                541
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Farewell! I hope I've aided thy quest!\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "sell"
+            ],
+            "\"I have all I need, and have no reason to purchase anything more.\"",
+            "WAIT",
+            "\n\n\"But I appreciate thy offer.\"",
+            [
+                "JUMP",
+                140
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"Beg pardon?\"",
-                    [
-                        "JUMP",
-                        140
-                    ]
-                ]
+                "CASE",
+                "bye"
+            ],
+            "\"Farewell! I hope I've aided thy quest!\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"Beg pardon?\"",
+            [
+                "JUMP",
+                140
             ]
         ],
         "541": [
@@ -710,72 +698,55 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    [
-                        "JUMP",
-                        541
-                    ]
-                ]
+                "CASE",
+                "y"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            5
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Perhaps some other time.\""
-                        ],
-                        [
-                            "\"Enjoy thy $1s.\""
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        140
-                    ]
-                ]
+                "JUMP",
+                541
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "IF",
+                "equals(integer(value 5), byte 0)"
+            ],
+            "\"Perhaps some other time.\"",
+            "ELSE",
+            "\"Enjoy thy $1s.\"",
+            "ENDIF",
+            [
+                "JUMP",
+                140
             ]
         ],
         "1511": [
-            "INTEGERS",
             [
-                4,
-                3
+                "INTEGERS",
+                [
+                    4,
+                    3
+                ]
             ]
         ],
         "1515": [
-            "INTEGERS",
             [
-                55,
-                56
+                "INTEGERS",
+                [
+                    55,
+                    56
+                ]
             ]
         ],
         "1519": [
-            "STRINGS",
             [
-                "arrow",
-                "bolt"
+                "STRINGS",
+                [
+                    "arrow",
+                    "bolt"
+                ]
             ]
         ]
     }

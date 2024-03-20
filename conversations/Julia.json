@@ -105,576 +105,352 @@
             "\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
-                [
-                    [
-                        "IF",
-                        [
-                            "hasBit",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Sure and you're goin' daft, $G.\"",
-                            "WAIT",
-                            "\n\n\"I be named Julia, same as the last time we met!\""
-                        ],
-                        [
-                            "\"Named Julia I am, $G, and pleased to meet ye.\""
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        502
-                    ]
-                ]
+                "CASE",
+                "name"
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"Instruments I make, the finest in the land.\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "IF",
-                        [
-                            "partyHas",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"For now, though, I'm followin' ye, and glad to do it!\""
-                        ],
-                        [
-                            "\"Not to be immodest, but I'm respected by all the @Guild!\"",
-                            "WAIT",
-                            "\n\n\"Ach, but give it all up I would for a life of @adventure like your own...\""
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        502
-                    ]
-                ]
+                "IF",
+                "hasBit(byte 235, value 0)"
+            ],
+            "\"Sure and you're goin' daft, $G.\"",
+            "WAIT",
+            "\n\n\"I be named Julia, same as the last time we met!\"",
+            "ELSE",
+            "\"Named Julia I am, $G, and pleased to meet ye.\"",
+            "ENDIF",
+            [
+                "JUMP",
+                502
             ],
             [
-                "KEYWORDS",
-                "guil",
-                [
-                    "\"If ye would like to be a member too, go talk to @Selganor.\"",
-                    [
-                        "JUMP",
-                        502
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"Instruments I make, the finest in the land.\"",
+            "WAIT",
+            "\n\n",
+            [
+                "IF",
+                "partyHas(byte 235)"
+            ],
+            "\"For now, though, I'm followin' ye, and glad to do it!\"",
+            "ELSE",
+            "\"Not to be immodest, but I'm respected by all the @Guild!\"",
+            "WAIT",
+            "\n\n\"Ach, but give it all up I would for a life of @adventure like your own...\"",
+            "ENDIF",
+            [
+                "JUMP",
+                502
             ],
             [
-                "KEYWORDS",
-                "selg",
-                [
-                    "\"He's the guildmaster.\"",
-                    [
-                        "JUMP",
-                        502
-                    ]
-                ]
+                "CASE",
+                "guil"
+            ],
+            "\"If ye would like to be a member too, go talk to @Selganor.\"",
+            [
+                "JUMP",
+                502
             ],
             [
-                "KEYWORDS",
-                "pan,pipe",
-                [
-                    "\"Sent you to me they did? Aye, I can believe that.\"",
-                    "WAIT",
-                    "\n\n\"Now the panpipes are a tricky instrument.\"",
-                    "WAIT",
-                    "\n\n\"You gotta have the finest wood.\"",
-                    "WAIT",
-                    "\n\"If you want to learn how to make pipes, you'll need to bring a yew @board.\"",
-                    "WAIT",
-                    "\n\n\"But it must be freshly @cut!\"",
-                    [
-                        "JUMP",
-                        502
-                    ]
-                ]
+                "CASE",
+                "selg"
+            ],
+            "\"He's the guildmaster.\"",
+            [
+                "JUMP",
+                502
             ],
             [
-                "KEYWORDS",
-                "yew,boar",
-                [
-                    "\"",
-                    [
-                        "ASSIGN",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "partyHasObject",
-                            [
-                                [
-                                    "word",
-                                    277
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        2598
-                    ]
-                ]
+                "CASE",
+                "pan,pipe"
+            ],
+            "\"Sent you to me they did? Aye, I can believe that.\"",
+            "WAIT",
+            "\n\n\"Now the panpipes are a tricky instrument.\"",
+            "WAIT",
+            "\n\n\"You gotta have the finest wood.\"",
+            "WAIT",
+            "\n\"If you want to learn how to make pipes, you'll need to bring a yew @board.\"",
+            "WAIT",
+            "\n\n\"But it must be freshly @cut!\"",
+            [
+                "JUMP",
+                502
             ],
             [
-                "KEYWORDS",
-                "fres,cut",
-                [
-                    [
-                        "JUMP",
-                        2867
-                    ]
-                ]
+                "CASE",
+                "yew,boar"
             ],
+            "\"",
             [
-                "KEYWORDS",
-                "life,adve",
+                "ASSIGN",
                 [
-                    "\"Aye, I'd @join you if ye wish.\"",
+                    "integer",
                     [
-                        "JUMP",
-                        502
-                    ]
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "join",
-                [
-                    "\"Join ye? Me?\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "IF",
-                        [
-                            "hasBit",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "value",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Aye, and be dumped off in the middle of nowhere again?\"",
-                            "WAIT",
-                            "\n\n\"Not likely! Find some other sap to do your bidding!\"",
-                            [
-                                "JUMP",
-                                502
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "ASSIGN",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "partyJoin",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Aye, gladly! Let's be on our way.\"\n",
-                            [
-                                "SETF",
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ],
-                            "BYE"
-                        ],
-                        []
-                    ],
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    2
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Ach, I can tell that you say that to everyone ye meet.\"",
-                            "WAIT",
-                            "\n\n\"Ask me again when you haven't as many companions.\"",
-                            [
-                                "JUMP",
-                                502
-                            ]
-                        ],
-                        [
-                            "\"What are ye, daft? "
-                        ]
-                    ],
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "If I join ye, where are we gonna go?\"",
-                            "WAIT",
-                            "\n\n\"Nay, $G. Ask me when we're ashore.\"",
-                            [
-                                "JUMP",
-                                502
-                            ]
-                        ],
-                        [
-                            "I'm already in your band!\"",
-                            "WAIT",
-                            "\n\n\"Though now I'm not so sure I want to be led by a crazy person...\"",
-                            [
-                                "JUMP",
-                                502
-                            ]
-                        ]
-                    ]
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "leav",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "partyHas",
-                                    [
-                                        [
-                                            "byte",
-                                            235
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Leave! Nay, 'tis my house. You do the leavin'!\"",
-                            [
-                                "JUMP",
-                                502
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "ASSIGN",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "partyLeave",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Leave?! And jump overboard?!\"",
-                            "WAIT",
-                            "\n\n\"Ach, I get it. You're makin' a wee joke!\"",
-                            [
-                                "JUMP",
-                                502
-                            ]
-                        ],
-                        []
-                    ],
-                    "\"What? Oh, I suppose a craftsman isn't warrior enough to suit ",
-                    [
-                        "IF",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    16
-                                ]
-                            ]
-                        ],
-                        [
-                            "her lady"
-                        ],
-                        [
-                            "his lord"
-                        ]
-                    ],
-                    "ship's tastes!\"",
-                    "WAIT",
-                    "\n\n\"Well, that's fine and dandy with me!\"",
-                    "WAIT",
-                    "\n\n\"A good $T and a good bye to the lot of ye!\"",
-                    "WAIT",
-                    "\n\n\"I'm tired of carrying all this junk anyway!\"\n",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            1
-                        ]
-                    ],
-                    "BYE"
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "bye",
-                [
-                    [
-                        "IF",
-                        [
-                            "partyHas",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Aye, enough chatting. On with our quest!\"\n",
-                            "BYE"
-                        ],
-                        []
-                    ],
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "hasBit",
-                                    [
-                                        [
-                                            "byte",
-                                            235
-                                        ],
-                                        [
-                                            "value",
-                                            1
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"May fortune follow ye on thy way!\"\n",
-                            "BYE"
-                        ],
-                        []
-                    ],
-                    "\"Ach, aye! I wouldna want to hinder ",
-                    [
-                        "IF",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    16
-                                ]
-                            ]
-                        ],
-                        [
-                            "her lady"
-                        ],
-                        [
-                            "his lord"
-                        ]
-                    ],
-                    "ship's journey!\"\n",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
                         [
                             "value",
                             0
                         ]
-                    ],
-                    "BYE"
+                    ]
+                ],
+                [
+                    "partyHasObject",
+                    [
+                        [
+                            "word",
+                            277
+                        ],
+                        [
+                            "byte",
+                            0
+                        ]
+                    ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "*",
+                "JUMP",
+                2598
+            ],
+            [
+                "CASE",
+                "fres,cut"
+            ],
+            [
+                "JUMP",
+                2867
+            ],
+            [
+                "CASE",
+                "life,adve"
+            ],
+            "\"Aye, I'd @join you if ye wish.\"",
+            [
+                "JUMP",
+                502
+            ],
+            [
+                "CASE",
+                "join"
+            ],
+            "\"Join ye? Me?\"",
+            "WAIT",
+            "\n\n",
+            [
+                "IF",
+                "hasBit(byte 235, value 1)"
+            ],
+            "\"Aye, and be dumped off in the middle of nowhere again?\"",
+            "WAIT",
+            "\n\n\"Not likely! Find some other sap to do your bidding!\"",
+            [
+                "JUMP",
+                502
+            ],
+            "ENDIF",
+            [
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "hasBit",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "value",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Are ye daft? Why would I know anything about $Z?\""
-                        ],
-                        [
-                            "\"Nay, $G, I know nothing about $Z.\""
+                            "value",
+                            0
                         ]
-                    ],
+                    ]
+                ],
+                [
+                    "partyJoin",
                     [
-                        "JUMP",
-                        502
+                        [
+                            "byte",
+                            235
+                        ]
                     ]
                 ]
+            ],
+            [
+                "IF",
+                "equals(integer(value 0), byte 0)"
+            ],
+            "\"Aye, gladly! Let's be on our way.\"\n",
+            [
+                "SETF",
+                [
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
+                ]
+            ],
+            "BYE",
+            "ENDIF",
+            [
+                "IF",
+                "equals(integer(value 0), byte 2)"
+            ],
+            "\"Ach, I can tell that you say that to everyone ye meet.\"",
+            "WAIT",
+            "\n\n\"Ask me again when you haven't as many companions.\"",
+            [
+                "JUMP",
+                502
+            ],
+            "ELSE",
+            "\"What are ye, daft? ",
+            "ENDIF",
+            [
+                "IF",
+                "equals(integer(value 0), byte 1)"
+            ],
+            "If I join ye, where are we gonna go?\"",
+            "WAIT",
+            "\n\n\"Nay, $G. Ask me when we're ashore.\"",
+            [
+                "JUMP",
+                502
+            ],
+            "ELSE",
+            "I'm already in your band!\"",
+            "WAIT",
+            "\n\n\"Though now I'm not so sure I want to be led by a crazy person...\"",
+            [
+                "JUMP",
+                502
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "leav"
+            ],
+            [
+                "IF",
+                "equals(partyHas(byte 235), byte 0)"
+            ],
+            "\"Leave! Nay, 'tis my house. You do the leavin'!\"",
+            [
+                "JUMP",
+                502
+            ],
+            "ENDIF",
+            [
+                "ASSIGN",
+                [
+                    "integer",
+                    [
+                        [
+                            "value",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "partyLeave",
+                    [
+                        [
+                            "byte",
+                            235
+                        ]
+                    ]
+                ]
+            ],
+            [
+                "IF",
+                "equals(integer(value 0), byte 1)"
+            ],
+            "\"Leave?! And jump overboard?!\"",
+            "WAIT",
+            "\n\n\"Ach, I get it. You're makin' a wee joke!\"",
+            [
+                "JUMP",
+                502
+            ],
+            "ENDIF",
+            "\"What? Oh, I suppose a craftsman isn't warrior enough to suit ",
+            [
+                "IF",
+                "integer(value 16)"
+            ],
+            "her lady",
+            "ELSE",
+            "his lord",
+            "ENDIF",
+            "ship's tastes!\"",
+            "WAIT",
+            "\n\n\"Well, that's fine and dandy with me!\"",
+            "WAIT",
+            "\n\n\"A good $T and a good bye to the lot of ye!\"",
+            "WAIT",
+            "\n\n\"I'm tired of carrying all this junk anyway!\"\n",
+            [
+                "SETF",
+                [
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    1
+                ]
+            ],
+            "BYE",
+            [
+                "CASE",
+                "bye"
+            ],
+            [
+                "IF",
+                "partyHas(byte 235)"
+            ],
+            "\"Aye, enough chatting. On with our quest!\"\n",
+            "BYE",
+            "ENDIF",
+            [
+                "IF",
+                "equals(hasBit(byte 235, value 1), byte 0)"
+            ],
+            "\"May fortune follow ye on thy way!\"\n",
+            "BYE",
+            "ENDIF",
+            "\"Ach, aye! I wouldna want to hinder ",
+            [
+                "IF",
+                "integer(value 16)"
+            ],
+            "her lady",
+            "ELSE",
+            "his lord",
+            "ENDIF",
+            "ship's journey!\"\n",
+            [
+                "SETF",
+                [
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
+                ]
+            ],
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            [
+                "IF",
+                "hasBit(byte 235, value 1)"
+            ],
+            "\"Are ye daft? Why would I know anything about $Z?\"",
+            "ELSE",
+            "\"Nay, $G, I know nothing about $Z.\"",
+            "ENDIF",
+            [
+                "JUMP",
+                502
             ]
         ],
         "2598": [
@@ -684,60 +460,37 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    32769
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Well where is it? I canna see any board on ye!\"",
-                            [
-                                "JUMP",
-                                502
-                            ]
-                        ],
-                        [
-                            "\"Ach, aye, and good wood it is, too. A fine set of pipes this will make!\"",
-                            "WAIT",
-                            "\n\n",
-                            [
-                                "JUMP",
-                                3086
-                            ]
-                        ]
-                    ]
-                ]
+                "CASE",
+                "y"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"No? What are ye, daft? I canna be makin' pipes without wood!\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        2867
-                    ]
-                ]
+                "IF",
+                "equals(integer(value 0), word 32769)"
+            ],
+            "\"Well where is it? I canna see any board on ye!\"",
+            [
+                "JUMP",
+                502
+            ],
+            "ELSE",
+            "\"Ach, aye, and good wood it is, too. A fine set of pipes this will make!\"",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                3086
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "n"
+            ],
+            "\"No? What are ye, daft? I canna be makin' pipes without wood!\"",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                2867
             ]
         ],
         "2867": [

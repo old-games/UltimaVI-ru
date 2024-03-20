@@ -111,299 +111,163 @@
             "He takes your measure, looking you over from head to toe. \"What do you want?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
+                "CASE",
+                "name"
+            ],
+            "\"Who wants to know?\"\n",
+            "ASK",
+            "\n\"Fine, '$Z' - if that's what your name really is... You can call me Homer.\"",
+            [
+                "SETF",
                 [
-                    "\"Who wants to know?\"\n",
-                    "ASK",
-                    "\n\"Fine, '$Z' - if that's what your name really is... You can call me Homer.\"",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            0
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        484
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "home",
-                [
-                    "\"Well, get on with it!\"",
-                    [
-                        "JUMP",
-                        484
-                    ]
-                ]
+                "JUMP",
+                484
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I once sailed on the ship called '@Empire,' under Captain @Hawkins.\"",
-                    [
-                        "JUMP",
-                        484
-                    ]
-                ]
+                "CASE",
+                "home"
+            ],
+            "\"Well, get on with it!\"",
+            [
+                "JUMP",
+                484
             ],
             [
-                "KEYWORDS",
-                "empi,sail",
-                [
-                    "\"It was wrecked on the cape, southwest of here. Not too far from Serpent's Hold.\""
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I once sailed on the ship called '@Empire,' under Captain @Hawkins.\"",
+            [
+                "JUMP",
+                484
             ],
             [
-                "KEYWORDS",
-                "hawk",
-                [
-                    "His eyes light up with hatred. \"That heartless bastard...\"",
-                    "WAIT",
-                    "\n\n\"He was killed by his own men, and it was no worse than he deserved.\"",
-                    "WAIT",
-                    "\n\nHe hesitates, then adds quickly, \"Of course, I had nothing to do with it.\"",
-                    [
-                        "JUMP",
-                        484
-                    ]
-                ]
+                "CASE",
+                "empi,sail"
+            ],
+            "\"It was wrecked on the cape, southwest of here. Not too far from Serpent's Hold.\"",
+            [
+                "CASE",
+                "hawk"
+            ],
+            "His eyes light up with hatred. \"That heartless bastard...\"",
+            "WAIT",
+            "\n\n\"He was killed by his own men, and it was no worse than he deserved.\"",
+            "WAIT",
+            "\n\nHe hesitates, then adds quickly, \"Of course, I had nothing to do with it.\"",
+            [
+                "JUMP",
+                484
             ],
             [
-                "KEYWORDS",
-                "silv,tabl",
-                [
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "partyHasObject",
-                                    [
-                                        [
-                                            "byte",
-                                            25
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    32769
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                1306
-                            ]
-                        ],
-                        []
-                    ],
-                    "He regards you warily. \"Who sent you?\"\n",
-                    "ASK",
-                    "\n\"I see.\" He screws his face up into an even more suspicious expression than before.",
-                    "WAIT",
-                    "\n\n\"Just why do you want to know about it, anyway?\"\n",
-                    "ASK",
-                    "\n\"You're not a member of the @guild. I don't have to tell you anything.\"",
-                    [
-                        "JUMP",
-                        484
-                    ],
-                    "\"You're looking for the silver tablet? It's part of Captain Hawkin's buried @treasure.\"",
-                    [
-                        "JUMP",
-                        484
-                    ]
-                ]
+                "CASE",
+                "silv,tabl"
             ],
             [
-                "KEYWORDS",
-                "buri,trea",
-                [
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "partyHasObject",
-                                    [
-                                        [
-                                            "byte",
-                                            25
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    32769
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"It was buried in a small @cave.\""
-                        ],
-                        [
-                            "\"Don't know anything about it.\""
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        484
-                    ]
-                ]
+                "IF",
+                "notEquals(partyHasObject(byte 25, byte 0), word 32769)"
             ],
             [
-                "KEYWORDS",
-                "cave",
-                [
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "partyHasObject",
-                                    [
-                                        [
-                                            "byte",
-                                            25
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    32769
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                1821
-                            ]
-                        ],
-                        [
-                            "\"What are you talking about?\""
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        484
-                    ]
-                ]
+                "JUMP",
+                1306
+            ],
+            "ENDIF",
+            "He regards you warily. \"Who sent you?\"\n",
+            "ASK",
+            "\n\"I see.\" He screws his face up into an even more suspicious expression than before.",
+            "WAIT",
+            "\n\n\"Just why do you want to know about it, anyway?\"\n",
+            "ASK",
+            "\n\"You're not a member of the @guild. I don't have to tell you anything.\"",
+            [
+                "JUMP",
+                484
+            ],
+            "\"You're looking for the silver tablet? It's part of Captain Hawkin's buried @treasure.\"",
+            [
+                "JUMP",
+                484
             ],
             [
-                "KEYWORDS",
-                "guil",
-                [
-                    "\"Go ask Budo. And you didn't hear that from me, understand?\"",
-                    [
-                        "JUMP",
-                        484
-                    ]
-                ]
+                "CASE",
+                "buri,trea"
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "partyHasObject",
-                                    [
-                                        [
-                                            "byte",
-                                            25
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    32769
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Farewell, brother thief.\""
-                        ],
-                        [
-                            "\"Can't say its been a pleasure.\""
-                        ]
-                    ],
-                    "\n",
-                    "BYE"
-                ]
+                "IF",
+                "notEquals(partyHasObject(byte 25, byte 0), word 32769)"
+            ],
+            "\"It was buried in a small @cave.\"",
+            "ELSE",
+            "\"Don't know anything about it.\"",
+            "ENDIF",
+            [
+                "JUMP",
+                484
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "partyHasObject",
-                                    [
-                                        [
-                                            "byte",
-                                            25
-                                        ],
-                                        [
-                                            "byte",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    32769
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Can't help you there.\""
-                        ],
-                        [
-                            "\"You've got an awful lot of questions... Maybe I don't care to talk about $Z.\""
-                        ]
-                    ]
-                ]
+                "CASE",
+                "cave"
             ],
+            [
+                "IF",
+                "notEquals(partyHasObject(byte 25, byte 0), word 32769)"
+            ],
+            [
+                "JUMP",
+                1821
+            ],
+            "ELSE",
+            "\"What are you talking about?\"",
+            "ENDIF",
+            [
+                "JUMP",
+                484
+            ],
+            [
+                "CASE",
+                "guil"
+            ],
+            "\"Go ask Budo. And you didn't hear that from me, understand?\"",
+            [
+                "JUMP",
+                484
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            [
+                "IF",
+                "notEquals(partyHasObject(byte 25, byte 0), word 32769)"
+            ],
+            "\"Farewell, brother thief.\"",
+            "ELSE",
+            "\"Can't say its been a pleasure.\"",
+            "ENDIF",
+            "\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            [
+                "IF",
+                "notEquals(partyHasObject(byte 25, byte 0), word 32769)"
+            ],
+            "\"Can't help you there.\"",
+            "ELSE",
+            "\"You've got an awful lot of questions... Maybe I don't care to talk about $Z.\"",
+            "ENDIF",
+            "ESAC",
             [
                 "JUMP",
                 484
@@ -463,18 +327,16 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"Then get off your duff and go dig it up!\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "n"
             ],
+            "\"Then get off your duff and go dig it up!\"\n",
+            "BYE",
             [
-                "KEYWORDS",
-                "y",
-                []
+                "CASE",
+                "y"
             ],
+            "ESAC",
             "\"Then hand it over and we're even.\" His eyes gleam with greedy anticipation.",
             "WAIT",
             "\n\nDo you give him the cloak? ",
@@ -483,29 +345,27 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
+                "CASE",
+                "n"
+            ],
+            "\"Blast ye! If I still had two good legs, I'd keelhaul the lot of you!\"",
+            "WAIT",
+            "\n\n\"We had a deal! Besides, I helped steal that treasure myself, fair and square.\"",
+            "WAIT",
+            "\n\"Can't trust anybody these days...\"\n",
+            [
+                "SUB_KARMA",
                 [
-                    "\"Blast ye! If I still had two good legs, I'd keelhaul the lot of you!\"",
-                    "WAIT",
-                    "\n\n\"We had a deal! Besides, I helped steal that treasure myself, fair and square.\"",
-                    "WAIT",
-                    "\n\"Can't trust anybody these days...\"\n",
-                    [
-                        "SUB_KARMA",
-                        [
-                            "byte",
-                            10
-                        ]
-                    ],
-                    "BYE"
+                    "byte",
+                    10
                 ]
             ],
+            "BYE",
             [
-                "KEYWORDS",
-                "y",
-                []
+                "CASE",
+                "y"
             ],
+            "ESAC",
             [
                 "ASSIGN",
                 [
@@ -590,21 +450,19 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"Then what are you wasting my time for?\"",
-                    [
-                        "JUMP",
-                        484
-                    ]
-                ]
+                "CASE",
+                "n"
+            ],
+            "\"Then what are you wasting my time for?\"",
+            [
+                "JUMP",
+                484
             ],
             [
-                "KEYWORDS",
-                "y",
-                []
+                "CASE",
+                "y"
             ],
+            "ESAC",
             [
                 "IF",
                 "equals(hasBit(byte 235, byte 7), byte 0)"
@@ -629,29 +487,27 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
+                "CASE",
+                "n"
+            ],
+            "\"Suit yourself, mate, that's the only deal I'll offer.\"\n",
+            [
+                "SETF",
                 [
-                    "\"Suit yourself, mate, that's the only deal I'll offer.\"\n",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            2
-                        ]
-                    ],
-                    "BYE"
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    2
                 ]
             ],
+            "BYE",
             [
-                "KEYWORDS",
-                "y",
-                []
+                "CASE",
+                "y"
             ],
+            "ESAC",
             "\n\"Okay. The ninth piece of the map is hidden...\"",
             "WAIT",
             "\n\n\"Right here in my pocket!\" He grins wickedly.",
@@ -685,43 +541,40 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
+                "CASE",
+                "n"
+            ],
+            "\"Don't want to keep your word now that you have the map, eh?\"",
+            "WAIT",
+            "\n\"Well, then, I won't tell you where you need to dig to find the treasure!\"\n",
+            [
+                "SETF",
                 [
-                    "\"Don't want to keep your word now that you have the map, eh?\"",
-                    "WAIT",
-                    "\n\"Well, then, I won't tell you where you need to dig to find the treasure!\"\n",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            1
-                        ]
-                    ],
-                    "BYE"
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    1
                 ]
+            ],
+            "BYE",
+            [
+                "CASE",
+                "y"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "SETF",
                 [
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            5
-                        ]
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    5
                 ]
             ],
+            "ESAC",
             "\"Good. Then I'll tell you this:\"",
             "WAIT",
             "\n\n\"When you reach the island marked with the X, find the three stones and stand in the center.\"",

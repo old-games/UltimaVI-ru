@@ -29,129 +29,101 @@
             ". Here for @lodging this fine $T?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
+                "CASE",
+                "name"
+            ],
+            "\"@Timothy.\" He flashes a friendly smile and nods.\n",
+            [
+                "SETF",
                 [
-                    "\"@Timothy.\" He flashes a friendly smile and nods.\n",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            0
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        153
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "timo",
-                [
-                    "\"I'm named after my @uncle. He was a kind soul.\"\n",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "JUMP",
+                153
             ],
             [
-                "KEYWORDS",
-                "uncl",
-                [
-                    "\"Sir Timothy Enders Daverstock. He was a famous @knight in these parts.\"\n",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "CASE",
+                "timo"
+            ],
+            "\"I'm named after my @uncle. He was a kind soul.\"\n",
+            [
+                "JUMP",
+                153
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"It is a busy one - this job, that is. I find it rewarding, though, meeting friendly faces.\"",
-                    "WAIT",
-                    "\n\n\"Maybe you want a @room, eh?\"\n",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "CASE",
+                "uncl"
+            ],
+            "\"Sir Timothy Enders Daverstock. He was a famous @knight in these parts.\"\n",
+            [
+                "JUMP",
+                153
             ],
             [
-                "KEYWORDS",
-                "yes,room,inn,lodg",
-                [
-                    [
-                        "JUMP",
-                        789
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"It is a busy one - this job, that is. I find it rewarding, though, meeting friendly faces.\"",
+            "WAIT",
+            "\n\n\"Maybe you want a @room, eh?\"\n",
+            [
+                "JUMP",
+                153
             ],
             [
-                "KEYWORDS",
-                "famo,knig",
-                [
-                    "\"He is perhaps best known for his courage in @battle.\"\n",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "CASE",
+                "yes,room,inn,lodg"
             ],
             [
-                "KEYWORDS",
-                "cour,batt",
-                [
-                    "\"He once held off a score of men while his own fled to safety across a bridge.\"\n",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "JUMP",
+                789
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Farewell, friend",
-                    [
-                        "IF",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    23
-                                ]
-                            ]
-                        ],
-                        [
-                            "s"
-                        ],
-                        []
-                    ],
-                    ". Travel safely.\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "famo,knig"
+            ],
+            "\"He is perhaps best known for his courage in @battle.\"\n",
+            [
+                "JUMP",
+                153
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"Hmm... Nope, can't help you there.\"\n",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "CASE",
+                "cour,batt"
+            ],
+            "\"He once held off a score of men while his own fled to safety across a bridge.\"\n",
+            [
+                "JUMP",
+                153
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"Farewell, friend",
+            [
+                "IF",
+                "integer(value 23)"
+            ],
+            "s",
+            "ENDIF",
+            ". Travel safely.\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"Hmm... Nope, can't help you there.\"\n",
+            [
+                "JUMP",
+                153
             ]
         ],
         "789": [
@@ -200,89 +172,57 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(objectsCount(byte 1, byte 88), integer(value 0))"
+            ],
+            "\"I'm sorry, but we require cash in advance for our rooms.\"\n",
+            "BYE",
+            "ENDIF",
+            [
+                "DELETE",
                 [
+                    "byte",
+                    1
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "less",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "byte",
-                                            1
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"I'm sorry, but we require cash in advance for our rooms.\"\n",
-                            "BYE"
-                        ],
-                        []
-                    ],
-                    [
-                        "DELETE",
-                        [
-                            "byte",
-                            1
-                        ],
-                        [
-                            "byte",
-                            88
-                        ],
-                        [
-                            "byte",
+                            "value",
                             0
-                        ],
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
                         ]
-                    ],
-                    "You sleep in a comfortable bed...\n",
-                    "SLEEP",
-                    "\nYou wake rested and eat a large breakfast.",
-                    "WAIT",
-                    "\n\n\"Good morning, have a good day.\"\n",
-                    [
-                        "JUMP",
-                        153
                     ]
                 ]
             ],
+            "You sleep in a comfortable bed...\n",
+            "SLEEP",
+            "\nYou wake rested and eat a large breakfast.",
+            "WAIT",
+            "\n\n\"Good morning, have a good day.\"\n",
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"Perhaps some other time, then.\"\n",
-                    [
-                        "JUMP",
-                        153
-                    ]
-                ]
+                "JUMP",
+                153
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            "\"Perhaps some other time, then.\"\n",
+            [
+                "JUMP",
+                153
             ]
         ]
     }

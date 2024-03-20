@@ -40,26 +40,23 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"You 'ave but to ask, mah friend.\"",
-                    [
-                        "JUMP",
-                        566
-                    ]
-                ]
+                "CASE",
+                "n"
+            ],
+            "\"You 'ave but to ask, mah friend.\"",
+            [
+                "JUMP",
+                566
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    [
-                        "JUMP",
-                        244
-                    ]
-                ]
+                "CASE",
+                "y"
             ],
+            [
+                "JUMP",
+                244
+            ],
+            "ESAC",
             "ELSE",
             [
                 "JUMP",
@@ -120,341 +117,195 @@
             "\n",
             "ASK",
             [
-                "KEYWORDS",
-                "prac,ask,less",
-                [
-                    [
-                        "IF",
-                        [
-                            "hasBit",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "byte",
-                                    7
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"But no! You are too skilled, I 'ave nothing more to teach you!\"",
-                            [
-                                "JUMP",
-                                566
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Practice? Here? Surely you jest!\"",
-                            "WAIT",
-                            "\n\n\"No, come to ma salle sometime, zen we will spar, yes?\"",
-                            [
-                                "JUMP",
-                                566
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                244
-                            ]
-                        ]
-                    ]
-                ]
+                "CASE",
+                "prac,ask,less"
             ],
             [
-                "KEYWORDS",
-                "fenc,inst",
-                [
-                    "\"Oui, I teach ze fencing",
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            " here in my salle, my school.\""
-                        ],
-                        [
-                            ".\""
-                        ]
-                    ],
-                    "WAIT",
-                    "\n\n\"Is very difficult sometimes. Most fighters, zey have no subtlety, no finesse.\"",
-                    "WAIT",
-                    "\n\nHe turns up his nose and sniffs aristocratically.",
-                    "WAIT",
-                    "\n",
-                    [
-                        "IF",
-                        [
-                            "hasBit",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "byte",
-                                    7
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Zey are not like you, mah friend! You are most talented!\"",
-                            [
-                                "JUMP",
-                                566
-                            ]
-                        ],
-                        []
-                    ],
-                    "\"But you, you look much better than that, my friend.\"",
-                    "WAIT",
-                    "\n\n\"",
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            "Just ask"
-                        ],
-                        [
-                            "Come to ma salle sometime"
-                        ]
-                    ],
-                    " and I'll give you a @lesson!\"",
-                    [
-                        "JUMP",
-                        566
-                    ]
-                ]
+                "IF",
+                "hasBit(byte 235, byte 7)"
+            ],
+            "\"But no! You are too skilled, I 'ave nothing more to teach you!\"",
+            [
+                "JUMP",
+                566
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "notEquals(integer(value 32), byte 144)"
+            ],
+            "\"Practice? Here? Surely you jest!\"",
+            "WAIT",
+            "\n\n\"No, come to ma salle sometime, zen we will spar, yes?\"",
+            [
+                "JUMP",
+                566
+            ],
+            "ELSE",
+            [
+                "JUMP",
+                244
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "fenc,inst"
+            ],
+            "\"Oui, I teach ze fencing",
+            [
+                "IF",
+                "equals(integer(value 32), byte 144)"
+            ],
+            " here in my salle, my school.\"",
+            "ELSE",
+            ".\"",
+            "ENDIF",
+            "WAIT",
+            "\n\n\"Is very difficult sometimes. Most fighters, zey have no subtlety, no finesse.\"",
+            "WAIT",
+            "\n\nHe turns up his nose and sniffs aristocratically.",
+            "WAIT",
+            "\n",
+            [
+                "IF",
+                "hasBit(byte 235, byte 7)"
+            ],
+            "\"Zey are not like you, mah friend! You are most talented!\"",
+            [
+                "JUMP",
+                566
+            ],
+            "ENDIF",
+            "\"But you, you look much better than that, my friend.\"",
+            "WAIT",
+            "\n\n\"",
+            [
+                "IF",
+                "equals(integer(value 32), byte 144)"
+            ],
+            "Just ask",
+            "ELSE",
+            "Come to ma salle sometime",
+            "ENDIF",
+            " and I'll give you a @lesson!\"",
+            [
+                "JUMP",
+                566
             ],
             [
-                "KEYWORDS",
-                "name",
+                "CASE",
+                "name"
+            ],
+            "\"I am M'sieur Loubet.",
+            [
+                "IF",
+                "equals(integer(value 32), byte 144)"
+            ],
+            "\"",
+            "WAIT",
+            "\n\n\"@Touche!\" He wields his foil casually, lunging at an imaginary target.",
+            "WAIT",
+            "\n\n\"",
+            "ELSE",
+            " ",
+            "ENDIF",
+            [
+                "IF",
+                "hasBit(byte 235, value 0)"
+            ],
+            "But you already know who I am, silly person!\"",
+            [
+                "JUMP",
+                566
+            ],
+            "ENDIF",
+            [
+                "SETF",
                 [
-                    "\"I am M'sieur Loubet.",
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"",
-                            "WAIT",
-                            "\n\n\"@Touche!\" He wields his foil casually, lunging at an imaginary target.",
-                            "WAIT",
-                            "\n\n\""
-                        ],
-                        [
-                            " "
-                        ]
-                    ],
-                    [
-                        "IF",
-                        [
-                            "hasBit",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "But you already know who I am, silly person!\"",
-                            [
-                                "JUMP",
-                                566
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            0
-                        ]
-                    ],
-                    "Much pleased to meet you, ",
-                    [
-                        "IF",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    16
-                                ]
-                            ]
-                        ],
-                        [
-                            "madame"
-                        ],
-                        [
-                            "m'sieur"
-                        ]
-                    ],
-                    ".\"",
-                    [
-                        "JUMP",
-                        566
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
+            "Much pleased to meet you, ",
             [
-                "KEYWORDS",
-                "touc",
-                [
-                    "\"Zat simply means 'touch.' In fencing we score by touching ze opponent with ze foil @tip.\"",
-                    [
-                        "JUMP",
-                        566
-                    ]
-                ]
+                "IF",
+                "integer(value 16)"
+            ],
+            "madame",
+            "ELSE",
+            "m'sieur",
+            "ENDIF",
+            ".\"",
+            [
+                "JUMP",
+                566
             ],
             [
-                "KEYWORDS",
-                "foil,tip,scor",
-                [
-                    "\"Zey are blunt on ze end, see?\"",
-                    "WAIT",
-                    "\n\n\"Ze first third of ze blade (near ze 'andle) is 'forte'--strong. It is good to parry with zis part of ze sword.\"",
-                    "WAIT",
-                    "\n\n\"Ze rest of ze blade is 'foible'--weak and flexible.\"",
-                    "WAIT",
-                    "\n\n\"Ze foil, she is a very delicate thing. There must be much skill, yes?\"",
-                    "WAIT",
-                    "\n\n\"You must 'old ze sword like a living bird:\"",
-                    "WAIT",
-                    "\n\n\"Too loose and she flies away. Too tight and she smothers. Just right, and...\"",
-                    "WAIT",
-                    "\n\n\"She sings very sweet!\" He strikes metal and the foil makes a pleasant @ringing noise.",
-                    [
-                        "JUMP",
-                        566
-                    ]
-                ]
+                "CASE",
+                "touc"
+            ],
+            "\"Zat simply means 'touch.' In fencing we score by touching ze opponent with ze foil @tip.\"",
+            [
+                "JUMP",
+                566
             ],
             [
-                "KEYWORDS",
-                "nois,plea,ring,hear",
-                [
-                    "SHINGGG!",
-                    [
-                        "JUMP",
-                        566
-                    ]
-                ]
+                "CASE",
+                "foil,tip,scor"
+            ],
+            "\"Zey are blunt on ze end, see?\"",
+            "WAIT",
+            "\n\n\"Ze first third of ze blade (near ze 'andle) is 'forte'--strong. It is good to parry with zis part of ze sword.\"",
+            "WAIT",
+            "\n\n\"Ze rest of ze blade is 'foible'--weak and flexible.\"",
+            "WAIT",
+            "\n\n\"Ze foil, she is a very delicate thing. There must be much skill, yes?\"",
+            "WAIT",
+            "\n\n\"You must 'old ze sword like a living bird:\"",
+            "WAIT",
+            "\n\n\"Too loose and she flies away. Too tight and she smothers. Just right, and...\"",
+            "WAIT",
+            "\n\n\"She sings very sweet!\" He strikes metal and the foil makes a pleasant @ringing noise.",
+            [
+                "JUMP",
+                566
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I am ze @fencing @instructor.\"",
-                    [
-                        "JUMP",
-                        566
-                    ]
-                ]
+                "CASE",
+                "nois,plea,ring,hear"
+            ],
+            "SHINGGG!",
+            [
+                "JUMP",
+                566
             ],
             [
-                "KEYWORDS",
-                "bye,au r",
-                [
-                    "\"Au revoir!\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I am ze @fencing @instructor.\"",
+            [
+                "JUMP",
+                566
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"I cannot 'elp you with zat.\"",
-                    [
-                        "JUMP",
-                        566
-                    ]
-                ]
+                "CASE",
+                "bye,au r"
+            ],
+            "\"Au revoir!\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"I cannot 'elp you with zat.\"",
+            [
+                "JUMP",
+                566
             ]
         ]
     }

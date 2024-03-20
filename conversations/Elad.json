@@ -24,277 +24,218 @@
             "\"Hello.\" His gaze darts from side to side, lingering longingly on the mugs of ale his fellow patrons are gulping down heartily.\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
+                "CASE",
+                "name"
+            ],
+            [
+                "IF",
+                "hasBit(byte 235, value 0)"
+            ],
+            "\"Well, I'm still Captain Elad.\"",
+            [
+                "JUMP",
+                314
+            ],
+            "ENDIF",
+            "He looks at you uneasily. \"I'm @Captain Elad. Not that it's any business of yours...\"",
+            [
+                "SETF",
                 [
-                    [
-                        "IF",
-                        [
-                            "hasBit",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Well, I'm still Captain Elad.\"",
-                            [
-                                "JUMP",
-                                314
-                            ]
-                        ],
-                        []
-                    ],
-                    "He looks at you uneasily. \"I'm @Captain Elad. Not that it's any business of yours...\"",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "value",
-                            0
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        314
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I was Captain of the Theodosia Marie--until she @sank.\"",
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "capt",
-                [
-                    "When you say 'Captain,' all the pirates at the table turn to you expectantly.",
-                    "WAIT",
-                    "\n\nWhen they realize you weren't talking to them, they return to their business.",
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I was Captain of the Theodosia Marie--until she @sank.\"",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "john",
-                [
-                    "\"Captain John, that fool... He was captured by gargoyles.\"",
-                    "WAIT",
-                    "\n\n\"I hear they dragged him down into Hythloth, and nobody's seen hide nor hair of him since.\"",
-                    [
-                        "IF",
-                        [
-                            "isNearby",
-                            [
-                                [
-                                    "byte",
-                                    114
-                                ]
-                            ]
-                        ],
-                        [
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    114
-                                ]
-                            ],
-                            "\n\nLeonna raises an eyebrow. \"Is that so? I could tell a different tale...\"",
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "CASE",
+                "capt"
+            ],
+            "When you say 'Captain,' all the pirates at the table turn to you expectantly.",
+            "WAIT",
+            "\n\nWhen they realize you weren't talking to them, they return to their business.",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "theo,mari,sank",
+                "CASE",
+                "john"
+            ],
+            "\"Captain John, that fool... He was captured by gargoyles.\"",
+            "WAIT",
+            "\n\n\"I hear they dragged him down into Hythloth, and nobody's seen hide nor hair of him since.\"",
+            [
+                "IF",
+                "isNearby(byte 114)"
+            ],
+            "WAIT",
+            [
+                "PORTRAIT",
                 [
-                    "\"Aye, 'twas a terrible ordeal. We were sailing just off @Bordermarch when the whole island started @shaking.\"",
-                    "WAIT",
-                    "\n\n\"Must have been one of those @earthquakes we've been having.\"",
-                    [
-                        "JUMP",
-                        314
-                    ]
+                    "byte",
+                    114
                 ]
+            ],
+            "\n\nLeonna raises an eyebrow. \"Is that so? I could tell a different tale...\"",
+            "WAIT",
+            [
+                "PORTRAIT",
+                [
+                    "byte",
+                    235
+                ]
+            ],
+            "ENDIF",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "terr,orde,sail,isla,shak,size,gone,ship",
-                [
-                    "\"The whole island sank beneath the waves. We were caught in the huge @whirlpool left in its wake.\"",
-                    "WAIT",
-                    "\n\n\"I was one of the lucky few to swim clear. But my ship's on the bottom of the ocean now, and that's the honest truth.\"",
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "CASE",
+                "theo,mari,sank"
+            ],
+            "\"Aye, 'twas a terrible ordeal. We were sailing just off @Bordermarch when the whole island started @shaking.\"",
+            "WAIT",
+            "\n\n\"Must have been one of those @earthquakes we've been having.\"",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "whir",
-                [
-                    "He shudders, then takes a sip of his tea. \"I don't like to think about it.\"",
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "CASE",
+                "terr,orde,sail,isla,shak,size,gone,ship"
+            ],
+            "\"The whole island sank beneath the waves. We were caught in the huge @whirlpool left in its wake.\"",
+            "WAIT",
+            "\n\n\"I was one of the lucky few to swim clear. But my ship's on the bottom of the ocean now, and that's the honest truth.\"",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "bord",
-                [
-                    "\"A fair sized island, and now she's gone! Some o' them @earthquakes have been mighty fierce.\"",
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "CASE",
+                "whir"
+            ],
+            "He shudders, then takes a sip of his tea. \"I don't like to think about it.\"",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "eart,quak",
-                [
-                    "\"Yes, they started soon after Lord @British was @rescued from the underworld.\"",
-                    "WAIT",
-                    "\n\n\"I lost my ship to the last one.\"",
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "CASE",
+                "bord"
+            ],
+            "\"A fair sized island, and now she's gone! Some o' them @earthquakes have been mighty fierce.\"",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "lord,brit",
-                [
-                    "\"I'd toast him with you, but this,\" he gestures disparagingly at his cup, \"is hardly fitting for such an honor.\"",
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "CASE",
+                "eart,quak"
+            ],
+            "\"Yes, they started soon after Lord @British was @rescued from the underworld.\"",
+            "WAIT",
+            "\n\n\"I lost my ship to the last one.\"",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "resc,unde",
-                [
-                    "\"Surely you've heard tales of the Avatar's bold exploits?\"",
-                    "WAIT",
-                    "\n\n\"It was all anyone was talking about round here for weeks.\"",
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "CASE",
+                "lord,brit"
+            ],
+            "\"I'd toast him with you, but this,\" he gestures disparagingly at his cup, \"is hardly fitting for such an honor.\"",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "rune",
-                [
-                    "\"I wish I had one of them... I bet I could sell it for a pretty penny!\"",
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "CASE",
+                "resc,unde"
+            ],
+            "\"Surely you've heard tales of the Avatar's bold exploits?\"",
+            "WAIT",
+            "\n\n\"It was all anyone was talking about round here for weeks.\"",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "mant",
-                [
-                    "\"You don't hear much about the @virtues in a pirate town...\"",
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "CASE",
+                "rune"
+            ],
+            "\"I wish I had one of them... I bet I could sell it for a pretty penny!\"",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "hone,trut,virt,tea",
-                [
-                    "\"I could use more virtue in me life. I've just given up @drinking, to start with.\"",
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "CASE",
+                "mant"
+            ],
+            "\"You don't hear much about the @virtues in a pirate town...\"",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "drin",
-                [
-                    "\"Aye, 'tis quite a @temptation.\"",
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "CASE",
+                "hone,trut,virt,tea"
+            ],
+            "\"I could use more virtue in me life. I've just given up @drinking, to start with.\"",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "temp",
-                [
-                    "\"Indeed.\" He takes another big gulp of tea.",
-                    [
-                        "JUMP",
-                        314
-                    ]
-                ]
+                "CASE",
+                "drin"
+            ],
+            "\"Aye, 'tis quite a @temptation.\"",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    [
-                        "JUMP",
-                        2394
-                    ]
-                ]
+                "CASE",
+                "temp"
+            ],
+            "\"Indeed.\" He takes another big gulp of tea.",
+            [
+                "JUMP",
+                314
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"Ah, that's not important.\""
-                ]
+                "CASE",
+                "bye"
             ],
+            [
+                "JUMP",
+                2394
+            ],
+            [
+                "CASE",
+                "*"
+            ],
+            "\"Ah, that's not important.\"",
+            "ESAC",
             [
                 "JUMP",
                 314
@@ -334,18 +275,17 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"Oh. Well, let me know if you find out later.\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        3016
-                    ]
-                ]
+                "CASE",
+                "n"
             ],
+            "\"Oh. Well, let me know if you find out later.\"",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                3016
+            ],
+            "ESAC",
             "\"I've been trying to find out what it is, so that I can better myself.\"",
             "WAIT",
             "\n\n\"I'll give you five gold if you tell me. Is it a deal?\" ",
@@ -354,56 +294,50 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"I'll be here with the money if you change your mind.\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        3016
-                    ]
-                ]
+                "CASE",
+                "n"
+            ],
+            "\"I'll be here with the money if you change your mind.\"",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                3016
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    "\"Okay, what is it?\"\n"
-                ]
+                "CASE",
+                "y"
             ],
+            "\"Okay, what is it?\"\n",
+            "ESAC",
             "ASK",
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "The pirate frowns.",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        3016
-                    ]
-                ]
+                "CASE",
+                "bye"
+            ],
+            "The pirate frowns.",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                3016
             ],
             [
-                "KEYWORDS",
-                "ahm",
+                "CASE",
+                "ahm"
+            ],
+            [
+                "SETF",
                 [
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            6
-                        ]
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    6
                 ]
             ],
+            "ESAC",
             [
                 "NEW",
                 [

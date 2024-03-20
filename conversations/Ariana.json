@@ -51,117 +51,96 @@
             "\"Oh, hello again.\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "She curtsies gracefully. \"Ariana is my name.\"",
-                    [
-                        "JUMP",
-                        198
-                    ]
-                ]
+                "CASE",
+                "name"
+            ],
+            "She curtsies gracefully. \"Ariana is my name.\"",
+            [
+                "JUMP",
+                198
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I'm learning to be a @bard. I like to @play the harpsichord best.\"",
-                    [
-                        "JUMP",
-                        198
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I'm learning to be a @bard. I like to @play the harpsichord best.\"",
+            [
+                "JUMP",
+                198
             ],
             [
-                "KEYWORDS",
-                "bard",
-                [
-                    "\"I want to be a bard when I grow up. They have more @fun than anybody!\"",
-                    [
-                        "JUMP",
-                        198
-                    ]
-                ]
+                "CASE",
+                "bard"
+            ],
+            "\"I want to be a bard when I grow up. They have more @fun than anybody!\"",
+            [
+                "JUMP",
+                198
             ],
             [
-                "KEYWORDS",
-                "comp",
-                [
-                    "\"They taught me all about compassion. They say it's very important for bards.\"",
-                    [
-                        "JUMP",
-                        198
-                    ]
-                ]
+                "CASE",
+                "comp"
+            ],
+            "\"They taught me all about compassion. They say it's very important for bards.\"",
+            [
+                "JUMP",
+                198
             ],
             [
-                "KEYWORDS",
-                "mant",
-                [
-                    "\"I can't remember it now... And @Kenneth just taught it to me last week...\"\n*\n\"Wait, I know! It's 'mo!'\"\n*\n\"Or maybe it was 'om'... Or 'mu,' or 'um'... It was something like that.\"",
-                    [
-                        "JUMP",
-                        198
-                    ]
-                ]
+                "CASE",
+                "mant"
+            ],
+            "\"I can't remember it now... And @Kenneth just taught it to me last week...\"\n*\n\"Wait, I know! It's 'mo!'\"\n*\n\"Or maybe it was 'om'... Or 'mu,' or 'um'... It was something like that.\"",
+            [
+                "JUMP",
+                198
             ],
             [
-                "KEYWORDS",
-                "rune",
-                [
-                    [
-                        "JUMP",
-                        1475
-                    ]
-                ]
+                "CASE",
+                "rune"
             ],
             [
-                "KEYWORDS",
-                "song,music,play,harp",
-                [
-                    [
-                        "JUMP",
-                        843
-                    ]
-                ]
+                "JUMP",
+                1475
             ],
             [
-                "KEYWORDS",
-                "fun",
-                [
-                    "\"Oh yes, lots of it!\"",
-                    [
-                        "JUMP",
-                        198
-                    ]
-                ]
+                "CASE",
+                "song,music,play,harp"
             ],
             [
-                "KEYWORDS",
-                "ken",
-                [
-                    "\"He's my teacher.\"",
-                    [
-                        "JUMP",
-                        198
-                    ]
-                ]
+                "JUMP",
+                843
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"See you later.\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "fun"
+            ],
+            "\"Oh yes, lots of it!\"",
+            [
+                "JUMP",
+                198
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"What do you mean?\""
-                ]
+                "CASE",
+                "ken"
             ],
+            "\"He's my teacher.\"",
+            [
+                "JUMP",
+                198
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"See you later.\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"What do you mean?\"",
+            "ESAC",
             [
                 "JUMP",
                 198
@@ -174,73 +153,47 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
+                "CASE",
+                "n"
+            ],
+            "The little girl sniffles, seeming suddenly on the verge of tears.\n\n*\"I'm sorry,\" she says, \"I shouldn't have asked.\" She turns her back, as if ashamed to face you.\n",
+            [
+                "SUB_KARMA",
                 [
-                    "The little girl sniffles, seeming suddenly on the verge of tears.\n\n*\"I'm sorry,\" she says, \"I shouldn't have asked.\" She turns her back, as if ashamed to face you.\n",
-                    [
-                        "SUB_KARMA",
-                        [
-                            "byte",
-                            5
-                        ]
-                    ],
-                    "BYE"
+                    "byte",
+                    5
+                ]
+            ],
+            "BYE",
+            [
+                "CASE",
+                "y"
+            ],
+            "The little girl's face breaks out into a smile bright enough to light up the whole room.\n*\n\"Really? I would like that very much.\"",
+            [
+                "IF",
+                "equals(hasBit(byte 235, byte 4), byte 0)"
+            ],
+            [
+                "ADD_KARMA",
+                [
+                    "byte",
+                    10
                 ]
             ],
             [
-                "KEYWORDS",
-                "y",
+                "SETF",
                 [
-                    "The little girl's face breaks out into a smile bright enough to light up the whole room.\n*\n\"Really? I would like that very much.\"",
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "hasBit",
-                                    [
-                                        [
-                                            "byte",
-                                            235
-                                        ],
-                                        [
-                                            "byte",
-                                            4
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "ADD_KARMA",
-                                [
-                                    "byte",
-                                    10
-                                ]
-                            ],
-                            [
-                                "SETF",
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "byte",
-                                    4
-                                ]
-                            ]
-                        ],
-                        []
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    4
                 ]
             ],
+            "ENDIF",
+            "ESAC",
             [
                 "JUMP",
                 198
@@ -263,61 +216,57 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"Ok.\"",
-                    [
-                        "JUMP",
-                        198
-                    ]
-                ]
+                "CASE",
+                "n"
             ],
+            "\"Ok.\"",
+            [
+                "JUMP",
+                198
+            ],
+            "ESAC",
             "\n\"Are you on an important quest?\" ",
             [
                 "ASKC",
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
+                "CASE",
+                "n"
+            ],
+            "\"I'd best hold onto it then. I was told to look after it carefully.\"",
+            [
+                "JUMP",
+                198
+            ],
+            [
+                "CASE",
+                "y"
+            ],
+            "\"I'm not supposed to let anyone else have it. But if you truly need it...\"\n*\n\"I don't know what I should do.\"\n*\n\"I know! My parents run the Blue Boar Tavern. Go ask them if you can borrow the rune.\"\n*\n\"If they say 'tis okay, I'll give it to you.\"",
+            [
+                "SETF",
                 [
-                    "\"I'd best hold onto it then. I was told to look after it carefully.\"",
-                    [
-                        "JUMP",
-                        198
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    7
                 ]
             ],
             [
-                "KEYWORDS",
-                "y",
+                "SETF",
                 [
-                    "\"I'm not supposed to let anyone else have it. But if you truly need it...\"\n*\n\"I don't know what I should do.\"\n*\n\"I know! My parents run the Blue Boar Tavern. Go ask them if you can borrow the rune.\"\n*\n\"If they say 'tis okay, I'll give it to you.\"",
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            7
-                        ]
-                    ],
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            5
-                        ]
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    5
                 ]
             ],
+            "ESAC",
             [
                 "JUMP",
                 198
@@ -330,145 +279,85 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(canCarry(character(integer(value 3), byte 0)), weight(byte 243, byte 1))"
+            ],
+            "\"Oh, you're carrying too much right now. You'd better come back for it later.\"",
+            [
+                "JUMP",
+                198
+            ],
+            "ENDIF",
+            "\"Then here you are.\" She hands you the rune. \"I wish you the best of luck on your quest.\"",
+            [
+                "IF",
+                "hasBit(byte 235, byte 5)"
+            ],
+            [
+                "SUB_KARMA",
                 [
-                    [
-                        "IF",
-                        [
-                            "less",
-                            [
-                                [
-                                    "canCarry",
-                                    [
-                                        [
-                                            "character",
-                                            [
-                                                [
-                                                    "integer",
-                                                    [
-                                                        [
-                                                            "value",
-                                                            3
-                                                        ]
-                                                    ]
-                                                ],
-                                                [
-                                                    "byte",
-                                                    0
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "weight",
-                                    [
-                                        [
-                                            "byte",
-                                            243
-                                        ],
-                                        [
-                                            "byte",
-                                            1
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Oh, you're carrying too much right now. You'd better come back for it later.\"",
-                            [
-                                "JUMP",
-                                198
-                            ]
-                        ],
-                        []
-                    ],
-                    "\"Then here you are.\" She hands you the rune. \"I wish you the best of luck on your quest.\"",
-                    [
-                        "IF",
-                        [
-                            "hasBit",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "byte",
-                                    5
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "SUB_KARMA",
-                                [
-                                    "byte",
-                                    10
-                                ]
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "CLEARF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            7
-                        ]
-                    ],
-                    [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            6
-                        ]
-                    ],
-                    [
-                        "GIVE",
-                        [
-                            "byte",
-                            243
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            235
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        198
-                    ]
+                    "byte",
+                    10
+                ]
+            ],
+            "ENDIF",
+            [
+                "CLEARF",
+                [
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    7
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
+                "SETF",
                 [
-                    "\"Well, if you get their permission later, let me know.\"",
-                    [
-                        "JUMP",
-                        198
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    6
                 ]
+            ],
+            [
+                "GIVE",
+                [
+                    "byte",
+                    243
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    235
+                ],
+                [
+                    "byte",
+                    1
+                ]
+            ],
+            [
+                "JUMP",
+                198
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            "\"Well, if you get their permission later, let me know.\"",
+            [
+                "JUMP",
+                198
             ]
         ]
     }

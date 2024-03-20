@@ -90,24 +90,34 @@
             "\n",
             "ASK",
             [
-                "KEYWORDS",
-                "surr,sacr",
-                [
-                    [
-                        "JUMP",
-                        1978
-                    ]
-                ]
+                "CASE",
+                "surr,sacr"
             ],
             [
-                "KEYWORDS",
-                "name",
+                "JUMP",
+                1978
+            ],
+            [
+                "CASE",
+                "name"
+            ],
+            "\"To be named Draxinusom, leader of our race.\"",
+            "WAIT",
+            "\n\n\"To demand to know why you have come before me!\"",
+            [
+                "ASSIGN",
                 [
-                    "\"To be named Draxinusom, leader of our race.\"",
-                    "WAIT",
-                    "\n\n\"To demand to know why you have come before me!\"",
+                    "integer",
                     [
-                        "ASSIGN",
+                        [
+                            "value",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "plus",
+                    [
                         [
                             "integer",
                             [
@@ -118,37 +128,35 @@
                             ]
                         ],
                         [
-                            "plus",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
+                            "byte",
+                            1
                         ]
-                    ],
-                    [
-                        "JUMP",
-                        562
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "job",
+                "JUMP",
+                562
+            ],
+            [
+                "CASE",
+                "job"
+            ],
+            "\"To be the leader of our race. To have little time to waste chatting with the False Prophet!\"",
+            [
+                "ASSIGN",
                 [
-                    "\"To be the leader of our race. To have little time to waste chatting with the False Prophet!\"",
+                    "integer",
                     [
-                        "ASSIGN",
+                        [
+                            "value",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "plus",
+                    [
                         [
                             "integer",
                             [
@@ -159,92 +167,69 @@
                             ]
                         ],
                         [
-                            "plus",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
+                            "byte",
+                            1
                         ]
-                    ],
-                    [
-                        "JUMP",
-                        562
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Flee, False Prophet! To seize you for sacrifice the instant my army returns from the Underworld!\"",
-                    "WAIT",
-                    "\n",
-                    "BYE"
-                ]
+                "JUMP",
+                562
             ],
             [
-                "KEYWORDS",
-                "*",
+                "CASE",
+                "bye"
+            ],
+            "\"Flee, False Prophet! To seize you for sacrifice the instant my army returns from the Underworld!\"",
+            "WAIT",
+            "\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            [
+                "IF",
+                "greater(integer(value 0), byte 2)"
+            ],
+            [
+                "JUMP",
+                1875
+            ],
+            "ENDIF",
+            [
+                "DPRINT",
                 [
                     [
-                        "IF",
-                        [
-                            "greater",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    2
-                                ]
-                            ]
-                        ],
+                        "integer",
                         [
                             [
-                                "JUMP",
-                                1875
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "DPRINT",
-                        [
-                            [
-                                "integer",
-                                [
-                                    [
-                                        "value",
-                                        0
-                                    ]
-                                ]
-                            ],
-                            [
-                                "dword",
-                                2131
+                                "value",
+                                0
                             ]
                         ]
                     ],
                     [
-                        "ASSIGN",
+                        "dword",
+                        2131
+                    ]
+                ]
+            ],
+            [
+                "ASSIGN",
+                [
+                    "integer",
+                    [
+                        [
+                            "value",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "plus",
+                    [
                         [
                             "integer",
                             [
@@ -255,105 +240,75 @@
                             ]
                         ],
                         [
-                            "plus",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
+                            "byte",
+                            1
                         ]
-                    ],
-                    [
-                        "JUMP",
-                        562
                     ]
                 ]
+            ],
+            [
+                "JUMP",
+                562
             ]
         ],
         "957": [
             "\n",
             "ASK",
             [
-                "KEYWORDS",
-                "seer,scho,sacr,talk,valk,naxa",
+                "CASE",
+                "seer,scho,sacr,talk,valk,naxa"
+            ],
+            "The gargoyle shows you a crystal amulet dangling from a leather cord.",
+            "WAIT",
+            "\n\n\"Hsss....To consent to wear this?\" ",
+            [
+                "IF",
+                "partyHas(byte 2)"
+            ],
+            "WAIT",
+            [
+                "PORTRAIT",
                 [
-                    "The gargoyle shows you a crystal amulet dangling from a leather cord.",
-                    "WAIT",
-                    "\n\n\"Hsss....To consent to wear this?\" ",
-                    [
-                        "IF",
-                        [
-                            "partyHas",
-                            [
-                                [
-                                    "byte",
-                                    2
-                                ]
-                            ]
-                        ],
-                        [
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    2
-                                ]
-                            ],
-                            "\n\nTrusted Dupre whispers frantically to you, \"You mustn't! It's some sort of magical trap!\"",
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ],
-                            "\n\nThe gargoyle waits impatiently for an answer. \"Yes or no, False Prophet?\" "
-                        ],
-                        []
-                    ],
-                    [
-                        "JUMP",
-                        1432
-                    ]
+                    "byte",
+                    2
                 ]
             ],
+            "\n\nTrusted Dupre whispers frantically to you, \"You mustn't! It's some sort of magical trap!\"",
+            "WAIT",
             [
-                "KEYWORDS",
-                "bye",
+                "PORTRAIT",
                 [
-                    "\"To have known it all along!\"",
-                    "WAIT",
-                    "\"To be a fool for trusting the False Prophet for a moment!\"",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        1875
-                    ]
+                    "byte",
+                    235
                 ]
             ],
+            "\n\nThe gargoyle waits impatiently for an answer. \"Yes or no, False Prophet?\" ",
+            "ENDIF",
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"To be suspicious of thy motives...\"",
-                    [
-                        "JUMP",
-                        957
-                    ]
-                ]
+                "JUMP",
+                1432
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"To have known it all along!\"",
+            "WAIT",
+            "\"To be a fool for trusting the False Prophet for a moment!\"",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                1875
+            ],
+            [
+                "CASE",
+                "*"
+            ],
+            "\"To be suspicious of thy motives...\"",
+            [
+                "JUMP",
+                957
             ]
         ],
         "1432": [
@@ -362,86 +317,73 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
+                "CASE",
+                "n"
+            ],
+            [
+                "IF",
+                "integer(value 1)"
+            ],
+            [
+                "JUMP",
+                1875
+            ],
+            "ELSE",
+            "\"To be necessary for surrender! To ask again for your acceptance of this.\"\n\nYour answer: ",
+            [
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                1875
-                            ]
-                        ],
-                        [
-                            "\"To be necessary for surrender! To ask again for your acceptance of this.\"\n\nYour answer: ",
-                            [
-                                "ASSIGN",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            1
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                1432
-                            ]
+                            "value",
+                            1
                         ]
                     ]
+                ],
+                [
+                    "byte",
+                    1
                 ]
             ],
             [
-                "KEYWORDS",
-                "y",
+                "JUMP",
+                1432
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "y"
+            ],
+            "The gargoyle hands you the amulet, and you slip the leather loop over your head.",
+            [
+                "NEW",
                 [
-                    "The gargoyle hands you the amulet, and you slip the leather loop over your head.",
-                    [
-                        "NEW",
-                        [
-                            "byte",
-                            1
-                        ],
-                        [
-                            "byte",
-                            76
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ],
-                    [
-                        "ADD_KARMA",
-                        [
-                            "byte",
-                            10
-                        ]
-                    ],
-                    "WAIT"
+                    "byte",
+                    1
+                ],
+                [
+                    "byte",
+                    76
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
                 ]
             ],
+            [
+                "ADD_KARMA",
+                [
+                    "byte",
+                    10
+                ]
+            ],
+            "WAIT",
+            "ESAC",
             "\n\n\"To surprise me with the nobility of your deed. To no longer be a threat to my people.\"",
             "WAIT",
             "\n\n\"To bid you to travel among my people, talk to them, learn our ways.\"",
@@ -462,69 +404,61 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    [
-                        "JUMP",
-                        1875
-                    ]
-                ]
+                "CASE",
+                "n"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    "\"To be willing to die to save my people?\" "
-                ]
+                "JUMP",
+                1875
             ],
+            "ESAC",
+            [
+                "CASE",
+                "y"
+            ],
+            "\"To be willing to die to save my people?\" ",
+            "ESAC",
             [
                 "ASKC",
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    [
-                        "JUMP",
-                        1875
-                    ]
-                ]
+                "CASE",
+                "n"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    "\"To grant me your life?\" "
-                ]
+                "JUMP",
+                1875
             ],
+            "ESAC",
+            [
+                "CASE",
+                "y"
+            ],
+            "\"To grant me your life?\" ",
+            "ESAC",
             [
                 "ASKC",
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    [
-                        "JUMP",
-                        1875
-                    ]
-                ]
+                "CASE",
+                "n"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    "\"Why?\"",
-                    [
-                        "JUMP",
-                        957
-                    ]
-                ]
+                "JUMP",
+                1875
             ],
-            "\"To ignore the rhetoric of the False Prophet!\"\u0000\"To grow impatient with your babbling!\"\u0000\"To warn you of imminent attack!\"\u0000"
+            "ESAC",
+            [
+                "CASE",
+                "y"
+            ],
+            "\"Why?\"",
+            [
+                "JUMP",
+                957
+            ]
         ]
     }
 }

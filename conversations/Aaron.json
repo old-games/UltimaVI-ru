@@ -24,209 +24,145 @@
             "\n\n\"What can I do for you this $T?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
-                [
-                    [
-                        "IF",
-                        [
-                            "hasBit",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"That's funny. I remember your name!\""
-                        ],
-                        [
-                            "\"My name's Aaron.\"",
-                            [
-                                "SETF",
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        150
-                    ]
-                ]
+                "CASE",
+                "name"
             ],
             [
-                "KEYWORDS",
-                "job",
+                "IF",
+                "hasBit(byte 235, value 0)"
+            ],
+            "\"That's funny. I remember your name!\"",
+            "ELSE",
+            "\"My name's Aaron.\"",
+            [
+                "SETF",
                 [
-                    "\"I run the sawmill! Is there anything I can do for thee?\"",
-                    [
-                        "JUMP",
-                        150
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
+            "ENDIF",
             [
-                "KEYWORDS",
-                "saw",
-                [
-                    "\"Yes, I saw logs into @boards.\"",
-                    [
-                        "JUMP",
-                        150
-                    ]
-                ]
+                "JUMP",
+                150
             ],
             [
-                "KEYWORDS",
-                "boar,log",
-                [
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Come to my shop when I'm open!\"",
-                            [
-                                "JUMP",
-                                150
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "ASSIGN",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "partyHasObject",
-                            [
-                                [
-                                    "word",
-                                    274
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    32769
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"My mill makes smooth boards and planks out of rough-cut logs.\"",
-                            [
-                                "JUMP",
-                                150
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "SETNAME",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ]
-                    ],
-                    "\"Aye, I see $Y has a yew log.\" He inspects the wood with a practiced eye.",
-                    "WAIT",
-                    "\n\n\"Good grain. Yes, I can make a fine board out of this log.\"",
-                    "WAIT",
-                    "\n\n\"But it will cost thee 5 gold, $Y!\"\n\n\"Still interested?\" ",
-                    [
-                        "JUMP",
-                        733
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I run the sawmill! Is there anything I can do for thee?\"",
+            [
+                "JUMP",
+                150
             ],
             [
-                "KEYWORDS",
-                "bye",
+                "CASE",
+                "saw"
+            ],
+            "\"Yes, I saw logs into @boards.\"",
+            [
+                "JUMP",
+                150
+            ],
+            [
+                "CASE",
+                "boar,log"
+            ],
+            [
+                "IF",
+                "notEquals(integer(value 32), byte 144)"
+            ],
+            "\"Come to my shop when I'm open!\"",
+            [
+                "JUMP",
+                150
+            ],
+            "ENDIF",
+            [
+                "ASSIGN",
                 [
-                    "\"Farewell!\"\n",
+                    "integer",
                     [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
                         [
                             "value",
                             0
                         ]
-                    ],
-                    "BYE"
+                    ]
+                ],
+                [
+                    "partyHasObject",
+                    [
+                        [
+                            "word",
+                            274
+                        ],
+                        [
+                            "byte",
+                            0
+                        ]
+                    ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "*",
+                "IF",
+                "equals(integer(value 0), word 32769)"
+            ],
+            "\"My mill makes smooth boards and planks out of rough-cut logs.\"",
+            [
+                "JUMP",
+                150
+            ],
+            "ENDIF",
+            [
+                "SETNAME",
                 [
-                    "\"Beg pardon?\"",
+                    "integer",
                     [
-                        "JUMP",
-                        150
+                        [
+                            "value",
+                            0
+                        ]
                     ]
                 ]
+            ],
+            "\"Aye, I see $Y has a yew log.\" He inspects the wood with a practiced eye.",
+            "WAIT",
+            "\n\n\"Good grain. Yes, I can make a fine board out of this log.\"",
+            "WAIT",
+            "\n\n\"But it will cost thee 5 gold, $Y!\"\n\n\"Still interested?\" ",
+            [
+                "JUMP",
+                733
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"Farewell!\"\n",
+            [
+                "SETF",
+                [
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
+                ]
+            ],
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"Beg pardon?\"",
+            [
+                "JUMP",
+                150
             ]
         ],
         "733": [
@@ -235,140 +171,108 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(objectsCount(integer(value 0), byte 88), byte 5)"
+            ],
+            "\"Sorry, but I can't work for free!\"",
+            "WAIT",
+            "\n\n\"Come back when you have the 5 gold!\"",
+            [
+                "JUMP",
+                150
+            ],
+            "ENDIF",
+            [
+                "DELETE",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "less",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    0
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    5
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Sorry, but I can't work for free!\"",
-                            "WAIT",
-                            "\n\n\"Come back when you have the 5 gold!\"",
-                            [
-                                "JUMP",
-                                150
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "DELETE",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "word",
-                            274
-                        ],
-                        [
-                            "byte",
+                            "value",
                             0
-                        ],
-                        [
-                            "byte",
-                            1
                         ]
-                    ],
-                    [
-                        "DELETE",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            88
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            5
-                        ]
-                    ],
-                    "Aaron goes to his saw and turns the log into a flat, sanded board.",
-                    "WAIT",
-                    "\n\n\"There!\" He hands $Y the finished product.",
-                    [
-                        "NEW",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "word",
-                            277
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        150
                     ]
+                ],
+                [
+                    "word",
+                    274
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
+                "DELETE",
                 [
-                    "\"Oh. Well, perhaps some other time then.\"",
+                    "integer",
                     [
-                        "JUMP",
-                        150
+                        [
+                            "value",
+                            0
+                        ]
                     ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    5
                 ]
+            ],
+            "Aaron goes to his saw and turns the log into a flat, sanded board.",
+            "WAIT",
+            "\n\n\"There!\" He hands $Y the finished product.",
+            [
+                "NEW",
+                [
+                    "integer",
+                    [
+                        [
+                            "value",
+                            0
+                        ]
+                    ]
+                ],
+                [
+                    "word",
+                    277
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
+                ]
+            ],
+            [
+                "JUMP",
+                150
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            "\"Oh. Well, perhaps some other time then.\"",
+            [
+                "JUMP",
+                150
             ]
         ]
     }

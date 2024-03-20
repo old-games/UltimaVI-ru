@@ -41,162 +41,143 @@
             "\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
+                "CASE",
+                "name"
+            ],
+            "\"It's Lawrence.\"",
+            [
+                "SETF",
                 [
-                    "\"It's Lawrence.\"",
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
+                ]
+            ],
+            [
+                "JUMP",
+                124
+            ],
+            [
+                "CASE",
+                "buy"
+            ],
+            "\"Which, @grapes, @ale, @mead, @wine, or @rations?\"",
+            [
+                "JUMP",
+                124
+            ],
+            [
+                "CASE",
+                "job"
+            ],
+            "\"I sell @grapes, @ale, @mead, @wine, and @rations.\"",
+            [
+                "JUMP",
+                124
+            ],
+            [
+                "CASE",
+                "grap"
+            ],
+            [
+                "JUMP",
+                877
+            ],
+            [
+                "CASE",
+                "mead"
+            ],
+            [
+                "ASSIGN",
+                [
+                    "integer",
                     [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
                         [
                             "value",
-                            0
+                            4
                         ]
-                    ],
-                    [
-                        "JUMP",
-                        124
                     ]
+                ],
+                [
+                    "byte",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "buy",
-                [
-                    "\"Which, @grapes, @ale, @mead, @wine, or @rations?\"",
-                    [
-                        "JUMP",
-                        124
-                    ]
-                ]
+                "JUMP",
+                413
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I sell @grapes, @ale, @mead, @wine, and @rations.\"",
-                    [
-                        "JUMP",
-                        124
-                    ]
-                ]
+                "CASE",
+                "ale"
             ],
             [
-                "KEYWORDS",
-                "grap",
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "JUMP",
-                        877
-                    ]
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "mead",
-                [
-                    [
-                        "ASSIGN",
                         [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    4
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            0
+                            "value",
+                            4
                         ]
-                    ],
-                    [
-                        "JUMP",
-                        413
                     ]
+                ],
+                [
+                    "byte",
+                    1
                 ]
             ],
             [
-                "KEYWORDS",
-                "ale",
+                "JUMP",
+                413
+            ],
+            [
+                "CASE",
+                "wine"
+            ],
+            [
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "ASSIGN",
                         [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    4
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            1
+                            "value",
+                            4
                         ]
-                    ],
-                    [
-                        "JUMP",
-                        413
                     ]
+                ],
+                [
+                    "byte",
+                    2
                 ]
             ],
             [
-                "KEYWORDS",
-                "wine",
-                [
-                    [
-                        "ASSIGN",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    4
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            2
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        413
-                    ]
-                ]
+                "JUMP",
+                413
             ],
             [
-                "KEYWORDS",
-                "rati",
-                [
-                    [
-                        "JUMP",
-                        1255
-                    ]
-                ]
+                "CASE",
+                "rati"
             ],
             [
-                "KEYWORDS",
-                "no,bye",
-                [
-                    "\"Goodbye.\"\n",
-                    "BYE"
-                ]
+                "JUMP",
+                1255
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"I can't help you with that.\""
-                ]
+                "CASE",
+                "no,bye"
             ],
+            "\"Goodbye.\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"I can't help you with that.\"",
+            "ESAC",
             [
                 "JUMP",
                 124
@@ -491,40 +472,36 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "JUMP",
+                630
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "JUMP",
-                        630
+                        [
+                            "value",
+                            5
+                        ]
                     ]
+                ],
+                [
+                    "byte",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    [
-                        "ASSIGN",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    5
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            0
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        834
-                    ]
-                ]
+                "JUMP",
+                834
             ]
         ],
         "630": [
@@ -965,192 +942,109 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(objectsCount(integer(value 3), byte 88), byte 3)"
+            ],
+            "\"Come back when you have some gold.\"",
+            "WAIT",
+            "\n",
+            [
+                "JUMP",
+                90
+            ],
+            "ENDIF",
+            [
+                "IF",
+                "less(plus(canCarry(integer(value 3)), weight(byte 88, byte 3)), weight(byte 95, byte 1))"
+            ],
+            "\"You don't have room to carry them.\"",
+            [
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "less",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Come back when you have some gold.\"",
-                            "WAIT",
-                            "\n",
-                            [
-                                "JUMP",
-                                90
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "IF",
-                        [
-                            "less",
-                            [
-                                [
-                                    "plus",
-                                    [
-                                        [
-                                            "canCarry",
-                                            [
-                                                [
-                                                    "integer",
-                                                    [
-                                                        [
-                                                            "value",
-                                                            3
-                                                        ]
-                                                    ]
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "weight",
-                                            [
-                                                [
-                                                    "byte",
-                                                    88
-                                                ],
-                                                [
-                                                    "byte",
-                                                    3
-                                                ]
-                                            ]
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "weight",
-                                    [
-                                        [
-                                            "byte",
-                                            95
-                                        ],
-                                        [
-                                            "byte",
-                                            1
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"You don't have room to carry them.\"",
-                            [
-                                "ASSIGN",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            5
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                1249
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "DELETE",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            88
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            3
+                            "value",
+                            5
                         ]
-                    ],
-                    [
-                        "NEW",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    3
-                                ]
-                            ]
-                        ],
-                        [
-                            "byte",
-                            95
-                        ],
-                        [
-                            "byte",
-                            0
-                        ],
-                        [
-                            "byte",
-                            1
-                        ]
-                    ],
-                    "$N gives $Y some grapes.",
-                    "WAIT",
-                    "\n",
-                    [
-                        "JUMP",
-                        1249
                     ]
+                ],
+                [
+                    "byte",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
+                "JUMP",
+                1249
+            ],
+            "ENDIF",
+            [
+                "DELETE",
                 [
+                    "integer",
                     [
-                        "JUMP",
-                        1249
+                        [
+                            "value",
+                            3
+                        ]
                     ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    3
                 ]
+            ],
+            [
+                "NEW",
+                [
+                    "integer",
+                    [
+                        [
+                            "value",
+                            3
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    95
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    1
+                ]
+            ],
+            "$N gives $Y some grapes.",
+            "WAIT",
+            "\n",
+            [
+                "JUMP",
+                1249
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "JUMP",
+                1249
             ]
         ],
         "1249": [
@@ -1849,27 +1743,33 @@
             "ENDIF"
         ],
         "1967": [
-            "INTEGERS",
             [
-                2,
-                5,
-                5
+                "INTEGERS",
+                [
+                    2,
+                    5,
+                    5
+                ]
             ]
         ],
         "1973": [
-            "INTEGERS",
             [
-                116,
-                117,
-                115
+                "INTEGERS",
+                [
+                    116,
+                    117,
+                    115
+                ]
             ]
         ],
         "1979": [
-            "STRINGS",
             [
-                "Mead",
-                "Ale",
-                "Wine"
+                "STRINGS",
+                [
+                    "Mead",
+                    "Ale",
+                    "Wine"
+                ]
             ]
         ]
     }

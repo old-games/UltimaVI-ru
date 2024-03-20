@@ -32,255 +32,198 @@
             "\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "\"It's me, Gwenno. You have been away from our realm a long time, haven't you...\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "name"
+            ],
+            "\"It's me, Gwenno. You have been away from our realm a long time, haven't you...\"",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"Iolo's @apprentice has taken over my job at @Iolo's Bows.\"\n*\n\"These days I've been transcribing the folk @songs of Britannia into numerical @notation for the artisan's @guild.\"\n*\n",
-                    [
-                        "IF",
-                        [
-                            "partyHas",
-                            [
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Of course, helping you on your quest is more important than that right now.\""
-                        ],
-                        [
-                            "\"Of course, if you need my help, I could leave the guild for a time and @join you.\""
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"Iolo's @apprentice has taken over my job at @Iolo's Bows.\"\n*\n\"These days I've been transcribing the folk @songs of Britannia into numerical @notation for the artisan's @guild.\"\n*\n",
+            [
+                "IF",
+                "partyHas(byte 235)"
+            ],
+            "\"Of course, helping you on your quest is more important than that right now.\"",
+            "ELSE",
+            "\"Of course, if you need my help, I could leave the guild for a time and @join you.\"",
+            "ENDIF",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "arti,guil",
-                [
-                    "\"@Selganor can tell you more about the guild than I could.\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "arti,guil"
+            ],
+            "\"@Selganor can tell you more about the guild than I could.\"",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "selg",
-                [
-                    "\"He's the guildmaster.\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "selg"
+            ],
+            "\"He's the guildmaster.\"",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "join,help,ques",
-                [
-                    [
-                        "JUMP",
-                        1689
-                    ]
-                ]
+                "CASE",
+                "join,help,ques"
             ],
             [
-                "KEYWORDS",
-                "leav",
-                [
-                    [
-                        "JUMP",
-                        2222
-                    ]
-                ]
+                "JUMP",
+                1689
             ],
             [
-                "KEYWORDS",
-                "folk,song",
-                [
-                    "\"The songs of a people are an important part of their heritage.\"\n*\n\"Putting them down on paper helps preserve our @traditions for future generations.\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "leav"
             ],
             [
-                "KEYWORDS",
-                "heri,pape,trad,futu,gene",
-                [
-                    "\"I'm so glad you appreciate the value of tradition.\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "JUMP",
+                2222
             ],
             [
-                "KEYWORDS",
-                "iolo",
-                [
-                    "\"A bit scruffy, but he's the sweetest husband I could ever ask for.\"",
-                    [
-                        "IF",
-                        [
-                            "isNearby",
-                            [
-                                [
-                                    "byte",
-                                    4
-                                ]
-                            ]
-                        ],
-                        [
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    4
-                                ]
-                            ],
-                            "\n\nIolo says \"You're only saying that because it's true.\" He gives her a kiss.",
-                            "WAIT",
-                            [
-                                "PORTRAIT",
-                                [
-                                    "byte",
-                                    235
-                                ]
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "folk,song"
+            ],
+            "\"The songs of a people are an important part of their heritage.\"\n*\n\"Putting them down on paper helps preserve our @traditions for future generations.\"",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "appr,bow",
-                [
-                    "\"If you need a good crossbow, the shop is in Britain, over by the Blue @Boar.\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "heri,pape,trad,futu,gene"
+            ],
+            "\"I'm so glad you appreciate the value of tradition.\"",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "blue,boar",
+                "CASE",
+                "iolo"
+            ],
+            "\"A bit scruffy, but he's the sweetest husband I could ever ask for.\"",
+            [
+                "IF",
+                "isNearby(byte 4)"
+            ],
+            "WAIT",
+            [
+                "PORTRAIT",
                 [
-                    "\"It's a lively place.\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
+                    "byte",
+                    4
                 ]
+            ],
+            "\n\nIolo says \"You're only saying that because it's true.\" He gives her a kiss.",
+            "WAIT",
+            [
+                "PORTRAIT",
+                [
+                    "byte",
+                    235
+                ]
+            ],
+            "ENDIF",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "nume,nota,tran",
-                [
-                    "\"A number for every @note, and a note for every @number.\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "appr,bow"
+            ],
+            "\"If you need a good crossbow, the shop is in Britain, over by the Blue @Boar.\"",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "note",
-                [
-                    "\"Each note is represented by one @number.\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "blue,boar"
+            ],
+            "\"It's a lively place.\"",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "numb",
-                [
-                    "\"Each number @represents one @note.\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "nume,nota,tran"
+            ],
+            "\"A number for every @note, and a note for every @number.\"",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "repr",
-                [
-                    "\"I knew you'd catch on!\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "note"
+            ],
+            "\"Each note is represented by one @number.\"",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "play,tune",
-                [
-                    "\"Oh, Selganor sent you, did he? I bet you want to learn '@Stones.'\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "numb"
+            ],
+            "\"Each number @represents one @note.\"",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "lear,ston",
-                [
-                    "\"In the standard numerical notation, it reads '678987 8767653'.\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "repr"
+            ],
+            "\"I knew you'd catch on!\"",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Nice talking with you.\"\n",
-                    "BYE"
-                ]
+                "CASE",
+                "play,tune"
+            ],
+            "\"Oh, Selganor sent you, did he? I bet you want to learn '@Stones.'\"",
+            [
+                "JUMP",
+                100
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"Sorry, can't help you there.\""
-                ]
+                "CASE",
+                "lear,ston"
             ],
+            "\"In the standard numerical notation, it reads '678987 8767653'.\"",
+            [
+                "JUMP",
+                100
+            ],
+            [
+                "CASE",
+                "bye"
+            ],
+            "\"Nice talking with you.\"\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"Sorry, can't help you there.\"",
+            "ESAC",
             [
                 "JUMP",
                 100
@@ -303,16 +246,15 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"Okay. Let me know if you need my help later.\"",
-                    [
-                        "JUMP",
-                        100
-                    ]
-                ]
+                "CASE",
+                "n"
             ],
+            "\"Okay. Let me know if you need my help later.\"",
+            [
+                "JUMP",
+                100
+            ],
+            "ESAC",
             [
                 "ASSIGN",
                 [
@@ -372,9 +314,7 @@
             "\n\nShe runs over and hooks arms with @Iolo, and they dance around and around.\n*\nThey're obviously very happy to see each other again.",
             "ENDIF",
             "\n",
-            "BYE"
-        ],
-        "2222": [
+            "BYE",
             [
                 "IF",
                 "equals(partyHas(byte 235), byte 0)"

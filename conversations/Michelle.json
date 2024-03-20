@@ -51,255 +51,161 @@
             "\"How can I help thee this fine $T?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "\"I'm Michelle.\"",
-                    "WAIT",
-                    "\n\n\"Thou needn't tell me thy name, $P. The Avatar is famous throughout the land!\"",
-                    [
-                        "JUMP",
-                        129
-                    ]
-                ]
+                "CASE",
+                "name"
+            ],
+            "\"I'm Michelle.\"",
+            "WAIT",
+            "\n\n\"Thou needn't tell me thy name, $P. The Avatar is famous throughout the land!\"",
+            [
+                "JUMP",
+                129
             ],
             [
-                "KEYWORDS",
-                "job",
-                [
-                    "\"I weave baskets and beehives, just like my @father and his father before him.\"",
-                    "WAIT",
-                    "\n\n\"My @baskets are sold throughout Britannia!\" she adds proudly.",
-                    [
-                        "JUMP",
-                        129
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I weave baskets and beehives, just like my @father and his father before him.\"",
+            "WAIT",
+            "\n\n\"My @baskets are sold throughout Britannia!\" she adds proudly.",
+            [
+                "JUMP",
+                129
             ],
             [
-                "KEYWORDS",
-                "bask,beeh",
+                "CASE",
+                "bask,beeh"
+            ],
+            [
+                "IF",
+                "notEquals(integer(value 32), byte 144)"
+            ],
+            "\"Come to my shop when I'm open!\"",
+            [
+                "JUMP",
+                129
+            ],
+            "ELSE",
+            [
+                "JUMP",
+                1112
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "buy"
+            ],
+            [
+                "IF",
+                "notEquals(integer(value 32), byte 144)"
+            ],
+            "\"Come to my shop when I'm open!\"",
+            [
+                "JUMP",
+                129
+            ],
+            "ELSE",
+            [
+                "JUMP",
+                1242
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "sell"
+            ],
+            "\"I have all I need, and have no reason to purchase anything more.\"",
+            "WAIT",
+            "\n\n\"But I appreciate thy offer.\"",
+            [
+                "JUMP",
+                129
+            ],
+            [
+                "CASE",
+                "fath,ball"
+            ],
+            "\"Father once told me a story of weaving a basket large enough for eight people!\"",
+            "WAIT",
+            "\n\n\"He never showed me the @plans, though.\"",
+            [
+                "JUMP",
+                129
+            ],
+            [
+                "CASE",
+                "plan"
+            ],
+            [
+                "IF",
+                "notEquals(integer(value 32), byte 144)"
+            ],
+            "\"Ask when I'm open for business!\"",
+            [
+                "JUMP",
+                129
+            ],
+            "ENDIF",
+            [
+                "ASSIGN",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "notEquals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
+                            "value",
+                            9
+                        ]
+                    ]
+                ],
+                [
+                    "partyHasObject",
+                    [
+                        [
+                            "word",
+                            270
                         ],
                         [
-                            "\"Come to my shop when I'm open!\"",
-                            [
-                                "JUMP",
-                                129
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                1112
-                            ]
+                            "byte",
+                            0
                         ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "buy",
-                [
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Come to my shop when I'm open!\"",
-                            [
-                                "JUMP",
-                                129
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                1242
-                            ]
-                        ]
-                    ]
-                ]
+                "IF",
+                "equals(integer(value 9), word 32769)"
+            ],
+            "\"Yes, without accurate plans it takes far too much time to craft a basket.\"",
+            [
+                "JUMP",
+                129
+            ],
+            "ENDIF",
+            "\"Then it was true! Father did weave a basket that big!\"",
+            "WAIT",
+            "\n\n\"Surely I could do the same.\"",
+            "WAIT",
+            "\n\nShe studies the plans for a moment.",
+            "WAIT",
+            "\n\n",
+            [
+                "JUMP",
+                2268
             ],
             [
-                "KEYWORDS",
-                "sell",
-                [
-                    "\"I have all I need, and have no reason to purchase anything more.\"",
-                    "WAIT",
-                    "\n\n\"But I appreciate thy offer.\"",
-                    [
-                        "JUMP",
-                        129
-                    ]
-                ]
+                "CASE",
+                "bye"
             ],
+            "\"Farewell! I hope I've aided thy quest!\"\n",
+            "BYE",
             [
-                "KEYWORDS",
-                "fath,ball",
-                [
-                    "\"Father once told me a story of weaving a basket large enough for eight people!\"",
-                    "WAIT",
-                    "\n\n\"He never showed me the @plans, though.\"",
-                    [
-                        "JUMP",
-                        129
-                    ]
-                ]
+                "CASE",
+                "*"
             ],
+            "\"Beg pardon?\"",
             [
-                "KEYWORDS",
-                "plan",
-                [
-                    [
-                        "IF",
-                        [
-                            "notEquals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            32
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    144
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Ask when I'm open for business!\"",
-                            [
-                                "JUMP",
-                                129
-                            ]
-                        ],
-                        []
-                    ],
-                    [
-                        "ASSIGN",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    9
-                                ]
-                            ]
-                        ],
-                        [
-                            "partyHasObject",
-                            [
-                                [
-                                    "word",
-                                    270
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            9
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    32769
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Yes, without accurate plans it takes far too much time to craft a basket.\"",
-                            [
-                                "JUMP",
-                                129
-                            ]
-                        ],
-                        []
-                    ],
-                    "\"Then it was true! Father did weave a basket that big!\"",
-                    "WAIT",
-                    "\n\n\"Surely I could do the same.\"",
-                    "WAIT",
-                    "\n\nShe studies the plans for a moment.",
-                    "WAIT",
-                    "\n\n",
-                    [
-                        "JUMP",
-                        2268
-                    ]
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "bye",
-                [
-                    "\"Farewell! I hope I've aided thy quest!\"\n",
-                    "BYE"
-                ]
-            ],
-            [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"Beg pardon?\"",
-                    [
-                        "JUMP",
-                        129
-                    ]
-                ]
+                "JUMP",
+                129
             ]
         ],
         "1112": [
@@ -309,25 +215,21 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"All right, though I can give thou the best price in the land!\"",
-                    [
-                        "JUMP",
-                        129
-                    ]
-                ]
+                "CASE",
+                "n"
+            ],
+            "\"All right, though I can give thou the best price in the land!\"",
+            [
+                "JUMP",
+                129
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    [
-                        "JUMP",
-                        1242
-                    ]
-                ]
+                "CASE",
+                "y"
+            ],
+            [
+                "JUMP",
+                1242
             ]
         ],
         "1242": [
@@ -911,81 +813,39 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    [
-                        "JUMP",
-                        1242
-                    ]
-                ]
+                "CASE",
+                "y"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            5
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Perhaps some other time.\"",
-                            [
-                                "JUMP",
-                                129
-                            ]
-                        ],
-                        []
-                    ],
-                    "\"Enjoy thy $1",
-                    [
-                        "IF",
-                        [
-                            "greater",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            5
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "s.\""
-                        ],
-                        [
-                            ".\""
-                        ]
-                    ],
-                    [
-                        "JUMP",
-                        129
-                    ]
-                ]
+                "JUMP",
+                1242
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            [
+                "IF",
+                "equals(integer(value 5), byte 0)"
+            ],
+            "\"Perhaps some other time.\"",
+            [
+                "JUMP",
+                129
+            ],
+            "ENDIF",
+            "\"Enjoy thy $1",
+            [
+                "IF",
+                "greater(integer(value 5), byte 1)"
+            ],
+            "s.\"",
+            "ELSE",
+            ".\"",
+            "ENDIF",
+            [
+                "JUMP",
+                129
             ]
         ],
         "2268": [
@@ -1105,25 +965,21 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    [
-                        "JUMP",
-                        2640
-                    ]
-                ]
+                "CASE",
+                "y"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"I do not blame thee. 'Tis a huge undertaking!\"",
-                    [
-                        "JUMP",
-                        129
-                    ]
-                ]
+                "JUMP",
+                2640
+            ],
+            [
+                "CASE",
+                "n"
+            ],
+            "\"I do not blame thee. 'Tis a huge undertaking!\"",
+            [
+                "JUMP",
+                129
             ]
         ],
         "2640": [
@@ -1632,28 +1488,24 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    "\"Thou art wise, then. 'Tis a huge bag this will require.\"",
-                    [
-                        "JUMP",
-                        3338
-                    ]
-                ]
+                "CASE",
+                "y"
+            ],
+            "\"Thou art wise, then. 'Tis a huge bag this will require.\"",
+            [
+                "JUMP",
+                3338
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"Well, I can see that this will require a huge silk bag.\"",
-                    "WAIT",
-                    "\n\n\"I know not where thou might find a silk weaver to craft it!\"",
-                    [
-                        "JUMP",
-                        3338
-                    ]
-                ]
+                "CASE",
+                "n"
+            ],
+            "\"Well, I can see that this will require a huge silk bag.\"",
+            "WAIT",
+            "\n\n\"I know not where thou might find a silk weaver to craft it!\"",
+            [
+                "JUMP",
+                3338
             ]
         ],
         "3338": [
@@ -1663,20 +1515,18 @@
             "\n\n\"I do not mean to pry, but why dost thou need a balloon anyway?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"I'm afraid I don't understand.\"\n"
-                ]
+                "CASE",
+                "*"
             ],
+            "\"I'm afraid I don't understand.\"\n",
+            "ESAC",
             "ASK",
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"Oh, I see.\""
-                ]
+                "CASE",
+                "*"
             ],
+            "\"Oh, I see.\"",
+            "ESAC",
             "WAIT",
             "\n\nShe continues weaving the basket.",
             "WAIT",
@@ -1749,26 +1599,32 @@
             ]
         ],
         "3728": [
-            "INTEGERS",
             [
-                10,
-                15
+                "INTEGERS",
+                [
+                    10,
+                    15
+                ]
             ]
         ],
         "3732": [
-            "INTEGERS",
             [
-                191,
-                182
+                "INTEGERS",
+                [
+                    191,
+                    182
+                ]
             ]
         ],
         "3736": [
-            "STRINGS",
             [
-                "basket",
-                "beehive",
-                "\"These baskets are sturdy and decorative.\"*\n\n\"Thou'lt find no better in all Britannia for the price, a mere #1 gold.\"",
-                "\"If thou hast need of beehives, these woven ones are the best thou'lt find!\"*\n\n\"And cheap, too, at #1 apiece.\""
+                "STRINGS",
+                [
+                    "basket",
+                    "beehive",
+                    "\"These baskets are sturdy and decorative.\"*\n\n\"Thou'lt find no better in all Britannia for the price, a mere #1 gold.\"",
+                    "\"If thou hast need of beehives, these woven ones are the best thou'lt find!\"*\n\n\"And cheap, too, at #1 apiece.\""
+                ]
             ]
         ]
     }

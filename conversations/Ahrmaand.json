@@ -64,199 +64,133 @@
             "\n\"How might I be of assistance this fine $T?\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "name",
-                [
-                    "\"I am the Viscount Ahrmaand. And what is thy name?\"\n",
-                    "ASK",
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "string",
-                                    [
-                                        [
-                                            "value",
-                                            35
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "string",
-                                    [
-                                        [
-                                            "value",
-                                            25
-                                        ]
-                                    ]
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "SETF",
-                                [
-                                    "byte",
-                                    235
-                                ],
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        []
-                    ],
-                    "\n\"Well met, $G!\"",
-                    [
-                        "JUMP",
-                        261
-                    ]
-                ]
+                "CASE",
+                "name"
+            ],
+            "\"I am the Viscount Ahrmaand. And what is thy name?\"\n",
+            "ASK",
+            [
+                "IF",
+                "equals(string(value 35), string(value 25))"
             ],
             [
-                "KEYWORDS",
-                "job",
+                "SETF",
                 [
-                    "\"I govern here in @Cove. 'Tis hard work, but my people love me for it.\"\n\n*\"I always thought it a blessing to live so close to a @shrine, though since the gargoyles came none dare go near it.\"",
-                    [
-                        "JUMP",
-                        261
-                    ]
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
+            ],
+            "ENDIF",
+            "\n\"Well met, $G!\"",
+            [
+                "JUMP",
+                261
             ],
             [
-                "KEYWORDS",
-                "cove,city",
-                [
-                    "\"We have fine facilities here for healing the wounded and the @sick.\"",
-                    [
-                        "JUMP",
-                        261
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"I govern here in @Cove. 'Tis hard work, but my people love me for it.\"\n\n*\"I always thought it a blessing to live so close to a @shrine, though since the gargoyles came none dare go near it.\"",
+            [
+                "JUMP",
+                261
             ],
             [
-                "KEYWORDS",
-                "shri",
-                [
-                    "\"In Britannia there are eight shrines, one for each of the eight @virtues of the Avatar.\"\n*\n\"They are places where people can go to meditate on these virtues.\"",
-                    [
-                        "JUMP",
-                        261
-                    ]
-                ]
+                "CASE",
+                "cove,city"
+            ],
+            "\"We have fine facilities here for healing the wounded and the @sick.\"",
+            [
+                "JUMP",
+                261
             ],
             [
-                "KEYWORDS",
-                "eigh,virt",
-                [
-                    "\"The virtues are honesty, compassion, valour, justice, sacrifice, honor, spirituality, and humility.\"*\n\n\"'Tis good to @meditate on these virtues often.\"",
-                    [
-                        "JUMP",
-                        261
-                    ]
-                ]
+                "CASE",
+                "shri"
+            ],
+            "\"In Britannia there are eight shrines, one for each of the eight @virtues of the Avatar.\"\n*\n\"They are places where people can go to meditate on these virtues.\"",
+            [
+                "JUMP",
+                261
             ],
             [
-                "KEYWORDS",
-                "medi",
-                [
-                    "\"Each shrine has its own @mantra. This is a chant which one should recite whilst meditating therein.\"\n*\n\"Once there was a time when a special rune was required to enter each shrine as well.\"\n*\n\"Now the gargoyles have taken the Shrine of Compassion, and it is lost to the people once more.\"",
-                    [
-                        "JUMP",
-                        261
-                    ]
-                ]
+                "CASE",
+                "eigh,virt"
+            ],
+            "\"The virtues are honesty, compassion, valour, justice, sacrifice, honor, spirituality, and humility.\"*\n\n\"'Tis good to @meditate on these virtues often.\"",
+            [
+                "JUMP",
+                261
             ],
             [
-                "KEYWORDS",
-                "comp,sick,woun,gert,garg",
-                [
-                    "\"A party of adventurers came here after their attempt to defeat the gargoyles at the Shrine of Compassion.\"*\n\n\"I spoke with their @leader when they arrived.\"\n*\n\"Thou shouldst speak with him thyself. He told of a strange violet energy field.\"\n*\n\"I think mayhap 'tis similar to the @force which blocked entry to the shrines many years ago.\"*\n\n\"The eight mystic runes were most useful in those days.\"",
-                    [
-                        "JUMP",
-                        261
-                    ]
-                ]
+                "CASE",
+                "medi"
+            ],
+            "\"Each shrine has its own @mantra. This is a chant which one should recite whilst meditating therein.\"\n*\n\"Once there was a time when a special rune was required to enter each shrine as well.\"\n*\n\"Now the gargoyles have taken the Shrine of Compassion, and it is lost to the people once more.\"",
+            [
+                "JUMP",
+                261
             ],
             [
-                "KEYWORDS",
-                "lead",
-                [
-                    "\"He's in bed at Sasha's, recuperating.\"",
-                    [
-                        "JUMP",
-                        261
-                    ]
-                ]
+                "CASE",
+                "comp,sick,woun,gert,garg"
+            ],
+            "\"A party of adventurers came here after their attempt to defeat the gargoyles at the Shrine of Compassion.\"*\n\n\"I spoke with their @leader when they arrived.\"\n*\n\"Thou shouldst speak with him thyself. He told of a strange violet energy field.\"\n*\n\"I think mayhap 'tis similar to the @force which blocked entry to the shrines many years ago.\"*\n\n\"The eight mystic runes were most useful in those days.\"",
+            [
+                "JUMP",
+                261
             ],
             [
-                "KEYWORDS",
-                "forc,rune,myst,fiel,ener,viol",
-                [
-                    "\"Use the Rune of Compassion whilst chanting the @Mantra of Compassion.\"\n*\n\"Methinks this may negate the gargoyle's magic at that shrine.\"",
-                    [
-                        "JUMP",
-                        261
-                    ]
-                ]
+                "CASE",
+                "lead"
+            ],
+            "\"He's in bed at Sasha's, recuperating.\"",
+            [
+                "JUMP",
+                261
             ],
             [
-                "KEYWORDS",
-                "chan,mant",
-                [
-                    "\"Ask Lord British's Chancellor, Tholden.\"\n*\n\"He canst tell thee of the mantra, and like as not he will also know of the rune.\"",
-                    [
-                        "JUMP",
-                        261
-                    ]
-                ]
+                "CASE",
+                "forc,rune,myst,fiel,ener,viol"
+            ],
+            "\"Use the Rune of Compassion whilst chanting the @Mantra of Compassion.\"\n*\n\"Methinks this may negate the gargoyle's magic at that shrine.\"",
+            [
+                "JUMP",
+                261
             ],
             [
-                "KEYWORDS",
-                "bye",
-                [
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            16
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    1
-                                ]
-                            ]
-                        ],
-                        [
-                            "\"Twas a delight to converse with thee, my dear.\"\n*\n\"My heart will be aflutter with anticipation till thou dost visit me again.\""
-                        ],
-                        [
-                            "\"Farewell sirrah, and good luck with thy quest.\""
-                        ]
-                    ],
-                    "\n",
-                    "BYE"
-                ]
+                "CASE",
+                "chan,mant"
+            ],
+            "\"Ask Lord British's Chancellor, Tholden.\"\n*\n\"He canst tell thee of the mantra, and like as not he will also know of the rune.\"",
+            [
+                "JUMP",
+                261
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"I cannot help thee with that.\""
-                ]
+                "CASE",
+                "bye"
             ],
+            [
+                "IF",
+                "equals(integer(value 16), byte 1)"
+            ],
+            "\"Twas a delight to converse with thee, my dear.\"\n*\n\"My heart will be aflutter with anticipation till thou dost visit me again.\"",
+            "ELSE",
+            "\"Farewell sirrah, and good luck with thy quest.\"",
+            "ENDIF",
+            "\n",
+            "BYE",
+            [
+                "CASE",
+                "*"
+            ],
+            "\"I cannot help thee with that.\"",
+            "ESAC",
             [
                 "JUMP",
                 261

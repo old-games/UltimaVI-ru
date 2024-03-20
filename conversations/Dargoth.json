@@ -53,174 +53,139 @@
             "\"You've come for healing, I suppose.\"\n",
             "ASK",
             [
-                "KEYWORDS",
-                "heal",
-                [
-                    [
-                        "JUMP",
-                        817
-                    ]
-                ]
+                "CASE",
+                "heal"
             ],
             [
-                "KEYWORDS",
-                "cure",
-                [
-                    [
-                        "JUMP",
-                        1571
-                    ]
-                ]
+                "JUMP",
+                817
             ],
             [
-                "KEYWORDS",
-                "resu",
-                [
-                    [
-                        "ASSIGN",
-                        [
-                            "integer",
-                            [
-                                [
-                                    "value",
-                                    0
-                                ]
-                            ]
-                        ],
-                        [
-                            "partyHasObject",
-                            [
-                                [
-                                    "word",
-                                    339
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ]
-                            ]
-                        ]
-                    ],
-                    [
-                        "IF",
-                        [
-                            "equals",
-                            [
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    32769
-                                ]
-                            ]
-                        ],
-                        [
-                            "He raises an eyebrow.",
-                            "WAIT",
-                            "\n\n\"You may not be my choice for dinner conversation, but none of you are dead.\"",
-                            [
-                                "JUMP",
-                                179
-                            ]
-                        ],
-                        [
-                            [
-                                "SETNAME",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            0
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                2447
-                            ]
-                        ]
-                    ]
-                ]
+                "CASE",
+                "cure"
             ],
             [
-                "KEYWORDS",
-                "name",
+                "JUMP",
+                1571
+            ],
+            [
+                "CASE",
+                "resu"
+            ],
+            [
+                "ASSIGN",
                 [
-                    "\"I am Dargoth, master of medical lore.\"",
+                    "integer",
                     [
-                        "SETF",
-                        [
-                            "byte",
-                            235
-                        ],
                         [
                             "value",
                             0
                         ]
-                    ],
+                    ]
+                ],
+                [
+                    "partyHasObject",
                     [
-                        "JUMP",
-                        179
+                        [
+                            "word",
+                            339
+                        ],
+                        [
+                            "byte",
+                            0
+                        ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "job",
+                "IF",
+                "equals(integer(value 0), word 32769)"
+            ],
+            "He raises an eyebrow.",
+            "WAIT",
+            "\n\n\"You may not be my choice for dinner conversation, but none of you are dead.\"",
+            [
+                "JUMP",
+                179
+            ],
+            "ELSE",
+            [
+                "SETNAME",
                 [
-                    "\"My true calling is research.\"",
-                    "WAIT",
-                    "\n\n\"My studies here have advanced the healing art throughout the world!\"",
-                    "WAIT",
-                    "\n\n\"But, more often than not, I am called upon to @cure poison ivy and @heal paper cuts!\"",
-                    "WAIT",
-                    "\n\n\"I grow weary of such trifles!\"",
+                    "integer",
                     [
-                        "JUMP",
-                        179
+                        [
+                            "value",
+                            0
+                        ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "bye,no",
+                "JUMP",
+                2447
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "name"
+            ],
+            "\"I am Dargoth, master of medical lore.\"",
+            [
+                "SETF",
                 [
-                    "\"Stay out of trouble!\"",
-                    "WAIT",
-                    "\n\n\"I don't want to see my fine workmanship wasted!\"\n",
-                    "BYE"
+                    "byte",
+                    235
+                ],
+                [
+                    "value",
+                    0
                 ]
             ],
             [
-                "KEYWORDS",
-                "yes",
-                [
-                    "\"Well, what can I do for thee?\"",
-                    [
-                        "JUMP",
-                        179
-                    ]
-                ]
+                "JUMP",
+                179
             ],
             [
-                "KEYWORDS",
-                "*",
-                [
-                    "\"Come, come, get to the point. I'm a busy man!\"",
-                    [
-                        "JUMP",
-                        179
-                    ]
-                ]
+                "CASE",
+                "job"
+            ],
+            "\"My true calling is research.\"",
+            "WAIT",
+            "\n\n\"My studies here have advanced the healing art throughout the world!\"",
+            "WAIT",
+            "\n\n\"But, more often than not, I am called upon to @cure poison ivy and @heal paper cuts!\"",
+            "WAIT",
+            "\n\n\"I grow weary of such trifles!\"",
+            [
+                "JUMP",
+                179
+            ],
+            [
+                "CASE",
+                "bye,no"
+            ],
+            "\"Stay out of trouble!\"",
+            "WAIT",
+            "\n\n\"I don't want to see my fine workmanship wasted!\"\n",
+            "BYE",
+            [
+                "CASE",
+                "yes"
+            ],
+            "\"Well, what can I do for thee?\"",
+            [
+                "JUMP",
+                179
+            ],
+            [
+                "CASE",
+                "*"
+            ],
+            "\"Come, come, get to the point. I'm a busy man!\"",
+            [
+                "JUMP",
+                179
             ]
         ],
         "817": [
@@ -753,100 +718,68 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(objectsCount(integer(value 3), byte 88), byte 30)"
+            ],
+            [
+                "JUMP",
+                1501
+            ],
+            "ELSE",
+            "Laying hands upon $Y, Dargoth mends the wounds.",
+            [
+                "DELETE",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "less",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    30
-                                ]
-                            ]
-                        ],
+                            "value",
+                            3
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    30
+                ]
+            ],
+            [
+                "HEAL",
+                [
+                    "integer",
+                    [
                         [
-                            [
-                                "JUMP",
-                                1501
-                            ]
-                        ],
-                        [
-                            "Laying hands upon $Y, Dargoth mends the wounds.",
-                            [
-                                "DELETE",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    88
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    30
-                                ]
-                            ],
-                            [
-                                "HEAL",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                179
-                            ]
+                            "value",
+                            3
                         ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"I need to be paid to heal you.\"",
-                    [
-                        "JUMP",
-                        1539
-                    ]
-                ]
+                "JUMP",
+                179
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "n"
+            ],
+            "\"I need to be paid to heal you.\"",
+            [
+                "JUMP",
+                1539
             ]
         ],
         "1539": [
@@ -1389,100 +1322,68 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
+                "CASE",
+                "y"
+            ],
+            [
+                "IF",
+                "less(objectsCount(integer(value 3), byte 88), byte 10)"
+            ],
+            [
+                "JUMP",
+                2289
+            ],
+            "ELSE",
+            "Laying hands upon $Y, Dargoth removes the poison.",
+            [
+                "DELETE",
                 [
+                    "integer",
                     [
-                        "IF",
                         [
-                            "less",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    3
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    10
-                                ]
-                            ]
-                        ],
+                            "value",
+                            3
+                        ]
+                    ]
+                ],
+                [
+                    "byte",
+                    88
+                ],
+                [
+                    "byte",
+                    0
+                ],
+                [
+                    "byte",
+                    10
+                ]
+            ],
+            [
+                "CURE",
+                [
+                    "integer",
+                    [
                         [
-                            [
-                                "JUMP",
-                                2289
-                            ]
-                        ],
-                        [
-                            "Laying hands upon $Y, Dargoth removes the poison.",
-                            [
-                                "DELETE",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "byte",
-                                    88
-                                ],
-                                [
-                                    "byte",
-                                    0
-                                ],
-                                [
-                                    "byte",
-                                    10
-                                ]
-                            ],
-                            [
-                                "CURE",
-                                [
-                                    "integer",
-                                    [
-                                        [
-                                            "value",
-                                            3
-                                        ]
-                                    ]
-                                ]
-                            ],
-                            [
-                                "JUMP",
-                                1539
-                            ]
+                            "value",
+                            3
                         ]
                     ]
                 ]
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"If you can't pay, I can't cure you.\"",
-                    [
-                        "JUMP",
-                        1539
-                    ]
-                ]
+                "JUMP",
+                1539
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "n"
+            ],
+            "\"If you can't pay, I can't cure you.\"",
+            [
+                "JUMP",
+                1539
             ]
         ],
         "2332": [
@@ -1508,63 +1409,31 @@
                 "yn"
             ],
             [
-                "KEYWORDS",
-                "y",
-                [
-                    [
-                        "IF",
-                        [
-                            "less",
-                            [
-                                [
-                                    "objectsCount",
-                                    [
-                                        [
-                                            "integer",
-                                            [
-                                                [
-                                                    "value",
-                                                    0
-                                                ]
-                                            ]
-                                        ],
-                                        [
-                                            "byte",
-                                            88
-                                        ]
-                                    ]
-                                ],
-                                [
-                                    "word",
-                                    400
-                                ]
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                2609
-                            ]
-                        ],
-                        [
-                            [
-                                "JUMP",
-                                3008
-                            ]
-                        ]
-                    ]
-                ]
+                "CASE",
+                "y"
             ],
             [
-                "KEYWORDS",
-                "n",
-                [
-                    "\"Resurrection is a difficult task. I'm sorry, but I need to be paid.\"",
-                    [
-                        "JUMP",
-                        179
-                    ]
-                ]
+                "IF",
+                "less(objectsCount(integer(value 0), byte 88), word 400)"
+            ],
+            [
+                "JUMP",
+                2609
+            ],
+            "ELSE",
+            [
+                "JUMP",
+                3008
+            ],
+            "ENDIF",
+            [
+                "CASE",
+                "n"
+            ],
+            "\"Resurrection is a difficult task. I'm sorry, but I need to be paid.\"",
+            [
+                "JUMP",
+                179
             ]
         ],
         "2609": [
