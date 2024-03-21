@@ -1,5 +1,6 @@
 import hashlib
 import io
+import textwrap
 
 
 def _read_char(stream, visited_labels):
@@ -418,7 +419,11 @@ def _format_instructions(instructions):
             result.append(f'askc("{_format_string(instruction[1])}")')
 
         elif instruction[0] == 'PRINT':
-            result.append(f'print("{_format_string(instruction[1])}")')
+            # FIXME smarter, with spaces at starts of lines, use minus all indent and print ?
+            lines = textwrap.wrap(instruction[1], expand_tabs=False, replace_whitespace=False, drop_whitespace=False)
+            assert ''.join(lines) == instruction[1]
+            for line in lines:
+                result.append(f'print("{_format_string(line)}")')
 
         elif instruction == 'ASK':
             empty_prefix_line()
@@ -479,7 +484,6 @@ def decode(raw_conversation):
     digest = hashlib.sha256(raw_conversation).hexdigest()
 
     allow_solo_endif = digest == '85f1912ed262ba67a28fdff87c31575d6dd2cea0fbf431ef73e2be77d0958a0d'
-
 
     assert _read_byte(stream, visited_labels) == 0xff
     result.append(f'id({_read_byte(stream, visited_labels)})')
