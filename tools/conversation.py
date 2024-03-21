@@ -119,8 +119,6 @@ def _read_expressions(stream, visited_labels, data, end):
 
     # FIXME what is `value`? why not `byte`? can we squeeze them to plain value and decide automatically?
 
-    # FIXME what `character` does ? returns string?
-
     def process_parts(parts, data):
         operator = parts.pop()
         if operator[0] in ('byte', 'word', 'dword', 'value'):
@@ -195,9 +193,9 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
         # FIXME unreachable сделать однокомандными?
 
         if offset in visited_labels:
+            # Необходимо прочитать код повторно, если мы прыгнули на новую метку, контекст может закончиться раньше или позже, чем в прошлый раз.
             if unreachable_labels is not None and offset not in unreachable_labels:
                 unreachable_labels = None
-            # Необходимо прочитать код повторно, если мы прыгнули в новый контекст, он может закончиться раньше или позже, чем в прошлый раз.
             # FIXME assert this is not array
             # FIXME quit if we already came here from start point or with same stack
             # FIXME чекнуть после всего этого может эвристики внизу больше не нужны
@@ -407,6 +405,7 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
             result[offset] = 'PRINT', _read_string(stream, visited_labels, end | all_instructions)
 
         else:
+            assert unreachable_labels is not None
             return False
 
         if unreachable_labels is not None:
@@ -464,20 +463,16 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
         if result and result[-1] == '':
             del result[-1]
 
-    # FIXME пометить некорректные выходы из блоков
-
-    # FIXME если есть ссылка на interaction/desc то использовать её
-
     for label, instruction in instructions:
         if label == description:
             empty_prefix_line()
             append('description:', force_level=0)
 
-        if label == interaction:
+        elif label == interaction:
             empty_prefix_line()
             append('interaction:', force_level=0)
 
-        if label in labels:
+        elif label in labels:
             empty_prefix_line()
             append(f'{label}:', force_level=0)
 
@@ -486,7 +481,6 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
             append('// Unreachable code!')
             # TODO mark each line
 
-        # FIXME string escaping
         if instruction[0] == 'IF':
             empty_prefix_line()
             append(f'if {_format_expression(instruction[1])}:')
@@ -558,7 +552,12 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
             append()
 
         elif instruction[0] == 'JUMP':
-            append(f'jump {instruction[1]}')
+            if instruction[1] == description:
+                append(f'jump description')
+            elif instruction[1] == interaction:
+                append(f'jump interaction')
+            else:
+                append(f'jump {instruction[1]}')
             append()
 
         else:
