@@ -683,7 +683,7 @@ def decode(conversation):
     for label in sorted(set(range(len(conversation))) - visited_labels):
         # TODO склеить их по 2 байта в integers?
         stream.seek(label)
-        blocks[label] = 'UNUSED', _read_byte(stream, visited_labels)
+        blocks[label] = 'UNKNOWN', _read_byte(stream, visited_labels)
 
     assert set(range(len(conversation))) - visited_labels == set()
 
