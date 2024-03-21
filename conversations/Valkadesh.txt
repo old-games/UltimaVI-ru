@@ -10,168 +10,240 @@ description:
 interaction:
     if equals(integer(value 21), byte 0):
     jump 3333
+
     endif
+
     if hasBit(byte 235, value 0):
     print("\"Greetings, friend '$P.\"")
     wait()
+
     print("\n\n")
+
     else:
     jump 344
+
     endif
+
     if equals(partyHasObject(byte 76, byte 0), byte 1):
     print("\"To see you have done the honorable thing.\"")
     wait()
+
     print("\n\"To have earned much respect from my people by doing this!\"")
+
     else:
     print("\"To hope your travels have brought you wisdom?\" ")
+
     askc("yn")
     case "y":
     print("\"To wish to hear about it!\"")
     case "n":
     print("\"To regret that, and to wish to aid you.\"")
-    ESAC
+
+    esac
+
     endif
+
     jump 805
 
 344:
     print("\"To offer greetings, False Prophet.\"")
     wait()
+
     print("\n\n\"To have waited long for you to return to this side of the world.\"")
     wait()
+
     print("\n\n\"To believe that the Book of Prophecies is wrong.\"")
     wait()
+
     print("\n\n\"To believe that I can reason with you, persuade you to spare my people.\"")
     wait()
+
     print("\n\n\"To wish to address you honorably: To ask your name?\"\n")
+
     ask()
     case "*":
-    ESAC
+
+    esac
+
     string(value 0) = string(value 35)
     print("\"Noble '$0, to see that you are a being of honor and respect.\"")
     wait()
+
     print("\n\n\"To not betray that honor - to return the @Codex!\"")
     wait()
+
     print("\n\n\"To save my people from the @prophecy!\"")
     SOLO_ENDIF
     print("\n")
+
     ask()
     case "name":
     print("\"To be called Valkadesh Wis-lem, Valkadesh the Scholar.\"")
     wait()
+
     print("\n\n\"To have been given a @partial name. To have yet to achieve full honor.\"")
     jump 805
+
     case "job":
     print("\"To be a Scholar. To be seeking a way to avert the @prophecy.\"")
     jump 805
+
     case "part,full,hono":
     print("\"To be greatly honored by even a partial name.\"")
     wait()
+
     print("\n\n\"To be customary among my people to give names only to those most worthy.\"")
     jump 805
+
     case "prop":
     print("\"To be written in the Book of Prophecies that you would destroy our world.\"")
     wait()
+
     print("\n\n\"To also be written that only the @sacrifice of the False Prophet would save us.\"")
     jump 805
+
     case "code":
     print("\"To believe that it is not too late.\"")
     wait()
+
     print("\n\n\"To beg you to return the Codex.\"")
     wait()
+
     print("\n\n\"Avert the @prophecy! Save your life, and my people's lives as well!\"")
     jump 805
+
     case "sacr":
     print("\"To be the only alternative to returning the Codex.\"")
     wait()
+
     print("\n\n\"Without the Codex, to have no @choice but to sacrifice your life!\"")
     jump 805
+
     case "choi":
     print("\"Wait! To know that sacrifice has three meanings: of self, of others and of valuables.\"")
     wait()
+
     print("\n\n\"Perhaps to find a better @answer in one of those other meanings.\"")
     jump 805
+
     case "find,answ":
     print("\"To be unable to help more.\"")
     wait()
+
     print("\n\n\"To suggest you seek out @Naxatilor himself for further enlightenment.\"")
     jump 805
+
     case "naxa,seer":
     print("\"To learn much from Naxatilor, the wisest gargoyle.\"")
     wait()
+
     print("\n\n\"To find his chambers just to the northeast of the Hall of Knowledge.\"")
     wait()
+
     print("\n\n\"To suggest you go there and ask him of sacrifice.\"")
     jump 805
+
     case "drax,lead,inqu":
     print("\"To go to Draxinusom, the Inquisitor and leader of my race.\"")
     wait()
+
     print("\n\n\"To find his chambers just to the northwest of the Hall of Knowledge.\"")
     wait()
+
     print("\n\n\"To @surrender to him, that you may travel @freely in our land.\"")
     jump 805
+
     case "free":
     print("\"To know that the moons are not properly aligned yet for the ritual.\"")
     wait()
+
     print("\n\n\"To assure you that you will not be sacrificed for many weeks.\"")
     wait()
+
     print("\n\n\"To assure you further that surrender is the only way you can travel among my people.\"")
     jump 805
+
     case "surr":
+
     if equals(partyHasObject(byte 76, byte 0), byte 1):
     print("\"To have done the honorable thing and now be respected and unfeared by my people.\"")
+
     else:
     print("\"To travel to the @Inquisitor.\"")
     wait()
+
     print("\n\n\"To tell the Inquisitor that you surrender.\"")
     wait()
+
     print("\n\n\"Then to be no longer a threat, and no longer be feared.\"")
+
     endif
+
     jump 805
+
     case "bye":
+
     if hasBit(byte 235, value 0):
     print("\"May your precision and persistence lead to success!\"\n")
     bye()
+
     else:
     ('SETF', ('byte', 235), ('value', 0))
     print("As you turn to leave, the gargoyle stops you.")
     wait()
+
     print("\n\n\"Wait,\" he calls. \"To be feared and hated by all gargoyles.\"")
     wait()
+
     print("\n\n\"To be unsafe for you right now, False Prophet.\"")
     wait()
+
     print("\n\n\"To surrender is only answer.\"")
     wait()
+
     print("\n\n\"To surrender to Inquisitor.\"")
     wait()
+
     print("\n\n\"Then to be no longer a threat, and then not to be feared by my people!\"")
     wait()
+
     print("\n\n\"To surrender to the @Inquisitor, and then to be @free to look for the solution.\"")
     jump 805
+
     endif
+
     case "*":
     print("\"To be confused by your accent.\"")
     wait()
+
     print("\n\n\"To ask what $Z means?\"")
     jump 805
 
 3333:
     print("The gargoyle smiles, but his grin is somehow disturbing.")
     wait()
+
     print("\n\n\"I human @friend. Walk talk you.\"\n")
+
     ask()
     case "bye":
     print("\"Want much to talk.\"")
     wait()
+
     print("\n\n\"@Captain John speak; Captain John go!\"\n")
     bye()
+
     case "frie":
     print("\"@Captain John gargoyle friend. Captain John speak.\"")
     jump 3425
+
     case "capt,john":
     print("\"Must Captain John go. Only he speak. Must go!\"")
     jump 3425
+
     case "*":
     print("In a thick accent, the gargoyle croaks, \"I bad with human language.\"")
     wait()
+
     print("\n\n\"With @Captain John must to speak.\"")
     jump 3425

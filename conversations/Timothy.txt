@@ -7,49 +7,68 @@ name("Timothy")
 description:
     print("a man with sea-blue eyes and a warm smile.")
     wait()
+
     print("\n")
 
 interaction:
     if hasBit(byte 235, value 0):
     print("\"Welcome back, my friend")
+
     else:
     print("\"Welcome, welcome, friend")
+
     endif
+
     if integer(value 23):
     print("s")
+
     endif
+
     print(". Here for @lodging this fine $T?\"\n")
+
     ask()
     case "name":
     print("\"@Timothy.\" He flashes a friendly smile and nods.\n")
     ('SETF', ('byte', 235), ('value', 0))
     jump 153
+
     case "timo":
     print("\"I'm named after my @uncle. He was a kind soul.\"\n")
     jump 153
+
     case "uncl":
     print("\"Sir Timothy Enders Daverstock. He was a famous @knight in these parts.\"\n")
     jump 153
+
     case "job":
     print("\"It is a busy one - this job, that is. I find it rewarding, though, meeting friendly faces.\"")
     wait()
+
     print("\n\n\"Maybe you want a @room, eh?\"\n")
     jump 153
+
     case "yes,room,inn,lodg":
     jump 789
+
     case "famo,knig":
     print("\"He is perhaps best known for his courage in @battle.\"\n")
     jump 153
+
     case "cour,batt":
     print("\"He once held off a score of men while his own fled to safety across a bridge.\"\n")
     jump 153
+
     case "bye":
     print("\"Farewell, friend")
+
     if integer(value 23):
     print("s")
+
     endif
+
     print(". Travel safely.\"\n")
     bye()
+
     case "*":
     print("\"Hmm... Nope, can't help you there.\"\n")
     jump 153
@@ -57,19 +76,25 @@ interaction:
 789:
     integer(value 0) = multiply(plus(integer(value 23), byte 1), byte 5)
     print("\"#0 gold for you to stay and have a meal, good?\" ")
+
     askc("yn")
     case "y":
+
     if less(objectsCount(byte 1, byte 88), integer(value 0)):
     print("\"I'm sorry, but we require cash in advance for our rooms.\"\n")
     bye()
+
     endif
+
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
     print("You sleep in a comfortable bed...\n")
     SLEEP
     print("\nYou wake rested and eat a large breakfast.")
     wait()
+
     print("\n\n\"Good morning, have a good day.\"\n")
     jump 153
+
     case "n":
     print("\"Perhaps some other time, then.\"\n")
     jump 153

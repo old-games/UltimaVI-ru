@@ -7,180 +7,260 @@ name("Andreas")
 description:
     print("a handsome, carefree gypsy man.")
     wait()
+
     print("\n")
 
 interaction:
     if hasBit(byte 235, value 0):
     jump 281
+
     endif
+
     ('SETF', ('byte', 235), ('value', 0))
+
     if integer(value 16):
     print("\"Hey, foxy! I bet you'd like me to unsheathe my weapon so you can have a look...\"")
     jump 424
+
     else:
     print("\"Hey there! Welcome to our humble caravan!\"")
     wait()
+
     print("\n\n\"You look like a bold warrior - would you like to spar a bit for practice?\" ")
     jump 3309
+
     endif
 
 281:
     if integer(value 16):
     print("\"Ah, I see you couldn't stay away... I have that effect on women.\"")
+
     else:
     print("\"Welcome back, $P. Came for some more of our gypsy hospitality, I see!\"")
+
     endif
 
 424:
     print("\n")
+
     ask()
     case "name":
     print("\"I am Andreas, prince of the @gypsies.\"")
     jump 424
+
     case "job":
     print("\"I live the carefree life of a @gypsy, traveling hither and yon.\"")
     wait()
+
     print("\n\n")
     jump 2011
+
     case "love":
     jump 2011
+
     case "prof,serv":
     print("\"We all have our @talents. I myself happen to have two.\"")
     wait()
+
     print("\n\n\"I'd be glad to show you sometime!\"")
     jump 424
+
     case "tale,show":
     print("\"What, you mean @swordplay? Just ask, and I'll give thee a @lesson you won't forget!\"")
     jump 424
+
     case "wand":
     print("\"She practices the world's oldest @profession. I, of course, have perfected it, and thus need no practice.\"")
     jump 424
+
     case "artu":
     print("\"He's my dad - the king of the gypsies!\"")
     jump 424
+
     case "map":
     print("\"A map? Aye, @Arturos has some scrap like that. I know nothing more of it.\"")
     jump 424
+
     case "trav,care,gyps,prin,king,life":
     jump 4135
+
     case "swor,spar,weap,unsh,less":
     print("\"Would you like to spar a bit?\" ")
     jump 3309
+
     case "silv,tabl":
     jump 3741
+
     case "bye":
+
     if hasBit(byte 235, byte 7):
     print("\"Come again soon.\"\n")
     ('CLEARF', ('byte', 235), ('byte', 7))
     bye()
+
     endif
+
     if equals(integer(value 16), byte 1):
     print("\"I hope we get better acquainted when next we meet.\"")
     wait()
+
     print("\n\n\"I like your clothes, but I think you'd look better without them...\"\n")
+
     else:
     print("\"May your travels prove interesting.\"\n")
+
     endif
+
     bye()
+
     case "sex,screw,boff,suck,head,lay,roll,hay,kink,make":
+
     if hasBit(byte 235, byte 7):
     jump 4359
+
     endif
+
     print("\"Oho, so that's what you're after, you naughty ")
+
     if integer(value 16):
     print("girl")
+
     else:
     print("boy")
+
     endif
+
     print("!\"")
     wait()
+
     print("\n\n")
+
     if integer(value 16):
     print("\"For a mere 10 gold pieces, I'll transport you to the heights of ecstasy. Will it be yea or nay?\"")
+
     else:
     print("\"Well... Normally I'm more of a ladies' man. But I guess your money is as good as anyone else's. It'll cost you 10 gold, okay?\"")
+
     endif
+
     if equals(integer(value 23), byte 0):
     wait()
+
     print("\n\nA voice in the back of your head asks, \"Do you really have time for this?\"")
     wait()
+
     print("\n\n")
     jump 2451
+
     endif
+
     wait()
+
     ('SETNAME', ('character', [('byte', 1), ('byte', 0)]))
     ('PORTRAIT', ('character', [('byte', 1), ('byte', 0)]))
     print("\n\n$Y interrupts. \"`$G, I really doubt we have time for this...\"")
     wait()
+
     ('PORTRAIT', ('byte', 235))
     jump 2451
+
     case "*":
     print("\"Don't trouble yourself about that. The art of the @sword and the art of @love are all that really matter.\"")
-    ESAC
+
+    esac
+
     jump 424
 
 2011:
     if integer(value 16):
     print("\"Naturally, when so lovely a lady as yourself comes along, I offer, shall we say, my @services.\"")
     jump 424
+
     endif
+
     print("\"When the opportunity arises, I do what I can to brighten the lives of the ladies.\"")
+
     if partyHas(byte 62):
     wait()
+
     ('PORTRAIT', ('byte', 62))
     print("\n\n\"I'll just bet he does!\"")
     wait()
+
     ('PORTRAIT', ('byte', 235))
     print("\n\n")
+
     else:
     wait()
+
     print("\n\n")
+
     endif
+
     print("\"Of course, you'd probably be more interested in my sister @Wanda, right?\" ")
+
     askc("yn")
     case "y":
     print("\"Can't say I blame you. In fact, if she wasn't my sister...\"")
     jump 424
+
     case "n":
     print("\"Hmm, wouldn't have figured you for the type...\"")
     jump 424
 
 2451:
     print("\n\"Well, come on. Yea or nay, $G?\" ")
+
     askc("yn")
     case "n":
     print("\"As you like. But take my advice--you should live a little now.\"")
     wait()
+
     print("\n\n\"That way, you'll have something to remember when you're old and gray...\"")
     jump 424
+
     case "y":
+
     if less(objectsCount(byte 1, byte 88), byte 10):
     print("\"Hey, you don't have the money! I don't take charity cases.\"")
     jump 424
+
     endif
-    ESAC
+
+    esac
+
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 10))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 10))
     ('SETF', ('byte', 235), ('byte', 7))
     print("The gypsy leads you into a nearby wagon...")
     wait()
+
     print("\n\nAfter a while, you and he wander back to the rest of the caravan, weary but satisfied.")
+
     if equals(integer(value 23), byte 0):
     print("You try to ignore the nagging voice in the back of your head that says you shouldn't have wasted time like that.")
     jump 424
+
     endif
+
     wait()
+
     if partyHas(byte 2):
     integer(value 0) = byte 2
+
     else:
     integer(value 0) = character(byte 1, byte 0)
+
     endif
+
     ('PORTRAIT', ('integer', [('value', 0)]))
     ('SETNAME', ('integer', [('value', 0)]))
     print("\n\n$Y scowls. \"Well, you've certainly picked a fine one to be carrying on with.\"")
     wait()
+
     print("\n\n\"I would remind you that Britannia is under invasion by hordes of gargoyles, but I'd hate to spoil your fun...\"")
     wait()
+
     ('PORTRAIT', ('byte', 235))
     print("\n\n$N laughs. \"'Tis not a crime to give yourself over to pleasure...\"")
     jump 424
@@ -190,30 +270,44 @@ interaction:
     case "n":
     print("\"Maybe some other time.\"")
     jump 424
-    ESAC
+
+    esac
+
     print("\nPulling a couple of sticks from his belt, the gypsy hands you one. You fight with them as if they were swords for a while.")
     wait()
+
     print("\n\nAfter you're finished, he comes over and puts his arm around your shoulder as he gives you a few pointers on fencing style.")
+
     if less(objectsCount(byte 1, byte 88), byte 25):
     jump 424
+
     endif
+
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 25))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 25))
     wait()
+
     print("\n\nYou're not sure, but you think perhaps you felt a slight tug at the pouch you keep your coins in.")
     jump 424
+
     print("\"Ah yes, you've heard of the silver tablet!\"")
     wait()
+
     print("\n\n\"I haven't got it myself, but I can tell you where it is for a price... Shall we say 7 gold pieces?\" ")
+
     askc("yn")
     case "n":
     print("\"Suit yourself.\"")
     jump 424
+
     case "y":
+
     if less(objectsCount(byte 1, byte 88), byte 7):
     print("\"Come back when you have the money.\"")
     jump 424
+
     endif
+
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 7))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 7))
     print("\"I overheard a bard in a tavern say that it was somewhere on the Isle of the Avatar.\"\n*\n\"Perhaps @Arturos could tell you precisely.\"")
@@ -221,16 +315,22 @@ interaction:
 
 4135:
     print("\"Wouldn't you like to be a gypsy too?\" ")
+
     askc("yn")
     case "n":
     print("\"The more fool you!\"")
     jump 424
-    ESAC
+
+    esac
+
     if hasBit(byte 235, byte 7):
     print("\"You have the carefree spirit, but alas, one must be born a gypsy.\"")
+
     else:
     print("\n\"A fine thing to dream of! But one such as you could never be a gypsy.\"")
+
     endif
+
     jump 424
 
 4359:

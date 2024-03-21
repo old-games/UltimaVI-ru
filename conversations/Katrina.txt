@@ -9,124 +9,186 @@ description:
 
 interaction:
     wait()
+
     print("\n")
+
     if partyHas(byte 235):
     print("\"I'm but a simple peasant, $G.\"")
     wait()
+
     print("\n\n\"I doubt I could help in this situation.\"")
     jump 830
+
     endif
+
     if hasBit(byte 235, byte 2):
     print("\"Good $T, $G. Wilt thou allow me to follow you again?\" ")
+
     askc("yn")
     case "y":
     print("\"Command me to @join and I will, $G.\"")
     jump 830
+
     case "n":
     print("\"As thou deem best, $G.\"")
     jump 830
-    ESAC
+
+    esac
+
     endif
+
     if hasBit(byte 235, value 0):
     print("\"Good $T, $G! I hope thou hast fared well in thy travels?\" ")
+
     askc("yn")
     case "y":
     print("\"The land rejoices when all is well with the Avatar!\"")
     jump 830
+
     case "n":
     print("\"If there is aught a humble peasant can do to help, I am yours to command.\"")
     jump 830
-    ESAC
+
+    esac
+
     endif
+
     print("\"$P! I had heard that thou hadst returned to our land, but I dared not believe it!\"")
     ('SETF', ('byte', 235), ('value', 0))
     wait()
+
     print("\n\n\"Hast thou returned to save our land from the @gargoyles?\" ")
+
     askc("yn")
     case "y":
     print("\"Then surely we are saved already!\"")
     case "n":
     print("\"Then perhaps the crisis is not so severe as rumor says.\"")
-    ESAC
+
+    esac
+
     wait()
+
     print("\n\n\"If there is aught a humble peasant might do to aid thy quest, $G, I am yours to command.\"\n")
+
     ask()
     case "name":
     print("\"I am called Katrina, $G, as I was the last time we met.\"")
     jump 830
+
     case "job":
     print("\"Times have changed, $G. Where once I grazed sheep, now I till the land.\"")
     wait()
+
     print("\n\"All work is the same to a peasant, $G.\"")
     wait()
+
     print("\n\"We all do what is expected of us.\"")
+
     if equals(partyHas(byte 235), byte 0):
     wait()
+
     print("\n\n\"If thou wouldst have me @join thy quest, thou needst but ask.\"")
+
     endif
+
     jump 830
+
     case "join":
+
     if partyHas(byte 235):
     print("\"Surely I misunderstand thee, $G.\"")
     wait()
+
     print("\n\n\"Am I not already a member of thy band?\"")
     jump 830
+
     endif
+
     integer(value 0) = partyJoin(byte 235)
+
     if equals(integer(value 0), byte 0):
     print("\"Since thou dost think it wise, I wilt join.\"")
     wait()
+
     print("\n\n\"I hope I can aid thy quest.\"\n")
     ('SETF', ('byte', 235), ('byte', 2))
     bye()
+
     endif
+
     if equals(integer(value 0), byte 2):
     print("\"I hesitate to deny any request thou might have.\"")
     wait()
+
     print("\n\n\"But thou seemst to have enough companions as it is.\"")
     wait()
+
     print("\n\n\"Mayhap if one of them left your band, thou might have more need of me.\"")
     jump 830
+
     else:
     print("\"But $G, there is no need to join you here, aboard ship.\"")
     wait()
+
     print("\n\n\"There is no place else to go!\"")
     wait()
+
     print("\n\n\"Mayhap if thou asked again ashore.\"")
     jump 830
+
     endif
+
     case "leav":
     integer(value 0) = partyLeave(byte 235)
+
     if or(equals(integer(value 0), byte 0), equals(integer(value 0), byte 2)):
     print("\"Whatever thou thinkest best, $G. I'll leave my equipment with thee.\"\n")
     bye()
+
     else:
     print("\"But $G, there is no place for me to go.\"")
     wait()
+
     print("\n\n\"Mayhap this should wait until we are ashore.\"")
     jump 830
+
     endif
+
     case "garg":
     print("\"The gargoyles are a grave threat to the land, $G.\"")
     wait()
+
     print("\n\n\"Many brave soldiers have died defending us from the invaders!\"")
     jump 830
+
     case "humb,humi,most":
     print("\"I am most sorry, $G, but I cannot answer thy question.\"")
     wait()
+
     print("\n\n\"'Twould be vain of me to answer truthfully, and 'twould be worse to lie.\"")
     jump 830
+
     case "bye":
+
     if partyHas(byte 235):
     print("\"May we live up to the trust placed in us.\"\n")
+
     else:
     print("\"Farewell! The Avatar carries with him the hopes of all the land.\"\n")
+
     endif
+
     bye()
+
     case "*":
+
     if random(byte 0, byte 1):
     print("\"A peasant such as myself knows little about $Z, $G.\"")
+
     else:
     print("\"Beg pardon, $G?\"")
+
     endif
+
     jump 830

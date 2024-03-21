@@ -9,96 +9,136 @@ description:
 
 interaction:
     wait()
+
     print("\n")
+
     if equals(integer(value 21), byte 0):
     print("The gargoyle gasps in terror and wheezes, \"An-bal-sil-fer!\"")
     wait()
+
     print("\n\nThen he faints dead away!\n")
     ('WORKTYPE', ('byte', 235), ('byte', 145))
     bye()
+
     endif
+
     if notEquals(partyHasObject(byte 76, byte 0), byte 1):
     print("The gargoyle gasps in terror and wheezes, \"The False Prophet!\"")
     wait()
+
     print("\n\nThen he faints dead away!\n")
     ('WORKTYPE', ('byte', 235), ('byte', 145))
     bye()
+
     endif
+
     if equals(hasBit(byte 235, value 0), byte 0):
     print("The venerable gargoyle peers at you.")
     wait()
+
     print("\n\n\"Greetings, False Prophet.\"")
     wait()
+
     print("\n\n\"To have been told by @Naxatilor, long ago, that the you would one day come to me, wearing the Amulet of Submission.\"")
     wait()
+
     print("\n\n\"To never have believed it would come to pass.\"")
     wait()
+
     print("\n\n\"To ask what service I can perform?\"")
     ('SETF', ('byte', 235), ('value', 0))
     jump 805
+
     endif
+
     if equals(hasBit(byte 235, byte 2), byte 0):
     print("\"To ask how again I may help you?\"")
     jump 805
+
     endif
+
     integer(value 0) = partyHasObject(word 395, byte 0)
+
     if equals(integer(value 0), word 32769):
     print("\"To wonder why you have not brought back the broken lens?!\"")
     wait()
+
     print("\n\n\"To have already told you that I need it in order to craft a new one!\"")
     wait()
+
     print("\n\n\"To ask what you think I can do without it?\"")
     jump 805
+
     else:
     jump 1806
+
     endif
 
 805:
     print("\n")
+
     ask()
     case "vort,lens":
     integer(value 0) = partyHasObject(word 395, byte 0)
+
     if equals(integer(value 0), word 32769):
     print("\"To remember little from so long ago,\" the gargoyle croaks.")
     wait()
+
     print("\n\n\"To require the pieces of the lens in order to make a new copy.\"")
     ('SETF', ('byte', 235), ('byte', 2))
     jump 805
+
     else:
     jump 1806
+
     endif
+
     case "name":
     print("\"To lack a name, of course.\"")
     wait()
+
     print("\n\n\"But to be called Lor-wis-lem, the scholar of light, by many learned gargoyles.\"")
     wait()
+
     print("\n\nAs he says this, the ancient gargoyle beams with pride.")
     jump 805
+
     case "job":
     print("\"To craft the finest lenses in the land,\" the gargoyle says proudly.")
     wait()
+
     print("\n\n\"Also to teach my young @apprentices not to cut themselves on the glass!\"")
     jump 805
+
     case "teac,youn,appr":
     print("\"To be nearing the end of my @time.\"")
     wait()
+
     print("\n\n\"To have one last sacred duty:\"")
     wait()
+
     print("\n\n\"To pass on my skill to the next generation.\"")
     jump 805
+
     case "end,time":
     print("\"To be over a thousand years old.\"")
     wait()
+
     print("\n\n\"To seem a mere youth compared to @Naxatilor, however.\"")
     jump 805
+
     case "naxa":
     print("\"To have helped Naxatilor create the Vortex Lens, centuries ago.\"")
     wait()
+
     print("\n\n\"To have found him venerable and ancient even then!\"")
     jump 805
+
     case "bye":
     print("\"To be honored to have helped you, False Prophet.\"\n")
     bye()
+
     case "*":
     print("\"To be old. To suggest you ask that of others.\"")
     jump 805
@@ -106,18 +146,24 @@ interaction:
 1806:
     print("\"To see the shattered Vortex Lens you carry.\"")
     wait()
+
     print("\n\n\"To remember making it, so very long ago.\"")
     wait()
+
     print("\n\n")
     ('DELETE', ('integer', [('value', 0)]), ('word', 395), ('byte', 0), ('byte', 1))
     print("Taking the shards of glass, the lensmaker turns to his grinding table.")
     wait()
+
     print("\n\nIn a short while, he has crafted a new Vortex Lens!")
     wait()
+
     print("\n\n\"To have far greater skill now than when first I made this lens,\" he says smugly.")
     wait()
+
     print("\n\n\"To require little time to repair it.\"")
     wait()
+
     print("\n\nHe hands you the restored Vortex Lens.")
     ('NEW', ('integer', [('value', 0)]), ('word', 396), ('byte', 0), ('byte', 1))
     ('CLEARF', ('byte', 235), ('byte', 2))

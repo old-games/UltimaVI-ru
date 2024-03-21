@@ -10,52 +10,72 @@ description:
 interaction:
     if hasBit(byte 235, value 0):
     jump 229
+
     endif
+
     print("\"Good (cough) day, $G. What is thy name?\"\n")
+
     ask()
     print("\n\"I am called Gertan. My fellows and I are recovering from a fierce @battle.\"")
+
     if equals(string(value 35), string(value 25)):
     ('SETF', ('byte', 235), ('value', 0))
+
     endif
+
     jump 262
 
 229:
     print("\"Tis good to see thee again, $P.\"\n")
+
     ask()
     case "name":
     print("\"Gertan, my friend.\"")
     jump 262
+
     case "job":
     print("\"I lead my men into @battle whenever @Geoffrey sends me.\"")
     jump 262
+
     case "geof":
     print("\"He is the captain of the guard.\"")
     jump 262
+
     case "capt,guar":
     print("\"Aye.\"")
     jump 262
+
     case "fier,batt,shri,comp":
     print("\"We sought to liberate the Shrine of Compassion.\"\n*\n\"My men fought valiantly, but the gargoyles were too much for us. They didst @slay more than half our party.\"")
     jump 262
+
     case "garg,slay,foug":
     print("\"Aye, I doubt not they were using foul @magic of some kind.\"")
     jump 262
+
     case "foul,magi":
     print("\"A moonstone was upon the shrine, surrounded by a strange violet glow.\"\n*\n\"I tried to get to it, but 'twas surrounded by some kind of force @field.\"")
     jump 262
+
     case "moon,ston,forc,fiel,glow,viol":
     print("\"'Tis a matter beyond my comprehension.\"")
     jump 262
+
     case "cave,frei":
     print("\"Hast thou heard, then, of the time I slew the great @dragon Freitag? Ah, that was a long time ago.\"")
     jump 262
+
     case "drag,slew":
     print("\"Those were the days...\"")
     jump 262
+
     case "bye":
     print("\"May thy efforts meet with more success than mine!\"\n")
     bye()
+
     case "*":
     print("\"I cannot help thee with that.\"")
-    ESAC
+
+    esac
+
     jump 262

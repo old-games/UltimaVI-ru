@@ -9,91 +9,128 @@ description:
 
 interaction:
     wait()
+
     print("\n")
+
     if equals(hasBit(byte 235, value 1), byte 0):
     jump 330
+
     endif
+
     if random(byte 0, byte 2):
     print("\"I ain't talkin' to you, you're just like all the rest!\"")
     wait()
+
     print("\n\n\"I'll never crack, no matter 'ow many times you come back!\"\n")
     bye()
+
     else:
     print("\"All right, I give up.\"")
     wait()
+
     print("\n\n\"The rune is 'idden under a potted plant at the Slaughtered Lamb.\"")
     wait()
+
     print("\n\n\"Now go away and leave me alone.\"\n")
     ('CLEARF', ('byte', 235), ('value', 1))
     bye()
+
     endif
 
 330:
     if hasBit(byte 235, value 0):
     print("\"$G! Am I glad to see thee!\"")
     wait()
+
     print("\n\n\"You're me last light in a world of darkness.\"")
+
     else:
     print("\"Who's there?\" the thief calls insolently.\n")
+
     ask()
     print("\nThe thief's tone becomes more respectful as he recognizes you.")
     wait()
+
     print("\n\n\"'Strewth, it's the Avatar!\"")
     wait()
+
     print("\n\n\"You've got to get me @out of 'ere, $G!\"")
     ('SETF', ('byte', 235), ('value', 0))
+
     endif
+
     print("\n")
+
     ask()
     case "grav,rob,crim,stol,out":
     print("\"I admit I robbed that grave.\"")
     wait()
+
     print("\n\n\"But it were only because 'is Lordship wouldn't be needin' that stuff no more.\"")
     wait()
+
     print("\n\n\"I 'ad me @kids to feed, didn't I?\"")
     jump 602
+
     case "rune":
     print("\"I'll tell you where the rune is if you'll let me @go. I've got me kids to think of.\"")
     jump 602
+
     case "kids,fami,feed,farm,hars,out,here":
     print("Tears fill the man's eyes.")
     wait()
+
     print("\n\n\"My poor children've got no one to take care of them now.\"")
     wait()
+
     print("\n\n\"I only stole to feed them, and that's the @truth.\"")
     jump 602
+
     case "true,trut":
     print("\"True? Of course it's true!\"")
     wait()
+
     print("\n\n\"Even a thief like me wouldn't lie to the Avatar.\"")
     jump 602
+
     case "know,lie,lyin,fals,fool":
     print("\"All right, I admit it. I 'aven't got any kids.\"")
     wait()
+
     print("\n\n\"But that stupid cow they got runnin' this place won't listen to reason--a little give-and-take, know what I mean?\"")
     wait()
+
     print("\n\n\"I tell you what.\"")
     wait()
+
     print("\n\n\"If I tell you where the rune is, will you take it away?\"")
     wait()
+
     print("\n\n\"I don't want these pompous blighters to 'ave it. Okay?\" ")
     jump 1901
+
     case "rele,let,free,go,allo,set,home":
     print("\"You mean it, $G? Are they gonna let me go 'ome?\" ")
     jump 2158
+
     case "name":
     print("\"Me name's Boskin, $G.\"")
     jump 602
+
     case "job":
     print("\"I'm but a poor farmer, forced into crime by the harshness of these times.\"")
     wait()
+
     print("\n\n\"There weren't no other way to feed me family, $G!\"")
     jump 602
+
     case "bye":
     print("\"Please, $G! Tell them to let me @go 'ome!\"")
     wait()
+
     print("Tell them about me poor fatherless @kids! They'll listen to you!\"\n")
     bye()
+
     case "*":
     print("\"Beg your pardon, $G?\"")
     jump 602
@@ -103,14 +140,18 @@ interaction:
     case "n":
     print("\"Then the gargoyles can take the lot of you!\"")
     wait()
+
     print("\n\n\"You'll never get nothin' out of me!\"\n")
     ('SETF', ('byte', 235), ('value', 1))
     bye()
+
     case "y":
     print("\"All right, I'll take your word for it.\"")
     wait()
+
     print("\n\n\"Go to the Slaughtered Lamb; I 'id the rune under a potted plant there.\"")
     wait()
+
     print("\n\n\"And spit on Her Ladyship for me!\"\n")
     bye()
 
@@ -119,19 +160,27 @@ interaction:
     case "n":
     print("His face falls. \"Then I ain't sayin' nothin'. I've got me kids to think of, I do.\"")
     jump 602
+
     case "y":
     print("His face lights up. \"I knew I could count on you, $G!\"")
     wait()
+
     print("\n\n\"And I'll keep my end of the bargain.\"")
     wait()
+
     print("\n\n\"I 'id the rune under a potted plant in the Slaughtered Lamb inn.\"")
+
     if partyHas(byte 4):
     wait()
+
     ('PORTRAIT', ('byte', 4))
     print("\n\nAs you leave, Iolo whispers to you.\n")
     wait()
+
     print("\n\"Maybe it was necessary, $P, but lying makes me uneasy. Even to someone like him.\"")
+
     endif
+
     print("\n")
     ('SUB_KARMA', ('byte', 5))
     bye()

@@ -9,6 +9,7 @@ description:
 
 interaction:
     wait()
+
     print("\n")
     ('PORTRAIT', ('byte', 0))
     print("\"Stand over here!\"\n*")
@@ -18,6 +19,7 @@ interaction:
     print("\n\"Come hear our @puzzle anywhere!\"")
     integer(value 9) = byte 0
     print("\n")
+
     ask()
     case "name":
     integer(value 9) = minus(byte 235, integer(value 9))
@@ -28,26 +30,31 @@ interaction:
     print("\"But which is @Pullyu, and which is @Pushme? If you'd asked yesterday, I'd have told thee!\"")
     ('SETF', ('byte', 235), ('value', 0))
     jump 181
+
     case "push":
     integer(value 9) = minus(byte 235, integer(value 9))
     ('PORTRAIT', ('integer', [('value', 9)]))
     print("\"If you asked my partner, thinking him wise, he'd tell you the Pushme always @lies!\"")
     jump 181
+
     case "pull":
     integer(value 9) = minus(byte 235, integer(value 9))
     ('PORTRAIT', ('integer', [('value', 9)]))
     print("\"If you asked my partner, then forsooth, he'd say the Pullyu always speaks @truth!\"")
     jump 181
+
     case "ly,lie,fals":
     integer(value 9) = minus(byte 235, integer(value 9))
     ('PORTRAIT', ('integer', [('value', 9)]))
     print("\"My partner lies, and that is true. It is because he's the @Pullyu!\"")
     jump 181
+
     case "tru":
     integer(value 9) = minus(byte 235, integer(value 9))
     ('PORTRAIT', ('integer', [('value', 9)]))
     print("\"I'll always tell the truth to thee. That's because I am the @Pushme!\"")
     jump 181
+
     case "job,ridd,puzz":
     ('PORTRAIT', ('byte', 0))
     print("\"If my partner said you should go @west, then he would be a lying pest!\"\n*\n")
@@ -58,11 +65,13 @@ interaction:
     ('PORTRAIT', ('byte', 235))
     print("\"If my partner said to you 'Go @west.', then his advice would be the best.\"")
     jump 181
+
     case "east,west":
     integer(value 9) = minus(byte 235, integer(value 9))
     ('PORTRAIT', ('integer', [('value', 9)]))
     print("\"If you asked my partner which was best, he'd say 'East lie beasts, so go quest west.'\"")
     jump 181
+
     case "bye":
     integer(value 9) = minus(byte 235, integer(value 9))
     ('PORTRAIT', ('integer', [('value', 9)]))
@@ -79,18 +88,24 @@ interaction:
     integer(value 9) = minus(byte 235, integer(value 9))
     ('PORTRAIT', ('integer', [('value', 9)]))
     print("\"Then go dance with the cat and fiddle!\"\n*\nBoth heads smile innocently at you.")
+
     if partyHas(byte 2):
     print("\n*\n")
     ('PORTRAIT', ('byte', 2))
     print("Dupre is staring at them, his jaw hanging wide open.")
+
     endif
+
     if partyHas(byte 4):
     print("\n*\n")
     ('PORTRAIT', ('byte', 4))
     print("Iolo says \"That's got to be the most baffling thing I've ever heard.\"")
+
     endif
+
     print("\n*")
     bye()
+
     case "*":
     integer(value 9) = minus(byte 235, integer(value 9))
     ('PORTRAIT', ('integer', [('value', 9)]))
@@ -98,5 +113,7 @@ interaction:
     integer(value 9) = minus(byte 235, integer(value 9))
     ('PORTRAIT', ('integer', [('value', 9)]))
     print("\"Could we be more confused than you?\"")
-    ESAC
+
+    esac
+
     jump 181

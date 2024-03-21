@@ -7,18 +7,24 @@ name("James")
 description:
     print("a young lad.")
     wait()
+
     f3()
 
 interaction:
     integer(value 8) = byte 5
     print("\n\"A good $T to you, $G.\"")
     wait()
+
     print("\n\n")
+
     if hasBit(byte 235, value 0):
     print("\"Is there more I can do for thee?\"")
+
     else:
     print("\"What can I do for thee?\"")
+
     endif
+
     jump 161
 
 129:
@@ -26,57 +32,81 @@ interaction:
 
 161:
     print("\n")
+
     ask()
     case "buy":
     print("\"Be more specific, $G.\"")
     wait()
+
     print("\n\n\"Me master 'as quite a large inventory.\"")
     wait()
+
     print("\n\n\"Dost thou want @arms or @armor?\"")
     jump 161
+
     case "arms":
+
     if notEquals(integer(value 32), byte 144):
     print("\"Come to me shop when it's open!\"")
     jump 161
+
     else:
     integer(value 9) = byte 0
     jump 1739
+
     endif
+
     case "armo":
+
     if notEquals(integer(value 32), byte 144):
     print("\"Come to me shop when it's open!\"")
     jump 161
+
     else:
     integer(value 9) = integer(value 8)
     jump 1739
+
     endif
+
     case "sell":
+
     if notEquals(integer(value 32), byte 144):
     print("\"Come to me shop when it's open!\"")
     jump 161
+
     else:
     jump 817
+
     endif
+
     case "job":
     print("\"I'm just the @apprentice, but if you want to @buy or @sell somethin' I can help ya.\"")
     jump 161
+
     case "appr":
     print("\"Me master went off to fight the gargoyles.\"")
     wait()
+
     print("\n\n\"'E ain't been 'eard from since.\"")
     wait()
+
     print("\n\n\"I'm just mindin' the place 'til 'e gets back.\"")
     jump 161
+
     case "name":
     print("\"Me name's James, $G.\"")
     ('SETF', ('byte', 235), ('value', 0))
     jump 161
+
     case "bye":
     print("\"Good $T to ya, and I 'ope ye come back soon!\"\n")
     bye()
+
     case "*":
     print("\"Beg pardon, $G?\"")
-    ESAC
+
+    esac
+
     jump 161
 
 817:
@@ -84,117 +114,169 @@ interaction:
     integer(value 2) = byte 0
     integer(value 3) = byte 0
     integer(value 1) = byte 0
+
     if hasObject(character(integer(value 0), byte 0), data(dword 2382, integer(value 1)), byte 0):
     data(dword 2532, integer(value 2)) = integer(value 0)
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 3) = byte 1
     jump 925
+
     endif
+
     integer(value 1) = plus(integer(value 1), byte 1)
+
     if data(dword 2382, integer(value 1)):
     jump 845
+
     endif
+
     integer(value 0) = plus(integer(value 0), byte 1)
+
     if lessOrEquals(integer(value 0), integer(value 23)):
     jump 838
+
     endif
+
     if equals(integer(value 3), byte 0):
     print("\"Sorry, none of you has anything I need.\"")
     wait()
+
     print("\n")
     jump 129
+
     endif
+
     if equals(integer(value 2), byte 1):
     integer(value 3) = character(data(dword 2532, byte 0), byte 0)
     ('SETNAME', ('integer', [('value', 3)]))
     print("\"Aye, $Y has something of interest...\"")
     wait()
+
     print("\n\n")
     jump 1202
+
     endif
+
     integer(value 1) = byte 1
     ('SETNAME', ('character', [('data', [('dword', 2532), ('minus', [('integer', [('value', 1)]), ('byte', 1)])]), ('byte', 0)]))
     print("#1) $Y\n")
     integer(value 1) = plus(integer(value 1), byte 1)
+
     if lessOrEquals(integer(value 1), integer(value 2)):
     jump 1085
+
     endif
+
     print("\"Which of you?\" ")
     ('INPUTNUM', 3)
+
     if equals(integer(value 3), byte 0):
     jump 1708
+
     endif
+
     integer(value 3) = minus(integer(value 3), byte 1)
+
     if greaterOrEquals(integer(value 3), integer(value 2)):
     jump 1078
+
     endif
+
     integer(value 3) = character(data(dword 2532, integer(value 3)), byte 0)
     integer(value 0) = byte 0
     integer(value 5) = byte 0
+
     if equals(hasObject(integer(value 3), data(dword 2382, integer(value 0)), byte 0), byte 0):
     jump 1263
+
     endif
+
     data(dword 2502, integer(value 5)) = integer(value 0)
     integer(value 5) = plus(integer(value 5), byte 1)
     integer(value 0) = plus(integer(value 0), byte 1)
+
     if data(dword 2382, integer(value 0)):
     jump 1216
+
     endif
+
     if equals(integer(value 5), byte 1):
     integer(value 6) = data(dword 2502, byte 0)
     jump 1427
+
     endif
+
     integer(value 0) = byte 1
     print("#0) ")
     ('DPRINT', [('data', [('dword', 2502), ('minus', [('integer', [('value', 0)]), ('byte', 1)])]), ('dword', 2404)])
     print("\n")
     integer(value 0) = plus(integer(value 0), byte 1)
+
     if lessOrEquals(integer(value 0), integer(value 5)):
     jump 1322
+
     endif
+
     print("\"Which item?\" ")
     ('INPUTNUM', 6)
+
     if greater(integer(value 6), integer(value 5)):
     jump 1202
+
     endif
+
     if equals(integer(value 6), byte 0):
     jump 1708
+
     endif
+
     integer(value 6) = data(dword 2502, minus(integer(value 6), byte 1))
     string(value 0) = data(dword 2404, integer(value 6))
     integer(value 7) = divide(data(dword 2362, integer(value 6)), byte 2)
     ('SETNAME', ('integer', [('value', 3)]))
     print("\"Will you take #7 gold for that $0, $Y?\" ")
+
     askc("yn")
     case "n":
+
     if equals(integer(value 5), byte 1):
     print("\"Perhaps some other time, then.\"")
     wait()
+
     print("\n")
     jump 129
+
     else:
     print("\"Perhaps something else then?\"")
     wait()
+
     print("\n\n")
     jump 1202
+
     endif
+
     case "y":
     ('SETNAME', ('integer', [('value', 3)]))
     print("\"Done!\" $N hands $Y #7 gold pieces and takes the $0.")
     ('DELETE', ('integer', [('value', 3)]), ('data', [('dword', 2382), ('integer', [('value', 6)])]), ('byte', 0), ('byte', 1))
     ('NEW', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 7)]))
+
     if equals(integer(value 5), byte 1):
     print("\n")
     jump 129
+
     else:
     wait()
+
     print("\n\n")
     jump 1202
+
     endif
 
 1708:
     print("\"Changed your mind, eh?\"")
     wait()
+
     print("\n")
     jump 129
 
@@ -202,55 +284,79 @@ interaction:
     if equals(integer(value 23), byte 0):
     integer(value 3) = byte 0
     jump 1885
+
     endif
+
     integer(value 0) = byte 0
     integer(value 2) = byte 1
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#2) $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
+
     if lessOrEquals(integer(value 0), integer(value 23)):
     jump 1773
+
     endif
+
     print("\"Which of you?\" ")
     ('INPUTNUM', 3)
+
     if equals(integer(value 3), byte 0):
     jump 1708
+
     endif
+
     integer(value 3) = minus(integer(value 3), byte 1)
+
     if greater(integer(value 3), integer(value 23)):
     jump 1759
+
     endif
+
     integer(value 3) = character(integer(value 3), byte 0)
     integer(value 0) = byte 1
     ('SETNAME', ('integer', [('value', 3)]))
     string(value 0) = data(dword 2404, plus(integer(value 9), minus(integer(value 0), byte 1)))
     print("#0) $0\n")
     integer(value 0) = plus(integer(value 0), byte 1)
+
     if and(integer(value 9), notEquals(data(dword 2382, plus(integer(value 9), minus(integer(value 0), byte 1))), byte 0)):
     jump 1896
+
     endif
+
     if and(equals(integer(value 9), byte 0), lessOrEquals(integer(value 0), integer(value 8))):
     jump 1896
+
     endif
+
     integer(value 7) = integer(value 0)
     print("\"Which item?\" ")
     ('INPUTNUM', 0)
+
     if equals(integer(value 0), byte 0):
     jump 1708
+
     endif
+
     if greaterOrEquals(integer(value 0), integer(value 7)):
     jump 1885
+
     endif
+
     integer(value 0) = minus(plus(integer(value 9), integer(value 0)), byte 1)
     integer(value 1) = data(dword 2362, integer(value 0))
     string(value 1) = data(dword 2404, integer(value 0))
     print("\"That $1 costs #1 gold.\"")
     wait()
+
     print("\n\n\"Interested, $Y?\" ")
+
     askc("yn")
     case "y":
     jump 2133
+
     case "n":
     jump 1885
 
@@ -258,21 +364,28 @@ interaction:
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 2382, integer(value 0)), byte 1)):
     print("\"But 'twould make thee o'erburdened, $Y!\"")
     wait()
+
     print("\n")
     jump 129
+
     endif
+
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):
     ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
     ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 2382), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 1))
     print("\"Excellent!\"\n\nAfter accepting $Y's gold, $N hands over the $1.")
     wait()
+
     print("\n\n")
     jump 1885
+
     else:
     print("\"But thou hast not enough gold, $Y!\"")
     wait()
+
     print("\n")
     jump 129
+
     endif
 
 2362:

@@ -9,64 +9,89 @@ description:
 
 interaction:
     wait()
+
     print("\n\"Vell, hello ")
+
     if hasBit(byte 235, value 0):
     print("again")
+
     else:
     print("dere")
     ('SETF', ('byte', 235), ('value', 0))
+
     endif
+
     print(", mine friend")
+
     if integer(value 23):
     print("s")
+
     endif
+
     print("! Velcome to the Varrior's Stead!\"")
     wait()
+
     print("\n\n\"Vat can I be doing for thee this $T?\"\n")
+
     ask()
     case "name":
     print("\"Mine name ist Martin, but my friends call me '@Dutch.'\"")
     jump 171
+
     case "dutc":
     print("\"Ja, dat's mine name!\"")
     jump 171
+
     case "job":
     print("\"I run dis @inn.\"")
     jump 171
+
     case "rest,inn,room":
     print("\"Room und board ist 5 gold per night per person.\"")
     wait()
+
     print("\n\n\"Interested?\" ")
     jump 503
+
     case "bye":
     print("\"Haf a good journey!\" he calls as you leave.\n")
     bye()
+
     case "*":
     print("\"I speak your language not so good. Vat is meaning '$Z'?\"")
-    ESAC
+
+    esac
+
     jump 171
 
 503:
     askc("yn")
     case "y":
     jump 559
+
     case "n":
     print("\"Vell, perhaps some other time, ja?\"")
     jump 171
 
 559:
     integer(value 0) = multiply(plus(integer(value 23), byte 1), byte 5)
+
     if less(objectsCount(byte 1, byte 88), integer(value 0)):
     print("\"Ach, I'm sorry, but I must haf my #0 gold.\"")
     wait()
+
     print("\n\n\"Come back ven fortune makes you rich, ah?\"")
     jump 171
+
     endif
+
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
     print("He shows you to your room, and you drift off into a well-earned sleep.\n")
     SLEEP
     wait()
+
     print("\nThe next morning, Martin serves you a huge, tasty breakfast.")
     wait()
+
     print("\n\n\"A good breakfast is the beginning of a good day!\" he cries.")
     jump 171

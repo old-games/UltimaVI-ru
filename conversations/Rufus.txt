@@ -7,120 +7,169 @@ name("Rufus")
 description:
     print("a rough and tumble man with wild, unkempt hair.")
     wait()
+
     print("\n")
 
 interaction:
     integer(value 5) = byte 0
+
     if equals(integer(value 32), byte 144):
     jump 229
+
     endif
+
     print("\"Aye, and a fine $T to you, my friend")
+
     if integer(value 23):
     print("s")
+
     endif
+
     print(".\"")
     wait()
+
     print("\n\n\"I'm busy just now. Why don't ya come t'my smithy ")
+
     if greater(integer(value 17), byte 18):
     print("tomorrow ")
+
     else:
     print("later today ")
+
     endif
+
     print("and we'll talk then.\"\n")
     bye()
 
 229:
     if hasBit(byte 235, value 0):
     jump 278
+
     endif
+
     print("\"Good $T, friend")
+
     if integer(value 23):
     print("s")
+
     endif
+
     print(".\"")
     ('SETF', ('byte', 235), ('value', 0))
     wait()
+
     print("\n")
     jump 340
 
 278:
     print("\"'Tis good to see thee, friend!\" he says, grabbing your arm.")
     wait()
+
     print("\n\n\"What d'ya need?\"\n")
 
 340:
     print("\n\"What d'ya need?\"\n")
+
     ask()
     case "name":
     print("\"Rufus the @Red.\"\n")
     jump 359
+
     case "rufu,red":
     print("\"Can ya not tell by my hair?\"\n")
     jump 359
+
     case "buy":
     jump 649
+
     case "job":
     print("\"If you want to @buy horseshoes, just ask.\"\n")
     jump 359
+
     case "bye,noth":
     print("\"Remember to shoe yer steed often. Bye.\"\n")
     bye()
+
     case "shoe":
     print("\"Aye, it saves their feet from stones and such.\"\n")
     jump 359
+
     case "*":
     print("\"I just @shoe horses, sorry.\"\n")
-    ESAC
+
+    esac
+
     jump 359
 
 649:
     if equals(integer(value 23), byte 0):
     integer(value 3) = byte 0
     jump 785
+
     endif
+
     integer(value 0) = byte 0
     integer(value 2) = byte 1
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#2. $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
+
     if lessOrEquals(integer(value 0), integer(value 23)):
     jump 683
+
     endif
+
     print("\"Which of you?\" ")
     ('INPUTNUM', 3)
+
     if equals(integer(value 3), byte 0):
     jump 1092
+
     endif
+
     integer(value 3) = minus(integer(value 3), byte 1)
+
     if greater(integer(value 3), integer(value 23)):
     jump 669
+
     endif
+
     print("\"It'll cost you 2 gold for the horseshoes. Interested?\" ")
+
     askc("yn")
     case "y":
+
     if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, byte 2)), weight(byte 202, byte 1)):
     print("\"You look pretty full to me.\"")
     wait()
+
     print("\n")
     jump 340
+
     endif
+
     if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 2):
     ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 2))
     ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 202), ('byte', 0), ('byte', 1))
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
     print("\"Good, good!\" After accepting $Y's gold, $N hands over the horseshoes.")
     wait()
+
     integer(value 5) = byte 1
     print("\n\n")
     jump 1092
+
     else:
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
     print("\"You haven't enough gold!\"")
     wait()
+
     print("\n")
     jump 340
+
     endif
+
     case "n":
     jump 1092
 
@@ -128,10 +177,14 @@ interaction:
     if integer(value 5):
     print("\"Those shoes will last ya.\"")
     wait()
+
     print("\n")
     jump 340
+
     endif
+
     print("\"You'll find none stronger.\"")
     wait()
+
     print("\n")
     jump 340

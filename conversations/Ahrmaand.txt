@@ -10,7 +10,9 @@ description:
 interaction:
     if hasBit(byte 235, value 0):
     jump 116
+
     endif
+
     print("\"Greetings, $G, and welcome to the town of Cove.\"\n*")
     jump 216
 
@@ -19,56 +21,80 @@ interaction:
     ('DPRINT', [('random', [('byte', 0), ('byte', 2)]), ('dword', 2305)])
     print("\n*")
     jump 216
+
     endif
+
     print("\"Ah, $P! 'Tis an honor to welcome thee once more to my humble village.\"\n*\n\"How might I be of assistance this fine $T?\"\n")
 
 216:
     print("\n\"How might I be of assistance this fine $T?\"\n")
+
     ask()
     case "name":
     print("\"I am the Viscount Ahrmaand. And what is thy name?\"\n")
+
     ask()
+
     if equals(string(value 35), string(value 25)):
     ('SETF', ('byte', 235), ('value', 0))
+
     endif
+
     print("\n\"Well met, $G!\"")
     jump 261
+
     case "job":
     print("\"I govern here in @Cove. 'Tis hard work, but my people love me for it.\"\n\n*\"I always thought it a blessing to live so close to a @shrine, though since the gargoyles came none dare go near it.\"")
     jump 261
+
     case "cove,city":
     print("\"We have fine facilities here for healing the wounded and the @sick.\"")
     jump 261
+
     case "shri":
     print("\"In Britannia there are eight shrines, one for each of the eight @virtues of the Avatar.\"\n*\n\"They are places where people can go to meditate on these virtues.\"")
     jump 261
+
     case "eigh,virt":
     print("\"The virtues are honesty, compassion, valour, justice, sacrifice, honor, spirituality, and humility.\"*\n\n\"'Tis good to @meditate on these virtues often.\"")
     jump 261
+
     case "medi":
     print("\"Each shrine has its own @mantra. This is a chant which one should recite whilst meditating therein.\"\n*\n\"Once there was a time when a special rune was required to enter each shrine as well.\"\n*\n\"Now the gargoyles have taken the Shrine of Compassion, and it is lost to the people once more.\"")
     jump 261
+
     case "comp,sick,woun,gert,garg":
     print("\"A party of adventurers came here after their attempt to defeat the gargoyles at the Shrine of Compassion.\"*\n\n\"I spoke with their @leader when they arrived.\"\n*\n\"Thou shouldst speak with him thyself. He told of a strange violet energy field.\"\n*\n\"I think mayhap 'tis similar to the @force which blocked entry to the shrines many years ago.\"*\n\n\"The eight mystic runes were most useful in those days.\"")
     jump 261
+
     case "lead":
     print("\"He's in bed at Sasha's, recuperating.\"")
     jump 261
+
     case "forc,rune,myst,fiel,ener,viol":
     print("\"Use the Rune of Compassion whilst chanting the @Mantra of Compassion.\"\n*\n\"Methinks this may negate the gargoyle's magic at that shrine.\"")
     jump 261
+
     case "chan,mant":
     print("\"Ask Lord British's Chancellor, Tholden.\"\n*\n\"He canst tell thee of the mantra, and like as not he will also know of the rune.\"")
     jump 261
+
     case "bye":
+
     if equals(integer(value 16), byte 1):
     print("\"Twas a delight to converse with thee, my dear.\"\n*\n\"My heart will be aflutter with anticipation till thou dost visit me again.\"")
+
     else:
     print("\"Farewell sirrah, and good luck with thy quest.\"")
+
     endif
+
     print("\n")
     bye()
+
     case "*":
     print("\"I cannot help thee with that.\"")
-    ESAC
+
+    esac
+
     jump 261

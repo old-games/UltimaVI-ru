@@ -7,56 +7,75 @@ name("Morchella")
 description:
     print("a tough-looking woman with a walk like a troll.")
     wait()
+
     print("\n")
 
 interaction:
     print("She stares insolently at you.\n")
+
     ask()
     case "name":
     print("\"I'm Morchella.\"")
     ('SETF', ('byte', 235), ('value', 0))
     jump 91
+
     case "job":
     print("\"I be a retired @sailor, that I am.")
+
     if partyHas(byte 2):
     print("\"")
     wait()
+
     ('PORTRAIT', ('byte', 2))
     print("\n\n\"Thou wert a @pirate!\"")
     wait()
+
     ('PORTRAIT', ('byte', 235))
     print("\n\n\"Well! How rude!\" She turns up her nose and leaves.\n")
     bye()
+
     endif
+
     print(" An honest one, mind ye.\"")
     jump 91
+
     case "pira":
     print("\"I know nothing about that!\" She walks off in a huff.\n")
     bye()
+
     case "hone,sail":
     print("\"That's right, me bucko. Why, I've sailed with Lord @British and Captain @John.")
     jump 91
+
     case "lord,brit":
     print("\"He walks with a limp, ye know. 'Fraid of mice, too, he is.\"")
     jump 91
+
     case "capt,john":
     print("\"He offered to marry me but of course I refused. Didn't want to be tied down.\"")
     jump 91
+
     case "map":
     print("She looks around furtively first. \"Well, now, I might have seen the likes of that in me travels...\"")
     wait()
+
     print("\n\"Tell ye what, matey:\"")
     wait()
+
     print("\n\n\"If ye give me a @shield of the Order of the Serpent, I'll tell ye where that map be at.\"")
     jump 91
+
     case "cara,lad":
     print("\"I might even ask 'im to marry me.\" She winks slyly at you.")
     jump 91
+
     case "bye":
     print("\"So long, matey.\"\n")
     bye()
+
     case "shie,serp,magi":
     jump 1013
+
     case "*":
     print("\"Don't know what to say 'bout that, matey.\"")
     jump 91
@@ -65,26 +84,37 @@ interaction:
     if hasBit(byte 235, byte 7):
     print("\"Now all I need is a magic sword; then methinks I'll be a knight.\"")
     jump 91
+
     endif
+
     integer(value 0) = partyHasObject(byte 16, byte 0)
+
     if equals(integer(value 0), word 32769):
     print("\"If I had a Silver Serpent shield, I'd give it to @Caradon.\"")
     wait()
+
     print("\n\n\"He's a fine, brave lad, he is.\"")
     jump 91
+
     endif
+
     print("\"That be quite a prize there, matey. Will ye trade it to me for a bit o' map?\" ")
+
     askc("yn")
     case "n":
     print("\"Then leave me be!\" She turns her back angrily on you and walks off.\n")
     bye()
-    ESAC
+
+    esac
+
     ('GIVE', ('byte', 16), ('byte', 0), ('integer', [('value', 0)]), ('byte', 235))
     ('SETF', ('byte', 235), ('byte', 7))
     ('GIVE', ('word', 405), ('byte', 0), ('byte', 235), ('integer', [('value', 0)]))
     print("\nFrom a little box Morchella hands over a piece of paper. It is a piece of the pirate map.")
     wait()
+
     print("\n\n\"I was going to give this magic shield to Caradon, but methinks I'll keep it for meself instead!\"")
     wait()
+
     print("\n\n\"Good $T, $G.\" She walks off.\n")
     bye()

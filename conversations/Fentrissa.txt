@@ -7,134 +7,195 @@ name("Fentrissa")
 description:
     print("a strong, sinewy woman with a hard look about her.")
     wait()
+
     print("\n")
 
 interaction:
     integer(value 5) = byte 0
+
     if hasBit(byte 235, value 0):
     print("\"Smell that salt air, friend. Brings a tear to me eye...\"\n")
+
     else:
     print("\"Welcome, welcome!\" She slaps you heartily on the back.\n")
+
     endif
+
     integer(value 1) = plus(plus(hasObject(byte 235, byte 149, byte 1), hasObject(byte 235, byte 149, byte 2)), multiply(plus(hasObject(byte 235, byte 149, word 128), hasObject(byte 235, byte 149, word 129)), byte 3))
+
     ask()
     case "name":
     print("\"@Fentrissa.\"\n")
     ('SETF', ('byte', 235), ('value', 0))
     jump 194
+
     case "fent":
     print("\"A strong name, as strong as the @sea.\" She looks into the distance.\n")
     jump 194
+
     case "sea":
     print("\"Beautiful thing, but a @jealous man he is.\"\n")
     jump 194
+
     case "jeal,man":
     print("\"Many call her a female.\"")
     wait()
+
     print("\n\n\"If ya ask me, men are much more unpredictable.\"\n")
     jump 194
+
     case "buy,deed":
+
     if equals(integer(value 1), byte 0):
     print("\"You bought my last craft.\"\n")
     jump 194
+
     endif
+
     print("\"I sell")
+
     if or(equals(integer(value 1), byte 1), equals(integer(value 1), byte 2)):
     print(" @ships.\"\n")
     jump 194
+
     endif
+
     if or(equals(integer(value 1), byte 3), equals(integer(value 1), byte 6)):
     print(" @skiffs.\"\n")
     jump 194
+
     endif
+
     print(" @ships and @skiffs.\"\n")
     jump 194
+
     case "ship":
+
     if hasObject(byte 235, byte 149, byte 1):
     integer(value 9) = byte 0
     jump 1165
+
     endif
+
     if hasObject(byte 235, byte 149, byte 2):
     integer(value 9) = byte 1
     jump 1165
+
     endif
+
     print("\"Sorry, I sold you my last one.\"\n")
     jump 194
+
     case "skif":
+
     if hasObject(byte 235, byte 149, word 128):
     integer(value 9) = byte 2
     jump 1165
+
     endif
+
     if hasObject(byte 235, byte 149, word 129):
     integer(value 9) = byte 3
     jump 1165
+
     endif
+
     print("\"Sorry, I sold you my last one.\"\n")
     jump 194
+
     case "job":
+
     if equals(integer(value 1), byte 0):
     print("\"I'm out of work after selling you all my ships and skiffs.\"\n")
     jump 194
+
     endif
+
     if or(equals(integer(value 1), byte 1), equals(integer(value 1), byte 2)):
     print("\"I have @ships for sale, but I sold you my last @skiff.\"\n")
     jump 194
+
     endif
+
     if or(equals(integer(value 1), byte 3), equals(integer(value 1), byte 6)):
     print("\"I sold you my last @ship, but I still have some @skiffs left.\"\n")
     jump 194
+
     endif
+
     print("\"I sell @ships and @skiffs.\"\n")
     jump 194
+
     case "bye":
     print("\"Have a good one.\" She bows, hands on her hips.\n")
     bye()
+
     case "*":
     print("\"Ask around.\"\n")
-    ESAC
+
+    esac
+
     jump 194
 
 1165:
     if equals(integer(value 23), byte 0):
     integer(value 3) = byte 0
     jump 1301
+
     endif
+
     integer(value 0) = byte 0
     integer(value 2) = byte 1
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#2. $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
+
     if lessOrEquals(integer(value 0), integer(value 23)):
     jump 1199
+
     endif
+
     print("\"Which of you?\" ")
     ('INPUTNUM', 3)
+
     if equals(integer(value 3), byte 0):
     jump 1584
+
     endif
+
     integer(value 3) = minus(integer(value 3), byte 1)
+
     if greater(integer(value 3), integer(value 23)):
     jump 1185
+
     endif
+
     integer(value 4) = data(dword 2033, integer(value 9))
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
     print("$N turns to $Y, \"It'll cost you #4 gold for the deed. Interested?\"")
+
     askc("yn")
     case "y":
+
     if less(canCarry(character(integer(value 3), byte 0)), weight(byte 149, byte 1)):
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
     print("$N looks at $Y. \"You look pretty full to me.\"\n")
     jump 194
+
     endif
+
     jump 1656
+
     ('GIVE', ('byte', 149), ('data', [('dword', 2041), ('integer', [('value', 9)])]), ('byte', 235), ('character', [('integer', [('value', 3)]), ('byte', 0)]))
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
     print("\"Excellent!\" After accepting the gold, $N hands $Y the deed.")
     wait()
+
     integer(value 5) = byte 1
     print("\n\n")
     jump 1584
+
     case "n":
     jump 1584
 
@@ -142,7 +203,9 @@ interaction:
     if integer(value 5):
     print("\"Sail her straight.\"\n")
     jump 194
+
     endif
+
     print("\"You'll ne'er find a better craft.\"\n")
     jump 194
 
@@ -151,38 +214,51 @@ interaction:
     integer(value 2) = byte 0
     integer(value 6) = byte 0
     integer(value 4) = character(byte 0, byte 0)
+
     if greater(integer(value 6), integer(value 23)):
     jump 1960
+
     print("\"Your party hasn't enough money.\"")
     wait()
+
     print("\n\n\"It looks like you're #1 gold piece\\s short.\"")
     wait()
+
     print("\n\n\"Sorry.\"\n")
     jump 194
+
     endif
+
     integer(value 7) = objectsCount(character(integer(value 6), byte 0), byte 88)
     data(dword 2017, integer(value 6)) = integer(value 7)
+
     if less(integer(value 7), integer(value 1)):
     integer(value 1) = minus(integer(value 1), integer(value 7))
     integer(value 2) = plus(integer(value 2), integer(value 7))
     ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 7)]))
     integer(value 6) = plus(integer(value 6), byte 1)
     jump 1693
+
     else:
     ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
     print("Your party takes up a collection for the deed.")
     wait()
+
     print("\n\n")
     jump 1471
+
     endif
 
 1960:
     integer(value 8) = byte 0
     ('NEW', ('character', [('integer', [('value', 8)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('data', [('dword', 2017), ('integer', [('value', 8)])]))
     integer(value 8) = plus(integer(value 8), byte 1)
+
     if less(integer(value 8), integer(value 23)):
     jump 1967
+
     endif
+
     jump 1705
 
 2017:

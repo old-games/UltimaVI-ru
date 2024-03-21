@@ -9,92 +9,134 @@ description:
 
 interaction:
     integer(value 0) = byte 0
+
     if partyHas(byte 235):
     print("\"Vy talk ven dere's fighting to do?\"")
     integer(value 0) = byte 1
     jump 187
+
     endif
+
     if hasBit(byte 235, value 0):
     print("\"Ho, Avatar, thou hast returned!\"")
     jump 187
+
     endif
+
     print("\"Hail, $P! I haf heard of thy deeds, Avatar!\"\n")
+
     ask()
     case "name":
     print("\"I be named Gorn, $G.\"")
     ('SETF', ('byte', 235), ('value', 0))
     jump 187
+
     case "job":
+
     if integer(value 0):
     print("\"I follow thee, $G. I haf no other job now.\"")
+
     else:
     print("\"I be a fighter, a homeless vanderer.\"")
     wait()
+
     print("\n\n\"Here I vait until I find somevun else to @trafel mit.\"")
+
     endif
+
     jump 187
+
     case "traf,trav":
+
     if integer(value 0):
     print("\"Ya, I like to trafel!\"")
     jump 187
+
     endif
+
     print("\"Much vould I like to vander again, but I haf no vun to trafel mit now.\"")
     wait()
+
     print("\n\n\"Somevun vill ask me to @join mit them zooner or later.\"")
     jump 187
+
     case "join":
+
     if integer(value 0):
     print("\"I don't understand, $G. Vat do you mean, $Z?\"")
     jump 187
+
     else:
     jump 989
+
     endif
+
     case "leav":
     jump 1072
+
     case "bye":
     print("\"It is alvays a pleasure to talk mit thee, $G.\"\n")
     bye()
+
     case "sute":
     print("\"Sutek is mad.\"")
     wait()
+
     print("\n\n\"He is very dangerous.\"")
     wait()
+
     print("\n\n\"I vould avoid him if I vere thee.\"")
     wait()
+
     print("\n\n\"But he does know many tings, und is sometimes helpful.\"")
     jump 187
+
     case "*":
+
     if random(byte 0, byte 1):
     print("\"I am just a simple varrior, $G, and know nothing about $Z.\"")
+
     else:
     print("\"Surely zere are others who vould know more about $Z than I, $G.\"")
+
     endif
+
     jump 187
 
 989:
     integer(value 9) = partyJoin(byte 235)
     string(value 0) = data(dword 1270, integer(value 9))
     print("\"I vould be much happy to join mit thee, $G$0\"")
+
     if equals(integer(value 9), byte 0):
     print("\n")
     bye()
+
     else:
     jump 187
+
     endif
 
 1072:
     if equals(partyHas(byte 235), byte 0):
     print("\"But I vas here first, ya?\"")
     jump 187
+
     endif
+
     integer(value 0) = partyLeave(byte 235)
+
     if equals(integer(value 0), byte 1):
     print("\"Ask ven ve land, okay?\"")
     jump 187
+
     endif
+
     if equals(integer(value 0), byte 2):
     jump 1080
+
     endif
+
     print("\"Ok, if that's vat you vant. Maybe I'll zee you later.\"\n*\n\"You keep all zis stuff meanwhile, ya?\"\n")
     bye()
 

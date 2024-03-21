@@ -9,85 +9,118 @@ description:
 
 interaction:
     wait()
+
     print("\n")
+
     if integer(value 21):
     jump 201
+
     endif
+
     print("The gargoyle struggles to sit up.")
     wait()
+
     print("\n\nHe shouts, \"An-bal-sil-fer! Agra-lem! Agra-lem!\"")
     wait()
+
     print("\n\nThe gargoyle collapses, exhausted.\n")
     bye()
 
 201:
     if hasBit(byte 235, value 0):
     jump 520
+
     endif
+
     if notEquals(partyHasObject(byte 76, byte 0), byte 1):
     print("The gargoyle struggles to sit up.")
     wait()
+
     print("\n\nHe shouts, \"The False Prophet! Guards! Guards!\"")
     wait()
+
     print("\n\nThe gargoyle collapses, outraged but exhausted.\n")
     bye()
+
     else:
     print("The gargoyle struggles to sit up.")
     wait()
+
     print("\n\n\"The False Prophet!\"")
     wait()
+
     print("\n\n\"But to wear the Amulet of Submission?\"")
     wait()
+
     print("\n\n\"Then to express awe at your honor and courage.\"")
     ('SETF', ('byte', 235), ('value', 0))
     jump 551
+
     endif
 
 520:
     print("\"Greetings again, honored one.\"\n")
+
     ask()
     case "name":
     print("\"To be named Bolesh Us-agra-lem, Bolesh the Troop-@Leader.\"")
     jump 551
+
     case "job,lead":
     print("\"To lead what remains of our forces into battle.\"")
     wait()
+
     print("\n\n\"To have recently returned from a mission to your side of the world.\"")
     wait()
+
     print("\n\n\"To have tried to reach the @Codex.\"")
     jump 551
+
     case "code":
     print("\"To have had victory between our claws, but to have been thwarted on the verge of success!\"")
     wait()
+
     print("\n\n\"To have encountered an impervious @force field around the Codex.\"")
     jump 551
+
     case "forc,fiel":
     print("\"To know that such a field surrounded the Codex when my people possessed it.\"")
     wait()
+
     print("\n\n\"To remember that only those on sacred @quests for wisdom could pass.\"")
     jump 551
+
     case "sacr,ques":
     print("\"To receive a sacred quest at the @Temple of Singularity.\"")
     wait()
+
     print("\n\n\"But to be uncertain whether a human's request would be answered there.\"")
     jump 551
+
     case "temp,sing":
     print("\"To find the temple in the mountains to the north.\"")
     wait()
+
     print("\n\n\"To need to fly to get there, though!\"")
     jump 551
+
     case "fly":
     print("\"Yes, to be accessible only to the superior winged gargoyles.\"")
     wait()
+
     print("\n\n\"To be totally unreachable by land-bound worker gargoyles!\"")
     wait()
+
     print("\n\n\"To suppose that it is totally unreachable by land-bound humans as well.\"")
     jump 551
+
     case "bye":
     print("\"Farewell, False Prophet.\"")
     wait()
+
     print("\n\n\"To honor my people with your sacrifice.\"\n")
     bye()
+
     case "*":
     print("Weakly, the gargoyle says, \"What?\"")
     jump 551

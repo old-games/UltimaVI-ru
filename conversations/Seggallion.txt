@@ -7,76 +7,105 @@ name("Seggallion")
 description:
     print("a huge, muscled warrior with a sad look in his eyes.")
     wait()
+
     print("\n")
 
 interaction:
     if partyHas(byte 235):
     jump 2421
+
     endif
+
     print("He looks at you imploringly.")
     wait()
+
     print("\n\n\"What is it?\"\n")
+
     ask()
     case "name":
     print("\"Seggallion of...well now that won't mean anything to you.\"")
     ('SETF', ('byte', 235), ('value', 0))
     jump 123
+
     case "job":
     print("\"If you mean my profession, I would have to say a knight of @Ashtalarea.\"")
     jump 123
+
     case "asht":
     print("\"A land @unfamiliar to you, I'm sure. Just as unfamiliar as yours is to me.\"")
     jump 123
+
     case "unfa,land":
     print("\"Yes, I was walking in the mountains of @Tyme when suddenly I heard a noise.\"")
     wait()
+
     print("\n\n\"It was dark and I heard this low growling.\"")
     wait()
+
     print("\n\n\"Having just been released from @Pildar's clutches, I was tired and hungry.\"")
     jump 123
+
     case "tyme":
     print("\"That is a great range of mountains in my land. Wherever that is now.\"")
     jump 123
+
     case "pild":
     print("\"From what I hear, he is not unlike your Mondain.\"")
     wait()
+
     print("\n\n\"Anyway, I peered into the darkness but could see nothing.\"")
     wait()
+
     print("\n\n\"Suddenly a huge wall of @blue flame appeared behind me.\"")
     jump 123
+
     case "blue,flam":
     print("\"Yes, blue like nothing I had seen in any spell.\"")
     wait()
+
     print("\n\n\"Anyway, just as I turned, the creature leapt from the woods.\"")
     wait()
+
     print("\n\n\"It hit me with such force, we both @entered the blue flame together.\"")
     jump 123
+
     case "ente":
     print("\"Well, it didn't burn us, we just fell through to the ground beyond it.\"")
     wait()
+
     print("\n\n\"After struggling for a while, I finally managed to kill it.\"")
     wait()
+
     print("\n\n\"That's when I wandered into this @community.\"")
     jump 123
+
     case "comm":
     print("\"The people of this land are brave and honorable.\"")
     wait()
+
     print("\n\n\"They fed and clothed me when I discovered that my gold was not the same as yours.\"")
     wait()
+
     print("\n\n\"I know it is a @queer story, but true none the less.\"")
     jump 123
+
     case "quee":
     print("\"Yes it is. Still, if I could I would like to join you on your quest.\"")
     wait()
+
     print("\n\n\"Perhaps one of the people in your land will know how to get me back to mine.\"")
     wait()
+
     print("\n\n\"If not, at least I can thank your people by assisting you.\"")
     jump 123
+
     case "join":
     jump 1768
+
     case "bye":
     print("\"Farewell.\"\n")
     bye()
+
     case "*":
     print("\"That's one on me. 'Tain't never heard o' that.\"")
     jump 123
@@ -85,59 +114,83 @@ interaction:
     if partyHas(byte 235):
     print("\"You don't look seperated to me.\" He laughs heartily.")
     jump 123
+
     endif
+
     integer(value 0) = partyJoin(byte 235)
+
     if equals(integer(value 0), byte 1):
     print("\"Not while you're in that thing!\"")
     jump 123
+
     endif
+
     if equals(integer(value 0), byte 2):
     print("\"I wish I could, however, you seem to have enough strong arms already.\"")
     wait()
+
     print("\n\n\"If any should leave though, seek me out.\"")
     jump 123
+
     endif
+
     if equals(integer(value 0), byte 3):
     jump 1773
+
     endif
+
     print("He bows low. \"Seggallion at your service.\"")
     wait()
+
     print("\n\nYou can see by his broad smile and large physique, he would be a worthy opponent.")
     wait()
+
     print("\n\n\"Shall we be off then?\"\n")
     wait()
+
     bye()
 
 2183:
     if equals(partyHas(byte 235), byte 0):
     print("\"Am I standing in your light? Sorry.\"")
     jump 123
+
     endif
+
     integer(value 0) = partyLeave(byte 235)
+
     if equals(integer(value 0), byte 1):
     print("\"Could we at least wait till we get back to shore?\"")
     jump 123
+
     endif
+
     print("\"I'll leave all these things with you.\"\n*\n\"It is hard to say goodbye, but I see your path leads elsewhere, so...\"\n")
     bye()
 
 2421:
     print("\"You have a question?\"\n")
+
     ask()
     case "name":
     print("\"Seggallion. You can call me 'Segg' though.\"")
     jump 2443
+
     case "job":
     print("He looks at you puzzled. \"The same as yours now.\"")
     jump 2443
+
     case "asht":
     print("\"Ask me again sometime. It is quite a story.\"")
     jump 2443
+
     case "leav":
     jump 2183
+
     case "bye":
     print("\"Farewell.\"\n")
     bye()
+
     case "*":
     print("He leans a bit closer. \"What was that?\"")
     jump 2443

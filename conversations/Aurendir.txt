@@ -7,84 +7,112 @@ name("Aurendir")
 description:
     print("a short man dressed in shepherds clothing.")
     wait()
+
     print("\n")
 
 interaction:
     integer(value 5) = byte 0
     print("\"Hi there!\"\n*\n\"Is there anything I can do for you?\"\n")
+
     ask()
     case "name":
     print("\"Once I was Aurendir the mighty - now I live a more @modest life.\"")
     ('SETF', ('byte', 235), ('value', 0))
     jump 114
+
     case "job,life,shep":
     print("\"I came here to @meditate, tend @sheep and sell @wool.\"")
     jump 114
+
     case "tend,shee":
     print("\"So they can be @shorn.\"")
     jump 114
+
     case "shor":
     print("\"To make @wool. People @buy it from me.\"")
     jump 114
+
     case "wool":
     print("\"It's used to make @thread.\"")
     jump 114
+
     case "buy":
     print("\"Would you like some wool?\" ")
     jump 1501
+
     case "thre":
     print("\"To be woven into @cloth.\"")
     jump 114
+
     case "wove,clot":
     print("\"You can make @robes from it.\"")
     jump 114
+
     case "robe":
     print("\"I wear a robe while I tend @sheep. It's all part of life's great @circle.\"")
     jump 114
+
     case "life,circ":
     print("\"From earth, to grass, to sheep, to me... when I die, I'll return to the @earth.\"")
     jump 114
+
     case "die,buri,back,eart,gras":
     print("\"That's right.\"")
     jump 114
+
     case "once,migh,mode,humi,humb":
     print("\"I used to be a powerful and wealthy mage. I wore silk robes, and fine jewelry.\"")
     wait()
+
     print("\n\n\"In fact, I even had my own @castle.\"")
     wait()
+
     print("\n\n\"But one day in my travels I visited the @Shrine of Humility.\"")
     wait()
+
     print("\n\n\"Meditating there, I had an idea.\"")
     wait()
+
     print("\n\n\"I would give up all my earthly possessions and quit the practice of magic.\"")
     wait()
+
     print("\n\n\"I would live as a shepherd!\"")
     wait()
+
     print("\n\n\"Surely this would be the greatest act of humility a man could perform.\"")
     wait()
+
     print("\n\n\"And so you see me here today.\"")
     jump 114
+
     case "powe,weal,mage,silk,jewe,cast,magi":
     print("\"Those days are no more.\"")
     jump 114
+
     case "shri":
     print("\"I should go there again soon... It changed my life.\"")
     jump 114
+
     case "medi,mant":
     print("\"You should go meditate at the shrine yourself. I find 'lum' a most effective mantra.\"")
     jump 114
+
     case "bye":
     print("\"See you later.\"\n")
     bye()
+
     case "*":
     print("\"Beats me.\"")
-    ESAC
+
+    esac
+
     jump 114
 
 1501:
     askc("yn")
     case "y":
     jump 1528
+
     case "n":
     print("\"Okay.\"")
     jump 114
@@ -93,50 +121,71 @@ interaction:
     if equals(integer(value 23), byte 0):
     integer(value 3) = byte 0
     jump 1664
+
     endif
+
     integer(value 0) = byte 0
     integer(value 2) = byte 1
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#2. $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
+
     if lessOrEquals(integer(value 0), integer(value 23)):
     jump 1562
+
     endif
+
     print("\"Which of you?\" ")
     ('INPUTNUM', 3)
+
     if equals(integer(value 3), byte 0):
     jump 1994
+
     endif
+
     integer(value 3) = minus(integer(value 3), byte 1)
+
     if greater(integer(value 3), integer(value 23)):
     jump 1548
+
     endif
+
     print("\"I charge 5 gold for a bale of wool. Would you like some?\" ")
+
     askc("yn")
     case "y":
+
     if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, byte 5)), weight(byte 190, byte 1)):
     print("\"You look pretty full to me.\"")
     wait()
+
     print("\n")
     jump 76
+
     endif
+
     if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 5):
     ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 5))
     ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 190), ('byte', 0), ('byte', 1))
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
     print("\"Very good.\" After accepting $Y's gold, $N hands over the wool.")
     wait()
+
     integer(value 5) = byte 1
     print("\n\n")
     jump 1994
+
     else:
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
     print("\"I'm sorry, but you don't seem to have enough money.\"")
     wait()
+
     print("\n")
     jump 76
+
     endif
+
     case "n":
     jump 1994
 
@@ -144,6 +193,8 @@ interaction:
     if integer(value 5):
     print("\"It was a pleasure doing business with you.\"")
     wait()
+
     endif
+
     print("\n")
     jump 76

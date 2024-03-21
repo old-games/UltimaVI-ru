@@ -6,10 +6,12 @@ name("Dale")
 
 description:
     print("a short, barrel-chested man.")
+
     f3()
 
 interaction:
     wait()
+
     print("\n\"A good $T to thee, Avatar.\"")
     jump 107
 
@@ -18,76 +20,106 @@ interaction:
 
 107:
     print("\n")
+
     ask()
     case "name":
     print("\"I am Dale the @Glassblower.\"")
     ('SETF', ('byte', 235), ('value', 0))
     jump 107
+
     case "job":
     print("\"I make @glassware, the finest in the land!\"")
     jump 107
+
     case "glas":
     print("\"If you'd like to @buy some of my glassware, just say the word!\"")
     jump 107
+
     case "swor":
     print("\"Aye, I know how to make glass swords.\"")
     wait()
+
     print("\n\n\"But there is little @demand for them.\"")
     jump 107
+
     case "dema":
     print("\"I require five gems for the crafting. This is too expensive for most.\"")
     wait()
+
     print("\n\n\"Aye, but things of @beauty they are...\"")
     jump 107
+
     case "beau":
     print("\"Thou seemst like a person who appreciates art.\"")
     wait()
+
     print("\n\n\"I'll make thee one, if thou hast the @gems.\"")
     jump 107
+
     case "crys,lens,tele":
     print("\"Hmmm...You'd have to see a lensmaker about that.\"")
     wait()
+
     print("\n\n\"I hear there's one near the Lycaeum.\"")
     jump 107
+
     case "buy":
+
     if notEquals(integer(value 32), byte 144):
     print("\"Come to my shop when it's open!\"")
     jump 107
+
     else:
     jump 1553
+
     endif
+
     case "gems":
+
     if notEquals(integer(value 32), byte 144):
     print("\"Come to my shop when it's open!\"")
     jump 107
+
     endif
+
     integer(value 0) = partyHasObject(byte 77, byte 0)
+
     if equals(integer(value 0), word 32769):
     print("\"Aye, a glass sword needs fine gems to complete its beauty!\"")
     jump 107
+
     else:
     jump 963
+
     endif
+
     case "bye":
     print("\"A fine $T to thee!\"\n")
     bye()
+
     case "*":
     print("\"Sorry?\"")
     jump 107
 
 963:
     ('SETNAME', ('integer', [('value', 0)]))
+
     if less(objectsCount(integer(value 0), byte 77), byte 5):
     print("\"Sorry, $Y, you haven't enough gems.\"")
     jump 107
+
     endif
+
     print("\"Aye, $Y, I see the gems you carry.\"")
     wait()
+
     print("\n\n\"Dost thou wish me to craft thee a glass sword?\" ")
+
     askc("yn")
     case "y":
     print("\"It will cost thee 5 gems! Art thou certain?\" ")
     jump 1230
+
     case "n":
     print("\"Hmm,\" he scowls, \"perhaps I was mistaken about thee...\"")
     jump 107
@@ -95,18 +127,24 @@ interaction:
 1230:
     askc("yn")
     case "y":
+
     if less(plus(canCarry(integer(value 0)), weight(byte 77, byte 5)), weight(byte 48, byte 1)):
     print("\"But thou cannot carry such a sword!\"")
     jump 107
+
     endif
+
     ('DELETE', ('integer', [('value', 0)]), ('byte', 77), ('byte', 0), ('byte', 5))
     print("$N turns to the furnace and begins crafting the sword.")
     wait()
+
     print("\n\nSoon it is finished, and you marvel at its beauty!")
     wait()
+
     print("\n\n\"There she is, and a finer work thou'lt never see!\"")
     ('NEW', ('integer', [('value', 0)]), ('byte', 48), ('byte', 0), ('byte', 1))
     jump 107
+
     case "n":
     print("\"Hmm,\" he scowls, \"perhaps I was mistaken about thee...\"")
     jump 107
@@ -115,52 +153,74 @@ interaction:
     if equals(integer(value 23), byte 0):
     integer(value 3) = byte 0
     jump 1689
+
     endif
+
     integer(value 0) = byte 0
     integer(value 2) = byte 1
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#2) $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
+
     if lessOrEquals(integer(value 0), integer(value 23)):
     jump 1587
+
     endif
+
     print("\"Which of you?\" ")
     ('INPUTNUM', 3)
+
     if equals(integer(value 3), byte 0):
     jump 72
+
     endif
+
     integer(value 3) = minus(integer(value 3), byte 1)
+
     if greater(integer(value 3), integer(value 23)):
     jump 1573
+
     endif
+
     integer(value 3) = character(integer(value 3), byte 0)
     integer(value 0) = byte 1
     ('SETNAME', ('integer', [('value', 3)]))
     string(value 0) = data(dword 2159, minus(integer(value 0), byte 1))
     print("#0) $0\n")
     integer(value 0) = plus(integer(value 0), byte 1)
+
     if notEquals(data(dword 2151, minus(integer(value 0), byte 1)), byte 0):
     jump 1710
+
     endif
+
     integer(value 7) = integer(value 0)
     print("\"Which item?\" ")
     ('INPUTNUM', 0)
+
     if equals(integer(value 0), byte 0):
     jump 72
+
     endif
+
     if greaterOrEquals(integer(value 0), integer(value 7)):
     jump 1689
+
     endif
+
     integer(value 0) = minus(integer(value 0), byte 1)
     integer(value 1) = data(dword 2145, integer(value 0))
     string(value 1) = data(dword 2159, integer(value 0))
     print("\"That $1 costs #1 gold.\"")
     wait()
+
     print("\n\n\"Interested, $Y?\" ")
+
     askc("yn")
     case "y":
     jump 1916
+
     case "n":
     jump 1689
 
@@ -168,21 +228,28 @@ interaction:
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 2151, integer(value 0)), byte 1)):
     print("\"But 'twould make thee o'erburdened, $Y!\"")
     wait()
+
     print("\n")
     jump 72
+
     endif
+
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):
     ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
     ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 2151), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 1))
     print("\"Excellent!\"\n\nAfter accepting $Y's gold, $N hands over the $1.")
     wait()
+
     print("\n\n")
     jump 1689
+
     else:
     print("\"But thou hast not enough gold, $Y!\"")
     wait()
+
     print("\n")
     jump 72
+
     endif
 
 2145:

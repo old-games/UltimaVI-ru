@@ -7,119 +7,168 @@ name("Sionnach")
 description:
     print("a troubadour with a drum. His tailored suit is travel-worn but bright.")
     wait()
+
     print("\n")
 
 interaction:
     if equals(isNearby(byte 147), byte 0):
     jump 318
+
     endif
+
     if equals(integer(value 16), byte 1):
     print("\"Excuse me, ma'am. We are, um, indisposed.\" He returns his attentions to Sylaina.\n")
     bye()
+
     else:
     print("\"Pardon me, sir, but I hate to keep my dear one waiting.\"")
     wait()
+
     print("\n\n\"You understand, of course.\" He returns his attentions to Sylaina.\n")
     bye()
+
     endif
 
 318:
     print("\"Greetings, ")
+
     if integer(value 23):
     print("folks.\"")
     jump 352
+
     else:
     print("$G.\"")
+
     endif
+
     if and(partyHas(byte 4), equals(hasBit(byte 235, byte 4), byte 0)):
     wait()
+
     ('PORTRAIT', ('byte', 4))
     print("\n\n\"Why, hello there, my friend. You've grown a bit since we met last.\"")
     wait()
+
     print("\n\n\"I'm afraid I can't recall your name; you'll have to forgive me.\"")
     wait()
+
     ('PORTRAIT', ('byte', 235))
     print("\n\n\"It has been a while, Master Iolo.\"")
     ('SETF', ('byte', 235), ('byte', 4))
+
     endif
+
     print("\n")
+
     ask()
     case "name":
     print("\"My name is Sionnach.\" (He pronounces it 'ShaNOK'.)")
     ('SETF', ('byte', 235), ('value', 0))
     jump 559
+
     case "job":
     print("\"I'm a @drummer and a @singer.\"")
     jump 559
+
     case "drum":
     print("\"Would you like me to play for you?\"")
     jump 2354
+
     case "batt,summ":
     print("\"'Twas long ago... Back when men forced sorcerous secrets from demons...\"")
     wait()
+
     print("\n\n\"Back when women wove moonbeams into cloth of indescribably fine texture...\"")
     wait()
+
     print("\n\n\"Long ago, Lord Fennian devised a language of raps and knocks on the great drums used by his armies.\"")
     wait()
+
     print("\n\n\"Each drum was made of the entire skin of a bull, stretched taut by a dozen cords.\"")
     wait()
+
     print("\n\n\"It's true. I read that in a @book I found at the Lycaeum.\"")
     jump 559
+
     case "book,lyca,read,foun":
     print("\"I also read a number of maritime histories.\"")
     wait()
+
     print("\n\n\"They record the facts behind the many songs of different @ships.\"")
     jump 559
+
     case "song,ship":
     print("\"The sea is not always a gentle, generous friend.\"")
     wait()
+
     print("\n\n\"Storms have brought down many a haughty vessel: the evil @Empire, the @Dutchman, the Virtuous...\"")
     wait()
+
     print("\n\n\"Have you heard of the @Virtuous?\"")
     jump 559
+
     case "dutc,empi":
     print("\"I don't know where she rests. Ask other bards.\"")
     wait()
+
     print("\n\n\"There's probably great treasure on her, and on the @Virtuous, too.\"")
     jump 559
+
     case "sing,virt,no":
     print("Sionnach sings softly for you.")
     wait()
+
     print("\n\n\"A southerner from Serpent's Hold")
     wait()
+
     print("\nOnce slew a pirate crew of eight.")
     wait()
+
     print("\nYoung Keegan was this warrior bold,")
     wait()
+
     print("\nAnd thus he claimed the 'Bitter Kate.'\"")
     wait()
+
     print("\n\n\"He broke a bottle 'cross her bow")
     wait()
+
     print("\nAnd 'Virtuous' became her name.")
     wait()
+
     print("\nFor many years she served him well;")
     wait()
+
     print("\nGood Captain Keegan rose to fame.\"")
     wait()
+
     print("\n\n\"The Barston Bay came north to fight,")
     wait()
+
     print("\nThe Jolly Roger on her mast.")
     wait()
+
     print("\nTo cold Loch Lake she sailed that night.")
     wait()
+
     print("\nTo sink Keegan's ship with cannon blast.\"")
     wait()
+
     print("\n\n\"Ah, the old Bitter Kate, she's mended her ways,")
     wait()
+
     print("\nAnd as the Virtuous, ended her days.\"")
     wait()
+
     print("\n\n\"Captain Keegan, he sleeps the endless sleep")
     wait()
+
     print("\nWhile on Loch Lake's shore the Virtuous lays.\"")
     jump 559
+
     case "bye":
     print("\"Take care!\"\n")
     bye()
+
     case "*":
     print("\"That I cannot help you with.\"")
     jump 559
@@ -129,12 +178,16 @@ interaction:
     case "n":
     print("\"As you wish, $G.\"")
     jump 559
+
     case "y":
     print("The drum is wide and flat. Sionnach holds it by the strings on the back of it.")
     wait()
+
     print("\n\nThen, he taps it in intricate patterns using both ends of the dowel held loosely in his other hand.")
     wait()
+
     print("\n\nIt sounds thus: 'RUM-TE-TUM, RUM-TE-TUM, TUMBLETY-TUM-TE-TUM!'The beat is invigorating and exciting.")
     wait()
+
     print("\"That's a @battle summons.\"")
     jump 559

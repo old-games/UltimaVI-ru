@@ -401,20 +401,27 @@ def _format_string(string):
 
 
 def _format_instructions(instructions):
+    def empty_prefix_line():
+        if result and result[-1] != '':
+            result.append('')
+
     result = []
     for instruction in instructions:
         # FIXME string escaping
         if instruction[0] == 'IF':
+            empty_prefix_line()
             result.append(f'if {_format_expression(instruction[1])}:')
 
         # FIXME rename
         elif instruction[0] == 'ASKC':
+            empty_prefix_line()
             result.append(f'askc("{_format_string(instruction[1])}")')
 
         elif instruction[0] == 'PRINT':
             result.append(f'print("{_format_string(instruction[1])}")')
 
         elif instruction == 'ASK':
+            empty_prefix_line()
             result.append(f'ask()')
 
         elif instruction[0] == 'CASE':
@@ -423,28 +430,43 @@ def _format_instructions(instructions):
         elif instruction[0] == 'ASSIGN':
             result.append(f'{_format_expression(instruction[1])} = {_format_expression(instruction[2])}')
 
+        elif instruction == 'ESAC':
+            empty_prefix_line()
+            result.append('esac')
+            result.append('')
+
         elif instruction == 'ENDIF':
+            empty_prefix_line()
             result.append('endif')
+            result.append('')
 
         elif instruction == 'F3':
+            empty_prefix_line()
             result.append('f3()')
 
         elif instruction == 'WAIT':
             result.append('wait()')
+            result.append('')
 
         elif instruction == 'ELSE':
+            empty_prefix_line()
             result.append('else:')
 
         elif instruction == 'BYE':
             result.append('bye()')
+            result.append('')
 
         elif instruction[0] == 'JUMP':
             result.append(f'jump {instruction[1]}')
+            result.append('')
 
         else:
             result.append(str(instruction))
 
-    return [f'    {line}' for line in result]
+    if result and result[-1] == '':
+        del result[-1]
+
+    return [f'    {line}' if line else '' for line in result]
 
 
 def decode(raw_conversation):

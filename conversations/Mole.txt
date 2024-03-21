@@ -6,107 +6,152 @@ name("Mole")
 
 description:
     print("a coarse looking individual")
+
     if equals(hasBit(byte 235, byte 7), byte 0):
     print(".\n*")
 
 interaction:
     integer(value 0) = partyHasObject(word 339, byte 0)
+
     if notEquals(integer(value 0), word 32769):
     print("\"Now, now. You can't be bringing bodies out here without no reservations.\"\n*\n\"Go see me master Glen about having a funeral first.\"\n")
     bye()
+
     endif
+
     if and(hasBit(byte 146, byte 6), equals(hasBit(byte 235, byte 6), byte 0)):
     print("\"Old penny pincher says he's going to pay me?\"\n*\n\"I'll believe it when I have the coins in me hand.\"")
     ('SETF', ('byte', 235), ('byte', 6))
     jump 1147
+
     endif
+
     if and(hasBit(byte 146, byte 5), equals(hasBit(byte 235, byte 5), byte 0)):
     print("\"Aye, maybe there'd 'ave been extra for shovel and such in my pay, if the old skinflint had ever remembered to pay me!\"\n")
     ('SETF', ('byte', 235), ('byte', 5))
     bye()
+
     endif
+
     if and(hasBit(byte 146, byte 4), equals(hasBit(byte 235, byte 4), byte 0)):
     print("\"I'd have been glad to get a new shovel! Believe me, I knows how to pick out a good one, too.\"\n*\n\"But how'm I supposed to pay for it, you just ask him that!\"\n")
     ('SETF', ('byte', 235), ('byte', 4))
     bye()
+
     endif
+
     if and(hasBit(byte 146, byte 3), equals(hasBit(byte 235, byte 3), byte 0)):
     print("Mole listens, a bit impatiently.\n\n*\"He gave me a shovel, all right - cheapest shovel I ever saw in all my years in the business!\"*\n\n\"Tell 'im it broke the third day I tried usin' it.\"\n")
     ('SETF', ('byte', 235), ('byte', 3))
     bye()
+
     endif
+
     if and(hasBit(byte 146, byte 2), equals(hasBit(byte 235, byte 2), byte 0)):
     print("You tell him what Glen said.\n\n*\"Wants 'is graves dug, does he? Well, you can tell old zombie-face I'd do a lot better if I had a shovel!\"\n")
     ('SETF', ('byte', 235), ('byte', 2))
     bye()
+
     endif
+
     print("\"Hello. If I be speaking with ye, I'd best not be digging at the same time.\"\n")
+
     ask()
     case "name":
     print("\"I be Mole.\"")
     ('SETF', ('byte', 235), ('value', 0))
     jump 1147
+
     case "dig,fath":
     print("\"Digging's been in me family for generations.\"")
     jump 1147
+
     case "grav":
     print("\"If you take away enough dirt, a grave's what's left.\"\n*\n\"After they has a @funeral, I puts all the dirt back again.\"")
     jump 1147
+
     case "fune":
     print("\"Funerals aren't me trade. I know plenty about @dirt, though.\"")
     jump 1147
+
     case "dirt":
     print("\"I knows all the different @kinds of dirt by heart.\"")
     jump 1147
+
     case "diff,kind,hear":
     print("\"Learned 'em from me father.\"")
     jump 1147
+
     case "trad,job":
     print("\"I @dig @graves for me master, @Glen.\"")
     jump 1147
+
     case "give":
+
     if notEquals(partyHasObject(byte 104, byte 0), word 32769):
     jump 2354
+
     else:
     print("\"What 'ave you got I could want? All I needs in me life is a good @shovel.\"")
+
     endif
+
     jump 1147
+
     case "shov":
+
     if notEquals(partyHasObject(byte 104, byte 0), word 32769):
     jump 2354
+
     else:
     print("\"'Tis the @tool of me trade.\"")
+
     endif
+
     jump 1147
+
     case "tool":
     print("\"Me father said a good shovel is more important than a good @wife.\"")
     jump 1147
+
     case "wife":
     print("\"That's what you look for after you've got a good @shovel.\"")
     jump 1147
+
     case "mast,glen":
+
     if equals(hasBit(byte 146, byte 2), byte 0):
     print("\"I'll not speak with 'im, the way he treats me.\"\n*\n\"But if you sees him, tell him I could dig these graves better if I had a @shovel!\"")
     ('SETF', ('byte', 235), ('byte', 2))
+
     else:
     print("\"He's a strange one... Nobody knows what he keeps in that back room of 'is.\"")
+
     endif
+
     jump 1147
+
     case "bye":
     print("\"Oh, going away, are ye? Let me know when ye return, so I'll know 'tis time to speak with ye again.\"*\n\nHe returns to his digging.\n")
     bye()
+
     case "*":
     print("\"I think ye'd best ask someone smarter than me.\"")
-    ESAC
+
+    esac
+
     jump 1147
 
 2354:
     print("\"Oh, ye've brought a shovel with ye! Is it for me?\" ")
+
     askc("yn")
     case "n":
     print("\"Too bad. I really need one.\"")
     jump 1147
-    ESAC
+
+    esac
+
     ('DELETE', ('partyHasObject', [('byte', 104), ('byte', 0)]), ('byte', 104), ('byte', 0), ('byte', 1))
     print("\n\"Thank ye very much! And 'tis not even my birthday!\"\n*\n\"Let me tell you this - keep an eye on old Glen.\"\n*\n\"They say not all of the bodies end up where they're supposed to...\"\n*\n\"You know, 'e was supposed to have paid me for a new shovel, and then you wouldn't have 'ad to go to so much trouble.\"")
     ('SETF', ('byte', 235), ('byte', 2))

@@ -9,111 +9,157 @@ description:
 
 interaction:
     wait()
+
     print("\n\"Spare a doubloon fer an old seahand?\" He holds out his hand.")
     wait()
+
     print("\n\nDo you give him any money? ")
+
     askc("yn")
     case "n":
     jump 1885
+
     case "y":
     print("\nHow much do you give? ")
     ('INPUT', 0)
+
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
     print("You do not have that much.\n")
     jump 188
+
     endif
+
     if equals(integer(value 0), byte 0):
     jump 1885
+
     endif
+
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
     print("\"Thank, ye kindly, matey.\"")
-    ESAC
+
+    esac
+
     print("\n")
+
     ask()
     case "name":
     print("\"I be Heftimus McPry, matey.\"")
     ('SETF', ('byte', 235), ('value', 0))
     jump 323
+
     case "job":
     print("\"Once Buccaneer's @Den quaked at the mention o' me name.\"")
     wait()
+
     print("\n\n\"I was the greatest sabre fighter on all the high seas.\"")
     wait()
+
     print("\n\n\"Then one day...\"")
     wait()
+
     print("\n\"I fought Captain @Hawkins, that scurvy dog, an' he struck off me @hand with his sword.\"")
     jump 323
+
     case "hook,foug,stru,hand,swor":
     print("\"'Twas a bitter fight; I almost died o' the wound.\"")
     wait()
+
     print("\n\n\"Hawkins threw me hand to the sharks.\"")
     jump 323
+
     case "capt,hawk":
     print("\"He be long gone now, he an' his ship the Empire. A pox on his memory!\"")
     jump 323
+
     case "bucc,den":
     print("\"That be an island, matey, and no place fer a decent soul like yerself.\"")
     jump 323
+
     case "map":
     print("\"That bit o' news will cost ye twenty coins. What say ye, matey? Aye or nay?\" ")
     jump 1423
+
     case "dung":
     print("\"I've been into the dungeon @Wrong.\"")
     wait()
+
     print("\n\n\"There's a @cave on this island that looks a lot safer.\"")
     jump 323
+
     case "cave":
     print("\"I sleep in front of it every night.\"")
     wait()
+
     print("\n\n\"Soon as I've saved up a stake, I'm going in there to dig for gold.\"")
     jump 323
+
     case "wron":
     print("\"'Twas certainly the wrong place for an old seadog to be!\"")
     wait()
+
     print("\n\nHe laughs, chokes, and coughs for a while.")
     wait()
+
     print("\n\n\"I'll be allright, matey.\"")
     jump 323
+
     case "bye":
     print("\"Good journey.\"\n")
     bye()
+
     case "*":
     print("\"Sorry, don't really know that.\"")
-    ESAC
+
+    esac
+
     jump 323
 
 1423:
     askc("ayn")
     case "a,y":
     jump 1573
-    ESAC
+
+    esac
+
     print("\n\"Then maybe ten? Aye or nay?\" ")
+
     askc("ayn")
     case "n":
     print("\"So be it, matey.\"")
     jump 323
-    ESAC
+
+    esac
+
     print("\n")
+
     if less(objectsCount(byte 1, byte 88), byte 10):
     print("\"I can't help ye, matey.\"")
     jump 323
+
     endif
+
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 10))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 10))
     jump 1621
+
     if less(objectsCount(byte 1, byte 88), byte 20):
     print("\"Hmm.\"")
     jump 1438
+
     endif
+
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 20))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 20))
     print("\"I thank ye kindly, matey. The last I saw o' that bit o' parchment...\"")
     wait()
+
     print("\n\n\"I needed it to start a fire in a @dungeon.\"")
     wait()
+
     print("\n\n\"But afore I could apply sparks to the tinder, a huge swarm o' rats drove me away.\"")
     wait()
+
     print("\n\n\"The scrap o' map lies in the dungeon @Wrong, matey.\"")
     jump 323
 

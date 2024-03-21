@@ -7,248 +7,356 @@ name("Mandrake")
 description:
     print("a charming fellow with a peacock feather in his cap.")
     wait()
+
     print("\n")
 
 interaction:
     if hasBit(byte 235, value 0):
     jump 389
+
     endif
+
     print("\"Welcome, welcome! 'Tis always a pleasure to see a new face.\"")
     wait()
+
     print("\n\n\"My name is Mandrake. And what may I call thee?\"\n")
+
     ask()
     ('SETF', ('byte', 235), ('value', 0))
     print("\n")
+
     if integer(value 16):
     print("\"A pleasure, to be sure, $G. I hope I'll be seeing a lot more of you.\" He gives you a sly wink.")
+
     else:
     print("\"Well met, sirrah!\"")
     wait()
+
     print("\n\n\"You look like the sort who knows how to enjoy a good @story.\"")
+
     endif
+
     jump 525
 
 389:
     print("\"$P! It's been too long. What brings you to this part of the realm?\"\n")
+
     ask()
     print("\n\"Well, never mind that for the moment. Let me sing thee a @song!\"\n")
 
 525:
     print("\n")
+
     ask()
     case "name":
     print("\"Mandrake, my friend, Mandrake. Like the @root, but taller, handsomer, and @louder.\"")
     jump 525
+
     case "root":
     print("\"It grows in swamps, but I'm found mostly in @taverns.\"")
     jump 525
+
     case "tall,hand,loud":
     print("\"So I've heard.\"")
     jump 525
+
     case "tave":
     print("\"I visit them all.\"")
     wait()
+
     print("\n\n\"The Fallen @Virgin and the Sword and @Keg are rowdy and rough.\"")
     wait()
+
     print("\n\"The Blue @Bottle serves Frasier's @Folly - the finest ale in all Britannia.\"")
     wait()
+
     print("\n\n\"But the Cat's @Lair is still my favorite.\"")
     jump 525
+
     case "fras,foll":
     print("\"You should try some! 'Twill do thee a world of good.\"")
     jump 525
+
     case "fall,virg":
     print("\"'Tis in Buccaneer's @Den - no place for the timid.\"")
     jump 525
+
     case "bucc,den":
     print("\"If thou knowest not where it is, I'll not be the one to say.\"")
     jump 525
+
     case "swor,keg":
     print("\"Over in @Jhelom, it is. They always love a good brawl.\"")
     jump 525
+
     case "braw,jhel":
     print("\"Lots of warriors there.\"")
     wait()
+
     print("\n\n\"They fight just about every night, but they don't mean anything by it. 'Tis all in fun.\"")
     jump 525
+
     case "blue,bott":
     print("\"'Tis in @Moonglow.\"")
     wait()
+
     print("\n\n\"@Derydlus often drinks there - the man can put away more ale than any other I've met.\"")
     wait()
+
     print("\n\n\"Many's the time he's drunk me under the table.\"")
     jump 525
+
     case "moon":
     print("\"Too honest a town to be much fun, but some fine people live there.\"")
     wait()
+
     print("\n\n\"You should have @Penumbra tell your fortune sometime.\"")
     jump 525
+
     case "dery":
     print("\"Give him my regards if you see him.\"")
     jump 525
+
     case "penu":
     print("\"I hear she has strange @powers.\"")
     jump 525
+
     case "stra,powe":
     print("\"Yes, the gift of @prophecy.\"")
     jump 525
+
     case "gift,prop":
     print("\"So I hear.\"")
     jump 525
+
     case "cat,lair":
     print("\"A wonderful place! Dr. Cat gives me free drinks just for singing.\"")
     wait()
+
     print("\n\n\"He loves games of all kinds too. Mention my name to him and he'll be sure to treat thee well.\"")
     jump 525
+
     case "job":
     print("\"I travel all over to spread important @news throughout the realm - and @tales and @songs as well.\"")
     wait()
+
     print("\n\n\"If you have time enough, I'll favor you with all three.\"")
     jump 525
+
     case "trav,impo,news":
     print("\"My travels were interrupted recently in a most fearsome manner.\"")
     wait()
+
     print("\n\n\"I was captured by the @gargoyles, and taken down to the other side of the world, where they held me prisoner.\"")
     wait()
+
     print("\n\n\"But such was my good fortune that one of them helped me to escape.\"")
     wait()
+
     print("\n\n\"He spoke but little of our tongue, but I believe he said his name was 'Beh Lem.'\"")
     jump 525
+
     case "garg":
     print("\"I've seen their handiwork many a time in my travels.\"")
     wait()
+
     print("\n\n\"I believe they have taken over all of the shrines of the eight @virtues.\"")
     jump 525
+
     case "eigh,virt":
     print("\"Oh, you know: honesty, compassion, valour, justice, sacrifice, honor, spirituality, and humility.\"")
     wait()
+
     print("\n\n\"That's what you get for choosing such @stuffy principles as a basis.\"")
     jump 525
+
     case "stuf,prin":
     print("\"Truth, love and courage... hah!\"")
     wait()
+
     print("\n\n\"If it had been up to me, I'd have chosen wine, women and song instead.\"")
     wait()
+
     print("\n\n\"Think of the virtues those would @lead to!\"")
     jump 525
+
     case "wine,wome,lead,thin":
     print("\"I've thought it over...\"")
     wait()
+
     print("\n\n\"The principles of wine, women and song would lead to the eight virtues of")
     wait()
+
     print("\ndrunkenness, sensuality, harmony, lust, laziness, dance, indulgence, and happiness.\"")
     wait()
+
     print("\n\n\"Now there would be the foundation for a fine world to live in!\"")
     jump 525
+
     case "sing,song":
     jump 3743
+
     case "tale,stor":
     jump 4447
+
     case "bye":
+
     if equals(integer(value 16), byte 1):
     print("\"Leaving so soon, $G? And I was enjoying your company so.\" He bows and kisses your hand.")
+
     else:
     print("\"Well, $P, I'm glad you stopped by to chat with me. We must do it again sometime.\"")
+
     endif
+
     wait()
+
     print("\n\n\"I'll be glad to play another song for you when next we meet.\"\n")
     bye()
+
     case "*":
+
     if random(byte 0, byte 1):
     print("\"I'll tell you of that later, perhaps.\"")
+
     else:
     print("\"Oh, why bother with such a boring subject? How about a @song instead?\"")
+
     endif
-    ESAC
+
+    esac
+
     jump 525
 
 3743:
     print("\"I sing better if I keep my belly full, and my wineskin as well.\"")
     wait()
+
     print("\n\n\"Would you care to donate a coin or two?\" ")
+
     askc("yn")
     case "n":
     print("\"As you wish.\"")
     wait()
+
     print("\n\n")
     jump 4016
+
     case "y":
     print("How much do you give him? ")
     ('INPUT', 0)
+
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
     print("You don't have that much.\n")
     jump 3884
+
     endif
+
     if equals(integer(value 0), byte 0):
     jump 3859
+
     endif
+
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
     print("\"Thank you kindly.\"\n\n")
-    ESAC
+
+    esac
+
     print("\"Ok, here we go!\"")
     wait()
+
     print("\n\n\"The dragon is a scaly sort")
     wait()
+
     print("\nWho spouts flame when he sneezes.")
     wait()
+
     print("\nMany a bold knight has he fought,")
     wait()
+
     print("\nFor he goes where e'er he pleases.\"")
     wait()
+
     print("\n\n\"Mister Porcupine's naught but spines,")
     wait()
+
     print("\nTo the dismay of him and his missus.")
     wait()
+
     print("\nFor that for which he truly pines")
     wait()
+
     print("\nIs one of her sweet kisses.\"")
     wait()
+
     print("\n\n\"A gypsy girl and a butterfly")
     wait()
+
     print("\nWere out in the woods at play")
     wait()
+
     print("\nAnd when I saw them I said 'Oh my!")
     wait()
+
     print("\nWhat a perfect sunny day!'\"")
     jump 525
 
 4447:
     print("\"Perhaps my stories would be worth a few coins?\" ")
+
     askc("yn")
     case "n":
     print("\"As you wish.\"")
     wait()
+
     print("\n\n")
     jump 4655
-    ESAC
+
+    esac
+
     print("How much do you give him? ")
     ('INPUT', 0)
+
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
     print("You don't have that much.\n\n")
     jump 4525
+
     endif
+
     if equals(integer(value 0), byte 0):
     jump 3859
+
     endif
+
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
     print("\"You're too kind.\"\nMandrake tells you tales for quite a while, yet listening to them you lose track of time.")
     wait()
+
     print("\n\nHe tells you of ships sailing off the edge of the world, of earthquakes, and mad wizards, and fierce battles.")
     wait()
+
     print("\n\nHe speaks of spells that halt the flow of time, a man who found a way to fly, and the strange secret of the wisps.")
     wait()
+
     print("\n\nHe tells you that there are two bands of gypsies who travel the King's Way, who are often mistaken for each other.")
     wait()
+
     print("\n\nHe speaks of the pirate ship Empire, which was much dreaded in its day, and of the giant ants that can be found in the Dry Land.")
     wait()
+
     print("\n\nYour head is filled with wondrous visions.")
     wait()
+
     print("\nBut finally ")
+
     if partyHas(byte 2):
     print("he notices that Dupre has begun to doze off, and decides to bring his tales to an end.")
+
     else:
     print("his tales come to an end.")
+
     endif
+
     jump 525
