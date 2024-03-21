@@ -18,7 +18,7 @@ interaction:
     else:
         print("\"Good $T, $G.\"")
 
-    endif
+    fi
 
 95:
     print("\n")
@@ -52,7 +52,7 @@ interaction:
             print("\"Wouldst thou like some cloth?\" ")
             jump 902
 
-        endif
+        fi
 
     case "sell":
     case "wool":
@@ -64,7 +64,7 @@ interaction:
             print("\"Hast thou some wool to sell?\" ")
             jump 940
 
-        endif
+        fi
 
     case "silk":
         if and(notEquals(integer(value 32), byte 144), notEquals(integer(value 32), byte 146)):
@@ -74,7 +74,7 @@ interaction:
         else:
             jump 978
 
-        endif
+        fi
 
     case "bag":
     case "ball":
@@ -144,7 +144,7 @@ interaction:
         print("\"Begging thy pardon, $G, but I see no silk!\"")
         jump 95
 
-    endif
+    fi
 
     ('SETNAME', ('integer', [('value', 0)]))
     print("\"Aye, $Y, I can weave thy silk thread into cloth.\"")
@@ -159,7 +159,7 @@ interaction:
             print("\"Begging thy pardon, $Y, but thou dost not have 10 gold!\"")
             jump 95
 
-        endif
+        fi
 
         ('DELETE', ('integer', [('value', 0)]), ('byte', 88), ('byte', 0), ('byte', 10))
         ('DELETE', ('integer', [('value', 0)]), ('byte', 226), ('byte', 0), ('byte', 1))
@@ -189,7 +189,7 @@ interaction:
         integer(value 2) = plus(integer(value 2), byte 1)
         integer(value 3) = byte 1
 
-    endif
+    fi
 
     integer(value 0) = plus(integer(value 0), byte 1)
 
@@ -197,7 +197,7 @@ interaction:
         print("\"Begging thy pardon, but I see no wool!\"")
         jump 95
 
-    endif
+    fi
 
     if equals(integer(value 2), byte 1):
         integer(value 3) = character(data(dword 2784, byte 0), byte 0)
@@ -208,7 +208,7 @@ interaction:
         print("\n\n")
         jump 1777
 
-    endif
+    fi
 
 1637:
     integer(value 1) = byte 1
@@ -221,7 +221,7 @@ interaction:
     if lessOrEquals(integer(value 1), integer(value 2)):
         jump 1644
 
-    endif
+    fi
 
     print("\"Which of you?\" ")
     ('INPUTNUM', 3)
@@ -230,14 +230,14 @@ interaction:
         print("\"As you wish...\"")
         jump 95
 
-    endif
+    fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greaterOrEquals(integer(value 3), integer(value 2)):
         jump 1637
 
-    endif
+    fi
 
     integer(value 3) = character(data(dword 2784, integer(value 3)), byte 0)
 
@@ -265,7 +265,7 @@ interaction:
         integer(value 3) = byte 0
         jump 2128
 
-    endif
+    fi
 
 1984:
     integer(value 0) = byte 0
@@ -280,7 +280,7 @@ interaction:
     if lessOrEquals(integer(value 0), integer(value 23)):
         jump 1998
 
-    endif
+    fi
 
     print("\"Which of you?\" ")
     ('INPUTNUM', 3)
@@ -289,14 +289,14 @@ interaction:
         print("\"As you wish, $G.\"")
         jump 95
 
-    endif
+    fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
         jump 1984
 
-    endif
+    fi
 
     integer(value 3) = character(integer(value 3), byte 0)
 
@@ -322,7 +322,7 @@ interaction:
         print("\"But 'twould make thee o'erburdened, $Y!\"")
         jump 95
 
-    endif
+    fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 25):
         ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 25))
@@ -336,28 +336,28 @@ interaction:
 
         // Unreachable code!
 
-    endif
+    fi
 
 2433:
     if equals(partyHasObject(word 270, byte 0), word 32769):
         print("\"I'm not sure what you mean.\"")
         jump 95
 
-    endif
+    fi
 
     if notEquals(partyHasObject(byte 241, byte 0), word 32769):
         print("\"Take the cloth to @Marissa. Mayhap she can sew it into a bag for ")
         print("thee.\"")
         jump 95
 
-    endif
+    fi
 
     if notEquals(partyHasObject(byte 226, byte 0), word 32769):
         print("\"I can weave that @silk for thee... Then thou should speak with ")
         print("@Marissa.\"")
         jump 95
 
-    endif
+    fi
 
     print("\"If you had some @silk thread, I could help thee. Go ask @Arbeth if he")
     print(" has any to spare.\"")

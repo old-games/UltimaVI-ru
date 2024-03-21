@@ -23,7 +23,7 @@ interaction:
     else:
         print("\"What can I do for thee?\"")
 
-    endif
+    fi
 
     jump 161
 
@@ -54,7 +54,7 @@ interaction:
             integer(value 9) = byte 0
             jump 1739
 
-        endif
+        fi
 
     case "armo":
         if notEquals(integer(value 32), byte 144):
@@ -65,7 +65,7 @@ interaction:
             integer(value 9) = integer(value 8)
             jump 1739
 
-        endif
+        fi
 
     case "sell":
         if notEquals(integer(value 32), byte 144):
@@ -75,7 +75,7 @@ interaction:
         else:
             jump 817
 
-        endif
+        fi
 
     case "job":
         print("\"I'm just the @apprentice, but if you want to @buy or @sell somethin' ")
@@ -123,14 +123,14 @@ interaction:
         integer(value 3) = byte 1
         jump 925
 
-    endif
+    fi
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if data(dword 2382, integer(value 1)):
         jump 845
 
-    endif
+    fi
 
 925:
     integer(value 0) = plus(integer(value 0), byte 1)
@@ -138,7 +138,7 @@ interaction:
     if lessOrEquals(integer(value 0), integer(value 23)):
         jump 838
 
-    endif
+    fi
 
     if equals(integer(value 3), byte 0):
         print("\"Sorry, none of you has anything I need.\"")
@@ -147,7 +147,7 @@ interaction:
         print("\n")
         jump 129
 
-    endif
+    fi
 
     if equals(integer(value 2), byte 1):
         integer(value 3) = character(data(dword 2532, byte 0), byte 0)
@@ -158,7 +158,7 @@ interaction:
         print("\n\n")
         jump 1202
 
-    endif
+    fi
 
 1078:
     integer(value 1) = byte 1
@@ -171,7 +171,7 @@ interaction:
     if lessOrEquals(integer(value 1), integer(value 2)):
         jump 1085
 
-    endif
+    fi
 
     print("\"Which of you?\" ")
     ('INPUTNUM', 3)
@@ -179,14 +179,14 @@ interaction:
     if equals(integer(value 3), byte 0):
         jump 1708
 
-    endif
+    fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greaterOrEquals(integer(value 3), integer(value 2)):
         jump 1078
 
-    endif
+    fi
 
     integer(value 3) = character(data(dword 2532, integer(value 3)), byte 0)
 
@@ -198,7 +198,7 @@ interaction:
     if equals(hasObject(integer(value 3), data(dword 2382, integer(value 0)), byte 0), byte 0):
         jump 1263
 
-    endif
+    fi
 
     data(dword 2502, integer(value 5)) = integer(value 0)
     integer(value 5) = plus(integer(value 5), byte 1)
@@ -209,13 +209,13 @@ interaction:
     if data(dword 2382, integer(value 0)):
         jump 1216
 
-    endif
+    fi
 
     if equals(integer(value 5), byte 1):
         integer(value 6) = data(dword 2502, byte 0)
         jump 1427
 
-    endif
+    fi
 
     integer(value 0) = byte 1
 
@@ -228,7 +228,7 @@ interaction:
     if lessOrEquals(integer(value 0), integer(value 5)):
         jump 1322
 
-    endif
+    fi
 
     print("\"Which item?\" ")
     ('INPUTNUM', 6)
@@ -236,12 +236,12 @@ interaction:
     if greater(integer(value 6), integer(value 5)):
         jump 1202
 
-    endif
+    fi
 
     if equals(integer(value 6), byte 0):
         jump 1708
 
-    endif
+    fi
 
     integer(value 6) = data(dword 2502, minus(integer(value 6), byte 1))
 
@@ -268,7 +268,7 @@ interaction:
             print("\n\n")
             jump 1202
 
-        endif
+        fi
 
     case "y":
         ('SETNAME', ('integer', [('value', 3)]))
@@ -288,7 +288,7 @@ interaction:
 
             // Unreachable code!
 
-        endif
+        fi
 
     esac
 
@@ -304,7 +304,7 @@ interaction:
         integer(value 3) = byte 0
         jump 1885
 
-    endif
+    fi
 
 1759:
     integer(value 0) = byte 0
@@ -319,7 +319,7 @@ interaction:
     if lessOrEquals(integer(value 0), integer(value 23)):
         jump 1773
 
-    endif
+    fi
 
     print("\"Which of you?\" ")
     ('INPUTNUM', 3)
@@ -327,14 +327,14 @@ interaction:
     if equals(integer(value 3), byte 0):
         jump 1708
 
-    endif
+    fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
         jump 1759
 
-    endif
+    fi
 
     integer(value 3) = character(integer(value 3), byte 0)
 
@@ -350,12 +350,12 @@ interaction:
     if and(integer(value 9), notEquals(data(dword 2382, plus(integer(value 9), minus(integer(value 0), byte 1))), byte 0)):
         jump 1896
 
-    endif
+    fi
 
     if and(equals(integer(value 9), byte 0), lessOrEquals(integer(value 0), integer(value 8))):
         jump 1896
 
-    endif
+    fi
 
     integer(value 7) = integer(value 0)
     print("\"Which item?\" ")
@@ -364,12 +364,12 @@ interaction:
     if equals(integer(value 0), byte 0):
         jump 1708
 
-    endif
+    fi
 
     if greaterOrEquals(integer(value 0), integer(value 7)):
         jump 1885
 
-    endif
+    fi
 
     integer(value 0) = minus(plus(integer(value 9), integer(value 0)), byte 1)
     integer(value 1) = data(dword 2362, integer(value 0))
@@ -399,7 +399,7 @@ interaction:
         print("\n")
         jump 129
 
-    endif
+    fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):
         ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
@@ -419,7 +419,7 @@ interaction:
 
         // Unreachable code!
 
-    endif
+    fi
 
     [['INTEGERS', [10, 35, 20, 40, 35, 15, 50, 35, 70, 20]]]
     [['INTEGERS', [38, 39, 35, 40, 43, 2, 21, 19, 20, 5, 0]]]

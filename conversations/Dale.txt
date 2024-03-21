@@ -75,14 +75,14 @@ interaction:
         else:
             jump 1553
 
-        endif
+        fi
 
     case "gems":
         if notEquals(integer(value 32), byte 144):
             print("\"Come to my shop when it's open!\"")
             jump 107
 
-        endif
+        fi
 
         integer(value 0) = partyHasObject(byte 77, byte 0)
 
@@ -93,7 +93,7 @@ interaction:
         else:
             jump 963
 
-        endif
+        fi
 
     case "bye":
         print("\"A fine $T to thee!\"\n")
@@ -114,7 +114,7 @@ interaction:
         print("\"Sorry, $Y, you haven't enough gems.\"")
         jump 107
 
-    endif
+    fi
 
     print("\"Aye, $Y, I see the gems you carry.\"")
     wait()
@@ -143,7 +143,7 @@ interaction:
             print("\"But thou cannot carry such a sword!\"")
             jump 107
 
-        endif
+        fi
 
         ('DELETE', ('integer', [('value', 0)]), ('byte', 77), ('byte', 0), ('byte', 5))
         print("$N turns to the furnace and begins crafting the sword.")
@@ -169,7 +169,7 @@ interaction:
         integer(value 3) = byte 0
         jump 1689
 
-    endif
+    fi
 
 1573:
     integer(value 0) = byte 0
@@ -184,7 +184,7 @@ interaction:
     if lessOrEquals(integer(value 0), integer(value 23)):
         jump 1587
 
-    endif
+    fi
 
     print("\"Which of you?\" ")
     ('INPUTNUM', 3)
@@ -192,14 +192,14 @@ interaction:
     if equals(integer(value 3), byte 0):
         jump 72
 
-    endif
+    fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
         jump 1573
 
-    endif
+    fi
 
 1689:
     integer(value 3) = character(integer(value 3), byte 0)
@@ -214,7 +214,7 @@ interaction:
     if notEquals(data(dword 2151, minus(integer(value 0), byte 1)), byte 0):
         jump 1710
 
-    endif
+    fi
 
     integer(value 7) = integer(value 0)
     print("\"Which item?\" ")
@@ -223,12 +223,12 @@ interaction:
     if equals(integer(value 0), byte 0):
         jump 72
 
-    endif
+    fi
 
     if greaterOrEquals(integer(value 0), integer(value 7)):
         jump 1689
 
-    endif
+    fi
 
     integer(value 0) = minus(integer(value 0), byte 1)
     integer(value 1) = data(dword 2145, integer(value 0))
@@ -258,7 +258,7 @@ interaction:
         print("\n")
         jump 72
 
-    endif
+    fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):
         ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
@@ -278,7 +278,7 @@ interaction:
 
         // Unreachable code!
 
-    endif
+    fi
 
     [['INTEGERS', [5, 5, 85]]]
     [['INTEGERS', [118, 183, 123, 0]]]

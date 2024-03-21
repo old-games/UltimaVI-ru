@@ -20,7 +20,7 @@ interaction:
         print("He grins widely and waves at you.")
         ('SETF', ('byte', 235), ('value', 0))
 
-    endif
+    fi
 
 152:
     print("\n")
@@ -45,7 +45,7 @@ interaction:
             ('PORTRAIT', ('byte', 235))
             print("\n\nThe man smiles and nods.")
 
-        endif
+        fi
 
         jump 152
 
@@ -62,13 +62,13 @@ interaction:
             print("The man looks at you, puzzled.")
             jump 152
 
-        endif
+        fi
 
         if equals(hasObject(byte 235, byte 149, byte 0), byte 0):
             print("The man shakes his head and spreads his hands as if to say \"sorry.\"")
             jump 152
 
-        endif
+        fi
 
         print("The man smiles and points to ")
 
@@ -79,13 +79,13 @@ interaction:
         else:
             integer(value 1) = byte 0
 
-        endif
+        fi
 
         if equals(or(hasObject(byte 235, byte 149, data(dword 2459, byte 2)), hasObject(byte 235, byte 149, data(dword 2459, byte 3))), byte 0):
             print(".")
             jump 152
 
-        endif
+        fi
 
         if integer(value 1):
             print(" and to a ")
@@ -93,7 +93,7 @@ interaction:
         else:
             print("the deed to a ")
 
-        endif
+        fi
 
         print("@skiff.")
         jump 152
@@ -103,19 +103,19 @@ interaction:
             print("The man looks at you, puzzled.")
             jump 152
 
-        endif
+        fi
 
         if hasObject(byte 235, byte 149, data(dword 2459, byte 0)):
             integer(value 9) = byte 0
             jump 1572
 
-        endif
+        fi
 
         if hasObject(byte 235, byte 149, data(dword 2459, byte 1)):
             integer(value 9) = byte 1
             jump 1572
 
-        endif
+        fi
 
         print("The man shakes his head and spreads his hands as if to say \"sorry.\"")
         jump 152
@@ -125,19 +125,19 @@ interaction:
             print("The man looks at you, puzzled.")
             jump 152
 
-        endif
+        fi
 
         if hasObject(byte 235, byte 149, data(dword 2459, byte 2)):
             integer(value 9) = byte 2
             jump 1572
 
-        endif
+        fi
 
         if hasObject(byte 235, byte 149, data(dword 2459, byte 3)):
             integer(value 9) = byte 3
             jump 1572
 
-        endif
+        fi
 
         print("The man shakes his head and spreads his hands as if to say \"sorry.\"")
         jump 152
@@ -148,7 +148,7 @@ interaction:
             print("back to drinking.")
             jump 152
 
-        endif
+        fi
 
         if equals(integer(value 32), byte 146):
             print("He smiles and points to the workbench.")
@@ -157,7 +157,7 @@ interaction:
             print("\n\nOn the bench, you see the tools of a shipwright.")
             jump 152
 
-        endif
+        fi
 
         jump 1467
 
@@ -170,7 +170,7 @@ interaction:
         else:
             print("what he was doing.\n")
 
-        endif
+        fi
 
         bye()
 
@@ -179,7 +179,7 @@ interaction:
             print("The man just shrugs and takes another swig from his mug.")
             jump 152
 
-        endif
+        fi
 
 1467:
         if random(byte 0, byte 1):
@@ -188,7 +188,7 @@ interaction:
         else:
             print("The man just shrugs.")
 
-        endif
+        fi
 
         jump 152
 
@@ -203,7 +203,7 @@ interaction:
         integer(value 3) = byte 0
         jump 1714
 
-    endif
+    fi
 
 1599:
     integer(value 0) = byte 0
@@ -218,7 +218,7 @@ interaction:
     if lessOrEquals(integer(value 0), integer(value 23)):
         jump 1613
 
-    endif
+    fi
 
     print("Who is buying? ")
     ('INPUTNUM', 3)
@@ -226,14 +226,14 @@ interaction:
     if equals(integer(value 3), byte 0):
         jump 2034
 
-    endif
+    fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
         jump 1599
 
-    endif
+    fi
 
 1714:
     integer(value 3) = character(integer(value 3), byte 0)
@@ -251,7 +251,7 @@ interaction:
             print("$Y cannot carry that.")
             jump 152
 
-        endif
+        fi
 
         if less(objectsCount(integer(value 3), byte 88), data(dword 2451, integer(value 9))):
             jump 2072
@@ -260,7 +260,7 @@ interaction:
             ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 2451), ('integer', [('value', 9)])]))
             jump 1942
 
-        endif
+        fi
 
     case "n":
         jump 2034
@@ -285,7 +285,7 @@ interaction:
     else:
         print("$N shrugs.")
 
-    endif
+    fi
 
     jump 152
 
@@ -294,7 +294,7 @@ interaction:
         print("You don't have enough gold for that.")
         jump 152
 
-    endif
+    fi
 
     integer(value 1) = data(dword 2451, integer(value 9))
     integer(value 2) = byte 0
@@ -306,7 +306,7 @@ interaction:
         print("Your party doesn't have enough gold for that.")
         jump 152
 
-    endif
+    fi
 
     integer(value 5) = objectsCount(character(integer(value 6), byte 0), byte 88)
 
@@ -326,7 +326,7 @@ interaction:
 
         // Unreachable code!
 
-    endif
+    fi
 
 2365:
     if equals(integer(value 6), integer(value 4)):
@@ -336,7 +336,7 @@ interaction:
         print("\n\n")
         jump 1942
 
-    endif
+    fi
 
     integer(value 5) = objectsCount(character(integer(value 6), byte 0), byte 88)
     integer(value 1) = minus(integer(value 1), integer(value 5))

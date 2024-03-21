@@ -16,7 +16,7 @@ interaction:
         print("\"I fear I know little that would help in this situation, $G.\"")
         jump 785
 
-    endif
+    fi
 
     if hasBit(byte 235, byte 2):
         print("\"Good $T, $G. Hast thou need of my services again?\" ")
@@ -33,7 +33,7 @@ interaction:
 
         esac
 
-    endif
+    fi
 
     if hasBit(byte 235, value 0):
         print("\"Good $T, $G! Hast thou fared well in thy travels?\" ")
@@ -51,7 +51,7 @@ interaction:
 
         esac
 
-    endif
+    fi
 
     ('SETF', ('byte', 235), ('value', 0))
     print("\"$P! 'Tis a great joy and relief to see thou hast returned to ")
@@ -70,7 +70,7 @@ interaction:
 
         print("\n\n")
 
-    endif
+    fi
 
     print("\"Mayhap I can help thee in thy struggle against the @gargoyles.\"")
     wait()
@@ -98,7 +98,7 @@ interaction:
         if partyHas(byte 235):
             jump 785
 
-        endif
+        fi
 
         wait()
 
@@ -113,7 +113,7 @@ interaction:
             print("\n\n\"Am I not already a member of thy band?\"")
             jump 785
 
-        endif
+        fi
 
         integer(value 0) = partyJoin(byte 235)
 
@@ -122,7 +122,7 @@ interaction:
             ('SETF', ('byte', 235), ('byte', 2))
             bye()
 
-        endif
+        fi
 
         if equals(integer(value 0), byte 2):
             print("\"Nay, $G, thou seemst to have enough companions as it is.\"")
@@ -142,7 +142,7 @@ interaction:
             print("\n\nFor the first time, you notice that Jaana seems definitely seasick!")
             jump 785
 
-        endif
+        fi
 
     case "leav":
         integer(value 0) = partyLeave(byte 235)
@@ -151,7 +151,7 @@ interaction:
             print("\"Whatever thou thinkest best, $G.\"\n*\n\"Thou mayst keep my supplies.\"\n")
             bye()
 
-        endif
+        fi
 
         if equals(integer(value 0), byte 2):
             print("\"Perhaps I misunderstand, $G.\"")
@@ -170,7 +170,7 @@ interaction:
             print("\n\nFor the first time, you notice that Jaana seems definitely seasick!")
             jump 785
 
-        endif
+        fi
 
     case "garg":
         print("\"I know little of the gargoyles, $G, save what rumors I hear.\"")
@@ -192,7 +192,7 @@ interaction:
         else:
             print("\"Farewell! Return when thou hast more news of thy quest!\"\n")
 
-        endif
+        fi
 
         bye()
 
@@ -203,7 +203,7 @@ interaction:
         else:
             print("\"Beg pardon?\"")
 
-        endif
+        fi
 
         jump 785
 

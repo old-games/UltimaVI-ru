@@ -482,7 +482,7 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
         elif instruction[0] == 'ENDIF':
             empty_prefix_line()
             decrease_level('if')
-            append('endif')
+            append('fi')
             append()
 
         elif instruction[0] == 'F3':

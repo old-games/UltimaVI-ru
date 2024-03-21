@@ -23,7 +23,7 @@ interaction:
     else:
         ('SETF', ('byte', 235), ('value', 0))
 
-    endif
+    fi
 
     print("\"How can I help thee this fine $T?\"\n")
 
@@ -54,7 +54,7 @@ interaction:
         else:
             jump 1112
 
-        endif
+        fi
 
     case "buy":
         if notEquals(integer(value 32), byte 144):
@@ -64,7 +64,7 @@ interaction:
         else:
             jump 1242
 
-        endif
+        fi
 
     case "sell":
         print("\"I have all I need, and have no reason to purchase anything more.\"")
@@ -87,7 +87,7 @@ interaction:
             print("\"Ask when I'm open for business!\"")
             jump 129
 
-        endif
+        fi
 
         integer(value 9) = partyHasObject(word 270, byte 0)
 
@@ -96,7 +96,7 @@ interaction:
             print("basket.\"")
             jump 129
 
-        endif
+        fi
 
         print("\"Then it was true! Father did weave a basket that big!\"")
         wait()
@@ -143,7 +143,7 @@ interaction:
         integer(value 3) = byte 0
         jump 1385
 
-    endif
+    fi
 
 1262:
     integer(value 0) = byte 0
@@ -158,7 +158,7 @@ interaction:
     if lessOrEquals(integer(value 0), integer(value 23)):
         jump 1276
 
-    endif
+    fi
 
     print("\"Which of you?\" ")
     ('INPUTNUM', 3)
@@ -166,14 +166,14 @@ interaction:
     if equals(integer(value 3), byte 0):
         jump 2139
 
-    endif
+    fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
         jump 1262
 
-    endif
+    fi
 
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
 
@@ -184,7 +184,7 @@ interaction:
     if equals(integer(value 0), byte 0):
         jump 2139
 
-    endif
+    fi
 
     integer(value 0) = minus(integer(value 0), byte 1)
 
@@ -195,7 +195,7 @@ interaction:
         print("\n\n\"I have no time to create a basket for which I have no @plans.\"")
         jump 129
 
-    endif
+    fi
 
     integer(value 1) = data(dword 3728, integer(value 0))
     string(value 1) = data(dword 3736, integer(value 0))
@@ -208,7 +208,7 @@ interaction:
     if equals(integer(value 4), byte 0):
         jump 1385
 
-    endif
+    fi
 
     integer(value 5) = byte 0
 
@@ -216,12 +216,12 @@ interaction:
     if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(dword 3732, integer(value 0)), byte 1)):
         jump 1799
 
-    endif
+    fi
 
     if less(objectsCount(character(integer(value 3), byte 0), byte 88), integer(value 1)):
         jump 1921
 
-    endif
+    fi
 
     ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
     ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('data', [('dword', 3732), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 1))
@@ -235,7 +235,7 @@ interaction:
 
         // Unreachable code!
 
-    endif
+    fi
 
 1799:
     if integer(value 5):
@@ -254,7 +254,7 @@ interaction:
 
         // Unreachable code!
 
-    endif
+    fi
 
 1921:
     if integer(value 5):
@@ -273,7 +273,7 @@ interaction:
 
         // Unreachable code!
 
-    endif
+    fi
 
 2053:
     print("Michelle takes $Y's money and hands over the $1")
@@ -281,7 +281,7 @@ interaction:
     if greater(integer(value 5), byte 1):
         print("s")
 
-    endif
+    fi
 
     print(". \"I appreciate thy business.\"")
 
@@ -300,7 +300,7 @@ interaction:
             print("\"Perhaps some other time.\"")
             jump 129
 
-        endif
+        fi
 
         print("\"Enjoy thy $1")
 
@@ -310,7 +310,7 @@ interaction:
         else:
             print(".\"")
 
-        endif
+        fi
 
         jump 129
 
@@ -334,13 +334,13 @@ interaction:
         print("\n\n\"Lighten thy load, and then I will weave thee this basket.\"")
         jump 129
 
-    endif
+    fi
 
     if greater(integer(value 9), plus(canCarry(character(integer(value 6), byte 0)), weight(byte 88, word 300))):
         integer(value 6) = plus(integer(value 6), byte 1)
         jump 2294
 
-    endif
+    fi
 
     print("\"Such a basket would cost 300 gold, in advance. Art thou still ")
     print("interested?\" ")
@@ -373,7 +373,7 @@ interaction:
         print("crown\\s.\"")
         jump 129
 
-    endif
+    fi
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
 
@@ -393,14 +393,14 @@ interaction:
 
         // Unreachable code!
 
-    endif
+    fi
 
 2947:
     if equals(integer(value 3), integer(value 4)):
         ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
         jump 3030
 
-    endif
+    fi
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
     integer(value 1) = minus(integer(value 1), integer(value 5))

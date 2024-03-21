@@ -14,12 +14,12 @@ interaction:
         print("\"Anyone who would mistreat a dog has no business with Zoltan.\"\n")
         bye()
 
-    endif
+    fi
 
     if equals(hasBit(byte 235, value 1), byte 0):
         jump 414
 
-    endif
+    fi
 
     print("\"Hah! You again! You are no friend to Zoltan.\"\n*\n\"I dance for you, and")
     print(" how do you repay me?\"\n*\n\"Perhaps a few coins might ease the sting of ")
@@ -44,7 +44,7 @@ interaction:
     else:
         print("\"Huzzah! I am still @Zoltan, king of the gypsies!\"")
 
-    endif
+    fi
 
     ('SETF', ('byte', 235), ('value', 0))
 
@@ -167,7 +167,7 @@ interaction:
         else:
             print("\"Farewell.\"")
 
-        endif
+        fi
 
         print("\n")
         bye()
@@ -214,7 +214,7 @@ interaction:
         print("\n\"Come back when you're not so down on your luck.\"")
         jump 532
 
-    endif
+    fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 2))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 2))
@@ -240,7 +240,7 @@ interaction:
         print("\n\"Come back when you have the money.\"")
         jump 532
 
-    endif
+    fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 10))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 10))
@@ -277,12 +277,12 @@ interaction:
         print("\nYou don't have that much.\n")
         jump 4182
 
-    endif
+    fi
 
     if equals(integer(value 0), byte 0):
         jump 4051
 
-    endif
+    fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
@@ -296,7 +296,7 @@ interaction:
         integer(value 2) = byte 1
         jump 4379
 
-    endif
+    fi
 
     integer(value 3) = character(byte 0, byte 0)
     jump 4517
@@ -310,7 +310,7 @@ interaction:
         integer(value 2) = plus(integer(value 2), byte 1)
         jump 4379
 
-    endif
+    fi
 
     print("\"Which of you?\" ")
     ('INPUTNUM', 2)
@@ -322,7 +322,7 @@ interaction:
     else:
         integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
 
-    endif
+    fi
 
 4517:
     ('SETNAME', ('integer', [('value', 3)]))
@@ -336,7 +336,7 @@ interaction:
     if greater(data(dword 5075, minus(integer(value 1), byte 1)), byte 0):
         jump 4528
 
-    endif
+    fi
 
     print("\"Which of these?\" ")
     ('INPUTNUM', 2)
@@ -345,7 +345,7 @@ interaction:
         integer(value 2) = byte 1
         jump 532
 
-    endif
+    fi
 
     integer(value 2) = minus(integer(value 2), byte 1)
     integer(value 1) = data(dword 5091, integer(value 2))
@@ -360,18 +360,18 @@ interaction:
     if equals(integer(value 4), byte 0):
         jump 4517
 
-    endif
+    fi
 
 4742:
     if less(canCarry(integer(value 3)), weight(data(dword 5075, integer(value 2)), byte 1)):
         jump 4877
 
-    endif
+    fi
 
     if less(objectsCount(integer(value 3), byte 88), integer(value 1)):
         jump 4976
 
-    endif
+    fi
 
     ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
     ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 5075), ('integer', [('value', 2)])]), ('byte', 0), ('byte', 1))
@@ -391,7 +391,7 @@ interaction:
 
         // Unreachable code!
 
-    endif
+    fi
 
 4877:
     if integer(value 5):
@@ -413,7 +413,7 @@ interaction:
 
         // Unreachable code!
 
-    endif
+    fi
 
 4976:
     if integer(value 5):
@@ -435,7 +435,7 @@ interaction:
 
         // Unreachable code!
 
-    endif
+    fi
 
     [['INTEGERS', [66, 67, 68, 70, 71, 72, 0, 0]]]
     [['INTEGERS', [3, 2, 1, 1, 2, 3, 0, 0]]]

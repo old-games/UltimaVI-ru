@@ -11,12 +11,12 @@ interaction:
     if hasBit(byte 201, byte 6):
         jump 80
 
-    endif
+    fi
 
     if and(hasBit(byte 201, byte 7), notEquals(partyHasObject(byte 151, byte 77), word 32769)):
         jump 3486
 
-    endif
+    fi
 
 80:
     ('SETF', ('byte', 201), ('value', 0))
@@ -182,26 +182,26 @@ interaction:
         if equals(integer(value 1), byte 0):
             jump 5160
 
-        endif
+        fi
 
         if less(canCarry(integer(value 1)), weight(byte 89, byte 1)):
             jump 5160
 
-        endif
+        fi
 
         integer(value 2) = divide(canCarry(integer(value 1)), weight(byte 89, byte 1))
 
         if greater(integer(value 2), word 255):
             integer(value 2) = word 255
 
-        endif
+        fi
 
         ('NEW', ('integer', [('value', 1)]), ('byte', 89), ('byte', 0), ('integer', [('value', 2)]))
 
         if equals(integer(value 2), word 255):
             jump 5062
 
-        endif
+        fi
 
 5160:
         integer(value 0) = plus(integer(value 0), byte 1)
@@ -209,7 +209,7 @@ interaction:
         if lessOrEquals(integer(value 0), integer(value 23)):
             jump 5062
 
-        endif
+        fi
 
         bye()
 
