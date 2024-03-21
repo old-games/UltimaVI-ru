@@ -412,6 +412,7 @@ def _format_instructions(instructions):
         if instruction[0] == 'IF':
             empty_prefix_line()
             result.append(f'if {_format_expression(instruction[1])}:')
+            #result.extend(textwrap.wrap(f'if {_format_expression(instruction[1])}:', subsequent_indent='    '))  # FIXME
 
         # FIXME rename
         elif instruction[0] == 'ASKC':
