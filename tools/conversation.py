@@ -481,7 +481,7 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
             empty_prefix_line()
             append(f'{label}:', force_level=0)
 
-        if label in unreachable_labels and instruction[0] != 'ENDOFLIST':
+        if label in unreachable_labels and instruction[0] not in ('ENDOFLIST', 'ESAC', 'ELSE', 'ENDIF'):
             empty_prefix_line()
             append('// Unreachable code!')
             # TODO mark each line
@@ -675,7 +675,6 @@ def decode(conversation):
             # TODO ссылки могут не работать, чекнуть
             # TODO данные могут не работать, чекнуть
             stream.seek(label)
-            # TODO не ставить unreachable на endif else esac
             if not _read_instructions(stream, blocks, labels, visited_labels, unreachable_labels, data, {None}):
                 # TODO это кривота, по 1 шагу читать, воткнуть это внутрь функции
                 error_labels.add(label)
