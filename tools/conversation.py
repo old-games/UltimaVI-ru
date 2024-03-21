@@ -190,14 +190,14 @@ def _read_instructions(stream, labels, visited_labels, data, end):
 
         elif code == 0xa2:
             _read_byte(stream, visited_labels)
-            result.append('ENDIF')
+            result.append(('ENDIF',))
             if stack:
                 assert stack[-1][0] in ('if', 'else')
                 del stack[-1]
 
         elif code == 0xa3:
             _read_byte(stream, visited_labels)
-            result.append('ELSE')
+            result.append(('ELSE',))
             flow, tell = stack.pop()
             assert flow == 'if'
             stack.append(('else', tell))
@@ -208,12 +208,11 @@ def _read_instructions(stream, labels, visited_labels, data, end):
             label = _read_dword(stream, visited_labels)
             labels.add(label)
             result.append(('JUMP', label))
-            print(stream.tell())
             _add_branch_ended(branches_ended, stack, choices, keywords)
 
         elif code == 0xb6:
             _read_byte(stream, visited_labels)
-            result.append('BYE')
+            result.append(('BYE',))
             _add_branch_ended(branches_ended, stack, choices, keywords)
 
         elif code == 0xa4:
@@ -316,7 +315,7 @@ def _read_instructions(stream, labels, visited_labels, data, end):
             # May be absent
             if stack and stack[-1][0] == 'case':
                 del stack[-1]
-            result.append('ESAC')
+            result.append(('ESAC',))
 
         elif code == 0xef:
             # TODO can't have nested keywords
@@ -401,6 +400,8 @@ def _format_instructions(instructions):
         if result and result[-1] != '':
             result.append('')
 
+    # FIXME пометить некорректные выходы из блоков
+
     result = []
     for instruction in instructions:
         # FIXME string escaping
@@ -426,23 +427,18 @@ def _format_instructions(instructions):
             result.append(f'ask()')
 
         elif instruction[0] == 'CASE':
-            result.append(f'case "{_format_string(",".join(instruction[1]))}":')
-            # FIXME Format keywords
-            # case "a":
-            # case "b":
-            # case "c":
-            #     ...
-            # esac
+            for case in sorted(instruction[1]):
+                result.append(f'case "{_format_string(case)}":')
 
         elif instruction[0] == 'ASSIGN':
             result.append(f'{_format_expression(instruction[1])} = {_format_expression(instruction[2])}')
 
-        elif instruction == 'ESAC':
+        elif instruction[0] == 'ESAC':
             empty_prefix_line()
             result.append('esac')
             result.append('')
 
-        elif instruction == 'ENDIF':
+        elif instruction[0] == 'ENDIF':
             empty_prefix_line()
             result.append('endif')
             result.append('')
@@ -455,11 +451,11 @@ def _format_instructions(instructions):
             result.append('wait()')
             result.append('')
 
-        elif instruction == 'ELSE':
+        elif instruction[0] == 'ELSE':
             empty_prefix_line()
             result.append('else:')
 
-        elif instruction == 'BYE':
+        elif instruction[0] == 'BYE':
             result.append('bye()')
             result.append('')
 
@@ -563,24 +559,36 @@ def decode(conversation):
                     strings.append(string.decode('ascii'))
                     blocks[left].append('no-trailing-byte')
 
+    #if {conversation[i] for i in sorted(set(range(len(conversation))) - visited_labels)} - {0xa2, 0xee, 0xb6}:
+    #    print(sorted(set(range(len(conversation))) - visited_labels))
+    #    print([hex(conversation[i]) for i in sorted(set(range(len(conversation))) - visited_labels)])
+
+    unreachable_blocks = set()
+
     while missed_labels := set(range(len(conversation))) - visited_labels:
         label = min(missed_labels)
         # FIXME Пометить как неиспользуемый код.
         # TODO ссылки могут не работать, чекнуть
         # TODO данные могут не работать, чекнуть
-        # TODO лейблы здесь не нужны
-        print(label)
         stream.seek(label)
-        blocks[label] = _read_instructions(stream, labels, visited_labels, data, {None})
+        unreachable = _read_instructions(stream, labels, visited_labels, data, {None})
+        #for instruction in unreachable:
+        #    print(instruction)
+        #    assert instruction[0] in ('JUMP', 'ESAC', 'ENDIF', 'BYE')
+        blocks[label] = unreachable
+        unreachable_blocks.add(label)
 
-    print(sorted(set(range(len(conversation))) - visited_labels))
-    print([hex(conversation[i]) for i in sorted(set(range(len(conversation))) - visited_labels)])
     assert set(range(len(conversation))) - visited_labels == set()
 
     for label, instructions in sorted(blocks.items()):
-        if label != start: # FIXME substitute jumps
+        if label in unreachable_blocks:
+            result.append('')
+            result.append('# Unreachable code!')
+
+        elif label != start:
             result.append('')
             result.append(f'{label}:')
+
         result.extend(_format_instructions(instructions))
 
     return ''.join((line + '\n' for line in result))
