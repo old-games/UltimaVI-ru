@@ -163,7 +163,12 @@ def _read_instructions(stream, labels, visited_labels, data, end):
     choices = {}
     keywords = {}
     # TODO there are more instructions in the game
-    while (code := _peek_byte(stream)) not in end and stream.tell() not in visited_labels: # FIXME check this is a code we encountered in visited_labels
+    while (
+        (code := _peek_byte(stream)) not in end
+        and code is not None
+        and stream.tell() not in visited_labels # FIXME check this is a code we encountered in visited_labels
+        and (None not in end or not branches_ended[tuple()]) # Выходим, если читать больше нечего или не ждём окончания определённого блока.
+    ):
         offset = stream.tell()
         # FIXME linearize and get rid of end
         # FIXME get rid of expand
@@ -366,11 +371,6 @@ def _read_instructions(stream, labels, visited_labels, data, end):
 
         else:
             result.append(('PRINT', _read_string(stream, visited_labels, end | all_instructions)))
-
-        # FIXME move to main while
-        if _peek_byte(stream) is None or branches_ended[tuple()] and None in end:
-            # Выходим, если читать больше нечего или не ждём окончания определённого блока.
-            break
 
     #assert branches_ended[tuple()]
     #assert not stack
