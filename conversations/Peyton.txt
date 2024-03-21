@@ -1,0 +1,112 @@
+source("CONVERSE.A")
+index(17)
+
+id(17)
+name("Peyton")
+
+description:
+    print("a well-dressed man with a very even temper.")
+    wait()
+    print("\n")
+
+interaction:
+    if hasBit(byte 235, value 0):
+    print("\"Good $T, friend")
+    else:
+    print("\"Greetings, traveler")
+    endif
+    if integer(value 23):
+    print("s")
+    endif
+    print(", and welcome ")
+    if hasBit(byte 235, value 0):
+    print("back ")
+    else:
+    ('SETF', ('byte', 235), ('value', 0))
+    endif
+    print("to the Wayfarer's @Inn!\"\n")
+    ask()
+    case "name":
+    print("\"I am Peyton, and this is my place.\" He gestures with his hands.\n")
+    ('SETF', ('byte', 235), ('value', 0))
+    jump 163
+    case "peyt":
+    print("\"Did you need something?\"\n")
+    jump 163
+    case "job":
+    print("\"I can offer you a @room for the evening.\"\n")
+    jump 163
+    case "room,inn":
+    jump 439
+    case "bye":
+    print("\"Goodbye. Take care of yourself.\"\n")
+    bye()
+    case "*":
+    print("\"I'm sure you'll have to ask another.\"\n")
+    ESAC
+    jump 163
+
+439:
+    integer(value 0) = multiply(plus(integer(value 24), byte 1), byte 8)
+    print("\"#0 gold for bed and breakfast. Interested?\" ")
+    askc("yn")
+    case "y":
+    if less(objectsCount(byte 1, byte 88), integer(value 0)):
+    jump 713
+    else:
+    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
+    jump 589
+    endif
+    case "n":
+    print("\"Well, perhaps next time you're in town.\"\n")
+    jump 163
+
+589:
+    print("You sleep in a comfortable bed...\n")
+    SLEEP
+    wait()
+    print("\nYou wake rested and eat a large breakfast.")
+    wait()
+    print("\n\n\"Good morning, and have a good day.\"\n")
+    jump 163
+
+713:
+    if equals(integer(value 24), byte 0):
+    print("You don't have enough gold for that.\n")
+    jump 163
+    endif
+    integer(value 1) = integer(value 0)
+    integer(value 2) = byte 0
+    integer(value 6) = byte 0
+    integer(value 4) = byte 0
+    if greater(integer(value 6), integer(value 24)):
+    print("\"I'm sorry, cash in advance. That's our policy.\"\n")
+    jump 163
+    endif
+    integer(value 5) = objectsCount(character(integer(value 6), byte 1), byte 88)
+    if less(integer(value 5), integer(value 1)):
+    integer(value 1) = minus(integer(value 1), integer(value 5))
+    integer(value 2) = plus(integer(value 2), integer(value 5))
+    integer(value 6) = plus(integer(value 6), byte 1)
+    jump 791
+    else:
+    print("Your party takes up a collection to pay for the rooms.")
+    integer(value 1) = integer(value 0)
+    integer(value 2) = byte 0
+    integer(value 4) = integer(value 6)
+    integer(value 6) = byte 0
+    jump 997
+    endif
+
+997:
+    if equals(integer(value 6), integer(value 4)):
+    ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 1)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+    wait()
+    print("\n\n")
+    jump 589
+    endif
+    integer(value 5) = objectsCount(character(integer(value 6), byte 1), byte 88)
+    integer(value 1) = minus(integer(value 1), integer(value 5))
+    ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 1)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
+    integer(value 6) = plus(integer(value 6), byte 1)
+    jump 997

@@ -1,0 +1,169 @@
+source("CONVERSE.A")
+index(29)
+
+id(29)
+name("Lynn")
+
+description:
+    print("a tall, willowy woman with long blond hair.")
+    wait()
+
+interaction:
+    integer(value 5) = byte 0
+    print("\n")
+    if hasBit(byte 235, value 0):
+    print("\"Well, hello again, Avatar!\"")
+    wait()
+    print("\n\n")
+    else:
+    ('SETF', ('byte', 235), ('value', 0))
+    endif
+    print("\"How can I help thee this fine $T?\"\n")
+    ask()
+    case "name":
+    print("\"I'm Lynn.\"")
+    wait()
+    print("\n\n\"Thou needn't tell me thy name, $P. The Avatar is famous throughout the land!\"")
+    jump 140
+    case "job":
+    print("\"I am a fletcher.\"")
+    wait()
+    print("\n\n\"I make @arrows and @bolts for the armies of Lord British himself!\"")
+    jump 140
+    case "buy,arro,bolt":
+    jump 541
+    case "sell":
+    print("\"I have all I need, and have no reason to purchase anything more.\"")
+    wait()
+    print("\n\n\"But I appreciate thy offer.\"")
+    jump 140
+    case "bye":
+    print("\"Farewell! I hope I've aided thy quest!\"\n")
+    bye()
+    case "*":
+    print("\"Beg pardon?\"")
+    jump 140
+
+541:
+    if notEquals(integer(value 32), byte 146):
+    print("\"Come to my shop when I'm open!\"")
+    jump 140
+    endif
+    if equals(integer(value 23), byte 0):
+    integer(value 3) = byte 0
+    jump 729
+    endif
+    integer(value 0) = byte 0
+    integer(value 2) = byte 1
+    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    print("#2) $Y\n")
+    integer(value 0) = plus(integer(value 0), byte 1)
+    integer(value 2) = plus(integer(value 2), byte 1)
+    if lessOrEquals(integer(value 0), integer(value 23)):
+    jump 620
+    endif
+    print("\"Which of you?\" ")
+    ('INPUTNUM', 3)
+    if equals(integer(value 3), byte 0):
+    jump 1400
+    endif
+    integer(value 3) = minus(integer(value 3), byte 1)
+    if greater(integer(value 3), integer(value 23)):
+    jump 606
+    endif
+    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+    print("1) Arrows\n2) Crossbow Bolts\n\"Which item?\" ")
+    ('INPUTNUM', 0)
+    if equals(integer(value 0), byte 0):
+    jump 1400
+    endif
+    integer(value 0) = minus(integer(value 0), byte 1)
+    if greater(integer(value 0), byte 1):
+    print("\"Beg pardon, $G?\"")
+    wait()
+    print("\n\n")
+    jump 729
+    endif
+    integer(value 1) = data(dword 1511, integer(value 0))
+    string(value 1) = data(dword 1519, integer(value 0))
+    print("\"I sell $1s only by the dozen.\"")
+    wait()
+    print("\n\n\"How many dozens?\" ")
+    ('INPUTNUM', 4)
+    if equals(integer(value 4), byte 0):
+    jump 729
+    endif
+    integer(value 5) = byte 0
+    if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(dword 1515, integer(value 0)), byte 12)):
+    jump 1050
+    endif
+    if less(objectsCount(character(integer(value 3), byte 0), byte 88), integer(value 1)):
+    jump 1180
+    endif
+    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+    ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('data', [('dword', 1515), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 12))
+    integer(value 5) = plus(integer(value 5), byte 1)
+    if equals(integer(value 5), integer(value 4)):
+    jump 1321
+    else:
+    jump 932
+    endif
+
+1050:
+    if integer(value 5):
+    print("\"Thou canst not carry that many!\"")
+    wait()
+    print("\n\n\"I will sell thee just #5 dozen $1s.\"")
+    wait()
+    print("\n\n")
+    jump 1321
+    else:
+    print("\"But thou canst not carry any $1s!\"")
+    wait()
+    print("\n\n")
+    jump 1400
+    endif
+
+1180:
+    if integer(value 5):
+    print("\"Thou hast not enough gold for that many!\"")
+    wait()
+    print("\n\n\"I will sell thee just #5 dozen $1\\s.\"")
+    wait()
+    print("\n\n")
+    jump 1321
+    else:
+    print("\"But thou canst not afford any $1s!\"")
+    wait()
+    print("\n\n")
+    jump 1400
+    endif
+
+1321:
+    print("Lynn takes $Y's money and hands over the $1s.")
+    wait()
+    print("\n\n\"I appreciate thy business.\"")
+    wait()
+    print("\n\n\"Is there aught else thou wouldst buy?\" ")
+
+1400:
+    print("\"Is there aught else thou wouldst buy?\" ")
+    askc("yn")
+    case "y":
+    jump 541
+    case "n":
+    if equals(integer(value 5), byte 0):
+    print("\"Perhaps some other time.\"")
+    else:
+    print("\"Enjoy thy $1s.\"")
+    endif
+    jump 140
+
+1511:
+    ['INTEGERS', [4, 3]]
+
+1515:
+    ['INTEGERS', [55, 56]]
+
+1519:
+    ['STRINGS', ['arrow', 'bolt']]

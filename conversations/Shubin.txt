@@ -1,0 +1,126 @@
+source("CONVERSE.B")
+index(54)
+
+id(153)
+name("Shubin")
+
+description:
+    print("a man with a wide bottom. His voice is almost like a woman's.")
+    wait()
+    print("\n")
+
+interaction:
+    if hasBit(byte 235, byte 7):
+    jump 198
+    endif
+    print("\"Ooh, you look so thin! Here, have a bite of bread.\"")
+    wait()
+    print("\nHe gives you a @roll; it is still warm from the oven.")
+    jump 221
+
+198:
+    print("\"Why, hello there, $G.\"\n")
+
+221:
+    print("\n")
+    ask()
+    case "name":
+    print("\"My name is Shubin, $G.\"")
+    ('SETF', ('byte', 235), ('value', 0))
+    jump 221
+    case "job":
+    print("\"I'm a @cook, $G.\"")
+    jump 221
+    case "sand":
+    print("\"He is my friend.\"")
+    jump 221
+    case "mant":
+    print("\"@Sandy says the mantra of eating is 'yum,' $G. Hee, hee!\"")
+    if partyHas(byte 4):
+    wait()
+    ('PORTRAIT', ('byte', 4))
+    print("\n\nYou friend Iolo rolls his eyes. \"Such wisdom we can surely do without!\"")
+    wait()
+    ('PORTRAIT', ('byte', 235))
+    endif
+    jump 221
+    case "thin,roll":
+    if or(hasBit(byte 235, byte 7), less(canCarry(byte 1), weight(byte 130, byte 1))):
+    print("\"I have no more rolls, $G.\"")
+    jump 221
+    endif
+    jump 1101
+    case "cook":
+    print("\"Being a cook is like being an @adventurer, $G.\"")
+    jump 221
+    case "adve":
+    print("\"Yes, $G. I must gather up all my ingredients with @care.\"")
+    jump 221
+    case "care":
+    print("\"So that I have the right @ingredients, $G.\"")
+    jump 221
+    case "ingr":
+    print("\"Adventurers are always searching for this or that, $G. So are cooks.\"")
+    wait()
+    print("\n\n\"Do you know of Magincian Pastry?\" ")
+    jump 1259
+    case "drag,egg":
+    print("\"Have you one with you?\" ")
+    jump 962
+    case "bye":
+    print("\"Goodbye, $G.\"\n")
+    bye()
+    case "*":
+    print("\"That's one of the eight @mantras, isn't it?\"")
+    ESAC
+    jump 221
+
+962:
+    askc("yn")
+    case "n":
+    print("\"Oh, do not tease old Shubin so, $G!\"")
+    jump 221
+    case "y":
+    integer(value 0) = partyHasObject(word 417, byte 0)
+    if notEquals(integer(value 0), word 32769):
+    print("\"Oh, thank you, thank you, thank you!\"")
+    ('DELETE', ('byte', 1), ('word', 417), ('byte', 0), ('byte', 1))
+    ('ADD_KARMA', ('byte', 5))
+    jump 221
+    else:
+    jump 968
+    endif
+
+1101:
+    print("He ask anxiously \"Do you like it, $G?\" ")
+    askc("yn")
+    case "n":
+    print("\"Such a picky eater. No wonder you're so skinny, $G.\"")
+    jump 221
+    case "y":
+    print("\"Have a whole tray, then.\"")
+    ('NEW', ('byte', 1), ('byte', 130), ('byte', 0), ('byte', 1))
+    ('SETF', ('byte', 235), ('byte', 7))
+    jump 221
+
+1259:
+    askc("yn")
+    case "n":
+    print("\"It is a marvellous dish, $G. My friend Sandy gave me the recipe...\"\n*\n\"I'm only missing one ingredient...\"")
+    jump 1456
+    case "y":
+    print("\"Well, I'd like to make it, $G, but I cannot get one of the ingredients...\"")
+    ESAC
+    wait()
+    print("\n\n\"I sure would appreciate it if you brought it back for me if you came across one in your travels, $G...\"")
+    wait()
+    print("\n\n\"If you could find time for old Shubin, that is...\"")
+    wait()
+    print("\n\n\"Would it be too much trouble to bring me back a dragon's @egg, $G?\" ")
+    askc("yn")
+    case "y":
+    print("He sighs. \"Well, $G, it did no harm to ask, I suppose.\"")
+    jump 221
+    case "n":
+    print("\"I just know you will remember Shubin, $G. Thank you.\"")
+    jump 221

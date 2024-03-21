@@ -1,0 +1,255 @@
+source("CONVERSE.B")
+index(3)
+
+id(102)
+name("Marissa")
+
+description:
+    print("a finely adorned woman with a tight mouth and wide eyes.")
+    wait()
+    print("\n")
+
+interaction:
+    if notEquals(integer(value 32), byte 144):
+    jump 137
+    endif
+    if hasBit(byte 235, value 0):
+    print("\"Hello again.\"")
+    else:
+    print("\"Hello.\"")
+    endif
+    print(" She bows formally.\n")
+    jump 283
+
+137:
+    print("She bows stiffly. \"I'm sorry, good ")
+    if integer(value 16):
+    print("madam")
+    else:
+    print("sir")
+    endif
+    print(", but my shop is closed for now.\"")
+    wait()
+    print("\n\n\"See me some other time, when I am available for business.\"\n")
+    bye()
+
+283:
+    ask()
+    case "name":
+    print("\"Marissa. You may call me '@Miss Trihune.\"\n")
+    ('SETF', ('byte', 235), ('value', 0))
+    jump 283
+    case "miss,trih":
+    print("\"Yes, that is much better.\"\n")
+    jump 283
+    case "buy,tuni,dres,pant,clot":
+    jump 1892
+    case "sell":
+    jump 2550
+    case "silk":
+    print("\"Yes, I can work with silk. But 'tis out of fashion...\"")
+    wait()
+    print("\n\n\"Nobody wears silk clothes this season.\"\n")
+    jump 283
+    case "arbe":
+    print("\"Oh, he's a threadmaker who lives here in town.\"")
+    wait()
+    print("\n\n\"Silly little man, but a fine spinner.\"")
+    wait()
+    print("\n\n\"I get all my thread straight from him. No other source would do.\"\n")
+    jump 283
+    case "bolt":
+    print("\"Yes, that silly Arbeth person can spin spidersilk into thread.\"")
+    wait()
+    print("\n\n\"Charlotte, from New Magincia, weaves thread into silk cloth.\"")
+    wait()
+    print("\n\n\"Bring me a bolt of her finest silk cloth, and then I can sew you a silk bag.\"\n")
+    jump 283
+    case "ball,mamm,bag,plan":
+    print("\"Oh, I understand. A large silk bag.\"")
+    wait()
+    print("\n\n\"Well, 'tis hardly a challenge for one of my skills. But, since it is important, I'll do it.\"")
+    wait()
+    print("\n\n")
+    if equals(partyHasObject(word 270, byte 0), word 32769):
+    print("\"But I'll need to see the plans.\"\n")
+    jump 283
+    endif
+    integer(value 0) = partyHasObject(byte 241, byte 0)
+    if equals(integer(value 0), word 32769):
+    print("\"But I'll need a @bolt of silk to do it, of course.\"\n")
+    jump 283
+    endif
+    jump 1477
+    case "job":
+    print("\"I create garments of the highest @fashion.\"\n")
+    jump 283
+    case "high,fash":
+    print("\"Clothes fit to see the King in.\"\n")
+    jump 283
+    case "bye":
+    print("\"Yes, well, come see me again.\" She yawns widely.\n")
+    bye()
+    case "*":
+    if random(byte 0, byte 1):
+    print("\"Hmph! I am not a gossip, $G.\"\n")
+    else:
+    print("\"'Tis not my place to speak of that...\"\n")
+    endif
+    jump 283
+
+1477:
+    print("\"But it will cost you 75 gold. Alright?\" ")
+    askc("yn")
+    case "y":
+    if less(objectsCount(integer(value 0), byte 88), byte 75):
+    ('SETNAME', ('integer', [('value', 0)]))
+    print("\"Come back when you have the gold, $Y.\"\n")
+    jump 283
+    endif
+    ('DELETE', ('integer', [('value', 0)]), ('byte', 88), ('byte', 0), ('byte', 75))
+    ('DELETE', ('integer', [('value', 0)]), ('byte', 241), ('byte', 0), ('byte', 1))
+    print("She takes the silk cloth and begins to work, following the balloon plans.")
+    wait()
+    print("\n\nShe works in silence, intent on her sewing.")
+    wait()
+    print("\n\nAfter a while, she completes the silk bag.")
+    wait()
+    print("\n\n\"There, 'tis done!\" she cries, handing you the bag.\n")
+    ('NEW', ('integer', [('value', 0)]), ('word', 421), ('byte', 0), ('byte', 1))
+    jump 283
+    case "n":
+    print("\"Very well,\" she sniffs, offended.\n")
+    jump 283
+
+1892:
+    if equals(integer(value 23), byte 0):
+    integer(value 3) = character(byte 0, byte 0)
+    jump 2080
+    endif
+    integer(value 0) = byte 0
+    integer(value 2) = byte 1
+    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    print("#2. $Y\n")
+    integer(value 0) = plus(integer(value 0), byte 1)
+    integer(value 2) = plus(integer(value 2), byte 1)
+    if lessOrEquals(integer(value 0), integer(value 23)):
+    jump 1929
+    endif
+    print("\"Which of you?\" ")
+    ('INPUTNUM', 3)
+    if equals(integer(value 3), byte 0):
+    print("\"Suit yourself,\" she sniffs, offended.\n")
+    jump 283
+    endif
+    integer(value 3) = minus(integer(value 3), byte 1)
+    if greater(integer(value 3), integer(value 23)):
+    jump 1915
+    endif
+    integer(value 3) = character(integer(value 3), byte 0)
+    print("1. Tunic\n2. Dress\n3. Pants\n\"Which one?\" ")
+    ('INPUTNUM', 0)
+    if or(less(integer(value 0), byte 1), greater(integer(value 0), byte 3)):
+    print("\n\n")
+    jump 2080
+    endif
+    integer(value 0) = minus(integer(value 0), byte 1)
+    integer(value 1) = data(dword 3258, integer(value 0))
+    string(value 0) = data(dword 3270, integer(value 0))
+    print("\"It'll cost you #1 gold for that $0. Interested?\" ")
+    askc("yn")
+    case "y":
+    if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 3264, integer(value 0)), byte 1)):
+    print("\"You look pretty full to me.\"\n")
+    jump 283
+    endif
+    if greaterOrEquals(objectsCount(integer(value 3), byte 88), data(dword 3258, integer(value 0))):
+    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 3258), ('integer', [('value', 0)])]))
+    ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 3264), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 1))
+    ('SETNAME', ('integer', [('value', 3)]))
+    print("\"Excellent!\" After accepting $Y's gold, $N hands over the $0.\n")
+    jump 283
+    else:
+    ('SETNAME', ('integer', [('value', 3)]))
+    print("$N looks at $Y. \"How rude! Don't ask for something you can't pay for!\"\n")
+    jump 283
+    endif
+    case "n":
+    print("\"Suit yourself,\" she sniffs, offended.\n")
+    jump 283
+
+2550:
+    integer(value 0) = byte 0
+    integer(value 2) = byte 0
+    integer(value 3) = byte 0
+    integer(value 1) = byte 0
+    if objectsCount(character(integer(value 0), byte 0), byte 185):
+    data(dword 3242, integer(value 2)) = integer(value 0)
+    integer(value 2) = plus(integer(value 2), byte 1)
+    integer(value 3) = byte 1
+    jump 2647
+    endif
+    integer(value 1) = plus(integer(value 1), byte 1)
+    if less(integer(value 1), byte 7):
+    jump 2578
+    endif
+    integer(value 0) = plus(integer(value 0), byte 1)
+    if lessOrEquals(integer(value 0), integer(value 23)):
+    jump 2571
+    endif
+    if equals(integer(value 3), byte 0):
+    print("\"Sorry, none of you has anything of interest.\"\n")
+    jump 283
+    endif
+    if equals(integer(value 2), byte 1):
+    integer(value 3) = character(data(dword 3242, byte 0), byte 0)
+    jump 2944
+    endif
+    integer(value 0) = byte 0
+    integer(value 1) = byte 1
+    ('SETNAME', ('character', [('data', [('dword', 3242), ('integer', [('value', 0)])]), ('byte', 0)]))
+    print("#1. $Y\n")
+    integer(value 0) = plus(integer(value 0), byte 1)
+    integer(value 1) = plus(integer(value 1), byte 1)
+    if less(integer(value 0), integer(value 2)):
+    jump 2773
+    endif
+    print("\"Which of you?\" ")
+    ('INPUTNUM', 3)
+    if equals(integer(value 3), byte 0):
+    print("\"Just as well. That cloth is rather shabby...\"\n")
+    jump 283
+    endif
+    integer(value 3) = minus(integer(value 3), byte 1)
+    if greaterOrEquals(integer(value 3), integer(value 2)):
+    jump 2759
+    endif
+    integer(value 3) = character(data(dword 3242, integer(value 3)), byte 0)
+    integer(value 4) = objectsCount(integer(value 3), byte 185)
+    ('SETNAME', ('integer', [('value', 3)]))
+    if equals(integer(value 4), byte 0):
+    print("\"I don't see any cloth, other than what you're wearing!\"\n")
+    jump 283
+    endif
+    print("$N turns to $Y and asks \"Will you take 20 gold for that cloth?\" ")
+    askc("yn")
+    case "y":
+    print("\"Done!\" She hands $Y 20 gold pieces and takes the cloth.\n")
+    ('DELETE', ('integer', [('value', 3)]), ('byte', 185), ('byte', 0), ('byte', 1))
+    ('NEW', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 20))
+    jump 283
+    case "n":
+    print("\"Just as well. That cloth is rather shabby...\"\n")
+    jump 283
+
+3242:
+    ['INTEGERS', [0, 0, 0, 0, 0, 0, 0, 0]]
+
+3258:
+    ['INTEGERS', [15, 30, 20]]
+
+3264:
+    ['INTEGERS', [124, 126, 137]]
+
+3270:
+    ['STRINGS', ['Smart tunic', 'Fine dress', 'Pair of pants']]

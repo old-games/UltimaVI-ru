@@ -1,0 +1,284 @@
+source("CONVERSE.A")
+index(18)
+
+id(18)
+name("Max")
+
+description:
+    print("a swarthy blacksmith.")
+    wait()
+    print("\n")
+
+interaction:
+    integer(value 8) = byte 4
+    if hasBit(byte 235, value 0):
+    print("\"Hey, it'sa the Avatar. Hello again.\"")
+    else:
+    print("\"Hey, and a good $T to you.\"")
+    ('SETF', ('byte', 235), ('value', 0))
+    endif
+    jump 148
+
+121:
+    print("\n\"What'sa you wanta nexta?\"\n")
+
+148:
+    print("\n")
+    ask()
+    case "buy":
+    print("\"Do you wanta @weapons or @armor?\"")
+    jump 148
+    case "weap":
+    if notEquals(integer(value 32), byte 144):
+    print("\"You to my shopa when shesa open!\"")
+    jump 148
+    else:
+    integer(value 9) = byte 0
+    jump 1681
+    endif
+    case "armo":
+    if notEquals(integer(value 32), byte 144):
+    print("\"You to my shopa when shesa open!\"")
+    jump 148
+    else:
+    integer(value 9) = integer(value 8)
+    jump 1681
+    endif
+    case "sell":
+    jump 659
+    case "job":
+    print("\"Whassamattayu, you blind or somethin'?\"")
+    wait()
+    print("\n\n\"I makea de swords and stuff, what's it alook like I'ma doin' here?\"")
+    wait()
+    print("\n\n\"You gotta somethin' to @sell oda somethin' you wanna @buy?\"")
+    jump 148
+    case "name":
+    print("\"I'ma nameda Max.\"")
+    jump 148
+    case "bye":
+    print("\"Goodbyea to you. Come abacka soon, ah?\"\n")
+    bye()
+    case "*":
+    print("\"Hey, my hearing, she's notsa so good. What you say?\"")
+    ESAC
+    jump 148
+
+659:
+    if notEquals(integer(value 32), byte 144):
+    print("\"You to my shopa when shesa open!\"")
+    jump 148
+    endif
+    integer(value 0) = byte 0
+    integer(value 2) = byte 0
+    integer(value 3) = byte 0
+    integer(value 1) = byte 0
+    if hasObject(character(integer(value 0), byte 0), data(dword 2400, integer(value 1)), byte 0):
+    data(dword 2557, integer(value 2)) = integer(value 0)
+    integer(value 2) = plus(integer(value 2), byte 1)
+    integer(value 3) = byte 1
+    jump 814
+    endif
+    integer(value 1) = plus(integer(value 1), byte 1)
+    if data(dword 2400, integer(value 1)):
+    jump 734
+    endif
+    integer(value 0) = plus(integer(value 0), byte 1)
+    if lessOrEquals(integer(value 0), integer(value 23)):
+    jump 727
+    endif
+    if equals(integer(value 3), byte 0):
+    print("\"Hey, atsa real shame, but anone of you hasa anything I'ma needing.\"")
+    wait()
+    print("\n")
+    jump 121
+    endif
+    if equals(integer(value 2), byte 1):
+    integer(value 3) = character(data(dword 2557, byte 0), byte 0)
+    ('SETNAME', ('integer', [('value', 3)]))
+    print("\"Aye, $Y has asomething ofa interesta...\"")
+    wait()
+    print("\n\n")
+    jump 1122
+    endif
+    integer(value 1) = byte 1
+    ('SETNAME', ('character', [('data', [('dword', 2557), ('minus', [('integer', [('value', 1)]), ('byte', 1)])]), ('byte', 0)]))
+    print("#1) $Y\n")
+    integer(value 1) = plus(integer(value 1), byte 1)
+    if lessOrEquals(integer(value 1), integer(value 2)):
+    jump 1004
+    endif
+    print("\"Awhich of you?\" ")
+    ('INPUTNUM', 3)
+    if equals(integer(value 3), byte 0):
+    jump 1647
+    endif
+    integer(value 3) = minus(integer(value 3), byte 1)
+    if greaterOrEquals(integer(value 3), integer(value 2)):
+    jump 997
+    endif
+    integer(value 3) = character(data(dword 2557, integer(value 3)), byte 0)
+    integer(value 0) = byte 0
+    integer(value 5) = byte 0
+    if equals(hasObject(integer(value 3), data(dword 2400, integer(value 0)), byte 0), byte 0):
+    jump 1183
+    endif
+    data(dword 2527, integer(value 5)) = integer(value 0)
+    integer(value 5) = plus(integer(value 5), byte 1)
+    integer(value 0) = plus(integer(value 0), byte 1)
+    if data(dword 2400, integer(value 0)):
+    jump 1136
+    endif
+    if equals(integer(value 5), byte 1):
+    integer(value 6) = data(dword 2527, byte 0)
+    jump 1354
+    endif
+    integer(value 0) = byte 1
+    print("#0) ")
+    ('DPRINT', [('data', [('dword', 2527), ('minus', [('integer', [('value', 0)]), ('byte', 1)])]), ('dword', 2422)])
+    print("\n")
+    integer(value 0) = plus(integer(value 0), byte 1)
+    if lessOrEquals(integer(value 0), integer(value 5)):
+    jump 1242
+    endif
+    print("\"Awhicha one adese?\" ")
+    ('INPUTNUM', 6)
+    if greater(integer(value 6), integer(value 5)):
+    jump 1122
+    endif
+    if equals(integer(value 6), byte 0):
+    jump 1647
+    endif
+    integer(value 6) = data(dword 2527, minus(integer(value 6), byte 1))
+    string(value 0) = data(dword 2422, integer(value 6))
+    integer(value 7) = divide(data(dword 2380, integer(value 6)), byte 2)
+    ('SETNAME', ('integer', [('value', 3)]))
+    print("\"Will you take #7 gold for that $0, $Y?\" ")
+    askc("yn")
+    case "n":
+    if equals(integer(value 5), byte 1):
+    print("\"Perhapsa some other atime athen.\"")
+    wait()
+    print("\n")
+    jump 121
+    else:
+    print("\"Perhaps asomethinga else athen?\"")
+    wait()
+    print("\n\n")
+    jump 1122
+    endif
+    case "y":
+    ('SETNAME', ('integer', [('value', 3)]))
+    print("\"She'sa done!\" $N hands $Y #7 gold pieces and takes the $0.")
+    ('DELETE', ('integer', [('value', 3)]), ('data', [('dword', 2400), ('integer', [('value', 6)])]), ('byte', 0), ('byte', 1))
+    ('NEW', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 7)]))
+    if equals(integer(value 5), byte 1):
+    print("\n")
+    jump 121
+    else:
+    wait()
+    print("\n\n")
+    jump 1122
+    endif
+
+1647:
+    print("\"Achanged your aminda, eh?\"")
+    wait()
+    print("\n")
+    jump 121
+
+1681:
+    if notEquals(integer(value 32), byte 144):
+    print("\"You to my shopa when shesa open!\"")
+    jump 148
+    endif
+    if equals(integer(value 23), byte 0):
+    integer(value 3) = byte 1
+    jump 1874
+    endif
+    integer(value 0) = byte 0
+    integer(value 2) = byte 1
+    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    print("#2) $Y\n")
+    integer(value 0) = plus(integer(value 0), byte 1)
+    integer(value 2) = plus(integer(value 2), byte 1)
+    if lessOrEquals(integer(value 0), integer(value 23)):
+    jump 1762
+    endif
+    print("\"Awhich a you?\" ")
+    ('INPUTNUM', 3)
+    if equals(integer(value 3), byte 0):
+    jump 1647
+    endif
+    integer(value 3) = minus(integer(value 3), byte 1)
+    if greater(integer(value 3), integer(value 23)):
+    jump 1748
+    endif
+    integer(value 3) = character(integer(value 3), byte 0)
+    integer(value 0) = byte 1
+    ('SETNAME', ('integer', [('value', 3)]))
+    string(value 0) = data(dword 2422, plus(integer(value 9), minus(integer(value 0), byte 1)))
+    print("#0) $0\n")
+    integer(value 0) = plus(integer(value 0), byte 1)
+    if and(integer(value 9), notEquals(data(dword 2400, plus(integer(value 9), minus(integer(value 0), byte 1))), byte 0)):
+    jump 1885
+    endif
+    if and(equals(integer(value 9), byte 0), lessOrEquals(integer(value 0), integer(value 8))):
+    jump 1885
+    endif
+    integer(value 7) = integer(value 0)
+    print("\"Awhicha one adese?\" ")
+    ('INPUTNUM', 0)
+    if equals(integer(value 0), byte 0):
+    jump 1647
+    endif
+    if greaterOrEquals(integer(value 0), integer(value 7)):
+    jump 1874
+    endif
+    integer(value 0) = minus(plus(integer(value 9), integer(value 0)), byte 1)
+    integer(value 1) = data(dword 2380, integer(value 0))
+    string(value 1) = data(dword 2422, integer(value 0))
+    print("\"That $1, she'sa costa #1 agold.\"")
+    wait()
+    print("\n\n\"Interested, $Y?\" ")
+    askc("yn")
+    case "y":
+    jump 2138
+    case "n":
+    jump 1874
+
+2138:
+    if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 2400, integer(value 0)), byte 1)):
+    print("\"But she'sa be making thee too heavy, $Y!\"")
+    wait()
+    print("\n")
+    jump 121
+    endif
+    if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):
+    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+    ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 2400), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 1))
+    print("\"Hey, at'sa good!\"\n\nAfter accepting $Y's gold, $N hands over the $1.")
+    wait()
+    print("\n\n")
+    jump 1874
+    else:
+    print("\"But she'sa costing too much for you, $Y!\"")
+    wait()
+    print("\n")
+    jump 121
+    endif
+
+2380:
+    ['INTEGERS', [10, 20, 50, 90, 25, 60, 20, 20, 40, 120]]
+
+2400:
+    ['INTEGERS', [38, 36, 43, 46, 17, 21, 10, 3, 18, 22, 0]]
+
+2422:
+    ['STRINGS', ['Dagger', 'Spear', 'Sword', '2-Hnd Sword', 'Cloth Armour', 'Chain Mail', 'Heater Shield', 'Iron Helm', 'Leather Armour', 'Plate Mail']]
+
+2527:
+    ['INTEGERS', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+2557:
+    ['INTEGERS', [0, 0, 0, 0, 0, 0, 0, 0]]

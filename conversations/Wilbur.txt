@@ -1,0 +1,153 @@
+source("CONVERSE.A")
+index(27)
+
+id(27)
+name("Wilbur")
+
+description:
+    print("a thin, dark-haired man with a nervous smile.")
+    wait()
+    print("\n")
+
+interaction:
+    integer(value 9) = byte 75
+    if hasBit(byte 235, value 0):
+    print("\"Hello again, my friend")
+    else:
+    print("\"Greetings, traveler")
+    ('SETF', ('byte', 235), ('value', 0))
+    endif
+    if integer(value 23):
+    print("s! What can I do for you")
+    else:
+    print("! What can I do for thee")
+    endif
+    print(" this $T?\"\n")
+    ask()
+    case "name":
+    print("\"My name's Wilbur, $G.\"")
+    jump 185
+    case "job":
+    print("\"I work here at the stables, taking care of the horses.\"")
+    wait()
+    print("\n\n\"You can @buy one if you'd like.\"")
+    jump 185
+    case "ed,smit,talk":
+    print("\"A talking horse? Ridiculous! Who told you that?\"")
+    wait()
+    print("\n\nHe seems more nervous than before.")
+    jump 185
+    case "hors":
+    print("\"Aye, if you wish to @buy one, just say the word.\"")
+    jump 185
+    case "buy":
+    jump 550
+    case "bye":
+    print("\"Come back again!\"\n")
+    bye()
+    case "*":
+    print("\"Beg pardon, $G?\"")
+    jump 185
+
+550:
+    if greater(integer(value 23), byte 0):
+    integer(value 1) = byte 0
+    integer(value 2) = byte 0
+    integer(value 4) = byte 0
+    jump 650
+    endif
+    integer(value 3) = character(byte 0, byte 0)
+    if hasHorse(integer(value 3)):
+    print("\"But thou already hast a horse!\"")
+    jump 185
+    else:
+    integer(value 4) = byte 1
+    jump 951
+    endif
+
+650:
+    if greater(integer(value 1), integer(value 23)):
+    jump 757
+    endif
+    integer(value 3) = character(integer(value 1), byte 0)
+    if hasHorse(integer(value 3)):
+    jump 742
+    endif
+    if equals(integer(value 4), byte 0):
+    integer(value 4) = integer(value 3)
+    integer(value 2) = plus(integer(value 2), byte 1)
+    jump 742
+    endif
+    ('SETNAME', ('integer', [('value', 4)]))
+    print("#2) $Y\n")
+    integer(value 2) = plus(integer(value 2), byte 1)
+    integer(value 4) = integer(value 3)
+    integer(value 1) = plus(integer(value 1), byte 1)
+    jump 650
+
+757:
+    if equals(integer(value 2), byte 0):
+    print("\"But all of you are already on horses!\"")
+    jump 185
+    endif
+    if equals(integer(value 2), byte 1):
+    integer(value 3) = integer(value 4)
+    jump 951
+    endif
+    ('SETNAME', ('integer', [('value', 4)]))
+    print("#2) $Y\n")
+    integer(value 4) = byte 0
+    print("\"Which of you?\" ")
+    ('INPUTNUM', 2)
+    if equals(integer(value 2), byte 0):
+    jump 186
+    endif
+    integer(value 1) = byte 0
+    integer(value 3) = character(integer(value 1), byte 0)
+    if equals(hasHorse(integer(value 3)), byte 0):
+    integer(value 2) = minus(integer(value 2), byte 1)
+    endif
+    if equals(integer(value 2), byte 0):
+    jump 951
+    endif
+    integer(value 1) = plus(integer(value 1), byte 1)
+    if lessOrEquals(integer(value 1), integer(value 23)):
+    jump 886
+    endif
+    ('SETNAME', ('integer', [('value', 3)]))
+    print("\"Aye, $Y, thou hast need of a horse.\"")
+    wait()
+    print("\n\n")
+    if less(objectsCount(integer(value 3), byte 88), integer(value 9)):
+    print("\"But thou canst not afford one!\"")
+    jump 1231
+    endif
+    print("\"My price is #9 gold pieces, no less. Interested?\" ")
+    askc("yn")
+    case "y":
+    print("\"Good!\" $N takes $Y's gold, and hands over the reins of a fine horse.")
+    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 9)]))
+    ('HORSE', ('integer', [('value', 3)]))
+    jump 1231
+    case "n":
+    print("\"Perhaps some other time then.\"")
+    jump 1231
+
+1231:
+    if integer(value 4):
+    jump 185
+    endif
+    wait()
+    print("\n\n\"How about ")
+    if greater(integer(value 23), byte 1):
+    print("one of thy friends")
+    else:
+    print("thy friend")
+    endif
+    print("?\"")
+    wait()
+    print("\n\n")
+    integer(value 1) = byte 0
+    integer(value 2) = byte 0
+    integer(value 4) = byte 0
+    jump 650

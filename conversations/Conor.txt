@@ -1,0 +1,70 @@
+source("CONVERSE.A")
+index(94)
+
+id(94)
+name("Conor")
+
+description:
+    print("a stalwart fellow, with a look of placid concentration.\n*")
+
+interaction:
+    if hasBit(byte 235, value 0):
+    jump 282
+    endif
+    if partyHas(byte 4):
+    print("You think you see a brief flicker of recognition pass between @Iolo and the fisherman.\n*\nBut before you can be certain, he turns to address you.\n*")
+    endif
+    print("\n\"Good $T. Is there anything I can do for you?\"")
+    jump 322
+
+282:
+    print("\"Hello, $P. It's good to see you again.\"\n")
+    ask()
+    case "name":
+    print("\"Oh, forgive me for not introducing myself. I am Conor Starfalcon. And what is your name?\"\n")
+    ask()
+    if equals(string(value 35), string(value 25)):
+    ('SETF', ('byte', 235), ('value', 0))
+    endif
+    print("\n\"Well met, $G!\"")
+    jump 322
+    case "iolo":
+    print("\"We've met before. But that was many @years ago.\"")
+    jump 322
+    case "met,befo,many,year,ago":
+    print("\"Yes, long ago.\"")
+    jump 322
+    case "job":
+    print("\"I am a fisherman. In catching @fish, as in all of life, there is something to be learned.\"")
+    jump 322
+    case "fish,catc,life,lear":
+    print("\"I still have not mastered the @way of the fisherman.\"\n*\n\"But I think perhaps the key to enlightenment lies not so much in the destination as in the road one travels.\"")
+    jump 322
+    case "mast,way,road,enli,dest,trav":
+    print("\"I am satisfied to live here and learn what I can from the fish.\"")
+    jump 322
+    case "shri":
+    print("\"The Shrine of Humility is far to the southeast.\"\n*\n\"I'd be glad to take you there in my @boat, but I'm afraid it is too small to weather the high seas.\"")
+    jump 322
+    case "boat":
+    print("\"It's down at the beach. Feel free to borrow it if you have need.\"")
+    jump 322
+    case "humb,humi":
+    print("\"You seek to find the humblest in New Magincia? That's a difficult task.\"\n*\n\"I'd hate to commend one of my neighbors to you and fail to do justice to the others.\"\n*\n\"The one thing I can tell you for certain is that it isn't me you're looking for.\"")
+    jump 322
+    case "mant":
+    print("\"The Mantra of Humility is 'lum'. If you seek the @shrine, I hope you find it.\"")
+    jump 322
+    case "guil,kora":
+    print("\"I used to be a guildmaster. But that was long ago.\"")
+    jump 322
+    case "shie,war":
+    print("\"I no longer follow the way of the warrior.\"")
+    jump 322
+    case "bye":
+    print("\"If I can help you with anything else, let me know.\"\n")
+    bye()
+    case "*":
+    print("\"I can't help you with that.\"")
+    ESAC
+    jump 322

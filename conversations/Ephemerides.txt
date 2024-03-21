@@ -1,0 +1,225 @@
+source("CONVERSE.A")
+index(35)
+
+id(35)
+name("Ephemerides")
+
+f3()
+
+description:
+    print("a solemn man, constantly dusting and polishing the items in his shop.")
+    wait()
+    print("\n")
+
+interaction:
+    if notEquals(integer(value 32), byte 138):
+    jump 318
+    endif
+    print("The old man never turns away from his telescope. \"Shhh! Can't you see I'm busy?!\"")
+    wait()
+    print("\n\n\"Whoever you are, come back in the morning.\"")
+    wait()
+    print("\n\nThe old man adjusts the telescope, exclaims \"Aha!\" and starts scribbling on a scroll.\n")
+    bye()
+
+318:
+    integer(value 0) = partyHasObject(byte 48, byte 0)
+    if and(and(notEquals(integer(value 0), word 32769), hasBit(byte 235, byte 7)), equals(hasBit(byte 235, byte 6), byte 0)):
+    jump 3366
+    endif
+    print("\"Ahem. Yes, what can I help you with, ")
+    if equals(integer(value 16), byte 1):
+    print("madam?\"\n")
+    else:
+    print("sir?\"\n")
+    endif
+    ask()
+    case "name":
+    print("\"I am Ephemerides.\"\n")
+    ('SETF', ('byte', 235), ('value', 0))
+    jump 418
+    case "job":
+    print("\"I am an astronomer. More precisely, I calculate movements of the stars, phases of the @moons...\"")
+    wait()
+    print("\n\n\"My field of specialization is @tidal predictions.\"")
+    wait()
+    print("\n\n\"I also make various @glasswares and @instruments.\"\n")
+    jump 418
+    case "inst":
+    print("\"Yes, @sextants mostly.\"\n")
+    jump 418
+    case "glas":
+    print("\"Lenses and the like.\"\n")
+    jump 418
+    case "buy,sex":
+    integer(value 4) = byte 0
+    jump 3941
+    case "tida,pred,fiel":
+    print("\"Lord British has requested the publication of an almanac for use by the general populace.\"")
+    wait()
+    print("\n\n\"It will contain high tides, low tides, ebb tides, flood tides, @spring tides, and @neap tides.\"\n")
+    jump 418
+    case "tide":
+    print("\"Britannia's tides are a function of the two @moons, Felucca and Trammel, interacting with our world, Sosaria.\"\n")
+    jump 418
+    case "sosa,felu,tram,moon,sosa":
+    print("\"I plan to publish a paper about how the world is flat, to dispel all this foolish talk to the contrary.\"")
+    wait()
+    print("\n\n\"Afterwards, I will construct a model of how it all works: an @orrery.\"\n")
+    jump 418
+    case "orre":
+    print("Pleased with your interest, Ephemerides shows you papers with plans for a clockwork model of the Sosarian system.")
+    wait()
+    print("\n\n\"This, ahem, flat piece is Britannia. Each moon would exert a pull on the oceans thus, resulting in the tides.\"")
+    wait()
+    print("\n\n\"You turn that little handle there to get it to go!\"*\n\nThe normally staid Ephemerides is practically giggling with glee.\n")
+    jump 418
+    case "roun":
+    print("\"Absurd!\"\n")
+    jump 418
+    case "neap":
+    print("\"Low and high tide marks are close together. The planets are in @quadrature.\"\n")
+    jump 418
+    case "quad":
+    print("\"Angular separation of two celestial bodies (as measured from a third) being ninety degrees, of course. A very safe @tide.\"\n")
+    jump 418
+    case "spri":
+    print("\"The opposite of a neap tide; the sun, earth and moons are all aligned.\"")
+    wait()
+    print("\n\n\"Thus, lines of low and high tide are far apart.\"")
+    wait()
+    print("\n\n\"Once I construct my @orrery, I'd be able to demonstrate the principles involved.\"\n")
+    jump 418
+    case "vort,lens,conc":
+    if hasBit(byte 235, byte 6):
+    print("\"I hope the lens I made you will prove suitable.\"\n")
+    jump 418
+    endif
+    if and(equals(partyHasObject(word 396, byte 0), word 32769), equals(hasBit(byte 235, byte 7), byte 0)):
+    print("\"What sort of lens do you want?\"\n")
+    jump 418
+    endif
+    integer(value 0) = partyHasObject(word 396, byte 0)
+    if equals(integer(value 0), word 32769):
+    print("\"When you bring me a glass @sword, I should be able to duplicate your lens for you.\"\n")
+    jump 418
+    endif
+    print("\"Ooooh, let me see it... That's a very interesting lens.\"")
+    wait()
+    print("\n\n\"You need a concave copy of it? Let me think...\"")
+    wait()
+    print("\n\n\"It would be very tricky to duplicate, being magical in nature, but I believe I might be able to do it.\"")
+    wait()
+    print("\n\n\"The material and the nature of the enchantment appear similar to those involved in the making of glass swords.\"")
+    wait()
+    print("\n\n\"If I could keep this to analyze while you go get me a glass sword, I'll try and make a copy for you.\"")
+    wait()
+    ('SETF', ('byte', 235), ('byte', 7))
+    ('GIVE', ('word', 396), ('byte', 0), ('integer', [('value', 0)]), ('byte', 235))
+    print("\n\nBefore you can protest, he pockets the lens. \"Let me know when you have the glass @sword.\"\n")
+    jump 418
+    case "swor":
+    if and(and(notEquals(partyHasObject(byte 48, byte 0), word 32769), hasBit(byte 235, byte 7)), equals(hasBit(byte 235, byte 6), byte 0)):
+    jump 3366
+    endif
+    print("\"I once heard of a @master glassblower who could make glass swords...\"\n")
+    jump 418
+    case "mast":
+    print("\"Minoc is the logical place to look. That town is filled with master craftsmen.\"")
+    wait()
+    print("\n\n\"Why, I once heard of a man from Minoc who built a @flying machine!\"\n")
+    jump 418
+    case "fly,mach":
+    print("\"Must have been a fairy tale, of course.\"\n")
+    jump 418
+    case "bye":
+    print("\"Goodbye, $G. It was nice talking with you.\"\n")
+    bye()
+    case "*":
+    print("\"That I cannot help you with.\"\n")
+    jump 418
+
+3366:
+    print("\"Ah, you've brought me a glass sword! Let me just get your lens...\"")
+    wait()
+    print("\n\nHe fumbles through his pockets.")
+    wait()
+    print("\n\n\"Oh no! I seem to have lost the lens!\"")
+    wait()
+    print("\n\n\"Just kidding... Here it is. Now I'll melt down the glass sword and try to cast a lens for you.\"")
+    wait()
+    print("\n\nYou watch as he works, intently focused on his task. Finally he pronounces the job a success.")
+    wait()
+    print("\n\n\"Here's your lens back, and the duplicate. There's no charge - the challenge of the task was reward enough.\"")
+    wait()
+    print("\n\n\"I don't know what you need these lenses for, but I wish you luck!\"\n")
+    ('SETF', ('byte', 235), ('byte', 6))
+    ('DELETE', ('partyHasObject', [('byte', 48), ('byte', 0)]), ('byte', 48), ('byte', 0), ('byte', 1))
+    ('GIVE', ('word', 396), ('byte', 0), ('byte', 235), ('byte', 1))
+    ('NEW', ('byte', 1), ('word', 394), ('byte', 0), ('byte', 1))
+    jump 418
+
+3941:
+    if equals(integer(value 23), byte 0):
+    integer(value 3) = byte 0
+    jump 4087
+    endif
+    integer(value 0) = byte 0
+    integer(value 1) = byte 1
+    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    print("#1. $Y\n")
+    integer(value 0) = plus(integer(value 0), byte 1)
+    integer(value 1) = plus(integer(value 1), byte 1)
+    if lessOrEquals(integer(value 0), integer(value 23)):
+    jump 3975
+    endif
+    print("\"Which of you?\" ")
+    ('INPUTNUM', 3)
+    if equals(integer(value 3), byte 0):
+    jump 357
+    endif
+    integer(value 3) = minus(integer(value 3), byte 1)
+    if greater(integer(value 3), integer(value 23)):
+    jump 3961
+    endif
+    integer(value 3) = character(integer(value 3), byte 0)
+    string(value 0) = data(dword 4491, integer(value 4))
+    ('SETNAME', ('integer', [('value', 3)]))
+    if less(plus(canCarry(integer(value 3)), weight(byte 88, data(dword 4479, integer(value 4)))), weight(data(dword 4485, integer(value 4)), byte 1)):
+    print("$N looks at $Y. \"You haven't any room in your pack.\"")
+    wait()
+    print("\n\n")
+    jump 357
+    endif
+    if less(objectsCount(integer(value 3), byte 88), data(dword 4479, integer(value 4))):
+    print("$N looks at $Y. \"`$0s cost more gold than you have.\"")
+    wait()
+    print("\n\n")
+    jump 357
+    endif
+    integer(value 0) = data(dword 4479, integer(value 4))
+    ('SETNAME', ('integer', [('value', 3)]))
+    print("$N looks at $Y. \"It'll cost you #0 gold for a $0. Do you want one?\" ")
+    askc("yn")
+    case "n":
+    print("$N frowns at $Y, \"That was a good price.\"")
+    wait()
+    print("\n\n")
+    jump 357
+    ESAC
+    case "y":
+    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 4479), ('integer', [('value', 4)])]))
+    ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 4485), ('integer', [('value', 4)])]), ('byte', 0), ('byte', 1))
+    print("He hands $Y a $0.")
+    wait()
+    print("\n\n")
+    jump 357
+
+4479:
+    ['INTEGERS', [30, 40, 50]]
+
+4485:
+    ['INTEGERS', [93, 154, 155]]
+
+4491:
+    ['STRINGS', ['sextant', 'telescope', 'crystal ball']]

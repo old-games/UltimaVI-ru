@@ -391,9 +391,12 @@ def _expand_instructions(original_label, instructions, labels):
     yield original_label, result # FIXME get rid of original_label
 
 
-def _format_instructions(instructions):
+def _format_string(string):
     escaping = str.maketrans({'\\': '\\\\', '"': '\\"', '\n': '\\n'})
+    return string.translate(escaping)
 
+
+def _format_instructions(instructions):
     result = []
     for instruction in instructions:
         # FIXME string escaping
@@ -402,16 +405,16 @@ def _format_instructions(instructions):
 
         # FIXME rename
         elif instruction[0] == 'ASKC':
-            result.append(f'askc("{instruction[1].translate(escaping)}")')
+            result.append(f'askc("{_format_string(instruction[1])}")')
 
         elif instruction[0] == 'PRINT':
-            result.append(f'print("{instruction[1].translate(escaping)}")')
+            result.append(f'print("{_format_string(instruction[1])}")')
 
         elif instruction == 'ASK':
             result.append(f'ask()')
 
         elif instruction[0] == 'CASE':
-            result.append(f'case "{instruction[1].translate(escaping)}":')
+            result.append(f'case "{_format_string(instruction[1])}":')
 
         elif instruction[0] == 'ASSIGN':
             result.append(f'{_format_expression(instruction[1])} = {_format_expression(instruction[2])}')
@@ -432,14 +435,14 @@ def _format_instructions(instructions):
             result.append(f'jump {instruction[1]}')
 
         else:
-            result.append(instruction)
+            result.append(str(instruction))
 
-    return result
+    return [f'    {line}' for line in result]
 
 
 def decode(raw_conversation):
     stream = io.BufferedReader(io.BytesIO(raw_conversation))
-    result = {}
+    result = []
     labels = set()
     visited_labels = set()
     data = {}
@@ -448,16 +451,35 @@ def decode(raw_conversation):
 
     allow_solo_endif = digest == '85f1912ed262ba67a28fdff87c31575d6dd2cea0fbf431ef73e2be77d0958a0d'
 
+
     assert _read_byte(stream, visited_labels) == 0xff
-    result['id'] = _read_byte(stream, visited_labels)
-    result['name'] = _read_string(stream, visited_labels, {0xf1, 0xf3})
-    result['f3-after-name'] = _check_byte(stream, visited_labels, 0xf3)
+    result.append(f'id({_read_byte(stream, visited_labels)})')
 
+    name = _read_string(stream, visited_labels, {0xf1, 0xf3})
+    if name == 'Dr_ Cat':
+        name = 'Dr. Cat'
+    elif name == 'ed':
+        name = 'Ed'
+    result.append(f'name("{_format_string(name)}")')
+
+    if _check_byte(stream, visited_labels, 0xf3):
+        result.append('')
+        result.append('f3()')
+
+    result.append('')
     assert _read_byte(stream, visited_labels) == 0xf1
-    result['description'] = _format_instructions(_read_instructions(stream, labels, visited_labels, data, allow_solo_endif, {0xf2, 0xf3}))
-    result['f3-after-description'] = _check_byte(stream, visited_labels, 0xf3)
+    result.append('description:')
+    result.extend(_format_instructions(_read_instructions(stream, labels, visited_labels, data, allow_solo_endif, {0xf2, 0xf3})))
 
+    if _check_byte(stream, visited_labels, 0xf3):
+        result.append('')
+        result.append('f3()')
+
+    result.append('')
     assert _read_byte(stream, visited_labels) == 0xf2
+    result.append('interaction:')
+    start = stream.tell()
+
     blocks = {stream.tell(): _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, {None})}
 
     # TODO support jumps to the middle of unknown blocks with branches
@@ -514,7 +536,13 @@ def decode(raw_conversation):
                     strings.append(string.decode('ascii'))
                     blocks[left].append('no-trailing-byte')
 
-    result['interaction'] = {label: _format_instructions(expanded) for k, v in sorted(blocks.items()) for label, expanded in _expand_instructions(k, v, labels)}
-
     assert set(range(len(data))) - visited_labels == set()
-    return result
+
+    for k, v in sorted(blocks.items()):
+        for label, expanded in _expand_instructions(k, v, labels):
+            if label != start: # FIXME substitute jumps
+                result.append('')
+                result.append(f'{label}:')
+            result.extend(_format_instructions(expanded))
+
+    return ''.join((line + '\n' for line in result))

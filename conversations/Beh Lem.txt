@@ -1,0 +1,301 @@
+source("CONVERSE.B")
+index(65)
+
+id(164)
+name("Beh Lem")
+
+description:
+    print("a small, light-skinned gargoyle.")
+
+interaction:
+    wait()
+    if partyHas(byte 235):
+    print("\n\"To ask how I can help, mighty $P,\" Beh Lem asks.")
+    jump 1027
+    endif
+    if integer(value 21):
+    integer(value 9) = byte 0
+    jump 888
+    endif
+    print("\nThe gargoyle greets you enthusiastically, but you can't understand him!")
+    wait()
+    print("\n\nSeeing your confusion, he switches to the human language. It's obviously a strain for him.")
+    wait()
+    print("\n\n\"Hello. I little human @speak.\"")
+    integer(value 0) = byte 0
+    integer(value 0) = plus(integer(value 0), byte 1)
+    if less(integer(value 0), byte 5):
+    jump 576
+    endif
+    wait()
+    if partyHas(byte 2):
+    ('PORTRAIT', ('byte', 2))
+    ('SETNAME', ('byte', 2))
+    jump 396
+    endif
+    if partyHas(byte 4):
+    ('PORTRAIT', ('byte', 4))
+    ('SETNAME', ('byte', 4))
+    jump 396
+    else:
+    jump 576
+    endif
+
+396:
+    print("\n\n$Y speaks. \"$P, let's away from here.\"")
+    wait()
+    print("\n\n\"There's naught of use this creature can tell us. Agreed?\" ")
+    askc("yn")
+    case "y":
+    print("The confused gargoyle waves good-bye.\n")
+    bye()
+    case "n":
+    print("\"As you wish, $G.\"")
+    ('PORTRAIT', ('byte', 235))
+    integer(value 0) = byte 0
+    ESAC
+
+576:
+    print("\n")
+    ask()
+    case "john,capt":
+    print("\"Captain John friend. He come here. I wait here.\"")
+    jump 328
+    case "name":
+    print("\"No name. I Beh Lem.\"")
+    jump 328
+    case "job":
+    print("\"I wait here. @Captain John come.\"")
+    jump 328
+    case "spea,huma,litt,lang,read":
+    print("\"@Captain John teach I human speak,\" the gargoyle says haltingly.")
+    jump 328
+    case "bye":
+    print("The confused gargoyle waves good-bye.\n")
+    bye()
+    case "*":
+    print("The gargoyle shrugs.")
+    jump 328
+
+888:
+    print("\n")
+    if equals(hasBit(byte 235, value 0), byte 0):
+    print("\"To greet you, human. To recognize you as the False @Prophet!\"")
+    wait()
+    jump 1027
+    endif
+    print("\"Good $T, my friend")
+    if integer(value 23):
+    print("s")
+    endif
+    print(". To have met @Valkadesh yet?\"")
+    jump 1027
+
+1027:
+    print("\n")
+    ask()
+    case "capt,john,frie":
+    print("\"To know Captain John! To help him and @Valkedesh in their work,\" the youngster says proudly.")
+    jump 1027
+    case "true":
+    print("\"To not receive a true name until I have proved myself @worthy.\"")
+    jump 1027
+    case "name":
+    print("\"To be called Beh Lem, which means 'just one.' To have not yet received a @true name.\"")
+    jump 1027
+    case "wort,prov":
+    print("\"To not deserve a name yet. But to get one someday, just like my father @Valkadesh!\"")
+    jump 1027
+    case "job":
+    if partyHas(byte 235):
+    print("\"To be here to help you, noble $P.\"")
+    else:
+    print("\"To be here to wait for Captain @John.\"")
+    endif
+    jump 1027
+    case "fath,scho,valk":
+    if partyHas(byte 235):
+    jump 3117
+    else:
+    print("\"To very much respect Valkadesh my father.\"")
+    wait()
+    print("\n\n\"To want to be a scholar someday just like him!\"\n")
+    wait()
+    jump 2973
+    endif
+    case "dire":
+    print("\"To ask what directions were unclear?\"")
+    jump 1027
+    case "join":
+    if partyHas(byte 235):
+    ('DPRINT', [('byte', 3), ('dword', 4206)])
+    jump 1027
+    else:
+    jump 3693
+    endif
+    case "sacr":
+    print("\"To not know much about that. But to be sure that @Valkadesh would know!\"")
+    jump 1027
+    case "cont,dili,pass":
+    print("\"To be one of our guiding @principles.\"")
+    jump 1027
+    case "prin":
+    print("\"To be surprised that you don't know that!\"")
+    wait()
+    print("\n\n\"To have three guiding principles - @control, @diligence, and @passion.\"")
+    wait()
+    print("\n\n\"To be the basis of all gargoyle beliefs.\"")
+    jump 1027
+    case "fals,prop":
+    print("\"To be feared by everybody - everybody except me and @Valkadesh, my father!\"")
+    jump 1027
+    case "guid":
+    jump 3213
+    case "leav":
+    if partyHas(byte 235):
+    print("\"To wish to stay with you!\"\n*\n\"To not leave until there is peace between our races!\"")
+    jump 1027
+    else:
+    ('DPRINT', [('byte', 3), ('dword', 4206)])
+    jump 1027
+    endif
+    case "bye":
+    print("\"May ")
+    if equals(partyHas(byte 235), byte 0):
+    print("y")
+    endif
+    print("our persistence and precision lead to success!\"")
+    wait()
+    print("\n")
+    ('SETF', ('byte', 235), ('value', 0))
+    if equals(integer(value 9), byte 1):
+    print("\nDuring your absence, $9 decided to head for the surface, to inform Lord British of your progress.")
+    wait()
+    print("\n")
+    endif
+    bye()
+    case "lava,pits":
+    print("\"To be in danger from the lava! To stay far away!\"")
+    jump 1027
+    case "moun":
+    print("\"To walk clockwise around the mountains from Hythloth to reach my father's @house.\"")
+    jump 1027
+    case "hous":
+    print("\"To find the house of Valkadesh my father through the pass east of the @Hall.\"")
+    jump 1027
+    case "hall,know":
+    if equals(partyHasObject(byte 76, byte 0), byte 1):
+    print("\"To find the Hall of Knowledge to the south of the city.\"")
+    else:
+    print("\"To avoid the Hall! To talk to @Valkadesh first!\"")
+    endif
+    jump 1027
+    case "all,ever":
+    jump 3213
+    case "no":
+    if hasBit(byte 235, value 0):
+    jump 3117
+    else:
+    ('DPRINT', [('byte', 3), ('dword', 4206)])
+    endif
+    jump 1027
+    case "yes":
+    if hasBit(byte 235, value 0):
+    print("\"Good! To know that he very much wanted to speak with you.\"")
+    else:
+    ('DPRINT', [('byte', 3), ('dword', 4206)])
+    endif
+    jump 1027
+    case "*":
+    ('DPRINT', [('random', [('byte', 0), ('byte', 4)]), ('dword', 4206)])
+    jump 1027
+
+2973:
+    print("\n\"To wish to meet Valkadesh?\" ")
+    askc("yn")
+    case "y":
+    if partyHas(byte 164):
+    jump 3117
+    else:
+    print("\"To go with you and @guide you there!\"")
+    wait()
+    print("\n\n")
+    jump 3693
+    endif
+    case "n":
+    print("\"Oh.\" The little gargoyle seems saddened.")
+    jump 1027
+
+3117:
+    print("\"To wish @directions to the house of Valkadesh?\" ")
+    askc("yn")
+    case "y":
+    jump 3213
+    ESAC
+    print("\n\"Then to not understand you.\"")
+    jump 1027
+    print("\"To go from the entrance to Hythloth westward, following the @mountains.\"")
+    wait()
+    print("\n\n\"Then to turn north, at the @Hall of Knowledge.\"")
+    wait()
+    print("\n\n\"To walk east along the mountains until you come to a narrow pass.\"")
+    wait()
+    print("\n\n\"To find the @house of Valkadesh through the pass!\"")
+    wait()
+    print("\n\n\"To see it at 40 degrees south, 65 degrees east by the sextant.\"")
+    wait()
+    print("\n\n\"But to take care! To avoid the @lava pits and the @Hall of Knowledge!\"")
+    wait()
+    print("\n\n\"To understand these @directions?\" ")
+    askc("yn")
+    case "y":
+    print("\"Good!\"")
+    jump 1027
+    case "n":
+    print("\"To ask what was unclear?\"")
+    jump 1027
+
+3693:
+    integer(value 7) = partyJoin(byte 235)
+    if integer(value 7):
+    jump 3761
+    endif
+    print("The little gargoyle eagerly joins your group.")
+    jump 1027
+
+3761:
+    integer(value 8) = plus(integer(value 24), byte 1)
+    integer(value 9) = byte 0
+    if less(integer(value 8), byte 2):
+    print("\"To wish very much to join you. But to not have enough room in your party for another.\"")
+    jump 1027
+    endif
+    integer(value 6) = character(integer(value 8), byte 1)
+    if or(or(equals(integer(value 6), byte 4), equals(integer(value 6), byte 3)), equals(integer(value 6), byte 2)):
+    integer(value 8) = minus(integer(value 8), byte 1)
+    jump 3778
+    if partyLeave(integer(value 6)):
+    endif
+    ('SETNAME', ('integer', [('value', 6)]))
+    string(value 9) = string(value 34)
+    if isNearby(integer(value 6)):
+    ('PORTRAIT', ('integer', [('value', 6)]))
+    print("$9 speaks. \"$G, I'll return to the surface and let everyone know of our progress.\"")
+    wait()
+    print("\n\n")
+    integer(value 9) = byte 0
+    jump 4075
+    else:
+    integer(value 9) = byte 1
+    jump 4075
+    endif
+
+4075:
+    ('PORTRAIT', ('byte', 235))
+    if partyJoin(byte 235):
+    print("\"To not be able to join you right now. To ask again later, perhaps.\"\n")
+    bye()
+    else:
+    print("The little gargoyle eagerly joins your group.")
+    jump 1027
+    endif

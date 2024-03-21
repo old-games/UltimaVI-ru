@@ -1,0 +1,143 @@
+source("CONVERSE.B")
+index(59)
+
+id(158)
+name("Loubet")
+
+description:
+    print("a tall and dashing gentleman.")
+    wait()
+    print("\n")
+
+interaction:
+    print("He greets you with an elaborate bow and flourish. \"Good $T, mon ami")
+    if equals(integer(value 16), byte 1):
+    print("e")
+    endif
+    print("!\"")
+    if hasBit(byte 235, byte 7):
+    jump 566
+    endif
+    if equals(integer(value 32), byte 144):
+    wait()
+    print("\n\n\"'Ave you come to moi for @instruction?\" ")
+    askc("yn")
+    case "n":
+    print("\"You 'ave but to ask, mah friend.\"")
+    jump 566
+    case "y":
+    jump 244
+    ESAC
+    else:
+    jump 566
+    endif
+
+244:
+    print("Loubet hands you a foil and a mask of golden mesh.")
+    wait()
+    print("\n\nHe shows you the correct stance, then you spar for a bit.")
+    wait()
+    print("\n\n\"Now ze off hand, $G... Mon dieu, you are (how you say it?) ambidextrous! Very good, mah friend.\"")
+    wait()
+    print("\n\nM'sieur Loubet is a skilled teacher, and you feel like you've really learned something.")
+    integer(value 0) = dexterity(byte 1, byte 1)
+    ('SETF', ('byte', 235), ('byte', 7))
+    jump 566
+
+566:
+    print("\n")
+    ask()
+    case "prac,ask,less":
+    if hasBit(byte 235, byte 7):
+    print("\"But no! You are too skilled, I 'ave nothing more to teach you!\"")
+    jump 566
+    endif
+    if notEquals(integer(value 32), byte 144):
+    print("\"Practice? Here? Surely you jest!\"")
+    wait()
+    print("\n\n\"No, come to ma salle sometime, zen we will spar, yes?\"")
+    jump 566
+    else:
+    jump 244
+    endif
+    case "fenc,inst":
+    print("\"Oui, I teach ze fencing")
+    if equals(integer(value 32), byte 144):
+    print(" here in my salle, my school.\"")
+    else:
+    print(".\"")
+    endif
+    wait()
+    print("\n\n\"Is very difficult sometimes. Most fighters, zey have no subtlety, no finesse.\"")
+    wait()
+    print("\n\nHe turns up his nose and sniffs aristocratically.")
+    wait()
+    print("\n")
+    if hasBit(byte 235, byte 7):
+    print("\"Zey are not like you, mah friend! You are most talented!\"")
+    jump 566
+    endif
+    print("\"But you, you look much better than that, my friend.\"")
+    wait()
+    print("\n\n\"")
+    if equals(integer(value 32), byte 144):
+    print("Just ask")
+    else:
+    print("Come to ma salle sometime")
+    endif
+    print(" and I'll give you a @lesson!\"")
+    jump 566
+    case "name":
+    print("\"I am M'sieur Loubet.")
+    if equals(integer(value 32), byte 144):
+    print("\"")
+    wait()
+    print("\n\n\"@Touche!\" He wields his foil casually, lunging at an imaginary target.")
+    wait()
+    print("\n\n\"")
+    else:
+    print(" ")
+    endif
+    if hasBit(byte 235, value 0):
+    print("But you already know who I am, silly person!\"")
+    jump 566
+    endif
+    ('SETF', ('byte', 235), ('value', 0))
+    print("Much pleased to meet you, ")
+    if integer(value 16):
+    print("madame")
+    else:
+    print("m'sieur")
+    endif
+    print(".\"")
+    jump 566
+    case "touc":
+    print("\"Zat simply means 'touch.' In fencing we score by touching ze opponent with ze foil @tip.\"")
+    jump 566
+    case "foil,tip,scor":
+    print("\"Zey are blunt on ze end, see?\"")
+    wait()
+    print("\n\n\"Ze first third of ze blade (near ze 'andle) is 'forte'--strong. It is good to parry with zis part of ze sword.\"")
+    wait()
+    print("\n\n\"Ze rest of ze blade is 'foible'--weak and flexible.\"")
+    wait()
+    print("\n\n\"Ze foil, she is a very delicate thing. There must be much skill, yes?\"")
+    wait()
+    print("\n\n\"You must 'old ze sword like a living bird:\"")
+    wait()
+    print("\n\n\"Too loose and she flies away. Too tight and she smothers. Just right, and...\"")
+    wait()
+    print("\n\n\"She sings very sweet!\" He strikes metal and the foil makes a pleasant @ringing noise.")
+    jump 566
+    case "nois,plea,ring,hear":
+    print("SHINGGG!")
+    jump 566
+    case "job":
+    print("\"I am ze @fencing @instructor.\"")
+    jump 566
+    case "bye,au r":
+    print("\"Au revoir!\"\n")
+    bye()
+    case "*":
+    print("\"I cannot 'elp you with zat.\"")
+    jump 566

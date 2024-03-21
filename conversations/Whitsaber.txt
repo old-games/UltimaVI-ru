@@ -1,0 +1,129 @@
+source("CONVERSE.A")
+index(76)
+
+id(76)
+name("Whitsaber")
+
+description:
+    print("a balding but distinguished man.")
+
+interaction:
+    wait()
+    print("\n")
+    if hasBit(byte 235, byte 2):
+    print("Recognizing you, fear fills the former pirate's eyes.")
+    wait()
+    print("\n\n\"What do you want? I thought we had a deal!\"")
+    jump 209
+    endif
+    if hasBit(byte 235, value 0):
+    print("\"Welcome back, Avatar!\"")
+    else:
+    print("\"Welcome, Avatar!\"")
+    endif
+    print("\n")
+    ask()
+    case "name":
+    print("\"I am Lord Whitsaber, mayor of this honorable town!\"")
+    ('SETF', ('byte', 235), ('value', 0))
+    jump 209
+    case "job":
+    print("\"I am entrusted with an honor above all others-that of governing Trinsic, the Town of @Honor!\"")
+    jump 209
+    case "trin,town,hono":
+    print("\"Every citizen of this fine town strives every day to be a living example of honor.\"")
+    wait()
+    print("\n\n\"Of course, thy own example guides us all, Avatar!\"")
+    jump 209
+    case "map,ship,hawk,capt,home":
+    if hasBit(byte 235, byte 3):
+    print("\"I gave you the map. What more do you want?\"")
+    jump 209
+    endif
+    if hasBit(byte 235, byte 2):
+    print("\"All right! If thou wouldst but promise to keep my secret, I'll give thee the map!\"\n\n\"Agreed?\" ")
+    jump 1925
+    else:
+    print("\"What are you insinuating?\"")
+    jump 209
+    endif
+    case "pira":
+    print("\"Me, a pirate? Absurd!\"")
+    wait()
+    print("\n\nHe laughs out loud...but you sense a trace of fear in his voice!")
+    jump 209
+    case "sand,alas,gord,firs,mate":
+    print("\"Wh--what did Sandy tell you?\"")
+    wait()
+    print("\n\n\"Did he say I was once a @pirate?\" ")
+    jump 1462
+    case "rune":
+    print("\"The Rune of Honor? Why, it is on a pedestal in the center of town!\"")
+    wait()
+    print("\n\n\"Even though the rune is our most prized possession, we do not guard it!\"")
+    wait()
+    print("\n\n\"And dost thou know why not?\" ")
+    jump 1676
+    case "mant":
+    print("\"The Mantra of Honor? Let me think...\"")
+    wait()
+    print("\n\n\"Oh yes, I remember now. It's 'summ.'\"")
+    jump 209
+    case "bye":
+    if hasBit(byte 235, byte 2):
+    print("\"Goodbye, Avatar! Thou hast my thanks!\"")
+    wait()
+    print("\n\n\"Truly are thy compassion and honor an example to us all!\"\n")
+    else:
+    print("\"Good $T, Avatar. Return again when thou hast more time to chat!\"\n")
+    endif
+    bye()
+    case "*":
+    print("\"I beg thy pardon, Avatar?\"")
+    jump 209
+
+1462:
+    askc("yn")
+    case "y":
+    ('SETF', ('byte', 235), ('byte', 2))
+    print("\"Then all is lost!\"")
+    wait()
+    print("\n\n\"Have pity, Avatar, and keep my secret!\"")
+    wait()
+    print("\n\n\"I have changed since those dark days, truly I have!\"")
+    jump 209
+    case "n":
+    print("He seems strangely relieved. \"Oh. Well, good, because it isn't true!\"")
+    jump 209
+
+1676:
+    askc("yn")
+    case "y":
+    print("\"Oh.\" He seems disappointed somehow.")
+    jump 209
+    case "n":
+    print("\"Because Trinsic is the Town of Honor!\"")
+    wait()
+    print("\n\n\"None here would be dishonorable enough to steal it.\"")
+    wait()
+    print("\n\n\"And surely, if any took the rune, they would do the honorable thing and return it afterwards!\"")
+    jump 209
+
+1925:
+    askc("yn")
+    case "y":
+    print("\"Oh, thank you, Avatar.\"")
+    wait()
+    print("\n\nHe hands over his piece of the map.")
+    ('GIVE', ('word', 401), ('byte', 0), ('byte', 235), ('byte', 1))
+    ('SETF', ('byte', 235), ('byte', 3))
+    wait()
+    print("\n\"I'll rely on thy honor to keep my secret.\"")
+    jump 209
+    case "n":
+    print("\"But what more can I do? I cannot change the past!\"")
+    wait()
+    print("\n\n\"By giving you the map, do I not prove that I have changed my ways?\"")
+    wait()
+    print("\n\"No pirate would willingly give up the key to such a treasure!\"")
+    jump 209

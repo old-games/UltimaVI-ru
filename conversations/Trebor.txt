@@ -1,0 +1,211 @@
+source("CONVERSE.A")
+index(72)
+
+id(72)
+name("Trebor")
+
+description:
+    print("a tall, muscled man with a wide grin.")
+    wait()
+    print("\n")
+
+interaction:
+    integer(value 5) = byte 0
+    if hasBit(byte 235, value 0):
+    print("He squints at you. \"We've met, haven't we?\"")
+    else:
+    print("\"Hello,\" he says, lumbering over to you and extending a large hand.")
+    ('SETF', ('byte', 235), ('value', 0))
+    endif
+    wait()
+    print("\n\n\"What can I do for ya?\"\n")
+    ask()
+    case "name":
+    print("\"Trebor.\"")
+    jump 206
+    case "buy":
+    if equals(hasObject(byte 235, byte 149, byte 0), byte 0):
+    print("\"You bought my last craft!\"")
+    jump 206
+    endif
+    print("\"I sell ")
+    if or(hasObject(byte 235, byte 149, data(dword 1824, byte 0)), hasObject(byte 235, byte 149, data(dword 1824, byte 1))):
+    print("@ships")
+    integer(value 1) = byte 1
+    else:
+    integer(value 1) = byte 0
+    endif
+    if equals(or(hasObject(byte 235, byte 149, data(dword 1824, byte 2)), hasObject(byte 235, byte 149, data(dword 1824, byte 3))), byte 0):
+    print(".\"")
+    jump 206
+    endif
+    if integer(value 1):
+    print(" and ")
+    endif
+    print("@skiffs.\"")
+    jump 206
+    case "ship":
+    if hasObject(byte 235, byte 149, data(dword 1824, byte 0)):
+    integer(value 9) = byte 0
+    jump 892
+    endif
+    if hasObject(byte 235, byte 149, data(dword 1824, byte 1)):
+    integer(value 9) = byte 1
+    jump 892
+    endif
+    print("\"Sorry, I sold you my last ship.\"")
+    jump 206
+    case "skif":
+    if hasObject(byte 235, byte 149, data(dword 1824, byte 2)):
+    integer(value 9) = byte 2
+    jump 892
+    endif
+    if hasObject(byte 235, byte 149, data(dword 1824, byte 3)):
+    integer(value 9) = byte 3
+    jump 892
+    endif
+    print("\"Sorry, I sold you my last skiff.\"")
+    jump 206
+    case "job":
+    if equals(hasObject(byte 235, byte 149, byte 0), byte 0):
+    print("\"I used to sell ships and skiffs.\"")
+    wait()
+    print("\n\n\"But you bought them all!\"")
+    jump 206
+    endif
+    print("\"I sell ")
+    if or(hasObject(byte 235, byte 149, data(dword 1824, byte 0)), hasObject(byte 235, byte 149, data(dword 1824, byte 1))):
+    print("@ships")
+    integer(value 1) = byte 1
+    else:
+    integer(value 1) = byte 0
+    endif
+    if equals(or(hasObject(byte 235, byte 149, data(dword 1824, byte 2)), hasObject(byte 235, byte 149, data(dword 1824, byte 3))), byte 0):
+    print(".\"")
+    jump 206
+    endif
+    if integer(value 1):
+    print(" and ")
+    endif
+    print("@skiffs.\"")
+    jump 206
+    case "bye":
+    print("\"So long friend.\" He lumbers back to his work.\n")
+    bye()
+    case "*":
+    print("\"That's a puzzler.\"")
+    jump 206
+
+892:
+    integer(value 5) = byte 0
+    if equals(integer(value 23), byte 0):
+    integer(value 3) = byte 0
+    jump 1035
+    endif
+    integer(value 0) = byte 0
+    integer(value 2) = byte 1
+    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    print("#2. $Y\n")
+    integer(value 0) = plus(integer(value 0), byte 1)
+    integer(value 2) = plus(integer(value 2), byte 1)
+    if lessOrEquals(integer(value 0), integer(value 23)):
+    jump 933
+    endif
+    print("\"Which of you?\" ")
+    ('INPUTNUM', 3)
+    if equals(integer(value 3), byte 0):
+    jump 1396
+    endif
+    integer(value 3) = minus(integer(value 3), byte 1)
+    if greater(integer(value 3), integer(value 23)):
+    jump 919
+    endif
+    integer(value 3) = character(integer(value 3), byte 0)
+    integer(value 4) = data(dword 1816, integer(value 9))
+    ('SETNAME', ('integer', [('value', 3)]))
+    print("$N turns to $Y. \"It'll cost you #4 gold for the deed. Interested?\" ")
+    askc("yn")
+    case "y":
+    if greaterOrEquals(canCarry(integer(value 3)), weight(byte 149, byte 1)):
+    jump 1246
+    endif
+    if less(objectsCount(integer(value 3), byte 88), data(dword 1816, integer(value 9))):
+    integer(value 7) = objectsCount(integer(value 3), byte 88)
+    else:
+    integer(value 7) = data(dword 1816, integer(value 9))
+    endif
+    if less(plus(canCarry(integer(value 3)), integer(value 7)), weight(byte 149, byte 1)):
+    print("\"You look pretty full to me, $Y.\"")
+    jump 206
+    endif
+    if less(objectsCount(integer(value 3), byte 88), data(dword 1816, integer(value 9))):
+    jump 1462
+    else:
+    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 1816), ('integer', [('value', 9)])]))
+    jump 1302
+    endif
+    case "n":
+    jump 1396
+
+1302:
+    ('GIVE', ('byte', 149), ('data', [('dword', 1824), ('integer', [('value', 9)])]), ('byte', 235), ('integer', [('value', 3)]))
+    print("\"Excellent!\" After accepting the gold, $N hands $Y the deed.")
+    integer(value 5) = byte 1
+    wait()
+    print("\n\n")
+    jump 1396
+
+1396:
+    if integer(value 5):
+    print("\"Sail her straight.\"")
+    else:
+    print("\"You'll ne'er find a better craft.\"")
+    endif
+    jump 206
+
+1462:
+    if equals(integer(value 23), byte 0):
+    print("\"Thou hast not enough gold.\"")
+    jump 206
+    endif
+    integer(value 1) = data(dword 1816, integer(value 9))
+    integer(value 2) = byte 0
+    integer(value 6) = byte 0
+    integer(value 4) = byte 0
+    if greater(integer(value 6), integer(value 23)):
+    print("\"Thy party hast not enough gold.\"")
+    jump 206
+    endif
+    integer(value 5) = objectsCount(character(integer(value 6), byte 0), byte 88)
+    if less(integer(value 5), integer(value 1)):
+    integer(value 1) = minus(integer(value 1), integer(value 5))
+    integer(value 2) = plus(integer(value 2), integer(value 5))
+    integer(value 6) = plus(integer(value 6), byte 1)
+    jump 1537
+    else:
+    print("Your party takes up a collection to purchase the vessel.")
+    integer(value 1) = word 400
+    integer(value 2) = byte 0
+    integer(value 4) = integer(value 6)
+    integer(value 6) = byte 0
+    jump 1730
+    endif
+
+1730:
+    if equals(integer(value 6), integer(value 4)):
+    ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+    wait()
+    print("\n\n")
+    jump 1302
+    endif
+    integer(value 5) = objectsCount(character(integer(value 6), byte 0), byte 88)
+    integer(value 1) = minus(integer(value 1), integer(value 5))
+    ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
+    integer(value 6) = plus(integer(value 6), byte 1)
+    jump 1730
+
+1816:
+    ['INTEGERS', [250, 250, 20, 20]]
+
+1824:
+    ['INTEGERS', [5, 6, 132, 133]]

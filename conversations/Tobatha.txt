@@ -1,0 +1,360 @@
+source("CONVERSE.A")
+index(81)
+
+id(81)
+name("Tobatha")
+
+description:
+    print("a doddering old woman.")
+
+interaction:
+    print("\n")
+    wait()
+    integer(value 0) = partyHasObject(word 339, byte 0)
+    if notEquals(integer(value 0), word 32769):
+    jump 2697
+    endif
+    print("\"Who are you and what d'ye want?\"\n")
+    ask()
+    if random(byte 0, byte 2):
+    print("\n\"Eh? Speak up!\"")
+    jump 93
+    endif
+    case "heal":
+    jump 951
+    case "cure":
+    jump 1829
+    case "resu":
+    integer(value 0) = partyHasObject(word 339, byte 0)
+    if equals(integer(value 0), word 32769):
+    print("\"Eh? What foolishness is this?\"")
+    wait()
+    print("\n\n\"There ain't no dead person here!\"")
+    jump 93
+    else:
+    ('SETNAME', ('integer', [('value', 0)]))
+    jump 2843
+    endif
+    case "name":
+    print("\"My name's @Tobatha.\"")
+    ('SETF', ('byte', 235), ('value', 0))
+    wait()
+    print("\n\n\"But you can call me @maam, youngster.\"")
+    jump 93
+    case "toba":
+    print("\"That's @maam to you, youngster. Respect your elders!\"")
+    jump 93
+    case "maam,ma'a":
+    print("\"That's better. Now, what did you want?\"")
+    jump 93
+    case "job":
+    print("\"Job? I'm a mender of the @inflicted!\"")
+    wait()
+    print("\n\n\"If I weren't, why would you be here?\"")
+    wait()
+    print("\n\n\"Now stop this foolishness and tell me what you want, youngster.\"")
+    jump 93
+    case "infl":
+    print("\"I can @heal, @cure, and even @raise dead!\"")
+    jump 93
+    case "than":
+    print("\"Oh, sure! Thou art just trying to get on my good side.\"")
+    wait()
+    print("\n\n\"Well, it won't work!\"")
+    jump 93
+    case "bye,no":
+    print("\"Hmph! And not so much as a @thank-you.\"")
+    wait()
+    print("\n\n\"Well, that's kids today for ye! No manners, the lot of 'em!\"\n")
+    bye()
+    case "yes":
+    print("\"Well, what can I do for thee?\"")
+    jump 93
+    case "*":
+    print("\"Don't bother me with that!\"")
+    jump 93
+
+951:
+    if greater(integer(value 23), byte 0):
+    integer(value 1) = byte 0
+    integer(value 2) = byte 0
+    integer(value 4) = byte 0
+    jump 1059
+    endif
+    integer(value 3) = character(byte 0, byte 0)
+    if isWounded(integer(value 3)):
+    jump 1364
+    else:
+    print("\"What do you mean, heal? Thou art not wounded!\"")
+    jump 1801
+    endif
+
+1059:
+    if greater(integer(value 1), integer(value 23)):
+    jump 1169
+    endif
+    integer(value 3) = character(integer(value 1), byte 0)
+    if equals(isWounded(integer(value 3)), byte 0):
+    jump 1154
+    endif
+    if equals(integer(value 4), byte 0):
+    integer(value 4) = integer(value 3)
+    integer(value 2) = plus(integer(value 2), byte 1)
+    jump 1154
+    endif
+    ('SETNAME', ('integer', [('value', 4)]))
+    print("#2) $Y\n")
+    integer(value 2) = plus(integer(value 2), byte 1)
+    integer(value 4) = integer(value 3)
+    integer(value 1) = plus(integer(value 1), byte 1)
+    jump 1059
+
+1169:
+    if equals(integer(value 2), byte 0):
+    print("\"What do you mean, heal? None of you are wounded!\"")
+    jump 1801
+    endif
+    if equals(integer(value 2), byte 1):
+    integer(value 3) = integer(value 4)
+    jump 1364
+    endif
+    ('SETNAME', ('integer', [('value', 4)]))
+    print("#2) $Y\n\"Which of you?\" ")
+    ('INPUTNUM', 2)
+    if equals(integer(value 2), byte 0):
+    jump 1801
+    endif
+    integer(value 1) = byte 0
+    integer(value 3) = character(integer(value 1), byte 0)
+    if isWounded(integer(value 3)):
+    integer(value 2) = minus(integer(value 2), byte 1)
+    endif
+    if equals(integer(value 2), byte 0):
+    jump 1364
+    endif
+    integer(value 1) = plus(integer(value 1), byte 1)
+    if lessOrEquals(integer(value 1), integer(value 23)):
+    jump 1302
+    endif
+    ('SETNAME', ('integer', [('value', 3)]))
+    print("\"Aye, I see thy wound, $Y.\"")
+    wait()
+    print("\n\n\"Wilt thou make an offering of 30 gold?\" ")
+    askc("yn")
+    case "y":
+    if less(objectsCount(integer(value 3), byte 88), byte 30):
+    jump 1610
+    else:
+    print("Laying hands upon $Y, Tobatha mends the wounds.")
+    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 30))
+    ('HEAL', ('integer', [('value', 3)]))
+    jump 93
+    endif
+    case "n":
+    if less(objectsCount(integer(value 3), byte 88), byte 30):
+    jump 1610
+    else:
+    print("\"Well, if thou wilt not pay, why should I heal thee?\"")
+    jump 1801
+    endif
+
+1610:
+    if less(integer(value 20), byte 40):
+    print("\"You youngsters think everything should be free!\"")
+    jump 93
+    else:
+    print("\"Thou art not too bad, for a youngster.\"")
+    wait()
+    print("\n\n\"All right, I'll heal ye.\"")
+    wait()
+    print("\n\nLaying hands upon $Y, Tobatha mends the wounds.")
+    ('HEAL', ('integer', [('value', 3)]))
+    jump 1801
+    endif
+
+1801:
+    wait()
+    print("\n\n\"What else ya want?\"")
+    jump 93
+
+1829:
+    if greater(integer(value 23), byte 0):
+    integer(value 1) = byte 0
+    integer(value 2) = byte 0
+    integer(value 4) = byte 0
+    jump 1938
+    endif
+    integer(value 3) = character(byte 0, byte 0)
+    if isWounded(integer(value 3)):
+    jump 2244
+    else:
+    print("\"What do you mean, cure? Thou art not poisoned!\"")
+    jump 1801
+    endif
+
+1938:
+    if greater(integer(value 1), integer(value 23)):
+    jump 2048
+    endif
+    integer(value 3) = character(integer(value 1), byte 0)
+    if equals(isWounded(integer(value 3)), byte 0):
+    jump 2033
+    endif
+    if equals(integer(value 4), byte 0):
+    integer(value 4) = integer(value 3)
+    integer(value 2) = plus(integer(value 2), byte 1)
+    jump 2033
+    endif
+    ('SETNAME', ('integer', [('value', 4)]))
+    print("#2) $Y\n")
+    integer(value 2) = plus(integer(value 2), byte 1)
+    integer(value 4) = integer(value 3)
+    integer(value 1) = plus(integer(value 1), byte 1)
+    jump 1938
+
+2048:
+    if equals(integer(value 2), byte 0):
+    print("\"What do you mean, cure? None of you are poisoned!\"")
+    jump 1801
+    endif
+    if equals(integer(value 2), byte 1):
+    integer(value 3) = integer(value 4)
+    jump 2244
+    endif
+    ('SETNAME', ('integer', [('value', 4)]))
+    print("#2) $Y\n\"Which of you?\" ")
+    ('INPUTNUM', 2)
+    if equals(integer(value 2), byte 0):
+    jump 1801
+    endif
+    integer(value 1) = byte 0
+    integer(value 3) = character(integer(value 1), byte 0)
+    if isWounded(integer(value 3)):
+    integer(value 2) = minus(integer(value 2), byte 1)
+    endif
+    if equals(integer(value 2), byte 0):
+    jump 2244
+    endif
+    integer(value 1) = plus(integer(value 1), byte 1)
+    if lessOrEquals(integer(value 1), integer(value 23)):
+    jump 2182
+    endif
+    ('SETNAME', ('integer', [('value', 3)]))
+    print("\"Aye, $Y, I can tell that thou art poisoned.\"")
+    wait()
+    print("\n\n\"Wilt thou make an offering of 10 gold?\" ")
+    askc("yn")
+    case "y":
+    if less(objectsCount(integer(value 3), byte 88), byte 10):
+    jump 2504
+    else:
+    print("Laying hands upon $Y, Tobatha removes the poison.")
+    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 10))
+    ('CURE', ('integer', [('value', 3)]))
+    jump 1801
+    endif
+    case "n":
+    if less(objectsCount(integer(value 3), byte 88), byte 10):
+    jump 2504
+    else:
+    print("\"Well if thou won't pay, thou won't get cured!\"")
+    jump 1801
+    endif
+
+2504:
+    if less(integer(value 20), byte 40):
+    print("\"You youngsters think everything should be free!\"")
+    jump 93
+    else:
+    print("\"Thou art not too bad, for a youngster.\"")
+    wait()
+    print("\n\n\"All right, I'll cure ye.\"")
+    wait()
+    print("\n\nLaying hands upon $Y, Tobatha removes the poison.")
+    ('CURE', ('integer', [('value', 3)]))
+    jump 1801
+    endif
+
+2697:
+    ('SETNAME', ('integer', [('value', 0)]))
+    print("\"Well, ain't that just like youngsters?\"")
+    wait()
+    print("\n\n\"Makin' mistakes and expecting their elders to bail them out.\"")
+    wait()
+    print("\n\n\"Well, today's your lucky day.\"")
+    wait()
+    print("\n\n\"Wilt thou make an offering of 400 gold?\" ")
+    askc("yn")
+    case "y":
+    if less(objectsCount(integer(value 0), byte 88), word 400):
+    jump 2986
+    else:
+    jump 3386
+    endif
+    case "n":
+    print("\"Then go see a gravedigger. I'll reckon his price'll be lower.\"")
+    jump 93
+
+2986:
+    integer(value 1) = word 400
+    integer(value 2) = byte 0
+    integer(value 3) = byte 0
+    integer(value 4) = byte 0
+    if greater(integer(value 3), integer(value 23)):
+    print("\"That ain't enough money.\"")
+    wait()
+    print("\n\n\"Thou art #1 gold piece\\s short.\"")
+    wait()
+    print("\n\n\"Go see a gravedigger. I'll reckon his price'll be lower.\"")
+    jump 93
+    endif
+    integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
+    if less(integer(value 5), integer(value 1)):
+    integer(value 1) = minus(integer(value 1), integer(value 5))
+    integer(value 2) = plus(integer(value 2), integer(value 5))
+    integer(value 3) = plus(integer(value 3), byte 1)
+    jump 3015
+    else:
+    print("Your party takes up a collection for their fallen comrade.")
+    integer(value 1) = word 400
+    integer(value 2) = byte 0
+    integer(value 4) = integer(value 3)
+    integer(value 3) = byte 0
+    jump 3300
+    endif
+
+3300:
+    if equals(integer(value 3), integer(value 4)):
+    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+    wait()
+    print("\n\n")
+    jump 3386
+    endif
+    integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
+    integer(value 1) = minus(integer(value 1), integer(value 5))
+    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
+    integer(value 3) = plus(integer(value 3), byte 1)
+    jump 3300
+
+3386:
+    print("Tobatha lays hands upon the corpse...")
+    wait()
+    print("\n\n\"Doman...\"")
+    wait()
+    print("\n\n\"thixus...\"")
+    wait()
+    print("\n\n\"anretu!\"")
+    ('RESURRECT', ('integer', [('value', 0)]))
+    wait()
+    print("\n\nAnd the dead live again!")
+    integer(value 0) = partyHasObject(word 339, byte 0)
+    if notEquals(integer(value 0), word 32769):
+    ('SETNAME', ('integer', [('value', 0)]))
+    wait()
+    print("\n\n\"I see that $Y's got another one.\"")
+    wait()
+    print("\n\n")
+    jump 2843
+    else:
+    jump 93
+    endif

@@ -1,0 +1,399 @@
+source("CONVERSE.A")
+index(58)
+
+id(58)
+name("Nicodemus")
+
+description:
+    print("a wizened old man with a ready smile.")
+    wait()
+
+f3()
+
+interaction:
+    print("\n\"Good $T, Avatar. For what purpose hast thou come?\"\n")
+    ask()
+    case "buy,reag":
+    jump 1684
+    case "lear,spel":
+    jump 584
+    case "book":
+    jump 2456
+    case "sta":
+    jump 2855
+    case "name":
+    print("\"I am Nicodemus.\"")
+    ('SETF', ('byte', 235), ('value', 0))
+    jump 104
+    case "job":
+    print("\"Why, bless me, I work here!\"")
+    wait()
+    print("\n\n\"I sell @reagents, teach @spells, and craft magic @staves.\"")
+    wait()
+    print("\n\n\"I also do a little @experimenting.\"")
+    jump 104
+    case "expe":
+    print("\"Oh, nothing a great adventurer such as yourself would be @interested in.\"")
+    jump 104
+    case "inte":
+    print("He gets a suspicious look in his eyes.")
+    wait()
+    print("\n\n\"Don't be too nosy, ")
+    if integer(value 16):
+    print("girlie!\"")
+    else:
+    print("sonny!\"")
+    endif
+    jump 104
+    case "bye":
+    print("\"Come back anytime!\"\n")
+    bye()
+    case "*":
+    print("\"Nope, nope, I won't talk about that!\"")
+    jump 104
+
+584:
+    if greater(integer(value 23), byte 0):
+    integer(value 1) = byte 0
+    integer(value 2) = byte 0
+    integer(value 4) = byte 0
+    jump 682
+    endif
+    integer(value 3) = character(byte 0, byte 0)
+    if hasObject(integer(value 3), byte 57, byte 0):
+    jump 980
+    else:
+    print("\"But thou hast not a spell@book!\"")
+    jump 104
+    endif
+
+682:
+    if greater(integer(value 1), integer(value 23)):
+    jump 796
+    endif
+    integer(value 3) = character(integer(value 1), byte 0)
+    if equals(hasObject(integer(value 3), byte 57, byte 0), byte 0):
+    jump 781
+    endif
+    if equals(integer(value 4), byte 0):
+    integer(value 4) = integer(value 3)
+    integer(value 2) = plus(integer(value 2), byte 1)
+    jump 781
+    endif
+    ('SETNAME', ('integer', [('value', 4)]))
+    print("#2) $Y\n")
+    integer(value 2) = plus(integer(value 2), byte 1)
+    integer(value 4) = integer(value 3)
+    integer(value 1) = plus(integer(value 1), byte 1)
+    jump 682
+
+796:
+    if equals(integer(value 2), byte 0):
+    print("\"But none of you has a spell@book!\"")
+    jump 104
+    endif
+    if equals(integer(value 2), byte 1):
+    integer(value 3) = integer(value 4)
+    jump 980
+    endif
+    ('SETNAME', ('integer', [('value', 4)]))
+    print("#2) $Y\n\"Which of you?\" ")
+    ('INPUTNUM', 2)
+    if equals(integer(value 2), byte 0):
+    jump 104
+    endif
+    integer(value 1) = byte 0
+    integer(value 3) = character(integer(value 1), byte 0)
+    if hasObject(integer(value 3), byte 57, byte 0):
+    integer(value 2) = minus(integer(value 2), byte 1)
+    endif
+    if equals(integer(value 2), byte 0):
+    jump 980
+    endif
+    integer(value 1) = plus(integer(value 1), byte 1)
+    if lessOrEquals(integer(value 1), integer(value 23)):
+    jump 914
+    endif
+
+980:
+    ('SETNAME', ('integer', [('value', 3)]))
+    integer(value 1) = level(integer(value 3), byte 0)
+    string(value 1) = data(dword 3527, integer(value 1))
+    print("\"In which Circle does $Y wish to study?\" ")
+    ('INPUTNUM', 0)
+    if equals(integer(value 0), byte 0):
+    jump 105
+    endif
+    if greater(integer(value 0), byte 8):
+    print("\"As everybody knows, there are only eight circles.\"")
+    wait()
+    print("\n\n")
+    jump 980
+    endif
+    if greater(integer(value 0), integer(value 1)):
+    print("\"I sense that $Y is only ready for the #1$1 Circle.\"")
+    wait()
+    print("\n\n\"But such matters are not my concern...\"")
+    wait()
+    print("\n\n")
+    endif
+    integer(value 0) = minus(integer(value 0), byte 1)
+    integer(value 0) = multiply(integer(value 0), byte 10)
+    if equals(data(dword 3554, integer(value 0)), byte 0):
+    print("\"I have no spells of that circle.\"")
+    wait()
+    print("\n\n")
+    jump 980
+    endif
+    integer(value 2) = byte 1
+    string(value 6) = data(dword 3714, minus(plus(integer(value 0), integer(value 2)), byte 1))
+    print("#2) $6\n")
+    integer(value 2) = plus(integer(value 2), byte 1)
+    if greater(data(dword 3554, minus(plus(integer(value 0), integer(value 2)), byte 1)), byte 0):
+    jump 1320
+    endif
+    print("\"Which of these?\" ")
+    ('INPUTNUM', 4)
+    if or(equals(integer(value 4), byte 0), greaterOrEquals(integer(value 4), integer(value 2))):
+    print("\"Perhaps $Y is not ready for this circle.\"")
+    wait()
+    print("\n\n")
+    jump 980
+    endif
+    integer(value 4) = minus(integer(value 4), byte 1)
+    integer(value 5) = plus(byte 20, multiply(integer(value 0), byte 2))
+    if less(objectsCount(integer(value 3), byte 88), integer(value 5)):
+    print("\"$Y lacks the #5 gold required.\"")
+    wait()
+    print("\n\n")
+    jump 980
+    endif
+    print("\"That spell costs #5 gold. Interested?\" ")
+    askc("yn")
+    case "y":
+    print("$N hands $Y a piece of rune-covered parchment.")
+    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
+    ('NEW', ('integer', [('value', 3)]), ('byte', 58), ('data', [('dword', 3554), ('plus', [('integer', [('value', 0)]), ('integer', [('value', 4)])])]), ('byte', 1))
+    wait()
+    print("\n\n")
+    jump 980
+    case "n":
+    jump 980
+
+1684:
+    if greater(integer(value 23), byte 0):
+    integer(value 2) = byte 1
+    jump 1719
+    endif
+    integer(value 3) = character(byte 0, byte 0)
+    jump 1821
+
+1719:
+    integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
+    ('SETNAME', ('integer', [('value', 3)]))
+    print("#2) $Y\n")
+    if lessOrEquals(integer(value 2), integer(value 23)):
+    integer(value 2) = plus(integer(value 2), byte 1)
+    jump 1719
+    endif
+    print("\"Which of you?\" ")
+    ('INPUTNUM', 2)
+    if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
+    jump 104
+    else:
+    integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
+    endif
+    ('SETNAME', ('integer', [('value', 3)]))
+    integer(value 1) = byte 1
+    string(value 1) = data(dword 3469, minus(integer(value 1), byte 1))
+    print("#1) $1\n")
+    integer(value 1) = plus(integer(value 1), byte 1)
+    if greater(data(dword 3437, minus(integer(value 1), byte 1)), byte 0):
+    jump 1832
+    endif
+    print("\"Which of these?\" ")
+    ('INPUTNUM', 2)
+    if or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1))):
+    integer(value 2) = byte 1
+    jump 105
+    endif
+    integer(value 2) = minus(integer(value 2), byte 1)
+    integer(value 1) = data(dword 3453, integer(value 2))
+    string(value 1) = data(dword 3469, integer(value 2))
+    integer(value 5) = byte 0
+    print("\"$1 costs #1 per portion.\"")
+    wait()
+    print("\n\n\"How many dost thou want?\" ")
+    ('INPUT', 4)
+    if greater(integer(value 4), word 500):
+    integer(value 4) = word 500
+    endif
+    if equals(integer(value 4), byte 0):
+    jump 1821
+    endif
+    if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 3437, integer(value 2)), byte 1)):
+    jump 2194
+    endif
+    if less(objectsCount(integer(value 3), byte 88), integer(value 1)):
+    jump 2325
+    endif
+    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+    ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 3437), ('integer', [('value', 2)])]), ('byte', 0), ('byte', 1))
+    integer(value 5) = plus(integer(value 5), byte 1)
+    if equals(integer(value 5), integer(value 4)):
+    print("$N hands $Y the $1.")
+    wait()
+    print("\n\n")
+    jump 1821
+    else:
+    jump 2066
+    endif
+
+2194:
+    if integer(value 5):
+    print("\"Thou cannot carry that much!\"")
+    wait()
+    print("\n\n\"I'll give thee #5; thou dost not need the rest.\"")
+    wait()
+    print("\n\n")
+    jump 1821
+    else:
+    print("\"Thou cannot carry any $1!\"")
+    wait()
+    print("\n\n")
+    jump 1821
+    endif
+
+2325:
+    if integer(value 5):
+    print("\"Thou cannot afford that much!\"")
+    wait()
+    print("\n\n\"I'll give thee #5; thou cannot have the rest.\"")
+    wait()
+    print("\n\n")
+    jump 1821
+    else:
+    print("\"Thou cannot afford any $1!\"")
+    wait()
+    print("\n\n")
+    jump 1821
+    endif
+
+2456:
+    if integer(value 23):
+    integer(value 2) = byte 1
+    jump 2488
+    endif
+    integer(value 3) = character(byte 0, byte 0)
+    jump 2590
+
+2488:
+    integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
+    ('SETNAME', ('integer', [('value', 3)]))
+    print("#2) $Y\n")
+    if lessOrEquals(integer(value 2), integer(value 23)):
+    integer(value 2) = plus(integer(value 2), byte 1)
+    jump 2488
+    endif
+    print("\"Which of you?\" ")
+    ('INPUTNUM', 2)
+    if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
+    jump 104
+    else:
+    integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
+    endif
+    ('SETNAME', ('integer', [('value', 3)]))
+    if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 45)), weight(byte 57, byte 1)):
+    print("\"But thou cannot carry a spellbook!\"")
+    jump 104
+    endif
+    if less(objectsCount(integer(value 3), byte 88), byte 45):
+    print("\"But thou cannot afford a spellbook!\"")
+    jump 104
+    endif
+    print("\"A spellbook costs 45 gold pieces. Interested?\" ")
+    askc("yn")
+    case "y":
+    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 45))
+    ('NEW', ('integer', [('value', 3)]), ('byte', 57), ('byte', 0), ('byte', 1))
+    jump 104
+    case "n":
+    if integer(value 23):
+    print("\"Perhaps one of thy friends then.\"")
+    wait()
+    print("\n\n")
+    integer(value 2) = byte 1
+    jump 2488
+    else:
+    jump 104
+    endif
+
+2855:
+    print("\"Yes, I make magical yew staves.\"")
+    wait()
+    print("\n\n\"If thou knowest the Enchant spell, thou canst lock a spell within the staff for quick use!\"")
+    wait()
+    print("\n\n\"A yew staff costs 100 gold pieces, but it's worth twice that!\"")
+    wait()
+    print("\n\n\"Wouldst thou like to buy one?\" ")
+    askc("yn")
+    case "n":
+    print("\"Perhaps some other time, then.\"")
+    jump 104
+    case "y":
+    if integer(value 23):
+    integer(value 2) = byte 1
+    jump 3163
+    else:
+    integer(value 3) = character(byte 0, byte 0)
+    jump 3265
+    endif
+
+3163:
+    integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
+    ('SETNAME', ('integer', [('value', 3)]))
+    print("#2) $Y\n")
+    if lessOrEquals(integer(value 2), integer(value 23)):
+    integer(value 2) = plus(integer(value 2), byte 1)
+    jump 3163
+    endif
+    print("\"Which of you?\" ")
+    ('INPUTNUM', 2)
+    if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
+    jump 104
+    else:
+    integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
+    endif
+
+3265:
+    ('SETNAME', ('integer', [('value', 3)]))
+    if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 100)), weight(byte 78, byte 1)):
+    print("\"But thou cannot carry a staff!\"")
+    jump 104
+    endif
+    if less(objectsCount(integer(value 3), byte 88), byte 100):
+    print("\"But thou cannot afford a staff!\"")
+    jump 104
+    endif
+    print("The old man hands $Y a yew staff.")
+    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 100))
+    ('NEW', ('integer', [('value', 3)]), ('byte', 78), ('byte', 0), ('byte', 1))
+    jump 104
+
+3437:
+    ['INTEGERS', [66, 67, 68, 71, 72, 0, 0, 0]]
+
+3453:
+    ['INTEGERS', [2, 1, 1, 1, 2, 0, 0, 0]]
+
+3469:
+    ['STRINGS', ['Blood Moss', 'Garlic', 'Ginseng', 'Spider Silk', 'Sulfurous Ash', ' ', ' ', ' ']]
+
+3527:
+    ['STRINGS', ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th']]
+
+3554:
+    ['INTEGERS', [2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 20, 23, 24, 0, 0, 0, 0, 0, 0, 0, 36, 38, 40, 41, 0, 0, 0, 0, 0, 0, 49, 0, 0, 0, 0, 0, 0, 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 0, 80, 82, 85, 89, 0, 0, 0, 0, 0, 0, 97, 103, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]]
+
+3714:
+    ['STRINGS', ['Detect Trap', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Sleep', 'Unlock Magic', 'Untrap', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Magic Lock', 'Mass Sleep', 'Protection', 'Repel Undead', ' ', ' ', ' ', ' ', ' ', ' ', 'Conjure', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Insect Swarm', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Charm', 'Confuse', 'Mass Protect', 'Web', ' ', ' ', ' ', ' ', ' ', ' ', 'Enchant', 'Mass Invisibility', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']]

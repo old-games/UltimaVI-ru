@@ -1,0 +1,122 @@
+source("CONVERSE.A")
+index(45)
+
+id(45)
+name("Stelnar")
+
+description:
+    print("an angry-looking man wearing short swords on either hip.")
+    wait()
+    print("\n")
+
+interaction:
+    if equals(integer(value 32), byte 153):
+    print("He was just about to punch someone when you approached him.*\n\n\"This is no time for talk. There's fighting to do!\"\n")
+    bye()
+    endif
+    if equals(hasBit(byte 235, value 0), byte 0):
+    print("\"Good $T.\"")
+    else:
+    print("\"Ho there, $G!\"")
+    jump 389
+    endif
+    if and(equals(hasBit(byte 235, byte 2), byte 0), partyHas(byte 3)):
+    wait()
+    ('PORTRAIT', ('byte', 3))
+    print("\n\n\"Good $T, Stelnar.\" @Shamino and Stelnar shake hands. \"$P, this is Stelnar Starhelm.\"")
+    wait()
+    ('PORTRAIT', ('byte', 235))
+    print("\n\n\"Pleased to meet you, $G $P.\"")
+    ('SETF', ('byte', 235), ('value', 0))
+    ('SETF', ('byte', 235), ('byte', 2))
+    endif
+    print("\n")
+    ask()
+    case "name":
+    print("\"I'm called Starhelm.\"")
+    ('SETF', ('byte', 235), ('value', 0))
+    jump 389
+    case "arvi":
+    print("\"Arvin? He seems a good sort.\"")
+    jump 389
+    case "culh":
+    print("\"He's a bard. I do not really know him.\"")
+    jump 389
+    case "jerr":
+    print("\"Oh, yes. Brave fellow.\"")
+    jump 389
+    case "sham,rang":
+    print("\"Shamino and I travelled the Spiritwood together for a time.\"")
+    jump 389
+    case "job":
+    print("\"I am a @monster-slayer.\"")
+    jump 389
+    case "mons,slay":
+    print("\"I hate all monsters. They are a blight on the face of Britannia!\"")
+    wait()
+    print("\n\n\"For the past year I've been killing @wisps and the like in Spiritwood.\"")
+    jump 389
+    case "blig,spir,wisp":
+    print("\"Wisps are nasty flickers, very hard to kill. Not like @gargoyles, now.\"")
+    jump 389
+    case "garg":
+    print("\"There's one that they call @Sin 'Vraal.\"")
+    wait()
+    print("\n\n\"If I had my way, that gargoyle would be a @statue.\"")
+    jump 389
+    case "stat":
+    print("\"They turn to stone when ye slay them.\"")
+    if isNearby(byte 46):
+    wait()
+    ('PORTRAIT', ('byte', 46))
+    print("\n\n\"That's drivel, friend Starhelm!\" says Van Kellian.")
+    wait()
+    print("\n\n\"A gargoyle's a flesh and blood beast.\"")
+    wait()
+    print("\n\n\"Stone indeed!\"")
+    wait()
+    ('PORTRAIT', ('byte', 235))
+    print("\n\n\"Bards! A gargoyle is an @ugly monster, and that's that.\"")
+    endif
+    jump 389
+    case "ugly":
+    if isNearby(byte 46):
+    ('PORTRAIT', ('byte', 46))
+    print("\"Van murmurs \"Ugliness is but skin deep, just as beauty is.\"")
+    wait()
+    ('PORTRAIT', ('byte', 235))
+    print("\n\n\"Gargoyle skin is very thick and deep, as everyone knows.\"")
+    else:
+    print("\"Never trust anything ugly.\"")
+    endif
+    jump 389
+    case "sin,vraa,'vra":
+    print("\"He's a vicious @daemon.\"")
+    jump 389
+    case "daem,demo":
+    print("\"Yes, Sin 'Vraal is an evil wretch.\"")
+    wait()
+    print("\n\n\"How could Lord @British imagine that a gargoyle could understand virtue?\"")
+    jump 389
+    case "lord,brit,virt":
+    print("\"Lord British defeated Sin 'Vraal in the underworld.\"")
+    wait()
+    print("\n\n\"The gargoyle went to live in the @Dry Land.\"")
+    jump 389
+    case "dry,land":
+    print("\"'Tis a @desert east of the Bloody Plains. There is a shrine there.\"")
+    case "shri,dese":
+    print("\"I've never been to that desert, or the Shrine of Honesty.\"")
+    jump 389
+    case "bye":
+    if hasBit(byte 235, byte 2):
+    print("\"Farewell, $P.\"")
+    else:
+    print("\"Have a pleasant $T, $G.\"")
+    endif
+    print("\n")
+    bye()
+    case "*":
+    print("\"I cannot help ye with that.\"")
+    ESAC
+    jump 389

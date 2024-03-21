@@ -1,0 +1,50 @@
+source("CONVERSE.B")
+index(103)
+
+id(202)
+name("Guard")
+
+description:
+    print("a muscular, well armored guard.\n*")
+
+interaction:
+    print("\"Hello. Can I help you with something?\"\n")
+    ask()
+    case "y,yes":
+    print("\"Well, what can I help you with?\"")
+    jump 81
+    case "name":
+    ('SETF', ('byte', 235), ('value', 0))
+    print("\"I'm not allowed to give out that information.\"")
+    jump 81
+    case "job":
+    print("\"I am one of Lord British's elite guards. We keep @order throughout @Britannia.\"")
+    jump 81
+    case "brit":
+    print("\"Hail Lord British! Hail Britannia! Hail the glorious Avatar!\"")
+    jump 81
+    case "elit,guar,keep,orde":
+    print("\"Lately our ranks have thinned. Many have been lost in the war against the @gargoyles.\"")
+    jump 81
+    case "rank,thin,many,lost,garg":
+    print("\"Few of us are left to @patrol the cities, and those may be sent to the shrines soon.\"\n*\n\"I fear we may @lose this war.\"")
+    jump 81
+    case "shri,lose,fear,sent":
+    print("\"Not a single shrine have we liberated. The gargoyles fight like @daemons!\"")
+    jump 81
+    case "demo,daem":
+    print("\"I have noticed a certain resemblance...\"")
+    jump 81
+    case "patr,citi":
+    print("\"That is our only job, in times of @peace.\"")
+    jump 81
+    case "time,peac":
+    print("\"May we see such times again!\"")
+    jump 81
+    case "bye":
+    print("\"If that is all, then I'll be back about my duties.\"\n")
+    bye()
+    case "*":
+    print("\"Perhaps you should ask somebody else.\"")
+    ESAC
+    jump 81
