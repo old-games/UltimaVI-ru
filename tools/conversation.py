@@ -42,7 +42,22 @@ def _read_word(stream, visited_labels):
 def _read_string(stream, visited_labels, end):
     result = bytearray()
     while _peek_byte(stream) not in end:
-        result.append(_read_byte(stream, visited_labels))
+        byte = _read_byte(stream, visited_labels)
+        assert byte == 0x0a or byte >= 0x20
+        result.append(byte)
+    return result.decode('ascii')
+
+
+def _try_read_string(stream, end):
+    result = bytearray()
+    tell = stream.tell()
+    while _peek_byte(stream) not in end:
+        byte = _read_byte(stream, set())
+        if byte < 0x20 and byte != 0x0a:
+            stream.seek(tell)
+            return None
+        result.append(byte)
+    stream.seek(tell)
     return result.decode('ascii')
 
 
@@ -372,8 +387,11 @@ def _read_instructions(stream, result, labels, visited_labels, data, unreachable
             assert _read_byte(stream, visited_labels) == 0xb2
             result[offset] = 'INPUTNUM', number
 
-        else:
+        elif _try_read_string(stream, end | all_instructions):
             result[offset] = 'PRINT', _read_string(stream, visited_labels, end | all_instructions)
+
+        else:
+            raise ValueError('Wrong string format')
 
 
 def _format_expression(expression):
@@ -615,13 +633,17 @@ def decode(conversation):
     #    print([hex(conversation[i]) for i in sorted(set(range(len(conversation))) - visited_labels)])
 
     unreachable_labels = set()
+    error_labels = set()
 
-    while missed_labels := set(range(len(conversation))) - visited_labels:
+    while missed_labels := set(range(len(conversation))) - visited_labels - error_labels:
         label = min(missed_labels)
         # TODO ссылки могут не работать, чекнуть
         # TODO данные могут не работать, чекнуть
         stream.seek(label)
-        _read_instructions(stream, blocks, labels, visited_labels, data, True, {None})
+        try:
+            _read_instructions(stream, blocks, labels, visited_labels, data, True, {None})
+        except ValueError:
+            error_labels.add(label)
         unreachable_labels.add(label)
 
     assert set(range(len(conversation))) - visited_labels == set()
