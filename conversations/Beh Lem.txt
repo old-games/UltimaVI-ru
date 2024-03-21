@@ -12,12 +12,12 @@ interaction:
 
     if partyHas(byte 235):
         print('\n"To ask how I can help, mighty $P," Beh Lem asks.')
-        jump 1027
+        jump label_1027
     fi
 
     if integer(value 21):
         integer(value 9) = byte 0
-        jump 888
+        jump label_888
     fi
 
     print('\nThe gargoyle greets you enthusiastically, but you can\'t understand ')
@@ -31,11 +31,11 @@ interaction:
     print('\n\n"Hello. I little human @speak."')
     integer(value 0) = byte 0
 
-328:
+label_328:
     integer(value 0) = plus(integer(value 0), byte 1)
 
     if less(integer(value 0), byte 5):
-        jump 576
+        jump label_576
     fi
 
     wait()
@@ -43,19 +43,19 @@ interaction:
     if partyHas(byte 2):
         ('PORTRAIT', ('byte', 2))
         ('SETNAME', ('byte', 2))
-        jump 396
+        jump label_396
     fi
 
     if partyHas(byte 4):
         ('PORTRAIT', ('byte', 4))
         ('SETNAME', ('byte', 4))
-        jump 396
+        jump label_396
 
     else:
-        jump 576
+        jump label_576
     fi
 
-396:
+label_396:
     print('\n\n$Y speaks. "$P, let\'s away from here."')
     wait()
 
@@ -73,7 +73,7 @@ interaction:
         integer(value 0) = byte 0
     esac
 
-576:
+label_576:
     print('\n')
 
     ask()
@@ -81,15 +81,15 @@ interaction:
     case 'capt':
     case 'john':
         print('"Captain John friend. He come here. I wait here."')
-        jump 328
+        jump label_328
 
     case 'name':
         print('"No name. I Beh Lem."')
-        jump 328
+        jump label_328
 
     case 'job':
         print('"I wait here. @Captain John come."')
-        jump 328
+        jump label_328
 
     case 'huma':
     case 'lang':
@@ -97,7 +97,7 @@ interaction:
     case 'read':
     case 'spea':
         print('"@Captain John teach I human speak," the gargoyle says haltingly.')
-        jump 328
+        jump label_328
 
     case 'bye':
         print('The confused gargoyle waves good-bye.\n')
@@ -105,17 +105,17 @@ interaction:
 
     case '*':
         print('The gargoyle shrugs.')
-        jump 328
+        jump label_328
     esac
 
-888:
+label_888:
     print('\n')
 
     if equals(hasBit(byte 235, value 0), byte 0):
         print('"To greet you, human. To recognize you as the False @Prophet!"')
         wait()
 
-        jump 1027
+        jump label_1027
     fi
 
     print('"Good $T, my friend')
@@ -125,9 +125,9 @@ interaction:
     fi
 
     print('. To have met @Valkadesh yet?"')
-    jump 1027
+    jump label_1027
 
-1027:
+label_1027:
     print('\n')
 
     ask()
@@ -137,22 +137,22 @@ interaction:
     case 'john':
         print('"To know Captain John! To help him and @Valkedesh in their work," the ')
         print('youngster says proudly.')
-        jump 1027
+        jump label_1027
 
     case 'true':
         print('"To not receive a true name until I have proved myself @worthy."')
-        jump 1027
+        jump label_1027
 
     case 'name':
         print('"To be called Beh Lem, which means \'just one.\' To have not yet ')
         print('received a @true name."')
-        jump 1027
+        jump label_1027
 
     case 'prov':
     case 'wort':
         print('"To not deserve a name yet. But to get one someday, just like my ')
         print('father @Valkadesh!"')
-        jump 1027
+        jump label_1027
 
     case 'job':
         if partyHas(byte 235):
@@ -162,13 +162,13 @@ interaction:
             print('"To be here to wait for Captain @John."')
         fi
 
-        jump 1027
+        jump label_1027
 
     case 'fath':
     case 'scho':
     case 'valk':
         if partyHas(byte 235):
-            jump 3117
+            jump label_3117
 
         else:
             print('"To very much respect Valkadesh my father."')
@@ -177,32 +177,32 @@ interaction:
             print('\n\n"To want to be a scholar someday just like him!"\n')
             wait()
 
-            jump 2973
+            jump label_2973
         fi
 
     case 'dire':
         print('"To ask what directions were unclear?"')
-        jump 1027
+        jump label_1027
 
     case 'join':
         if partyHas(byte 235):
             ('DPRINT', ('dword', 4206), ('byte', 3))
-            jump 1027
+            jump label_1027
 
         else:
-            jump 3693
+            jump label_3693
         fi
 
     case 'sacr':
         print('"To not know much about that. But to be sure that @Valkadesh would ')
         print('know!"')
-        jump 1027
+        jump label_1027
 
     case 'cont':
     case 'dili':
     case 'pass':
         print('"To be one of our guiding @principles."')
-        jump 1027
+        jump label_1027
 
     case 'prin':
         print('"To be surprised that you don\'t know that!"')
@@ -213,26 +213,26 @@ interaction:
         wait()
 
         print('\n\n"To be the basis of all gargoyle beliefs."')
-        jump 1027
+        jump label_1027
 
     case 'fals':
     case 'prop':
         print('"To be feared by everybody - everybody except me and @Valkadesh, my ')
         print('father!"')
-        jump 1027
+        jump label_1027
 
     case 'guid':
-        jump 3213
+        jump label_3213
 
     case 'leav':
         if partyHas(byte 235):
             print('"To wish to stay with you!"\n*\n"To not leave until there is peace ')
             print('between our races!"')
-            jump 1027
+            jump label_1027
 
         else:
             ('DPRINT', ('dword', 4206), ('byte', 3))
-            jump 1027
+            jump label_1027
         fi
 
     case 'bye':
@@ -261,17 +261,17 @@ interaction:
     case 'lava':
     case 'pits':
         print('"To be in danger from the lava! To stay far away!"')
-        jump 1027
+        jump label_1027
 
     case 'moun':
         print('"To walk clockwise around the mountains from Hythloth to reach my ')
         print('father\'s @house."')
-        jump 1027
+        jump label_1027
 
     case 'hous':
         print('"To find the house of Valkadesh my father through the pass east of the')
         print(' @Hall."')
-        jump 1027
+        jump label_1027
 
     case 'hall':
     case 'know':
@@ -282,21 +282,21 @@ interaction:
             print('"To avoid the Hall! To talk to @Valkadesh first!"')
         fi
 
-        jump 1027
+        jump label_1027
 
     case 'all':
     case 'ever':
-        jump 3213
+        jump label_3213
 
     case 'no':
         if hasBit(byte 235, value 0):
-            jump 3117
+            jump label_3117
 
         else:
             ('DPRINT', ('dword', 4206), ('byte', 3))
         fi
 
-        jump 1027
+        jump label_1027
 
     case 'yes':
         if hasBit(byte 235, value 0):
@@ -306,48 +306,48 @@ interaction:
             ('DPRINT', ('dword', 4206), ('byte', 3))
         fi
 
-        jump 1027
+        jump label_1027
 
     case '*':
         ('DPRINT', ('dword', 4206), ('random', [('byte', 0), ('byte', 4)]))
-        jump 1027
+        jump label_1027
     esac
 
-2973:
+label_2973:
     print('\n"To wish to meet Valkadesh?" ')
 
     choice('yn')
 
     case 'y':
         if partyHas(byte 164):
-            jump 3117
+            jump label_3117
 
         else:
             print('"To go with you and @guide you there!"')
             wait()
 
             print('\n\n')
-            jump 3693
+            jump label_3693
         fi
 
     case 'n':
         print('"Oh." The little gargoyle seems saddened.')
-        jump 1027
+        jump label_1027
     esac
 
-3117:
+label_3117:
     print('"To wish @directions to the house of Valkadesh?" ')
 
     choice('yn')
 
     case 'y':
-        jump 3213
+        jump label_3213
     esac
 
     print('\n"Then to not understand you."')
-    jump 1027
+    jump label_1027
 
-3213:
+label_3213:
     print('"To go from the entrance to Hythloth westward, following the ')
     print('@mountains."')
     wait()
@@ -374,43 +374,43 @@ interaction:
 
     case 'y':
         print('"Good!"')
-        jump 1027
+        jump label_1027
 
     case 'n':
         print('"To ask what was unclear?"')
-        jump 1027
+        jump label_1027
     esac
 
-3693:
+label_3693:
     integer(value 7) = partyJoin(byte 235)
 
     if integer(value 7):
-        jump 3761
+        jump label_3761
     fi
 
     print('The little gargoyle eagerly joins your group.')
-    jump 1027
+    jump label_1027
 
-3761:
+label_3761:
     integer(value 8) = plus(integer(value 24), byte 1)
     integer(value 9) = byte 0
 
-3778:
+label_3778:
     if less(integer(value 8), byte 2):
         print('"To wish very much to join you. But to not have enough room in your ')
         print('party for another."')
-        jump 1027
+        jump label_1027
     fi
 
     integer(value 6) = character(integer(value 8), byte 1)
 
     if or(or(equals(integer(value 6), byte 4), equals(integer(value 6), byte 3)), equals(integer(value 6), byte 2)):
         integer(value 8) = minus(integer(value 8), byte 1)
-        jump 3778
+        jump label_3778
 
         if partyLeave(integer(value 6)):
             integer(value 8) = minus(integer(value 8), byte 1)
-            jump 3778
+            jump label_3778
         fi
     fi
 
@@ -425,14 +425,14 @@ interaction:
 
         print('\n\n')
         integer(value 9) = byte 0
-        jump 4075
+        jump label_4075
 
     else:
         integer(value 9) = byte 1
-        jump 4075
+        jump label_4075
     fi
 
-4075:
+label_4075:
     ('PORTRAIT', ('byte', 235))
 
     if partyJoin(byte 235):
@@ -441,7 +441,13 @@ interaction:
 
     else:
         print('The little gargoyle eagerly joins your group.')
-        jump 1027
+        jump label_1027
     fi
 
-    ('STRINGS', ['"To know nothing about that."', '"To be young. To think you should ask someone older."', '"To truly wish I could help you with that."', '"To not understand what you mean by $Z."', '"To not have enough experience to answer that."'], [])
+strings_4206 = [
+    '"To know nothing about that."',
+    '"To be young. To think you should ask someone older."',
+    '"To truly wish I could help you with that."',
+    '"To not understand what you mean by $Z."',
+    '"To not have enough experience to answer that."',
+]

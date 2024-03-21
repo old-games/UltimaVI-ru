@@ -20,7 +20,7 @@ interaction:
     print('!"')
 
     if hasBit(byte 235, byte 7):
-        jump 566
+        jump label_566
     fi
 
     if equals(integer(value 32), byte 144):
@@ -32,17 +32,17 @@ interaction:
 
         case 'n':
             print('"You \'ave but to ask, mah friend."')
-            jump 566
+            jump label_566
 
         case 'y':
-            jump 244
+            jump label_244
         esac
 
     else:
-        jump 566
+        jump label_566
     fi
 
-244:
+label_244:
     print('Loubet hands you a foil and a mask of golden mesh.')
     wait()
 
@@ -57,9 +57,9 @@ interaction:
     print(' learned something.')
     integer(value 0) = dexterity(byte 1, byte 1)
     ('SETF', ('byte', 235), ('byte', 7))
-    jump 566
+    jump label_566
 
-566:
+label_566:
     print('\n')
 
     ask()
@@ -69,7 +69,7 @@ interaction:
     case 'prac':
         if hasBit(byte 235, byte 7):
             print('"But no! You are too skilled, I \'ave nothing more to teach you!"')
-            jump 566
+            jump label_566
         fi
 
         if notEquals(integer(value 32), byte 144):
@@ -77,10 +77,10 @@ interaction:
             wait()
 
             print('\n\n"No, come to ma salle sometime, zen we will spar, yes?"')
-            jump 566
+            jump label_566
 
         else:
-            jump 244
+            jump label_244
         fi
 
     case 'fenc':
@@ -107,7 +107,7 @@ interaction:
 
         if hasBit(byte 235, byte 7):
             print('"Zey are not like you, mah friend! You are most talented!"')
-            jump 566
+            jump label_566
         fi
 
         print('"But you, you look much better than that, my friend."')
@@ -123,7 +123,7 @@ interaction:
         fi
 
         print(' and I\'ll give you a @lesson!"')
-        jump 566
+        jump label_566
 
     case 'name':
         print('"I am M\'sieur Loubet.')
@@ -144,7 +144,7 @@ interaction:
 
         if hasBit(byte 235, value 0):
             print('But you already know who I am, silly person!"')
-            jump 566
+            jump label_566
         fi
 
         ('SETF', ('byte', 235), ('value', 0))
@@ -158,12 +158,12 @@ interaction:
         fi
 
         print('."')
-        jump 566
+        jump label_566
 
     case 'touc':
         print('"Zat simply means \'touch.\' In fencing we score by touching ze opponent')
         print(' with ze foil @tip."')
-        jump 566
+        jump label_566
 
     case 'foil':
     case 'scor':
@@ -191,18 +191,18 @@ interaction:
 
         print('\n\n"She sings very sweet!" He strikes metal and the foil makes a ')
         print('pleasant @ringing noise.')
-        jump 566
+        jump label_566
 
     case 'hear':
     case 'nois':
     case 'plea':
     case 'ring':
         print('SHINGGG!')
-        jump 566
+        jump label_566
 
     case 'job':
         print('"I am ze @fencing @instructor."')
-        jump 566
+        jump label_566
 
     case 'au r':
     case 'bye':
@@ -211,4 +211,4 @@ interaction:
 
     case '*':
         print('"I cannot \'elp you with zat."')
-        jump 566
+        jump label_566

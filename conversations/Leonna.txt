@@ -13,7 +13,7 @@ description:
 interaction:
     if partyHas(byte 235):
         print('"Yes, $P?"')
-        jump 318
+        jump label_318
     fi
 
     if equals(integer(value 32), byte 153):
@@ -23,23 +23,23 @@ interaction:
 
     if hasBit(byte 235, value 0):
         print('Her face lights up as she recognizes you. "Hello again, $P!"')
-        jump 318
+        jump label_318
 
     else:
         ('SETF', ('byte', 235), ('value', 0))
         print('"Oh, you must be $P, the famous Avatar! \'Tis an honor to meet thee."')
     fi
 
-    jump 318
+    jump label_318
 
-318:
+label_318:
     print('\n')
 
     ask()
 
     case 'name':
         print('"My name is Leonna."')
-        jump 318
+        jump label_318
 
     case 'job':
         print('"I used to @captain my own ship."')
@@ -47,7 +47,7 @@ interaction:
 
         print('\n\n"But I fell on hard times, and now I sail with @Leodon on the ')
         print('@Hind."')
-        jump 318
+        jump label_318
 
     case 'hind':
     case 'sail':
@@ -56,31 +56,31 @@ interaction:
         wait()
 
         print('\n\n"Alas, I have little to do while she\'s being @repaired."')
-        jump 318
+        jump label_318
 
     case 'join':
     case 'litt':
     case 'repa':
-        jump 1356
+        jump label_1356
 
     case 'leav':
-        jump 1764
+        jump label_1764
 
     case 'leod':
         print('"There\'s none I\'d rather ship out with."')
-        jump 318
+        jump label_318
 
     case 'capt':
         if partyHas(byte 235):
             print('"Captain who? I know lots of Captains..."')
-            jump 318
+            jump label_318
         fi
 
         integer(value 0) = plus(plus(isNearby(byte 113), isNearby(byte 111)), isNearby(byte 112))
 
         if lessOrEquals(integer(value 0), byte 1):
             print('"Captain who? I know lots of Captains..."')
-            jump 318
+            jump label_318
         fi
 
         print('When you say \'Captain,\' all the pirates at the table turn to you ')
@@ -89,7 +89,7 @@ interaction:
 
         print('\n\nWhen they realize you weren\'t talking to them, they return to their ')
         print('business.')
-        jump 318
+        jump label_318
 
     case 'john':
         print('"Captain John is a madman!"')
@@ -113,11 +113,11 @@ interaction:
             ('PORTRAIT', ('byte', 235))
         fi
 
-        jump 318
+        jump label_318
 
     case 'garg':
         print('"Please, let\'s not talk about them."')
-        jump 318
+        jump label_318
 
     case 'bye':
         print('"Talk to you later."\n')
@@ -127,13 +127,13 @@ interaction:
         print('"I can\'t help you with that."')
     esac
 
-    jump 318
+    jump label_318
 
-1356:
+label_1356:
     if partyHas(byte 235):
-1361:
+label_1361:
         print('"I\'d be glad to join you--but I have already!"')
-        jump 318
+        jump label_318
     fi
 
     print('"Could I join your party, perhaps?" ')
@@ -142,7 +142,7 @@ interaction:
 
     case 'n':
         print('"Okay. I guess I\'ll just stay here for now."')
-        jump 318
+        jump label_318
 
     case 'y':
     esac
@@ -151,7 +151,7 @@ interaction:
 
     if equals(integer(value 0), byte 1):
         print('"Not while you\'re in that thing!"')
-        jump 318
+        jump label_318
     fi
 
     if equals(integer(value 0), byte 2):
@@ -160,32 +160,32 @@ interaction:
 
         print('\n\n"But if you ask one of them to @leave first, I\'d be happy to join ')
         print('you."')
-        jump 318
+        jump label_318
     fi
 
     if equals(integer(value 0), byte 3):
-        jump 1361
+        jump label_1361
     fi
 
     print('"Oh good! I bet we\'ll meet a lot of interesting men..."\n')
     bye()
 
-1764:
+label_1764:
     if equals(partyHas(byte 235), byte 0):
-1772:
+label_1772:
         print('"I\'d have to @join you before I could leave, silly!"')
-        jump 318
+        jump label_318
     fi
 
     integer(value 0) = partyLeave(byte 235)
 
     if equals(integer(value 0), byte 1):
         print('"Let\'s get our feet back on solid ground first, okay?"')
-        jump 318
+        jump label_318
     fi
 
     if equals(integer(value 0), byte 2):
-        jump 1772
+        jump label_1772
     fi
 
     print('"Okay. I\'ll go wait back at the Fallen Virgin."\n*\n"You\'re more likely ')
@@ -194,4 +194,4 @@ interaction:
     bye()
 
     // Unreachable code!
-    jump 318
+    jump label_318

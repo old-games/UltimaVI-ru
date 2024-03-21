@@ -14,49 +14,49 @@ interaction:
         bye()
     fi
 
-161:
+label_161:
     print('\n')
 
     ask()
 
     case 'name':
-        jump 907
+        jump label_907
 
     case 'advi':
-        jump 1260
+        jump label_1260
 
     case 'buy':
     case 'sell':
         print('"I have nothing to sell you. Talk to my father."')
-        jump 161
+        jump label_161
 
     case 'job':
         print('"@Father says I\'m supposed to @dance for @gorgios."')
-        jump 161
+        jump label_161
 
     case 'gorg':
         print('"That\'s what we call anyone who isn\'t a @gypsy."')
-        jump 161
+        jump label_161
 
     case 'gyps':
         print('"It\'s a nice life, but it gets lonely. I miss my @sister."')
-        jump 161
+        jump label_161
 
     case 'sist':
-        jump 1040
+        jump label_1040
 
     case 'penu':
         print('"')
-        jump 1063
+        jump label_1063
 
     case 'fath':
     case 'zolt':
         print('"He is Zoltan, @king of the gypsies!"')
-        jump 161
+        jump label_161
 
     case 'king':
         print('"Well, that\'s what he says."')
-        jump 161
+        jump label_161
 
     case 'capt':
     case 'john':
@@ -64,27 +64,27 @@ interaction:
     case 'silv':
     case 'tabl':
         print('"Ask my father."')
-        jump 161
+        jump label_161
 
     case 'danc':
         print('"Oh, I just couldn\'t, not in front of so many @people."')
-        jump 161
+        jump label_161
 
     case 'coul':
     case 'fron':
     case 'many':
     case 'peop':
         print('"I\'d be too @embarassed!"')
-        jump 161
+        jump label_161
 
     case 'emba':
         print('"Well... Do you promise not to make fun of me?" ')
-        jump 1542
+        jump label_1542
 
     case 'dog':
     case 'kado':
         print('"He\'s such a sweet little doggie..."')
-        jump 161
+        jump label_161
 
     case 'bye':
         print('"Good bye, and sweet dreams to you."\n')
@@ -94,9 +94,9 @@ interaction:
         print('"I can\'t help you with that."')
     esac
 
-    jump 161
+    jump label_161
 
-907:
+label_907:
     print('"My name is Karina." she says, looking shyly at the ground. "Do you ')
     print('think it\'s a pretty name?" ')
     ('SETF', ('byte', 235), ('value', 0))
@@ -110,44 +110,44 @@ interaction:
         print('"Oh."')
     esac
 
-    jump 161
+    jump label_161
 
-1040:
+label_1040:
     print('"Her name is Penumbra. Have you any news of her?" ')
 
     choice('yn')
 
     case 'n':
         print('"If you do, please come tell me. I miss her so much..."')
-        jump 161
+        jump label_161
     esac
 
     print('\n"Oh! I\'m so glad to hear she\'s okay!" She throws her arms around you ')
     print('and kisses you on the cheek.')
-    jump 161
+    jump label_161
 
-1260:
+label_1260:
     print('"I have to ask you for a gold piece for my advice. Is that okay?" ')
 
     choice('yn')
 
     case 'n':
         print('"It was my father\'s idea!"')
-        jump 161
+        jump label_161
     esac
 
     if less(objectsCount(byte 1, byte 88), byte 1):
         print('\n"I\'m sorry. I\'m not supposed to help you unless you pay."')
-        jump 161
+        jump label_161
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 1))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 1))
     print('\n"Ask our dog, @Kador, to do some tricks for you. He knows lots of ')
     print('them!"')
-    jump 161
+    jump label_161
 
-1542:
+label_1542:
     choice('yn')
 
     case 'n':

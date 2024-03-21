@@ -23,12 +23,12 @@ interaction:
     fi
 
     if hasBit(byte 235, byte 2):
-        jump 3054
+        jump label_3054
     fi
 
     if hasBit(byte 235, value 0):
         print('"To greet you again, $P."')
-        jump 822
+        jump label_822
     fi
 
     print('"To greet you, $P, Avatar of the Underworld."')
@@ -47,7 +47,7 @@ interaction:
         wait()
 
         print('\n\n"To not be surprised, then, that you are @fated to destroy a world."')
-        jump 822
+        jump label_822
     fi
 
     if less(integer(value 20), byte 80):
@@ -56,7 +56,7 @@ interaction:
 
         print('\n\n"To regret for your sake, then, that you are @fated to destroy a ')
         print('world."')
-        jump 822
+        jump label_822
     fi
 
     print('"To observe by your aura that you are truly a being of honor."')
@@ -65,7 +65,7 @@ interaction:
     print('\n\n"To be surprised, then, that you are @fated to destroy a world."')
     ('SETF', ('byte', 235), ('value', 0))
 
-822:
+label_822:
     print('\n')
 
     ask()
@@ -79,7 +79,7 @@ interaction:
         wait()
 
         print('\n\n"To have no @choice but to return the Codex!"')
-        jump 822
+        jump label_822
 
     case 'dest':
     case 'fate':
@@ -88,13 +88,13 @@ interaction:
         wait()
 
         print('\n\n"To have no @choice but to return it!"')
-        jump 822
+        jump label_822
 
     case 'choi':
     case 'retu':
         print('"To see only two alternatives: to return the @Codex, or to give up ')
         print('your life."')
-        jump 822
+        jump label_822
 
     case 'sacr':
         print('"Hss...Yes, to know of the three meanings of that word."')
@@ -102,7 +102,7 @@ interaction:
 
         print('\n\n"To ask to which type of sacrifice you refer: @self, @others or ')
         print('items of @value?"')
-        jump 822
+        jump label_822
 
     case 'self':
         print('"To admire your willingness to sacrifice your life for the good of my ')
@@ -110,7 +110,7 @@ interaction:
         wait()
 
         print('\n\n"But to doubt that that is the meaning of the prophecy."')
-        jump 822
+        jump label_822
 
     case 'othe':
         print('"What?!"')
@@ -130,7 +130,7 @@ interaction:
             print('"To find such thoughts unworthy of your honorable aura!"')
         fi
 
-        jump 822
+        jump label_822
 
     case 'item':
     case 'valu':
@@ -138,7 +138,7 @@ interaction:
         wait()
 
         print('\n\n"Surely not to destroy the Codex!?" ')
-        jump 3883
+        jump label_3883
 
     case 'retu':
     case 'ritu':
@@ -154,7 +154,7 @@ interaction:
 
         print('\n\n"Then to return here, where I will tell you what must be done!"')
         ('SETF', ('byte', 235), ('byte', 2))
-        jump 822
+        jump label_822
 
     case 'both':
     case 'peop':
@@ -162,11 +162,11 @@ interaction:
         wait()
 
         print('\n\n"To benefit both races equally if the Codex is @returned there!"')
-        jump 822
+        jump label_822
 
     case 'name':
         print('"To be called Naxatilor."')
-        jump 822
+        jump label_822
 
     case 'job':
         print('"To be a seer, mystic advisor to my people."')
@@ -174,7 +174,7 @@ interaction:
 
         print('\n\n"But to be unable to avert what is written in the Book of ')
         print('Prophecies."')
-        jump 822
+        jump label_822
 
     case 'huma':
     case 'lens':
@@ -187,7 +187,7 @@ interaction:
         wait()
 
         print('\n\n"To be most important--concave!"')
-        jump 822
+        jump label_822
 
     case 'code':
         print('"To know not where the Codex is."')
@@ -197,12 +197,12 @@ interaction:
         wait()
 
         print('\n\n"To suggest you seek him. To try the healer\'s house to the north."')
-        jump 822
+        jump label_822
 
     case 'hall':
     case 'know':
         print('"To find the Vortex Lens in the Hall of Knowledge, south of here."')
-        jump 822
+        jump label_822
 
     case 'bye':
         if hasBit(byte 235, byte 2):
@@ -216,12 +216,12 @@ interaction:
 
     case '*':
         print('"To have no time to discuss that."')
-        jump 822
+        jump label_822
     esac
 
-3054:
+label_3054:
     if equals(partyHasObject(word 395, byte 0), word 32769):
-        jump 3272
+        jump label_3272
 
     else:
         print('"Yes, to see that the Vortex Lens is no longer whole."')
@@ -237,7 +237,7 @@ interaction:
         bye()
     fi
 
-3272:
+label_3272:
     if equals(partyHasObject(word 396, byte 0), word 32769):
         print('"To require the Vortex Lens, foolish human!"')
         wait()
@@ -249,7 +249,7 @@ interaction:
         wait()
 
         print('\n\n"To bring it to me personally, Avatar!"')
-        jump 822
+        jump label_822
     fi
 
     print('"Good, to see that you have the Vortex Lens."')
@@ -277,10 +277,10 @@ interaction:
 
         print('\n\n"To require a human-crafted @lens, so that your people may also see ')
         print('the @Codex."')
-        jump 822
+        jump label_822
     esac
 
-3883:
+label_3883:
     choice('yn')
 
     case 'y':
@@ -298,5 +298,5 @@ interaction:
         wait()
 
         print('\n\n"To then be available to @both our peoples!"')
-        jump 822
+        jump label_822
     esac

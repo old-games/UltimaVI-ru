@@ -14,7 +14,7 @@ interaction:
 
     if hasBit(byte 235, value 0):
         print('"Ah, my good friend! Thou hast returned!"')
-        jump 366
+        jump label_366
 
     else:
         print('"Praise the virtues! Humans have arrived here at last!"')
@@ -27,29 +27,29 @@ interaction:
         wait()
 
         print('\n\n"Many @cataclysms have occurred since thou last visited Britannia!"')
-        jump 366
+        jump label_366
     fi
 
-366:
+label_366:
     print('\n')
 
     ask()
 
     case 'name':
         print('"Why, I\'m Captain John, $G!"')
-        jump 366
+        jump label_366
 
     case 'job':
         print('"For several years I have been here in the catacombs, @studying the ')
         print('@gargoyles."')
-        jump 366
+        jump label_366
 
     case 'stud':
         print('"Yes, I have learned much about them!"')
         wait()
 
         print('\n\n')
-        jump 3234
+        jump label_3234
 
     case 'garg':
         print('"They are not evil, as most humans believe!"')
@@ -61,7 +61,7 @@ interaction:
 
         print('\n\n"I have learned about their @society, their @beliefs and their ')
         print('@language."')
-        jump 366
+        jump label_366
 
     case 'cata':
     case 'now':
@@ -75,7 +75,7 @@ interaction:
         wait()
 
         print('\n\n"Only a single gargoyle @city remains."')
-        jump 366
+        jump label_366
 
     case 'city':
         print('"The gargoyle City of Investigation, their place of learning and ')
@@ -89,7 +89,7 @@ interaction:
         wait()
 
         print('\n\n"Thou must @talk to the @gargoyles."')
-        jump 366
+        jump label_366
 
     case 'soci':
         print('"There are two kinds of gargoyles, winged and wingless ones."')
@@ -107,7 +107,7 @@ interaction:
         wait()
 
         print('\n\n"The @gargoyles live honorably, by their own set of @beliefs."')
-        jump 366
+        jump label_366
 
     case 'beli':
         print('"The gargoyles\' beliefs are much like our own."')
@@ -137,7 +137,7 @@ interaction:
 
         print('\n\n"They have to; their world has always been harsh, even before the ')
         print('@cataclysms."')
-        jump 366
+        jump label_366
 
     case 'lang':
     case 'talk':
@@ -145,13 +145,13 @@ interaction:
         print('speak their language."')
 
         if equals(hasObject(byte 235, byte 97, byte 0), byte 0):
-            jump 366
+            jump label_366
         fi
 
         wait()
 
         print('\n\n"Wouldst thou like to learn?" ')
-        jump 3717
+        jump label_3717
 
     case 'beh':
     case 'lem':
@@ -163,7 +163,7 @@ interaction:
         wait()
 
         print('\n\n"You must save them!"')
-        jump 366
+        jump label_366
 
     case 'join':
         print('"No, I cannot. I must stay here and continue my writing."')
@@ -174,7 +174,7 @@ interaction:
 
         print('\n\n"With his help, thou canst travel the gargoyle lands and learn how ')
         print('to save them."')
-        jump 366
+        jump label_366
 
     case 'bye':
         if hasBit(byte 235, value 0):
@@ -201,7 +201,7 @@ interaction:
 
             print('\n\n"And without @Beh @Lem with you, the gargoyles will attack!"')
             ('SETF', ('byte', 235), ('value', 0))
-            jump 366
+            jump label_366
         fi
 
     case '*':
@@ -213,10 +213,10 @@ interaction:
 
         print('\n\n"When both worlds have been saved, then we can discuss such ')
         print('matters."')
-        jump 366
+        jump label_366
     esac
 
-3234:
+label_3234:
     print('"I had a silver tablet that contained much of what I had learned."')
     wait()
 
@@ -232,7 +232,7 @@ interaction:
         wait()
 
         print('\n\n"That tablet must have amazed Mariah!"')
-        jump 366
+        jump label_366
 
     case 'n':
         print('"No?! But I paid money, good money, for them to carry it to her!"')
@@ -243,10 +243,10 @@ interaction:
 
         print('\n\n"You can study the @gargoyles yourself, and carry the knowledge back')
         print(' to the surface!"')
-        jump 366
+        jump label_366
     esac
 
-3717:
+label_3717:
     choice('yn')
 
     case 'y':
@@ -256,7 +256,7 @@ interaction:
 
         print('\n\n"Use this scroll; it contains a basic vocabulary of the Gargoyle ')
         print('language."')
-        jump 366
+        jump label_366
 
     case 'n':
         print('"But you must!"')
@@ -264,5 +264,5 @@ interaction:
 
         print('\n\n"Thou hast no chance of saving the gargoyles if thou knowest not ')
         print('their @language!"')
-        jump 366
+        jump label_366
     esac

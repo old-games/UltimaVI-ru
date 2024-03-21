@@ -13,7 +13,7 @@ description:
 interaction:
     if hasBit(byte 235, value 0):
         print('"It is good to see thee again, $P."')
-        jump 292
+        jump label_292
     fi
 
     print('"Hello, adventurer')
@@ -34,9 +34,9 @@ interaction:
     ask()
     print('\n"Well met, $G Avatar!"')
     ('SETF', ('byte', 235), ('value', 0))
-    jump 292
+    jump label_292
 
-292:
+label_292:
     print('\n')
 
     ask()
@@ -46,7 +46,7 @@ interaction:
         wait()
 
         print('\n\n"My father was a brave @lighthouse keeper."')
-        jump 292
+        jump label_292
 
     case 'job':
     case 'ligh':
@@ -55,7 +55,7 @@ interaction:
         wait()
 
         print('\n\n"I traveled to Serpent\'s Hold to join the @Order instead."')
-        jump 292
+        jump label_292
 
     case 'guil':
     case 'hold':
@@ -67,17 +67,17 @@ interaction:
 
         if and(hasBit(byte 235, byte 7), notEquals(partyHasObject(byte 16, byte 0), word 32769)):
             print('"We are honored by thy membership, worthy Avatar!"')
-            jump 292
+            jump label_292
         fi
 
         if hasBit(byte 235, byte 7):
             print('"Acquire a Silver Serpent @shield and thou wilt be admitted to the ')
             print('order, $G $P."')
-            jump 292
+            jump label_292
         fi
 
         print('"Dost thou wish to join the Order of the Silver Serpent?" ')
-        jump 2376
+        jump label_2376
 
     case 'brav':
     case 'cour':
@@ -86,7 +86,7 @@ interaction:
 
         print('\n\n"Though he is a fine fighter, he has yet to prove himself worthy of ')
         print('our @order."')
-        jump 292
+        jump label_292
 
     case 'shie':
         print('"The Serpent Shield of our order is a sacred symbol of our brotherhood')
@@ -97,7 +97,7 @@ interaction:
 
         if notEquals(partyHasObject(byte 16, byte 0), word 32769):
             print('"Carry it with pride!"')
-            jump 292
+            jump label_292
         fi
 
         print('"Its making is a magical @process."')
@@ -108,37 +108,37 @@ interaction:
             print('\n"@Gherick the Smithy will help thee make one."')
         fi
 
-        jump 292
+        jump label_292
 
     case 'magi':
     case 'proc':
         print('"\'Tis secret, as well."')
-        jump 292
+        jump label_292
 
     case 'gher':
         print('"You will most likely find him at Siege Crafters."')
-        jump 292
+        jump label_292
 
     case 'join':
         print('"I have responsibilities here')
 
         if hasBit(byte 235, byte 7):
             print(',$G. But I am honored by the offer."')
-            jump 292
+            jump label_292
         fi
 
         print('. However..."')
         wait()
 
         print('\n\n"Dost thou wish to join the Order of the Silver Serpent?" ')
-        jump 2376
+        jump label_2376
 
     case 'rune':
         print('"Without the meaning, such a symbol is just a meaningless scratching."')
         wait()
 
         print('\n\n"We @meditate on valour here."')
-        jump 292
+        jump label_292
 
     case 'mant':
     case 'medi':
@@ -148,14 +148,14 @@ interaction:
 
         print('\n\n"When we meditate on a mantra, we do so in order to find the ')
         print('@meaning of that virtue."')
-        jump 292
+        jump label_292
 
     case 'mean':
         print('"It is not enough just to know a mantra or possess a rune."')
         wait()
 
         print('\n\n"In order to be @virtuous, one must act virtuously."')
-        jump 292
+        jump label_292
 
     case 'avat':
     case 'virt':
@@ -168,14 +168,14 @@ interaction:
         wait()
 
         print('\n\n"My teacher @Conor taught me this."')
-        jump 292
+        jump label_292
 
     case 'cono':
         print('"A dear friend. He was guildmaster here when I was in training."')
         wait()
 
         print('\n\n"He lives humbly in New Magincia now."')
-        jump 292
+        jump label_292
 
     case 'bye':
         print('"Fare thee well."\n')
@@ -185,14 +185,14 @@ interaction:
         print('"That I cannot help thee with."')
     esac
 
-    jump 292
+    jump label_292
 
-2376:
+label_2376:
     choice('yn')
 
     case 'n':
         print('"There will always be a place here for thee, $G."')
-        jump 292
+        jump label_292
 
     case 'y':
     esac
@@ -209,4 +209,4 @@ interaction:
 
     print('\n\n"However, thou must still create thine own shield."')
     ('SETF', ('byte', 235), ('byte', 7))
-    jump 292
+    jump label_292

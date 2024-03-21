@@ -15,7 +15,7 @@ interaction:
 
     if integer(value 1):
         print('"For what dost thou return, Avatar?"')
-        jump 373
+        jump label_373
 
     else:
         print('You remember quite clearly how you defeated Minax in your second visit')
@@ -35,20 +35,20 @@ interaction:
         print('\n\n"Fear not! I have but one @task now, and am no threat."')
     fi
 
-373:
+label_373:
     print('\n')
 
     ask()
 
     case 'name':
         print('"Surely you of all people would recognize me as Minax."')
-        jump 373
+        jump label_373
 
     case 'job':
     case 'task':
         print('"The gargoyles have enshrined my spirit here as the embodiment of ')
         print('@passion."')
-        jump 373
+        jump label_373
 
     case 'mant':
     case 'pass':
@@ -82,10 +82,10 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 1223
+        jump label_1223
 
     case 'bye':
-        jump 1453
+        jump label_1453
 
     case '*':
         if integer(value 1):
@@ -100,10 +100,10 @@ interaction:
             integer(value 1) = byte 1
         fi
 
-        jump 373
+        jump label_373
     esac
 
-1223:
+label_1223:
     print('"Contemplate what thou hast learned. Repeat after me the Mantra of ')
     print('Passion."')
     wait()
@@ -124,17 +124,17 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 1453
+        jump label_1453
 
     case '*':
         print('"Thy understanding is flawed. But I can teach thee no more."')
         wait()
 
         print('\n\n')
-        jump 1453
+        jump label_1453
     esac
 
-1453:
+label_1453:
     if hasBit(byte 235, value 0):
         print('"Farewell, Avatar."')
         wait()
@@ -155,4 +155,9 @@ interaction:
     ('SETF', ('byte', 235), ('value', 0))
     bye()
 
-    ('STRINGS', ['Thy deeds show nought but unlimited', 'Thy deeds show misguided but strong', 'Thy deeds show the merits of thy', 'I admire thy deeds and thy'], [])
+strings_1708 = [
+    'Thy deeds show nought but unlimited',
+    'Thy deeds show misguided but strong',
+    'Thy deeds show the merits of thy',
+    'I admire thy deeds and thy',
+]

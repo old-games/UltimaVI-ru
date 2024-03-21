@@ -13,7 +13,7 @@ description:
 interaction:
     if hasBit(byte 235, value 1):
         print('"What you back for? I thought you not like my @inn."\n')
-        jump 154
+        jump label_154
     fi
 
     if hasBit(byte 235, value 0):
@@ -23,25 +23,25 @@ interaction:
         print('"Heylo to you."\n')
     fi
 
-154:
+label_154:
     ask()
 
     case 'name':
         print('"@Petroph."\n')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 154
+        jump label_154
 
     case 'petr':
         print('"Da, Petroph."\n')
-        jump 154
+        jump label_154
 
     case 'job':
         print('"I am keeping the @inn, here at King\'s Ransom."\n')
-        jump 154
+        jump label_154
 
     case 'inn':
     case 'room':
-        jump 401
+        jump label_401
 
     case 'bye':
         if hasBit(byte 235, value 1):
@@ -55,13 +55,13 @@ interaction:
 
     case '*':
         print('"You speak too quick. What was that?"\n')
-        jump 154
+        jump label_154
     esac
 
     // Unreachable code!
-    jump 154
+    jump label_154
 
-401:
+label_401:
     integer(value 0) = multiply(plus(integer(value 23), byte 1), byte 6)
     print('"#0 gold for you to stay and have meal, good?" ')
 
@@ -70,7 +70,7 @@ interaction:
     case 'y':
         if less(objectsCount(byte 1, byte 88), integer(value 0)):
             print('"Must pay in advance for rooms. Sorry, is policy."\n')
-            jump 154
+            jump label_154
         fi
 
         ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
@@ -82,7 +82,7 @@ interaction:
         wait()
 
         print('\n\n"Good morning to you."\n')
-        jump 154
+        jump label_154
 
     case 'n':
         print('"What, maybe you don\'t like my inn?"')
@@ -90,5 +90,5 @@ interaction:
 
         print('\n\n"Well, maybe I don\'t like you either!"\n')
         ('SETF', ('byte', 235), ('value', 1))
-        jump 154
+        jump label_154
     esac

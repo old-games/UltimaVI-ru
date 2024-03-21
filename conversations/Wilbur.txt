@@ -30,19 +30,19 @@ interaction:
 
     print(' this $T?"\n')
 
-186:
+label_186:
     ask()
 
     case 'name':
         print('"My name\'s Wilbur, $G."')
-        jump 185
+        jump label_185
 
     case 'job':
         print('"I work here at the stables, taking care of the horses."')
         wait()
 
         print('\n\n"You can @buy one if you\'d like."')
-        jump 185
+        jump label_185
 
     case 'ed':
     case 'smit':
@@ -51,14 +51,14 @@ interaction:
         wait()
 
         print('\n\nHe seems more nervous than before.')
-        jump 185
+        jump label_185
 
     case 'hors':
         print('"Aye, if you wish to @buy one, just say the word."')
-        jump 185
+        jump label_185
 
     case 'buy':
-        jump 550
+        jump label_550
 
     case 'bye':
         print('"Come back again!"\n')
@@ -66,43 +66,43 @@ interaction:
 
     case '*':
         print('"Beg pardon, $G?"')
-        jump 185
+        jump label_185
     esac
 
-550:
+label_550:
     if greater(integer(value 23), byte 0):
         integer(value 1) = byte 0
         integer(value 2) = byte 0
         integer(value 4) = byte 0
-        jump 650
+        jump label_650
     fi
 
     integer(value 3) = character(byte 0, byte 0)
 
     if hasHorse(integer(value 3)):
         print('"But thou already hast a horse!"')
-        jump 185
+        jump label_185
 
     else:
         integer(value 4) = byte 1
-        jump 951
+        jump label_951
     fi
 
-650:
+label_650:
     if greater(integer(value 1), integer(value 23)):
-        jump 757
+        jump label_757
     fi
 
     integer(value 3) = character(integer(value 1), byte 0)
 
     if hasHorse(integer(value 3)):
-        jump 742
+        jump label_742
     fi
 
     if equals(integer(value 4), byte 0):
         integer(value 4) = integer(value 3)
         integer(value 2) = plus(integer(value 2), byte 1)
-        jump 742
+        jump label_742
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
@@ -110,19 +110,19 @@ interaction:
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
 
-742:
+label_742:
     integer(value 1) = plus(integer(value 1), byte 1)
-    jump 650
+    jump label_650
 
-757:
+label_757:
     if equals(integer(value 2), byte 0):
         print('"But all of you are already on horses!"')
-        jump 185
+        jump label_185
     fi
 
     if equals(integer(value 2), byte 1):
         integer(value 3) = integer(value 4)
-        jump 951
+        jump label_951
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
@@ -132,12 +132,12 @@ interaction:
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
-        jump 186
+        jump label_186
     fi
 
     integer(value 1) = byte 0
 
-886:
+label_886:
     integer(value 3) = character(integer(value 1), byte 0)
 
     if equals(hasHorse(integer(value 3)), byte 0):
@@ -145,16 +145,16 @@ interaction:
     fi
 
     if equals(integer(value 2), byte 0):
-        jump 951
+        jump label_951
     fi
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 1), integer(value 23)):
-        jump 886
+        jump label_886
     fi
 
-951:
+label_951:
     ('SETNAME', ('integer', [('value', 3)]))
     print('"Aye, $Y, thou hast need of a horse."')
     wait()
@@ -163,7 +163,7 @@ interaction:
 
     if less(objectsCount(integer(value 3), byte 88), integer(value 9)):
         print('"But thou canst not afford one!"')
-        jump 1231
+        jump label_1231
     fi
 
     print('"My price is #9 gold pieces, no less. Interested?" ')
@@ -174,16 +174,16 @@ interaction:
         print('"Good!" $N takes $Y\'s gold, and hands over the reins of a fine horse.')
         ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 9)]))
         ('HORSE', ('integer', [('value', 3)]))
-        jump 1231
+        jump label_1231
 
     case 'n':
         print('"Perhaps some other time then."')
-        jump 1231
+        jump label_1231
     esac
 
-1231:
+label_1231:
     if integer(value 4):
-        jump 185
+        jump label_185
     fi
 
     wait()
@@ -204,4 +204,4 @@ interaction:
     integer(value 1) = byte 0
     integer(value 2) = byte 0
     integer(value 4) = byte 0
-    jump 650
+    jump label_650

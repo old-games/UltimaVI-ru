@@ -12,7 +12,7 @@ description:
 
 interaction:
     if equals(isNearby(byte 147), byte 0):
-        jump 318
+        jump label_318
     fi
 
     if equals(integer(value 16), byte 1):
@@ -28,18 +28,18 @@ interaction:
         bye()
     fi
 
-318:
+label_318:
     print('"Greetings, ')
 
     if integer(value 23):
         print('folks."')
-        jump 352
+        jump label_352
 
     else:
         print('$G."')
     fi
 
-352:
+label_352:
     if and(partyHas(byte 4), equals(hasBit(byte 235, byte 4), byte 0)):
         wait()
 
@@ -55,7 +55,7 @@ interaction:
         ('SETF', ('byte', 235), ('byte', 4))
     fi
 
-559:
+label_559:
     print('\n')
 
     ask()
@@ -63,15 +63,15 @@ interaction:
     case 'name':
         print('"My name is Sionnach." (He pronounces it \'ShaNOK\'.)')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 559
+        jump label_559
 
     case 'job':
         print('"I\'m a @drummer and a @singer."')
-        jump 559
+        jump label_559
 
     case 'drum':
         print('"Would you like me to play for you?"')
-        jump 2354
+        jump label_2354
 
     case 'batt':
     case 'summ':
@@ -92,7 +92,7 @@ interaction:
         wait()
 
         print('\n\n"It\'s true. I read that in a @book I found at the Lycaeum."')
-        jump 559
+        jump label_559
 
     case 'book':
     case 'foun':
@@ -102,7 +102,7 @@ interaction:
         wait()
 
         print('\n\n"They record the facts behind the many songs of different @ships."')
-        jump 559
+        jump label_559
 
     case 'ship':
     case 'song':
@@ -114,7 +114,7 @@ interaction:
         wait()
 
         print('\n\n"Have you heard of the @Virtuous?"')
-        jump 559
+        jump label_559
 
     case 'dutc':
     case 'empi':
@@ -122,7 +122,7 @@ interaction:
         wait()
 
         print('\n\n"There\'s probably great treasure on her, and on the @Virtuous, too."')
-        jump 559
+        jump label_559
 
     case 'no':
     case 'sing':
@@ -176,7 +176,7 @@ interaction:
         wait()
 
         print('\nWhile on Loch Lake\'s shore the Virtuous lays."')
-        jump 559
+        jump label_559
 
     case 'bye':
         print('"Take care!"\n')
@@ -184,15 +184,15 @@ interaction:
 
     case '*':
         print('"That I cannot help you with."')
-        jump 559
+        jump label_559
     esac
 
-2354:
+label_2354:
     choice('yn')
 
     case 'n':
         print('"As you wish, $G."')
-        jump 559
+        jump label_559
 
     case 'y':
         print('The drum is wide and flat. Sionnach holds it by the strings on the ')
@@ -208,5 +208,5 @@ interaction:
         wait()
 
         print('"That\'s a @battle summons."')
-        jump 559
+        jump label_559
     esac

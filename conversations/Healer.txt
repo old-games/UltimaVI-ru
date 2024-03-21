@@ -13,7 +13,7 @@ interaction:
     print('\n')
 
     if integer(value 21):
-        jump 131
+        jump label_131
     fi
 
     print('"An in mani u')
@@ -28,9 +28,9 @@ interaction:
     print('\n\nThe gargoyle says nothing else.\n')
     bye()
 
-131:
+label_131:
     if equals(partyHasObject(byte 76, byte 0), byte 1):
-        jump 314
+        jump label_314
     fi
 
     print('"To be unwilling to help you, False Prophet."')
@@ -45,7 +45,7 @@ interaction:
     print('\n\nThe gargoyle says nothing else.\n')
     bye()
 
-314:
+label_314:
     if hasBit(byte 235, value 0):
         print('"To be happy to see you again, noble one."')
         wait()
@@ -63,14 +63,14 @@ interaction:
         ('SETF', ('byte', 235), ('value', 0))
     fi
 
-517:
+label_517:
     print('\n')
 
     ask()
 
     case 'cure':
     case 'heal':
-        jump 1426
+        jump label_1426
 
     case 'dead':
     case 'resu':
@@ -81,7 +81,7 @@ interaction:
         wait()
 
         print('\n\n"To doubt that anyone can do that!"')
-        jump 517
+        jump label_517
 
     case 'bye':
         print('"May fortune prevent the need for your return!"\n')
@@ -90,7 +90,7 @@ interaction:
 
     case 'name':
         print('"To be nameless, being only a healer."')
-        jump 517
+        jump label_517
 
     case 'job':
         print('"To be entrusted with the tasks of @healing those wounded and @curing ')
@@ -98,14 +98,14 @@ interaction:
         wait()
 
         print('\n\n"To do this for all, as a service to society."')
-        jump 517
+        jump label_517
 
     case 'good':
         print('"The goodscrafter? To regret his condition."')
         wait()
 
         print('\n\n"To know that he is in great pain after the loss of his @family."')
-        jump 517
+        jump label_517
 
     case 'fami':
         print('"To know that his family was lost when the edges of the world @fell ')
@@ -114,7 +114,7 @@ interaction:
 
         print('\n\n"But to have less and less patience for his dispassionate self-')
         print('pity."')
-        jump 517
+        jump label_517
 
     case 'fell':
     case 'off':
@@ -125,54 +125,54 @@ interaction:
         wait()
 
         print('\n\n"But to maintain the struggle for life diligently!"')
-        jump 517
+        jump label_517
 
     case '*':
         print('"To be a healer, dedicated only to my @job. To know nothing about $Z."')
-        jump 517
+        jump label_517
     esac
 
-1426:
+label_1426:
     if notEquals(integer(value 32), byte 143):
         print('"To ask that you see me at my shop."')
-        jump 517
+        jump label_517
     fi
 
     if greater(integer(value 23), byte 0):
         integer(value 1) = byte 0
         integer(value 2) = byte 0
         integer(value 4) = byte 0
-        jump 1621
+        jump label_1621
     fi
 
     integer(value 3) = character(byte 0, byte 0)
 
     if or(isWounded(integer(value 3)), isPoisoned(integer(value 3))):
-        jump 1972
+        jump label_1972
 
     else:
         print('"To be unfamiliar with human anatomy..."')
         wait()
 
         print('\n\n"But to be certain that you are well!"')
-        jump 2658
+        jump label_2658
     fi
 
-1621:
+label_1621:
     if greater(integer(value 1), integer(value 23)):
-        jump 1735
+        jump label_1735
     fi
 
     integer(value 3) = character(integer(value 1), byte 0)
 
     if equals(or(isWounded(integer(value 3)), isPoisoned(integer(value 3))), byte 0):
-        jump 1720
+        jump label_1720
     fi
 
     if equals(integer(value 4), byte 0):
         integer(value 4) = integer(value 3)
         integer(value 2) = plus(integer(value 2), byte 1)
-        jump 1720
+        jump label_1720
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
@@ -180,22 +180,22 @@ interaction:
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
 
-1720:
+label_1720:
     integer(value 1) = plus(integer(value 1), byte 1)
-    jump 1621
+    jump label_1621
 
-1735:
+label_1735:
     if equals(integer(value 2), byte 0):
         print('"To be unfamiliar with human anatomy..."')
         wait()
 
         print('\n\n"But to be certain that all of you are well!"')
-        jump 2658
+        jump label_2658
     fi
 
     if equals(integer(value 2), byte 1):
         integer(value 3) = integer(value 4)
-        jump 1972
+        jump label_1972
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
@@ -203,12 +203,12 @@ interaction:
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
-        jump 2658
+        jump label_2658
     fi
 
     integer(value 1) = byte 0
 
-1906:
+label_1906:
     integer(value 3) = character(integer(value 1), byte 0)
 
     if or(isWounded(integer(value 3)), isPoisoned(integer(value 3))):
@@ -216,25 +216,25 @@ interaction:
     fi
 
     if equals(integer(value 2), byte 0):
-        jump 1972
+        jump label_1972
     fi
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 1), integer(value 23)):
-        jump 1906
+        jump label_1906
     fi
 
-1972:
+label_1972:
     ('SETNAME', ('integer', [('value', 3)]))
     print('The gargoyle mixes strange powders into a foul-smelling brew.')
     wait()
 
     print('\n\n')
 
-2040:
+label_2040:
     if equals(hasBit(byte 235, byte 2), byte 0):
-        jump 2157
+        jump label_2157
     fi
 
     ('HEAL', ('integer', [('value', 3)]))
@@ -247,12 +247,12 @@ interaction:
         print('$Y drinks the potion and feels restored!')
     fi
 
-    jump 2658
+    jump label_2658
 
-2157:
+label_2157:
     print('"To drink this and be healthy."')
 
-2188:
+label_2188:
     wait()
 
     print('\n\nDo')
@@ -270,11 +270,11 @@ interaction:
 
     case 'y':
         if less(integer(value 9), byte 2):
-            jump 2390
+            jump label_2390
 
         else:
             ('SETF', ('byte', 235), ('byte', 2))
-            jump 2040
+            jump label_2040
         fi
 
     case 'n':
@@ -285,10 +285,10 @@ interaction:
         print('\n\n"But not to force anyone to act against their will."')
         wait()
 
-        jump 517
+        jump label_517
     esac
 
-2390:
+label_2390:
     if equals(integer(value 3), byte 1):
         print('You drink the potion and feel ')
 
@@ -311,10 +311,10 @@ interaction:
     print('\n\nThe gargoyle mixes a different drink that somehow smells worse than ')
     print('the last.')
     integer(value 9) = plus(integer(value 9), byte 1)
-    jump 2188
+    jump label_2188
 
-2658:
+label_2658:
     wait()
 
     print('\n\n"To ask if there is aught else I can do for you?"')
-    jump 517
+    jump label_517

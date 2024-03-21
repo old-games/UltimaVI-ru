@@ -22,7 +22,7 @@ interaction:
         ('SETF', ('byte', 235), ('value', 0))
     fi
 
-126:
+label_126:
     print('\n')
 
     ask()
@@ -32,19 +32,19 @@ interaction:
         wait()
 
         print('\n\n"You\'ll hafta be more specific: @arms or @armor?"')
-        jump 126
+        jump label_126
 
     case 'arms':
     case 'weap':
         integer(value 9) = byte 0
-        jump 2495
+        jump label_2495
 
     case 'armo':
         integer(value 9) = integer(value 8)
-        jump 2495
+        jump label_2495
 
     case 'sell':
-        jump 1513
+        jump label_1513
 
     case 'magi':
     case 'orde':
@@ -55,29 +55,29 @@ interaction:
             wait()
 
             print('\n\n"I already made ya one!"')
-            jump 126
+            jump label_126
         fi
 
         if equals(hasBit(byte 159, byte 7), byte 0):
             print('"Go talk ta Koranada about that first."')
             wait()
 
-            jump 126
+            jump label_126
         fi
 
-        jump 972
+        jump label_972
 
     case 'name':
         print('"@Gherick."')
-        jump 126
+        jump label_126
 
     case 'gher':
         print('"Are ya learnin\' how ta speak or do ya need somethin\'?"')
-        jump 126
+        jump label_126
 
     case 'job':
         print('"I makes the most @hideous weapons!"')
-        jump 126
+        jump label_126
 
     case 'hide':
         if greater(integer(value 20), byte 40):
@@ -90,15 +90,15 @@ interaction:
         wait()
 
         print('\n\n"I got some other stuff you could @buy, though."')
-        jump 126
+        jump label_126
 
     case 'aman':
         print('"She\'s got the best food in the land. Go see for yerself."')
-        jump 126
+        jump label_126
 
     case 'segg':
         print('"A fine warrior. New to this area."')
-        jump 126
+        jump label_126
 
     case 'bye':
         print('"Shut the door on yer way out," he snarls.\n')
@@ -112,13 +112,13 @@ interaction:
             print('He hears you but doesn\'t respond.')
         fi
 
-        jump 126
+        jump label_126
     esac
 
-972:
+label_972:
     if notEquals(integer(value 32), byte 144):
         print('"Come to my shop when I\'m open!"')
-        jump 126
+        jump label_126
     fi
 
     integer(value 0) = partyHasObject(byte 10, byte 0)
@@ -148,68 +148,68 @@ interaction:
             ('SETF', ('byte', 235), ('byte', 2))
             wait()
 
-            jump 1481
+            jump label_1481
 
         else:
-            jump 1401
+            jump label_1401
         fi
 
-1401:
+label_1401:
         print('\n\n"You ain\'t got all that I asked for."')
         wait()
 
         print('\n\n"Come back when ya do!"')
         wait()
 
-        jump 1481
+        jump label_1481
 
     case 'n':
-        jump 1443
+        jump label_1443
     esac
 
-1481:
+label_1481:
     print('\n\n"What else can I get ya?"')
-    jump 126
+    jump label_126
 
-1513:
+label_1513:
     if notEquals(integer(value 32), byte 144):
         print('"Come to my shop when I\'m open!"')
-        jump 126
+        jump label_126
     fi
 
     integer(value 0) = byte 0
     integer(value 2) = byte 0
     integer(value 3) = byte 0
 
-1579:
+label_1579:
     integer(value 1) = byte 0
 
-1586:
+label_1586:
     if hasObject(character(integer(value 0), byte 0), data(dword 3185, integer(value 1)), byte 0):
         data(dword 3369, integer(value 2)) = integer(value 0)
         integer(value 2) = plus(integer(value 2), byte 1)
         integer(value 3) = byte 1
-        jump 1666
+        jump label_1666
     fi
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if data(dword 3185, integer(value 1)):
-        jump 1586
+        jump label_1586
     fi
 
-1666:
+label_1666:
     integer(value 0) = plus(integer(value 0), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 1579
+        jump label_1579
     fi
 
     if equals(integer(value 3), byte 0):
         print('"You ain\'t got nothing I wants."')
         wait()
 
-        jump 126
+        jump label_126
     fi
 
     if equals(integer(value 2), byte 1):
@@ -219,86 +219,86 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 1933
+        jump label_1933
     fi
 
-1809:
+label_1809:
     integer(value 1) = byte 1
 
-1816:
+label_1816:
     ('SETNAME', ('character', [('data', [('dword', 3369), ('minus', [('integer', [('value', 1)]), ('byte', 1)])]), ('byte', 0)]))
     print('#1) $Y\n')
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 1), integer(value 2)):
-        jump 1816
+        jump label_1816
     fi
 
     print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        jump 2465
+        jump label_2465
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greaterOrEquals(integer(value 3), integer(value 2)):
-        jump 1809
+        jump label_1809
     fi
 
     integer(value 3) = character(data(dword 3369, integer(value 3)), byte 0)
 
-1933:
+label_1933:
     integer(value 0) = byte 0
     integer(value 5) = byte 0
 
-1947:
+label_1947:
     if equals(hasObject(integer(value 3), data(dword 3185, integer(value 0)), byte 0), byte 0):
-        jump 1994
+        jump label_1994
     fi
 
     data(dword 3339, integer(value 5)) = integer(value 0)
     integer(value 5) = plus(integer(value 5), byte 1)
 
-1994:
+label_1994:
     integer(value 0) = plus(integer(value 0), byte 1)
 
     if data(dword 3185, integer(value 0)):
-        jump 1947
+        jump label_1947
     fi
 
     if equals(integer(value 5), byte 1):
         integer(value 6) = data(dword 3339, byte 0)
-        jump 2158
+        jump label_2158
     fi
 
     integer(value 0) = byte 1
 
-2053:
+label_2053:
     print('#0) ')
     ('DPRINT', ('dword', 3209), ('data', [('dword', 3339), ('minus', [('integer', [('value', 0)]), ('byte', 1)])]))
     print('\n')
     integer(value 0) = plus(integer(value 0), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 5)):
-        jump 2053
+        jump label_2053
     fi
 
     print('"Which item?" ')
     ('INPUTNUM', 6)
 
     if greater(integer(value 6), integer(value 5)):
-        jump 1933
+        jump label_1933
     fi
 
     if equals(integer(value 6), byte 0):
-        jump 2465
+        jump label_2465
     fi
 
     integer(value 6) = data(dword 3339, minus(integer(value 6), byte 1))
 
-2158:
+label_2158:
     string(value 0) = data(dword 3209, integer(value 6))
     integer(value 7) = divide(data(dword 3163, integer(value 6)), byte 3)
     ('SETNAME', ('integer', [('value', 3)]))
@@ -311,14 +311,14 @@ interaction:
             print('"I don\'t bargain, mate. #7 and not a copper."')
             wait()
 
-            jump 126
+            jump label_126
 
         else:
             print('"Well, how \'bout somethin\' else?"')
             wait()
 
             print('\n\n')
-            jump 1933
+            jump label_1933
         fi
 
     case 'y':
@@ -328,77 +328,77 @@ interaction:
         ('NEW', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 7)]))
 
         if equals(integer(value 5), byte 1):
-            jump 126
+            jump label_126
 
         else:
             wait()
 
             print('\n\n')
-            jump 1933
+            jump label_1933
         fi
     esac
 
-2465:
+label_2465:
     print('"Changed your mind, eh?"')
     wait()
 
-    jump 126
+    jump label_126
 
-2495:
+label_2495:
     if notEquals(integer(value 32), byte 144):
         print('"Come to my shop when I\'m open!"')
-        jump 126
+        jump label_126
     fi
 
     if equals(integer(value 23), byte 0):
         integer(value 3) = byte 1
-        jump 2686
+        jump label_2686
     fi
 
-2560:
+label_2560:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
 
-2574:
+label_2574:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print('#2) $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 2574
+        jump label_2574
     fi
 
     print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        jump 2465
+        jump label_2465
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-        jump 2560
+        jump label_2560
     fi
 
     integer(value 3) = character(integer(value 3), byte 0)
 
-2686:
+label_2686:
     integer(value 0) = byte 1
     ('SETNAME', ('integer', [('value', 3)]))
 
-2697:
+label_2697:
     string(value 0) = data(dword 3209, plus(integer(value 9), minus(integer(value 0), byte 1)))
     print('#0) $0\n')
     integer(value 0) = plus(integer(value 0), byte 1)
 
     if and(integer(value 9), notEquals(data(dword 3185, plus(integer(value 9), minus(integer(value 0), byte 1))), byte 0)):
-        jump 2697
+        jump label_2697
     fi
 
     if and(equals(integer(value 9), byte 0), lessOrEquals(integer(value 0), integer(value 8))):
-        jump 2697
+        jump label_2697
     fi
 
     integer(value 7) = integer(value 0)
@@ -406,11 +406,11 @@ interaction:
     ('INPUTNUM', 0)
 
     if equals(integer(value 0), byte 0):
-        jump 2465
+        jump label_2465
     fi
 
     if greaterOrEquals(integer(value 0), integer(value 7)):
-        jump 2686
+        jump label_2686
     fi
 
     integer(value 0) = minus(plus(integer(value 9), integer(value 0)), byte 1)
@@ -424,18 +424,18 @@ interaction:
     choice('yn')
 
     case 'y':
-        jump 2934
+        jump label_2934
 
     case 'n':
-        jump 2686
+        jump label_2686
     esac
 
-2934:
+label_2934:
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 3185, integer(value 0)), byte 1)):
         print('"What\'s this? You can\'t carry no $1, $Y!"')
         wait()
 
-        jump 126
+        jump label_126
     fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):
@@ -445,17 +445,83 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 2686
+        jump label_2686
 
     else:
         print('"What\'s this? You can\'t afford no $1, $Y!"')
         wait()
 
-        jump 126
+        jump label_126
     fi
 
-    ('INTEGERS', [100, 20, 40, 15, 50, 30, 40, 75, 20, 25, 30], [])
-    ('INTEGERS', [47, 204, 40, 37, 45, 14, 15, 20, 24, 4, 13, 0], [])
-    ('STRINGS', ['Halberd', 'Hammer', 'Morning Star', 'Throwing Axe', '2-Handed Axe', 'Black Shield', 'Door Shield', 'Scale Mail', 'Spiked Collar', 'Spiked Helm', 'Spiked Shield'], [])
-    ('INTEGERS', [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], [])
-    ('INTEGERS', [0, 0, 0, 0, 0, 0, 0, 0], [])
+integers_3163 = [
+    100,
+    20,
+    40,
+    15,
+    50,
+    30,
+    40,
+    75,
+    20,
+    25,
+    30,
+]
+
+integers_3185 = [
+    47,
+    204,
+    40,
+    37,
+    45,
+    14,
+    15,
+    20,
+    24,
+    4,
+    13,
+    0,
+]
+
+strings_3209 = [
+    'Halberd',
+    'Hammer',
+    'Morning Star',
+    'Throwing Axe',
+    '2-Handed Axe',
+    'Black Shield',
+    'Door Shield',
+    'Scale Mail',
+    'Spiked Collar',
+    'Spiked Helm',
+    'Spiked Shield',
+]
+
+integers_3339 = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+]
+
+integers_3369 = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+]

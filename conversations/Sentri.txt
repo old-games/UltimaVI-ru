@@ -9,7 +9,7 @@ description:
 
 interaction:
     if partyHas(byte 235):
-        jump 1273
+        jump label_1273
     fi
 
     if hasBit(byte 235, value 0):
@@ -19,7 +19,7 @@ interaction:
         print('"$P! You have come at last!"')
     fi
 
-140:
+label_140:
     print('\n')
 
     ask()
@@ -27,12 +27,12 @@ interaction:
     case 'name':
         ('SETF', ('byte', 235), ('value', 0))
         print('"It is I, Sentri." (He pronounces his name \'Sahn-tray.\')')
-        jump 140
+        jump label_140
 
     case 'job':
         print('"I have been waiting here for you."*\n\n"I heard you had @returned, and ')
         print('knew you would come here eventually."')
-        jump 140
+        jump label_140
 
     case 'hear':
     case 'here':
@@ -40,7 +40,7 @@ interaction:
     case 'wait':
         print('"Britannia needs your help now more than ever before."\n*\n"Many have ')
         print('set out to fight the @gargoyles already."')
-        jump 140
+        jump label_140
 
     case 'brit':
     case 'figh':
@@ -50,10 +50,10 @@ interaction:
         print('"Not just the town guards, but any able bodied men that could be ')
         print('spared from their work."\n*\n"The battle goes poorly. But now that you ')
         print('are here, there is hope. I stand ready to @join you."')
-        jump 140
+        jump label_140
 
     case 'join':
-        jump 849
+        jump label_849
 
     case 'bye':
         print('"If you should pass this way again, I will be here. I await but the ')
@@ -64,13 +64,13 @@ interaction:
         print('"I beg your pardon, could you repeat that?"')
     esac
 
-    jump 140
+    jump label_140
 
-849:
+label_849:
     if partyHas(byte 235):
-854:
+label_854:
         print('"I have joined you already!"')
-        jump 140
+        jump label_140
     fi
 
     print('"Shall I join your party?" ')
@@ -80,7 +80,7 @@ interaction:
     case 'n':
         print('"I bow to your wisdom. If you have need of me later, you have but to ')
         print('ask."')
-        jump 140
+        jump label_140
     esac
 
     print('\n')
@@ -88,23 +88,23 @@ interaction:
 
     if equals(integer(value 0), byte 1):
         print('"It would be best if you got out of that vessel first."')
-        jump 140
+        jump label_140
     fi
 
     if equals(integer(value 0), byte 2):
         print('"You have enough companions now."\n*\n"If you tell one of them to @leave')
         print(' first, then I\'ll join you."')
-        jump 140
+        jump label_140
     fi
 
     if equals(integer(value 0), byte 3):
-        jump 854
+        jump label_854
     fi
 
     print('"So be it. Now that we are together, surely the realm will be saved."\n')
     bye()
 
-1273:
+label_1273:
     print('"Has the time come when your plans call for me to wait in reserve?" ')
 
     choice('yn')
@@ -119,7 +119,7 @@ interaction:
 
     if equals(integer(value 0), byte 1):
         print('"Let\'s get our feet back on solid ground first, okay?"')
-        jump 140
+        jump label_140
     fi
 
     print('"Then I shall go wait at Serpent\'s Hold until you need me again."\n*\n')

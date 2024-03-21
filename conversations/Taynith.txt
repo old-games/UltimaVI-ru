@@ -30,30 +30,30 @@ interaction:
         ('SETF', ('byte', 235), ('value', 0))
     fi
 
-353:
+label_353:
     print('\n')
 
     ask()
 
     case 'name':
         print('"Some know me as @Taynith. That is what you may call me."')
-        jump 353
+        jump label_353
 
     case 'call':
     case 'know':
     case 'pati':
     case 'tayn':
         print('"Seek not my @true name. Let \'Taynith\' suffice."')
-        jump 353
+        jump label_353
 
     case 'true':
         print('"You try my patience."')
-        jump 353
+        jump label_353
 
     case 'aid':
     case 'job':
         print('"I tell @fortunes - for a price."')
-        jump 353
+        jump label_353
 
     case 'buy':
     case 'cons':
@@ -63,14 +63,14 @@ interaction:
     case 'sell':
     case 'tell':
     case 'tile':
-        jump 1676
+        jump label_1676
 
     case 'advi':
-        jump 1440
+        jump label_1440
 
     case 'gorg':
         print('"A gorgio - that\'s almost as good as being a gypsy!"')
-        jump 353
+        jump label_353
 
     case 'bye':
         print('"Our @paths will cross again. I have foreseen it."\n')
@@ -81,40 +81,40 @@ interaction:
         print('"Captain John? Yes, he brought us a silver tablet some time ago, to ')
         print('deliver to the Lycaeum."\n*\n"@Zoltan took care of the deal, so he could')
         print(' tell you more than I."')
-        jump 353
+        jump label_353
 
     case 'lyca':
     case 'silv':
     case 'tabl':
         print('"Ask @Zoltan about it."')
-        jump 353
+        jump label_353
 
     case 'zolt':
         print('"King of the gypsies, sure as my name\'s Taynith."')
-        jump 353
+        jump label_353
 
     case 'path':
         print('"My path leads to @Paws, as soon as I have time to visit there."')
-        jump 353
+        jump label_353
 
     case 'paw':
         print('"My good @friend Dr. Cat lives there."')
-        jump 353
+        jump label_353
 
     case 'cat':
     case 'dr':
     case 'frie':
         print('"Ask him about the duck sometime."')
-        jump 353
+        jump label_353
 
     case 'ask':
     case 'duck':
         print('"Yes, ask him!"')
-        jump 353
+        jump label_353
 
     case 'lyca':
         print('"@Zoltan can tell you where it is."')
-        jump 353
+        jump label_353
 
     case 'penu':
         if hasBit(byte 41, value 0):
@@ -125,48 +125,48 @@ interaction:
             print(' her."')
         fi
 
-        jump 353
+        jump label_353
 
     case '*':
         print('"No doubt."')
     esac
 
-    jump 353
+    jump label_353
 
-1440:
+label_1440:
     print('"My advice will cost you two gold. Do you still want it?" ')
 
     choice('yn')
 
     case 'n':
         print('"Very well."')
-        jump 353
+        jump label_353
     esac
 
     if less(objectsCount(byte 1, byte 88), byte 2):
         print('\n"Best check your purse."')
-        jump 353
+        jump label_353
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 2))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 2))
     print('\n"Look through the books at the @Lycaeum. You might learn something ')
     print('useful there."')
-    jump 353
+    jump label_353
 
-1676:
+label_1676:
     print('"I charge six gold to cast my tiles. Are you interested?" ')
 
     choice('yn')
 
     case 'n':
         print('"Very well."')
-        jump 353
+        jump label_353
     esac
 
     if less(objectsCount(byte 1, byte 88), byte 6):
         print('\n"Best check your purse."')
-        jump 353
+        jump label_353
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 6))
@@ -178,17 +178,23 @@ interaction:
 
     print('\n\nThe tiles are:\n\n')
 
-2046:
+label_2046:
     integer(value 2) = random(byte 0, byte 4)
 
     if equals(integer(value 2), integer(value 1)):
-        jump 2046
+        jump label_2046
     fi
 
     ('DPRINT', ('dword', 2185), ('integer', [('value', 2)]))
     integer(value 1) = integer(value 2)
     print('\n*\n"If you consult the tiles another time, perhaps they will have more')
     print(' to say of your @future."')
-    jump 353
+    jump label_353
 
-    ('STRINGS', ['\'Panda\', \'Coin\', and \'Bead of Glass\'.\n*\nTaynith says: "There is something made of glass that plays a very important role in your future, but the signs are unclear."*\n\n"Seek out @Penumbra. Her crystal ball should hold more of an affinity for this item."\n*\n"If you pay her enough, she can tell you more than I."', '\'Abyss\', \'Mountains\', and \'Maelstrom\'.\n*\nTaynith says: "This is strange."\n\n*"The tiles show that to accomplish your ends, you must go down very far, then up very far, but you will not end up back where you started."*\n\n"The \'Maelstrom\' indicates something important as well, but I cannot determine what it means."', '\'Path\', \'War\', and \'Rogue\'.\n*\nThe \'War\' tile is particularly striking. It depicts a dragon and a tiger, each about to bite the others tail.\n*\nTaynith says: "Britannia is on a path towards all out war, that is plain enough."\n*\n"The \'Rogue\' is one who would go against the wishes of his Lord to find another path."', '\'Bead of Glass\', \'Maelstrom\', and \'Clever Fish\'.\n*\nTaynith frowns. "I cannot interpret this pattern. I\'m afraid you\'ll have to seek its meaning on your own."', '\'Shaman\', \'Blademaster\', and \'Clever Fish\'.\n*\nTaynith says: "All of these things and more must you be to find success in your quest."'], [])
+strings_2185 = [
+    '\'Panda\', \'Coin\', and \'Bead of Glass\'.\n*\nTaynith says: "There is something made of glass that plays a very important role in your future, but the signs are unclear."*\n\n"Seek out @Penumbra. Her crystal ball should hold more of an affinity for this item."\n*\n"If you pay her enough, she can tell you more than I."',
+    '\'Abyss\', \'Mountains\', and \'Maelstrom\'.\n*\nTaynith says: "This is strange."\n\n*"The tiles show that to accomplish your ends, you must go down very far, then up very far, but you will not end up back where you started."*\n\n"The \'Maelstrom\' indicates something important as well, but I cannot determine what it means."',
+    '\'Path\', \'War\', and \'Rogue\'.\n*\nThe \'War\' tile is particularly striking. It depicts a dragon and a tiger, each about to bite the others tail.\n*\nTaynith says: "Britannia is on a path towards all out war, that is plain enough."\n*\n"The \'Rogue\' is one who would go against the wishes of his Lord to find another path."',
+    '\'Bead of Glass\', \'Maelstrom\', and \'Clever Fish\'.\n*\nTaynith frowns. "I cannot interpret this pattern. I\'m afraid you\'ll have to seek its meaning on your own."',
+    '\'Shaman\', \'Blademaster\', and \'Clever Fish\'.\n*\nTaynith says: "All of these things and more must you be to find success in your quest."',
+]

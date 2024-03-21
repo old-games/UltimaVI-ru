@@ -9,14 +9,14 @@ description:
 
 interaction:
     if hasBit(byte 201, byte 6):
-        jump 80
+        jump label_80
     fi
 
     if and(hasBit(byte 201, byte 7), notEquals(partyHasObject(byte 151, byte 77), word 32769)):
-        jump 3486
+        jump label_3486
     fi
 
-80:
+label_80:
     ('SETF', ('byte', 201), ('value', 0))
     print('"Again, \'@you\' of this plane address \'I\' of the Xorinite dimension."\n*')
     print('\n"By what name do \'you\' wish to be addressed at this time?"\n')
@@ -31,7 +31,7 @@ interaction:
     case 'y':
         print('"Good. Tedious repetition should then be unnecessary on this occasion.')
         print(' Of what would \'you\' speak?"')
-        jump 1044
+        jump label_1044
     esac
 
     print('\n"So be it. \'I\' must often repeat information when conversing with the')
@@ -53,19 +53,19 @@ interaction:
         print('something to do with \'name.\'"\n*\n"When Britannia addressed me with the ')
         print('name \'@Zog,\' an attempt was made to explain."*\n"But still \'I\' do not ')
         print('understand."')
-        jump 1044
+        jump label_1044
 
     case 'you':
         print('"\'I\' and \'you\' are words that seem to have no meaning."\n*\n"\'I\' mimic ')
         print('the way \'you\' use them in this language out of courtesy."')
-        jump 1044
+        jump label_1044
 
     case 'job':
         print('"Xorinia serves as a conduit for @information between different ')
         print('planes."\n*\n"In exchange, these planes provide information that can be ')
         print('used to improve Xorinia."\n*\n"Occasionally payment is accepted in the ')
         print('form of @substance, but this is not preferred."')
-        jump 1044
+        jump label_1044
 
     case 'cond':
     case 'exch':
@@ -73,13 +73,13 @@ interaction:
         print('"Britannia has never participated in the interplanar exchange of ')
         print('information."\n*\n"\'I\' have presented a sample known in Britannian terms')
         print(' as a \'@secret\', but no further interest has been shown."')
-        jump 1044
+        jump label_1044
 
     case 'subs':
         print('"Actual physical materials are so plentiful throughout the multiverse ')
         print('that they are of little value."\n*\n"Information has much greater ')
         print('worth."')
-        jump 1044
+        jump label_1044
 
     case 'inte':
     case 'paym':
@@ -87,7 +87,7 @@ interaction:
         print('unit, arrangements will be made to transfer some suitably valuable ')
         print('commodity into Britannian possession."')
         ('SETF', ('byte', 201), ('byte', 7))
-        jump 1044
+        jump label_1044
 
     case 'secr':
         print('"Because of the nature of Britannian memory, \'I\' now present the ')
@@ -103,14 +103,14 @@ interaction:
         print(' magic, as it will only affect beings in the same plane where it is ')
         print('invoked."\n*\n"Inform any \'wisp\' unit if \'you\' have @interest in further')
         print(' exchange.')
-        jump 1044
+        jump label_1044
 
     case 'zog':
         print('"Once when \'I\' offered sample information to Britannia, the name \'Zog\'')
         print(' was given by the life unit that received it."\n*\n"No further contact ')
         print('with Britannia was obtainable for some time after this."\n*\n"Perhaps ')
         print('misuse of the sample information was responsible."')
-        jump 1044
+        jump label_1044
 
     case 'bye':
         print('"\'I\' find it unusual that \'you\' find it so important to inform \'me\' of')
@@ -124,9 +124,9 @@ interaction:
         print('"Perhaps another line of inquiry would prove more \'fruitful.\'"')
     esac
 
-    jump 1044
+    jump label_1044
 
-3486:
+label_3486:
     print('"The volume \'you\' bear with the symbol pattern representing the sounds')
     print(' \'The Book of Lost Mantras\' is a prime source of high density ')
     print('information."\n*\n"Do \'you\' wish to \'me\' to locate a client who is ')
@@ -136,7 +136,7 @@ interaction:
 
     case 'n':
         print('"The ways of Britannia are strange indeed."')
-        jump 1044
+        jump label_1044
     esac
 
     ('SETF', ('byte', 201), ('byte', 6))
@@ -170,15 +170,15 @@ interaction:
         print('business with you."\n')
         integer(value 0) = byte 0
 
-5062:
+label_5062:
         integer(value 1) = character(integer(value 0), byte 0)
 
         if equals(integer(value 1), byte 0):
-            jump 5160
+            jump label_5160
         fi
 
         if less(canCarry(integer(value 1)), weight(byte 89, byte 1)):
-            jump 5160
+            jump label_5160
         fi
 
         integer(value 2) = divide(canCarry(integer(value 1)), weight(byte 89, byte 1))
@@ -190,14 +190,14 @@ interaction:
         ('NEW', ('integer', [('value', 1)]), ('byte', 89), ('byte', 0), ('integer', [('value', 2)]))
 
         if equals(integer(value 2), word 255):
-            jump 5062
+            jump label_5062
         fi
 
-5160:
+label_5160:
         integer(value 0) = plus(integer(value 0), byte 1)
 
         if lessOrEquals(integer(value 0), integer(value 23)):
-            jump 5062
+            jump label_5062
         fi
 
         bye()

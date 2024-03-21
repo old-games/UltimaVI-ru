@@ -19,7 +19,7 @@ interaction:
 
     if less(integer(value 20), byte 40):
         print('"Thou hast much to learn about compassion."')
-        jump 260
+        jump label_260
     fi
 
     if less(integer(value 20), byte 80):
@@ -29,7 +29,7 @@ interaction:
         print('"Thy deeds serve as an example to all."')
     fi
 
-260:
+label_260:
     wait()
 
     print('\n\nDo you wish to meditate at this altar? ')
@@ -42,22 +42,22 @@ interaction:
 
     if equals(integer(value 23), byte 0):
         integer(value 0) = byte 0
-        jump 449
+        jump label_449
     fi
 
-330:
+label_330:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
     print('\n')
 
-345:
+label_345:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 345
+        jump label_345
     fi
 
     print('"Who will meditate?" ')
@@ -71,10 +71,10 @@ interaction:
     integer(value 0) = minus(integer(value 0), byte 1)
 
     if greater(integer(value 0), integer(value 23)):
-        jump 330
+        jump label_330
     fi
 
-449:
+label_449:
     print('"Speak the Mantra of Compassion."\n')
 
     ask()
@@ -96,16 +96,16 @@ interaction:
         print('\n\n"Sweet mercy is nobility\'s true badge."')
         wait()
 
-        jump 673
+        jump label_673
 
     case '*':
         print('You receive no enlightenment.')
         wait()
 
-        jump 914
+        jump label_914
     esac
 
-673:
+label_673:
     if equals(hasBit(byte 235, value 0), byte 0):
         ('ADD_KARMA', ('byte', 10))
         ('SETF', ('byte', 235), ('value', 0))
@@ -127,7 +127,7 @@ interaction:
     integer(value 2) = level(integer(value 1), byte 0)
 
     if greater(integer(value 2), byte 7):
-        jump 914
+        jump label_914
     fi
 
     integer(value 3) = experience(integer(value 1), byte 0)
@@ -143,11 +143,20 @@ interaction:
         wait()
     fi
 
-914:
+label_914:
     print('\n\n"There is naught else for you to learn here and now."')
     wait()
 
     print('\n\n"Return when thy journey has progressed further."\n')
     bye()
 
-    ('INTEGERS', [0, 100, 200, 400, 800, 1600, 3200, 6400], [])
+integers_1023 = [
+    0,
+    100,
+    200,
+    400,
+    800,
+    1600,
+    3200,
+    6400,
+]

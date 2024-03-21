@@ -33,34 +33,34 @@ interaction:
         ask()
         print('\n"Pleased to meet thee, `$Z."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 153
+        jump label_153
 
     case 'job':
         print('"I make cloth upon my @loom. Perhaps you\'d like to @buy some."')
-        jump 153
+        jump label_153
 
     case 'buy':
         if equals(integer(value 32), byte 146):
-            jump 1598
+            jump label_1598
 
         else:
             print('"I fear I have none with me, $G."')
             wait()
 
             print('\n\n"Come back when I\'m at my loom; I\'ll help thee then."')
-            jump 153
+            jump label_153
         fi
 
     case 'sell':
         if equals(integer(value 32), byte 146):
-            jump 2197
+            jump label_2197
 
         else:
             print('"But I don\'t need wool here, $G!"')
             wait()
 
             print('\n\n"Come back when I\'m at my loom; I\'ll deal with thee then."')
-            jump 153
+            jump label_153
         fi
 
     case 'clot':
@@ -78,12 +78,12 @@ interaction:
 
             print('\n\n"My father\'s loom was not so complicated as mine. This design came ')
             print('from one of Lord British\'s old @books."')
-            jump 153
+            jump label_153
         fi
 
         print('"I work on a large new loom. The plans for it were found in one of ')
         print('Lord British\'s old @books."')
-        jump 153
+        jump label_153
 
     case 'book':
     case 'brit':
@@ -94,7 +94,7 @@ interaction:
         wait()
 
         print('\n\n"\'The Wizard of @Oz.\'"')
-        jump 153
+        jump label_153
 
     case 'oz':
     case 'wiza':
@@ -103,11 +103,11 @@ interaction:
 
         print('\n\n"It concerns a girl adventurer, a strange land, and a clever ')
         print('@balloonist."')
-        jump 153
+        jump label_153
 
     case 'ball':
         print('"Are they not made of @silk, in the form of a great bag?"')
-        jump 153
+        jump label_153
 
     case 'bag':
     case 'silk':
@@ -118,11 +118,11 @@ interaction:
         wait()
 
         print('\n\n"In New Magincia, however, lives the silk-weaver @Charlotte."')
-        jump 153
+        jump label_153
 
     case 'char':
         print('"She is the only person I know of who can weave silk."')
-        jump 153
+        jump label_153
 
     case 'bye':
         print('"May our paths cross again some day."\n')
@@ -130,43 +130,43 @@ interaction:
 
     case '*':
         print('"That I cannot help thee with."')
-        jump 153
+        jump label_153
     esac
 
-1598:
+label_1598:
     if equals(integer(value 23), byte 0):
         integer(value 3) = byte 0
-        jump 1734
+        jump label_1734
     fi
 
-1618:
+label_1618:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
 
-1632:
+label_1632:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 1632
+        jump label_1632
     fi
 
     print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        jump 2134
+        jump label_2134
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-        jump 1618
+        jump label_1618
     fi
 
-1734:
+label_1734:
     integer(value 3) = character(integer(value 3), byte 0)
     ('SETNAME', ('integer', [('value', 3)]))
     print('"@Cloth or @thread, $Y?"\n')
@@ -175,16 +175,16 @@ interaction:
 
     case 'clot':
         integer(value 0) = byte 0
-        jump 1814
+        jump label_1814
 
     case 'thre':
         integer(value 0) = byte 1
 
     case '*':
-        jump 1618
+        jump label_1618
     esac
 
-1814:
+label_1814:
     integer(value 1) = data(dword 2818, integer(value 0))
     string(value 0) = data(dword 2826, integer(value 0))
     print('"It\'ll cost you #1 gold for the $0. Interested?" ')
@@ -197,7 +197,7 @@ interaction:
             wait()
 
             print('\n')
-            jump 128
+            jump label_128
         fi
 
         if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 30):
@@ -209,62 +209,62 @@ interaction:
 
             integer(value 5) = byte 1
             print('\n\n')
-            jump 2134
+            jump label_2134
 
         else:
             print('"You haven\'t the money."')
             wait()
 
             print('\n')
-            jump 128
+            jump label_128
         fi
 
     case 'n':
-        jump 2134
+        jump label_2134
     esac
 
-2134:
+label_2134:
     if integer(value 5):
         print('"That is fine $0."')
         wait()
 
         print('\n')
-        jump 128
+        jump label_128
     fi
 
     print('"You\'ll find none better."')
     wait()
 
     print('\n')
-    jump 128
+    jump label_128
 
-2197:
+label_2197:
     integer(value 0) = byte 0
     integer(value 2) = byte 0
     integer(value 3) = byte 0
 
-2218:
+label_2218:
     integer(value 1) = byte 0
 
-2225:
+label_2225:
     if objectsCount(character(integer(value 0), byte 0), byte 190):
         data(dword 2802, integer(value 2)) = integer(value 0)
         integer(value 2) = plus(integer(value 2), byte 1)
         integer(value 3) = byte 1
-        jump 2294
+        jump label_2294
     fi
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if less(integer(value 1), byte 7):
-        jump 2225
+        jump label_2225
     fi
 
-2294:
+label_2294:
     integer(value 0) = plus(integer(value 0), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 2218
+        jump label_2218
     fi
 
     if equals(integer(value 3), byte 0):
@@ -272,50 +272,50 @@ interaction:
         wait()
 
         print('\n')
-        jump 128
+        jump label_128
     fi
 
     if equals(integer(value 2), byte 1):
         integer(value 3) = data(dword 2802, byte 0)
-        jump 2534
+        jump label_2534
     fi
 
-2399:
+label_2399:
     integer(value 0) = byte 0
     integer(value 1) = byte 1
 
-2413:
+label_2413:
     ('SETNAME', ('character', [('data', [('dword', 2802), ('integer', [('value', 0)])]), ('byte', 0)]))
     print('#1. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if less(integer(value 0), integer(value 2)):
-        jump 2413
+        jump label_2413
     fi
 
     print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        jump 2771
+        jump label_2771
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greaterOrEquals(integer(value 3), integer(value 2)):
-        jump 2399
+        jump label_2399
     fi
 
     integer(value 3) = data(dword 2802, integer(value 3))
 
-2534:
+label_2534:
     integer(value 3) = character(integer(value 3), byte 0)
     ('SETNAME', ('integer', [('value', 3)]))
     integer(value 4) = objectsCount(integer(value 3), byte 190)
 
     if equals(integer(value 4), byte 0):
-        jump 2734
+        jump label_2734
     fi
 
     print('$N turns to $Y and says "Will you take 8 gold for that wool?" ')
@@ -329,27 +329,48 @@ interaction:
         wait()
 
         print('\n')
-        jump 128
+        jump label_128
 
     case 'n':
-        jump 2771
+        jump label_2771
     esac
 
-2734:
+label_2734:
     print('"Sorry, you haven\'t any wool."')
     wait()
 
     print('\n')
-    jump 128
+    jump label_128
 
-2771:
+label_2771:
     print('"Changed your mind, eh?"')
     wait()
 
     print('\n')
-    jump 128
+    jump label_128
 
-    ('INTEGERS', [0, 0, 0, 0, 0, 0, 0, 0], [])
-    ('INTEGERS', [20, 5], [])
-    ('INTEGERS', [185, 225], [])
-    ('STRINGS', ['cloth', 'thread'], [])
+integers_2802 = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+]
+
+integers_2818 = [
+    20,
+    5,
+]
+
+integers_2822 = [
+    185,
+    225,
+]
+
+strings_2826 = [
+    'cloth',
+    'thread',
+]

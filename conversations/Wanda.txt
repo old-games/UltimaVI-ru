@@ -30,10 +30,10 @@ interaction:
         esac
 
         string(value 0) = data(dword 2887, byte 0)
-        jump 268
+        jump label_268
     fi
 
-268:
+label_268:
     print('\n')
 
     ask()
@@ -41,13 +41,13 @@ interaction:
     case 'name':
         print('"They call me \'@Wicked Wanda,\' $0."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 268
+        jump label_268
 
     case 'wand':
     case 'wick':
         print('"If we can find someplace @private, I\'ll gladly show you how I got my ')
         print('nickname..."')
-        jump 268
+        jump label_268
 
     case 'find':
     case 'nick':
@@ -60,7 +60,7 @@ interaction:
     case 'swee':
         if random(byte 0, byte 1):
             print('"Hmm, sounds like I\'ve piqued your interest..."')
-            jump 268
+            jump label_268
         fi
 
         print('"Why ')
@@ -76,7 +76,7 @@ interaction:
         wait()
 
         print('\n\nShe breaks into a fit of giggles.')
-        jump 268
+        jump label_268
 
     case 'boff':
     case 'hay':
@@ -88,7 +88,7 @@ interaction:
     case 'screw':
     case 'sex':
     case 'suck':
-        jump 1658
+        jump label_1658
 
     case 'map':
         print('"We don\'t have... Oh, wait, there was something!"')
@@ -96,20 +96,20 @@ interaction:
 
         print('\n\n"@Arturos, he, uh, found a map last time we were up at Empath ')
         print('@Abbey."')
-        jump 268
+        jump label_268
 
     case 'artu':
         print('"He\'ll tell your @fortune for you, $0. Just ask him!"')
-        jump 268
+        jump label_268
 
     case 'fort':
         print('"That\'s right."')
-        jump 268
+        jump label_268
 
     case 'abbe':
     case 'empa':
         print('"I don\'t care much for them. They\'re all too stuck up."')
-        jump 268
+        jump label_268
 
     case 'silv':
     case 'tabl':
@@ -117,23 +117,23 @@ interaction:
         wait()
 
         print('\n\n"But I have something much @sweeter for sale..."')
-        jump 268
+        jump label_268
 
     case 'andr':
         if integer(value 16):
             print('"He could show you a real good time, honey!"')
-            jump 268
+            jump label_268
         fi
 
         print('"He\'s in the same line of work as I am--but I think I\'m more your ')
         print('type!"')
-        jump 268
+        jump label_268
 
     case 'late':
     case 'rest':
     case 'time':
         print('"\'Tis tiring work, you know."')
-        jump 268
+        jump label_268
 
     case 'bye':
         if hasBit(byte 235, byte 7):
@@ -161,13 +161,13 @@ interaction:
         print('something more pleasant..."')
     esac
 
-    jump 268
+    jump label_268
 
-1658:
+label_1658:
     if hasBit(byte 235, byte 7):
         print('"Again, so soon? Nay, come back later, when I\'ve had a little time to ')
         print('@rest."')
-        jump 268
+        jump label_268
     fi
 
     if equals(integer(value 16), byte 1):
@@ -207,13 +207,13 @@ interaction:
             string(value 0) = data(dword 2887, byte 0)
         fi
 
-        jump 268
+        jump label_268
 
     case 'y':
         if less(objectsCount(byte 1, byte 88), byte 15):
             print('"Hey, I don\'t give credit! No pay, no play, capish?"')
             string(value 0) = data(dword 2887, byte 3)
-            jump 268
+            jump label_268
         fi
 
         ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 15))
@@ -247,6 +247,11 @@ interaction:
         print('keeps saying, "You shouldn\'t have wasted time like that."')
     fi
 
-    jump 268
+    jump label_268
 
-    ('STRINGS', ['honey', 'ERR', 'sexy', 'cheapskate'], [])
+strings_2887 = [
+    'honey',
+    'ERR',
+    'sexy',
+    'cheapskate',
+]

@@ -19,18 +19,18 @@ interaction:
     case 'name':
         print('"My name is Manrel."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 115
+        jump label_115
 
     case 'job':
         print('"I\'m a @woodworker. I also dabble in @alchemy from time to time."')
-        jump 115
+        jump label_115
 
     case 'wood':
         print('"I make furniture, cabinets, walking sticks, and the like."')
         wait()
 
         print('\n\n"Perhaps I can make something for you someday."')
-        jump 115
+        jump label_115
 
     case 'alch':
     case 'dabb':
@@ -39,27 +39,27 @@ interaction:
         wait()
 
         print('\n\n"I did stumble across a wicked recipe for red @mead, though."')
-        jump 115
+        jump label_115
 
     case 'mead':
     case 'red':
         print('"Alas, there\'s little call for my brew in this town, with the Blue ')
         print('@Bottle serving Frasier\'s @Folly."')
-        jump 115
+        jump label_115
 
     case 'blue':
     case 'bott':
         print('"A fine establishment."')
-        jump 115
+        jump label_115
 
     case 'foll':
     case 'fras':
         print('"One of the finest @libations you\'ll find anywhere."')
-        jump 115
+        jump label_115
 
     case 'liba':
         print('"Libation or liability - take your pick."')
-        jump 115
+        jump label_115
 
     case 'code':
     case 'symb':
@@ -69,23 +69,23 @@ interaction:
         wait()
 
         print('\n\n"When I woke up the next morning, I had this tattoo..."')
-        jump 115
+        jump label_115
 
     case 'beyv':
     case 'cryp':
     case 'door':
     case 'key':
     case 'lock':
-        jump 1247
+        jump label_1247
 
     case 'flow':
         print('"@Daffodils were always his favorites... It\'s too bad I couldn\'t find ')
         print('any."')
-        jump 115
+        jump label_115
 
     case 'daff':
         print('"Yes, daffodils."')
-        jump 115
+        jump label_115
 
     case 'bye':
         if equals(integer(value 16), byte 1):
@@ -102,12 +102,12 @@ interaction:
         print('"I can\'t help you with that."')
     esac
 
-    jump 115
+    jump label_115
 
-1247:
+label_1247:
     if hasBit(byte 235, byte 7):
         print('"I hope you got a chance to deliver the @flowers."')
-        jump 115
+        jump label_115
     fi
 
     print('"Oh, have you been to visit my cousin\'s grave?" ')
@@ -116,7 +116,7 @@ interaction:
 
     case 'n':
         print('"My mistake."')
-        jump 115
+        jump label_115
 
     case 'y':
         print('He looks at you suspiciously. "You wouldn\'t be wanting the key to his ')
@@ -127,7 +127,7 @@ interaction:
 
     case 'n':
         print('"Well, alright then."')
-        jump 115
+        jump label_115
 
     case 'y':
         integer(value 9) = plus(weight(byte 139, byte 1), weight(byte 64, byte 1))
@@ -135,7 +135,7 @@ interaction:
 
     if less(canCarry(character(byte 0, byte 0)), integer(value 9)):
         print('"You\'re carrying too much right now. Come back for it later."')
-        jump 115
+        jump label_115
     fi
 
     print('"Well, perhaps you have your reasons... Okay, you can have the key."')
@@ -145,4 +145,4 @@ interaction:
     ('NEW', ('byte', 1), ('byte', 139), ('byte', 0), ('byte', 1))
     ('GIVE', ('byte', 64), ('byte', 12), ('byte', 235), ('byte', 1))
     ('SETF', ('byte', 235), ('byte', 7))
-    jump 115
+    jump label_115

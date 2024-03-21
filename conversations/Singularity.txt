@@ -39,11 +39,11 @@ interaction:
 
         case 'y':
             print('"What is the Mantra of Singularity?"\n')
-            jump 1638
+            jump label_1638
         esac
 
         print('\n"Which catacomb dost thou seek?"')
-        jump 798
+        jump label_798
     fi
 
     if less(integer(value 20), byte 40):
@@ -80,14 +80,14 @@ interaction:
     case 'sacr':
         if hasBit(byte 235, byte 2):
             print('"What is the Mantra of Singularity?"\n')
-            jump 1638
+            jump label_1638
 
         else:
             print('"Look deep inside thyself, Avatar, and answer this:"')
             wait()
 
             print('\n"For whom dost thou truly seek the Codex?"\n')
-            jump 2380
+            jump label_2380
         fi
 
     case 'cont':
@@ -105,22 +105,22 @@ interaction:
 
         print('\n\n"There you will find the being who most exemplifies this ')
         print('@principle."')
-        jump 798
+        jump label_798
 
     case 'prin':
     case 'thre':
         print('"The three principles of @Control, @Passion and @Diligence form the ')
         print('basis of the gargoyle way of life."')
-        jump 798
+        jump label_798
 
     case 'job':
     case 'name':
         print('"Thou hast reached the Altar of Singularity. What dost thou seek?"')
-        jump 798
+        jump label_798
 
     case 'cata':
         print('"Which catacomb dost thou seek?"')
-        jump 798
+        jump label_798
 
     case 'bye':
         print('The mystic voice falls silent, and you leave the altar.\n')
@@ -134,15 +134,15 @@ interaction:
             print('"The answer to that lies within thyself."')
         fi
 
-        jump 798
+        jump label_798
     esac
 
-1638:
+label_1638:
     ask()
 
     case 'un-or-us':
     case 'unorus':
-1656:
+label_1656:
         print('"Let the principle of control guide thy quest."')
         wait()
 
@@ -178,14 +178,14 @@ interaction:
     case 'un-us-or':
     case 'us-or-un':
     case 'us-un-or':
-        jump 1656
+        jump label_1656
 
     case 'orunus':
     case 'orusun':
     case 'unusor':
     case 'usorun':
     case 'usunor':
-        jump 1656
+        jump label_1656
 
     case '*':
         print('"You have not yet become familiar with the wisdom of the gargoyle ')
@@ -193,13 +193,13 @@ interaction:
         wait()
 
         print('\n\n"Continue thy search."')
-        jump 798
+        jump label_798
     esac
 
-2320:
+label_2320:
     print('\n\n"Think again, Avatar: For whom dost thou seek the Codex?"\n')
 
-2380:
+label_2380:
     ask()
 
     case 'all':
@@ -223,7 +223,7 @@ interaction:
 
         print('\n\n"Return when thou hast found these @catacombs."')
         ('SETF', ('byte', 235), ('byte', 2))
-        jump 798
+        jump label_798
 
     case 'brit':
     case 'huma':
@@ -237,7 +237,7 @@ interaction:
         print('regardless of its goal."')
         wait()
 
-        jump 2320
+        jump label_2320
 
     case 'garg':
     case 'inqu':
@@ -254,7 +254,7 @@ interaction:
         print('\n\n"Such a path can never be a sacred quest."')
         wait()
 
-        jump 2320
+        jump label_2320
 
     case 'beh':
     case 'bole':
@@ -272,7 +272,7 @@ interaction:
         print('sacred quest."')
         wait()
 
-        jump 2320
+        jump label_2320
 
     case 'bye':
         print('"Return when thou canst truly answer this question."\n')
@@ -286,10 +286,19 @@ interaction:
         print('become a sacred quest."')
         wait()
 
-        jump 2320
+        jump label_2320
     esac
 
-    ('STRINGS', ['Control', 'Diligence', 'Passion'], [])
+strings_3487 = [
+    'Control',
+    'Diligence',
+    'Passion',
+]
+
     endOfList()
 
-    ('STRINGS', ['west', 'south', 'east'], [])
+strings_3514 = [
+    'west',
+    'south',
+    'east',
+]

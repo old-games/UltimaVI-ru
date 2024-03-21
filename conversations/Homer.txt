@@ -30,21 +30,21 @@ interaction:
     if hasBit(byte 235, byte 2):
         ('CLEARF', ('byte', 235), ('byte', 2))
         print('"')
-        jump 4306
+        jump label_4306
     fi
 
     if hasBit(byte 235, value 1):
         ('CLEARF', ('byte', 235), ('value', 1))
         print('"')
-        jump 4848
+        jump label_4848
     fi
 
     if hasBit(byte 235, byte 5):
-        jump 3284
+        jump label_3284
     fi
 
     if hasBit(byte 235, byte 6):
-        jump 3872
+        jump label_3872
     fi
 
     print('He takes your measure, looking you over from head to toe. "What do you')
@@ -59,15 +59,15 @@ interaction:
         print('\n"Fine, \'$Z\' - if that\'s what your name really is... You can call me ')
         print('Homer."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 484
+        jump label_484
 
     case 'home':
         print('"Well, get on with it!"')
-        jump 484
+        jump label_484
 
     case 'job':
         print('"I once sailed on the ship called \'@Empire,\' under Captain @Hawkins."')
-        jump 484
+        jump label_484
 
     case 'empi':
     case 'sail':
@@ -84,12 +84,12 @@ interaction:
 
         print('\n\nHe hesitates, then adds quickly, "Of course, I had nothing to do ')
         print('with it."')
-        jump 484
+        jump label_484
 
     case 'silv':
     case 'tabl':
         if notEquals(partyHasObject(byte 25, byte 0), word 32769):
-            jump 1306
+            jump label_1306
         fi
 
         print('He regards you warily. "Who sent you?"\n')
@@ -104,12 +104,12 @@ interaction:
         ask()
         print('\n"You\'re not a member of the @guild. I don\'t have to tell you ')
         print('anything."')
-        jump 484
+        jump label_484
 
-1306:
+label_1306:
         print('"You\'re looking for the silver tablet? It\'s part of Captain Hawkin\'s ')
         print('buried @treasure."')
-        jump 484
+        jump label_484
 
     case 'buri':
     case 'trea':
@@ -120,21 +120,21 @@ interaction:
             print('"Don\'t know anything about it."')
         fi
 
-        jump 484
+        jump label_484
 
     case 'cave':
         if notEquals(partyHasObject(byte 25, byte 0), word 32769):
-            jump 1821
+            jump label_1821
 
         else:
             print('"What are you talking about?"')
         fi
 
-        jump 484
+        jump label_484
 
     case 'guil':
         print('"Go ask Budo. And you didn\'t hear that from me, understand?"')
-        jump 484
+        jump label_484
 
     case 'bye':
         if notEquals(partyHasObject(byte 25, byte 0), word 32769):
@@ -157,9 +157,9 @@ interaction:
         fi
     esac
 
-    jump 484
+    jump label_484
 
-1821:
+label_1821:
     print('"After Captain Hawkins passed away, we tore his treasure map into nine')
     print(' pieces."')
     wait()
@@ -225,7 +225,7 @@ interaction:
     ('SETF', ('byte', 235), ('byte', 6))
     bye()
 
-3284:
+label_3284:
     print('"Have you found the storm cloak yet?" ')
 
     choice('yn')
@@ -274,14 +274,14 @@ interaction:
     print('not many that does, these days..."\n')
     bye()
 
-3872:
+label_3872:
     print('"So, have ye found the eight pieces of the map yet?" ')
 
     choice('yn')
 
     case 'n':
         print('"Then what are you wasting my time for?"')
-        jump 484
+        jump label_484
 
     case 'y':
     esac
@@ -289,7 +289,7 @@ interaction:
     if equals(hasBit(byte 235, byte 7), byte 0):
         print('"Best count again. You need eight pieces before I\'ll bargain with ')
         print('you."')
-        jump 484
+        jump label_484
     fi
 
     print('"Very well. I\'ve been thinking about how we could work out a deal."')

@@ -22,7 +22,7 @@ interaction:
         ('SETF', ('byte', 235), ('value', 0))
     fi
 
-173:
+label_173:
     print('\n')
 
     ask()
@@ -32,12 +32,12 @@ interaction:
         wait()
 
         print('\n\n"Everyone else does."')
-        jump 173
+        jump label_173
 
     case 'hey':
     case 'you':
         print('"Typical," she mutters.')
-        jump 173
+        jump label_173
 
     case 'job':
         print('"I\'m in charge of the Tinker\'s Inn while my @father\'s away."')
@@ -48,7 +48,7 @@ interaction:
         wait()
 
         print('\n\nIt doesn\'t really sound like she means what she said.')
-        jump 173
+        jump label_173
 
     case 'inn':
     case 'rest':
@@ -57,16 +57,16 @@ interaction:
         wait()
 
         print('\n\n"Interested?" ')
-        jump 1168
+        jump label_1168
 
     case 'beau':
         print('"Yes, that\'s what they all say."')
-        jump 173
+        jump label_173
 
     case 'fath':
         print('"My father called me back from the @Lycaeum so that he could go fight ')
         print('the gargoyles."')
-        jump 173
+        jump label_173
 
     case 'book':
     case 'lyca':
@@ -75,14 +75,14 @@ interaction:
         wait()
 
         print('\n\n"Though I doubt you\'d know much about that sort of thing."')
-        jump 173
+        jump label_173
 
     case 'xiao':
         print('"She is the wisest mage in all Britannia."')
         wait()
 
         print('\n\n"Only she can teach the spells of the greatest @power."')
-        jump 173
+        jump label_173
 
     case 'brit':
     case 'grea':
@@ -91,7 +91,7 @@ interaction:
     case 'spel':
     case 'wise':
         print('"Mmm-hmm, that\'s right."')
-        jump 173
+        jump label_173
 
     case 'bye':
         print('"Mmm-hmmm," she mutters as you leave.\n')
@@ -105,48 +105,48 @@ interaction:
             print('"Hmm, fascinating," she yawns.')
         fi
 
-        jump 173
+        jump label_173
     esac
 
-1168:
+label_1168:
     choice('yn')
 
     case 'y':
         if integer(value 23):
             integer(value 1) = multiply(plus(integer(value 23), byte 1), byte 5)
-            jump 1310
+            jump label_1310
 
         else:
-            jump 1226
+            jump label_1226
         fi
 
     case 'n':
         print('"What a pity."')
-        jump 173
+        jump label_173
     esac
 
-1226:
+label_1226:
     if less(objectsCount(character(byte 0, byte 0), byte 88), byte 5):
         print('"No pay, no stay. 5 gold, cash in advance."')
-        jump 173
+        jump label_173
 
     else:
         ('DELETE', ('character', [('byte', 0), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 5))
-        jump 1647
+        jump label_1647
     fi
 
-1310:
+label_1310:
     integer(value 2) = byte 0
     integer(value 3) = byte 0
     integer(value 4) = byte 0
 
-1331:
+label_1331:
     if greater(integer(value 3), integer(value 23)):
         print('"No pay, no stay."')
         wait()
 
         print('\n\n"#1 gold for the lot of you, cash in advance."')
-        jump 173
+        jump label_173
     fi
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
@@ -155,7 +155,7 @@ interaction:
         integer(value 1) = minus(integer(value 1), integer(value 5))
         integer(value 2) = plus(integer(value 2), integer(value 5))
         integer(value 3) = plus(integer(value 3), byte 1)
-        jump 1331
+        jump label_1331
 
     else:
         print('Your party takes up a collection to pay for the rooms.')
@@ -163,25 +163,25 @@ interaction:
         integer(value 2) = byte 0
         integer(value 4) = integer(value 3)
         integer(value 3) = byte 0
-        jump 1561
+        jump label_1561
     fi
 
-1561:
+label_1561:
     if equals(integer(value 3), integer(value 4)):
         ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
         wait()
 
         print('\n\n')
-        jump 1647
+        jump label_1647
     fi
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
     integer(value 1) = minus(integer(value 1), integer(value 5))
     ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
     integer(value 3) = plus(integer(value 3), byte 1)
-    jump 1561
+    jump label_1561
 
-1647:
+label_1647:
     print('Putting all thoughts of the rude innkeeper out of your mind, you drift')
     print(' off into a pleasant sleep.\n')
     sleep()
@@ -190,4 +190,4 @@ interaction:
 
     print('\nThe next morning, Doris sullenly serves you breakfast and then ')
     print('returns to her studies.')
-    jump 173
+    jump label_173

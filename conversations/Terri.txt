@@ -18,10 +18,10 @@ interaction:
         print('"Oh, you\'ve come back to visit me again!"')
 
     else:
-        jump 3087
+        jump label_3087
     fi
 
-189:
+label_189:
     print('\n')
 
     ask()
@@ -34,10 +34,10 @@ interaction:
 
         else:
             print('Don\'t you think that would be a good name for an Avatar\'s wife?" ')
-            jump 3058
+            jump label_3058
         fi
 
-        jump 189
+        jump label_189
 
     case 'job':
         print('"By royal decree, I am the only one allowed to @mint the official ')
@@ -46,7 +46,7 @@ interaction:
         print('before me. But I get lonely here sometimes..."\n*\n"It\'s so nice of you ')
         print('to come by and talk to me."\n*\n"@Kytyn will never believe it when I ')
         print('tell her I got to meet the @Avatar in person!"')
-        jump 189
+        jump label_189
 
     case 'avat':
         print('"You must be the bravest ')
@@ -56,15 +56,15 @@ interaction:
         fi
 
         print('man I\'ve ever met. I can\'t believe it\'s really you!"')
-        jump 189
+        jump label_189
 
     case 'fath':
         print('"May he rest in peace."')
-        jump 189
+        jump label_189
 
     case 'moth':
         print('"May she rest in peace."')
-        jump 189
+        jump label_189
 
     case 'copp':
     case 'penc':
@@ -73,7 +73,7 @@ interaction:
         print('"Of course, I\'m sure you only carry @gold crowns with you, being as ')
         print('important as you are."\n*\nShe reaches over and squeezes your shoulder ')
         print('affectionately.')
-        jump 189
+        jump label_189
 
     case 'coin':
     case 'made':
@@ -88,11 +88,11 @@ interaction:
         wait()
 
         print('\n')
-        jump 2450
+        jump label_2450
 
     case 'exch':
     case 'trad':
-        jump 2543
+        jump label_2543
 
     case 'crow':
     case 'gold':
@@ -100,21 +100,21 @@ interaction:
         print('"Britannia has been so prosperous lately that there\'s been a lot of ')
         print('demand for gold coinage."\n*\n"Of course we have you to thank for ')
         print('bringing us the Codex and saving Lord British."\n*\n')
-        jump 2450
+        jump label_2450
 
     case 'code':
     case 'lord':
         print('"My @mother told me all about it."')
-        jump 189
+        jump label_189
 
     case 'kyty':
         print('"She\'s a good friend of mine. She runs the @museum."')
-        jump 189
+        jump label_189
 
     case 'muse':
         print('"You should visit there sometime. But please stay and talk to me a bit')
         print(' longer first..."')
-        jump 189
+        jump label_189
 
     case 'bye':
         print('"I know you\'re very busy, saving Britannia and all that, but I hope ')
@@ -144,21 +144,21 @@ interaction:
         fi
     esac
 
-    jump 189
+    jump label_189
 
-2450:
+label_2450:
     print('"I get most of my gold from people who bring in nuggets to @exchange ')
     print('them for coins."\n*\n')
-    jump 2543
+    jump label_2543
 
-2543:
+label_2543:
     print('"Do you have any gold nuggets you\'d like to trade in for crowns?" ')
 
     choice('yn')
 
     case 'n':
         print('"Well, if you do later, you know where to find me."')
-        jump 189
+        jump label_189
     esac
 
     print('\n')
@@ -166,7 +166,7 @@ interaction:
     if equals(partyHasObject(byte 89, byte 0), word 32769):
         print('"You must be mistaken. But let me know if you come across any gold ')
         print('nuggets later."')
-        jump 189
+        jump label_189
     fi
 
     print('"Normally there\'s a ten percent tax on the exchange."\n*\n"But since ')
@@ -174,27 +174,27 @@ interaction:
     print('stone\'s-weight of gold you have."\n*\nShe exchanges all of your gold ')
     print('nuggets for newly minted crowns.')
 
-3003:
+label_3003:
     integer(value 0) = partyHasObject(byte 89, byte 0)
 
     if equals(integer(value 0), word 32769):
-        jump 189
+        jump label_189
     fi
 
     ('DELETE', ('integer', [('value', 0)]), ('byte', 89), ('byte', 0), ('byte', 1))
     ('NEW', ('integer', [('value', 0)]), ('byte', 88), ('byte', 0), ('byte', 10))
-    jump 3003
+    jump label_3003
 
-3058:
+label_3058:
     choice('yn')
 
     case '*':
         print('She winks at you.')
     esac
 
-    jump 189
+    jump label_189
 
-3087:
+label_3087:
     ('SETF', ('byte', 235), ('value', 0))
     print('"Hello. My name\'s Terri - I run the mint."\n*\n"Say, aren\'t you the ')
     print('Avatar? Yes, I recognize you from your portrait..."\n*\n"My mother used ')
@@ -210,4 +210,4 @@ interaction:
         print('hoped someday I\'d meet a man like you..."')
     fi
 
-    jump 189
+    jump label_189

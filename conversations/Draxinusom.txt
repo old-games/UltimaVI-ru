@@ -45,14 +45,14 @@ interaction:
         ('SETF', ('byte', 235), ('value', 0))
     fi
 
-562:
+label_562:
     print('\n')
 
     ask()
 
     case 'sacr':
     case 'surr':
-        jump 1978
+        jump label_1978
 
     case 'name':
         print('"To be named Draxinusom, leader of our race."')
@@ -60,13 +60,13 @@ interaction:
 
         print('\n\n"To demand to know why you have come before me!"')
         integer(value 0) = plus(integer(value 0), byte 1)
-        jump 562
+        jump label_562
 
     case 'job':
         print('"To be the leader of our race. To have little time to waste chatting ')
         print('with the False Prophet!"')
         integer(value 0) = plus(integer(value 0), byte 1)
-        jump 562
+        jump label_562
 
     case 'bye':
         print('"Flee, False Prophet! To seize you for sacrifice the instant my army ')
@@ -78,15 +78,15 @@ interaction:
 
     case '*':
         if greater(integer(value 0), byte 2):
-            jump 1875
+            jump label_1875
         fi
 
         ('DPRINT', ('dword', 2131), ('integer', [('value', 0)]))
         integer(value 0) = plus(integer(value 0), byte 1)
-        jump 562
+        jump label_562
     esac
 
-957:
+label_957:
     print('\n')
 
     ask()
@@ -115,7 +115,7 @@ interaction:
             print('Prophet?" ')
         fi
 
-        jump 1432
+        jump label_1432
 
     case 'bye':
         print('"To have known it all along!"')
@@ -125,25 +125,25 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 1875
+        jump label_1875
 
     case '*':
         print('"To be suspicious of thy motives..."')
-        jump 957
+        jump label_957
     esac
 
-1432:
+label_1432:
     choice('yn')
 
     case 'n':
         if integer(value 1):
-            jump 1875
+            jump label_1875
 
         else:
             print('"To be necessary for surrender! To ask again for your acceptance of ')
             print('this."\n\nYour answer: ')
             integer(value 1) = byte 1
-            jump 1432
+            jump label_1432
         fi
 
     case 'y':
@@ -165,7 +165,7 @@ interaction:
     print('\n\n"To inform you when the time of your sacrifice has come."\n')
     bye()
 
-1875:
+label_1875:
     print('"Begone, False Prophet! To seize you for sacrifice the instant my army')
     print(' returns from the Underworld!"')
     wait()
@@ -173,13 +173,13 @@ interaction:
     print('\n')
     bye()
 
-1978:
+label_1978:
     print('"To be here to surrender?" ')
 
     choice('yn')
 
     case 'n':
-        jump 1875
+        jump label_1875
     esac
 
     case 'y':
@@ -189,7 +189,7 @@ interaction:
     choice('yn')
 
     case 'n':
-        jump 1875
+        jump label_1875
     esac
 
     case 'y':
@@ -199,12 +199,16 @@ interaction:
     choice('yn')
 
     case 'n':
-        jump 1875
+        jump label_1875
     esac
 
     case 'y':
         print('"Why?"')
-        jump 957
+        jump label_957
     esac
 
-    ('STRINGS', ['"To ignore the rhetoric of the False Prophet!"', '"To grow impatient with your babbling!"', '"To warn you of imminent attack!"'], [])
+strings_2131 = [
+    '"To ignore the rhetoric of the False Prophet!"',
+    '"To grow impatient with your babbling!"',
+    '"To warn you of imminent attack!"',
+]

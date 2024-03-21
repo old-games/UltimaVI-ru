@@ -9,11 +9,11 @@ description:
 
 interaction:
     if hasBit(byte 235, byte 7):
-        jump 2104
+        jump label_2104
     fi
 
     if hasBit(byte 235, value 0):
-        jump 180
+        jump label_180
     fi
 
     print('"My parents told me never to talk to strangers. What\'s your name?"\n')
@@ -21,53 +21,53 @@ interaction:
     ask()
     print('\n"Ok. Now I can talk to you!"')
     ('SETF', ('byte', 235), ('value', 0))
-    jump 198
+    jump label_198
 
-180:
+label_180:
     print('"Oh, hello again."\n')
 
     ask()
 
     case 'name':
         print('She curtsies gracefully. "Ariana is my name."')
-        jump 198
+        jump label_198
 
     case 'job':
         print('"I\'m learning to be a @bard. I like to @play the harpsichord best."')
-        jump 198
+        jump label_198
 
     case 'bard':
         print('"I want to be a bard when I grow up. They have more @fun than ')
         print('anybody!"')
-        jump 198
+        jump label_198
 
     case 'comp':
         print('"They taught me all about compassion. They say it\'s very important for')
         print(' bards."')
-        jump 198
+        jump label_198
 
     case 'mant':
         print('"I can\'t remember it now... And @Kenneth just taught it to me last ')
         print('week..."\n*\n"Wait, I know! It\'s \'mo!\'"\n*\n"Or maybe it was \'om\'... Or ')
         print('\'mu,\' or \'um\'... It was something like that."')
-        jump 198
+        jump label_198
 
     case 'rune':
-        jump 1475
+        jump label_1475
 
     case 'harp':
     case 'music':
     case 'play':
     case 'song':
-        jump 843
+        jump label_843
 
     case 'fun':
         print('"Oh yes, lots of it!"')
-        jump 198
+        jump label_198
 
     case 'ken':
         print('"He\'s my teacher."')
-        jump 198
+        jump label_198
 
     case 'bye':
         print('"See you later."\n')
@@ -77,9 +77,9 @@ interaction:
         print('"What do you mean?"')
     esac
 
-    jump 198
+    jump label_198
 
-843:
+label_843:
     print('"I\'ve been studying to be a bard since I was this many." She holds up ')
     print('three fingers.\n*\n"I\'d like to play something for you, but I\'m not good')
     print(' enough yet."\n*\nShe looks away for a moment, then turns back to you, ')
@@ -105,13 +105,13 @@ interaction:
         fi
     esac
 
-    jump 198
+    jump label_198
 
-1475:
+label_1475:
     if hasBit(byte 235, byte 6):
         print('"I already gave it to you, silly. I hope you can figure out how to use')
         print(' it."')
-        jump 198
+        jump label_198
     fi
 
     print('"I have the Rune of Compassion. Isn\'t it pretty?" She reaches into her')
@@ -122,7 +122,7 @@ interaction:
 
     case 'n':
         print('"Ok."')
-        jump 198
+        jump label_198
     esac
 
     print('\n"Are you on an important quest?" ')
@@ -131,7 +131,7 @@ interaction:
 
     case 'n':
         print('"I\'d best hold onto it then. I was told to look after it carefully."')
-        jump 198
+        jump label_198
 
     case 'y':
         print('"I\'m not supposed to let anyone else have it. But if you truly need ')
@@ -142,9 +142,9 @@ interaction:
         ('SETF', ('byte', 235), ('byte', 5))
     esac
 
-    jump 198
+    jump label_198
 
-2104:
+label_2104:
     print('"Hi! Did you get permission from my parents to borrow the rune?"')
 
     choice('yn')
@@ -153,7 +153,7 @@ interaction:
         if less(canCarry(character(integer(value 3), byte 0)), weight(byte 243, byte 1)):
             print('"Oh, you\'re carrying too much right now. You\'d better come back for it')
             print(' later."')
-            jump 198
+            jump label_198
         fi
 
         print('"Then here you are." She hands you the rune. "I wish you the best of ')
@@ -166,9 +166,9 @@ interaction:
         ('CLEARF', ('byte', 235), ('byte', 7))
         ('SETF', ('byte', 235), ('byte', 6))
         ('GIVE', ('byte', 243), ('byte', 0), ('byte', 235), ('byte', 1))
-        jump 198
+        jump label_198
 
     case 'n':
         print('"Well, if you get their permission later, let me know."')
-        jump 198
+        jump label_198
     esac

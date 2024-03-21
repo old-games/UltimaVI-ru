@@ -32,26 +32,26 @@ interaction:
 
         print('\n\n"Thou needn\'t tell me thy name, $P. The Avatar is famous throughout ')
         print('the land!"')
-        jump 140
+        jump label_140
 
     case 'job':
         print('"I am a fletcher."')
         wait()
 
         print('\n\n"I make @arrows and @bolts for the armies of Lord British himself!"')
-        jump 140
+        jump label_140
 
     case 'arro':
     case 'bolt':
     case 'buy':
-        jump 541
+        jump label_541
 
     case 'sell':
         print('"I have all I need, and have no reason to purchase anything more."')
         wait()
 
         print('\n\n"But I appreciate thy offer."')
-        jump 140
+        jump label_140
 
     case 'bye':
         print('"Farewell! I hope I\'ve aided thy quest!"\n')
@@ -59,55 +59,55 @@ interaction:
 
     case '*':
         print('"Beg pardon?"')
-        jump 140
+        jump label_140
     esac
 
-541:
+label_541:
     if notEquals(integer(value 32), byte 146):
         print('"Come to my shop when I\'m open!"')
-        jump 140
+        jump label_140
     fi
 
     if equals(integer(value 23), byte 0):
         integer(value 3) = byte 0
-        jump 729
+        jump label_729
     fi
 
-606:
+label_606:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
 
-620:
+label_620:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print('#2) $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 620
+        jump label_620
     fi
 
     print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        jump 1400
+        jump label_1400
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-        jump 606
+        jump label_606
     fi
 
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
 
-729:
+label_729:
     print('1) Arrows\n2) Crossbow Bolts\n"Which item?" ')
     ('INPUTNUM', 0)
 
     if equals(integer(value 0), byte 0):
-        jump 1400
+        jump label_1400
     fi
 
     integer(value 0) = minus(integer(value 0), byte 1)
@@ -117,7 +117,7 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 729
+        jump label_729
     fi
 
     integer(value 1) = data(dword 1511, integer(value 0))
@@ -129,18 +129,18 @@ interaction:
     ('INPUTNUM', 4)
 
     if equals(integer(value 4), byte 0):
-        jump 729
+        jump label_729
     fi
 
     integer(value 5) = byte 0
 
-932:
+label_932:
     if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(dword 1515, integer(value 0)), byte 12)):
-        jump 1050
+        jump label_1050
     fi
 
     if less(objectsCount(character(integer(value 3), byte 0), byte 88), integer(value 1)):
-        jump 1180
+        jump label_1180
     fi
 
     ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
@@ -148,13 +148,13 @@ interaction:
     integer(value 5) = plus(integer(value 5), byte 1)
 
     if equals(integer(value 5), integer(value 4)):
-        jump 1321
+        jump label_1321
 
     else:
-        jump 932
+        jump label_932
     fi
 
-1050:
+label_1050:
     if integer(value 5):
         print('"Thou canst not carry that many!"')
         wait()
@@ -163,17 +163,17 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 1321
+        jump label_1321
 
     else:
         print('"But thou canst not carry any $1s!"')
         wait()
 
         print('\n\n')
-        jump 1400
+        jump label_1400
     fi
 
-1180:
+label_1180:
     if integer(value 5):
         print('"Thou hast not enough gold for that many!"')
         wait()
@@ -182,17 +182,17 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 1321
+        jump label_1321
 
     else:
         print('"But thou canst not afford any $1s!"')
         wait()
 
         print('\n\n')
-        jump 1400
+        jump label_1400
     fi
 
-1321:
+label_1321:
     print('Lynn takes $Y\'s money and hands over the $1s.')
     wait()
 
@@ -201,13 +201,13 @@ interaction:
 
     print('\n\n"Is there aught else thou wouldst buy?" ')
 
-1400:
+label_1400:
     print('"Is there aught else thou wouldst buy?" ')
 
     choice('yn')
 
     case 'y':
-        jump 541
+        jump label_541
 
     case 'n':
         if equals(integer(value 5), byte 0):
@@ -217,9 +217,20 @@ interaction:
             print('"Enjoy thy $1s."')
         fi
 
-        jump 140
+        jump label_140
     esac
 
-    ('INTEGERS', [4, 3], [])
-    ('INTEGERS', [55, 56], [])
-    ('STRINGS', ['arrow', 'bolt'], [])
+integers_1511 = [
+    4,
+    3,
+]
+
+integers_1515 = [
+    55,
+    56,
+]
+
+strings_1519 = [
+    'arrow',
+    'bolt',
+]

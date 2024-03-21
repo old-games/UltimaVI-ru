@@ -18,20 +18,20 @@ interaction:
         print('"What?" he grumbles.\n')
     fi
 
-99:
+label_99:
     ask()
 
     case 'name':
         print('"As the sign on my door reads, \'@Mortude the Ropemaker.\'"\n')
-        jump 99
+        jump label_99
 
     case 'mort':
         print('"What?" He snorts a bit then clears his throat.\n')
-        jump 99
+        jump label_99
 
     case 'job':
         print('He looks at you and raises one eyebrow. "I said I makes @rope."\n')
-        jump 99
+        jump label_99
 
     case 'buy':
     case 'make':
@@ -43,35 +43,35 @@ interaction:
 
         if notEquals(integer(value 32), byte 144):
             print('"Come to my shop when I\'m open and I\'ll show you!"\n')
-            jump 99
+            jump label_99
         fi
 
-        jump 885
+        jump label_885
 
     case 'thin':
         print('"He\'s a pretty good @flippits, player."\n')
-        jump 99
+        jump label_99
 
     case 'flip':
         print('"You have a @bone on ya? We\'ll play."\n')
-        jump 99
+        jump label_99
 
     case 'bone':
         print('"An old @dog bone or somethin\'?"\n')
-        jump 99
+        jump label_99
 
     case 'dog':
     case 'old':
         print('"The smaller, the better. And maybe a @hat."\n')
-        jump 99
+        jump label_99
 
     case 'hat':
         print('"A haaat," he repeats, mockingly. "Never played \'ave ya?"\n')
-        jump 99
+        jump label_99
 
     case 'no':
         print('"Too bad."\n')
-        jump 99
+        jump label_99
 
     case 'bye':
         print('"Yeah, yeah." He plods off, grumbling.\n')
@@ -85,30 +85,30 @@ interaction:
             print('He plays with his braided hair a moment then shrugs.\n')
         fi
 
-        jump 99
+        jump label_99
     esac
 
     // Unreachable code!
-    jump 99
+    jump label_99
 
-885:
+label_885:
     if equals(integer(value 23), byte 0):
         integer(value 3) = character(byte 0, byte 0)
-        jump 1076
+        jump label_1076
     fi
 
-908:
+label_908:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
 
-922:
+label_922:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 922
+        jump label_922
     fi
 
     print('"Which of you?" ')
@@ -116,18 +116,18 @@ interaction:
 
     if equals(integer(value 3), byte 0):
         print('"Too bad. You\'ll never find better rope."\n')
-        jump 99
+        jump label_99
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-        jump 908
+        jump label_908
     fi
 
     integer(value 3) = character(integer(value 3), byte 0)
 
-1076:
+label_1076:
     ('SETNAME', ('integer', [('value', 3)]))
     print('$N smiles at $Y, "For my fine rope it will cost you 5 gold. ')
     print('Interested?" ')
@@ -136,22 +136,22 @@ interaction:
 
     case 'n':
         print('"Too bad. You\'ll never find better rope."\n')
-        jump 99
+        jump label_99
 
     case 'y':
         if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 5)), weight(word 284, byte 1)):
             print('"You look pretty full to me."\n')
-            jump 99
+            jump label_99
         fi
 
         if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 5):
             ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 5))
             ('NEW', ('integer', [('value', 3)]), ('word', 284), ('byte', 0), ('byte', 1))
             print('"Fine, fine!" After accepting $Y\'s gold, $N hands over the rope.\n')
-            jump 99
+            jump label_99
 
         else:
             print('"You don\'t have enough gold."\n')
-            jump 99
+            jump label_99
         fi
     esac

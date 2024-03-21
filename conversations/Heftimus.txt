@@ -18,20 +18,20 @@ interaction:
     choice('yn')
 
     case 'n':
-        jump 1885
+        jump label_1885
 
     case 'y':
-188:
+label_188:
         print('\nHow much do you give? ')
         ('INPUT', 0)
 
         if greater(integer(value 0), objectsCount(byte 1, byte 88)):
             print('You do not have that much.\n')
-            jump 188
+            jump label_188
         fi
 
         if equals(integer(value 0), byte 0):
-            jump 1885
+            jump label_1885
         fi
 
         ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
@@ -39,7 +39,7 @@ interaction:
         print('"Thank, ye kindly, matey."')
     esac
 
-323:
+label_323:
     print('\n')
 
     ask()
@@ -47,7 +47,7 @@ interaction:
     case 'name':
         print('"I be Heftimus McPry, matey."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 323
+        jump label_323
 
     case 'job':
         print('"Once Buccaneer\'s @Den quaked at the mention o\' me name."')
@@ -61,7 +61,7 @@ interaction:
 
         print('\n"I fought Captain @Hawkins, that scurvy dog, an\' he struck off me ')
         print('@hand with his sword."')
-        jump 323
+        jump label_323
 
     case 'foug':
     case 'hand':
@@ -72,38 +72,38 @@ interaction:
         wait()
 
         print('\n\n"Hawkins threw me hand to the sharks."')
-        jump 323
+        jump label_323
 
     case 'capt':
     case 'hawk':
         print('"He be long gone now, he an\' his ship the Empire. A pox on his ')
         print('memory!"')
-        jump 323
+        jump label_323
 
     case 'bucc':
     case 'den':
         print('"That be an island, matey, and no place fer a decent soul like ')
         print('yerself."')
-        jump 323
+        jump label_323
 
     case 'map':
         print('"That bit o\' news will cost ye twenty coins. What say ye, matey? Aye ')
         print('or nay?" ')
-        jump 1423
+        jump label_1423
 
     case 'dung':
         print('"I\'ve been into the dungeon @Wrong."')
         wait()
 
         print('\n\n"There\'s a @cave on this island that looks a lot safer."')
-        jump 323
+        jump label_323
 
     case 'cave':
         print('"I sleep in front of it every night."')
         wait()
 
         print('\n\n"Soon as I\'ve saved up a stake, I\'m going in there to dig for gold."')
-        jump 323
+        jump label_323
 
     case 'wron':
         print('"\'Twas certainly the wrong place for an old seadog to be!"')
@@ -113,7 +113,7 @@ interaction:
         wait()
 
         print('\n\n"I\'ll be allright, matey."')
-        jump 323
+        jump label_323
 
     case 'bye':
         print('"Good journey."\n')
@@ -123,47 +123,47 @@ interaction:
         print('"Sorry, don\'t really know that."')
     esac
 
-    jump 323
+    jump label_323
 
-1423:
+label_1423:
     choice('ayn')
 
     case 'a':
     case 'y':
-        jump 1573
+        jump label_1573
     esac
 
-1438:
+label_1438:
     print('\n"Then maybe ten? Aye or nay?" ')
 
     choice('ayn')
 
     case 'n':
         print('"So be it, matey."')
-        jump 323
+        jump label_323
     esac
 
     print('\n')
 
     if less(objectsCount(byte 1, byte 88), byte 10):
         print('"I can\'t help ye, matey."')
-        jump 323
+        jump label_323
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 10))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 10))
-    jump 1621
+    jump label_1621
 
-1573:
+label_1573:
     if less(objectsCount(byte 1, byte 88), byte 20):
         print('"Hmm."')
-        jump 1438
+        jump label_1438
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 20))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 20))
 
-1621:
+label_1621:
     print('"I thank ye kindly, matey. The last I saw o\' that bit o\' parchment..."')
     wait()
 
@@ -175,8 +175,8 @@ interaction:
     wait()
 
     print('\n\n"The scrap o\' map lies in the dungeon @Wrong, matey."')
-    jump 323
+    jump label_323
 
-1885:
+label_1885:
     print('"Pah!" He spits on the ground.\n')
     bye()

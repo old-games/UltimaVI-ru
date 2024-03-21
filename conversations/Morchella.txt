@@ -18,7 +18,7 @@ interaction:
     case 'name':
         print('"I\'m Morchella."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 91
+        jump label_91
 
     case 'job':
         print('"I be a retired @sailor, that I am.')
@@ -37,7 +37,7 @@ interaction:
         fi
 
         print(' An honest one, mind ye."')
-        jump 91
+        jump label_91
 
     case 'pira':
         print('"I know nothing about that!" She walks off in a huff.\n')
@@ -47,18 +47,18 @@ interaction:
     case 'sail':
         print('"That\'s right, me bucko. Why, I\'ve sailed with Lord @British and ')
         print('Captain @John.')
-        jump 91
+        jump label_91
 
     case 'brit':
     case 'lord':
         print('"He walks with a limp, ye know. \'Fraid of mice, too, he is."')
-        jump 91
+        jump label_91
 
     case 'capt':
     case 'john':
         print('"He offered to marry me but of course I refused. Didn\'t want to be ')
         print('tied down."')
-        jump 91
+        jump label_91
 
     case 'map':
         print('She looks around furtively first. "Well, now, I might have seen the ')
@@ -70,12 +70,12 @@ interaction:
 
         print('\n\n"If ye give me a @shield of the Order of the Serpent, I\'ll tell ye ')
         print('where that map be at."')
-        jump 91
+        jump label_91
 
     case 'cara':
     case 'lad':
         print('"I might even ask \'im to marry me." She winks slyly at you.')
-        jump 91
+        jump label_91
 
     case 'bye':
         print('"So long, matey."\n')
@@ -84,16 +84,16 @@ interaction:
     case 'magi':
     case 'serp':
     case 'shie':
-        jump 1013
+        jump label_1013
 
     case '*':
         print('"Don\'t know what to say \'bout that, matey."')
-        jump 91
+        jump label_91
 
-1013:
+label_1013:
         if hasBit(byte 235, byte 7):
             print('"Now all I need is a magic sword; then methinks I\'ll be a knight."')
-            jump 91
+            jump label_91
         fi
 
         integer(value 0) = partyHasObject(byte 16, byte 0)
@@ -103,7 +103,7 @@ interaction:
             wait()
 
             print('\n\n"He\'s a fine, brave lad, he is."')
-            jump 91
+            jump label_91
         fi
 
         print('"That be quite a prize there, matey. Will ye trade it to me for a bit ')

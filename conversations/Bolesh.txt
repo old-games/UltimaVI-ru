@@ -13,7 +13,7 @@ interaction:
     print('\n')
 
     if integer(value 21):
-        jump 201
+        jump label_201
     fi
 
     print('The gargoyle struggles to sit up.')
@@ -25,9 +25,9 @@ interaction:
     print('\n\nThe gargoyle collapses, exhausted.\n')
     bye()
 
-201:
+label_201:
     if hasBit(byte 235, value 0):
-        jump 520
+        jump label_520
     fi
 
     if notEquals(partyHasObject(byte 76, byte 0), byte 1):
@@ -52,17 +52,17 @@ interaction:
 
         print('\n\n"Then to express awe at your honor and courage."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 551
+        jump label_551
     fi
 
-520:
+label_520:
     print('"Greetings again, honored one."\n')
 
     ask()
 
     case 'name':
         print('"To be named Bolesh Us-agra-lem, Bolesh the Troop-@Leader."')
-        jump 551
+        jump label_551
 
     case 'job':
     case 'lead':
@@ -74,7 +74,7 @@ interaction:
         wait()
 
         print('\n\n"To have tried to reach the @Codex."')
-        jump 551
+        jump label_551
 
     case 'code':
         print('"To have had victory between our claws, but to have been thwarted on ')
@@ -82,7 +82,7 @@ interaction:
         wait()
 
         print('\n\n"To have encountered an impervious @force field around the Codex."')
-        jump 551
+        jump label_551
 
     case 'fiel':
     case 'forc':
@@ -92,7 +92,7 @@ interaction:
 
         print('\n\n"To remember that only those on sacred @quests for wisdom could ')
         print('pass."')
-        jump 551
+        jump label_551
 
     case 'ques':
     case 'sacr':
@@ -101,7 +101,7 @@ interaction:
 
         print('\n\n"But to be uncertain whether a human\'s request would be answered ')
         print('there."')
-        jump 551
+        jump label_551
 
     case 'sing':
     case 'temp':
@@ -109,7 +109,7 @@ interaction:
         wait()
 
         print('\n\n"To need to fly to get there, though!"')
-        jump 551
+        jump label_551
 
     case 'fly':
         print('"Yes, to be accessible only to the superior winged gargoyles."')
@@ -120,7 +120,7 @@ interaction:
 
         print('\n\n"To suppose that it is totally unreachable by land-bound humans as ')
         print('well."')
-        jump 551
+        jump label_551
 
     case 'bye':
         print('"Farewell, False Prophet."')
@@ -131,5 +131,5 @@ interaction:
 
     case '*':
         print('Weakly, the gargoyle says, "What?"')
-        jump 551
+        jump label_551
     esac

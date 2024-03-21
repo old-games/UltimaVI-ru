@@ -19,7 +19,7 @@ interaction:
         wait()
 
         print('\n\n"Please, please! @Give me some food!"')
-        jump 269
+        jump label_269
     fi
 
     print('It takes a few moments for the man to notice you.')
@@ -34,14 +34,14 @@ interaction:
     print('\n\n"I need @food, badly!"')
     ('SETF', ('byte', 235), ('value', 0))
 
-269:
+label_269:
     print('\n')
 
     ask()
 
     case 'name':
         print('"Ybarra. Ybarra\'s my name."')
-        jump 269
+        jump label_269
 
     case 'job':
         print('"Lost here, no job now."')
@@ -54,7 +54,7 @@ interaction:
         wait()
 
         print('\n\n"But those days are gone...."')
-        jump 269
+        jump label_269
 
     case 'food':
         print('"Yes, @food! The last thing I ate was my @belt."')
@@ -64,15 +64,15 @@ interaction:
         wait()
 
         print('\n\n"If only you could @give me some food..."')
-        jump 269
+        jump label_269
 
     case 'belt':
         print('"Not very tasty, but it was filling."')
-        jump 269
+        jump label_269
 
     case 'give':
     case 'spar':
-        jump 1061
+        jump label_1061
 
     case 'map':
     case 'piec':
@@ -81,7 +81,7 @@ interaction:
 
         if equals(hasObject(byte 235, word 404, byte 0), byte 0):
             print('\n\n"You already got it from me."')
-            jump 269
+            jump label_269
         fi
 
         print('\n\n"Oh, the map. Yes, I still have that."')
@@ -92,7 +92,7 @@ interaction:
         wait()
 
         print('\n\n"It ought to be worth some @food, surely?" ')
-        jump 1469
+        jump label_1469
 
     case 'join':
         print('"Leave here? No!"')
@@ -105,32 +105,32 @@ interaction:
         wait()
 
         print('\n\n"But I must have @food!"')
-        jump 269
+        jump label_269
 
     case 'bye':
         print('"Don\'t go! I need @food... @food..."\n')
         wait()
 
-        jump 1769
+        jump label_1769
 
     case '*':
         print('"Huh?"')
-        jump 269
+        jump label_269
     esac
 
-1061:
+label_1061:
     integer(value 0) = byte 0
 
-1068:
+label_1068:
     if greater(integer(value 0), byte 15):
-        jump 1360
+        jump label_1360
     fi
 
     integer(value 1) = partyHasObject(data(dword 1878, integer(value 0)), byte 0)
 
     if equals(integer(value 1), word 32769):
         integer(value 0) = plus(integer(value 0), byte 1)
-        jump 1068
+        jump label_1068
     fi
 
     if equals(integer(value 1), byte 1):
@@ -151,16 +151,16 @@ interaction:
 
     print('\n\nAfter finishing the offered meal, however, Ybarra still seemes ')
     print('starved.')
-    jump 269
+    jump label_269
 
-1360:
+label_1360:
     print('Suddenly, you realize that you have no food to give him!')
     wait()
 
     print('\n\n"No @food?" he asks. "Then thou art doomed too!"\n')
     bye()
 
-1469:
+label_1469:
     choice('yn')
 
     case 'y':
@@ -170,25 +170,25 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 1061
+        jump label_1061
 
     case 'n':
         if equals(integer(value 9), byte 1):
-            jump 1661
+            jump label_1661
         fi
 
         print('"You must! I\'ll die! Just a little bit of @food for the map?" ')
         integer(value 9) = byte 1
-        jump 1469
+        jump label_1469
     esac
 
-1661:
+label_1661:
     print('His last shred of hope torn away from him, the withered man leaps at ')
     print('you, screaming "@Food! @Food!"\n')
     ('WORKTYPE', ('byte', 235), ('byte', 153))
     bye()
 
-1769:
+label_1769:
     print('\n"Can I have a little before you go?" ')
 
     choice('yn')
@@ -199,7 +199,24 @@ interaction:
         bye()
 
     case 'y':
-        jump 1061
+        jump label_1061
     esac
 
-    ('INTEGERS', [128, 131, 132, 135, 265, 209, 129, 130, 65490, 0, 0, 115, 116, 117, 180, 184], [])
+integers_1878 = [
+    128,
+    131,
+    132,
+    135,
+    265,
+    209,
+    129,
+    130,
+    65490,
+    0,
+    0,
+    115,
+    116,
+    117,
+    180,
+    184,
+]

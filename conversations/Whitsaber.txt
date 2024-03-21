@@ -17,7 +17,7 @@ interaction:
         wait()
 
         print('\n\n"What do you want? I thought we had a deal!"')
-        jump 209
+        jump label_209
     fi
 
     if hasBit(byte 235, value 0):
@@ -27,7 +27,7 @@ interaction:
         print('"Welcome, Avatar!"')
     fi
 
-209:
+label_209:
     print('\n')
 
     ask()
@@ -35,12 +35,12 @@ interaction:
     case 'name':
         print('"I am Lord Whitsaber, mayor of this honorable town!"')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 209
+        jump label_209
 
     case 'job':
         print('"I am entrusted with an honor above all others-that of governing ')
         print('Trinsic, the Town of @Honor!"')
-        jump 209
+        jump label_209
 
     case 'hono':
     case 'town':
@@ -50,7 +50,7 @@ interaction:
         wait()
 
         print('\n\n"Of course, thy own example guides us all, Avatar!"')
-        jump 209
+        jump label_209
 
     case 'capt':
     case 'hawk':
@@ -59,17 +59,17 @@ interaction:
     case 'ship':
         if hasBit(byte 235, byte 3):
             print('"I gave you the map. What more do you want?"')
-            jump 209
+            jump label_209
         fi
 
         if hasBit(byte 235, byte 2):
             print('"All right! If thou wouldst but promise to keep my secret, I\'ll give ')
             print('thee the map!"\n\n"Agreed?" ')
-            jump 1925
+            jump label_1925
 
         else:
             print('"What are you insinuating?"')
-            jump 209
+            jump label_209
         fi
 
     case 'pira':
@@ -77,7 +77,7 @@ interaction:
         wait()
 
         print('\n\nHe laughs out loud...but you sense a trace of fear in his voice!')
-        jump 209
+        jump label_209
 
     case 'alas':
     case 'firs':
@@ -88,7 +88,7 @@ interaction:
         wait()
 
         print('\n\n"Did he say I was once a @pirate?" ')
-        jump 1462
+        jump label_1462
 
     case 'rune':
         print('"The Rune of Honor? Why, it is on a pedestal in the center of town!"')
@@ -99,14 +99,14 @@ interaction:
         wait()
 
         print('\n\n"And dost thou know why not?" ')
-        jump 1676
+        jump label_1676
 
     case 'mant':
         print('"The Mantra of Honor? Let me think..."')
         wait()
 
         print('\n\n"Oh yes, I remember now. It\'s \'summ.\'"')
-        jump 209
+        jump label_209
 
     case 'bye':
         if hasBit(byte 235, byte 2):
@@ -123,10 +123,10 @@ interaction:
 
     case '*':
         print('"I beg thy pardon, Avatar?"')
-        jump 209
+        jump label_209
     esac
 
-1462:
+label_1462:
     choice('yn')
 
     case 'y':
@@ -138,19 +138,19 @@ interaction:
         wait()
 
         print('\n\n"I have changed since those dark days, truly I have!"')
-        jump 209
+        jump label_209
 
     case 'n':
         print('He seems strangely relieved. "Oh. Well, good, because it isn\'t true!"')
-        jump 209
+        jump label_209
     esac
 
-1676:
+label_1676:
     choice('yn')
 
     case 'y':
         print('"Oh." He seems disappointed somehow.')
-        jump 209
+        jump label_209
 
     case 'n':
         print('"Because Trinsic is the Town of Honor!"')
@@ -161,10 +161,10 @@ interaction:
 
         print('\n\n"And surely, if any took the rune, they would do the honorable thing')
         print(' and return it afterwards!"')
-        jump 209
+        jump label_209
     esac
 
-1925:
+label_1925:
     choice('yn')
 
     case 'y':
@@ -177,7 +177,7 @@ interaction:
         wait()
 
         print('\n"I\'ll rely on thy honor to keep my secret."')
-        jump 209
+        jump label_209
 
     case 'n':
         print('"But what more can I do? I cannot change the past!"')
@@ -187,5 +187,5 @@ interaction:
         wait()
 
         print('\n"No pirate would willingly give up the key to such a treasure!"')
-        jump 209
+        jump label_209
     esac

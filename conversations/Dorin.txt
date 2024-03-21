@@ -24,7 +24,7 @@ interaction:
 
     print('\n')
 
-220:
+label_220:
     ask()
 
     case 'name':
@@ -33,61 +33,61 @@ interaction:
         ask()
         print('\n"That\'s nice."\n')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 220
+        jump label_220
 
     case 'moth':
         print('"She was a wonderful cook. Taught me all I know."\n')
-        jump 220
+        jump label_220
 
     case 'dori':
         print('"It was my @mother\'s name."\n')
-        jump 220
+        jump label_220
 
     case 'job':
         print('"At the moment, only Meri and I are here, so I guess I must conduct ')
         print('the @business."\n')
-        jump 220
+        jump label_220
 
     case 'busi':
     case 'shee':
         print('"We are shepherds. We sell @wool."\n')
-        jump 220
+        jump label_220
 
     case 'timo':
         print('"He and I like to care for the less fortunate people in town. I like ')
         print('him alot."\n')
-        jump 220
+        jump label_220
 
     case 'mort':
     case 'shor':
         print('"Old Shorty, eh? He\'s actually quite a nice little man."\n')
-        jump 220
+        jump label_220
 
     case 'mari':
         print('"A bit caught up in herself, but likable."\n')
-        jump 220
+        jump label_220
 
     case 'arbe':
         print('"Poor little guy. He\'s afraid of the dark, or so I\'m told."\n')
-        jump 220
+        jump label_220
 
     case 'gris':
         print('"He has the best flour in all the land."\n')
-        jump 220
+        jump label_220
 
     case 'meri':
         print('"She\'s my little angel. If you see her around here, tell her I have ')
         print('errands to run."\n')
-        jump 220
+        jump label_220
 
     case 'hend':
         print('She winces at his name. "He is a hard worker, but sometimes his smell ')
         print('is quite strong."\n')
-        jump 220
+        jump label_220
 
     case 'uber':
         print('"I like to go on walks with Uby. He has such an interesting life."\n')
-        jump 220
+        jump label_220
 
     case 'pie':
         if hasBit(byte 235, byte 7):
@@ -96,18 +96,18 @@ interaction:
             wait()
 
             print('\n\n"But I\'m baking another, and I\'ll be sure to save you a slice!"\n')
-            jump 220
+            jump label_220
         fi
 
         print('"Yes, I\'m baking the nicest shepherd\'s pie right now."\n*\n"It\'s not ')
         print('done yet, but you can have a slice as soon as it is!"\n')
         ('SETF', ('byte', 235), ('byte', 7))
-        jump 220
+        jump label_220
 
     case 'buy':
     case 'sell':
     case 'wool':
-        jump 1542
+        jump label_1542
 
     case 'bye':
         print('She wipes her hand on her apron, and then waves it at you.\n')
@@ -117,42 +117,42 @@ interaction:
         print('"Sorry, don\'t know about any $Z."\n')
     esac
 
-    jump 220
+    jump label_220
 
-1542:
+label_1542:
     if equals(integer(value 23), byte 0):
         integer(value 3) = byte 0
-        jump 1678
+        jump label_1678
     fi
 
-1562:
+label_1562:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
 
-1576:
+label_1576:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 1576
+        jump label_1576
     fi
 
     print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        jump 2001
+        jump label_2001
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-        jump 1562
+        jump label_1562
     fi
 
-1678:
+label_1678:
     print('"We charge 5 gold for a bale of wool. Would you like some?" ')
 
     choice('yn')
@@ -160,7 +160,7 @@ interaction:
     case 'y':
         if less(canCarry(character(integer(value 3), byte 0)), weight(byte 190, byte 1)):
             print('"You look pretty full to me."\n')
-            jump 220
+            jump label_220
         fi
 
         if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 5):
@@ -172,22 +172,22 @@ interaction:
 
             integer(value 5) = byte 1
             print('\n\n')
-            jump 2001
+            jump label_2001
 
         else:
             ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
             print('"I\'m sorry, but you don\'t seem to have enough money."\n')
-            jump 220
+            jump label_220
         fi
 
     case 'n':
-        jump 2001
+        jump label_2001
     esac
 
-2001:
+label_2001:
     if integer(value 5):
         print('"It was a pleasure doing business with you."')
     fi
 
     print('\n')
-    jump 220
+    jump label_220

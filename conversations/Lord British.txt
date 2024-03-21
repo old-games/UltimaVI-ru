@@ -11,7 +11,7 @@ interaction:
     ('SETF', ('byte', 235), ('value', 0))
 
     if hasBit(byte 235, byte 7):
-        jump 1819
+        jump label_1819
     fi
 
     print('"$P! \'Tis good to see thee again. Much hath happened since thou last ')
@@ -24,50 +24,50 @@ interaction:
     print('\n\n"But I must make sure \'tis truly thee."*\n\n"Only the true Avatar ')
     print('would know what was contained in the Compendium I sent."*\n\n')
 
-302:
+label_302:
     if greater(integer(value 7), byte 0):
-        jump 337
+        jump label_337
     fi
 
     integer(value 7) = random(byte 1, byte 10)
     integer(value 6) = integer(value 7)
-    jump 5448
+    jump label_5448
 
-337:
+label_337:
     if greater(integer(value 8), byte 0):
-        jump 385
+        jump label_385
     fi
 
-350:
+label_350:
     integer(value 8) = random(byte 1, byte 10)
 
     if equals(integer(value 8), integer(value 7)):
-        jump 350
+        jump label_350
     fi
 
     integer(value 6) = integer(value 8)
-    jump 5448
+    jump label_5448
 
-385:
+label_385:
     if greater(integer(value 9), byte 0):
-        jump 446
+        jump label_446
     fi
 
-398:
+label_398:
     integer(value 9) = random(byte 1, byte 10)
     integer(value 6) = integer(value 9)
 
     if equals(integer(value 9), integer(value 7)):
-        jump 398
+        jump label_398
     fi
 
     if equals(integer(value 9), integer(value 8)):
-        jump 398
+        jump label_398
     fi
 
-    jump 5448
+    jump label_5448
 
-446:
+label_446:
     print('\n"Ah, \'tis thee indeed, $P. Take this key."\n*\n"It will unlock the ')
     print('gatehouse by the southern entrance to the castle."\n*\n"Then you can use')
     print(' the lever inside to raise the portcullis, and the crank will lower ')
@@ -81,7 +81,7 @@ interaction:
     print('\n\n"The vast underworld from which thou didst rescue me hath ')
     print('collapsed."')
 
-826:
+label_826:
     print('"The vast underworld from which thou didst rescue me hath collapsed."')
     wait()
 
@@ -127,36 +127,36 @@ interaction:
     wait()
 
     print('\n\n"If thou doth wish me to @repeat all this later, thou need but ask."')
-    jump 1967
+    jump label_1967
 
-1819:
+label_1819:
     if notEquals(partyHasObject(byte 64, byte 1), word 32769):
-        jump 1925
+        jump label_1925
     fi
 
     print('"I see thou hath misplaced thy key to the castle."\n*\n"Here is ')
     print('another."')
     ('NEW', ('byte', 1), ('byte', 64), ('byte', 1), ('byte', 1))
-    jump 1967
+    jump label_1967
 
-1925:
+label_1925:
     print('"Good $T, $P. What wouldst thou speak of?"\n')
 
     ask()
 
     case 'name':
         print('"I am Lord British, as thou knowest well."')
-        jump 1967
+        jump label_1967
 
     case 'rep':
-        jump 826
+        jump label_826
 
     case 'job':
         print('"Thanks to thee, I sit once more upon the throne of Britannia."')
         wait()
 
         print('\n\n"Though \'tis a heavy burden in such @troubled times as these."')
-        jump 1967
+        jump label_1967
 
     case 'burd':
     case 'heav':
@@ -168,7 +168,7 @@ interaction:
 
         print('\n\n"We are fortunate indeed that fate hath brought thee here in our ')
         print('hour of need."')
-        jump 1967
+        jump label_1967
 
     case 'garg':
         print('"Perhaps thou canst drive these vile creatures back into the bowels of')
@@ -176,14 +176,14 @@ interaction:
         wait()
 
         print('\n\n"All our efforts thus far have availed us naught."')
-        jump 1967
+        jump label_1967
 
     case 'shri':
         print('"By now the gargoyles may have captured them all."')
         wait()
 
         print('\n\n"Thou must hurry if thou wouldst foil their evil schemes..."')
-        jump 1967
+        jump label_1967
 
     case 'virt':
         print('"Stay strong in thy commitment to the eight virtues."')
@@ -191,11 +191,11 @@ interaction:
 
         print('\n\n"It is our belief in them that sets us apart from the cruel invaders')
         print(' who would destroy all that we hold dear."')
-        jump 1967
+        jump label_1967
 
     case 'geof':
         print('"He is the Captain of the Guard."')
-        jump 1967
+        jump label_1967
 
     case 'blac':
     case 'gate':
@@ -227,30 +227,30 @@ interaction:
 
         print('the stone canst conjure gates to take thee to numerous destinations."')
         ('SETF', ('byte', 235), ('byte', 5))
-        jump 1967
+        jump label_1967
 
     case 'mant':
     case 'rune':
         print('"Ask the leaders of each town to tell thee of that. ')
-        jump 1967
+        jump label_1967
 
     case 'comp':
         print('"Do thou ask @Tholden."')
-        jump 1967
+        jump label_1967
 
     case 'thol':
         print('"He is my @chancellor."')
-        jump 1967
+        jump label_1967
 
     case 'chan':
         print('"Aye, Tholden is my chancellor."')
-        jump 1967
+        jump label_1967
 
     case 'mous':
     case 'sher':
         if partyHas(byte 9):
             print('"Please take good care of my little friend."')
-            jump 1967
+            jump label_1967
         fi
 
         print('"Ah, thou hast heard of my little friend?"')
@@ -269,7 +269,7 @@ interaction:
         wait()
 
         print('\n\n"She comes by my room every night, so I can tell her @stories."')
-        jump 1967
+        jump label_1967
 
     case 'book':
     case 'oz':
@@ -281,12 +281,12 @@ interaction:
         wait()
 
         print('\n\n"It\'s called \'The Wizard of Oz.\' Ever heard of it?" ')
-        jump 4608
+        jump label_4608
 
     case 'bedt':
     case 'stor':
         print('"My favorite story is \'@Hubert the Lion.\'"')
-        jump 1967
+        jump label_1967
 
     case 'favo':
     case 'hube':
@@ -300,19 +300,19 @@ interaction:
 
         print('\n\n"But conceit of this sort is not proper at all, and Hubert the Lion ')
         print('was due for a fall."')
-        jump 1967
+        jump label_1967
 
     case 'mr':
     case 'nose':
-        jump 5231
+        jump label_5231
 
     case 'heal':
-        jump 5323
+        jump label_5323
 
     case 'than':
         print('"\'Tis I who should thank thee, Avatar, for all thou hast done for ')
         print('Britannia."')
-        jump 1967
+        jump label_1967
 
     case 'bye':
         print('"May fortune favor thee."\n')
@@ -322,13 +322,13 @@ interaction:
         print('"I cannot help thee with that."')
     esac
 
-    jump 1967
+    jump label_1967
 
-4608:
+label_4608:
     choice('yn')
 
     case 'n':
-4614:
+label_4614:
         print('"Well, if thou dost run across it in thy travels, ')
         wait()
 
@@ -336,11 +336,11 @@ interaction:
         wait()
 
         print('\n\n"I hath promised a great reward to whosoever shalt bring me a copy."')
-        jump 1967
+        jump label_1967
 
     case 'y':
         if equals(partyHasObject(byte 151, byte 75), word 32769):
-            jump 4614
+            jump label_4614
         fi
 
         integer(value 0) = divide(canCarry(byte 1), weight(byte 77, byte 1))
@@ -354,7 +354,7 @@ interaction:
             wait()
 
             print('\n\n"Bring the book back later, when thou art less burdened."')
-            jump 1967
+            jump label_1967
         fi
 
         print('"Thou hath found a copy!"')
@@ -370,23 +370,23 @@ interaction:
         print('some glowing gems.')
         ('DELETE', ('partyHasObject', [('byte', 151), ('byte', 75)]), ('byte', 151), ('byte', 75), ('byte', 1))
         ('NEW', ('byte', 1), ('byte', 77), ('byte', 0), ('integer', [('value', 0)]))
-        jump 1967
+        jump label_1967
     esac
 
-5231:
+label_5231:
     print('"Who told thee of that nickname!?"\n')
 
     ask()
 
     case '*':
         print('"Well, I\'d rather thou didst not call me that."')
-        jump 1967
+        jump label_1967
     esac
 
-5323:
+label_5323:
     integer(value 0) = byte 0
 
-5330:
+label_5330:
     integer(value 2) = character(integer(value 0), byte 0)
 
     if isWounded(integer(value 2)):
@@ -400,71 +400,71 @@ interaction:
     integer(value 0) = plus(integer(value 0), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 5330
+        jump label_5330
     fi
 
     print('Lord British waves his hand, and your whole party is healed!')
-    jump 1967
+    jump label_1967
 
-5448:
+label_5448:
     if equals(integer(value 6), byte 1):
-        jump 5578
+        jump label_5578
     fi
 
     if equals(integer(value 6), byte 2):
-        jump 5713
+        jump label_5713
     fi
 
     if equals(integer(value 6), byte 3):
-        jump 5887
+        jump label_5887
     fi
 
     if equals(integer(value 6), byte 4):
-        jump 6039
+        jump label_6039
     fi
 
     if equals(integer(value 6), byte 5):
-        jump 6226
+        jump label_6226
     fi
 
     if equals(integer(value 6), byte 6):
-        jump 6392
+        jump label_6392
     fi
 
     if equals(integer(value 6), byte 7):
-        jump 6550
+        jump label_6550
     fi
 
     if equals(integer(value 6), byte 8):
-        jump 6709
+        jump label_6709
     fi
 
     if equals(integer(value 6), byte 9):
-        jump 6862
+        jump label_6862
     fi
 
     if equals(integer(value 6), byte 10):
-        jump 7041
+        jump label_7041
     fi
 
-5578:
+label_5578:
     print('"What doth trolls lack?"\n')
 
     ask()
 
     case 'end':
         print('"Thou art correct."\n\n')
-        jump 302
+        jump label_302
 
     case 'bye':
-        jump 7194
+        jump label_7194
 
     case '*':
         print('"Nay, \'tis not the correct answer. Consult thy Compendium."')
-        jump 5602
+        jump label_5602
     esac
 
-5713:
+label_5713:
     print('"What part of the tangle vine doth put one to sleep?"\n')
 
     ask()
@@ -473,17 +473,17 @@ interaction:
     case 'frag':
     case 'pod':
         print('"Thou art correct."\n\n')
-        jump 302
+        jump label_302
 
     case 'bye':
-        jump 7194
+        jump label_7194
 
     case '*':
         print('"Nay, \'tis not the correct answer. Consult thy Compendium."')
-        jump 5766
+        jump label_5766
     esac
 
-5887:
+label_5887:
     print('"How wert the headlesses produced?"\n')
 
     ask()
@@ -491,17 +491,17 @@ interaction:
     case 'expe':
     case 'wiza':
         print('"Thou art correct."\n\n')
-        jump 302
+        jump label_302
 
     case 'bye':
-        jump 7194
+        jump label_7194
 
     case '*':
         print('"Nay, \'tis not the correct answer. Consult thy Compendium."')
-        jump 5922
+        jump label_5922
     esac
 
-6039:
+label_6039:
     print('"What valued item canst one find near the spawning grounds of Hydras?"')
     print('\n')
 
@@ -510,17 +510,17 @@ interaction:
     case 'mush':
     case 'nigh':
         print('"Thou art correct."\n\n')
-        jump 302
+        jump label_302
 
     case 'bye':
-        jump 7194
+        jump label_7194
 
     case '*':
         print('"Nay, \'tis not the correct answer. Consult thy Compendium."')
-        jump 6109
+        jump label_6109
     esac
 
-6226:
+label_6226:
     print('"How canst one fend off rotworms?"\n')
 
     ask()
@@ -531,17 +531,17 @@ interaction:
     case 'pass':
     case 'torc':
         print('"Thou art correct."\n\n')
-        jump 302
+        jump label_302
 
     case 'bye':
-        jump 7194
+        jump label_7194
 
     case '*':
         print('"Nay, \'tis not the correct answer. Consult thy Compendium."')
-        jump 6260
+        jump label_6260
     esac
 
-6392:
+label_6392:
     print('"How doth sea serpents attack?"\n')
 
     ask()
@@ -551,17 +551,17 @@ interaction:
     case 'swip':
     case 'tail':
         print('"Thou art correct."\n\n')
-        jump 302
+        jump label_302
 
     case 'bye':
-        jump 7194
+        jump label_7194
 
     case '*':
         print('"Nay, \'tis not the correct answer. Consult thy Compendium."')
-        jump 6423
+        jump label_6423
     esac
 
-6550:
+label_6550:
     print('"What creature art wisps oft mistaken for?"\n')
 
     ask()
@@ -569,34 +569,34 @@ interaction:
     case 'fire':
     case 'fly':
         print('"Thou art correct."\n\n')
-        jump 302
+        jump label_302
 
     case 'bye':
-        jump 7194
+        jump label_7194
 
     case '*':
         print('"Nay, \'tis not the correct answer. Consult thy Compendium."')
-        jump 6593
+        jump label_6593
     esac
 
-6709:
+label_6709:
     print('"How doth giant squids crush their prey?"\n')
 
     ask()
 
     case 'beak':
         print('"Thou art correct."\n\n')
-        jump 302
+        jump label_302
 
     case 'bye':
-        jump 7194
+        jump label_7194
 
     case '*':
         print('"Nay, \'tis not the correct answer. Consult thy Compendium."')
-        jump 6750
+        jump label_6750
     esac
 
-6862:
+label_6862:
     print('"Where hath images of the silver serpent been seen?"\n')
 
     ask()
@@ -606,17 +606,17 @@ interaction:
     case 'tomb':
     case 'wall':
         print('"Thou art correct."\n\n')
-        jump 302
+        jump label_302
 
     case 'bye':
-        jump 7194
+        jump label_7194
 
     case '*':
         print('"Nay, \'tis not the correct answer. Consult thy Compendium."')
-        jump 6914
+        jump label_6914
     esac
 
-7041:
+label_7041:
     print('"What art reapers remnants of?"\n')
 
     ask()
@@ -625,16 +625,16 @@ interaction:
     case 'ench':
     case 'fore':
         print('"Thou art correct."\n\n')
-        jump 302
+        jump label_302
 
     case 'bye':
-        jump 7194
+        jump label_7194
 
     case '*':
         print('"Nay, \'tis not the correct answer. Consult thy Compendium."')
-        jump 7072
+        jump label_7072
     esac
 
-7194:
+label_7194:
     print('"Find thy Compendium, then come speak with me again."\n')
     bye()

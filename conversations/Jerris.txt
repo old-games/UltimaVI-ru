@@ -19,7 +19,7 @@ interaction:
     print('"Hello there, $G."')
 
     if notEquals(integer(value 32), byte 144):
-        jump 397
+        jump label_397
     fi
 
     print('\n\n"Care to join me in a drink?" ')
@@ -28,7 +28,7 @@ interaction:
 
     case 'n':
         print('"Not a mead drinker, I guess." He shrugs.')
-        jump 397
+        jump label_397
 
     case 'y':
         print('He hands you a mug for a swallow.')
@@ -40,7 +40,7 @@ interaction:
         print('\n\n"Comes from Verity Isle," he says.')
     esac
 
-397:
+label_397:
     print('\n')
 
     ask()
@@ -50,7 +50,7 @@ interaction:
     case 'mug':
     case 'veri':
         print('"It\'s mostly made of honey. Ask a brewer."')
-        jump 397
+        jump label_397
 
     case 'name':
         print('"Jerris is my name. And yourself?"\n')
@@ -58,11 +58,11 @@ interaction:
         ask()
         print('\n"Pleased to make your acquaintance."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 397
+        jump label_397
 
     case 'job':
         print('"Some day I hope to join @Zellivan\'s Stalwarts and be a guard."')
-        jump 397
+        jump label_397
 
     case 'guar':
     case 'stal':
@@ -72,7 +72,7 @@ interaction:
         wait()
 
         print('\n\n"Lord Zellivan himself hoisted it up while a guard pulled me clear."')
-        jump 397
+        jump label_397
 
     case 'mous':
     case 'rat':
@@ -83,21 +83,21 @@ interaction:
         wait()
 
         print('\n\n"Nomaan dropped the rune and the rat took it into a little @hole."')
-        jump 397
+        jump label_397
 
     case 'hole':
     case 'rune':
-        jump 1157
+        jump label_1157
 
     case 'mant':
         print('"It\'s in the refrain of the @song."')
-        jump 397
+        jump label_397
 
     case 'refr':
     case 'sing':
     case 'song':
         print('"Well, I\'d rather not sing alone. Get Culham to play it."')
-        jump 397
+        jump label_397
 
     case 'bye':
         print('"Goodbye."\n')
@@ -105,10 +105,10 @@ interaction:
 
     case '*':
         print('"Sorry, $G.  I can\'t help ye with that."')
-        jump 397
+        jump label_397
     esac
 
-1157:
+label_1157:
     print('"It\'s right there. On the north wall. See it?" ')
 
     choice('yn')
@@ -127,9 +127,9 @@ interaction:
             ('PORTRAIT', ('byte', 50))
         fi
 
-        jump 397
+        jump label_397
 
     case 'y':
         print('"Obviously a rat hole."')
-        jump 397
+        jump label_397
     esac

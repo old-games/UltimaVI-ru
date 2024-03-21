@@ -11,7 +11,7 @@ interaction:
     print('"Hullo, $G." He touches his cap respectfully.')
 
     if notEquals(integer(value 32), byte 144):
-        jump 252
+        jump label_252
     fi
 
     wait()
@@ -19,9 +19,9 @@ interaction:
     print('\nHe has a very sharp knife with which he prunes off less productive ')
     print('branches.\n*\n"Mind that you stay out of the flight paths of the @bees, ')
     print('$G."')
-    jump 252
+    jump label_252
 
-252:
+label_252:
     print('\n')
 
     ask()
@@ -37,7 +37,7 @@ interaction:
         fi
 
         ('SETF', ('byte', 235), ('value', 0))
-        jump 252
+        jump label_252
 
     case 'bees':
     case 'hone':
@@ -46,11 +46,11 @@ interaction:
         wait()
 
         print('\n\n"Zeke keeps bees on the other side of the abbey, $G."')
-        jump 252
+        jump label_252
 
     case 'job':
         print('"I care for the @garden and tend the @vines."')
-        jump 252
+        jump label_252
 
     case 'care':
     case 'gard':
@@ -58,7 +58,7 @@ interaction:
         wait()
 
         print('\n\n"Eventually, we became the Brotherhood of the Rose."')
-        jump 252
+        jump label_252
 
     case 'tend':
     case 'vine':
@@ -70,7 +70,7 @@ interaction:
         fi
 
         print('@seedless grapes."')
-        jump 252
+        jump label_252
 
     case 'less':
     case 'seed':
@@ -79,7 +79,7 @@ interaction:
 
         print('\n\n"Now I grow new vines by grafting seedless @grapevines onto regular ')
         print('rootstocks."')
-        jump 252
+        jump label_252
 
     case 'ench':
     case 'nico':
@@ -87,12 +87,12 @@ interaction:
         wait()
 
         print('\n\n"His hut be due north of Britain, or so they tell me."')
-        jump 252
+        jump label_252
 
     case 'grap':
         if notEquals(integer(value 32), byte 144):
             print('"Visit me in the fields some time and I\'ll give you some!"')
-            jump 252
+            jump label_252
         fi
 
         print('"Now those grapes there are for making @wine."')
@@ -111,11 +111,11 @@ interaction:
         print('\n\n"And these over here are for eating."')
 
         if and(notEquals(partyHasObject(byte 95, byte 0), word 32769), equals(hasBit(byte 235, byte 7), byte 1)):
-            jump 252
+            jump label_252
         fi
 
         if less(canCarry(byte 1), weight(byte 95, byte 1)):
-            jump 252
+            jump label_252
         fi
 
         ('SETF', ('byte', 235), ('byte', 7))
@@ -123,15 +123,15 @@ interaction:
         wait()
 
         print('\n\nHe gives you a plump little bunch of sweet table grapes.')
-        jump 252
+        jump label_252
 
     case 'wine':
         print('"Ask @Faren of that."')
-        jump 252
+        jump label_252
 
     case 'fare':
         print('"Yes, Faren--the local winemaker."')
-        jump 252
+        jump label_252
 
     case 'bye':
         if equals(integer(value 32), byte 144):
@@ -145,4 +145,4 @@ interaction:
 
     case '*':
         print('"Beg pardon, $G?"')
-        jump 252
+        jump label_252

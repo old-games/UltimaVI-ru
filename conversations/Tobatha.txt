@@ -14,7 +14,7 @@ interaction:
     integer(value 0) = partyHasObject(word 339, byte 0)
 
     if notEquals(integer(value 0), word 32769):
-        jump 2697
+        jump label_2697
     fi
 
     print('"Who are you and what d\'ye want?"\n')
@@ -23,14 +23,14 @@ interaction:
 
     if random(byte 0, byte 2):
         print('\n"Eh? Speak up!"')
-        jump 93
+        jump label_93
     fi
 
     case 'heal':
-        jump 951
+        jump label_951
 
     case 'cure':
-        jump 1829
+        jump label_1829
 
     case 'resu':
         integer(value 0) = partyHasObject(word 339, byte 0)
@@ -40,11 +40,11 @@ interaction:
             wait()
 
             print('\n\n"There ain\'t no dead person here!"')
-            jump 93
+            jump label_93
 
         else:
             ('SETNAME', ('integer', [('value', 0)]))
-            jump 2843
+            jump label_2843
         fi
 
     case 'name':
@@ -53,16 +53,16 @@ interaction:
         wait()
 
         print('\n\n"But you can call me @maam, youngster."')
-        jump 93
+        jump label_93
 
     case 'toba':
         print('"That\'s @maam to you, youngster. Respect your elders!"')
-        jump 93
+        jump label_93
 
     case 'ma\'a':
     case 'maam':
         print('"That\'s better. Now, what did you want?"')
-        jump 93
+        jump label_93
 
     case 'job':
         print('"Job? I\'m a mender of the @inflicted!"')
@@ -72,18 +72,18 @@ interaction:
         wait()
 
         print('\n\n"Now stop this foolishness and tell me what you want, youngster."')
-        jump 93
+        jump label_93
 
     case 'infl':
         print('"I can @heal, @cure, and even @raise dead!"')
-        jump 93
+        jump label_93
 
     case 'than':
         print('"Oh, sure! Thou art just trying to get on my good side."')
         wait()
 
         print('\n\n"Well, it won\'t work!"')
-        jump 93
+        jump label_93
 
     case 'bye':
     case 'no':
@@ -95,46 +95,46 @@ interaction:
 
     case 'yes':
         print('"Well, what can I do for thee?"')
-        jump 93
+        jump label_93
 
     case '*':
         print('"Don\'t bother me with that!"')
-        jump 93
+        jump label_93
     esac
 
-951:
+label_951:
     if greater(integer(value 23), byte 0):
         integer(value 1) = byte 0
         integer(value 2) = byte 0
         integer(value 4) = byte 0
-        jump 1059
+        jump label_1059
     fi
 
     integer(value 3) = character(byte 0, byte 0)
 
     if isWounded(integer(value 3)):
-        jump 1364
+        jump label_1364
 
     else:
         print('"What do you mean, heal? Thou art not wounded!"')
-        jump 1801
+        jump label_1801
     fi
 
-1059:
+label_1059:
     if greater(integer(value 1), integer(value 23)):
-        jump 1169
+        jump label_1169
     fi
 
     integer(value 3) = character(integer(value 1), byte 0)
 
     if equals(isWounded(integer(value 3)), byte 0):
-        jump 1154
+        jump label_1154
     fi
 
     if equals(integer(value 4), byte 0):
         integer(value 4) = integer(value 3)
         integer(value 2) = plus(integer(value 2), byte 1)
-        jump 1154
+        jump label_1154
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
@@ -142,19 +142,19 @@ interaction:
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
 
-1154:
+label_1154:
     integer(value 1) = plus(integer(value 1), byte 1)
-    jump 1059
+    jump label_1059
 
-1169:
+label_1169:
     if equals(integer(value 2), byte 0):
         print('"What do you mean, heal? None of you are wounded!"')
-        jump 1801
+        jump label_1801
     fi
 
     if equals(integer(value 2), byte 1):
         integer(value 3) = integer(value 4)
-        jump 1364
+        jump label_1364
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
@@ -162,12 +162,12 @@ interaction:
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
-        jump 1801
+        jump label_1801
     fi
 
     integer(value 1) = byte 0
 
-1302:
+label_1302:
     integer(value 3) = character(integer(value 1), byte 0)
 
     if isWounded(integer(value 3)):
@@ -175,16 +175,16 @@ interaction:
     fi
 
     if equals(integer(value 2), byte 0):
-        jump 1364
+        jump label_1364
     fi
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 1), integer(value 23)):
-        jump 1302
+        jump label_1302
     fi
 
-1364:
+label_1364:
     ('SETNAME', ('integer', [('value', 3)]))
     print('"Aye, I see thy wound, $Y."')
     wait()
@@ -195,29 +195,29 @@ interaction:
 
     case 'y':
         if less(objectsCount(integer(value 3), byte 88), byte 30):
-            jump 1610
+            jump label_1610
 
         else:
             print('Laying hands upon $Y, Tobatha mends the wounds.')
             ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 30))
             ('HEAL', ('integer', [('value', 3)]))
-            jump 93
+            jump label_93
         fi
 
     case 'n':
         if less(objectsCount(integer(value 3), byte 88), byte 30):
-            jump 1610
+            jump label_1610
 
         else:
             print('"Well, if thou wilt not pay, why should I heal thee?"')
-            jump 1801
+            jump label_1801
         fi
     esac
 
-1610:
+label_1610:
     if less(integer(value 20), byte 40):
         print('"You youngsters think everything should be free!"')
-        jump 93
+        jump label_93
 
     else:
         print('"Thou art not too bad, for a youngster."')
@@ -228,48 +228,48 @@ interaction:
 
         print('\n\nLaying hands upon $Y, Tobatha mends the wounds.')
         ('HEAL', ('integer', [('value', 3)]))
-        jump 1801
+        jump label_1801
     fi
 
-1801:
+label_1801:
     wait()
 
     print('\n\n"What else ya want?"')
-    jump 93
+    jump label_93
 
-1829:
+label_1829:
     if greater(integer(value 23), byte 0):
         integer(value 1) = byte 0
         integer(value 2) = byte 0
         integer(value 4) = byte 0
-        jump 1938
+        jump label_1938
     fi
 
     integer(value 3) = character(byte 0, byte 0)
 
     if isWounded(integer(value 3)):
-        jump 2244
+        jump label_2244
 
     else:
         print('"What do you mean, cure? Thou art not poisoned!"')
-        jump 1801
+        jump label_1801
     fi
 
-1938:
+label_1938:
     if greater(integer(value 1), integer(value 23)):
-        jump 2048
+        jump label_2048
     fi
 
     integer(value 3) = character(integer(value 1), byte 0)
 
     if equals(isWounded(integer(value 3)), byte 0):
-        jump 2033
+        jump label_2033
     fi
 
     if equals(integer(value 4), byte 0):
         integer(value 4) = integer(value 3)
         integer(value 2) = plus(integer(value 2), byte 1)
-        jump 2033
+        jump label_2033
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
@@ -277,19 +277,19 @@ interaction:
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
 
-2033:
+label_2033:
     integer(value 1) = plus(integer(value 1), byte 1)
-    jump 1938
+    jump label_1938
 
-2048:
+label_2048:
     if equals(integer(value 2), byte 0):
         print('"What do you mean, cure? None of you are poisoned!"')
-        jump 1801
+        jump label_1801
     fi
 
     if equals(integer(value 2), byte 1):
         integer(value 3) = integer(value 4)
-        jump 2244
+        jump label_2244
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
@@ -297,12 +297,12 @@ interaction:
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
-        jump 1801
+        jump label_1801
     fi
 
     integer(value 1) = byte 0
 
-2182:
+label_2182:
     integer(value 3) = character(integer(value 1), byte 0)
 
     if isWounded(integer(value 3)):
@@ -310,16 +310,16 @@ interaction:
     fi
 
     if equals(integer(value 2), byte 0):
-        jump 2244
+        jump label_2244
     fi
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 1), integer(value 23)):
-        jump 2182
+        jump label_2182
     fi
 
-2244:
+label_2244:
     ('SETNAME', ('integer', [('value', 3)]))
     print('"Aye, $Y, I can tell that thou art poisoned."')
     wait()
@@ -330,29 +330,29 @@ interaction:
 
     case 'y':
         if less(objectsCount(integer(value 3), byte 88), byte 10):
-            jump 2504
+            jump label_2504
 
         else:
             print('Laying hands upon $Y, Tobatha removes the poison.')
             ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 10))
             ('CURE', ('integer', [('value', 3)]))
-            jump 1801
+            jump label_1801
         fi
 
     case 'n':
         if less(objectsCount(integer(value 3), byte 88), byte 10):
-            jump 2504
+            jump label_2504
 
         else:
             print('"Well if thou won\'t pay, thou won\'t get cured!"')
-            jump 1801
+            jump label_1801
         fi
     esac
 
-2504:
+label_2504:
     if less(integer(value 20), byte 40):
         print('"You youngsters think everything should be free!"')
-        jump 93
+        jump label_93
 
     else:
         print('"Thou art not too bad, for a youngster."')
@@ -363,10 +363,10 @@ interaction:
 
         print('\n\nLaying hands upon $Y, Tobatha removes the poison.')
         ('CURE', ('integer', [('value', 3)]))
-        jump 1801
+        jump label_1801
     fi
 
-2697:
+label_2697:
     ('SETNAME', ('integer', [('value', 0)]))
     print('"Well, ain\'t that just like youngsters?"')
     wait()
@@ -383,24 +383,24 @@ interaction:
 
     case 'y':
         if less(objectsCount(integer(value 0), byte 88), word 400):
-            jump 2986
+            jump label_2986
 
         else:
-            jump 3386
+            jump label_3386
         fi
 
     case 'n':
         print('"Then go see a gravedigger. I\'ll reckon his price\'ll be lower."')
-        jump 93
+        jump label_93
     esac
 
-2986:
+label_2986:
     integer(value 1) = word 400
     integer(value 2) = byte 0
     integer(value 3) = byte 0
     integer(value 4) = byte 0
 
-3015:
+label_3015:
     if greater(integer(value 3), integer(value 23)):
         print('"That ain\'t enough money."')
         wait()
@@ -409,7 +409,7 @@ interaction:
         wait()
 
         print('\n\n"Go see a gravedigger. I\'ll reckon his price\'ll be lower."')
-        jump 93
+        jump label_93
     fi
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
@@ -418,7 +418,7 @@ interaction:
         integer(value 1) = minus(integer(value 1), integer(value 5))
         integer(value 2) = plus(integer(value 2), integer(value 5))
         integer(value 3) = plus(integer(value 3), byte 1)
-        jump 3015
+        jump label_3015
 
     else:
         print('Your party takes up a collection for their fallen comrade.')
@@ -426,25 +426,25 @@ interaction:
         integer(value 2) = byte 0
         integer(value 4) = integer(value 3)
         integer(value 3) = byte 0
-        jump 3300
+        jump label_3300
     fi
 
-3300:
+label_3300:
     if equals(integer(value 3), integer(value 4)):
         ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
         wait()
 
         print('\n\n')
-        jump 3386
+        jump label_3386
     fi
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
     integer(value 1) = minus(integer(value 1), integer(value 5))
     ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
     integer(value 3) = plus(integer(value 3), byte 1)
-    jump 3300
+    jump label_3300
 
-3386:
+label_3386:
     print('Tobatha lays hands upon the corpse...')
     wait()
 
@@ -469,8 +469,8 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 2843
+        jump label_2843
 
     else:
-        jump 93
+        jump label_93
     fi

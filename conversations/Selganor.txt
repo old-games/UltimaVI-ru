@@ -12,7 +12,7 @@ description:
 
 interaction:
     if equals(hasBit(byte 235, byte 5), byte 0):
-        jump 2863
+        jump label_2863
     fi
 
     if hasBit(byte 235, byte 7):
@@ -23,7 +23,7 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 1968
+        jump label_1968
     fi
 
     print('"Hail and welcome, $P!"\n')
@@ -36,41 +36,41 @@ interaction:
 
         print('\n\n"But you have the look of one with more important @business."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 196
+        jump label_196
 
     case 'hist':
     case 'selg':
         print('"It means \'seeker of the @crystal\'. Perhaps I\'ll tell you more some ')
         print('other time."')
-        jump 196
+        jump label_196
 
     case 'crys':
     case 'seek':
         print('"That\'s quite a @tale."')
-        jump 196
+        jump label_196
 
     case 'tale':
         print('"Indeed."')
-        jump 196
+        jump label_196
 
     case 'busi':
     case 'impo':
         print('"Perhaps you\'re interested in joining the @guild."')
-        jump 196
+        jump label_196
 
     case 'job':
         print('"I am the @guildmaster of artisans."')
-        jump 196
+        jump label_196
 
     case 'rune':
         if hasBit(byte 235, byte 6):
             print('"I already loaned you the rune."')
-            jump 196
+            jump label_196
         fi
 
         print('"I\'d be glad to loan you the rune, but only members of the @guild are ')
         print('allowed to handle it."')
-        jump 196
+        jump label_196
 
     case 'arti':
     case 'guil':
@@ -79,7 +79,7 @@ interaction:
     case 'memb':
         if hasBit(byte 235, byte 6):
             print('"Wait a minute... You\'re already a member of the guild!"')
-            jump 196
+            jump label_196
         fi
 
         print('"If you want to join the guild, you need to do two things."')
@@ -96,12 +96,12 @@ interaction:
             ('SETF', ('byte', 235), ('byte', 7))
         fi
 
-        jump 196
+        jump label_196
 
     case 'pan':
     case 'pipe':
     case 'ston':
-        jump 1968
+        jump label_1968
 
     case 'juli':
         if partyHas(byte 67):
@@ -114,11 +114,11 @@ interaction:
             print('\n\n"She lives just across the road, next door to Lady @Isabella."')
         fi
 
-        jump 196
+        jump label_196
 
     case 'isab':
         print('"She\'s the mayor."')
-        jump 196
+        jump label_196
 
     case 'gwen':
         print('"I know she\'s around here somewhere..."')
@@ -134,12 +134,12 @@ interaction:
             print('\n\n"Ah, I knew you\'d be somewhere close by."')
         fi
 
-        jump 196
+        jump label_196
 
     case 'inst':
     case 'lute':
         print('"I prefer stringed instruments. They make such lovely sounds."')
-        jump 196
+        jump label_196
 
     case 'ball':
         print('"Oh, are you looking for the man who invented the balloon?" He stares ')
@@ -150,17 +150,17 @@ interaction:
         wait()
 
         print('\n\n"Said something about a big job he had to do there."')
-        jump 196
+        jump label_196
 
     case 'cast':
     case 'flew':
     case 'sute':
         print('"Sutek lives on an @island, far to the south."')
-        jump 196
+        jump label_196
 
     case 'isla':
         print('"It\'s east of Serpent\'s Hold."')
-        jump 196
+        jump label_196
 
     case 'bye':
         print('"It was nice talking to you."\n')
@@ -170,13 +170,13 @@ interaction:
         print('"I don\'t think I can help you there."')
     esac
 
-    jump 196
+    jump label_196
 
-1968:
+label_1968:
     if hasBit(byte 235, byte 6):
         print('"You should play your panpipes often - \'twill lighten your step on the')
         print(' long road ahead."')
-        jump 196
+        jump label_196
     fi
 
     print('"Have you made a set of panpipes?"')
@@ -185,12 +185,12 @@ interaction:
 
     case 'n':
         print('"Oh. Well, @Julia can show you how if you need help."')
-        jump 196
+        jump label_196
 
     case 'y':
         if equals(partyHasObject(byte 153, byte 0), word 32769):
             print('"But I don\'t see any!"')
-            jump 196
+            jump label_196
         fi
     esac
 
@@ -225,52 +225,52 @@ interaction:
         ('GIVE', ('byte', 246), ('byte', 0), ('byte', 235), ('byte', 1))
         ('SETF', ('byte', 235), ('byte', 6))
         ('CLEARF', ('byte', 235), ('byte', 7))
-        jump 196
+        jump label_196
 
     case '*':
         print('"No, I\'m afraid that\'s not it. Gwenno can help you learn the notes."')
-        jump 196
+        jump label_196
     esac
 
-2863:
+label_2863:
     print('"Oh, hello. Maybe you can help me with something."\n*\n"My nephew is ')
     print('studying alchemy, and he needs to know this."\n*\n')
     integer(value 6) = random(byte 1, byte 4)
 
     if equals(integer(value 6), byte 1):
-        jump 3040
+        jump label_3040
     fi
 
     if equals(integer(value 6), byte 2):
-        jump 3209
+        jump label_3209
     fi
 
     if equals(integer(value 6), byte 3):
-        jump 3391
+        jump label_3391
     fi
 
     if equals(integer(value 6), byte 4):
-        jump 3543
+        jump label_3543
     fi
 
-3040:
+label_3040:
     print('"What kind of fork should mandrake roots be prepared with?"\n')
 
     ask()
 
     case 'silv':
-        jump 3691
+        jump label_3691
 
     case 'bye':
-        jump 3739
+        jump label_3739
 
     case '*':
         print('"No, that doesn\'t sound right. If only I had a Compendium to look it ')
         print('up in..."')
-        jump 3099
+        jump label_3099
     esac
 
-3209:
+label_3209:
     print('"What part of the nightshade mushroom is used in spellcasting?"\n')
 
     ask()
@@ -278,59 +278,59 @@ interaction:
     case 'cap':
     case 'fung':
     case 'spor':
-        jump 3691
+        jump label_3691
 
     case 'bye':
-        jump 3739
+        jump label_3739
 
     case '*':
         print('"No, that doesn\'t sound right. If only I had a Compendium to look it ')
         print('up in..."')
-        jump 3272
+        jump label_3272
     esac
 
-3391:
+label_3391:
     print('"Where does sulfurous ash come from?"\n')
 
     ask()
 
     case 'erup':
     case 'volc':
-        jump 3691
+        jump label_3691
 
     case 'bye':
-        jump 3739
+        jump label_3739
 
     case '*':
         print('"No, that doesn\'t sound right. If only I had a Compendium to look it ')
         print('up in..."')
-        jump 3428
+        jump label_3428
     esac
 
-3543:
+label_3543:
     print('"What are black pearls used for?"\n')
 
     ask()
 
     case 'kine':
     case 'prop':
-        jump 3691
+        jump label_3691
 
     case 'bye':
-        jump 3739
+        jump label_3739
 
     case '*':
         print('"No, that doesn\'t sound right. If only I had a Compendium to look it ')
         print('up in..."')
-        jump 3576
+        jump label_3576
     esac
 
-3691:
+label_3691:
     print('"Thanks! Now what can I do for you?"')
     ('SETF', ('byte', 235), ('byte', 5))
-    jump 196
+    jump label_196
 
-3739:
+label_3739:
     print('"Hmmmm... I wish I knew the answer to that question..."\n*\nHe turns ')
     print('away from you absent-mindedly.\n')
     bye()

@@ -12,12 +12,12 @@ description:
 
 interaction:
     if equals(integer(value 32), byte 143):
-        jump 226
+        jump label_226
     fi
 
     if and(hasBit(byte 235, value 0), equals(hasBit(byte 235, value 1), byte 0)):
         print('"You\'re welcome here."')
-        jump 495
+        jump label_495
     fi
 
     print('"Why you bargin\' inta my house?" he shouts.')
@@ -27,7 +27,7 @@ interaction:
     print('\n\nHefting his large axe, he prepares to defend his home.\n')
     bye()
 
-226:
+label_226:
     if hasBit(byte 235, value 1):
         print('"Hah, sneakin\' around in my @forest, huh?"')
         wait()
@@ -40,7 +40,7 @@ interaction:
         print('with yer @wars, so shove off!"')
         ('SETF', ('byte', 235), ('value', 0))
         ('SETF', ('byte', 235), ('value', 1))
-        jump 495
+        jump label_495
     fi
 
     if hasBit(byte 235, value 1):
@@ -50,9 +50,9 @@ interaction:
         print('"Hullo again, friend."')
     fi
 
-    jump 495
+    jump label_495
 
-495:
+label_495:
     print('\n')
 
     ask()
@@ -70,7 +70,7 @@ interaction:
             print('"I guess you can call me \'Big Ben\'." He smiles broadly.')
         fi
 
-        jump 495
+        jump label_495
 
     case 'big':
         if hasBit(byte 235, value 1):
@@ -80,25 +80,25 @@ interaction:
             print('"\'Tis my name. Don\'t wear it out." He laughs resoundingly at his wit.')
         fi
 
-        jump 495
+        jump label_495
 
     case 'ben':
         print('"\'Tis my name. Don\'t wear it out." He laughs resoundingly at his wit.')
-        jump 495
+        jump label_495
 
     case 'frie':
         print('"It surprises you that I would have some."')
         wait()
 
         print('\n\n"Sometimes it surprises me too." He laughs.')
-        jump 495
+        jump label_495
 
     case 'job':
         print('"Have ya never seen a lumberman before?"')
         wait()
 
         print('\n\n"Look around. Those stacks o\' @wood don\'t cut themselves."')
-        jump 495
+        jump label_495
 
     case 'fore':
         print('"Aye, this is where I cut trees, and I don\'t like strangers wanderin\' ')
@@ -110,7 +110,7 @@ interaction:
             print('\n\n"You\'re welcome here, though."')
         fi
 
-        jump 495
+        jump label_495
 
     case 'alon':
     case 'war':
@@ -119,18 +119,18 @@ interaction:
         wait()
 
         print('\n\n"Well, you can tell him I\'m not interested."')
-        jump 495
+        jump label_495
 
     case 'king':
         print('"You are from the king, ain\'t ya?"')
-        jump 1623
+        jump label_1623
 
     case 'buy':
     case 'log':
     case 'wood':
     case 'yew':
         print('"Aye, are ya here to buy a log?" ')
-        jump 1697
+        jump label_1697
 
     case 'bye':
         print('"Careful in those woods now.')
@@ -146,34 +146,34 @@ interaction:
 
     case '*':
         print('"I spend too much time in these woods. Ask someone else."')
-        jump 495
+        jump label_495
     esac
 
-1623:
+label_1623:
     choice('yn')
 
     case 'y':
         print('"I knew it!"')
         ('SETF', ('byte', 235), ('value', 1))
-        jump 495
+        jump label_495
 
     case 'n':
         print('"Oh." He seems friendlier now.')
         ('CLEARF', ('byte', 235), ('value', 1))
-        jump 495
+        jump label_495
     esac
 
-1697:
+label_1697:
     choice('yn')
 
     case 'y':
         if integer(value 23):
             integer(value 0) = byte 1
-            jump 1833
+            jump label_1833
 
         else:
             integer(value 3) = character(byte 0, byte 0)
-            jump 1981
+            jump label_1981
         fi
 
     case 'n':
@@ -184,16 +184,16 @@ interaction:
             print('"Well, come back sometime and I\'ll cut one for ya."')
         fi
 
-        jump 495
+        jump label_495
     esac
 
-1833:
+label_1833:
     ('SETNAME', ('character', [('minus', [('integer', [('value', 0)]), ('byte', 1)]), ('byte', 0)]))
     print('#0) $Y\n')
 
     if lessOrEquals(integer(value 0), integer(value 23)):
         integer(value 0) = plus(integer(value 0), byte 1)
-        jump 1833
+        jump label_1833
     fi
 
     print('"Who wants it?" ')
@@ -201,29 +201,29 @@ interaction:
 
     if equals(integer(value 2), byte 0):
         print('"Well, why\'d ya say you wanted one?"')
-        jump 495
+        jump label_495
     fi
 
     integer(value 2) = minus(integer(value 2), byte 1)
 
     if greater(integer(value 2), integer(value 23)):
         integer(value 0) = byte 1
-        jump 1833
+        jump label_1833
     fi
 
     integer(value 3) = character(integer(value 2), byte 0)
 
-1981:
+label_1981:
     ('SETNAME', ('integer', [('value', 3)]))
 
     if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 5)), weight(word 274, byte 1)):
         print('"But $Y can\'t carry a log!"')
-        jump 495
+        jump label_495
     fi
 
     if less(objectsCount(integer(value 3), byte 88), byte 5):
         print('"But $Y don\'t have 5 gold!"')
-        jump 495
+        jump label_495
     fi
 
     print('"Logs is 5 gold apiece. Ya still want one?" ')
@@ -240,9 +240,9 @@ interaction:
             ('CLEARF', ('byte', 235), ('value', 1))
         fi
 
-        jump 495
+        jump label_495
 
     case 'n':
         print('"Too pricey for ya, eh?"')
-        jump 495
+        jump label_495
     esac

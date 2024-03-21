@@ -15,7 +15,7 @@ interaction:
     print(' to the right place."')
     ('CLEARF', ('byte', 235), ('byte', 7))
 
-152:
+label_152:
     print('\n')
 
     ask()
@@ -24,30 +24,30 @@ interaction:
         print('"I\'ma called Arturos. That meansa either \'foolish monkey\' or \'he who ')
         print('sells cheese\', depending on howa you @translate it."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 152
+        jump label_152
 
     case 'chee':
     case 'fool':
     case 'monk':
     case 'tran':
         print('"Yeah, go figure, huh?"')
-        jump 152
+        jump label_152
 
     case 'map':
         if equals(hasObject(byte 235, word 402, byte 0), byte 0):
             print('"Yeah, I used to have a map like that. Can\'t remember what I did with ')
             print('it, though..."')
-            jump 152
+            jump label_152
         fi
 
         print('"Map. Hmm, map... Oh yeah, thata old thing. Sure, I got that, but ')
         print('she\'sa not very interesting."')
-        jump 3958
+        jump label_3958
 
     case 'job':
         print('"Ima the king of all the gypsies."\n*\n"Of course, thatsa what you call ')
         print('more of an \'honorary\' @title, so I tell @fortunes on the side."')
-        jump 152
+        jump label_152
 
     case 'artu':
     case 'gyps':
@@ -55,16 +55,16 @@ interaction:
     case 'king':
     case 'titl':
         print('"You cana just call me \'@Uncle @Arthur\' if you like."')
-        jump 152
+        jump label_152
 
     case 'zolt':
         print('"He\'s a whadda you call, an impostor. You shouldn\'ta listen to him."')
-        jump 152
+        jump label_152
 
     case 'card':
     case 'fort':
     case 'tell':
-        jump 1402
+        jump label_1402
 
     case 'arth':
     case 'uncl':
@@ -72,13 +72,13 @@ interaction:
         print('you a big hug.')
 
         if less(objectsCount(byte 1, byte 88), byte 75):
-            jump 152
+            jump label_152
         fi
 
         ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 75))
         ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 75))
         ('SETF', ('byte', 235), ('byte', 7))
-        jump 152
+        jump label_152
 
     case 'bye':
         print('"Hey, you come again soon, okay?"')
@@ -101,15 +101,15 @@ interaction:
 
         print('\n\n"But hey, maybe there\'s something in the @cards about it, ah?"')
         ('SETF', ('byte', 235), ('byte', 6))
-        jump 152
+        jump label_152
 
     case '*':
         print('"Can\'ta you think of something more interesting to talk about?"')
     esac
 
-    jump 152
+    jump label_152
 
-1402:
+label_1402:
     print('"I gota this fine set of fortune telling cards. These werea hand ')
     print('painted by Musgrave himself."')
     wait()
@@ -135,12 +135,12 @@ interaction:
 
         print('\n\n"But ifa some maniac with an axe catches you in a dark alley ')
         print('somewhere, don\'ta blame me for not warning you."')
-        jump 152
+        jump label_152
 
     case 'y':
         if less(objectsCount(byte 1, byte 88), byte 2):
             print('"Come back whena you have the money."')
-            jump 152
+            jump label_152
         fi
 
         ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 2))
@@ -161,7 +161,7 @@ interaction:
 
     case 'n':
         print('"Okay."')
-        jump 152
+        jump label_152
 
     case 'y':
         integer(value 0) = byte 1
@@ -179,7 +179,7 @@ interaction:
     choice('yn')
 
     case 'n':
-        jump 3560
+        jump label_3560
 
     case 'y':
         integer(value 0) = byte 2
@@ -203,7 +203,7 @@ interaction:
     choice('yn')
 
     case 'n':
-        jump 3560
+        jump label_3560
 
     case 'y':
         integer(value 0) = byte 5
@@ -228,7 +228,7 @@ interaction:
     choice('yn')
 
     case 'n':
-        jump 3560
+        jump label_3560
     esac
 
     integer(value 0) = byte 6
@@ -241,7 +241,7 @@ interaction:
     choice('yn')
 
     case 'n':
-        jump 3560
+        jump label_3560
     esac
 
     integer(value 0) = byte 7
@@ -254,7 +254,7 @@ interaction:
 
     print('\n')
 
-3560:
+label_3560:
     integer(value 1) = multiply(integer(value 0), byte 5)
 
     if hasBit(byte 235, byte 6):
@@ -286,9 +286,9 @@ interaction:
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
     print('"It was a pleasure doinga business with you."')
-    jump 152
+    jump label_152
 
-3958:
+label_3958:
     wait()
 
     print('\n\n"Say--do you want to buy it?" ')
@@ -297,7 +297,7 @@ interaction:
 
     case 'n':
         print('"Nah, I didn\'t think so. What for would anybody want to buy it, ah?"')
-        jump 152
+        jump label_152
 
     case 'y':
         print('"Oh! Well, sure you do, she\'s a very important map!"')
@@ -323,7 +323,7 @@ interaction:
     print('Okay?" ')
     integer(value 0) = byte 100
 
-4460:
+label_4460:
     choice('yn')
 
     case 'n':
@@ -333,13 +333,13 @@ interaction:
 
             print('\n\n"You\'re right, I better hold on to this valuable map myself. No way ')
             print('is it worth less than 100 gold."')
-            jump 152
+            jump label_152
         fi
 
         if equals(integer(value 0), byte 75):
             print('"What, are you nuts? But okay, how\'sabout just 50 gold?" ')
             integer(value 0) = byte 50
-            jump 4460
+            jump label_4460
         fi
 
         print('"Well, I hate to see anybody pass up good fortune, so I tell you what ')
@@ -349,13 +349,13 @@ interaction:
         print('\n\n"I sell you this map, this key to infinite wealth, for just 75 gold.')
         print(' Okay?" ')
         integer(value 0) = byte 75
-        jump 4460
+        jump label_4460
 
     case 'y':
         if less(objectsCount(byte 1, byte 88), integer(value 0)):
             print('"Hey, what are you, a deadbeat? Come back when you can afford the ')
             print('map!"')
-            jump 152
+            jump label_152
         fi
 
         ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
@@ -369,10 +369,10 @@ interaction:
             wait()
 
             print('\n\n"I do you another favor and hold on to the money, too."')
-            jump 152
+            jump label_152
         fi
 
         print('"Okay, here\'s the map, and may fortune bring you lotsa gold!"')
         ('GIVE', ('word', 402), ('byte', 0), ('byte', 235), ('byte', 1))
-        jump 152
+        jump label_152
     esac

@@ -46,12 +46,12 @@ interaction:
 
         print('\n\n"To ask what service I can perform?"')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 805
+        jump label_805
     fi
 
     if equals(hasBit(byte 235, byte 2), byte 0):
         print('"To ask how again I may help you?"')
-        jump 805
+        jump label_805
     fi
 
     integer(value 0) = partyHasObject(word 395, byte 0)
@@ -65,13 +65,13 @@ interaction:
         wait()
 
         print('\n\n"To ask what you think I can do without it?"')
-        jump 805
+        jump label_805
 
     else:
-        jump 1806
+        jump label_1806
     fi
 
-805:
+label_805:
     print('\n')
 
     ask()
@@ -86,10 +86,10 @@ interaction:
 
             print('\n\n"To require the pieces of the lens in order to make a new copy."')
             ('SETF', ('byte', 235), ('byte', 2))
-            jump 805
+            jump label_805
 
         else:
-            jump 1806
+            jump label_1806
         fi
 
     case 'name':
@@ -101,7 +101,7 @@ interaction:
         wait()
 
         print('\n\nAs he says this, the ancient gargoyle beams with pride.')
-        jump 805
+        jump label_805
 
     case 'job':
         print('"To craft the finest lenses in the land," the gargoyle says proudly.')
@@ -109,7 +109,7 @@ interaction:
 
         print('\n\n"Also to teach my young @apprentices not to cut themselves on the ')
         print('glass!"')
-        jump 805
+        jump label_805
 
     case 'appr':
     case 'teac':
@@ -121,7 +121,7 @@ interaction:
         wait()
 
         print('\n\n"To pass on my skill to the next generation."')
-        jump 805
+        jump label_805
 
     case 'end':
     case 'time':
@@ -129,14 +129,14 @@ interaction:
         wait()
 
         print('\n\n"To seem a mere youth compared to @Naxatilor, however."')
-        jump 805
+        jump label_805
 
     case 'naxa':
         print('"To have helped Naxatilor create the Vortex Lens, centuries ago."')
         wait()
 
         print('\n\n"To have found him venerable and ancient even then!"')
-        jump 805
+        jump label_805
 
     case 'bye':
         print('"To be honored to have helped you, False Prophet."\n')
@@ -144,10 +144,10 @@ interaction:
 
     case '*':
         print('"To be old. To suggest you ask that of others."')
-        jump 805
+        jump label_805
     esac
 
-1806:
+label_1806:
     print('"To see the shattered Vortex Lens you carry."')
     wait()
 
@@ -172,4 +172,4 @@ interaction:
     print('\n\nHe hands you the restored Vortex Lens.')
     ('NEW', ('integer', [('value', 0)]), ('word', 396), ('byte', 0), ('byte', 1))
     ('CLEARF', ('byte', 235), ('byte', 2))
-    jump 805
+    jump label_805

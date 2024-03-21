@@ -12,7 +12,7 @@ interaction:
     print('\n"Welcome, $G."')
     wait()
 
-79:
+label_79:
     print('\n\n"What can I do for you?"\n')
 
     ask()
@@ -20,16 +20,16 @@ interaction:
     case 'name':
         print('"My name is Harold."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 105
+        jump label_105
 
     case 'buy':
     case 'hors':
     case 'shoe':
-        jump 258
+        jump label_258
 
     case 'job':
         print('"@Horseshoes are my living."')
-        jump 105
+        jump label_105
 
     case 'bye':
         print('"Farewell."\n')
@@ -37,43 +37,43 @@ interaction:
 
     case '*':
         print('"I can\'t help you with that."')
-        jump 105
+        jump label_105
     esac
 
-258:
+label_258:
     if equals(integer(value 23), byte 0):
         integer(value 3) = byte 0
-        jump 394
+        jump label_394
     fi
 
-278:
+label_278:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
 
-292:
+label_292:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 292
+        jump label_292
     fi
 
     print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        jump 79
+        jump label_79
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-        jump 278
+        jump label_278
     fi
 
-394:
+label_394:
     print('"It\'ll cost you 2 gold for the horseshoes, interested?" ')
 
     choice('yn')
@@ -83,7 +83,7 @@ interaction:
             print('"You look pretty full to me."')
             wait()
 
-            jump 79
+            jump label_79
         fi
 
         if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 2):
@@ -94,17 +94,17 @@ interaction:
             wait()
 
             integer(value 5) = byte 1
-            jump 79
+            jump label_79
 
         else:
             ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
             print('"Best check your coinpouch again."')
             wait()
 
-            jump 79
+            jump label_79
         fi
 
     case 'n':
         print('Very well."')
-        jump 105
+        jump label_105
     esac

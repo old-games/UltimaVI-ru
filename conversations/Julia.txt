@@ -17,11 +17,11 @@ interaction:
         wait()
 
         print('\n\n"Sure an\' I don\'t think I can be helpin\' ya with this!"')
-        jump 502
+        jump label_502
     fi
 
     if equals(hasBit(byte 235, value 1), byte 0):
-        jump 303
+        jump label_303
     fi
 
     print('"Aye, so the great Avatar deigns to return, does he?"')
@@ -37,15 +37,15 @@ interaction:
     fi
 
     print('ship want now?"')
-    jump 502
+    jump label_502
 
-303:
+label_303:
     if equals(hasBit(byte 235, value 0), byte 0):
         print('"Well, then the rumors are true!"')
         wait()
 
         print('\n\n"\'Tis well and good that ye have returned to our land, Avatar!"')
-        jump 502
+        jump label_502
     fi
 
     integer(value 0) = partyHasObject(word 277, byte 0)
@@ -55,10 +55,10 @@ interaction:
         print('An\' what can I be doin\' for ye this $T?"')
 
     else:
-        jump 2598
+        jump label_2598
     fi
 
-502:
+label_502:
     print('\n')
 
     ask()
@@ -74,7 +74,7 @@ interaction:
             print('"Named Julia I am, $G, and pleased to meet ye."')
         fi
 
-        jump 502
+        jump label_502
 
     case 'job':
         print('"Instruments I make, the finest in the land."')
@@ -93,15 +93,15 @@ interaction:
             print('own..."')
         fi
 
-        jump 502
+        jump label_502
 
     case 'guil':
         print('"If ye would like to be a member too, go talk to @Selganor."')
-        jump 502
+        jump label_502
 
     case 'selg':
         print('"He\'s the guildmaster."')
-        jump 502
+        jump label_502
 
     case 'pan':
     case 'pipe':
@@ -119,22 +119,22 @@ interaction:
         wait()
 
         print('\n\n"But it must be freshly @cut!"')
-        jump 502
+        jump label_502
 
     case 'boar':
     case 'yew':
         print('"')
         integer(value 0) = partyHasObject(word 277, byte 0)
-        jump 2598
+        jump label_2598
 
     case 'cut':
     case 'fres':
-        jump 2867
+        jump label_2867
 
     case 'adve':
     case 'life':
         print('"Aye, I\'d @join you if ye wish."')
-        jump 502
+        jump label_502
 
     case 'join':
         print('"Join ye? Me?"')
@@ -147,7 +147,7 @@ interaction:
             wait()
 
             print('\n\n"Not likely! Find some other sap to do your bidding!"')
-            jump 502
+            jump label_502
         fi
 
         integer(value 0) = partyJoin(byte 235)
@@ -163,7 +163,7 @@ interaction:
             wait()
 
             print('\n\n"Ask me again when you haven\'t as many companions."')
-            jump 502
+            jump label_502
 
         else:
             print('"What are ye, daft? ')
@@ -174,20 +174,20 @@ interaction:
             wait()
 
             print('\n\n"Nay, $G. Ask me when we\'re ashore."')
-            jump 502
+            jump label_502
 
         else:
             print('I\'m already in your band!"')
             wait()
 
             print('\n\n"Though now I\'m not so sure I want to be led by a crazy person..."')
-            jump 502
+            jump label_502
         fi
 
     case 'leav':
         if equals(partyHas(byte 235), byte 0):
             print('"Leave! Nay, \'tis my house. You do the leavin\'!"')
-            jump 502
+            jump label_502
         fi
 
         integer(value 0) = partyLeave(byte 235)
@@ -197,7 +197,7 @@ interaction:
             wait()
 
             print('\n\n"Ach, I get it. You\'re makin\' a wee joke!"')
-            jump 502
+            jump label_502
         fi
 
         print('"What? Oh, I suppose a craftsman isn\'t warrior enough to suit ')
@@ -254,10 +254,10 @@ interaction:
             print('"Nay, $G, I know nothing about $Z."')
         fi
 
-        jump 502
+        jump label_502
     esac
 
-2598:
+label_2598:
     print('Do ye have a fine yew board for me this $T?" ')
 
     choice('yn')
@@ -265,7 +265,7 @@ interaction:
     case 'y':
         if equals(integer(value 0), word 32769):
             print('"Well where is it? I canna see any board on ye!"')
-            jump 502
+            jump label_502
 
         else:
             print('"Ach, aye, and good wood it is, too. A fine set of pipes this will ')
@@ -273,7 +273,7 @@ interaction:
             wait()
 
             print('\n\n')
-            jump 3086
+            jump label_3086
         fi
 
     case 'n':
@@ -281,10 +281,10 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 2867
+        jump label_2867
     esac
 
-2867:
+label_2867:
     print('"Go to Yew where they grow the best wood in Britannia."')
     wait()
 
@@ -295,9 +295,9 @@ interaction:
     wait()
 
     print('\n\n"Then I\'ll show ye how panpipes are made!"')
-    jump 502
+    jump label_502
 
-3086:
+label_3086:
     print('Julia sets the wood down on a bench and starts carving.')
     wait()
 
@@ -318,4 +318,4 @@ interaction:
     print('\n\nShe hands you the finished pipes.')
     ('DELETE', ('integer', [('value', 0)]), ('word', 277), ('byte', 0), ('byte', 1))
     ('NEW', ('byte', 1), ('byte', 153), ('byte', 0), ('byte', 1))
-    jump 502
+    jump label_502

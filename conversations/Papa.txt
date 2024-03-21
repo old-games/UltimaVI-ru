@@ -24,11 +24,11 @@ interaction:
         choice('yn')
 
         case 'y':
-            jump 845
+            jump label_845
 
         case 'n':
             print('"No fish?" The cyclops seems sad.')
-            jump 232
+            jump label_232
         esac
     fi
 
@@ -38,18 +38,18 @@ interaction:
         choice('yn')
 
         case 'y':
-            jump 845
+            jump label_845
 
         case 'n':
             print('"Get @fish!"')
-            jump 232
+            jump label_232
         esac
     fi
 
     print('"Who you?"')
     ('SETF', ('byte', 235), ('value', 0))
 
-232:
+label_232:
     print('\n')
 
     ask()
@@ -59,7 +59,7 @@ interaction:
         wait()
 
         print('\n\n"@Tiny one say me \'Papa.\'"')
-        jump 232
+        jump label_232
 
     case 'one':
     case 'tiny':
@@ -73,25 +73,25 @@ interaction:
         wait()
 
         print('\n\n"Not strong like one-eye little one."')
-        jump 232
+        jump label_232
 
     case 'job':
         print('"Live here! Eat, hunt!"')
-        jump 232
+        jump label_232
 
     case 'cell':
         print('"Cellar no go. @Locked."')
-        jump 232
+        jump label_232
 
     case 'key':
     case 'lock':
         if hasObject(byte 235, byte 64, byte 13):
             print('"Got key. Want key?" ')
-            jump 745
+            jump label_745
 
         else:
             print('"No got key."')
-            jump 232
+            jump label_232
         fi
 
     case 'big':
@@ -99,14 +99,14 @@ interaction:
     case 'bloc':
     case 'cube':
         print('"Mine. In @cellar. No get!"')
-        jump 232
+        jump label_232
 
     case 'fish':
         print('"Fish good."')
         wait()
 
         print('\n\n"Like eat much fish!"')
-        jump 232
+        jump label_232
 
     case 'bye':
         print('"Come back, bring ')
@@ -120,10 +120,10 @@ interaction:
 
     case '*':
         print('"What mean $Z?"')
-        jump 232
+        jump label_232
     esac
 
-745:
+label_745:
     choice('yn')
 
     case 'y':
@@ -134,27 +134,27 @@ interaction:
         wait()
 
         print('\n\n"Want key, bring fish!"')
-        jump 232
+        jump label_232
 
     case 'n':
         print('"Why ask no want?"')
-        jump 232
+        jump label_232
     esac
 
-845:
+label_845:
     integer(value 1) = byte 0
     integer(value 0) = partyHasObject(word 265, byte 0)
 
     if equals(integer(value 0), word 32769):
         print('"Where fish? No smell fish."')
-        jump 232
+        jump label_232
     fi
 
     ('DELETE', ('integer', [('value', 0)]), ('word', 265), ('byte', 0), ('byte', 1))
 
     if hasBit(byte 235, byte 2):
         print('"Good fish! Good friend!"')
-        jump 232
+        jump label_232
     fi
 
     print('"Good fish! Here, key."')
@@ -163,4 +163,4 @@ interaction:
     print('\n\nThe cyclops hands you a large, rusted key.')
     ('GIVE', ('byte', 64), ('byte', 13), ('byte', 235), ('byte', 1))
     ('SETF', ('byte', 235), ('byte', 2))
-    jump 232
+    jump label_232

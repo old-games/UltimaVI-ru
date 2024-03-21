@@ -34,7 +34,7 @@ interaction:
 
         print('\n\n"Thou needn\'t tell me thy name, $P. The Avatar is famous throughout ')
         print('the land!"')
-        jump 129
+        jump label_129
 
     case 'job':
         print('"I weave baskets and beehives, just like my @father and his father ')
@@ -42,25 +42,25 @@ interaction:
         wait()
 
         print('\n\n"My @baskets are sold throughout Britannia!" she adds proudly.')
-        jump 129
+        jump label_129
 
     case 'bask':
     case 'beeh':
         if notEquals(integer(value 32), byte 144):
             print('"Come to my shop when I\'m open!"')
-            jump 129
+            jump label_129
 
         else:
-            jump 1112
+            jump label_1112
         fi
 
     case 'buy':
         if notEquals(integer(value 32), byte 144):
             print('"Come to my shop when I\'m open!"')
-            jump 129
+            jump label_129
 
         else:
-            jump 1242
+            jump label_1242
         fi
 
     case 'sell':
@@ -68,7 +68,7 @@ interaction:
         wait()
 
         print('\n\n"But I appreciate thy offer."')
-        jump 129
+        jump label_129
 
     case 'ball':
     case 'fath':
@@ -77,12 +77,12 @@ interaction:
         wait()
 
         print('\n\n"He never showed me the @plans, though."')
-        jump 129
+        jump label_129
 
     case 'plan':
         if notEquals(integer(value 32), byte 144):
             print('"Ask when I\'m open for business!"')
-            jump 129
+            jump label_129
         fi
 
         integer(value 9) = partyHasObject(word 270, byte 0)
@@ -90,7 +90,7 @@ interaction:
         if equals(integer(value 9), word 32769):
             print('"Yes, without accurate plans it takes far too much time to craft a ')
             print('basket."')
-            jump 129
+            jump label_129
         fi
 
         print('"Then it was true! Father did weave a basket that big!"')
@@ -103,7 +103,7 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 2268
+        jump label_2268
 
     case 'bye':
         print('"Farewell! I hope I\'ve aided thy quest!"\n')
@@ -111,63 +111,63 @@ interaction:
 
     case '*':
         print('"Beg pardon?"')
-        jump 129
+        jump label_129
     esac
 
-1112:
+label_1112:
     print('"Wouldst thou like to buy one of my weavings?" ')
 
     choice('yn')
 
     case 'n':
         print('"All right, though I can give thou the best price in the land!"')
-        jump 129
+        jump label_129
 
     case 'y':
-        jump 1242
+        jump label_1242
     esac
 
-1242:
+label_1242:
     if equals(integer(value 23), byte 0):
         integer(value 3) = byte 0
-        jump 1385
+        jump label_1385
     fi
 
-1262:
+label_1262:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
 
-1276:
+label_1276:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print('#2) $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 1276
+        jump label_1276
     fi
 
     print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        jump 2139
+        jump label_2139
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-        jump 1262
+        jump label_1262
     fi
 
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
 
-1385:
+label_1385:
     print('1) Basket\n2) Beehive\n3) Custom job\n"Which item?" ')
     ('INPUTNUM', 0)
 
     if equals(integer(value 0), byte 0):
-        jump 2139
+        jump label_2139
     fi
 
     integer(value 0) = minus(integer(value 0), byte 1)
@@ -177,7 +177,7 @@ interaction:
         wait()
 
         print('\n\n"I have no time to create a basket for which I have no @plans."')
-        jump 129
+        jump label_129
     fi
 
     integer(value 1) = data(dword 3728, integer(value 0))
@@ -189,18 +189,18 @@ interaction:
     ('INPUTNUM', 4)
 
     if equals(integer(value 4), byte 0):
-        jump 1385
+        jump label_1385
     fi
 
     integer(value 5) = byte 0
 
-1681:
+label_1681:
     if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(dword 3732, integer(value 0)), byte 1)):
-        jump 1799
+        jump label_1799
     fi
 
     if less(objectsCount(character(integer(value 3), byte 0), byte 88), integer(value 1)):
-        jump 1921
+        jump label_1921
     fi
 
     ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
@@ -208,13 +208,13 @@ interaction:
     integer(value 5) = plus(integer(value 5), byte 1)
 
     if equals(integer(value 5), integer(value 4)):
-        jump 2053
+        jump label_2053
 
     else:
-        jump 1681
+        jump label_1681
     fi
 
-1799:
+label_1799:
     if integer(value 5):
         print('"Thou canst not carry that many!"')
         wait()
@@ -223,14 +223,14 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 2053
+        jump label_2053
 
     else:
         print('"But thou canst not carry any $1s!"')
-        jump 2139
+        jump label_2139
     fi
 
-1921:
+label_1921:
     if integer(value 5):
         print('"Thou hast not enough gold for that many!"')
         wait()
@@ -239,14 +239,14 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 2053
+        jump label_2053
 
     else:
         print('"But thou canst not afford any $1s!"')
-        jump 2139
+        jump label_2139
     fi
 
-2053:
+label_2053:
     print('Michelle takes $Y\'s money and hands over the $1')
 
     if greater(integer(value 5), byte 1):
@@ -255,7 +255,7 @@ interaction:
 
     print('. "I appreciate thy business."')
 
-2139:
+label_2139:
     wait()
 
     print('\n\n"Is there aught else thou wouldst buy?" ')
@@ -263,12 +263,12 @@ interaction:
     choice('yn')
 
     case 'y':
-        jump 1242
+        jump label_1242
 
     case 'n':
         if equals(integer(value 5), byte 0):
             print('"Perhaps some other time."')
-            jump 129
+            jump label_129
         fi
 
         print('"Enjoy thy $1')
@@ -280,15 +280,15 @@ interaction:
             print('."')
         fi
 
-        jump 129
+        jump label_129
     esac
 
-2268:
+label_2268:
     integer(value 6) = byte 0
     integer(value 0) = word 422
     integer(value 9) = weight(word 422, byte 1)
 
-2294:
+label_2294:
     if greater(integer(value 6), integer(value 23)):
         print('"But it would weigh six stones!"')
         wait()
@@ -297,12 +297,12 @@ interaction:
         wait()
 
         print('\n\n"Lighten thy load, and then I will weave thee this basket."')
-        jump 129
+        jump label_129
     fi
 
     if greater(integer(value 9), plus(canCarry(character(integer(value 6), byte 0)), weight(byte 88, word 300))):
         integer(value 6) = plus(integer(value 6), byte 1)
-        jump 2294
+        jump label_2294
     fi
 
     print('"Such a basket would cost 300 gold, in advance. Art thou still ')
@@ -311,27 +311,27 @@ interaction:
     choice('yn')
 
     case 'y':
-        jump 2640
+        jump label_2640
 
     case 'n':
         print('"I do not blame thee. \'Tis a huge undertaking!"')
-        jump 129
+        jump label_129
     esac
 
-2640:
+label_2640:
     integer(value 1) = word 300
     integer(value 2) = byte 0
     integer(value 3) = byte 0
     integer(value 4) = byte 0
 
-2669:
+label_2669:
     if greater(integer(value 3), integer(value 23)):
         print('"Thou hast not enough money for the basket."')
         wait()
 
         print('\n\n"I fear I cannot afford to start such a task on a mere #2 gold ')
         print('crown\\s."')
-        jump 129
+        jump label_129
     fi
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
@@ -340,7 +340,7 @@ interaction:
         integer(value 1) = minus(integer(value 1), integer(value 5))
         integer(value 2) = plus(integer(value 2), integer(value 5))
         integer(value 3) = plus(integer(value 3), byte 1)
-        jump 2669
+        jump label_2669
 
     else:
         print('Your party takes up a collection to pay for the basket.')
@@ -348,22 +348,22 @@ interaction:
         integer(value 2) = byte 0
         integer(value 4) = integer(value 3)
         integer(value 3) = byte 0
-        jump 2947
+        jump label_2947
     fi
 
-2947:
+label_2947:
     if equals(integer(value 3), integer(value 4)):
         ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-        jump 3030
+        jump label_3030
     fi
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
     integer(value 1) = minus(integer(value 1), integer(value 5))
     ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
     integer(value 3) = plus(integer(value 3), byte 1)
-    jump 2947
+    jump label_2947
 
-3030:
+label_3030:
     wait()
 
     print('\n\nShe begins weaving the huge basket, chatting with you as she works.')
@@ -375,17 +375,17 @@ interaction:
 
     case 'y':
         print('"Thou art wise, then. \'Tis a huge bag this will require."')
-        jump 3338
+        jump label_3338
 
     case 'n':
         print('"Well, I can see that this will require a huge silk bag."')
         wait()
 
         print('\n\n"I know not where thou might find a silk weaver to craft it!"')
-        jump 3338
+        jump label_3338
     esac
 
-3338:
+label_3338:
     wait()
 
     print('\n\nShe continues weaving the basket.')
@@ -425,8 +425,21 @@ interaction:
     wait()
 
     print('\n\nShe gives the basket to $Y, who struggles under its weight.')
-    jump 129
+    jump label_129
 
-    ('INTEGERS', [10, 15], [])
-    ('INTEGERS', [191, 182], [])
-    ('STRINGS', ['basket', 'beehive', '"These baskets are sturdy and decorative."*\n\n"Thou\'lt find no better in all Britannia for the price, a mere #1 gold."', '"If thou hast need of beehives, these woven ones are the best thou\'lt find!"*\n\n"And cheap, too, at #1 apiece."'], [])
+integers_3728 = [
+    10,
+    15,
+]
+
+integers_3732 = [
+    191,
+    182,
+]
+
+strings_3736 = [
+    'basket',
+    'beehive',
+    '"These baskets are sturdy and decorative."*\n\n"Thou\'lt find no better in all Britannia for the price, a mere #1 gold."',
+    '"If thou hast need of beehives, these woven ones are the best thou\'lt find!"*\n\n"And cheap, too, at #1 apiece."',
+]

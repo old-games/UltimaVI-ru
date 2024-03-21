@@ -16,7 +16,7 @@ interaction:
     fi
 
     if equals(hasBit(byte 235, value 1), byte 0):
-        jump 414
+        jump label_414
     fi
 
     print('"Hah! You again! You are no friend to Zoltan."\n*\n"I dance for you, and')
@@ -26,13 +26,13 @@ interaction:
     choice('yn')
 
     case 'y':
-        jump 4182
+        jump label_4182
     esac
 
     print('\n"So be it. Leave me before I place a gypsy curse on you!"\n')
     bye()
 
-414:
+label_414:
     ('CLEARF', ('byte', 235), ('byte', 7))
 
     if equals(hasBit(byte 235, value 0), byte 0):
@@ -44,7 +44,7 @@ interaction:
 
     ('SETF', ('byte', 235), ('value', 0))
 
-532:
+label_532:
     print('\n')
 
     ask()
@@ -52,91 +52,91 @@ interaction:
     case 'job':
     case 'name':
         print('"As I said, I am Zoltan, @king of the @gypsies!"')
-        jump 532
+        jump label_532
 
     case 'zolt':
         print('"Yes, Zoltan, @king of the @gypsies!"')
-        jump 532
+        jump label_532
 
     case 'king':
         print('"I have no lands nor @castles, as most rulers do. Nay, for I am the ')
         print('king of the open @road."')
-        jump 532
+        jump label_532
 
     case 'artu':
         print('"Arturos? Never heard of him."')
-        jump 532
+        jump label_532
 
     case 'duck':
         print('He licks his lips and smiles. "A duck? No, haven\'t seen any around ')
         print('here."')
-        jump 532
+        jump label_532
 
     case 'cast':
     case 'land':
         print('"You cannot tie a gypsy down to a single place."\n*\n"We are free ')
         print('@spirits, and must roam like the @wind throughout the land."')
-        jump 532
+        jump label_532
 
     case 'road':
         print('"The roads @wander everywhere, just like a gypsy!"')
-        jump 532
+        jump label_532
 
     case 'wind':
         print('"The four winds - they are gypsies too!"')
-        jump 532
+        jump label_532
 
     case 'roam':
     case 'wand':
         print('"As a gypsy\'s body wanders, so does his mind."\n*\n"Just now I am ')
         print('thinking of what you might @buy from me today."')
-        jump 532
+        jump label_532
 
     case 'free':
     case 'spir':
         print('"Aye, my spirit is free, but my @advice is not."')
-        jump 532
+        jump label_532
 
     case 'gyps':
         print('"Ask my people for @advice, or what they have to @sell."\n*\n"Gypsies ')
         print('see and hear much, and occasionally happen across items of ')
         print('interest..."')
-        jump 532
+        jump label_532
 
     case 'advi':
-        jump 2887
+        jump label_2887
 
     case 'silv':
     case 'tabl':
-        jump 3209
+        jump label_3209
 
     case 'hawk':
         print('"He\'s the lowest scum I ever met."')
-        jump 532
+        jump label_532
 
     case 'bucc':
     case 'den':
         print('"It\'s no place for an honest soul like you."\n*\n"But if you\'re ')
         print('determined to go, I hear it\'s on an island due east of @Paws."')
-        jump 532
+        jump label_532
 
     case 'paws':
         print('"We pass Paws often in our travels. @Taynith likes to go drinking ')
         print('there."')
-        jump 532
+        jump label_532
 
     case 'lyca':
         print('"It\'s on the same island as @Moonglow."')
-        jump 532
+        jump label_532
 
     case 'moon':
         print('"It\'s on the same island as the @Lycaeum."')
-        jump 532
+        jump label_532
 
     case 'mari':
         print('"She knows how to be generous to poor wandering gypsies. You should ')
         print('follow her example!"')
-        jump 532
+        jump label_532
 
     case 'capt':
     case 'john':
@@ -144,16 +144,16 @@ interaction:
         print('@Mariah."\n*\n"He\'s madder than a gremlin! Claims as he\'s been living ')
         print('with the gargoyles."\n*\n"He talks as if there\'s nothing evil about ')
         print('them."\n*\n"He said the tablet had something to do with translating."')
-        jump 532
+        jump label_532
 
     case 'gorg':
         print('"Either you\'re a gorgio or my name\'s not @Zoltan!"')
-        jump 532
+        jump label_532
 
     case 'kari':
     case 'tayn':
         print('"There are no women like gypsy women!"')
-        jump 532
+        jump label_532
 
     case 'bye':
         if hasBit(byte 235, byte 7):
@@ -172,7 +172,7 @@ interaction:
         print('a very high tempo.\n*\nZoltan dances a wild dance for you, leaping and ')
         print('capering about frantically.\n*\nHis chest glistens with sweat as he ')
         print('walks up to you expectantly.\n\n')
-        jump 4018
+        jump label_4018
 
     case 'buy':
     case 'fine':
@@ -183,16 +183,16 @@ interaction:
     case 'reag':
     case 'sale':
     case 'sell':
-        jump 4344
+        jump label_4344
 
     case '*':
         print('"Why worry yourself with that?"\n*\n"Perhaps you\'d like to look over ')
         print('some of the fine @reagents I have for sale."')
     esac
 
-    jump 532
+    jump label_532
 
-2887:
+label_2887:
     print('"Tell you what. Since I\'m in a good mood, I\'ll only charge you two ')
     print('gold coins. Is it a deal?" ')
 
@@ -200,12 +200,12 @@ interaction:
 
     case 'n':
         print('"Whatever you say."')
-        jump 532
+        jump label_532
     esac
 
     if less(objectsCount(byte 1, byte 88), byte 2):
         print('\n"Come back when you\'re not so down on your luck."')
-        jump 532
+        jump label_532
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 2))
@@ -213,9 +213,9 @@ interaction:
     ('SETF', ('byte', 235), ('byte', 7))
     print('\n"I\'ll tell you this:"\n*\n"Powder kegs are useful for persuading ')
     print('uncooperative doors to open."')
-    jump 532
+    jump label_532
 
-3209:
+label_3209:
     print('"I\'d be glad to help you out. But \'tis a hard life, sometimes, being a')
     print(' gypsy."\n*\n"You\'d be willing to pay ten gold for the information, ')
     print('would you?" ')
@@ -224,12 +224,12 @@ interaction:
 
     case 'n':
         print('"Let me know if you change your mind."')
-        jump 532
+        jump label_532
     esac
 
     if less(objectsCount(byte 1, byte 88), byte 10):
         print('\n"Come back when you have the money."')
-        jump 532
+        jump label_532
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 10))
@@ -243,32 +243,32 @@ interaction:
     print('on his mother\'s grave!"\n*\n"Most likely they went to Buccaneer\'s @Den ')
     print('with their loot."\n*\n"We took the corner of the tablet that they missed')
     print(' to the @Lycaeum and sold it to @Mariah."')
-    jump 532
+    jump label_532
 
-4018:
+label_4018:
     print('Do you give him any money? ')
 
     choice('yn')
 
     case 'n':
-4051:
+label_4051:
         ('SETF', ('byte', 235), ('value', 1))
         print('"Hah! I should know better than to expect a gorgio to appreciate a ')
         print('fine gypsy dance."\n*\nProudly, he turns his back on you.\n')
         bye()
     esac
 
-4182:
+label_4182:
     print('\nHow much do you give? ')
     ('INPUT', 0)
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
         print('\nYou don\'t have that much.\n')
-        jump 4182
+        jump label_4182
     fi
 
     if equals(integer(value 0), byte 0):
-        jump 4051
+        jump label_4051
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
@@ -276,25 +276,25 @@ interaction:
     ('SETF', ('byte', 235), ('byte', 7))
     ('CLEARF', ('byte', 235), ('value', 1))
     print('\nZoltan pockets the money. "Thanks."')
-    jump 532
+    jump label_532
 
-4344:
+label_4344:
     if greater(integer(value 23), byte 0):
         integer(value 2) = byte 1
-        jump 4379
+        jump label_4379
     fi
 
     integer(value 3) = character(byte 0, byte 0)
-    jump 4517
+    jump label_4517
 
-4379:
+label_4379:
     integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
     ('SETNAME', ('integer', [('value', 3)]))
     print('#2) $Y\n')
 
     if lessOrEquals(integer(value 2), integer(value 23)):
         integer(value 2) = plus(integer(value 2), byte 1)
-        jump 4379
+        jump label_4379
     fi
 
     print('"Which of you?" ')
@@ -302,23 +302,23 @@ interaction:
 
     if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
         print('\n"What else would you like to know?"')
-        jump 532
+        jump label_532
 
     else:
         integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
     fi
 
-4517:
+label_4517:
     ('SETNAME', ('integer', [('value', 3)]))
     integer(value 1) = byte 1
 
-4528:
+label_4528:
     string(value 1) = data(dword 5107, minus(integer(value 1), byte 1))
     print('#1) $1\n')
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if greater(data(dword 5075, minus(integer(value 1), byte 1)), byte 0):
-        jump 4528
+        jump label_4528
     fi
 
     print('"Which of these?" ')
@@ -326,7 +326,7 @@ interaction:
 
     if or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1))):
         integer(value 2) = byte 1
-        jump 532
+        jump label_532
     fi
 
     integer(value 2) = minus(integer(value 2), byte 1)
@@ -340,16 +340,16 @@ interaction:
     ('INPUT', 4)
 
     if equals(integer(value 4), byte 0):
-        jump 4517
+        jump label_4517
     fi
 
-4742:
+label_4742:
     if less(canCarry(integer(value 3)), weight(data(dword 5075, integer(value 2)), byte 1)):
-        jump 4877
+        jump label_4877
     fi
 
     if less(objectsCount(integer(value 3), byte 88), integer(value 1)):
-        jump 4976
+        jump label_4976
     fi
 
     ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
@@ -363,13 +363,13 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 4517
+        jump label_4517
 
     else:
-        jump 4742
+        jump label_4742
     fi
 
-4877:
+label_4877:
     if integer(value 5):
         print('"You can\'t carry that much!"')
         wait()
@@ -378,17 +378,17 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 4517
+        jump label_4517
 
     else:
         print('"You can\'t carry any!"')
         wait()
 
         print('\n\n')
-        jump 4517
+        jump label_4517
     fi
 
-4976:
+label_4976:
     if integer(value 5):
         print('"You can\'t afford that much!"')
         wait()
@@ -397,16 +397,45 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 4517
+        jump label_4517
 
     else:
         print('"You can\'t afford any $1!"')
         wait()
 
         print('\n\n')
-        jump 4517
+        jump label_4517
     fi
 
-    ('INTEGERS', [66, 67, 68, 70, 71, 72, 0, 0], [])
-    ('INTEGERS', [3, 2, 1, 1, 2, 3, 0, 0], [])
-    ('STRINGS', ['Blood Moss', 'Garlic', 'Ginseng', 'Nightshade', 'Spider Silk', 'Sulfurous Ash', ' ', ' '], [])
+integers_5075 = [
+    66,
+    67,
+    68,
+    70,
+    71,
+    72,
+    0,
+    0,
+]
+
+integers_5091 = [
+    3,
+    2,
+    1,
+    1,
+    2,
+    3,
+    0,
+    0,
+]
+
+strings_5107 = [
+    'Blood Moss',
+    'Garlic',
+    'Ginseng',
+    'Nightshade',
+    'Spider Silk',
+    'Sulfurous Ash',
+    ' ',
+    ' ',
+]

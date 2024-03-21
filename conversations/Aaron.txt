@@ -33,28 +33,28 @@ interaction:
             ('SETF', ('byte', 235), ('value', 0))
         fi
 
-        jump 150
+        jump label_150
 
     case 'job':
         print('"I run the sawmill! Is there anything I can do for thee?"')
-        jump 150
+        jump label_150
 
     case 'saw':
         print('"Yes, I saw logs into @boards."')
-        jump 150
+        jump label_150
 
     case 'boar':
     case 'log':
         if notEquals(integer(value 32), byte 144):
             print('"Come to my shop when I\'m open!"')
-            jump 150
+            jump label_150
         fi
 
         integer(value 0) = partyHasObject(word 274, byte 0)
 
         if equals(integer(value 0), word 32769):
             print('"My mill makes smooth boards and planks out of rough-cut logs."')
-            jump 150
+            jump label_150
         fi
 
         ('SETNAME', ('integer', [('value', 0)]))
@@ -66,7 +66,7 @@ interaction:
         wait()
 
         print('\n\n"But it will cost thee 5 gold, $Y!"\n\n"Still interested?" ')
-        jump 733
+        jump label_733
 
     case 'bye':
         print('"Farewell!"\n')
@@ -75,10 +75,10 @@ interaction:
 
     case '*':
         print('"Beg pardon?"')
-        jump 150
+        jump label_150
     esac
 
-733:
+label_733:
     choice('yn')
 
     case 'y':
@@ -87,7 +87,7 @@ interaction:
             wait()
 
             print('\n\n"Come back when you have the 5 gold!"')
-            jump 150
+            jump label_150
         fi
 
         ('DELETE', ('integer', [('value', 0)]), ('word', 274), ('byte', 0), ('byte', 1))
@@ -97,9 +97,9 @@ interaction:
 
         print('\n\n"There!" He hands $Y the finished product.')
         ('NEW', ('integer', [('value', 0)]), ('word', 277), ('byte', 0), ('byte', 1))
-        jump 150
+        jump label_150
 
     case 'n':
         print('"Oh. Well, perhaps some other time then."')
-        jump 150
+        jump label_150
     esac

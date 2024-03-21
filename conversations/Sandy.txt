@@ -16,7 +16,7 @@ interaction:
     integer(value 0) = partyHasObject(word 417, byte 0)
 
     if equals(integer(value 0), word 32769):
-        jump 790
+        jump label_790
     fi
 
     print('*\n\n"That big, carefully wrapped bundle could only be a dragon\'s egg!"')
@@ -28,7 +28,7 @@ interaction:
 
     case 'n':
         print('"I guess I cannot help you much, then."')
-        jump 790
+        jump label_790
 
     case 'y':
     esac
@@ -44,12 +44,12 @@ interaction:
 
     case 'n':
         print('He shrugs. "As you wish."')
-        jump 790
+        jump label_790
 
     case 'y':
     esac
 
-462:
+label_462:
     print('"Well, first, there is one in Serpent\'s Hold. I cannot recall her ')
     print('name, but she has a piece of the map with her."')
     wait()
@@ -62,9 +62,9 @@ interaction:
     wait()
 
     print('\n\n"The @fourth... but then maybe I\'ve said too much already."')
-    jump 790
+    jump label_790
 
-790:
+label_790:
     print('\n')
 
     ask()
@@ -75,20 +75,20 @@ interaction:
 
         print('\n\n"Most folks call me Sandy."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 790
+        jump label_790
 
     case 'job':
         print('"I cook for Lord @Whitsaber."')
         wait()
 
         print('\n\n"He especially likes my recipe for fish in a white wine @sauce."')
-        jump 790
+        jump label_790
 
     case 'fish':
     case 'sauc':
     case 'wine':
         print('"It\'s my specialty!"')
-        jump 790
+        jump label_790
 
     case 'alre':
     case 'four':
@@ -101,22 +101,22 @@ interaction:
 
             print('\n"As first mate to Captain Hawkins himself! His real name is Alastor ')
             print('Gordon."')
-            jump 790
+            jump label_790
         fi
 
-        jump 1666
+        jump label_1666
 
     case 'lord':
     case 'map':
     case 'whit':
-1228:
+label_1228:
         print('"Hmmm. I\'d better get back to cooking... Excuse me."')
         wait()
 
         print('\n\nHe walks away mumbling, "Magincian @pastry..."')
 
         if equals(hasBit(byte 235, byte 2), byte 1):
-            jump 790
+            jump label_790
         fi
 
         print('\n')
@@ -125,10 +125,10 @@ interaction:
     case 'map':
     case 'pira':
         if equals(hasBit(byte 235, byte 2), byte 1):
-            jump 462
+            jump label_462
 
         else:
-            jump 1228
+            jump label_1228
         fi
 
     case 'magi':
@@ -136,39 +136,39 @@ interaction:
     case 'pie':
         if equals(hasBit(byte 235, byte 2), byte 1):
             print('"Truly it shall be a magnificent desert!"')
-            jump 790
+            jump label_790
         fi
 
         print('"I could do you a @favor if you did one for me first."')
-        jump 790
+        jump label_790
 
     case 'favo':
     case 'firs':
-        jump 1708
+        jump label_1708
 
     case 'egg':
         print('"Only a @dragon\'s will do."')
-        jump 790
+        jump label_790
 
     case 'drag':
         print('"There\'s a lair in the dungeon Destard, to the northwest."')
         wait()
 
         print('\n\n"It\'s not far."')
-        jump 790
+        jump label_790
 
     case 'bye':
         print('"Bye."\n')
         bye()
 
     case '*':
-1666:
+label_1666:
         print('"Sorry, I can\'t help you with that."')
     esac
 
-    jump 790
+    jump label_790
 
-1708:
+label_1708:
     print('"Let\'s see..."')
     wait()
 
@@ -182,14 +182,14 @@ interaction:
 
     case 'egg':
         print('"Very good!"')
-        jump 1891
+        jump label_1891
 
     case '*':
         print('"It\'s an egg, of course."')
     esac
 
-1891:
+label_1891:
     wait()
 
     print('\n\n"To make Magincian pastry, I require one dragon\'s @egg."')
-    jump 790
+    jump label_790

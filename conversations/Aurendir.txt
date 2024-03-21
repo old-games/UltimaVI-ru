@@ -19,50 +19,50 @@ interaction:
     case 'name':
         print('"Once I was Aurendir the mighty - now I live a more @modest life."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 114
+        jump label_114
 
     case 'job':
     case 'life':
     case 'shep':
         print('"I came here to @meditate, tend @sheep and sell @wool."')
-        jump 114
+        jump label_114
 
     case 'shee':
     case 'tend':
         print('"So they can be @shorn."')
-        jump 114
+        jump label_114
 
     case 'shor':
         print('"To make @wool. People @buy it from me."')
-        jump 114
+        jump label_114
 
     case 'wool':
         print('"It\'s used to make @thread."')
-        jump 114
+        jump label_114
 
     case 'buy':
         print('"Would you like some wool?" ')
-        jump 1501
+        jump label_1501
 
     case 'thre':
         print('"To be woven into @cloth."')
-        jump 114
+        jump label_114
 
     case 'clot':
     case 'wove':
         print('"You can make @robes from it."')
-        jump 114
+        jump label_114
 
     case 'robe':
         print('"I wear a robe while I tend @sheep. It\'s all part of life\'s great ')
         print('@circle."')
-        jump 114
+        jump label_114
 
     case 'circ':
     case 'life':
         print('"From earth, to grass, to sheep, to me... when I die, I\'ll return to ')
         print('the @earth."')
-        jump 114
+        jump label_114
 
     case 'back':
     case 'buri':
@@ -70,7 +70,7 @@ interaction:
     case 'eart':
     case 'gras':
         print('"That\'s right."')
-        jump 114
+        jump label_114
 
     case 'humb':
     case 'humi':
@@ -102,7 +102,7 @@ interaction:
         wait()
 
         print('\n\n"And so you see me here today."')
-        jump 114
+        jump label_114
 
     case 'cast':
     case 'jewe':
@@ -112,17 +112,17 @@ interaction:
     case 'silk':
     case 'weal':
         print('"Those days are no more."')
-        jump 114
+        jump label_114
 
     case 'shri':
         print('"I should go there again soon... It changed my life."')
-        jump 114
+        jump label_114
 
     case 'mant':
     case 'medi':
         print('"You should go meditate at the shrine yourself. I find \'lum\' a most ')
         print('effective mantra."')
-        jump 114
+        jump label_114
 
     case 'bye':
         print('"See you later."\n')
@@ -132,53 +132,53 @@ interaction:
         print('"Beats me."')
     esac
 
-    jump 114
+    jump label_114
 
-1501:
+label_1501:
     choice('yn')
 
     case 'y':
-        jump 1528
+        jump label_1528
 
     case 'n':
         print('"Okay."')
-        jump 114
+        jump label_114
     esac
 
-1528:
+label_1528:
     if equals(integer(value 23), byte 0):
         integer(value 3) = byte 0
-        jump 1664
+        jump label_1664
     fi
 
-1548:
+label_1548:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
 
-1562:
+label_1562:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 1562
+        jump label_1562
     fi
 
     print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        jump 1994
+        jump label_1994
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-        jump 1548
+        jump label_1548
     fi
 
-1664:
+label_1664:
     print('"I charge 5 gold for a bale of wool. Would you like some?" ')
 
     choice('yn')
@@ -189,7 +189,7 @@ interaction:
             wait()
 
             print('\n')
-            jump 76
+            jump label_76
         fi
 
         if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 5):
@@ -201,7 +201,7 @@ interaction:
 
             integer(value 5) = byte 1
             print('\n\n')
-            jump 1994
+            jump label_1994
 
         else:
             ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
@@ -209,18 +209,18 @@ interaction:
             wait()
 
             print('\n')
-            jump 76
+            jump label_76
         fi
 
     case 'n':
-        jump 1994
+        jump label_1994
     esac
 
-1994:
+label_1994:
     if integer(value 5):
         print('"It was a pleasure doing business with you."')
         wait()
     fi
 
     print('\n')
-    jump 76
+    jump label_76

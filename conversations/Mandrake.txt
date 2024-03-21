@@ -12,7 +12,7 @@ description:
 
 interaction:
     if hasBit(byte 235, value 0):
-        jump 389
+        jump label_389
     fi
 
     print('"Welcome, welcome! \'Tis always a pleasure to see a new face."')
@@ -35,15 +35,15 @@ interaction:
         print('\n\n"You look like the sort who knows how to enjoy a good @story."')
     fi
 
-    jump 525
+    jump label_525
 
-389:
+label_389:
     print('"$P! It\'s been too long. What brings you to this part of the realm?"\n')
 
     ask()
     print('\n"Well, never mind that for the moment. Let me sing thee a @song!"\n')
 
-525:
+label_525:
     print('\n')
 
     ask()
@@ -51,17 +51,17 @@ interaction:
     case 'name':
         print('"Mandrake, my friend, Mandrake. Like the @root, but taller, handsomer,')
         print(' and @louder."')
-        jump 525
+        jump label_525
 
     case 'root':
         print('"It grows in swamps, but I\'m found mostly in @taverns."')
-        jump 525
+        jump label_525
 
     case 'hand':
     case 'loud':
     case 'tall':
         print('"So I\'ve heard."')
-        jump 525
+        jump label_525
 
     case 'tave':
         print('"I visit them all."')
@@ -75,27 +75,27 @@ interaction:
         wait()
 
         print('\n\n"But the Cat\'s @Lair is still my favorite."')
-        jump 525
+        jump label_525
 
     case 'foll':
     case 'fras':
         print('"You should try some! \'Twill do thee a world of good."')
-        jump 525
+        jump label_525
 
     case 'fall':
     case 'virg':
         print('"\'Tis in Buccaneer\'s @Den - no place for the timid."')
-        jump 525
+        jump label_525
 
     case 'bucc':
     case 'den':
         print('"If thou knowest not where it is, I\'ll not be the one to say."')
-        jump 525
+        jump label_525
 
     case 'keg':
     case 'swor':
         print('"Over in @Jhelom, it is. They always love a good brawl."')
-        jump 525
+        jump label_525
 
     case 'braw':
     case 'jhel':
@@ -104,7 +104,7 @@ interaction:
 
         print('\n\n"They fight just about every night, but they don\'t mean anything by ')
         print('it. \'Tis all in fun."')
-        jump 525
+        jump label_525
 
     case 'blue':
     case 'bott':
@@ -116,32 +116,32 @@ interaction:
         wait()
 
         print('\n\n"Many\'s the time he\'s drunk me under the table."')
-        jump 525
+        jump label_525
 
     case 'moon':
         print('"Too honest a town to be much fun, but some fine people live there."')
         wait()
 
         print('\n\n"You should have @Penumbra tell your fortune sometime."')
-        jump 525
+        jump label_525
 
     case 'dery':
         print('"Give him my regards if you see him."')
-        jump 525
+        jump label_525
 
     case 'penu':
         print('"I hear she has strange @powers."')
-        jump 525
+        jump label_525
 
     case 'powe':
     case 'stra':
         print('"Yes, the gift of @prophecy."')
-        jump 525
+        jump label_525
 
     case 'gift':
     case 'prop':
         print('"So I hear."')
-        jump 525
+        jump label_525
 
     case 'cat':
     case 'lair':
@@ -150,7 +150,7 @@ interaction:
 
         print('\n\n"He loves games of all kinds too. Mention my name to him and he\'ll ')
         print('be sure to treat thee well."')
-        jump 525
+        jump label_525
 
     case 'job':
         print('"I travel all over to spread important @news throughout the realm - ')
@@ -158,7 +158,7 @@ interaction:
         wait()
 
         print('\n\n"If you have time enough, I\'ll favor you with all three."')
-        jump 525
+        jump label_525
 
     case 'impo':
     case 'news':
@@ -175,7 +175,7 @@ interaction:
 
         print('\n\n"He spoke but little of our tongue, but I believe he said his name ')
         print('was \'Beh Lem.\'"')
-        jump 525
+        jump label_525
 
     case 'garg':
         print('"I\'ve seen their handiwork many a time in my travels."')
@@ -183,7 +183,7 @@ interaction:
 
         print('\n\n"I believe they have taken over all of the shrines of the eight ')
         print('@virtues."')
-        jump 525
+        jump label_525
 
     case 'eigh':
     case 'virt':
@@ -193,7 +193,7 @@ interaction:
 
         print('\n\n"That\'s what you get for choosing such @stuffy principles as a ')
         print('basis."')
-        jump 525
+        jump label_525
 
     case 'prin':
     case 'stuf':
@@ -205,7 +205,7 @@ interaction:
         wait()
 
         print('\n\n"Think of the virtues those would @lead to!"')
-        jump 525
+        jump label_525
 
     case 'lead':
     case 'thin':
@@ -223,15 +223,15 @@ interaction:
         wait()
 
         print('\n\n"Now there would be the foundation for a fine world to live in!"')
-        jump 525
+        jump label_525
 
     case 'sing':
     case 'song':
-        jump 3743
+        jump label_3743
 
     case 'stor':
     case 'tale':
-        jump 4447
+        jump label_4447
 
     case 'bye':
         if equals(integer(value 16), byte 1):
@@ -258,9 +258,9 @@ interaction:
         fi
     esac
 
-    jump 525
+    jump label_525
 
-3743:
+label_3743:
     print('"I sing better if I keep my belly full, and my wineskin as well."')
     wait()
 
@@ -269,25 +269,25 @@ interaction:
     choice('yn')
 
     case 'n':
-3859:
+label_3859:
         print('"As you wish."')
         wait()
 
         print('\n\n')
-        jump 4016
+        jump label_4016
 
     case 'y':
-3884:
+label_3884:
         print('How much do you give him? ')
         ('INPUT', 0)
 
         if greater(integer(value 0), objectsCount(byte 1, byte 88)):
             print('You don\'t have that much.\n')
-            jump 3884
+            jump label_3884
         fi
 
         if equals(integer(value 0), byte 0):
-            jump 3859
+            jump label_3859
         fi
 
         ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
@@ -295,7 +295,7 @@ interaction:
         print('"Thank you kindly."\n\n')
     esac
 
-4016:
+label_4016:
     print('"Ok, here we go!"')
     wait()
 
@@ -333,9 +333,9 @@ interaction:
     wait()
 
     print('\nWhat a perfect sunny day!\'"')
-    jump 525
+    jump label_525
 
-4447:
+label_4447:
     print('"Perhaps my stories would be worth a few coins?" ')
 
     choice('yn')
@@ -345,20 +345,20 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 4655
+        jump label_4655
     esac
 
-4525:
+label_4525:
     print('How much do you give him? ')
     ('INPUT', 0)
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
         print('You don\'t have that much.\n\n')
-        jump 4525
+        jump label_4525
     fi
 
     if equals(integer(value 0), byte 0):
-        jump 3859
+        jump label_3859
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
@@ -396,4 +396,4 @@ interaction:
         print('his tales come to an end.')
     fi
 
-    jump 525
+    jump label_525

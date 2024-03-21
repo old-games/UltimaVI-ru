@@ -13,7 +13,7 @@ interaction:
     print('\n')
 
     if and(equals(integer(value 21), byte 1), equals(partyHasObject(byte 76, byte 0), byte 1)):
-        jump 372
+        jump label_372
     fi
 
     if integer(value 21):
@@ -38,7 +38,7 @@ interaction:
         bye()
     fi
 
-372:
+label_372:
     if hasBit(byte 235, value 0):
         print('"To welcome you back, False Prophet!"')
 
@@ -58,15 +58,15 @@ interaction:
     case 'food':
         if notEquals(integer(value 32), byte 143):
             print('"To not have food on me. To have you visit my shop."')
-            jump 530
+            jump label_530
         fi
 
-        jump 1586
+        jump label_1586
 
     case 'hors':
     case 'meat':
         print('"To be famous among all gargoyles for the quality of my horseflesh!"')
-        jump 530
+        jump label_530
 
     case 'name':
         print('"To be called Foodmaker, not having a name yet."')
@@ -76,7 +76,7 @@ interaction:
         wait()
 
         print('\n\n"To receive a name someday soon for my skill!"')
-        jump 530
+        jump label_530
 
     case 'good':
         print('"The goodscrafter? To be pathetic!" the huge gargoyle scowls.')
@@ -86,7 +86,7 @@ interaction:
         wait()
 
         print('\n\n"To wish to hear no more about that creature."')
-        jump 530
+        jump label_530
 
     case 'job':
         print('"To cook and serve food for all the gargoyles who live in these ')
@@ -94,23 +94,23 @@ interaction:
         wait()
 
         print('\n\n"Also to guide and instruct the @wingless ones in cooking chores."')
-        jump 530
+        jump label_530
 
     case 'wing':
         print('"To have to watch their every move!"')
         wait()
 
         print('\n\n"But to acknowledge that they are vital to our society."')
-        jump 530
+        jump label_530
 
     case 'bye':
         if hasBit(byte 235, value 0):
-            jump 2448
+            jump label_2448
 
         else:
             integer(value 2) = random(byte 1, plus(integer(value 23), byte 1))
             integer(value 0) = byte 0
-            jump 2151
+            jump label_2151
         fi
 
     case 'bunc':
@@ -124,17 +124,17 @@ interaction:
         wait()
 
         print('\n\n"To offer you some of this fine @food!"')
-        jump 530
+        jump label_530
 
     case '*':
         print('"To not know what $Z is."')
         wait()
 
         print('\n\n"But to gladly cook it for you if you tell me the recipe!"')
-        jump 530
+        jump label_530
     esac
 
-1586:
+label_1586:
     print('"Yes, yes! To offer you this finely roasted @meat!"')
     wait()
 
@@ -161,7 +161,7 @@ interaction:
         print('\n\nThe flavor is unlike anything you\'ve had before.')
 
         if equals(and(integer(value 23), partyHas(byte 4)), byte 0):
-            jump 530
+            jump label_530
         fi
 
         wait()
@@ -173,20 +173,20 @@ interaction:
         ('PORTRAIT', ('byte', 235))
         print('\n\nThe gargoyle beams with pride. "To ask you: Is it not the best @meat')
         print(' you have ever eaten?"')
-        jump 530
+        jump label_530
 
     case 'n':
         print('"To be saddened by your not liking!"')
         wait()
 
         print('\n\n"To know of no finer cooker of @horseflesh than myself!"')
-        jump 530
+        jump label_530
     esac
 
-2151:
+label_2151:
     if greater(integer(value 0), integer(value 24)):
         ('SETF', ('byte', 235), ('value', 0))
-        jump 2448
+        jump label_2448
     fi
 
     integer(value 2) = byte 5
@@ -194,7 +194,7 @@ interaction:
 
     if greater(weight(byte 135, integer(value 2)), canCarry(integer(value 1))):
         integer(value 0) = plus(integer(value 0), byte 1)
-        jump 2151
+        jump label_2151
     fi
 
     ('SETF', ('byte', 235), ('value', 0))
@@ -224,16 +224,16 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 2448
+        jump label_2448
 
     case 'n':
         print('"Well then, to save it here for you!"')
         wait()
 
         print('\n\n')
-        jump 2448
+        jump label_2448
     esac
 
-2448:
+label_2448:
     print('"To welcome you to come back when you are hungry again!"\n')
     bye()

@@ -12,7 +12,7 @@ description:
 
 interaction:
     if hasBit(byte 235, value 0):
-        jump 129
+        jump label_129
     fi
 
     print('"Hello, mein freund')
@@ -25,23 +25,23 @@ interaction:
     fi
 
     print(' His thick fingers grab your hand.\n')
-    jump 178
+    jump label_178
 
-129:
+label_129:
     print('"You are back. Gut." He leans back on his heels.\n')
 
-178:
+label_178:
     ask()
 
     case 'name':
         print('"Ubermon @Kalbmilch."\n')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 178
+        jump label_178
 
     case 'kalb':
     case 'uber':
         print('"At your zervice." He snaps to attention.\n')
-        jump 178
+        jump label_178
 
     case 'job':
         print('"I @milk de cows und make de @cheese."')
@@ -56,35 +56,35 @@ interaction:
             print('"You vant to buy someting, come by my dairy ven I\'m open."\n')
         fi
 
-        jump 178
+        jump label_178
 
     case 'buy':
     case 'word':
         if notEquals(integer(value 32), byte 144):
             print('"Come by my dairy ven I\'m open, ja?"\n')
-            jump 178
+            jump label_178
         fi
 
         print('"Ja, sure, vat you vant - milk or @cheese?"\n')
-        jump 178
+        jump label_178
 
     case 'milk':
         if notEquals(integer(value 32), byte 144):
             print('"Come by my dairy ven I\'m open, ja?"\n')
-            jump 178
+            jump label_178
         fi
 
         integer(value 4) = byte 0
-        jump 771
+        jump label_771
 
     case 'chee':
         if notEquals(integer(value 32), byte 144):
             print('"Come by my dairy ven I\'m open, ja?"\n')
-            jump 178
+            jump label_178
         fi
 
         integer(value 4) = byte 1
-        jump 771
+        jump label_771
 
     case 'bye':
         print('"Take care among ze British, now."\n')
@@ -92,30 +92,30 @@ interaction:
 
     case '*':
         print('"Now I not know vat you say."\n')
-        jump 178
+        jump label_178
     esac
 
     // Unreachable code!
-    jump 178
+    jump label_178
 
-771:
+label_771:
     if equals(integer(value 23), byte 0):
         integer(value 3) = character(byte 0, byte 0)
-        jump 936
+        jump label_936
     fi
 
-794:
+label_794:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
 
-808:
+label_808:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 808
+        jump label_808
     fi
 
     print('"Which of you?" ')
@@ -123,18 +123,18 @@ interaction:
 
     if equals(integer(value 3), byte 0):
         print('"Vell, okay..."\n')
-        jump 178
+        jump label_178
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-        jump 794
+        jump label_794
     fi
 
     integer(value 3) = character(integer(value 3), byte 0)
 
-936:
+label_936:
     ('SETNAME', ('integer', [('value', 3)]))
     integer(value 1) = data(dword 1236, integer(value 4))
     print('"That\'ll be #1 crowns, okay?" ')
@@ -142,22 +142,22 @@ interaction:
     choice('yn')
 
     case 'y':
-        jump 1043
+        jump label_1043
 
     case 'n':
         print('"Vell, okay, but is very good for you!"\n')
-        jump 178
+        jump label_178
     esac
 
-1043:
+label_1043:
     if less(objectsCount(integer(value 3), byte 88), integer(value 1)):
         print('"You have not ze gold right now."\n')
-        jump 178
+        jump label_178
     fi
 
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 1240, integer(value 4)), byte 1)):
         print('"You don\'t have room to carry it."\n')
-        jump 178
+        jump label_178
     fi
 
     ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
@@ -172,7 +172,14 @@ interaction:
     fi
 
     print('.\n')
-    jump 178
+    jump label_178
 
-    ('INTEGERS', [3, 5], [])
-    ('INTEGERS', [180, 132], [])
+integers_1236 = [
+    3,
+    5,
+]
+
+integers_1240 = [
+    180,
+    132,
+]

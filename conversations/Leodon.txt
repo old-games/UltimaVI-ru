@@ -13,7 +13,7 @@ description:
 interaction:
     if partyHas(byte 235):
         print('"Yes, $P?"')
-        jump 212
+        jump label_212
     fi
 
     if equals(integer(value 32), byte 153):
@@ -28,7 +28,7 @@ interaction:
     case 'name':
         print('"I\'m @Captain Leodon."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 212
+        jump label_212
 
     case 'job':
         print('"I\'m captain of the @Golden @Hind."')
@@ -36,7 +36,7 @@ interaction:
 
         print('\n"She\'s the finest ship I\'ve ever had the pleasure of @sailing \'cross ')
         print('the briny deep."')
-        jump 212
+        jump label_212
 
     case 'brin':
     case 'deep':
@@ -50,7 +50,7 @@ interaction:
         wait()
 
         print('\n\n"Alas, the Hind needs serious @repairs just now."')
-        jump 212
+        jump label_212
 
     case 'need':
     case 'repa':
@@ -58,45 +58,45 @@ interaction:
         print('"Yes, I must keep myself occupied on land, meantime."')
 
         if partyHas(byte 235):
-            jump 212
+            jump label_212
         fi
 
         wait()
 
         print('\n\n"Perhaps I could @join thy party for a time."')
-        jump 212
+        jump label_212
 
     case 'join':
     case 'land':
     case 'occu':
     case 'part':
-        jump 1909
+        jump label_1909
 
     case 'leav':
-        jump 2523
+        jump label_2523
 
     case 'life':
     case 'sea':
         print('"Ah, the sea. \'Tis as vast as a thousand @dreams."')
-        jump 212
+        jump label_212
 
     case 'drea':
     case 'thou':
     case 'vast':
         print('"Indeed."')
-        jump 212
+        jump label_212
 
     case 'capt':
         if partyHas(byte 235):
             print('"You wouldn\'t be talking about Captain @John, would you?"')
-            jump 212
+            jump label_212
         fi
 
         integer(value 0) = plus(plus(isNearby(byte 114), isNearby(byte 111)), isNearby(byte 112))
 
         if lessOrEquals(integer(value 0), byte 1):
             print('"You wouldn\'t be talking about Captain @John, would you?"')
-            jump 212
+            jump label_212
         fi
 
         print('When you say \'Captain,\' all the pirates at the table turn to you ')
@@ -105,7 +105,7 @@ interaction:
 
         print('\n\nWhen they realize you weren\'t talking to them, they return to their ')
         print('business.')
-        jump 212
+        jump label_212
 
     case 'leon':
         print('"Aye, Leonna is the best first mate I\'ve ever had."')
@@ -123,7 +123,7 @@ interaction:
         fi
 
         print('"Comes from being a captain once herself, you know."')
-        jump 212
+        jump label_212
 
     case 'john':
         print('"That scallawag?"')
@@ -145,7 +145,7 @@ interaction:
             ('PORTRAIT', ('byte', 235))
         fi
 
-        jump 212
+        jump label_212
 
     case 'garg':
         print('"Vile creatures, they are."')
@@ -153,18 +153,18 @@ interaction:
 
         print('\n\n"One of them attacked  my ship once. He flew off with a @ham before ')
         print('anyone could stop him."')
-        jump 212
+        jump label_212
 
     case 'crea':
     case 'ham':
     case 'vile':
         print('"Yes, he stole my ham, and I dined on @biscuits that night."')
-        jump 212
+        jump label_212
 
     case 'bisc':
     case 'dine':
         print('"That\'s right."')
-        jump 212
+        jump label_212
 
     case 'bye':
         if partyHas(byte 235):
@@ -179,13 +179,13 @@ interaction:
         print('"I can\'t help you with that."')
     esac
 
-    jump 212
+    jump label_212
 
-1909:
+label_1909:
     if partyHas(byte 235):
-1914:
+label_1914:
         print('"I\'d be glad to join you--but I have already!"')
-        jump 212
+        jump label_212
     fi
 
     print('"The Golden Hind won\'t be repaired for months, at the soonest."')
@@ -200,7 +200,7 @@ interaction:
 
     case 'n':
         print('"Okay. I\'ll be here if you change your mind."')
-        jump 212
+        jump label_212
 
     case 'y':
     esac
@@ -209,7 +209,7 @@ interaction:
 
     if equals(integer(value 0), byte 1):
         print('"Not while you\'re in that thing!"')
-        jump 212
+        jump label_212
     fi
 
     if equals(integer(value 0), byte 2):
@@ -218,11 +218,11 @@ interaction:
 
         print('\n\n"But if you ask one of them to @leave first, I\'d be happy to join ')
         print('you."')
-        jump 212
+        jump label_212
     fi
 
     if equals(integer(value 0), byte 3):
-        jump 1914
+        jump label_1914
     fi
 
     print('"Very well. This should make a nice change from my usual routine."')
@@ -237,22 +237,22 @@ interaction:
     print('\n')
     bye()
 
-2523:
+label_2523:
     if equals(partyHas(byte 235), byte 0):
-2531:
+label_2531:
         print('"I\'d have to @join you before I could leave, silly!"')
-        jump 212
+        jump label_212
     fi
 
     integer(value 0) = partyLeave(byte 235)
 
     if equals(integer(value 0), byte 1):
         print('"Let\'s get our feet back on solid ground first, okay?"')
-        jump 212
+        jump label_212
     fi
 
     if equals(integer(value 0), byte 2):
-        jump 2531
+        jump label_2531
     fi
 
     print('"Okay. I think I\'ll head back to the Fallen Virgin, then."\n*\n"Here\'s ')
@@ -260,4 +260,4 @@ interaction:
     bye()
 
     // Unreachable code!
-    jump 212
+    jump label_212

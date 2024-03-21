@@ -12,7 +12,7 @@ description:
 
 interaction:
     if partyHas(byte 235):
-        jump 1356
+        jump label_1356
     fi
 
     print('"Squeak, squeak, @squeak!"')
@@ -31,51 +31,51 @@ interaction:
         ('SETF', ('byte', 235), ('byte', 7))
     fi
 
-186:
+label_186:
     print('\n')
 
     ask()
 
     case 'sque':
         print('"Squeak @squirk?"')
-        jump 186
+        jump label_186
 
     case 'fibl':
     case 'nitt':
     case 'squi':
         print('"Squeeeeek!"')
-        jump 186
+        jump label_186
 
     case 'boo':
     case 'cat':
     case 'meow':
         print('"Eeeek!"')
-        jump 1347
+        jump label_1347
 
     case 'name':
         print('"I am Lord @British\'s friend, @Sherry."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 906
+        jump label_906
 
     case 'brit':
     case 'lord':
         print('"He reads me bedtime @stories every night."')
-        jump 906
+        jump label_906
 
     case 'bed':
     case 'nigh':
     case 'stor':
         print('"He knows the one about @Hubert the Lion by Heart!"')
-        jump 906
+        jump label_906
 
     case 'hube':
     case 'lion':
         print('"That\'s my favorite story."')
-        jump 906
+        jump label_906
 
     case 'sher':
         print('"Pleased to meet you!"')
-        jump 906
+        jump label_906
 
     case 'help':
     case 'hole':
@@ -83,12 +83,12 @@ interaction:
     case 'mous':
     case 'rune':
         if hasBit(byte 235, byte 5):
-            jump 1159
+            jump label_1159
 
         else:
             print('"Give me some @cheese and ask me again."')
             ('SETF', ('byte', 235), ('byte', 6))
-            jump 186
+            jump label_186
         fi
 
     case 'bles':
@@ -100,10 +100,10 @@ interaction:
         wait()
 
         print('\n\n"Dust mice are no friends of mine!"')
-        jump 906
+        jump label_906
 
     case 'chee':
-        jump 922
+        jump label_922
 
     case 'bye':
         if equals(hasBit(byte 235, byte 6), byte 0):
@@ -125,11 +125,11 @@ interaction:
         fi
     esac
 
-    jump 186
+    jump label_186
 
-906:
+label_906:
     if hasBit(byte 235, byte 5):
-        jump 186
+        jump label_186
     fi
 
     wait()
@@ -141,42 +141,42 @@ interaction:
 
     case 'n':
         print('"Oh, that\'s too bad."')
-        jump 1347
+        jump label_1347
     esac
 
     if notEquals(partyHasObject(byte 132, byte 0), word 32769):
-        jump 1039
+        jump label_1039
 
     else:
         print('\n"I don\'t smell any cheese!"')
-        jump 1347
+        jump label_1347
     fi
 
-1039:
+label_1039:
     print('\n"Can I have some?" ')
 
     choice('yn')
 
     case 'n':
         print('"Well, you\'re no fun."')
-        jump 1347
+        jump label_1347
 
     case 'y':
         ('DELETE', ('partyHasObject', [('byte', 132), ('byte', 0)]), ('byte', 132), ('byte', 0), ('byte', 1))
         ('NEW', ('byte', 235), ('byte', 132), ('byte', 0), ('byte', 1))
         print('"Thank you very much!"')
         ('SETF', ('byte', 235), ('byte', 5))
-        jump 186
+        jump label_186
     esac
 
-1159:
+label_1159:
     print('"I can help you! Do you want me to come with you?" ')
 
     choice('yn')
 
     case 'n':
         print('"Ok."')
-        jump 906
+        jump label_906
 
     case 'y':
         integer(value 0) = partyJoin(byte 235)
@@ -188,64 +188,64 @@ interaction:
 
         if equals(integer(value 0), byte 1):
             print('"Boats make me seasick."')
-            jump 186
+            jump label_186
         fi
 
         if equals(integer(value 0), byte 2):
             print('"With that many people I\'d get trampled!"')
-            jump 186
+            jump label_186
         fi
     esac
 
-1347:
+label_1347:
     ('WORKTYPE', ('byte', 235), ('byte', 154))
     print('\n')
     bye()
 
-1356:
+label_1356:
     print('"Travelling with you is fun! I hope we find some more cheese soon."\n')
 
     ask()
 
     case 'name':
         print('"I am Lord @British\'s friend, @Sherry."')
-        jump 1423
+        jump label_1423
 
     case 'brit':
     case 'lord':
         print('"He used to read me bedtime @stories every night."')
-        jump 1423
+        jump label_1423
 
     case 'bed':
     case 'nigh':
     case 'stor':
         print('"He knows the one about @Hubert the Lion by Heart!"')
-        jump 1423
+        jump label_1423
 
     case 'hube':
     case 'lion':
         print('"That\'s my favorite story."')
-        jump 1423
+        jump label_1423
 
     case 'sher':
         print('"Pleased to meet you!"')
-        jump 1423
+        jump label_1423
 
     case 'job':
         print('"I can slip through openings that are too small for you to fit ')
         print('through!"')
-        jump 1423
+        jump label_1423
 
     case 'bye':
-        jump 1804
+        jump label_1804
 
     case '*':
         print('"You\'re funny!"')
     esac
 
-    jump 1423
+    jump label_1423
 
-1804:
+label_1804:
     print('"Oh, goodbye. Does this mean you want me to go home now?" ')
 
     choice('yn')
@@ -259,7 +259,7 @@ interaction:
 
     if equals(integer(value 0), byte 1):
         print('"I\'m not leaving until we get out of this thing!"')
-        jump 186
+        jump label_186
     fi
 
     print('\n"All right. Now I can hear my bedtime stories again!"\n*\n"I\'ll leave ')

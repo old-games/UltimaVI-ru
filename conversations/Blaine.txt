@@ -9,7 +9,7 @@ description:
 
 interaction:
     if partyHas(byte 235):
-        jump 2047
+        jump label_2047
     fi
 
     if hasBit(byte 135, byte 7):
@@ -25,27 +25,27 @@ interaction:
     case 'name':
         print('"I am called Blaine."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 146
+        jump label_146
 
     case 'job':
         print('"I am a @juggler. But I would fain @join thee and go adventuring."')
-        jump 146
+        jump label_146
 
     case 'adve':
     case 'join':
-        jump 1662
+        jump label_1662
 
     case 'jugg':
-        jump 876
+        jump label_876
 
     case 'advi':
-        jump 657
+        jump label_657
 
     case 'buy':
     case 'sell':
         print('"I don\'t have anything to sell just now. Check back with me next ')
         print('week."')
-        jump 146
+        jump label_146
 
     case 'bye':
         print('"Here\'s a little tune to lighten your step on the road ahead."\n')
@@ -60,45 +60,45 @@ interaction:
         print('"I can\'t help you with that."')
     esac
 
-    jump 146
+    jump label_146
 
-657:
+label_657:
     print('"My advice will cost you a gold coin. What do you say?" ')
 
     choice('yn')
 
     case 'n':
         print('"As you wish."')
-        jump 146
+        jump label_146
     esac
 
     print('\n')
 
     if less(objectsCount(byte 1, byte 88), byte 1):
         print('"Best check your purse."')
-        jump 146
+        jump label_146
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 1))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 1))
     print('"Almost due east of Iolo\'s hut there lives a powerful enchanter."')
-    jump 146
+    jump label_146
 
-876:
+label_876:
     print('"I charge five gold for juggling. Would you like to see some?" ')
 
     choice('yn')
 
     case 'n':
         print('"Perhaps some other time."')
-        jump 146
+        jump label_146
     esac
 
     print('\n')
 
     if less(objectsCount(byte 1, byte 88), byte 5):
         print('"Best check your purse."')
-        jump 146
+        jump label_146
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 5))
@@ -115,13 +115,13 @@ interaction:
     print('\nAt last he catches all three of the wands in one hand, waves them ')
     print('with a great flourish, and bows deeply before you.*\n\nAs he ')
     print('extinguishes the wands, he says "I hope you enjoyed the show."')
-    jump 146
+    jump label_146
 
-1662:
+label_1662:
     if partyHas(byte 235):
-1667:
+label_1667:
         print('"I have joined you already!"')
-        jump 146
+        jump label_146
     fi
 
     print('"Do you want me to come with you?" ')
@@ -130,7 +130,7 @@ interaction:
 
     case 'n':
         print('"Okay. Let me know if you need my help later."')
-        jump 146
+        jump label_146
     esac
 
     print('\n')
@@ -138,23 +138,23 @@ interaction:
 
     if equals(integer(value 0), byte 1):
         print('"Not while you\'re in that thing!"')
-        jump 146
+        jump label_146
     fi
 
     if equals(integer(value 0), byte 2):
         print('"You have enough travelling with you already."\n*\n"If you ask one of ')
         print('them to @leave first, I\'d be happy to join you."')
-        jump 146
+        jump label_146
     fi
 
     if equals(integer(value 0), byte 3):
-        jump 1667
+        jump label_1667
     fi
 
     print('"I look forward to the many adventures we will share."\n')
     bye()
 
-2047:
+label_2047:
     print('"I knew it! You don\'t really want to have a gypsy around."\n*\n"You wish')
     print(' me to leave you now, right?" ')
 
@@ -171,7 +171,7 @@ interaction:
 
     if equals(integer(value 0), byte 1):
         print('"Let\'s get our feet back on solid ground first, okay?"')
-        jump 146
+        jump label_146
     fi
 
     print('\n"Fine. I\'ll be with my fellow gypsies if you change your mind."\n*\n"I ')

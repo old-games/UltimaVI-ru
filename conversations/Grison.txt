@@ -29,71 +29,71 @@ interaction:
         print('"Ptuh... ptuh... hello."\n')
     fi
 
-291:
+label_291:
     ask()
 
     case 'name':
         print('"Grison Fairfleth, at your service."\n')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 291
+        jump label_291
 
     case 'fair':
     case 'gris':
         print('"You can call me \'Gris\' if ya prefer."\n')
-        jump 291
+        jump label_291
 
     case 'job':
         print('"As you can see, I turn @grain into @flour."')
         wait()
 
         print('\n\n"It\'s a pretty demanding job...and a bit messy too."\n')
-        jump 291
+        jump label_291
 
     case 'buy':
     case 'flou':
-        jump 1247
+        jump label_1247
 
     case 'grai':
     case 'sell':
-        jump 1665
+        jump label_1665
 
     case 'timo':
         print('"He\'s a good fellow. I grew up with him."\n')
-        jump 291
+        jump label_291
 
     case 'grew':
     case 'up':
         print('"Yep. We were mates." He continues to wipe the dust from his eyes.\n')
-        jump 291
+        jump label_291
 
     case 'mort':
         print('"Shorty, ya mean? He\'s got a fair temper, I\'ll tell you that!"\n')
-        jump 291
+        jump label_291
 
     case 'mari':
         print('"She\'s one with a nose to the air instead of the grindstone." He ')
         print('chuckles to himself.\n')
-        jump 291
+        jump label_291
 
     case 'arbe':
         print('"Scared of his own shadow, he is."\n')
-        jump 291
+        jump label_291
 
     case 'dori':
         print('"She\'s baked many a pie with my flour."\n')
-        jump 291
+        jump label_291
 
     case 'meri':
         print('"Meri the wisp, eh? She\'s sure a cutey."\n')
-        jump 291
+        jump label_291
 
     case 'hend':
         print('"One o\' the nicest gents I know. Always has a good tale."\n')
-        jump 291
+        jump label_291
 
     case 'uber':
         print('"A good, hard worker, that man. Has quite a strong grip too."\n')
-        jump 291
+        jump label_291
 
     case 'bye':
         print('"Well, if that\'s all you need, goodbye."\n')
@@ -103,26 +103,26 @@ interaction:
         print('He sticks a finger in his ear and shakes it. "What?"\n')
     esac
 
-    jump 291
+    jump label_291
 
-1247:
+label_1247:
     if equals(integer(value 23), byte 0):
         integer(value 3) = character(byte 0, byte 0)
-        jump 1413
+        jump label_1413
     fi
 
-1270:
+label_1270:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
 
-1284:
+label_1284:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 1284
+        jump label_1284
     fi
 
     print('"Which of you?" ')
@@ -130,18 +130,18 @@ interaction:
 
     if equals(integer(value 3), byte 0):
         print('"Suit yourself."\n')
-        jump 291
+        jump label_291
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-        jump 1270
+        jump label_1270
     fi
 
     integer(value 3) = character(integer(value 3), byte 0)
 
-1413:
+label_1413:
     print('"I\'ll sell you a sack of flour for 4 gold. Is that okay?" ')
 
     choice('yn')
@@ -149,76 +149,76 @@ interaction:
     case 'y':
         if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 4)), weight(byte 167, byte 1)):
             print('"You look pretty full to me."\n')
-            jump 291
+            jump label_291
         fi
 
         if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 4):
             ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 4))
             ('NEW', ('integer', [('value', 3)]), ('byte', 167), ('byte', 0), ('byte', 1))
             print('"Excellent!" $N hands over the flour.\n')
-            jump 291
+            jump label_291
 
         else:
             print('"You can\'t afford it."\n')
-            jump 291
+            jump label_291
         fi
 
     case 'n':
         print('"Suit yourself."\n')
-        jump 291
+        jump label_291
     esac
 
-1665:
+label_1665:
     integer(value 0) = byte 0
     integer(value 2) = byte 0
     integer(value 3) = byte 0
 
-1686:
+label_1686:
     integer(value 1) = byte 0
 
-1693:
+label_1693:
     if objectsCount(character(integer(value 0), byte 0), byte 166):
         data(dword 2272, integer(value 2)) = integer(value 0)
         integer(value 2) = plus(integer(value 2), byte 1)
         integer(value 3) = byte 1
-        jump 1762
+        jump label_1762
     fi
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if less(integer(value 1), byte 7):
-        jump 1693
+        jump label_1693
     fi
 
-1762:
+label_1762:
     integer(value 0) = plus(integer(value 0), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-        jump 1686
+        jump label_1686
     fi
 
     if equals(integer(value 3), byte 0):
         print('"I\'d buy some grain, if you had any."\n')
-        jump 291
+        jump label_291
     fi
 
     if equals(integer(value 2), byte 1):
         integer(value 3) = character(data(dword 2272, byte 0), byte 0)
-        jump 2020
+        jump label_2020
     fi
 
-1865:
+label_1865:
     integer(value 0) = byte 0
     integer(value 1) = byte 1
 
-1879:
+label_1879:
     ('SETNAME', ('character', [('data', [('dword', 2272), ('integer', [('value', 0)])]), ('byte', 0)]))
     print('#1. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if less(integer(value 0), integer(value 2)):
-        jump 1879
+        jump label_1879
     fi
 
     print('"Which of you?" ')
@@ -226,24 +226,24 @@ interaction:
 
     if equals(integer(value 3), byte 0):
         print('"Suit yourself."\n')
-        jump 291
+        jump label_291
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greaterOrEquals(integer(value 3), integer(value 2)):
-        jump 1865
+        jump label_1865
     fi
 
     integer(value 3) = character(data(dword 2272, integer(value 3)), byte 0)
 
-2020:
+label_2020:
     integer(value 4) = objectsCount(integer(value 3), byte 166)
     ('SETNAME', ('integer', [('value', 3)]))
 
     if equals(integer(value 4), byte 0):
         print('"But ya don\'t have any grain!"\n')
-        jump 291
+        jump label_291
     fi
 
     print('$N turns to $Y, and says "I\'ll pay you 3 crowns for that sack of ')
@@ -255,11 +255,20 @@ interaction:
         print('"Done!" He hands $Y 3 gold pieces and takes the sack.\n')
         ('DELETE', ('integer', [('value', 3)]), ('byte', 166), ('byte', 0), ('byte', 1))
         ('NEW', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 3))
-        jump 291
+        jump label_291
 
     case 'n':
         print('"Suit yourself."\n')
-        jump 291
+        jump label_291
     esac
 
-    ('INTEGERS', [0, 0, 0, 0, 0, 0, 0, 0], [])
+integers_2272 = [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+]

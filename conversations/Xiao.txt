@@ -15,36 +15,36 @@ description:
 interaction:
     print('"Good $T, @Avatar. For what purpose hast thou come?"\n')
 
-88:
+label_88:
     ask()
 
     case 'buy':
     case 'reag':
-        jump 2405
+        jump label_2405
 
     case 'lear':
     case 'spel':
-        jump 1105
+        jump label_1105
 
     case 'book':
-        jump 3172
+        jump label_3172
 
     case 'name':
         print('"I am Xiao."')
         ('SETF', ('byte', 235), ('value', 0))
-        jump 87
+        jump label_87
 
     case 'job':
         print('"I serve on the Council of @Wizards."')
         wait()
 
         print('\n\n"I also teach @spells and sell magical @reagents."')
-        jump 87
+        jump label_87
 
     case 'secr':
     case 'wisp':
         print('"Their secret is far more @powerful than anything I might teach thee."')
-        jump 87
+        jump label_87
 
     case 'powe':
         print('"Truly, it would be terrible if the wrong person were to learn it."')
@@ -55,11 +55,11 @@ interaction:
 
         print('\n\n"But, since thou art the Avatar, surely it is safe for thee to learn')
         print(' it as well."')
-        jump 87
+        jump label_87
 
     case 'avat':
         print('"Your example inspires us all."')
-        jump 87
+        jump label_87
 
     case 'coun':
     case 'serv':
@@ -69,31 +69,31 @@ interaction:
         wait()
 
         print('\n\n"We also do what we can to promote the eight @virtues."')
-        jump 87
+        jump label_87
 
     case 'prom':
     case 'virt':
         print('"We created the @shrines, many years ago."')
-        jump 87
+        jump label_87
 
     case 'shri':
         print('"@Thariand can tell thee more."')
-        jump 87
+        jump label_87
 
     case 'thar':
         print('"He is the librarian at the @Lycaeum."')
-        jump 87
+        jump label_87
 
     case 'libr':
     case 'lyca':
         print('"Surely you know where the Lycaeum is."')
-        jump 87
+        jump label_87
 
     case 'bala':
     case 'forc':
     case 'magi':
         print('"Not an easy task."')
-        jump 87
+        jump label_87
 
     case 'bye':
         print('"Thou art always welcome here, Avatar."\n')
@@ -101,42 +101,42 @@ interaction:
 
     case '*':
         print('"Perhaps you should speak of that to another."')
-        jump 87
+        jump label_87
     esac
 
-1105:
+label_1105:
     if greater(integer(value 23), byte 0):
         integer(value 1) = byte 0
         integer(value 2) = byte 0
         integer(value 4) = byte 0
-        jump 1203
+        jump label_1203
     fi
 
     integer(value 3) = character(byte 0, byte 0)
 
     if hasObject(integer(value 3), byte 57, byte 0):
-        jump 1501
+        jump label_1501
 
     else:
         print('"But thou hast not a spell@book!"')
-        jump 87
+        jump label_87
     fi
 
-1203:
+label_1203:
     if greater(integer(value 1), integer(value 23)):
-        jump 1317
+        jump label_1317
     fi
 
     integer(value 3) = character(integer(value 1), byte 0)
 
     if equals(hasObject(integer(value 3), byte 57, byte 0), byte 0):
-        jump 1302
+        jump label_1302
     fi
 
     if equals(integer(value 4), byte 0):
         integer(value 4) = integer(value 3)
         integer(value 2) = plus(integer(value 2), byte 1)
-        jump 1302
+        jump label_1302
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
@@ -144,19 +144,19 @@ interaction:
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
 
-1302:
+label_1302:
     integer(value 1) = plus(integer(value 1), byte 1)
-    jump 1203
+    jump label_1203
 
-1317:
+label_1317:
     if equals(integer(value 2), byte 0):
         print('"But none of you has a spell@book!"')
-        jump 87
+        jump label_87
     fi
 
     if equals(integer(value 2), byte 1):
         integer(value 3) = integer(value 4)
-        jump 1501
+        jump label_1501
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
@@ -164,12 +164,12 @@ interaction:
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
-        jump 88
+        jump label_88
     fi
 
     integer(value 1) = byte 0
 
-1435:
+label_1435:
     integer(value 3) = character(integer(value 1), byte 0)
 
     if hasObject(integer(value 3), byte 57, byte 0):
@@ -177,16 +177,16 @@ interaction:
     fi
 
     if equals(integer(value 2), byte 0):
-        jump 1501
+        jump label_1501
     fi
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 1), integer(value 23)):
-        jump 1435
+        jump label_1435
     fi
 
-1501:
+label_1501:
     ('SETNAME', ('integer', [('value', 3)]))
     integer(value 1) = level(integer(value 3), byte 0)
     string(value 1) = data(dword 3696, integer(value 1))
@@ -194,11 +194,11 @@ interaction:
     ('INPUTNUM', 0)
 
     if equals(integer(value 0), byte 0):
-        jump 87
+        jump label_87
     fi
 
     if equals(integer(value 0), byte 8):
-        jump 2213
+        jump label_2213
     fi
 
     if greater(integer(value 0), byte 8):
@@ -206,7 +206,7 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 1501
+        jump label_1501
     fi
 
     if greater(integer(value 0), integer(value 1)):
@@ -219,7 +219,7 @@ interaction:
         print('\n\n')
     fi
 
-1771:
+label_1771:
     integer(value 0) = minus(integer(value 0), byte 1)
     integer(value 5) = plus(byte 25, multiply(integer(value 0), byte 25))
     integer(value 0) = multiply(integer(value 0), byte 10)
@@ -229,18 +229,18 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 1501
+        jump label_1501
     fi
 
     integer(value 2) = byte 1
 
-1867:
+label_1867:
     string(value 0) = data(dword 3883, minus(plus(integer(value 0), integer(value 2)), byte 1))
     print('#2) $0\n')
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if greater(data(dword 3723, minus(plus(integer(value 0), integer(value 2)), byte 1)), byte 0):
-        jump 1867
+        jump label_1867
     fi
 
     print('"Which one?" ')
@@ -251,7 +251,7 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 1501
+        jump label_1501
     fi
 
     integer(value 4) = minus(integer(value 4), byte 1)
@@ -261,7 +261,7 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 1501
+        jump label_1501
     fi
 
     print('"That spell costs #5 gold. Interested?" ')
@@ -275,15 +275,15 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 1501
+        jump label_1501
 
     case 'n':
-        jump 1501
+        jump label_1501
     esac
 
-2213:
+label_2213:
     if hasBit(byte 201, byte 3):
-        jump 1771
+        jump label_1771
 
     else:
         print('"Thou art not yet ready for such knowledge."')
@@ -293,49 +293,49 @@ interaction:
         wait()
 
         print('\n\n"Then wilt thou will be prepared to enter the Eighth Circle."')
-        jump 87
+        jump label_87
     fi
 
-2405:
+label_2405:
     if greater(integer(value 23), byte 0):
         integer(value 2) = byte 1
-        jump 2440
+        jump label_2440
     fi
 
     integer(value 3) = character(byte 0, byte 0)
-    jump 2542
+    jump label_2542
 
-2440:
+label_2440:
     integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
     ('SETNAME', ('integer', [('value', 3)]))
     print('#2) $Y\n')
 
     if lessOrEquals(integer(value 2), integer(value 23)):
         integer(value 2) = plus(integer(value 2), byte 1)
-        jump 2440
+        jump label_2440
     fi
 
     print('"Which of you?" ')
     ('INPUTNUM', 2)
 
     if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
-        jump 88
+        jump label_88
 
     else:
         integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
     fi
 
-2542:
+label_2542:
     ('SETNAME', ('integer', [('value', 3)]))
     integer(value 1) = byte 1
 
-2553:
+label_2553:
     string(value 1) = data(dword 3618, minus(integer(value 1), byte 1))
     print('#1) $1\n')
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if greater(data(dword 3586, minus(integer(value 1), byte 1)), byte 0):
-        jump 2553
+        jump label_2553
     fi
 
     print('"Which one?" ')
@@ -343,7 +343,7 @@ interaction:
 
     if or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1))):
         integer(value 2) = byte 1
-        jump 88
+        jump label_88
     fi
 
     integer(value 2) = minus(integer(value 2), byte 1)
@@ -361,16 +361,16 @@ interaction:
     fi
 
     if equals(integer(value 4), byte 0):
-        jump 2542
+        jump label_2542
     fi
 
-2782:
+label_2782:
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 3586, integer(value 2)), byte 1)):
-        jump 2910
+        jump label_2910
     fi
 
     if less(objectsCount(integer(value 3), byte 88), integer(value 1)):
-        jump 3041
+        jump label_3041
     fi
 
     ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
@@ -382,13 +382,13 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 2542
+        jump label_2542
 
     else:
-        jump 2782
+        jump label_2782
     fi
 
-2910:
+label_2910:
     if integer(value 5):
         print('"Thou cannot carry that much!"')
         wait()
@@ -397,17 +397,17 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 2542
+        jump label_2542
 
     else:
         print('"Thou cannot carry any $1!"')
         wait()
 
         print('\n\n')
-        jump 2542
+        jump label_2542
     fi
 
-3041:
+label_3041:
     if integer(value 5):
         print('"Thou cannot afford that much!"')
         wait()
@@ -416,56 +416,56 @@ interaction:
         wait()
 
         print('\n\n')
-        jump 2542
+        jump label_2542
 
     else:
         print('"Thou cannot afford any $1!"')
         wait()
 
         print('\n\n')
-        jump 2542
+        jump label_2542
     fi
 
-3172:
+label_3172:
     if integer(value 23):
         integer(value 2) = byte 1
-        jump 3204
+        jump label_3204
     fi
 
     integer(value 3) = character(byte 0, byte 0)
-    jump 3306
+    jump label_3306
 
-3204:
+label_3204:
     integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
     ('SETNAME', ('integer', [('value', 3)]))
     print('#2) $Y\n')
 
     if lessOrEquals(integer(value 2), integer(value 23)):
         integer(value 2) = plus(integer(value 2), byte 1)
-        jump 3204
+        jump label_3204
     fi
 
     print('"Which of you?" ')
     ('INPUTNUM', 2)
 
     if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
-        jump 88
+        jump label_88
 
     else:
         integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
     fi
 
-3306:
+label_3306:
     ('SETNAME', ('integer', [('value', 3)]))
 
     if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 60)), weight(byte 57, byte 1)):
         print('"But thou cannot carry a spellbook!"')
-        jump 87
+        jump label_87
     fi
 
     if less(objectsCount(integer(value 3), byte 88), byte 60):
         print('"But thou cannot afford a spellbook!"')
-        jump 87
+        jump label_87
     fi
 
     print('"A spellbook costs 60 gold pieces. Interested?" ')
@@ -476,7 +476,7 @@ interaction:
         ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 60))
         ('NEW', ('integer', [('value', 3)]), ('byte', 57), ('byte', 0), ('byte', 1))
         print('"Here you are."')
-        jump 87
+        jump label_87
 
     case 'n':
         if integer(value 23):
@@ -485,16 +485,219 @@ interaction:
 
             print('\n\n')
             integer(value 2) = byte 1
-            jump 3204
+            jump label_3204
 
         else:
-            jump 87
+            jump label_87
         fi
     esac
 
-    ('INTEGERS', [65, 67, 68, 69, 70, 71, 72, 0], [])
-    ('INTEGERS', [4, 3, 3, 6, 3, 3, 3, 0], [])
-    ('STRINGS', ['Black Pearl', 'Garlic', 'Ginseng', 'Mandrake Root', 'Nightshade', 'Spider Silk', 'Sulfurous Ash'], [])
-    ('STRINGS', ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th'], [])
-    ('INTEGERS', [1, 3, 9, 0, 0, 0, 0, 0, 0, 0, 16, 19, 21, 25, 0, 0, 0, 0, 0, 0, 33, 35, 39, 0, 0, 0, 0, 0, 0, 0, 48, 51, 53, 54, 55, 56, 57, 0, 0, 0, 64, 67, 71, 73, 0, 0, 0, 0, 0, 0, 81, 86, 88, 0, 0, 0, 0, 0, 0, 0, 99, 100, 105, 0, 0, 0, 0, 0, 0, 0, 113, 114, 115, 116, 118, 119, 120, 121, 0, 0], [])
-    ('STRINGS', ['Detect Magic', 'Dispel Magic', 'Light', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Infravision', 'Reappear', 'Telekinesis', 'Vanish', ' ', ' ', ' ', ' ', ' ', ' ', 'Dispel Field', 'Great Light', 'Peer', '', '', '', '', '', '', '', 'Animate', 'Fire Field', 'Locate', 'Mass Dispel', 'Poison Field', 'Sleep Field', 'Wind Change', '', '', '', 'Energy Field', 'Invisibility', 'Reveal', 'X-Ray', '', '', '', '', '', '', 'Clone', 'Negate Magic', 'Replicate', '', '', '', '', '', '', '', 'Fear', 'Gate Travel', 'Wizard Eye', '', '', '', '', '', '', '', 'Death Wind', 'Eclipse', 'Mass Charm', 'Mass Kill', 'Slime', 'Summon', 'Time Stop', 'Tremor', '', ''], [])
+integers_3586 = [
+    65,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    0,
+]
+
+integers_3602 = [
+    4,
+    3,
+    3,
+    6,
+    3,
+    3,
+    3,
+    0,
+]
+
+strings_3618 = [
+    'Black Pearl',
+    'Garlic',
+    'Ginseng',
+    'Mandrake Root',
+    'Nightshade',
+    'Spider Silk',
+    'Sulfurous Ash',
+]
+
+strings_3696 = [
+    'th',
+    'st',
+    'nd',
+    'rd',
+    'th',
+    'th',
+    'th',
+    'th',
+    'th',
+]
+
+integers_3723 = [
+    1,
+    3,
+    9,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    16,
+    19,
+    21,
+    25,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    33,
+    35,
+    39,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    48,
+    51,
+    53,
+    54,
+    55,
+    56,
+    57,
+    0,
+    0,
+    0,
+    64,
+    67,
+    71,
+    73,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    81,
+    86,
+    88,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    99,
+    100,
+    105,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    113,
+    114,
+    115,
+    116,
+    118,
+    119,
+    120,
+    121,
+    0,
+    0,
+]
+
+strings_3883 = [
+    'Detect Magic',
+    'Dispel Magic',
+    'Light',
+    ' ',
+    ' ',
+    ' ',
+    ' ',
+    ' ',
+    ' ',
+    ' ',
+    'Infravision',
+    'Reappear',
+    'Telekinesis',
+    'Vanish',
+    ' ',
+    ' ',
+    ' ',
+    ' ',
+    ' ',
+    ' ',
+    'Dispel Field',
+    'Great Light',
+    'Peer',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'Animate',
+    'Fire Field',
+    'Locate',
+    'Mass Dispel',
+    'Poison Field',
+    'Sleep Field',
+    'Wind Change',
+    '',
+    '',
+    '',
+    'Energy Field',
+    'Invisibility',
+    'Reveal',
+    'X-Ray',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'Clone',
+    'Negate Magic',
+    'Replicate',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'Fear',
+    'Gate Travel',
+    'Wizard Eye',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    '',
+    'Death Wind',
+    'Eclipse',
+    'Mass Charm',
+    'Mass Kill',
+    'Slime',
+    'Summon',
+    'Time Stop',
+    'Tremor',
+    '',
+    '',
+]

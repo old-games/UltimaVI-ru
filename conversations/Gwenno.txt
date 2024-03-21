@@ -17,7 +17,7 @@ interaction:
         print('"Hello, $P."')
     fi
 
-100:
+label_100:
     print('\n')
 
     ask()
@@ -25,7 +25,7 @@ interaction:
     case 'name':
         print('"It\'s me, Gwenno. You have been away from our realm a long time, ')
         print('haven\'t you..."')
-        jump 100
+        jump label_100
 
     case 'job':
         print('"Iolo\'s @apprentice has taken over my job at @Iolo\'s Bows."\n*\n"These ')
@@ -41,31 +41,31 @@ interaction:
             print('and @join you."')
         fi
 
-        jump 100
+        jump label_100
 
     case 'arti':
     case 'guil':
         print('"@Selganor can tell you more about the guild than I could."')
-        jump 100
+        jump label_100
 
     case 'selg':
         print('"He\'s the guildmaster."')
-        jump 100
+        jump label_100
 
     case 'help':
     case 'join':
     case 'ques':
-        jump 1689
+        jump label_1689
 
     case 'leav':
-        jump 2222
+        jump label_2222
 
     case 'folk':
     case 'song':
         print('"The songs of a people are an important part of their heritage."\n*\n')
         print('"Putting them down on paper helps preserve our @traditions for future ')
         print('generations."')
-        jump 100
+        jump label_100
 
     case 'futu':
     case 'gene':
@@ -73,7 +73,7 @@ interaction:
     case 'pape':
     case 'trad':
         print('"I\'m so glad you appreciate the value of tradition."')
-        jump 100
+        jump label_100
 
     case 'iolo':
         print('"A bit scruffy, but he\'s the sweetest husband I could ever ask for."')
@@ -89,46 +89,46 @@ interaction:
             ('PORTRAIT', ('byte', 235))
         fi
 
-        jump 100
+        jump label_100
 
     case 'appr':
     case 'bow':
         print('"If you need a good crossbow, the shop is in Britain, over by the Blue')
         print(' @Boar."')
-        jump 100
+        jump label_100
 
     case 'blue':
     case 'boar':
         print('"It\'s a lively place."')
-        jump 100
+        jump label_100
 
     case 'nota':
     case 'nume':
     case 'tran':
         print('"A number for every @note, and a note for every @number."')
-        jump 100
+        jump label_100
 
     case 'note':
         print('"Each note is represented by one @number."')
-        jump 100
+        jump label_100
 
     case 'numb':
         print('"Each number @represents one @note."')
-        jump 100
+        jump label_100
 
     case 'repr':
         print('"I knew you\'d catch on!"')
-        jump 100
+        jump label_100
 
     case 'play':
     case 'tune':
         print('"Oh, Selganor sent you, did he? I bet you want to learn \'@Stones.\'"')
-        jump 100
+        jump label_100
 
     case 'lear':
     case 'ston':
         print('"In the standard numerical notation, it reads \'678987 8767653\'."')
-        jump 100
+        jump label_100
 
     case 'bye':
         print('"Nice talking with you."\n')
@@ -138,13 +138,13 @@ interaction:
         print('"Sorry, can\'t help you there."')
     esac
 
-    jump 100
+    jump label_100
 
-1689:
+label_1689:
     if partyHas(byte 235):
-1694:
+label_1694:
         print('"I have joined you already!"')
-        jump 100
+        jump label_100
     fi
 
     print('"Do you want me to come with you?" ')
@@ -153,24 +153,24 @@ interaction:
 
     case 'n':
         print('"Okay. Let me know if you need my help later."')
-        jump 100
+        jump label_100
     esac
 
     integer(value 0) = partyJoin(byte 235)
 
     if equals(integer(value 0), byte 1):
         print('\n"Not while you\'re in that thing!"')
-        jump 100
+        jump label_100
     fi
 
     if equals(integer(value 0), byte 2):
         print('\n"You have enough travelling with you already."\n*\n"If you ask one of ')
         print('them to @leave first, I\'d be happy to join you."')
-        jump 100
+        jump label_100
     fi
 
     if equals(integer(value 0), byte 3):
-        jump 1694
+        jump label_1694
     fi
 
     print('\n"Okay! It will be nice to spend some time on the road again."')
@@ -185,22 +185,22 @@ interaction:
     print('\n')
     bye()
 
-2222:
+label_2222:
     if equals(partyHas(byte 235), byte 0):
-2230:
+label_2230:
         print('"I\'d have to @join you before I could leave, silly!"')
-        jump 100
+        jump label_100
     fi
 
     integer(value 0) = partyLeave(byte 235)
 
     if equals(integer(value 0), byte 1):
         print('"Let\'s get our feet back on solid ground first, okay?"')
-        jump 100
+        jump label_100
     fi
 
     if equals(integer(value 0), byte 2):
-        jump 2230
+        jump label_2230
     fi
 
     print('"All right. I\'ll head back home to Minoc. Come let me know if you need')

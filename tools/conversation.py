@@ -482,7 +482,7 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
 
         elif label in labels:
             empty_prefix_line()
-            append(f'{label}:', force_level=0)
+            append(f'label_{label}:', force_level=0)
 
         if label in unreachable_labels and instruction[0] not in ('ENDOFLIST', 'ESAC', 'ELSE', 'ENDIF'):
             empty_prefix_line()
@@ -559,13 +559,33 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
             append('sleep()')
             append()
 
+        elif instruction[0] == 'STRINGS':
+            empty_prefix_line()
+            append(f'strings_{label} = [', force_level=0)
+            for string in instruction[1]:
+                # FIXME добавить нумерацию строк в комментариях справа или слева
+                # FIXME переделать названия в выражениях
+                append(f'{_format_string(string)},', force_level=1)
+            append(f']', force_level=0)
+            append()
+
+        elif instruction[0] == 'INTEGERS':
+            empty_prefix_line()
+            append(f'integers_{label} = [', force_level=0)
+            for integer in instruction[1]:
+                # FIXME добавить нумерацию строк в комментариях справа или слева
+                # FIXME переделать названия в выражениях
+                append(f'{integer},', force_level=1)
+            append(f']', force_level=0)
+            append()
+
         elif instruction[0] == 'JUMP':
             if instruction[1] == description:
                 append(f'jump description')
             elif instruction[1] == interaction:
                 append(f'jump interaction')
             else:
-                append(f'jump {instruction[1]}')
+                append(f'jump label_{instruction[1]}')
             append()
 
         else:

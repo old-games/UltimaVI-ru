@@ -13,7 +13,7 @@ interaction:
     print('\n')
 
     if equals(hasBit(byte 235, value 1), byte 0):
-        jump 177
+        jump label_177
     fi
 
     if random(byte 0, byte 1):
@@ -24,7 +24,7 @@ interaction:
     ('WORKTYPE', ('byte', 235), ('byte', 153))
     bye()
 
-177:
+label_177:
     if hasBit(byte 235, value 0):
         print('"What brings you back to disturb the musings of the @mad mage Sutek ')
         print('again?"')
@@ -37,7 +37,7 @@ interaction:
         ('SETF', ('byte', 235), ('value', 0))
     fi
 
-359:
+label_359:
     print('\n')
 
     ask()
@@ -47,11 +47,11 @@ interaction:
         wait()
 
         print('\n\n"Everyone knows the name of Sutek the @Mad!"')
-        jump 1722
+        jump label_1722
 
     case 'job':
         print('"Sutek the @Mad is the greatest mage the land has ever known!"')
-        jump 1835
+        jump label_1835
 
     case 'ball':
         print('"Balloonist? Yes, Sutek remembers him."')
@@ -61,10 +61,10 @@ interaction:
         print('ever worked for Sutek!"')
 
         if hasBit(byte 235, value 1):
-            jump 1722
+            jump label_1722
 
         else:
-            jump 1972
+            jump label_1972
         fi
 
     case 'mad':
@@ -76,7 +76,7 @@ interaction:
 
         print('\n\n"Well, Sutek hops up and down on that line, cursing the fools that ')
         print('surround him!"')
-        jump 1722
+        jump label_1722
 
     case 'cata':
         print('"Sutek hired many brilliant engineers to build the catacombs that lie ')
@@ -87,7 +87,7 @@ interaction:
         wait()
 
         print('\n"The @Pushme-@Pullyu knows where all such bones can be found!"')
-        jump 1722
+        jump label_1722
 
     case 'pull':
     case 'push':
@@ -95,7 +95,7 @@ interaction:
         wait()
 
         print('\n\n"If you can pass the test, you will learn what you wish to know!"')
-        jump 1722
+        jump label_1722
 
     case 'bye':
         if hasBit(byte 235, value 1):
@@ -133,10 +133,10 @@ interaction:
             print('"Only a fool would disturb Sutek with frivolous matters such as that!"')
         fi
 
-        jump 1722
+        jump label_1722
     esac
 
-1722:
+label_1722:
     if hasBit(byte 235, value 1):
         wait()
 
@@ -148,10 +148,10 @@ interaction:
         bye()
 
     else:
-        jump 359
+        jump label_359
     fi
 
-1835:
+label_1835:
     wait()
 
     print('\n\n"Even the Avatar acknowledges the power and wisdom of Sutek!"')
@@ -163,16 +163,16 @@ interaction:
 
     case 'y':
         print('"Good."')
-        jump 1722
+        jump label_1722
 
     case 'n':
         print('"No?! Then you must die!"')
         wait()
 
-        jump 2206
+        jump label_2206
     esac
 
-1972:
+label_1972:
     wait()
 
     print('\n\n"Dost thou seek employment with Sutek the @Mad?" ')
@@ -181,7 +181,7 @@ interaction:
 
     case 'y':
         print('"Well, too bad! Sutek isn\'t hiring today!"')
-        jump 359
+        jump label_359
 
     case 'n':
         print('"No?!"')
@@ -195,11 +195,11 @@ interaction:
         wait()
     esac
 
-2206:
+label_2206:
     print('\n\n"But Sutek is mad, and so he will grant you one last nugget of ')
     print('wisdom before thy death!"')
     wait()
 
     print('\n\n"What wouldst thou like to know?"')
     ('SETF', ('byte', 235), ('value', 1))
-    jump 359
+    jump label_359

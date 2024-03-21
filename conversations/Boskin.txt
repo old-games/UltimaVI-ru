@@ -13,7 +13,7 @@ interaction:
     print('\n')
 
     if equals(hasBit(byte 235, value 1), byte 0):
-        jump 330
+        jump label_330
     fi
 
     if random(byte 0, byte 2):
@@ -35,7 +35,7 @@ interaction:
         bye()
     fi
 
-330:
+label_330:
     if hasBit(byte 235, value 0):
         print('"$G! Am I glad to see thee!"')
         wait()
@@ -56,7 +56,7 @@ interaction:
         ('SETF', ('byte', 235), ('value', 0))
     fi
 
-602:
+label_602:
     print('\n')
 
     ask()
@@ -74,12 +74,12 @@ interaction:
         wait()
 
         print('\n\n"I \'ad me @kids to feed, didn\'t I?"')
-        jump 602
+        jump label_602
 
     case 'rune':
         print('"I\'ll tell you where the rune is if you\'ll let me @go. I\'ve got me ')
         print('kids to think of."')
-        jump 602
+        jump label_602
 
     case 'fami':
     case 'farm':
@@ -95,7 +95,7 @@ interaction:
         wait()
 
         print('\n\n"I only stole to feed them, and that\'s the @truth."')
-        jump 602
+        jump label_602
 
     case 'true':
     case 'trut':
@@ -103,7 +103,7 @@ interaction:
         wait()
 
         print('\n\n"Even a thief like me wouldn\'t lie to the Avatar."')
-        jump 602
+        jump label_602
 
     case 'fals':
     case 'fool':
@@ -124,7 +124,7 @@ interaction:
         wait()
 
         print('\n\n"I don\'t want these pompous blighters to \'ave it. Okay?" ')
-        jump 1901
+        jump label_1901
 
     case 'allo':
     case 'free':
@@ -134,11 +134,11 @@ interaction:
     case 'rele':
     case 'set':
         print('"You mean it, $G? Are they gonna let me go \'ome?" ')
-        jump 2158
+        jump label_2158
 
     case 'name':
         print('"Me name\'s Boskin, $G."')
-        jump 602
+        jump label_602
 
     case 'job':
         print('"I\'m but a poor farmer, forced into crime by the harshness of these ')
@@ -146,7 +146,7 @@ interaction:
         wait()
 
         print('\n\n"There weren\'t no other way to feed me family, $G!"')
-        jump 602
+        jump label_602
 
     case 'bye':
         print('"Please, $G! Tell them to let me @go \'ome!"')
@@ -157,10 +157,10 @@ interaction:
 
     case '*':
         print('"Beg your pardon, $G?"')
-        jump 602
+        jump label_602
     esac
 
-1901:
+label_1901:
     choice('yn')
 
     case 'n':
@@ -183,13 +183,13 @@ interaction:
         bye()
     esac
 
-2158:
+label_2158:
     choice('yn')
 
     case 'n':
         print('His face falls. "Then I ain\'t sayin\' nothin\'. I\'ve got me kids to ')
         print('think of, I do."')
-        jump 602
+        jump label_602
 
     case 'y':
         print('His face lights up. "I knew I could count on you, $G!"')
