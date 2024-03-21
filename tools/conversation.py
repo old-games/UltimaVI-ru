@@ -404,6 +404,7 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
     def decrease_level(why):
         if why != 'case' or levels[-1] == 'case':
             if len(levels) == 1:
+                append()
                 append('// Wrong flow!')
             else:
                 del levels[-1]
@@ -419,6 +420,10 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
     def empty_prefix_line():
         if result and result[-1] != '' and last_level >= len(levels):
             append()
+
+    def remove_empty_line():
+        if result and result[-1] == '':
+            del result[-1]
 
     # FIXME пометить некорректные выходы из блоков
 
@@ -474,13 +479,13 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
             append(f'{_format_expression(instruction[1])} = {_format_expression(instruction[2])}')
 
         elif instruction[0] == 'ESAC':
-            empty_prefix_line()
+            remove_empty_line()
             decrease_level('esac')
             append('esac')
             append()
 
         elif instruction[0] == 'ENDIF':
-            empty_prefix_line()
+            remove_empty_line()
             decrease_level('if')
             append('fi')
             append()

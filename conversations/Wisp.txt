@@ -10,12 +10,10 @@ description:
 interaction:
     if hasBit(byte 201, byte 6):
         jump 80
-
     fi
 
     if and(hasBit(byte 201, byte 7), notEquals(partyHasObject(byte 151, byte 77), word 32769)):
         jump 3486
-
     fi
 
 80:
@@ -34,7 +32,6 @@ interaction:
         print("\"Good. Tedious repetition should then be unnecessary on this occasion.")
         print(" Of what would 'you' speak?\"")
         jump 1044
-
     esac
 
     print("\n\"So be it. 'I' must often repeat information when conversing with the")
@@ -125,7 +122,6 @@ interaction:
     case "*":
         print("\"The vagaries of the language 'you' speak are quite beyond 'me.'\"\n*\n")
         print("\"Perhaps another line of inquiry would prove more 'fruitful.'\"")
-
     esac
 
     jump 1044
@@ -141,7 +137,6 @@ interaction:
     case "n":
         print("\"The ways of Britannia are strange indeed.\"")
         jump 1044
-
     esac
 
     ('SETF', ('byte', 201), ('byte', 6))
@@ -165,7 +160,6 @@ interaction:
         print("efficiency rate of 96 to 98 percent, depending on the desired output ")
         print("frequency.'*\n\n\"It was a pleasure doing business with you.\"\n")
         bye()
-
     esac
 
     case "n":
@@ -181,26 +175,22 @@ interaction:
 
         if equals(integer(value 1), byte 0):
             jump 5160
-
         fi
 
         if less(canCarry(integer(value 1)), weight(byte 89, byte 1)):
             jump 5160
-
         fi
 
         integer(value 2) = divide(canCarry(integer(value 1)), weight(byte 89, byte 1))
 
         if greater(integer(value 2), word 255):
             integer(value 2) = word 255
-
         fi
 
         ('NEW', ('integer', [('value', 1)]), ('byte', 89), ('byte', 0), ('integer', [('value', 2)]))
 
         if equals(integer(value 2), word 255):
             jump 5062
-
         fi
 
 5160:
@@ -208,13 +198,11 @@ interaction:
 
         if lessOrEquals(integer(value 0), integer(value 23)):
             jump 5062
-
         fi
 
         bye()
 
         // Unreachable code!
-
     esac
 
     bye()

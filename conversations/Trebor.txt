@@ -19,7 +19,6 @@ interaction:
     else:
         print("\"Hello,\" he says, lumbering over to you and extending a large hand.")
         ('SETF', ('byte', 235), ('value', 0))
-
     fi
 
     wait()
@@ -36,7 +35,6 @@ interaction:
         if equals(hasObject(byte 235, byte 149, byte 0), byte 0):
             print("\"You bought my last craft!\"")
             jump 206
-
         fi
 
         print("\"I sell ")
@@ -47,18 +45,15 @@ interaction:
 
         else:
             integer(value 1) = byte 0
-
         fi
 
         if equals(or(hasObject(byte 235, byte 149, data(dword 1824, byte 2)), hasObject(byte 235, byte 149, data(dword 1824, byte 3))), byte 0):
             print(".\"")
             jump 206
-
         fi
 
         if integer(value 1):
             print(" and ")
-
         fi
 
         print("@skiffs.\"")
@@ -68,13 +63,11 @@ interaction:
         if hasObject(byte 235, byte 149, data(dword 1824, byte 0)):
             integer(value 9) = byte 0
             jump 892
-
         fi
 
         if hasObject(byte 235, byte 149, data(dword 1824, byte 1)):
             integer(value 9) = byte 1
             jump 892
-
         fi
 
         print("\"Sorry, I sold you my last ship.\"")
@@ -84,13 +77,11 @@ interaction:
         if hasObject(byte 235, byte 149, data(dword 1824, byte 2)):
             integer(value 9) = byte 2
             jump 892
-
         fi
 
         if hasObject(byte 235, byte 149, data(dword 1824, byte 3)):
             integer(value 9) = byte 3
             jump 892
-
         fi
 
         print("\"Sorry, I sold you my last skiff.\"")
@@ -103,7 +94,6 @@ interaction:
 
             print("\n\n\"But you bought them all!\"")
             jump 206
-
         fi
 
         print("\"I sell ")
@@ -114,18 +104,15 @@ interaction:
 
         else:
             integer(value 1) = byte 0
-
         fi
 
         if equals(or(hasObject(byte 235, byte 149, data(dword 1824, byte 2)), hasObject(byte 235, byte 149, data(dword 1824, byte 3))), byte 0):
             print(".\"")
             jump 206
-
         fi
 
         if integer(value 1):
             print(" and ")
-
         fi
 
         print("@skiffs.\"")
@@ -140,7 +127,6 @@ interaction:
         jump 206
 
         // Unreachable code!
-
     esac
 
 892:
@@ -149,7 +135,6 @@ interaction:
     if equals(integer(value 23), byte 0):
         integer(value 3) = byte 0
         jump 1035
-
     fi
 
 919:
@@ -164,7 +149,6 @@ interaction:
 
     if lessOrEquals(integer(value 0), integer(value 23)):
         jump 933
-
     fi
 
     print("\"Which of you?\" ")
@@ -172,14 +156,12 @@ interaction:
 
     if equals(integer(value 3), byte 0):
         jump 1396
-
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
         jump 919
-
     fi
 
 1035:
@@ -193,7 +175,6 @@ interaction:
     case "y":
         if greaterOrEquals(canCarry(integer(value 3)), weight(byte 149, byte 1)):
             jump 1246
-
         fi
 
         if less(objectsCount(integer(value 3), byte 88), data(dword 1816, integer(value 9))):
@@ -201,13 +182,11 @@ interaction:
 
         else:
             integer(value 7) = data(dword 1816, integer(value 9))
-
         fi
 
         if less(plus(canCarry(integer(value 3)), integer(value 7)), weight(byte 149, byte 1)):
             print("\"You look pretty full to me, $Y.\"")
             jump 206
-
         fi
 
 1246:
@@ -217,14 +196,12 @@ interaction:
         else:
             ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 1816), ('integer', [('value', 9)])]))
             jump 1302
-
         fi
 
     case "n":
         jump 1396
 
         // Unreachable code!
-
     esac
 
 1302:
@@ -242,7 +219,6 @@ interaction:
 
     else:
         print("\"You'll ne'er find a better craft.\"")
-
     fi
 
     jump 206
@@ -251,7 +227,6 @@ interaction:
     if equals(integer(value 23), byte 0):
         print("\"Thou hast not enough gold.\"")
         jump 206
-
     fi
 
     integer(value 1) = data(dword 1816, integer(value 9))
@@ -263,7 +238,6 @@ interaction:
     if greater(integer(value 6), integer(value 23)):
         print("\"Thy party hast not enough gold.\"")
         jump 206
-
     fi
 
     integer(value 5) = objectsCount(character(integer(value 6), byte 0), byte 88)
@@ -283,7 +257,6 @@ interaction:
         jump 1730
 
         // Unreachable code!
-
     fi
 
 1730:
@@ -293,7 +266,6 @@ interaction:
 
         print("\n\n")
         jump 1302
-
     fi
 
     integer(value 5) = objectsCount(character(integer(value 6), byte 0), byte 88)

@@ -15,7 +15,6 @@ interaction:
     if partyHas(byte 235):
         print("\"I fear I know little that would help in this situation, $G.\"")
         jump 785
-
     fi
 
     if hasBit(byte 235, byte 2):
@@ -30,9 +29,7 @@ interaction:
         case "n":
             print("\"Very well. Thou needst but ask...\"")
             jump 785
-
         esac
-
     fi
 
     if hasBit(byte 235, value 0):
@@ -48,9 +45,7 @@ interaction:
             print("\"Mayhap I could help. Ask me to @join thy band, $G, and gladly I ")
             print("will!\"")
             jump 785
-
         esac
-
     fi
 
     ('SETF', ('byte', 235), ('value', 0))
@@ -69,7 +64,6 @@ interaction:
         wait()
 
         print("\n\n")
-
     fi
 
     print("\"Mayhap I can help thee in thy struggle against the @gargoyles.\"")
@@ -97,7 +91,6 @@ interaction:
 
         if partyHas(byte 235):
             jump 785
-
         fi
 
         wait()
@@ -112,7 +105,6 @@ interaction:
 
             print("\n\n\"Am I not already a member of thy band?\"")
             jump 785
-
         fi
 
         integer(value 0) = partyJoin(byte 235)
@@ -121,7 +113,6 @@ interaction:
             print("\"Gladly, $G!\"\n")
             ('SETF', ('byte', 235), ('byte', 2))
             bye()
-
         fi
 
         if equals(integer(value 0), byte 2):
@@ -141,7 +132,6 @@ interaction:
 
             print("\n\nFor the first time, you notice that Jaana seems definitely seasick!")
             jump 785
-
         fi
 
     case "leav":
@@ -150,7 +140,6 @@ interaction:
         if equals(integer(value 0), byte 0):
             print("\"Whatever thou thinkest best, $G.\"\n*\n\"Thou mayst keep my supplies.\"\n")
             bye()
-
         fi
 
         if equals(integer(value 0), byte 2):
@@ -169,7 +158,6 @@ interaction:
 
             print("\n\nFor the first time, you notice that Jaana seems definitely seasick!")
             jump 785
-
         fi
 
     case "garg":
@@ -191,7 +179,6 @@ interaction:
 
         else:
             print("\"Farewell! Return when thou hast more news of thy quest!\"\n")
-
         fi
 
         bye()
@@ -202,11 +189,9 @@ interaction:
 
         else:
             print("\"Beg pardon?\"")
-
         fi
 
         jump 785
 
         // Unreachable code!
-
     esac

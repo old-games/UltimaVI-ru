@@ -22,7 +22,6 @@ interaction:
 
     else:
         ('SETF', ('byte', 235), ('value', 0))
-
     fi
 
     print("\"How can I help thee this fine $T?\"\n")
@@ -53,7 +52,6 @@ interaction:
 
         else:
             jump 1112
-
         fi
 
     case "buy":
@@ -63,7 +61,6 @@ interaction:
 
         else:
             jump 1242
-
         fi
 
     case "sell":
@@ -86,7 +83,6 @@ interaction:
         if notEquals(integer(value 32), byte 144):
             print("\"Ask when I'm open for business!\"")
             jump 129
-
         fi
 
         integer(value 9) = partyHasObject(word 270, byte 0)
@@ -95,7 +91,6 @@ interaction:
             print("\"Yes, without accurate plans it takes far too much time to craft a ")
             print("basket.\"")
             jump 129
-
         fi
 
         print("\"Then it was true! Father did weave a basket that big!\"")
@@ -119,7 +114,6 @@ interaction:
         jump 129
 
         // Unreachable code!
-
     esac
 
 1112:
@@ -135,14 +129,12 @@ interaction:
         jump 1242
 
         // Unreachable code!
-
     esac
 
 1242:
     if equals(integer(value 23), byte 0):
         integer(value 3) = byte 0
         jump 1385
-
     fi
 
 1262:
@@ -157,7 +149,6 @@ interaction:
 
     if lessOrEquals(integer(value 0), integer(value 23)):
         jump 1276
-
     fi
 
     print("\"Which of you?\" ")
@@ -165,14 +156,12 @@ interaction:
 
     if equals(integer(value 3), byte 0):
         jump 2139
-
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
         jump 1262
-
     fi
 
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
@@ -183,7 +172,6 @@ interaction:
 
     if equals(integer(value 0), byte 0):
         jump 2139
-
     fi
 
     integer(value 0) = minus(integer(value 0), byte 1)
@@ -194,7 +182,6 @@ interaction:
 
         print("\n\n\"I have no time to create a basket for which I have no @plans.\"")
         jump 129
-
     fi
 
     integer(value 1) = data(dword 3728, integer(value 0))
@@ -207,7 +194,6 @@ interaction:
 
     if equals(integer(value 4), byte 0):
         jump 1385
-
     fi
 
     integer(value 5) = byte 0
@@ -215,12 +201,10 @@ interaction:
 1681:
     if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(dword 3732, integer(value 0)), byte 1)):
         jump 1799
-
     fi
 
     if less(objectsCount(character(integer(value 3), byte 0), byte 88), integer(value 1)):
         jump 1921
-
     fi
 
     ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
@@ -234,7 +218,6 @@ interaction:
         jump 1681
 
         // Unreachable code!
-
     fi
 
 1799:
@@ -253,7 +236,6 @@ interaction:
         jump 2139
 
         // Unreachable code!
-
     fi
 
 1921:
@@ -272,7 +254,6 @@ interaction:
         jump 2139
 
         // Unreachable code!
-
     fi
 
 2053:
@@ -280,7 +261,6 @@ interaction:
 
     if greater(integer(value 5), byte 1):
         print("s")
-
     fi
 
     print(". \"I appreciate thy business.\"")
@@ -299,7 +279,6 @@ interaction:
         if equals(integer(value 5), byte 0):
             print("\"Perhaps some other time.\"")
             jump 129
-
         fi
 
         print("\"Enjoy thy $1")
@@ -309,13 +288,11 @@ interaction:
 
         else:
             print(".\"")
-
         fi
 
         jump 129
 
         // Unreachable code!
-
     esac
 
 2268:
@@ -333,13 +310,11 @@ interaction:
 
         print("\n\n\"Lighten thy load, and then I will weave thee this basket.\"")
         jump 129
-
     fi
 
     if greater(integer(value 9), plus(canCarry(character(integer(value 6), byte 0)), weight(byte 88, word 300))):
         integer(value 6) = plus(integer(value 6), byte 1)
         jump 2294
-
     fi
 
     print("\"Such a basket would cost 300 gold, in advance. Art thou still ")
@@ -355,7 +330,6 @@ interaction:
         jump 129
 
         // Unreachable code!
-
     esac
 
 2640:
@@ -372,7 +346,6 @@ interaction:
         print("\n\n\"I fear I cannot afford to start such a task on a mere #2 gold ")
         print("crown\\s.\"")
         jump 129
-
     fi
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
@@ -392,14 +365,12 @@ interaction:
         jump 2947
 
         // Unreachable code!
-
     fi
 
 2947:
     if equals(integer(value 3), integer(value 4)):
         ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
         jump 3030
-
     fi
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
@@ -430,7 +401,6 @@ interaction:
         jump 3338
 
         // Unreachable code!
-
     esac
 
 3338:
@@ -445,14 +415,12 @@ interaction:
 
     case "*":
         print("\"I'm afraid I don't understand.\"\n")
-
     esac
 
     ask()
 
     case "*":
         print("\"Oh, I see.\"")
-
     esac
 
     wait()

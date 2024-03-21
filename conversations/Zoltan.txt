@@ -13,12 +13,10 @@ interaction:
     if hasBit(byte 135, byte 7):
         print("\"Anyone who would mistreat a dog has no business with Zoltan.\"\n")
         bye()
-
     fi
 
     if equals(hasBit(byte 235, value 1), byte 0):
         jump 414
-
     fi
 
     print("\"Hah! You again! You are no friend to Zoltan.\"\n*\n\"I dance for you, and")
@@ -29,7 +27,6 @@ interaction:
 
     case "y":
         jump 4182
-
     esac
 
     print("\n\"So be it. Leave me before I place a gypsy curse on you!\"\n")
@@ -43,7 +40,6 @@ interaction:
 
     else:
         print("\"Huzzah! I am still @Zoltan, king of the gypsies!\"")
-
     fi
 
     ('SETF', ('byte', 235), ('value', 0))
@@ -166,7 +162,6 @@ interaction:
 
         else:
             print("\"Farewell.\"")
-
         fi
 
         print("\n")
@@ -193,7 +188,6 @@ interaction:
     case "*":
         print("\"Why worry yourself with that?\"\n*\n\"Perhaps you'd like to look over ")
         print("some of the fine @reagents I have for sale.\"")
-
     esac
 
     jump 532
@@ -207,13 +201,11 @@ interaction:
     case "n":
         print("\"Whatever you say.\"")
         jump 532
-
     esac
 
     if less(objectsCount(byte 1, byte 88), byte 2):
         print("\n\"Come back when you're not so down on your luck.\"")
         jump 532
-
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 2))
@@ -233,13 +225,11 @@ interaction:
     case "n":
         print("\"Let me know if you change your mind.\"")
         jump 532
-
     esac
 
     if less(objectsCount(byte 1, byte 88), byte 10):
         print("\n\"Come back when you have the money.\"")
         jump 532
-
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 10))
@@ -266,7 +256,6 @@ interaction:
         print("\"Hah! I should know better than to expect a gorgio to appreciate a ")
         print("fine gypsy dance.\"\n*\nProudly, he turns his back on you.\n")
         bye()
-
     esac
 
 4182:
@@ -276,12 +265,10 @@ interaction:
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
         print("\nYou don't have that much.\n")
         jump 4182
-
     fi
 
     if equals(integer(value 0), byte 0):
         jump 4051
-
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
@@ -295,7 +282,6 @@ interaction:
     if greater(integer(value 23), byte 0):
         integer(value 2) = byte 1
         jump 4379
-
     fi
 
     integer(value 3) = character(byte 0, byte 0)
@@ -309,7 +295,6 @@ interaction:
     if lessOrEquals(integer(value 2), integer(value 23)):
         integer(value 2) = plus(integer(value 2), byte 1)
         jump 4379
-
     fi
 
     print("\"Which of you?\" ")
@@ -321,7 +306,6 @@ interaction:
 
     else:
         integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
-
     fi
 
 4517:
@@ -335,7 +319,6 @@ interaction:
 
     if greater(data(dword 5075, minus(integer(value 1), byte 1)), byte 0):
         jump 4528
-
     fi
 
     print("\"Which of these?\" ")
@@ -344,7 +327,6 @@ interaction:
     if or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1))):
         integer(value 2) = byte 1
         jump 532
-
     fi
 
     integer(value 2) = minus(integer(value 2), byte 1)
@@ -359,18 +341,15 @@ interaction:
 
     if equals(integer(value 4), byte 0):
         jump 4517
-
     fi
 
 4742:
     if less(canCarry(integer(value 3)), weight(data(dword 5075, integer(value 2)), byte 1)):
         jump 4877
-
     fi
 
     if less(objectsCount(integer(value 3), byte 88), integer(value 1)):
         jump 4976
-
     fi
 
     ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
@@ -390,7 +369,6 @@ interaction:
         jump 4742
 
         // Unreachable code!
-
     fi
 
 4877:
@@ -412,7 +390,6 @@ interaction:
         jump 4517
 
         // Unreachable code!
-
     fi
 
 4976:
@@ -434,7 +411,6 @@ interaction:
         jump 4517
 
         // Unreachable code!
-
     fi
 
     [['INTEGERS', [66, 67, 68, 70, 71, 72, 0, 0]]]

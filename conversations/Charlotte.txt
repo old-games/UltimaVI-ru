@@ -17,7 +17,6 @@ interaction:
 
     else:
         print("\"Good $T, $G.\"")
-
     fi
 
 95:
@@ -51,7 +50,6 @@ interaction:
         else:
             print("\"Wouldst thou like some cloth?\" ")
             jump 902
-
         fi
 
     case "sell":
@@ -63,7 +61,6 @@ interaction:
         else:
             print("\"Hast thou some wool to sell?\" ")
             jump 940
-
         fi
 
     case "silk":
@@ -73,7 +70,6 @@ interaction:
 
         else:
             jump 978
-
         fi
 
     case "bag":
@@ -106,7 +102,6 @@ interaction:
         jump 95
 
         // Unreachable code!
-
     esac
 
 902:
@@ -120,7 +115,6 @@ interaction:
         jump 95
 
         // Unreachable code!
-
     esac
 
 940:
@@ -134,7 +128,6 @@ interaction:
         jump 95
 
         // Unreachable code!
-
     esac
 
 978:
@@ -143,7 +136,6 @@ interaction:
     if equals(integer(value 0), word 32769):
         print("\"Begging thy pardon, $G, but I see no silk!\"")
         jump 95
-
     fi
 
     ('SETNAME', ('integer', [('value', 0)]))
@@ -158,7 +150,6 @@ interaction:
         if less(objectsCount(integer(value 0), byte 88), byte 10):
             print("\"Begging thy pardon, $Y, but thou dost not have 10 gold!\"")
             jump 95
-
         fi
 
         ('DELETE', ('integer', [('value', 0)]), ('byte', 88), ('byte', 0), ('byte', 10))
@@ -176,7 +167,6 @@ interaction:
         jump 95
 
         // Unreachable code!
-
     esac
 
 1435:
@@ -188,7 +178,6 @@ interaction:
         data(dword 2784, integer(value 2)) = integer(value 0)
         integer(value 2) = plus(integer(value 2), byte 1)
         integer(value 3) = byte 1
-
     fi
 
     integer(value 0) = plus(integer(value 0), byte 1)
@@ -196,7 +185,6 @@ interaction:
     if equals(integer(value 3), byte 0):
         print("\"Begging thy pardon, but I see no wool!\"")
         jump 95
-
     fi
 
     if equals(integer(value 2), byte 1):
@@ -207,7 +195,6 @@ interaction:
 
         print("\n\n")
         jump 1777
-
     fi
 
 1637:
@@ -220,7 +207,6 @@ interaction:
 
     if lessOrEquals(integer(value 1), integer(value 2)):
         jump 1644
-
     fi
 
     print("\"Which of you?\" ")
@@ -229,14 +215,12 @@ interaction:
     if equals(integer(value 3), byte 0):
         print("\"As you wish...\"")
         jump 95
-
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greaterOrEquals(integer(value 3), integer(value 2)):
         jump 1637
-
     fi
 
     integer(value 3) = character(data(dword 2784, integer(value 3)), byte 0)
@@ -257,14 +241,12 @@ interaction:
         jump 95
 
         // Unreachable code!
-
     esac
 
 1964:
     if equals(integer(value 23), byte 0):
         integer(value 3) = byte 0
         jump 2128
-
     fi
 
 1984:
@@ -279,7 +261,6 @@ interaction:
 
     if lessOrEquals(integer(value 0), integer(value 23)):
         jump 1998
-
     fi
 
     print("\"Which of you?\" ")
@@ -288,14 +269,12 @@ interaction:
     if equals(integer(value 3), byte 0):
         print("\"As you wish, $G.\"")
         jump 95
-
     fi
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
         jump 1984
-
     fi
 
     integer(value 3) = character(integer(value 3), byte 0)
@@ -314,14 +293,12 @@ interaction:
         jump 95
 
         // Unreachable code!
-
     esac
 
 2218:
     if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 25)), weight(byte 185, byte 1)):
         print("\"But 'twould make thee o'erburdened, $Y!\"")
         jump 95
-
     fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 25):
@@ -335,28 +312,24 @@ interaction:
         jump 95
 
         // Unreachable code!
-
     fi
 
 2433:
     if equals(partyHasObject(word 270, byte 0), word 32769):
         print("\"I'm not sure what you mean.\"")
         jump 95
-
     fi
 
     if notEquals(partyHasObject(byte 241, byte 0), word 32769):
         print("\"Take the cloth to @Marissa. Mayhap she can sew it into a bag for ")
         print("thee.\"")
         jump 95
-
     fi
 
     if notEquals(partyHasObject(byte 226, byte 0), word 32769):
         print("\"I can weave that @silk for thee... Then thou should speak with ")
         print("@Marissa.\"")
         jump 95
-
     fi
 
     print("\"If you had some @silk thread, I could help thee. Go ask @Arbeth if he")
