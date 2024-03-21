@@ -394,27 +394,30 @@ def _format_string(string):
 
 
 def _format_instructions(instructions, labels, unreachable_labels, description, interaction):
-    level = 1
+    levels = [None]
     last_level = 0
     result = []
 
-    def decrease_level():
-        nonlocal level
-        if level == 1:
-            append('// Wrong flow!')
-        else:
-            level -= 1
+    def increase_level(why):
+        levels.append(why)
+
+    def decrease_level(why):
+        if why != 'case' or levels[-1] == 'case':
+            if len(levels) == 1:
+                append('// Wrong flow!')
+            else:
+                del levels[-1]
 
     def append(line=None, force_level=None):
         nonlocal last_level
         if line:
-            last_level = level if force_level is None else force_level
+            last_level = len(levels) if force_level is None else force_level
             result.append(f'{" "*last_level*4}{line}')
         else:
             result.append('')
 
     def empty_prefix_line():
-        if result and result[-1] != '' and last_level >= level:
+        if result and result[-1] != '' and last_level >= len(levels):
             append()
 
     # FIXME пометить некорректные выходы из блоков
@@ -442,7 +445,7 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
             empty_prefix_line()
             append(f'if {_format_expression(instruction[1])}:')
             #result.extend(textwrap.wrap(f'if {_format_expression(instruction[1])}:', subsequent_indent='    '))  # FIXME
-            level += 1
+            increase_level('if')
 
         # FIXME rename
         elif instruction[0] == 'ASKC':
@@ -462,23 +465,23 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
 
         elif instruction[0] == 'CASE':
             empty_prefix_line()
-            decrease_level()
+            decrease_level('case')
             for case in sorted(instruction[1]):
                 append(f'case "{_format_string(case)}":')
-            level += 1
+            increase_level('case')
 
         elif instruction[0] == 'ASSIGN':
             append(f'{_format_expression(instruction[1])} = {_format_expression(instruction[2])}')
 
         elif instruction[0] == 'ESAC':
             empty_prefix_line()
-            decrease_level()
+            decrease_level('esac')
             append('esac')
             append()
 
         elif instruction[0] == 'ENDIF':
             empty_prefix_line()
-            decrease_level()
+            decrease_level('if')
             append('endif')
             append()
 
@@ -492,9 +495,9 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
 
         elif instruction[0] == 'ELSE':
             empty_prefix_line()
-            decrease_level()
+            decrease_level('if')
             append('else:')
-            level += 1
+            increase_level('if')
 
         elif instruction[0] == 'BYE':
             append('bye()')
