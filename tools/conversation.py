@@ -150,15 +150,22 @@ def _read_expressions(stream, visited_labels, data, end):
 def _add_branch_ended(branches_ended, stack, choices, keywords):
     if stack:
         parent = stack[:-1]
-        # FIXME simplify
+
+        def add_parent():
+            _add_branch_ended(branches_ended, parent, choices, keywords)
+
         if stack[-1][0] == 'else' and branches_ended[(*parent, ('if', stack[-1][1]))]:
-            _add_branch_ended(branches_ended, parent, choices, keywords)
-        if stack[-1][0] == 'case' and '*' in keywords[tuple(stack)]:
-            _add_branch_ended(branches_ended, parent, choices, keywords)
-        if stack[-1][0] == 'case' and choices.get(tuple(parent)) is not None: # Mondain, no ask, no tell.
-            choices[tuple(parent)] -= keywords[tuple(stack)]
-            if not choices[tuple(parent)]:
-                _add_branch_ended(branches_ended, parent, choices, keywords)
+            add_parent()
+
+        elif stack[-1][0] == 'case':
+            if '*' in keywords[tuple(stack)]:
+                add_parent()
+
+            elif choices.get(tuple(parent)) is not None: # Mondain, no ask, no tell.
+                choices[tuple(parent)] -= keywords[tuple(stack)]
+                if not choices[tuple(parent)]:
+                    add_parent()
+
     branches_ended[tuple(stack)] = True
 
 
@@ -172,25 +179,26 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
         0xee, 0xef,
         0xf3, 0xf7, 0xf8, 0xf9, 0xfb, 0xfc,
     }
+    # TODO there are more instructions in the game
 
     stack = []
     branches_ended = {tuple(): False}
     choices = {}
     keywords = {}
-    # TODO there are more instructions in the game
     while (
         (code := _peek_byte(stream)) not in end
         and code is not None
         and ((offset := stream.tell()) not in data or unreachable_labels is None)
         and (None not in end or not branches_ended[tuple()]) # Выходим, если читать больше нечего или не ждём окончания определённого блока.
     ):
+        assert offset not in data
         # FIXME get rid of end
         # FIXME dont save to result, save to interaction
         # FIXME merge data with interaction
         # FIXME read till the end for look , add ff, f1, f2, f3 as regular instructions
         # FIXME f1, f2 are stop operators
         # TODO расклеить слова
-        # FIXME unreachable сделать однокомандными?
+        # TODO проверить что инструкции не налезают одна на другую
 
         if offset in visited_labels:
             # Необходимо прочитать код повторно, если мы прыгнули на новую метку, контекст может закончиться раньше или позже, чем в прошлый раз.
@@ -360,7 +368,6 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
             argument = _read_string(stream, visited_labels, {0xf6}).split(',')
             _read_byte(stream, visited_labels)
             result[offset] = 'CASE', argument
-            # FIXME Save keywords and check later with parent choices
             # TODO вложенные ask в case ? leak choices to parent
             if stack and stack[-1][0] == 'case':
                 del stack[-1]
@@ -376,7 +383,7 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
         elif code == 0xf8:
             _read_byte(stream, visited_labels)
             argument = _read_string(stream, visited_labels, end | all_instructions)
-            result[offset] = 'ASKC', argument
+            result[offset] = 'CHOICE', argument
             choices[tuple(stack)] = set(argument)
 
         elif code == 0xf9:
@@ -488,9 +495,9 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
             increase_level('if')
 
         # FIXME rename
-        elif instruction[0] == 'ASKC':
+        elif instruction[0] == 'CHOICE':
             empty_prefix_line()
-            append(f'askc({_format_string(instruction[1])})')
+            append(f'choice({_format_string(instruction[1])})')
 
         elif instruction[0] == 'PRINT':
             # FIXME smarter, with spaces at starts of lines, use minus all indent and print ?
@@ -600,13 +607,10 @@ def decode(conversation):
     interaction = stream.tell()
     _read_instructions(stream, blocks, labels, visited_labels, None, data, {None})
 
-    # TODO support jumps to the middle of unknown blocks with branches
-    # FIXME at least detect it
     while labels - visited_labels:
         label = next(iter(labels - visited_labels))
         stream.seek(label)
         _read_instructions(stream, blocks, labels, visited_labels, None, data, {None})
-        # FIXME split code with label in the middle, sometimes in the middle of string
 
     visited_data = set()
     unreachable_labels = set()
