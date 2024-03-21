@@ -12,50 +12,57 @@ interaction:
     print("\n\"Welcome, $G.\"")
     wait()
 
+79:
     print("\n\n\"What can I do for you?\"\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"My name is Harold.\"")
-    ('SETF', ('byte', 235), ('value', 0))
-    jump 105
+        print("\"My name is Harold.\"")
+        ('SETF', ('byte', 235), ('value', 0))
+        jump 105
 
     case "buy":
     case "hors":
     case "shoe":
-    jump 258
+        jump 258
 
     case "job":
-    print("\"@Horseshoes are my living.\"")
-    jump 105
+        print("\"@Horseshoes are my living.\"")
+        jump 105
 
     case "bye":
-    print("\"Farewell.\"\n")
-    bye()
+        print("\"Farewell.\"\n")
+        bye()
 
     case "*":
-    print("\"I can't help you with that.\"")
-    jump 105
+        print("\"I can't help you with that.\"")
+        jump 105
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 258:
     if equals(integer(value 23), byte 0):
-    integer(value 3) = byte 0
-    jump 394
+        integer(value 3) = byte 0
+        jump 394
 
     endif
 
+278:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
+
+292:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#2. $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-    jump 292
+        jump 292
 
     endif
 
@@ -63,52 +70,55 @@ interaction:
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-    jump 79
+        jump 79
 
     endif
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-    jump 278
+        jump 278
 
     endif
 
+394:
     print("\"It'll cost you 2 gold for the horseshoes, interested?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
+        if less(canCarry(character(integer(value 3), byte 0)), weight(byte 202, byte 1)):
+            print("\"You look pretty full to me.\"")
+            wait()
 
-    if less(canCarry(character(integer(value 3), byte 0)), weight(byte 202, byte 1)):
-    print("\"You look pretty full to me.\"")
-    wait()
+            jump 79
 
-    jump 79
+        endif
 
-    endif
+        if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 2):
+            ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 2))
+            ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 202), ('byte', 0), ('byte', 1))
+            ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+            print("\"Here you go.\"")
+            wait()
 
-    if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 2):
-    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 2))
-    ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 202), ('byte', 0), ('byte', 1))
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-    print("\"Here you go.\"")
-    wait()
+            integer(value 5) = byte 1
+            jump 79
 
-    integer(value 5) = byte 1
-    jump 79
+        else:
+            ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+            print("\"Best check your coinpouch again.\"")
+            wait()
 
-    else:
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-    print("\"Best check your coinpouch again.\"")
-    wait()
+            jump 79
 
-    jump 79
-
-    endif
+        endif
 
     case "n":
-    print("Very well.\"")
-    jump 105
+        print("Very well.\"")
+        jump 105
 
-# Unreachable code!
+        // Unreachable code!
+
     esac

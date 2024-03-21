@@ -14,207 +14,210 @@ interaction:
     integer(value 5) = byte 0
 
     if equals(integer(value 32), byte 138):
-    print("He looks up from his tankard of ale, sees you and smiles.")
+        print("He looks up from his tankard of ale, sees you and smiles.")
 
     else:
-    print("He grins widely and waves at you.")
-    ('SETF', ('byte', 235), ('value', 0))
+        print("He grins widely and waves at you.")
+        ('SETF', ('byte', 235), ('value', 0))
 
     endif
 
+152:
     print("\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("He points to his mouth and shakes his head.")
+        print("He points to his mouth and shakes his head.")
 
-    if integer(value 23):
-    integer(value 0) = character(byte 1, byte 0)
-    ('SETNAME', ('integer', [('value', 0)]))
-    wait()
+        if integer(value 23):
+            integer(value 0) = character(byte 1, byte 0)
+            ('SETNAME', ('integer', [('value', 0)]))
+            wait()
 
-    ('PORTRAIT', ('integer', [('value', 0)]))
-    print("\n\n$Y speaks. \"I know of this person, $G.\"")
-    wait()
+            ('PORTRAIT', ('integer', [('value', 0)]))
+            print("\n\n$Y speaks. \"I know of this person, $G.\"")
+            wait()
 
-    print("\n\n\"He is Arty the Mute, a local shipwright and an honored citizen.\"")
-    wait()
+            print("\n\n\"He is Arty the Mute, a local shipwright and an honored citizen.\"")
+            wait()
 
-    ('PORTRAIT', ('byte', 235))
-    print("\n\nThe man smiles and nods.")
+            ('PORTRAIT', ('byte', 235))
+            print("\n\nThe man smiles and nods.")
 
-    endif
+        endif
 
-    jump 152
+        jump 152
 
     case "mute":
-    print("Arty smiles and nods.")
-    jump 152
+        print("Arty smiles and nods.")
+        jump 152
 
     case "deaf":
-    print("The man shakes his head.")
-    jump 152
+        print("The man shakes his head.")
+        jump 152
 
     case "buy":
+        if notEquals(integer(value 32), byte 146):
+            print("The man looks at you, puzzled.")
+            jump 152
 
-    if notEquals(integer(value 32), byte 146):
-    print("The man looks at you, puzzled.")
-    jump 152
+        endif
 
-    endif
+        if equals(hasObject(byte 235, byte 149, byte 0), byte 0):
+            print("The man shakes his head and spreads his hands as if to say \"sorry.\"")
+            jump 152
 
-    if equals(hasObject(byte 235, byte 149, byte 0), byte 0):
-    print("The man shakes his head and spreads his hands as if to say \"sorry.\"")
-    jump 152
+        endif
 
-    endif
+        print("The man smiles and points to ")
 
-    print("The man smiles and points to ")
+        if or(hasObject(byte 235, byte 149, data(dword 2459, byte 0)), hasObject(byte 235, byte 149, data(dword 2459, byte 1))):
+            print("the deed to a @ship")
+            integer(value 1) = byte 1
 
-    if or(hasObject(byte 235, byte 149, data(dword 2459, byte 0)), hasObject(byte 235, byte 149, data(dword 2459, byte 1))):
-    print("the deed to a @ship")
-    integer(value 1) = byte 1
+        else:
+            integer(value 1) = byte 0
 
-    else:
-    integer(value 1) = byte 0
+        endif
 
-    endif
+        if equals(or(hasObject(byte 235, byte 149, data(dword 2459, byte 2)), hasObject(byte 235, byte 149, data(dword 2459, byte 3))), byte 0):
+            print(".")
+            jump 152
 
-    if equals(or(hasObject(byte 235, byte 149, data(dword 2459, byte 2)), hasObject(byte 235, byte 149, data(dword 2459, byte 3))), byte 0):
-    print(".")
-    jump 152
+        endif
 
-    endif
+        if integer(value 1):
+            print(" and to a ")
 
-    if integer(value 1):
-    print(" and to a ")
+        else:
+            print("the deed to a ")
 
-    else:
-    print("the deed to a ")
+        endif
 
-    endif
-
-    print("@skiff.")
-    jump 152
+        print("@skiff.")
+        jump 152
 
     case "ship":
+        if notEquals(integer(value 32), byte 146):
+            print("The man looks at you, puzzled.")
+            jump 152
 
-    if notEquals(integer(value 32), byte 146):
-    print("The man looks at you, puzzled.")
-    jump 152
+        endif
 
-    endif
+        if hasObject(byte 235, byte 149, data(dword 2459, byte 0)):
+            integer(value 9) = byte 0
+            jump 1572
 
-    if hasObject(byte 235, byte 149, data(dword 2459, byte 0)):
-    integer(value 9) = byte 0
-    jump 1572
+        endif
 
-    endif
+        if hasObject(byte 235, byte 149, data(dword 2459, byte 1)):
+            integer(value 9) = byte 1
+            jump 1572
 
-    if hasObject(byte 235, byte 149, data(dword 2459, byte 1)):
-    integer(value 9) = byte 1
-    jump 1572
+        endif
 
-    endif
-
-    print("The man shakes his head and spreads his hands as if to say \"sorry.\"")
-    jump 152
+        print("The man shakes his head and spreads his hands as if to say \"sorry.\"")
+        jump 152
 
     case "skif":
+        if notEquals(integer(value 32), byte 146):
+            print("The man looks at you, puzzled.")
+            jump 152
 
-    if notEquals(integer(value 32), byte 146):
-    print("The man looks at you, puzzled.")
-    jump 152
+        endif
 
-    endif
+        if hasObject(byte 235, byte 149, data(dword 2459, byte 2)):
+            integer(value 9) = byte 2
+            jump 1572
 
-    if hasObject(byte 235, byte 149, data(dword 2459, byte 2)):
-    integer(value 9) = byte 2
-    jump 1572
+        endif
 
-    endif
+        if hasObject(byte 235, byte 149, data(dword 2459, byte 3)):
+            integer(value 9) = byte 3
+            jump 1572
 
-    if hasObject(byte 235, byte 149, data(dword 2459, byte 3)):
-    integer(value 9) = byte 3
-    jump 1572
+        endif
 
-    endif
-
-    print("The man shakes his head and spreads his hands as if to say \"sorry.\"")
-    jump 152
+        print("The man shakes his head and spreads his hands as if to say \"sorry.\"")
+        jump 152
 
     case "job":
+        if equals(integer(value 32), byte 138):
+            print("The man looks at you, puzzled.*\n\nThen he raises his tankard and goes ")
+            print("back to drinking.")
+            jump 152
 
-    if equals(integer(value 32), byte 138):
-    print("The man looks at you, puzzled.*\n\nThen he raises his tankard and goes ")
-    print("back to drinking.")
-    jump 152
+        endif
 
-    endif
+        if equals(integer(value 32), byte 146):
+            print("He smiles and points to the workbench.")
+            wait()
 
-    if equals(integer(value 32), byte 146):
-    print("He smiles and points to the workbench.")
-    wait()
+            print("\n\nOn the bench, you see the tools of a shipwright.")
+            jump 152
 
-    print("\n\nOn the bench, you see the tools of a shipwright.")
-    jump 152
+        endif
 
-    endif
-
-    jump 1467
+        jump 1467
 
     case "bye":
-    print("Arty waves as you leave, then returns to ")
+        print("Arty waves as you leave, then returns to ")
 
-    if equals(integer(value 32), byte 138):
-    print("his ale.\n")
+        if equals(integer(value 32), byte 138):
+            print("his ale.\n")
 
-    else:
-    print("what he was doing.\n")
+        else:
+            print("what he was doing.\n")
 
-    endif
+        endif
 
-    bye()
+        bye()
 
     case "*":
+        if equals(integer(value 32), byte 138):
+            print("The man just shrugs and takes another swig from his mug.")
+            jump 152
 
-    if equals(integer(value 32), byte 138):
-    print("The man just shrugs and takes another swig from his mug.")
-    jump 152
+        endif
 
-    endif
+1467:
+        if random(byte 0, byte 1):
+            print("The man seems frustrated, as if there were something he wanted to say.")
 
-    if random(byte 0, byte 1):
-    print("The man seems frustrated, as if there were something he wanted to say.")
+        else:
+            print("The man just shrugs.")
 
-    else:
-    print("The man just shrugs.")
+        endif
 
-    endif
+        jump 152
 
-    jump 152
+        // Unreachable code!
 
-# Unreachable code!
     esac
 
 1572:
     integer(value 5) = byte 0
 
     if equals(integer(value 23), byte 0):
-    integer(value 3) = byte 0
-    jump 1714
+        integer(value 3) = byte 0
+        jump 1714
 
     endif
 
+1599:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
+
+1613:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#2) $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-    jump 1613
+        jump 1613
 
     endif
 
@@ -222,17 +225,18 @@ interaction:
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-    jump 2034
+        jump 2034
 
     endif
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-    jump 1599
+        jump 1599
 
     endif
 
+1714:
     integer(value 3) = character(integer(value 3), byte 0)
     integer(value 4) = data(dword 2451, integer(value 9))
     ('SETNAME', ('integer', [('value', 3)]))
@@ -242,27 +246,29 @@ interaction:
     print("\n\nDoes $Y want to buy the deed? ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
+        if less(plus(canCarry(integer(value 3)), weight(byte 88, data(dword 2451, integer(value 9)))), weight(byte 149, byte 1)):
+            print("$Y cannot carry that.")
+            jump 152
 
-    if less(plus(canCarry(integer(value 3)), weight(byte 88, data(dword 2451, integer(value 9)))), weight(byte 149, byte 1)):
-    print("$Y cannot carry that.")
-    jump 152
+        endif
 
-    endif
+        if less(objectsCount(integer(value 3), byte 88), data(dword 2451, integer(value 9))):
+            jump 2072
 
-    if less(objectsCount(integer(value 3), byte 88), data(dword 2451, integer(value 9))):
-    jump 2072
+        else:
+            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 2451), ('integer', [('value', 9)])]))
+            jump 1942
 
-    else:
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 2451), ('integer', [('value', 9)])]))
-    jump 1942
-
-    endif
+        endif
 
     case "n":
-    jump 2034
+        jump 2034
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1942:
@@ -276,10 +282,10 @@ interaction:
 
 2034:
     if integer(value 5):
-    print("$N seems pleased.")
+        print("$N seems pleased.")
 
     else:
-    print("$N shrugs.")
+        print("$N shrugs.")
 
     endif
 
@@ -287,8 +293,8 @@ interaction:
 
 2072:
     if equals(integer(value 23), byte 0):
-    print("You don't have enough gold for that.")
-    jump 152
+        print("You don't have enough gold for that.")
+        jump 152
 
     endif
 
@@ -297,38 +303,40 @@ interaction:
     integer(value 6) = byte 0
     integer(value 4) = byte 0
 
+2155:
     if greater(integer(value 6), integer(value 23)):
-    print("Your party doesn't have enough gold for that.")
-    jump 152
+        print("Your party doesn't have enough gold for that.")
+        jump 152
 
     endif
 
     integer(value 5) = objectsCount(character(integer(value 6), byte 0), byte 88)
 
     if less(integer(value 5), integer(value 1)):
-    integer(value 1) = minus(integer(value 1), integer(value 5))
-    integer(value 2) = plus(integer(value 2), integer(value 5))
-    integer(value 6) = plus(integer(value 6), byte 1)
-    jump 2155
+        integer(value 1) = minus(integer(value 1), integer(value 5))
+        integer(value 2) = plus(integer(value 2), integer(value 5))
+        integer(value 6) = plus(integer(value 6), byte 1)
+        jump 2155
 
     else:
-    print("Your party takes up a collection to purchase the vessel.")
-    integer(value 1) = data(dword 2451, integer(value 9))
-    integer(value 2) = byte 0
-    integer(value 4) = integer(value 6)
-    integer(value 6) = byte 0
-    jump 2365
+        print("Your party takes up a collection to purchase the vessel.")
+        integer(value 1) = data(dword 2451, integer(value 9))
+        integer(value 2) = byte 0
+        integer(value 4) = integer(value 6)
+        integer(value 6) = byte 0
+        jump 2365
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 2365:
     if equals(integer(value 6), integer(value 4)):
-    ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-    wait()
+        ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+        wait()
 
-    print("\n\n")
-    jump 1942
+        print("\n\n")
+        jump 1942
 
     endif
 
@@ -338,8 +346,5 @@ interaction:
     integer(value 6) = plus(integer(value 6), byte 1)
     jump 2365
 
-2451:
-    ['INTEGERS', [300, 300, 40, 40]]
-
-2459:
-    ['INTEGERS', [7, 8, 134, 135]]
+    [['INTEGERS', [300, 300, 40, 40]]]
+    [['INTEGERS', [7, 8, 134, 135]]]

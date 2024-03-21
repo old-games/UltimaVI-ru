@@ -9,92 +9,92 @@ description:
 
 interaction:
     if equals(hasBit(byte 235, byte 5), byte 0):
-    jump 4126
+        jump 4126
 
     endif
 
     print("\"Good $T, $G, can I help thee?\"\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"They call me Mariah.\"")
-    ('SETF', ('byte', 235), ('value', 0))
-    jump 106
+        print("\"They call me Mariah.\"")
+        ('SETF', ('byte', 235), ('value', 0))
+        jump 106
 
     case "job":
-    print("\"I'm the newest member of the @Council of Wizards. Somebody has to ")
-    print("keep things running smoothly.\"\n*\n\"In my spare time I use the @library ")
-    print("to pursue my own studies.\"")
-    jump 106
+        print("\"I'm the newest member of the @Council of Wizards. Somebody has to ")
+        print("keep things running smoothly.\"\n*\n\"In my spare time I use the @library ")
+        print("to pursue my own studies.\"")
+        jump 106
 
     case "coun":
     case "wiza":
-    print("\"They get so caught up in their work sometimes that they forget even ")
-    print("to eat and @sleep!\"")
-    jump 106
+        print("\"They get so caught up in their work sometimes that they forget even ")
+        print("to eat and @sleep!\"")
+        jump 106
 
     case "eat":
     case "slee":
-    print("\"Such things matter little to them. They often dwell apart from the ")
-    print("realm of the @senses.\"")
-    jump 106
+        print("\"Such things matter little to them. They often dwell apart from the ")
+        print("realm of the @senses.\"")
+        jump 106
 
     case "apar":
     case "dwel":
     case "real":
     case "sens":
-    print("\"Aye, indeed.\"")
-    jump 106
+        print("\"Aye, indeed.\"")
+        jump 106
 
     case "libr":
     case "stud":
-    print("\"'Tis the finest library in all Britannia.\"\n*\n\"I study many different ")
-    print("things, but I find learning old languages the most interesting.\"\n*\n")
-    print("\"One can learn so much about how our own language developed!\"")
-    jump 106
+        print("\"'Tis the finest library in all Britannia.\"\n*\n\"I study many different ")
+        print("things, but I find learning old languages the most interesting.\"\n*\n")
+        print("\"One can learn so much about how our own language developed!\"")
+        jump 106
 
     case "book":
+        if equals(partyHasObject(byte 60, byte 0), word 32769):
+            jump 1609
 
-    if equals(partyHasObject(byte 60, byte 0), word 32769):
-    jump 1609
+        endif
 
-    endif
+        if and(notEquals(partyHasObject(word 390, byte 0), word 32769), notEquals(partyHasObject(word 389, byte 0), word 32769)):
+            jump 2292
 
-    if and(notEquals(partyHasObject(word 390, byte 0), word 32769), notEquals(partyHasObject(word 389, byte 0), word 32769)):
-    jump 2292
+        endif
 
-    endif
+        if equals(hasBit(byte 235, byte 7), byte 0):
+            jump 1801
 
-    if equals(hasBit(byte 235, byte 7), byte 0):
-    jump 1801
+        endif
 
-    endif
-
-    jump 1177
+        jump 1177
 
     case "anci":
     case "deci":
     case "half":
     case "silv":
     case "tabl":
+        if notEquals(partyHasObject(word 389, byte 0), word 32769):
+            jump 1177
 
-    if notEquals(partyHasObject(word 389, byte 0), word 32769):
-    jump 1177
+        endif
 
-    endif
-
-    print("\"I got my piece of the tablet from some gypsies whom I met at a pub.\"\n")
-    print("*\n\"Mayhap they can tell thee where to look for the other piece.\"\n*\n")
-    print("\"Bring both pieces of the tablet here and I will tell thee what I ")
-    print("can.\"")
-    jump 106
+        print("\"I got my piece of the tablet from some gypsies whom I met at a pub.\"\n")
+        print("*\n\"Mayhap they can tell thee where to look for the other piece.\"\n*\n")
+        print("\"Bring both pieces of the tablet here and I will tell thee what I ")
+        print("can.\"")
+        jump 106
 
     case "bye":
-    print("\"Fare thee well.\"\n")
-    bye()
+        print("\"Fare thee well.\"\n")
+        bye()
 
     case "*":
-    print("\"I cannot help thee with that.\"")
+        print("\"I cannot help thee with that.\"")
 
     esac
 
@@ -102,28 +102,28 @@ interaction:
 
 1177:
     if equals(partyHasObject(byte 60, byte 0), word 32769):
-    jump 1609
+        jump 1609
 
     endif
 
     if and(notEquals(partyHasObject(word 390, byte 0), word 32769), notEquals(partyHasObject(word 389, byte 0), word 32769)):
-    jump 2292
+        jump 2292
 
     endif
 
     if and(notEquals(partyHasObject(word 390, byte 0), word 32769), equals(partyHasObject(word 389, byte 0), word 32769)):
-    print("\"I must have both halves of the tablet before I can tell you any ")
-    print("more.\"\n*\n\"This piece I have had for quite some time, and I've learned ")
-    print("all I can from it.\"")
-    jump 106
+        print("\"I must have both halves of the tablet before I can tell you any ")
+        print("more.\"\n*\n\"This piece I have had for quite some time, and I've learned ")
+        print("all I can from it.\"")
+        jump 106
 
     endif
 
     if and(equals(partyHasObject(word 390, byte 0), word 32769), notEquals(partyHasObject(word 389, byte 0), word 32769)):
-    print("\"Ah, thou hast found the rest of the tablet! Go get the other half ")
-    print("from my study and bring it here.\"\n*\n\"With the two of them together I ")
-    print("should be able to tell you more.\"")
-    jump 106
+        print("\"Ah, thou hast found the rest of the tablet! Go get the other half ")
+        print("from my study and bring it here.\"\n*\n\"With the two of them together I ")
+        print("should be able to tell you more.\"")
+        jump 106
 
     endif
 
@@ -184,118 +184,134 @@ interaction:
     integer(value 6) = random(byte 1, byte 5)
 
     if equals(integer(value 6), byte 1):
-    jump 4357
+        jump 4357
 
     endif
 
     if equals(integer(value 6), byte 2):
-    jump 4503
+        jump 4503
 
     endif
 
     if equals(integer(value 6), byte 3):
-    jump 4651
+        jump 4651
 
     endif
 
     if equals(integer(value 6), byte 4):
-    jump 4798
+        jump 4798
 
     endif
 
     if equals(integer(value 6), byte 5):
-    jump 4955
+        jump 4955
 
     endif
 
+4357:
     print("\"What does the magic syllable 'Zu' mean?\"\n")
 
     ask()
+
+    // Wrong flow!
     case "slee":
-    jump 5102
+        jump 5102
 
     case "bye":
-    jump 5165
+        jump 5165
 
     case "*":
-    print("\"No, that's not it. Haven't you a Compendium of knowledge to draw ")
-    print("on?\"*\n\n")
-    jump 4357
+        print("\"No, that's not it. Haven't you a Compendium of knowledge to draw ")
+        print("on?\"*\n\n")
+        jump 4357
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 4503:
     print("\"What does the magic syllable 'Quas' mean?\"\n")
 
     ask()
+
+    // Wrong flow!
     case "illu":
-    jump 5102
+        jump 5102
 
     case "bye":
-    jump 5165
+        jump 5165
 
     case "*":
-    print("\"No, that's not it. Haven't you a Compendium of knowledge to draw ")
-    print("on?\"*\n\n")
-    jump 4503
+        print("\"No, that's not it. Haven't you a Compendium of knowledge to draw ")
+        print("on?\"*\n\n")
+        jump 4503
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 4651:
     print("\"What does the magic syllable 'Hur' mean?\"\n")
 
     ask()
+
+    // Wrong flow!
     case "wind":
-    jump 5102
+        jump 5102
 
     case "bye":
-    jump 5165
+        jump 5165
 
     case "*":
-    print("\"No, that's not it. Haven't you a Compendium of knowledge to draw ")
-    print("on?\"*\n\n")
-    jump 4651
+        print("\"No, that's not it. Haven't you a Compendium of knowledge to draw ")
+        print("on?\"*\n\n")
+        jump 4651
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 4798:
     print("\"What does the magic syllable 'Jux' mean?\"\n")
 
     ask()
+
+    // Wrong flow!
     case "dang":
     case "trap.harm":
-    jump 5102
+        jump 5102
 
     case "bye":
-    jump 5165
+        jump 5165
 
     case "*":
-    print("\"No, that's not it. Haven't you a Compendium of knowledge to draw ")
-    print("on?\"*\n\n")
-    jump 4798
+        print("\"No, that's not it. Haven't you a Compendium of knowledge to draw ")
+        print("on?\"*\n\n")
+        jump 4798
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 4955:
     print("\"What does the magic syllable 'Ort' mean?\"\n")
 
     ask()
+
+    // Wrong flow!
     case "magi":
-    jump 5102
+        jump 5102
 
     case "bye":
-    jump 5165
+        jump 5165
 
     case "*":
-    print("\"No, that's not it. Haven't you a Compendium of knowledge to draw ")
-    print("on?\"*\n\n")
-    jump 4955
+        print("\"No, that's not it. Haven't you a Compendium of knowledge to draw ")
+        print("on?\"*\n\n")
+        jump 4955
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 5102:

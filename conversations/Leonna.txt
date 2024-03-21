@@ -12,24 +12,24 @@ description:
 
 interaction:
     if partyHas(byte 235):
-    print("\"Yes, $P?\"")
-    jump 318
+        print("\"Yes, $P?\"")
+        jump 318
 
     endif
 
     if equals(integer(value 32), byte 153):
-    print("You fail to get her attention in the midst of the brawl.\n")
-    bye()
+        print("You fail to get her attention in the midst of the brawl.\n")
+        bye()
 
     endif
 
     if hasBit(byte 235, value 0):
-    print("Her face lights up as she recognizes you. \"Hello again, $P!\"")
-    jump 318
+        print("Her face lights up as she recognizes you. \"Hello again, $P!\"")
+        jump 318
 
     else:
-    ('SETF', ('byte', 235), ('value', 0))
-    print("\"Oh, you must be $P, the famous Avatar! 'Tis an honor to meet thee.\"")
+        ('SETF', ('byte', 235), ('value', 0))
+        print("\"Oh, you must be $P, the famous Avatar! 'Tis an honor to meet thee.\"")
 
     endif
 
@@ -39,98 +39,99 @@ interaction:
     print("\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"My name is Leonna.\"")
-    jump 318
+        print("\"My name is Leonna.\"")
+        jump 318
 
     case "job":
-    print("\"I used to @captain my own ship.\"")
-    wait()
+        print("\"I used to @captain my own ship.\"")
+        wait()
 
-    print("\n\n\"But I fell on hard times, and now I sail with @Leodon on the ")
-    print("@Hind.\"")
-    jump 318
+        print("\n\n\"But I fell on hard times, and now I sail with @Leodon on the ")
+        print("@Hind.\"")
+        jump 318
 
     case "hind":
     case "sail":
     case "ship":
-    print("\"A fine old vessel, the Golden Hind.\"")
-    wait()
+        print("\"A fine old vessel, the Golden Hind.\"")
+        wait()
 
-    print("\n\n\"Alas, I have little to do while she's being @repaired.\"")
-    jump 318
+        print("\n\n\"Alas, I have little to do while she's being @repaired.\"")
+        jump 318
 
     case "join":
     case "litt":
     case "repa":
-    jump 1356
+        jump 1356
 
     case "leav":
-    jump 1764
+        jump 1764
 
     case "leod":
-    print("\"There's none I'd rather ship out with.\"")
-    jump 318
+        print("\"There's none I'd rather ship out with.\"")
+        jump 318
 
     case "capt":
+        if partyHas(byte 235):
+            print("\"Captain who? I know lots of Captains...\"")
+            jump 318
 
-    if partyHas(byte 235):
-    print("\"Captain who? I know lots of Captains...\"")
-    jump 318
+        endif
 
-    endif
+        integer(value 0) = plus(plus(isNearby(byte 113), isNearby(byte 111)), isNearby(byte 112))
 
-    integer(value 0) = plus(plus(isNearby(byte 113), isNearby(byte 111)), isNearby(byte 112))
+        if lessOrEquals(integer(value 0), byte 1):
+            print("\"Captain who? I know lots of Captains...\"")
+            jump 318
 
-    if lessOrEquals(integer(value 0), byte 1):
-    print("\"Captain who? I know lots of Captains...\"")
-    jump 318
+        endif
 
-    endif
+        print("When you say 'Captain,' all the pirates at the table turn to you ")
+        print("expectantly.")
+        wait()
 
-    print("When you say 'Captain,' all the pirates at the table turn to you ")
-    print("expectantly.")
-    wait()
-
-    print("\n\nWhen they realize you weren't talking to them, they return to their ")
-    print("business.")
-    jump 318
+        print("\n\nWhen they realize you weren't talking to them, they return to their ")
+        print("business.")
+        jump 318
 
     case "john":
-    print("\"Captain John is a madman!\"")
-    wait()
+        print("\"Captain John is a madman!\"")
+        wait()
 
-    print("\n\n\"He went down in Hythloth seeking a way to the other side of the ")
-    print("world.\"")
-    wait()
+        print("\n\n\"He went down in Hythloth seeking a way to the other side of the ")
+        print("world.\"")
+        wait()
 
-    print("\n\n\"Said he was going to kill as many @gargoyles as he could before ")
-    print("they got him.\"")
+        print("\n\n\"Said he was going to kill as many @gargoyles as he could before ")
+        print("they got him.\"")
 
-    if isNearby(byte 111):
-    wait()
+        if isNearby(byte 111):
+            wait()
 
-    ('PORTRAIT', ('byte', 111))
-    print("\n\n\"That's not true!\" says Captain Fox. \"I can tell you what really ")
-    print("happened.\"")
-    wait()
+            ('PORTRAIT', ('byte', 111))
+            print("\n\n\"That's not true!\" says Captain Fox. \"I can tell you what really ")
+            print("happened.\"")
+            wait()
 
-    ('PORTRAIT', ('byte', 235))
+            ('PORTRAIT', ('byte', 235))
 
-    endif
+        endif
 
-    jump 318
+        jump 318
 
     case "garg":
-    print("\"Please, let's not talk about them.\"")
-    jump 318
+        print("\"Please, let's not talk about them.\"")
+        jump 318
 
     case "bye":
-    print("\"Talk to you later.\"\n")
-    bye()
+        print("\"Talk to you later.\"\n")
+        bye()
 
     case "*":
-    print("\"I can't help you with that.\"")
+        print("\"I can't help you with that.\"")
 
     esac
 
@@ -138,42 +139,45 @@ interaction:
 
 1356:
     if partyHas(byte 235):
-    print("\"I'd be glad to join you--but I have already!\"")
-    jump 318
+
+1361:
+        print("\"I'd be glad to join you--but I have already!\"")
+        jump 318
 
     endif
 
     print("\"Could I join your party, perhaps?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Okay. I guess I'll just stay here for now.\"")
-    jump 318
+        print("\"Okay. I guess I'll just stay here for now.\"")
+        jump 318
 
     case "y":
-
     esac
 
     integer(value 0) = partyJoin(byte 235)
 
     if equals(integer(value 0), byte 1):
-    print("\"Not while you're in that thing!\"")
-    jump 318
+        print("\"Not while you're in that thing!\"")
+        jump 318
 
     endif
 
     if equals(integer(value 0), byte 2):
-    print("\"You have enough traveling with you already.\"")
-    wait()
+        print("\"You have enough traveling with you already.\"")
+        wait()
 
-    print("\n\n\"But if you ask one of them to @leave first, I'd be happy to join ")
-    print("you.\"")
-    jump 318
+        print("\n\n\"But if you ask one of them to @leave first, I'd be happy to join ")
+        print("you.\"")
+        jump 318
 
     endif
 
     if equals(integer(value 0), byte 3):
-    jump 1361
+        jump 1361
 
     endif
 
@@ -182,21 +186,23 @@ interaction:
 
 1764:
     if equals(partyHas(byte 235), byte 0):
-    print("\"I'd have to @join you before I could leave, silly!\"")
-    jump 318
+
+1772:
+        print("\"I'd have to @join you before I could leave, silly!\"")
+        jump 318
 
     endif
 
     integer(value 0) = partyLeave(byte 235)
 
     if equals(integer(value 0), byte 1):
-    print("\"Let's get our feet back on solid ground first, okay?\"")
-    jump 318
+        print("\"Let's get our feet back on solid ground first, okay?\"")
+        jump 318
 
     endif
 
     if equals(integer(value 0), byte 2):
-    jump 1772
+        jump 1772
 
     endif
 
@@ -205,5 +211,5 @@ interaction:
     print("carrying before walking off.\n")
     bye()
 
-# Unreachable code!
+    // Unreachable code!
     jump 318

@@ -9,12 +9,12 @@ description:
 
 interaction:
     if hasBit(byte 235, byte 7):
-    jump 2104
+        jump 2104
 
     endif
 
     if hasBit(byte 235, value 0):
-    jump 180
+        jump 180
 
     endif
 
@@ -29,53 +29,55 @@ interaction:
     print("\"Oh, hello again.\"\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("She curtsies gracefully. \"Ariana is my name.\"")
-    jump 198
+        print("She curtsies gracefully. \"Ariana is my name.\"")
+        jump 198
 
     case "job":
-    print("\"I'm learning to be a @bard. I like to @play the harpsichord best.\"")
-    jump 198
+        print("\"I'm learning to be a @bard. I like to @play the harpsichord best.\"")
+        jump 198
 
     case "bard":
-    print("\"I want to be a bard when I grow up. They have more @fun than ")
-    print("anybody!\"")
-    jump 198
+        print("\"I want to be a bard when I grow up. They have more @fun than ")
+        print("anybody!\"")
+        jump 198
 
     case "comp":
-    print("\"They taught me all about compassion. They say it's very important for")
-    print(" bards.\"")
-    jump 198
+        print("\"They taught me all about compassion. They say it's very important for")
+        print(" bards.\"")
+        jump 198
 
     case "mant":
-    print("\"I can't remember it now... And @Kenneth just taught it to me last ")
-    print("week...\"\n*\n\"Wait, I know! It's 'mo!'\"\n*\n\"Or maybe it was 'om'... Or ")
-    print("'mu,' or 'um'... It was something like that.\"")
-    jump 198
+        print("\"I can't remember it now... And @Kenneth just taught it to me last ")
+        print("week...\"\n*\n\"Wait, I know! It's 'mo!'\"\n*\n\"Or maybe it was 'om'... Or ")
+        print("'mu,' or 'um'... It was something like that.\"")
+        jump 198
 
     case "rune":
-    jump 1475
+        jump 1475
 
     case "harp":
     case "music":
     case "play":
     case "song":
-    jump 843
+        jump 843
 
     case "fun":
-    print("\"Oh yes, lots of it!\"")
-    jump 198
+        print("\"Oh yes, lots of it!\"")
+        jump 198
 
     case "ken":
-    print("\"He's my teacher.\"")
-    jump 198
+        print("\"He's my teacher.\"")
+        jump 198
 
     case "bye":
-    print("\"See you later.\"\n")
-    bye()
+        print("\"See you later.\"\n")
+        bye()
 
     case "*":
-    print("\"What do you mean?\"")
+        print("\"What do you mean?\"")
 
     esac
 
@@ -89,22 +91,24 @@ interaction:
     print("older, if you can?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("The little girl sniffles, seeming suddenly on the verge of tears.\n\n")
-    print("*\"I'm sorry,\" she says, \"I shouldn't have asked.\" She turns her back, ")
-    print("as if ashamed to face you.\n")
-    ('SUB_KARMA', ('byte', 5))
-    bye()
+        print("The little girl sniffles, seeming suddenly on the verge of tears.\n\n")
+        print("*\"I'm sorry,\" she says, \"I shouldn't have asked.\" She turns her back, ")
+        print("as if ashamed to face you.\n")
+        ('SUB_KARMA', ('byte', 5))
+        bye()
 
     case "y":
-    print("The little girl's face breaks out into a smile bright enough to light ")
-    print("up the whole room.\n*\n\"Really? I would like that very much.\"")
+        print("The little girl's face breaks out into a smile bright enough to light ")
+        print("up the whole room.\n*\n\"Really? I would like that very much.\"")
 
-    if equals(hasBit(byte 235, byte 4), byte 0):
-    ('ADD_KARMA', ('byte', 10))
-    ('SETF', ('byte', 235), ('byte', 4))
+        if equals(hasBit(byte 235, byte 4), byte 0):
+            ('ADD_KARMA', ('byte', 10))
+            ('SETF', ('byte', 235), ('byte', 4))
 
-    endif
+        endif
 
     esac
 
@@ -112,9 +116,9 @@ interaction:
 
 1475:
     if hasBit(byte 235, byte 6):
-    print("\"I already gave it to you, silly. I hope you can figure out how to use")
-    print(" it.\"")
-    jump 198
+        print("\"I already gave it to you, silly. I hope you can figure out how to use")
+        print(" it.\"")
+        jump 198
 
     endif
 
@@ -123,26 +127,30 @@ interaction:
     print("something?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Ok.\"")
-    jump 198
+        print("\"Ok.\"")
+        jump 198
 
     esac
 
     print("\n\"Are you on an important quest?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"I'd best hold onto it then. I was told to look after it carefully.\"")
-    jump 198
+        print("\"I'd best hold onto it then. I was told to look after it carefully.\"")
+        jump 198
 
     case "y":
-    print("\"I'm not supposed to let anyone else have it. But if you truly need ")
-    print("it...\"\n*\n\"I don't know what I should do.\"\n*\n\"I know! My parents run ")
-    print("the Blue Boar Tavern. Go ask them if you can borrow the rune.\"\n*\n\"If ")
-    print("they say 'tis okay, I'll give it to you.\"")
-    ('SETF', ('byte', 235), ('byte', 7))
-    ('SETF', ('byte', 235), ('byte', 5))
+        print("\"I'm not supposed to let anyone else have it. But if you truly need ")
+        print("it...\"\n*\n\"I don't know what I should do.\"\n*\n\"I know! My parents run ")
+        print("the Blue Boar Tavern. Go ask them if you can borrow the rune.\"\n*\n\"If ")
+        print("they say 'tis okay, I'll give it to you.\"")
+        ('SETF', ('byte', 235), ('byte', 7))
+        ('SETF', ('byte', 235), ('byte', 5))
 
     esac
 
@@ -152,31 +160,33 @@ interaction:
     print("\"Hi! Did you get permission from my parents to borrow the rune?\"")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
+        if less(canCarry(character(integer(value 3), byte 0)), weight(byte 243, byte 1)):
+            print("\"Oh, you're carrying too much right now. You'd better come back for it")
+            print(" later.\"")
+            jump 198
 
-    if less(canCarry(character(integer(value 3), byte 0)), weight(byte 243, byte 1)):
-    print("\"Oh, you're carrying too much right now. You'd better come back for it")
-    print(" later.\"")
-    jump 198
+        endif
 
-    endif
+        print("\"Then here you are.\" She hands you the rune. \"I wish you the best of ")
+        print("luck on your quest.\"")
 
-    print("\"Then here you are.\" She hands you the rune. \"I wish you the best of ")
-    print("luck on your quest.\"")
+        if hasBit(byte 235, byte 5):
+            ('SUB_KARMA', ('byte', 10))
 
-    if hasBit(byte 235, byte 5):
-    ('SUB_KARMA', ('byte', 10))
+        endif
 
-    endif
-
-    ('CLEARF', ('byte', 235), ('byte', 7))
-    ('SETF', ('byte', 235), ('byte', 6))
-    ('GIVE', ('byte', 243), ('byte', 0), ('byte', 235), ('byte', 1))
-    jump 198
+        ('CLEARF', ('byte', 235), ('byte', 7))
+        ('SETF', ('byte', 235), ('byte', 6))
+        ('GIVE', ('byte', 243), ('byte', 0), ('byte', 235), ('byte', 1))
+        jump 198
 
     case "n":
-    print("\"Well, if you get their permission later, let me know.\"")
-    jump 198
+        print("\"Well, if you get their permission later, let me know.\"")
+        jump 198
 
-# Unreachable code!
+        // Unreachable code!
+
     esac

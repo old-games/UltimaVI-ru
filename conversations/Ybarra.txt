@@ -15,11 +15,11 @@ interaction:
     print("\n")
 
     if hasBit(byte 235, value 0):
-    print("\"Thou art back!\"")
-    wait()
+        print("\"Thou art back!\"")
+        wait()
 
-    print("\n\n\"Please, please! @Give me some food!\"")
-    jump 269
+        print("\n\n\"Please, please! @Give me some food!\"")
+        jump 269
 
     endif
 
@@ -34,113 +34,119 @@ interaction:
 
     print("\n\n\"I need @food, badly!\"")
     ('SETF', ('byte', 235), ('value', 0))
+
+269:
     print("\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"Ybarra. Ybarra's my name.\"")
-    jump 269
+        print("\"Ybarra. Ybarra's my name.\"")
+        jump 269
 
     case "job":
-    print("\"Lost here, no job now.\"")
-    wait()
+        print("\"Lost here, no job now.\"")
+        wait()
 
-    print("\n\n\"I used to sail under Captain Hawkins on the Empire.\"")
-    wait()
+        print("\n\n\"I used to sail under Captain Hawkins on the Empire.\"")
+        wait()
 
-    print("\n\n\"We had @food then!\"")
-    wait()
+        print("\n\n\"We had @food then!\"")
+        wait()
 
-    print("\n\n\"But those days are gone....\"")
-    jump 269
+        print("\n\n\"But those days are gone....\"")
+        jump 269
 
     case "food":
-    print("\"Yes, @food! The last thing I ate was my @belt.\"")
-    wait()
+        print("\"Yes, @food! The last thing I ate was my @belt.\"")
+        wait()
 
-    print("\n\n\"And that was three weeks ago.\"")
-    wait()
+        print("\n\n\"And that was three weeks ago.\"")
+        wait()
 
-    print("\n\n\"If only you could @give me some food...\"")
-    jump 269
+        print("\n\n\"If only you could @give me some food...\"")
+        jump 269
 
     case "belt":
-    print("\"Not very tasty, but it was filling.\"")
-    jump 269
+        print("\"Not very tasty, but it was filling.\"")
+        jump 269
 
     case "give":
     case "spar":
-    jump 1061
+        jump 1061
 
     case "map":
     case "piec":
-    print("\"Map? Map. Map.\"")
-    wait()
+        print("\"Map? Map. Map.\"")
+        wait()
 
-    if equals(hasObject(byte 235, word 404, byte 0), byte 0):
-    print("\n\n\"You already got it from me.\"")
-    jump 269
+        if equals(hasObject(byte 235, word 404, byte 0), byte 0):
+            print("\n\n\"You already got it from me.\"")
+            jump 269
 
-    endif
+        endif
 
-    print("\n\n\"Oh, the map. Yes, I still have that.\"")
-    wait()
+        print("\n\n\"Oh, the map. Yes, I still have that.\"")
+        wait()
 
-    print("\n\n\"I couldn't eat it.\"")
-    integer(value 9) = byte 0
-    wait()
+        print("\n\n\"I couldn't eat it.\"")
+        integer(value 9) = byte 0
+        wait()
 
-    print("\n\n\"It ought to be worth some @food, surely?\" ")
-    jump 1469
+        print("\n\n\"It ought to be worth some @food, surely?\" ")
+        jump 1469
 
     case "join":
-    print("\"Leave here? No!\"")
-    wait()
+        print("\"Leave here? No!\"")
+        wait()
 
-    print("\n\"I've almost gotten the tunnels figured out!\"")
-    wait()
+        print("\n\"I've almost gotten the tunnels figured out!\"")
+        wait()
 
-    print("\n\n\"Just a few more days and I'll be free!\"")
-    wait()
+        print("\n\n\"Just a few more days and I'll be free!\"")
+        wait()
 
-    print("\n\n\"But I must have @food!\"")
-    jump 269
+        print("\n\n\"But I must have @food!\"")
+        jump 269
 
     case "bye":
-    print("\"Don't go! I need @food... @food...\"\n")
-    wait()
+        print("\"Don't go! I need @food... @food...\"\n")
+        wait()
 
-    jump 1769
+        jump 1769
 
     case "*":
-    print("\"Huh?\"")
-    jump 269
+        print("\"Huh?\"")
+        jump 269
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1061:
     integer(value 0) = byte 0
 
+1068:
     if greater(integer(value 0), byte 15):
-    jump 1360
+        jump 1360
 
     endif
 
     integer(value 1) = partyHasObject(data(dword 1878, integer(value 0)), byte 0)
 
     if equals(integer(value 1), word 32769):
-    integer(value 0) = plus(integer(value 0), byte 1)
-    jump 1068
+        integer(value 0) = plus(integer(value 0), byte 1)
+        jump 1068
 
     endif
 
     if equals(integer(value 1), byte 1):
-    print("You share ")
+        print("You share ")
 
     else:
-    ('SETNAME', ('integer', [('value', 1)]))
-    print("$Y shares ")
+        ('SETNAME', ('integer', [('value', 1)]))
+        print("$Y shares ")
 
     endif
 
@@ -165,27 +171,29 @@ interaction:
 
 1469:
     askc("yn")
-    case "y":
-    print("He hands you the map piece and rubs his hands, eagerly awaiting his ")
-    print("food.")
-    ('GIVE', ('word', 404), ('byte', 0), ('byte', 235), ('byte', 1))
-    wait()
 
-    print("\n\n")
-    jump 1061
+    // Wrong flow!
+    case "y":
+        print("He hands you the map piece and rubs his hands, eagerly awaiting his ")
+        print("food.")
+        ('GIVE', ('word', 404), ('byte', 0), ('byte', 235), ('byte', 1))
+        wait()
+
+        print("\n\n")
+        jump 1061
 
     case "n":
+        if equals(integer(value 9), byte 1):
+            jump 1661
 
-    if equals(integer(value 9), byte 1):
-    jump 1661
+        endif
 
-    endif
+        print("\"You must! I'll die! Just a little bit of @food for the map?\" ")
+        integer(value 9) = byte 1
+        jump 1469
 
-    print("\"You must! I'll die! Just a little bit of @food for the map?\" ")
-    integer(value 9) = byte 1
-    jump 1469
+        // Unreachable code!
 
-# Unreachable code!
     esac
 
 1661:
@@ -198,16 +206,18 @@ interaction:
     print("\n\"Can I have a little before you go?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("The man collapses, the last of his energy gone.\n")
-    ('WORKTYPE', ('byte', 235), ('byte', 145))
-    bye()
+        print("The man collapses, the last of his energy gone.\n")
+        ('WORKTYPE', ('byte', 235), ('byte', 145))
+        bye()
 
     case "y":
-    jump 1061
+        jump 1061
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
-1878:
-    ['INTEGERS', [128, 131, 132, 135, 265, 209, 129, 130, 65490, 0, 0, 115, 116, 117, 180, 184]]
+    [['INTEGERS', [128, 131, 132, 135, 265, 209, 129, 130, 65490, 0, 0, 115, 116, 117, 180, 184]]]

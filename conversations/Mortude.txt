@@ -12,104 +12,110 @@ description:
 
 interaction:
     if hasBit(byte 235, value 0):
-    print("\"What now?\" he sighs.\n")
+        print("\"What now?\" he sighs.\n")
 
     else:
-    print("\"What?\" he grumbles.\n")
+        print("\"What?\" he grumbles.\n")
 
     endif
 
+99:
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"As the sign on my door reads, '@Mortude the Ropemaker.'\"\n")
-    jump 99
+        print("\"As the sign on my door reads, '@Mortude the Ropemaker.'\"\n")
+        jump 99
 
     case "mort":
-    print("\"What?\" He snorts a bit then clears his throat.\n")
-    jump 99
+        print("\"What?\" He snorts a bit then clears his throat.\n")
+        jump 99
 
     case "job":
-    print("He looks at you and raises one eyebrow. \"I said I makes @rope.\"\n")
-    jump 99
+        print("He looks at you and raises one eyebrow. \"I said I makes @rope.\"\n")
+        jump 99
 
     case "buy":
     case "make":
     case "rope":
-    print("\"The strongest you'll ever tug!\" he says, pushing out his chest.")
-    wait()
+        print("\"The strongest you'll ever tug!\" he says, pushing out his chest.")
+        wait()
 
-    print("\n\n")
+        print("\n\n")
 
-    if notEquals(integer(value 32), byte 144):
-    print("\"Come to my shop when I'm open and I'll show you!\"\n")
-    jump 99
+        if notEquals(integer(value 32), byte 144):
+            print("\"Come to my shop when I'm open and I'll show you!\"\n")
+            jump 99
 
-    endif
+        endif
 
-    jump 885
+        jump 885
 
     case "thin":
-    print("\"He's a pretty good @flippits, player.\"\n")
-    jump 99
+        print("\"He's a pretty good @flippits, player.\"\n")
+        jump 99
 
     case "flip":
-    print("\"You have a @bone on ya? We'll play.\"\n")
-    jump 99
+        print("\"You have a @bone on ya? We'll play.\"\n")
+        jump 99
 
     case "bone":
-    print("\"An old @dog bone or somethin'?\"\n")
-    jump 99
+        print("\"An old @dog bone or somethin'?\"\n")
+        jump 99
 
     case "dog":
     case "old":
-    print("\"The smaller, the better. And maybe a @hat.\"\n")
-    jump 99
+        print("\"The smaller, the better. And maybe a @hat.\"\n")
+        jump 99
 
     case "hat":
-    print("\"A haaat,\" he repeats, mockingly. \"Never played 'ave ya?\"\n")
-    jump 99
+        print("\"A haaat,\" he repeats, mockingly. \"Never played 'ave ya?\"\n")
+        jump 99
 
     case "no":
-    print("\"Too bad.\"\n")
-    jump 99
+        print("\"Too bad.\"\n")
+        jump 99
 
     case "bye":
-    print("\"Yeah, yeah.\" He plods off, grumbling.\n")
-    bye()
+        print("\"Yeah, yeah.\" He plods off, grumbling.\n")
+        bye()
 
     case "*":
+        if random(byte 0, byte 1):
+            print("\"Oh, never mind...\"\n")
 
-    if random(byte 0, byte 1):
-    print("\"Oh, never mind...\"\n")
+        else:
+            print("He plays with his braided hair a moment then shrugs.\n")
 
-    else:
-    print("He plays with his braided hair a moment then shrugs.\n")
+        endif
 
-    endif
+        jump 99
 
-    jump 99
+        // Unreachable code!
 
-# Unreachable code!
     esac
 
     jump 99
 
 885:
     if equals(integer(value 23), byte 0):
-    integer(value 3) = character(byte 0, byte 0)
-    jump 1076
+        integer(value 3) = character(byte 0, byte 0)
+        jump 1076
 
     endif
 
+908:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
+
+922:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#2. $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-    jump 922
+        jump 922
 
     endif
 
@@ -117,47 +123,51 @@ interaction:
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-    print("\"Too bad. You'll never find better rope.\"\n")
-    jump 99
+        print("\"Too bad. You'll never find better rope.\"\n")
+        jump 99
 
     endif
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-    jump 908
+        jump 908
 
     endif
 
     integer(value 3) = character(integer(value 3), byte 0)
+
+1076:
     ('SETNAME', ('integer', [('value', 3)]))
     print("$N smiles at $Y, \"For my fine rope it will cost you 5 gold. ")
     print("Interested?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Too bad. You'll never find better rope.\"\n")
-    jump 99
+        print("\"Too bad. You'll never find better rope.\"\n")
+        jump 99
 
     case "y":
+        if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 5)), weight(word 284, byte 1)):
+            print("\"You look pretty full to me.\"\n")
+            jump 99
 
-    if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 5)), weight(word 284, byte 1)):
-    print("\"You look pretty full to me.\"\n")
-    jump 99
+        endif
 
-    endif
+        if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 5):
+            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 5))
+            ('NEW', ('integer', [('value', 3)]), ('word', 284), ('byte', 0), ('byte', 1))
+            print("\"Fine, fine!\" After accepting $Y's gold, $N hands over the rope.\n")
+            jump 99
 
-    if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 5):
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 5))
-    ('NEW', ('integer', [('value', 3)]), ('word', 284), ('byte', 0), ('byte', 1))
-    print("\"Fine, fine!\" After accepting $Y's gold, $N hands over the rope.\n")
-    jump 99
+        else:
+            print("\"You don't have enough gold.\"\n")
+            jump 99
 
-    else:
-    print("\"You don't have enough gold.\"\n")
-    jump 99
+            // Unreachable code!
 
-# Unreachable code!
-    endif
+        endif
 
     esac

@@ -14,129 +14,133 @@ interaction:
     integer(value 0) = partyHasObject(word 339, byte 0)
 
     if notEquals(integer(value 0), word 32769):
-    jump 2401
+        jump 2401
 
     endif
 
     if equals(hasBit(byte 235, value 0), byte 0):
-    ('SETF', ('byte', 235), ('value', 0))
-    print("\"Welcome to my place of healing, Avatar.\"")
-    wait()
+        ('SETF', ('byte', 235), ('value', 0))
+        print("\"Welcome to my place of healing, Avatar.\"")
+        wait()
 
-    print("\n\n\"I hope thou needest not my services!\"")
+        print("\n\n\"I hope thou needest not my services!\"")
 
     else:
-    print("\"Welcome again, noble Avatar.\"")
-    wait()
+        print("\"Welcome again, noble Avatar.\"")
+        wait()
 
-    print("\n\n\"I hope this visit is for pleasure, not business!\"")
+        print("\n\n\"I hope this visit is for pleasure, not business!\"")
 
     endif
 
+236:
     print("\n")
 
     ask()
+
+    // Wrong flow!
     case "heal":
-    jump 724
+        jump 724
 
     case "cure":
-    jump 1555
+        jump 1555
 
     case "resu":
-    integer(value 0) = partyHasObject(word 339, byte 0)
+        integer(value 0) = partyHasObject(word 339, byte 0)
 
-    if equals(integer(value 0), word 32769):
-    print("\"But gladly can I say that none of your party is dead!\"")
-    jump 236
+        if equals(integer(value 0), word 32769):
+            print("\"But gladly can I say that none of your party is dead!\"")
+            jump 236
 
-    else:
-    ('SETNAME', ('integer', [('value', 0)]))
-    jump 2453
+        else:
+            ('SETNAME', ('integer', [('value', 0)]))
+            jump 2453
 
-    endif
+        endif
 
     case "name":
-    print("\"My name is Tara.\"")
-    jump 236
+        print("\"My name is Tara.\"")
+        jump 236
 
     case "job":
-    print("\"I'm the healer for this town.\"")
-    wait()
+        print("\"I'm the healer for this town.\"")
+        wait()
 
-    print("\n\n\"I've cared for the @unfit here for threescore years!\"")
-    jump 236
+        print("\n\n\"I've cared for the @unfit here for threescore years!\"")
+        jump 236
 
     case "unfi":
-    print("\"Those who need @healing, @curing, or to be @resurrected.\"")
-    jump 236
+        print("\"Those who need @healing, @curing, or to be @resurrected.\"")
+        jump 236
 
     case "mant":
     case "sacr":
-    print("\"'Cah,' that is the word of sacrifice.\"")
-    jump 236
+        print("\"'Cah,' that is the word of sacrifice.\"")
+        jump 236
 
     case "bye":
     case "no":
-    print("\"Farewell!\"\n")
-    bye()
+        print("\"Farewell!\"\n")
+        bye()
 
     case "yes":
-    print("\"What can I do for thee?\"")
-    jump 236
+        print("\"What can I do for thee?\"")
+        jump 236
 
     case "*":
+        if random(byte 0, byte 1):
+            print("\"I don't understand $Z.\"")
 
-    if random(byte 0, byte 1):
-    print("\"I don't understand $Z.\"")
+        else:
+            print("\"I beg thy pardon?\"")
 
-    else:
-    print("\"I beg thy pardon?\"")
+        endif
 
-    endif
+        jump 236
 
-    jump 236
+        // Unreachable code!
 
-# Unreachable code!
     esac
 
 724:
     if greater(integer(value 23), byte 0):
-    integer(value 1) = byte 0
-    integer(value 2) = byte 0
-    integer(value 4) = byte 0
-    jump 805
+        integer(value 1) = byte 0
+        integer(value 2) = byte 0
+        integer(value 4) = byte 0
+        jump 805
 
     endif
 
     integer(value 3) = character(byte 0, byte 0)
 
     if isWounded(integer(value 3)):
-    jump 1086
+        jump 1086
 
     else:
-    print("\"But thou art well!\"")
-    jump 1507
+        print("\"But thou art well!\"")
+        jump 1507
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 805:
     if greater(integer(value 1), integer(value 23)):
-    jump 915
+        jump 915
 
     endif
 
     integer(value 3) = character(integer(value 1), byte 0)
 
     if equals(isWounded(integer(value 3)), byte 0):
-    jump 900
+        jump 900
 
     endif
 
     if equals(integer(value 4), byte 0):
-    integer(value 4) = integer(value 3)
-    integer(value 2) = plus(integer(value 2), byte 1)
-    jump 900
+        integer(value 4) = integer(value 3)
+        integer(value 2) = plus(integer(value 2), byte 1)
+        jump 900
 
     endif
 
@@ -144,19 +148,21 @@ interaction:
     print("#2) $Y\n")
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
+
+900:
     integer(value 1) = plus(integer(value 1), byte 1)
     jump 805
 
 915:
     if equals(integer(value 2), byte 0):
-    print("\"But all of you are well!\"")
-    jump 1507
+        print("\"But all of you are well!\"")
+        jump 1507
 
     endif
 
     if equals(integer(value 2), byte 1):
-    integer(value 3) = integer(value 4)
-    jump 1086
+        integer(value 3) = integer(value 4)
+        jump 1086
 
     endif
 
@@ -165,30 +171,33 @@ interaction:
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
-    jump 1507
+        jump 1507
 
     endif
 
     integer(value 1) = byte 0
+
+1024:
     integer(value 3) = character(integer(value 1), byte 0)
 
     if isWounded(integer(value 3)):
-    integer(value 2) = minus(integer(value 2), byte 1)
+        integer(value 2) = minus(integer(value 2), byte 1)
 
     endif
 
     if equals(integer(value 2), byte 0):
-    jump 1086
+        jump 1086
 
     endif
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 1), integer(value 23)):
-    jump 1024
+        jump 1024
 
     endif
 
+1086:
     ('SETNAME', ('integer', [('value', 3)]))
     print("\"I see thy injury, $Y.\"")
     wait()
@@ -196,50 +205,52 @@ interaction:
     print("\n\n\"Wilt thou make an offering of 30 gold?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
+        if less(objectsCount(integer(value 3), byte 88), byte 30):
+            jump 1311
 
-    if less(objectsCount(integer(value 3), byte 88), byte 30):
-    jump 1311
+        else:
+            print("Tara approaches $Y and binds the wounds.")
+            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 30))
+            ('HEAL', ('integer', [('value', 3)]))
+            jump 236
 
-    else:
-    print("Tara approaches $Y and binds the wounds.")
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 30))
-    ('HEAL', ('integer', [('value', 3)]))
-    jump 236
-
-    endif
+        endif
 
     case "n":
+        if less(objectsCount(integer(value 3), byte 88), byte 30):
+            jump 1311
 
-    if less(objectsCount(integer(value 3), byte 88), byte 30):
-    jump 1311
+        else:
+            print("\"If thou wilt not pay, I cannot heal thee.\"")
+            jump 1507
 
-    else:
-    print("\"If thou wilt not pay, I cannot heal thee.\"")
-    jump 1507
+            // Unreachable code!
 
-# Unreachable code!
-    endif
+        endif
 
     esac
 
 1311:
     if less(integer(value 20), byte 40):
-    print("\"I'm sorry. Without an offering I cannot heal thee.\"")
-    jump 236
+        print("\"I'm sorry. Without an offering I cannot heal thee.\"")
+        jump 236
 
     else:
-    print("\"Thou art poor, but thy cause is just.\"")
-    wait()
+        print("\"Thou art poor, but thy cause is just.\"")
+        wait()
 
-    print("\n\n\"I will heal thee without payment.\"")
-    wait()
+        print("\n\n\"I will heal thee without payment.\"")
+        wait()
 
-    print("\n\nSasha approaches $Y and binds the wounds.")
-    ('HEAL', ('integer', [('value', 3)]))
-    jump 1507
+        print("\n\nSasha approaches $Y and binds the wounds.")
+        ('HEAL', ('integer', [('value', 3)]))
+        jump 1507
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 1507:
@@ -250,42 +261,43 @@ interaction:
 
 1555:
     if greater(integer(value 23), byte 0):
-    integer(value 1) = byte 0
-    integer(value 2) = byte 0
-    integer(value 4) = byte 0
-    jump 1636
+        integer(value 1) = byte 0
+        integer(value 2) = byte 0
+        integer(value 4) = byte 0
+        jump 1636
 
     endif
 
     integer(value 3) = character(byte 0, byte 0)
 
     if isPoisoned(integer(value 3)):
-    jump 1917
+        jump 1917
 
     else:
-    print("\"But thou art well!\"")
-    jump 1507
+        print("\"But thou art well!\"")
+        jump 1507
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 1636:
     if greater(integer(value 1), integer(value 23)):
-    jump 1746
+        jump 1746
 
     endif
 
     integer(value 3) = character(integer(value 1), byte 0)
 
     if equals(isPoisoned(integer(value 3)), byte 0):
-    jump 1731
+        jump 1731
 
     endif
 
     if equals(integer(value 4), byte 0):
-    integer(value 4) = integer(value 3)
-    integer(value 2) = plus(integer(value 2), byte 1)
-    jump 1731
+        integer(value 4) = integer(value 3)
+        integer(value 2) = plus(integer(value 2), byte 1)
+        jump 1731
 
     endif
 
@@ -293,19 +305,21 @@ interaction:
     print("#2) $Y\n")
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
+
+1731:
     integer(value 1) = plus(integer(value 1), byte 1)
     jump 1636
 
 1746:
     if equals(integer(value 2), byte 0):
-    print("\"But all of you are well!\"")
-    jump 1507
+        print("\"But all of you are well!\"")
+        jump 1507
 
     endif
 
     if equals(integer(value 2), byte 1):
-    integer(value 3) = integer(value 4)
-    jump 1917
+        integer(value 3) = integer(value 4)
+        jump 1917
 
     endif
 
@@ -314,30 +328,33 @@ interaction:
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
-    jump 1507
+        jump 1507
 
     endif
 
     integer(value 1) = byte 0
+
+1855:
     integer(value 3) = character(integer(value 1), byte 0)
 
     if isPoisoned(integer(value 3)):
-    integer(value 2) = minus(integer(value 2), byte 1)
+        integer(value 2) = minus(integer(value 2), byte 1)
 
     endif
 
     if equals(integer(value 2), byte 0):
-    jump 1917
+        jump 1917
 
     endif
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 1), integer(value 23)):
-    jump 1855
+        jump 1855
 
     endif
 
+1917:
     ('SETNAME', ('integer', [('value', 3)]))
     print("\"I see thy injury, $Y.\"")
     wait()
@@ -345,56 +362,58 @@ interaction:
     print("\n\n\"Wilt thou make an offering of 10 gold?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
+        if less(objectsCount(integer(value 3), byte 88), byte 10):
+            jump 2174
 
-    if less(objectsCount(integer(value 3), byte 88), byte 10):
-    jump 2174
+        else:
+            print("Tara grabs a vial and pours it down $Y's throat.")
+            wait()
 
-    else:
-    print("Tara grabs a vial and pours it down $Y's throat.")
-    wait()
+            print("\n\n$Y feels much better.")
+            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 10))
+            ('CURE', ('integer', [('value', 3)]))
+            jump 1507
 
-    print("\n\n$Y feels much better.")
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 10))
-    ('CURE', ('integer', [('value', 3)]))
-    jump 1507
-
-    endif
+        endif
 
     case "n":
+        if less(objectsCount(integer(value 3), byte 88), byte 10):
+            jump 2174
 
-    if less(objectsCount(integer(value 3), byte 88), byte 10):
-    jump 2174
+        else:
+            print("\"If thou wilt not pay, I cannot heal thee.\"")
+            jump 1507
 
-    else:
-    print("\"If thou wilt not pay, I cannot heal thee.\"")
-    jump 1507
+            // Unreachable code!
 
-# Unreachable code!
-    endif
+        endif
 
     esac
 
 2174:
     if less(integer(value 20), byte 40):
-    print("\"I'm sorry. Without an offering I cannot heal thee.\"")
-    jump 236
+        print("\"I'm sorry. Without an offering I cannot heal thee.\"")
+        jump 236
 
     else:
-    print("\"Thou art poor, but thy cause is just.\"")
-    wait()
+        print("\"Thou art poor, but thy cause is just.\"")
+        wait()
 
-    print("\n\n\"I will heal thee without payment.\"")
-    wait()
+        print("\n\n\"I will heal thee without payment.\"")
+        wait()
 
-    print("\n\nTara grabs a vial and pours it down $Y's throat.")
-    wait()
+        print("\n\nTara grabs a vial and pours it down $Y's throat.")
+        wait()
 
-    print("\n\n$Y feels much better.")
-    ('CURE', ('integer', [('value', 3)]))
-    jump 1507
+        print("\n\n$Y feels much better.")
+        ('CURE', ('integer', [('value', 3)]))
+        jump 1507
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 2401:
@@ -405,21 +424,23 @@ interaction:
     print("\n\n\"Wilt thou make an offering of 400 gold?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
+        if less(objectsCount(integer(value 0), byte 88), word 400):
+            jump 2587
 
-    if less(objectsCount(integer(value 0), byte 88), word 400):
-    jump 2587
+        else:
+            jump 2926
 
-    else:
-    jump 2926
-
-    endif
+        endif
 
     case "n":
-    print("\"Then there is naught I can do save grieve with thee.\"")
-    jump 236
+        print("\"Then there is naught I can do save grieve with thee.\"")
+        jump 236
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 2587:
@@ -428,41 +449,43 @@ interaction:
     integer(value 3) = byte 0
     integer(value 4) = byte 0
 
+2616:
     if greater(integer(value 3), integer(value 23)):
-    print("\"That isn't enough money.\"")
-    wait()
+        print("\"That isn't enough money.\"")
+        wait()
 
-    print("\n\n\"Thou art #1 gold piece\\s short.\"")
-    jump 236
+        print("\n\n\"Thou art #1 gold piece\\s short.\"")
+        jump 236
 
     endif
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
 
     if less(integer(value 5), integer(value 1)):
-    integer(value 1) = minus(integer(value 1), integer(value 5))
-    integer(value 2) = plus(integer(value 2), integer(value 5))
-    integer(value 3) = plus(integer(value 3), byte 1)
-    jump 2616
+        integer(value 1) = minus(integer(value 1), integer(value 5))
+        integer(value 2) = plus(integer(value 2), integer(value 5))
+        integer(value 3) = plus(integer(value 3), byte 1)
+        jump 2616
 
     else:
-    print("Your party takes up a collection for their fallen comrade.")
-    integer(value 1) = word 400
-    integer(value 2) = byte 0
-    integer(value 4) = integer(value 3)
-    integer(value 3) = byte 0
-    jump 2840
+        print("Your party takes up a collection for their fallen comrade.")
+        integer(value 1) = word 400
+        integer(value 2) = byte 0
+        integer(value 4) = integer(value 3)
+        integer(value 3) = byte 0
+        jump 2840
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 2840:
     if equals(integer(value 3), integer(value 4)):
-    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-    wait()
+        ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+        wait()
 
-    print("\n\n")
-    jump 2926
+        print("\n\n")
+        jump 2926
 
     endif
 
@@ -490,17 +513,18 @@ interaction:
     integer(value 0) = partyHasObject(word 339, byte 0)
 
     if notEquals(integer(value 0), word 32769):
-    ('SETNAME', ('integer', [('value', 0)]))
-    wait()
+        ('SETNAME', ('integer', [('value', 0)]))
+        wait()
 
-    print("\n\n\"I see that $Y carries another slain friend.\"")
-    wait()
+        print("\n\n\"I see that $Y carries another slain friend.\"")
+        wait()
 
-    print("\n\n")
-    jump 2453
+        print("\n\n")
+        jump 2453
 
     else:
-    jump 236
+        jump 236
 
-# Unreachable code!
+        // Unreachable code!
+
     endif

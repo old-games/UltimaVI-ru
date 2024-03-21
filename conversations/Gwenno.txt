@@ -11,132 +11,135 @@ interaction:
     ('SETF', ('byte', 235), ('value', 0))
 
     if partyHas(byte 235):
-    print("\"Is there something you needed to know?\"")
+        print("\"Is there something you needed to know?\"")
 
     else:
-    print("\"Hello, $P.\"")
+        print("\"Hello, $P.\"")
 
     endif
 
+100:
     print("\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"It's me, Gwenno. You have been away from our realm a long time, ")
-    print("haven't you...\"")
-    jump 100
+        print("\"It's me, Gwenno. You have been away from our realm a long time, ")
+        print("haven't you...\"")
+        jump 100
 
     case "job":
-    print("\"Iolo's @apprentice has taken over my job at @Iolo's Bows.\"\n*\n\"These ")
-    print("days I've been transcribing the folk @songs of Britannia into ")
-    print("numerical @notation for the artisan's @guild.\"\n*\n")
+        print("\"Iolo's @apprentice has taken over my job at @Iolo's Bows.\"\n*\n\"These ")
+        print("days I've been transcribing the folk @songs of Britannia into ")
+        print("numerical @notation for the artisan's @guild.\"\n*\n")
 
-    if partyHas(byte 235):
-    print("\"Of course, helping you on your quest is more important than that ")
-    print("right now.\"")
+        if partyHas(byte 235):
+            print("\"Of course, helping you on your quest is more important than that ")
+            print("right now.\"")
 
-    else:
-    print("\"Of course, if you need my help, I could leave the guild for a time ")
-    print("and @join you.\"")
+        else:
+            print("\"Of course, if you need my help, I could leave the guild for a time ")
+            print("and @join you.\"")
 
-    endif
+        endif
 
-    jump 100
+        jump 100
 
     case "arti":
     case "guil":
-    print("\"@Selganor can tell you more about the guild than I could.\"")
-    jump 100
+        print("\"@Selganor can tell you more about the guild than I could.\"")
+        jump 100
 
     case "selg":
-    print("\"He's the guildmaster.\"")
-    jump 100
+        print("\"He's the guildmaster.\"")
+        jump 100
 
     case "help":
     case "join":
     case "ques":
-    jump 1689
+        jump 1689
 
     case "leav":
-    jump 2222
+        jump 2222
 
     case "folk":
     case "song":
-    print("\"The songs of a people are an important part of their heritage.\"\n*\n")
-    print("\"Putting them down on paper helps preserve our @traditions for future ")
-    print("generations.\"")
-    jump 100
+        print("\"The songs of a people are an important part of their heritage.\"\n*\n")
+        print("\"Putting them down on paper helps preserve our @traditions for future ")
+        print("generations.\"")
+        jump 100
 
     case "futu":
     case "gene":
     case "heri":
     case "pape":
     case "trad":
-    print("\"I'm so glad you appreciate the value of tradition.\"")
-    jump 100
+        print("\"I'm so glad you appreciate the value of tradition.\"")
+        jump 100
 
     case "iolo":
-    print("\"A bit scruffy, but he's the sweetest husband I could ever ask for.\"")
+        print("\"A bit scruffy, but he's the sweetest husband I could ever ask for.\"")
 
-    if isNearby(byte 4):
-    wait()
+        if isNearby(byte 4):
+            wait()
 
-    ('PORTRAIT', ('byte', 4))
-    print("\n\nIolo says \"You're only saying that because it's true.\" He gives her ")
-    print("a kiss.")
-    wait()
+            ('PORTRAIT', ('byte', 4))
+            print("\n\nIolo says \"You're only saying that because it's true.\" He gives her ")
+            print("a kiss.")
+            wait()
 
-    ('PORTRAIT', ('byte', 235))
+            ('PORTRAIT', ('byte', 235))
 
-    endif
+        endif
 
-    jump 100
+        jump 100
 
     case "appr":
     case "bow":
-    print("\"If you need a good crossbow, the shop is in Britain, over by the Blue")
-    print(" @Boar.\"")
-    jump 100
+        print("\"If you need a good crossbow, the shop is in Britain, over by the Blue")
+        print(" @Boar.\"")
+        jump 100
 
     case "blue":
     case "boar":
-    print("\"It's a lively place.\"")
-    jump 100
+        print("\"It's a lively place.\"")
+        jump 100
 
     case "nota":
     case "nume":
     case "tran":
-    print("\"A number for every @note, and a note for every @number.\"")
-    jump 100
+        print("\"A number for every @note, and a note for every @number.\"")
+        jump 100
 
     case "note":
-    print("\"Each note is represented by one @number.\"")
-    jump 100
+        print("\"Each note is represented by one @number.\"")
+        jump 100
 
     case "numb":
-    print("\"Each number @represents one @note.\"")
-    jump 100
+        print("\"Each number @represents one @note.\"")
+        jump 100
 
     case "repr":
-    print("\"I knew you'd catch on!\"")
-    jump 100
+        print("\"I knew you'd catch on!\"")
+        jump 100
 
     case "play":
     case "tune":
-    print("\"Oh, Selganor sent you, did he? I bet you want to learn '@Stones.'\"")
-    jump 100
+        print("\"Oh, Selganor sent you, did he? I bet you want to learn '@Stones.'\"")
+        jump 100
 
     case "lear":
     case "ston":
-    print("\"In the standard numerical notation, it reads '678987 8767653'.\"")
-    jump 100
+        print("\"In the standard numerical notation, it reads '678987 8767653'.\"")
+        jump 100
 
     case "bye":
-    print("\"Nice talking with you.\"\n")
-    bye()
+        print("\"Nice talking with you.\"\n")
+        bye()
 
     case "*":
-    print("\"Sorry, can't help you there.\"")
+        print("\"Sorry, can't help you there.\"")
 
     esac
 
@@ -144,47 +147,51 @@ interaction:
 
 1689:
     if partyHas(byte 235):
-    print("\"I have joined you already!\"")
-    jump 100
+
+1694:
+        print("\"I have joined you already!\"")
+        jump 100
 
     endif
 
     print("\"Do you want me to come with you?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Okay. Let me know if you need my help later.\"")
-    jump 100
+        print("\"Okay. Let me know if you need my help later.\"")
+        jump 100
 
     esac
 
     integer(value 0) = partyJoin(byte 235)
 
     if equals(integer(value 0), byte 1):
-    print("\n\"Not while you're in that thing!\"")
-    jump 100
+        print("\n\"Not while you're in that thing!\"")
+        jump 100
 
     endif
 
     if equals(integer(value 0), byte 2):
-    print("\n\"You have enough travelling with you already.\"\n*\n\"If you ask one of ")
-    print("them to @leave first, I'd be happy to join you.\"")
-    jump 100
+        print("\n\"You have enough travelling with you already.\"\n*\n\"If you ask one of ")
+        print("them to @leave first, I'd be happy to join you.\"")
+        jump 100
 
     endif
 
     if equals(integer(value 0), byte 3):
-    jump 1694
+        jump 1694
 
     endif
 
     print("\n\"Okay! It will be nice to spend some time on the road again.\"")
 
     if partyHas(byte 4):
-    wait()
+        wait()
 
-    print("\n\nShe runs over and hooks arms with @Iolo, and they dance around and ")
-    print("around.\n*\nThey're obviously very happy to see each other again.")
+        print("\n\nShe runs over and hooks arms with @Iolo, and they dance around and ")
+        print("around.\n*\nThey're obviously very happy to see each other again.")
 
     endif
 
@@ -193,21 +200,23 @@ interaction:
 
 2222:
     if equals(partyHas(byte 235), byte 0):
-    print("\"I'd have to @join you before I could leave, silly!\"")
-    jump 100
+
+2230:
+        print("\"I'd have to @join you before I could leave, silly!\"")
+        jump 100
 
     endif
 
     integer(value 0) = partyLeave(byte 235)
 
     if equals(integer(value 0), byte 1):
-    print("\"Let's get our feet back on solid ground first, okay?\"")
-    jump 100
+        print("\"Let's get our feet back on solid ground first, okay?\"")
+        jump 100
 
     endif
 
     if equals(integer(value 0), byte 2):
-    jump 2230
+        jump 2230
 
     endif
 
@@ -216,10 +225,10 @@ interaction:
     print("of them might come in handy for you.\"")
 
     if partyHas(byte 4):
-    wait()
+        wait()
 
-    print("\n\nShe gives Iolo a big hug before she leaves.\n*\n\"Remember to keep your")
-    print(" socks dry,\" she says, \"and I'll see you when the quest is done.\"")
+        print("\n\nShe gives Iolo a big hug before she leaves.\n*\n\"Remember to keep your")
+        print(" socks dry,\" she says, \"and I'll see you when the quest is done.\"")
 
     endif
 

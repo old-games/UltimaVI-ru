@@ -11,67 +11,69 @@ interaction:
     print("\"Welcome, friend.\"\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    ('SETF', ('byte', 235), ('value', 0))
-    print("\"My name is Linda.\"")
-    jump 58
+        ('SETF', ('byte', 235), ('value', 0))
+        print("\"My name is Linda.\"")
+        jump 58
 
     case "job":
-    print("\"I raise @crops. If you'd like to buy some @grain, just say the ")
-    print("@word.\"")
-    jump 58
+        print("\"I raise @crops. If you'd like to buy some @grain, just say the ")
+        print("@word.\"")
+        jump 58
 
     case "crop":
     case "rais":
-    print("\"@Bread, cakes, pies, pastries... They all have their @roots here.\"")
-    jump 58
+        print("\"@Bread, cakes, pies, pastries... They all have their @roots here.\"")
+        jump 58
 
     case "brea":
     case "cake":
     case "past":
     case "pie":
-    print("\"@Woman does not live on @meat alone.\"")
-    jump 58
+        print("\"@Woman does not live on @meat alone.\"")
+        jump 58
 
     case "meat":
-    print("\"Cows and @sheep are much more trouble to raise than @wheat.\"")
-    jump 58
+        print("\"Cows and @sheep are much more trouble to raise than @wheat.\"")
+        jump 58
 
     case "cow":
     case "shee":
-    print("\"They have their place. But not on my farm.\"")
-    jump 58
+        print("\"They have their place. But not on my farm.\"")
+        jump 58
 
     case "farm":
     case "rais":
     case "root":
     case "whea":
-    print("\"I was born to work the earth. It was either this, or be a ")
-    print("@gravedigger...\"")
-    jump 58
+        print("\"I was born to work the earth. It was either this, or be a ")
+        print("@gravedigger...\"")
+        jump 58
 
     case "grav":
-    print("\"That's not my kind of work.\"")
-    jump 58
+        print("\"That's not my kind of work.\"")
+        jump 58
 
     case "woma":
-    print("\"Yes, men need to eat too, I suppose.\"")
-    jump 58
+        print("\"Yes, men need to eat too, I suppose.\"")
+        jump 58
 
     case "word":
-    print("\"The word '@grain,' silly!\"")
-    jump 58
+        print("\"The word '@grain,' silly!\"")
+        jump 58
 
     case "buy":
     case "grain":
-    jump 804
+        jump 804
 
     case "bye":
-    print("\"May the sun shine on you, and the rain bring you nourishment.\"\n")
-    bye()
+        print("\"May the sun shine on you, and the rain bring you nourishment.\"\n")
+        bye()
 
     case "*":
-    print("\"I don't know. I guess so.\"")
+        print("\"I don't know. I guess so.\"")
 
     esac
 
@@ -79,20 +81,23 @@ interaction:
 
 804:
     if equals(integer(value 23), byte 0):
-    integer(value 3) = byte 0
-    jump 940
+        integer(value 3) = byte 0
+        jump 940
 
     endif
 
+824:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
+
+838:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#2. $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-    jump 838
+        jump 838
 
     endif
 
@@ -100,46 +105,51 @@ interaction:
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-    jump 1168
+        jump 1168
 
     endif
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-    jump 824
+        jump 824
 
     endif
 
+940:
     print("\"It'll cost you 2 gold for a sack of grain. Interested?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
+        if less(canCarry(character(integer(value 3), byte 0)), weight(byte 166, byte 1)):
+            print("\"You look pretty full to me.\"")
+            jump 58
 
-    if less(canCarry(character(integer(value 3), byte 0)), weight(byte 166, byte 1)):
-    print("\"You look pretty full to me.\"")
-    jump 58
+        endif
 
-    endif
+        if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 2):
+            ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 2))
+            ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 166), ('byte', 0), ('byte', 1))
+            print("\"Here you go.\"")
+            wait()
 
-    if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 2):
-    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 2))
-    ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 166), ('byte', 0), ('byte', 1))
-    print("\"Here you go.\"")
-    wait()
+            integer(value 5) = byte 1
+            jump 1176
 
-    integer(value 5) = byte 1
-    jump 1176
+        else:
+            print("\"Best check your coinpouch again.\"")
+            jump 58
 
-    else:
-    print("\"Best check your coinpouch again.\"")
-    jump 58
-
-    endif
+        endif
 
     case "n":
-    print("\"Okay.\"")
+
+1168:
+        print("\"Okay.\"")
 
     esac
 
+1176:
     jump 58

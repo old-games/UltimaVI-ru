@@ -15,93 +15,95 @@ interaction:
     print("\"Hi there!\"\n*\n\"Is there anything I can do for you?\"\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"Once I was Aurendir the mighty - now I live a more @modest life.\"")
-    ('SETF', ('byte', 235), ('value', 0))
-    jump 114
+        print("\"Once I was Aurendir the mighty - now I live a more @modest life.\"")
+        ('SETF', ('byte', 235), ('value', 0))
+        jump 114
 
     case "job":
     case "life":
     case "shep":
-    print("\"I came here to @meditate, tend @sheep and sell @wool.\"")
-    jump 114
+        print("\"I came here to @meditate, tend @sheep and sell @wool.\"")
+        jump 114
 
     case "shee":
     case "tend":
-    print("\"So they can be @shorn.\"")
-    jump 114
+        print("\"So they can be @shorn.\"")
+        jump 114
 
     case "shor":
-    print("\"To make @wool. People @buy it from me.\"")
-    jump 114
+        print("\"To make @wool. People @buy it from me.\"")
+        jump 114
 
     case "wool":
-    print("\"It's used to make @thread.\"")
-    jump 114
+        print("\"It's used to make @thread.\"")
+        jump 114
 
     case "buy":
-    print("\"Would you like some wool?\" ")
-    jump 1501
+        print("\"Would you like some wool?\" ")
+        jump 1501
 
     case "thre":
-    print("\"To be woven into @cloth.\"")
-    jump 114
+        print("\"To be woven into @cloth.\"")
+        jump 114
 
     case "clot":
     case "wove":
-    print("\"You can make @robes from it.\"")
-    jump 114
+        print("\"You can make @robes from it.\"")
+        jump 114
 
     case "robe":
-    print("\"I wear a robe while I tend @sheep. It's all part of life's great ")
-    print("@circle.\"")
-    jump 114
+        print("\"I wear a robe while I tend @sheep. It's all part of life's great ")
+        print("@circle.\"")
+        jump 114
 
     case "circ":
     case "life":
-    print("\"From earth, to grass, to sheep, to me... when I die, I'll return to ")
-    print("the @earth.\"")
-    jump 114
+        print("\"From earth, to grass, to sheep, to me... when I die, I'll return to ")
+        print("the @earth.\"")
+        jump 114
 
     case "back":
     case "buri":
     case "die":
     case "eart":
     case "gras":
-    print("\"That's right.\"")
-    jump 114
+        print("\"That's right.\"")
+        jump 114
 
     case "humb":
     case "humi":
     case "migh":
     case "mode":
     case "once":
-    print("\"I used to be a powerful and wealthy mage. I wore silk robes, and fine")
-    print(" jewelry.\"")
-    wait()
+        print("\"I used to be a powerful and wealthy mage. I wore silk robes, and fine")
+        print(" jewelry.\"")
+        wait()
 
-    print("\n\n\"In fact, I even had my own @castle.\"")
-    wait()
+        print("\n\n\"In fact, I even had my own @castle.\"")
+        wait()
 
-    print("\n\n\"But one day in my travels I visited the @Shrine of Humility.\"")
-    wait()
+        print("\n\n\"But one day in my travels I visited the @Shrine of Humility.\"")
+        wait()
 
-    print("\n\n\"Meditating there, I had an idea.\"")
-    wait()
+        print("\n\n\"Meditating there, I had an idea.\"")
+        wait()
 
-    print("\n\n\"I would give up all my earthly possessions and quit the practice of")
-    print(" magic.\"")
-    wait()
+        print("\n\n\"I would give up all my earthly possessions and quit the practice of")
+        print(" magic.\"")
+        wait()
 
-    print("\n\n\"I would live as a shepherd!\"")
-    wait()
+        print("\n\n\"I would live as a shepherd!\"")
+        wait()
 
-    print("\n\n\"Surely this would be the greatest act of humility a man could ")
-    print("perform.\"")
-    wait()
+        print("\n\n\"Surely this would be the greatest act of humility a man could ")
+        print("perform.\"")
+        wait()
 
-    print("\n\n\"And so you see me here today.\"")
-    jump 114
+        print("\n\n\"And so you see me here today.\"")
+        jump 114
 
     case "cast":
     case "jewe":
@@ -110,25 +112,25 @@ interaction:
     case "powe":
     case "silk":
     case "weal":
-    print("\"Those days are no more.\"")
-    jump 114
+        print("\"Those days are no more.\"")
+        jump 114
 
     case "shri":
-    print("\"I should go there again soon... It changed my life.\"")
-    jump 114
+        print("\"I should go there again soon... It changed my life.\"")
+        jump 114
 
     case "mant":
     case "medi":
-    print("\"You should go meditate at the shrine yourself. I find 'lum' a most ")
-    print("effective mantra.\"")
-    jump 114
+        print("\"You should go meditate at the shrine yourself. I find 'lum' a most ")
+        print("effective mantra.\"")
+        jump 114
 
     case "bye":
-    print("\"See you later.\"\n")
-    bye()
+        print("\"See you later.\"\n")
+        bye()
 
     case "*":
-    print("\"Beats me.\"")
+        print("\"Beats me.\"")
 
     esac
 
@@ -136,32 +138,38 @@ interaction:
 
 1501:
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    jump 1528
+        jump 1528
 
     case "n":
-    print("\"Okay.\"")
-    jump 114
+        print("\"Okay.\"")
+        jump 114
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1528:
     if equals(integer(value 23), byte 0):
-    integer(value 3) = byte 0
-    jump 1664
+        integer(value 3) = byte 0
+        jump 1664
 
     endif
 
+1548:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
+
+1562:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#2. $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-    jump 1562
+        jump 1562
 
     endif
 
@@ -169,62 +177,65 @@ interaction:
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-    jump 1994
+        jump 1994
 
     endif
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-    jump 1548
+        jump 1548
 
     endif
 
+1664:
     print("\"I charge 5 gold for a bale of wool. Would you like some?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
+        if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, byte 5)), weight(byte 190, byte 1)):
+            print("\"You look pretty full to me.\"")
+            wait()
 
-    if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, byte 5)), weight(byte 190, byte 1)):
-    print("\"You look pretty full to me.\"")
-    wait()
+            print("\n")
+            jump 76
 
-    print("\n")
-    jump 76
+        endif
 
-    endif
+        if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 5):
+            ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 5))
+            ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 190), ('byte', 0), ('byte', 1))
+            ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+            print("\"Very good.\" After accepting $Y's gold, $N hands over the wool.")
+            wait()
 
-    if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 5):
-    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 5))
-    ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 190), ('byte', 0), ('byte', 1))
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-    print("\"Very good.\" After accepting $Y's gold, $N hands over the wool.")
-    wait()
+            integer(value 5) = byte 1
+            print("\n\n")
+            jump 1994
 
-    integer(value 5) = byte 1
-    print("\n\n")
-    jump 1994
+        else:
+            ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+            print("\"I'm sorry, but you don't seem to have enough money.\"")
+            wait()
 
-    else:
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-    print("\"I'm sorry, but you don't seem to have enough money.\"")
-    wait()
+            print("\n")
+            jump 76
 
-    print("\n")
-    jump 76
-
-    endif
+        endif
 
     case "n":
-    jump 1994
+        jump 1994
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1994:
     if integer(value 5):
-    print("\"It was a pleasure doing business with you.\"")
-    wait()
+        print("\"It was a pleasure doing business with you.\"")
+        wait()
 
     endif
 

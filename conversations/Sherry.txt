@@ -12,123 +12,123 @@ description:
 
 interaction:
     if partyHas(byte 235):
-    jump 1356
+        jump 1356
 
     endif
 
     print("\"Squeak, squeak, @squeak!\"")
 
     if and(equals(hasBit(byte 235, byte 7), byte 0), partyHas(byte 2)):
-    wait()
+        wait()
 
-    ('PORTRAIT', ('byte', 2))
-    print("\n\n\"Talking to a mouse?\" says Dupre.")
-    wait()
+        ('PORTRAIT', ('byte', 2))
+        print("\n\n\"Talking to a mouse?\" says Dupre.")
+        wait()
 
-    print("\n\n\"Methinks you're starting to imagine things...\"")
-    wait()
+        print("\n\n\"Methinks you're starting to imagine things...\"")
+        wait()
 
-    ('PORTRAIT', ('byte', 235))
-    ('SETF', ('byte', 235), ('byte', 7))
+        ('PORTRAIT', ('byte', 235))
+        ('SETF', ('byte', 235), ('byte', 7))
 
     endif
 
+186:
     print("\n")
 
     ask()
+
+    // Wrong flow!
     case "sque":
-    print("\"Squeak @squirk?\"")
-    jump 186
+        print("\"Squeak @squirk?\"")
+        jump 186
 
     case "fibl":
     case "nitt":
     case "squi":
-    print("\"Squeeeeek!\"")
-    jump 186
+        print("\"Squeeeeek!\"")
+        jump 186
 
     case "boo":
     case "cat":
     case "meow":
-    print("\"Eeeek!\"")
-    jump 1347
+        print("\"Eeeek!\"")
+        jump 1347
 
     case "name":
-    print("\"I am Lord @British's friend, @Sherry.\"")
-    ('SETF', ('byte', 235), ('value', 0))
-    jump 906
+        print("\"I am Lord @British's friend, @Sherry.\"")
+        ('SETF', ('byte', 235), ('value', 0))
+        jump 906
 
     case "brit":
     case "lord":
-    print("\"He reads me bedtime @stories every night.\"")
-    jump 906
+        print("\"He reads me bedtime @stories every night.\"")
+        jump 906
 
     case "bed":
     case "nigh":
     case "stor":
-    print("\"He knows the one about @Hubert the Lion by Heart!\"")
-    jump 906
+        print("\"He knows the one about @Hubert the Lion by Heart!\"")
+        jump 906
 
     case "hube":
     case "lion":
-    print("\"That's my favorite story.\"")
-    jump 906
+        print("\"That's my favorite story.\"")
+        jump 906
 
     case "sher":
-    print("\"Pleased to meet you!\"")
-    jump 906
+        print("\"Pleased to meet you!\"")
+        jump 906
 
     case "help":
     case "hole":
     case "join":
     case "mous":
     case "rune":
+        if hasBit(byte 235, byte 5):
+            jump 1159
 
-    if hasBit(byte 235, byte 5):
-    jump 1159
+        else:
+            print("\"Give me some @cheese and ask me again.\"")
+            ('SETF', ('byte', 235), ('byte', 6))
+            jump 186
 
-    else:
-    print("\"Give me some @cheese and ask me again.\"")
-    ('SETF', ('byte', 235), ('byte', 6))
-    jump 186
-
-    endif
+        endif
 
     case "bles":
     case "dust":
     case "gesh":
     case "kerc":
     case "snee":
-    print("\"I wish people would clean up under their beds and cabinets...\"")
-    wait()
+        print("\"I wish people would clean up under their beds and cabinets...\"")
+        wait()
 
-    print("\n\n\"Dust mice are no friends of mine!\"")
-    jump 906
+        print("\n\n\"Dust mice are no friends of mine!\"")
+        jump 906
 
     case "chee":
-    jump 922
+        jump 922
 
     case "bye":
+        if equals(hasBit(byte 235, byte 6), byte 0):
+            print("\"Nitters @fiblik.\"")
 
-    if equals(hasBit(byte 235, byte 6), byte 0):
-    print("\"Nitters @fiblik.\"")
+        else:
+            print("\"Come visit me again soon!\"")
 
-    else:
-    print("\"Come visit me again soon!\"")
+        endif
 
-    endif
-
-    print("\n")
-    bye()
+        print("\n")
+        bye()
 
     case "*":
+        if greater(random(byte 1, byte 7), byte 5):
+            print("\"Kerchew!\"")
 
-    if greater(random(byte 1, byte 7), byte 5):
-    print("\"Kerchew!\"")
+        else:
+            print("The mouse wiggles its whiskers at you.")
 
-    else:
-    print("The mouse wiggles its whiskers at you.")
-
-    endif
+        endif
 
     esac
 
@@ -136,7 +136,7 @@ interaction:
 
 906:
     if hasBit(byte 235, byte 5):
-    jump 186
+        jump 186
 
     endif
 
@@ -146,68 +146,76 @@ interaction:
     ('SETF', ('byte', 235), ('byte', 6))
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Oh, that's too bad.\"")
-    jump 1347
+        print("\"Oh, that's too bad.\"")
+        jump 1347
 
     esac
 
     if notEquals(partyHasObject(byte 132, byte 0), word 32769):
-    jump 1039
+        jump 1039
 
     else:
-    print("\n\"I don't smell any cheese!\"")
-    jump 1347
+        print("\n\"I don't smell any cheese!\"")
+        jump 1347
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 1039:
     print("\n\"Can I have some?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Well, you're no fun.\"")
-    jump 1347
+        print("\"Well, you're no fun.\"")
+        jump 1347
 
     case "y":
-    ('DELETE', ('partyHasObject', [('byte', 132), ('byte', 0)]), ('byte', 132), ('byte', 0), ('byte', 1))
-    ('NEW', ('byte', 235), ('byte', 132), ('byte', 0), ('byte', 1))
-    print("\"Thank you very much!\"")
-    ('SETF', ('byte', 235), ('byte', 5))
-    jump 186
+        ('DELETE', ('partyHasObject', [('byte', 132), ('byte', 0)]), ('byte', 132), ('byte', 0), ('byte', 1))
+        ('NEW', ('byte', 235), ('byte', 132), ('byte', 0), ('byte', 1))
+        print("\"Thank you very much!\"")
+        ('SETF', ('byte', 235), ('byte', 5))
+        jump 186
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1159:
     print("\"I can help you! Do you want me to come with you?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Ok.\"")
-    jump 906
+        print("\"Ok.\"")
+        jump 906
 
     case "y":
-    integer(value 0) = partyJoin(byte 235)
+        integer(value 0) = partyJoin(byte 235)
 
-    if equals(integer(value 0), byte 0):
-    print("\"Great!\"\n")
-    bye()
+        if equals(integer(value 0), byte 0):
+            print("\"Great!\"\n")
+            bye()
 
-    endif
+        endif
 
-    if equals(integer(value 0), byte 1):
-    print("\"Boats make me seasick.\"")
-    jump 186
+        if equals(integer(value 0), byte 1):
+            print("\"Boats make me seasick.\"")
+            jump 186
 
-    endif
+        endif
 
-    if equals(integer(value 0), byte 2):
-    print("\"With that many people I'd get trampled!\"")
-    jump 186
+        if equals(integer(value 0), byte 2):
+            print("\"With that many people I'd get trampled!\"")
+            jump 186
 
-    endif
+        endif
 
     esac
 
@@ -220,40 +228,42 @@ interaction:
     print("\"Travelling with you is fun! I hope we find some more cheese soon.\"\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"I am Lord @British's friend, @Sherry.\"")
-    jump 1423
+        print("\"I am Lord @British's friend, @Sherry.\"")
+        jump 1423
 
     case "brit":
     case "lord":
-    print("\"He used to read me bedtime @stories every night.\"")
-    jump 1423
+        print("\"He used to read me bedtime @stories every night.\"")
+        jump 1423
 
     case "bed":
     case "nigh":
     case "stor":
-    print("\"He knows the one about @Hubert the Lion by Heart!\"")
-    jump 1423
+        print("\"He knows the one about @Hubert the Lion by Heart!\"")
+        jump 1423
 
     case "hube":
     case "lion":
-    print("\"That's my favorite story.\"")
-    jump 1423
+        print("\"That's my favorite story.\"")
+        jump 1423
 
     case "sher":
-    print("\"Pleased to meet you!\"")
-    jump 1423
+        print("\"Pleased to meet you!\"")
+        jump 1423
 
     case "job":
-    print("\"I can slip through openings that are too small for you to fit ")
-    print("through!\"")
-    jump 1423
+        print("\"I can slip through openings that are too small for you to fit ")
+        print("through!\"")
+        jump 1423
 
     case "bye":
-    jump 1804
+        jump 1804
 
     case "*":
-    print("\"You're funny!\"")
+        print("\"You're funny!\"")
 
     esac
 
@@ -263,17 +273,19 @@ interaction:
     print("\"Oh, goodbye. Does this mean you want me to go home now?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Okay.\"\n")
-    bye()
+        print("\"Okay.\"\n")
+        bye()
 
     esac
 
     integer(value 0) = partyLeave(byte 235)
 
     if equals(integer(value 0), byte 1):
-    print("\"I'm not leaving until we get out of this thing!\"")
-    jump 186
+        print("\"I'm not leaving until we get out of this thing!\"")
+        jump 186
 
     endif
 

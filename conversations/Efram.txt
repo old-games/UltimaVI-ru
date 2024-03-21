@@ -12,7 +12,7 @@ description:
 
 interaction:
     if equals(integer(value 32), byte 144):
-    jump 191
+        jump 191
 
     endif
 
@@ -22,10 +22,10 @@ interaction:
     print("\n\n\"Hrmmph, yes, well, come back to my shop ")
 
     if greater(integer(value 17), byte 19):
-    print("tomorrow morning")
+        print("tomorrow morning")
 
     else:
-    print("this afternoon")
+        print("this afternoon")
 
     endif
 
@@ -34,7 +34,7 @@ interaction:
 
 191:
     if hasBit(byte 235, value 0):
-    jump 262
+        jump 262
 
     endif
 
@@ -54,91 +54,97 @@ interaction:
 312:
     print("\n\"What do you need?\"\n")
 
+333:
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"Efram the provisioner.\"\n")
-    jump 333
+        print("\"Efram the provisioner.\"\n")
+        jump 333
 
     case "efra":
-    print("\"It's a nice enough name, hrmmph.\"\n")
-    jump 333
+        print("\"It's a nice enough name, hrmmph.\"\n")
+        jump 333
 
     case "buy":
-    print("\"Which, @torches, @oil, @gems, @backpacks, @bags, @shovels, or @powder")
-    print(" kegs?\"\n")
-    jump 333
+        print("\"Which, @torches, @oil, @gems, @backpacks, @bags, @shovels, or @powder")
+        print(" kegs?\"\n")
+        jump 333
 
     case "job":
-    print("\"I sell @torches, @oil, @gems, @backpacks, @bags, @shovels, and ")
-    print("@powder kegs.\"\n")
-    jump 333
+        print("\"I sell @torches, @oil, @gems, @backpacks, @bags, @shovels, and ")
+        print("@powder kegs.\"\n")
+        jump 333
 
     case "torc":
-    integer(value 4) = byte 0
-    jump 874
+        integer(value 4) = byte 0
+        jump 874
 
     case "flas":
     case "oil":
-    integer(value 4) = byte 1
-    jump 874
+        integer(value 4) = byte 1
+        jump 874
 
     case "gem":
-    integer(value 4) = byte 2
-    jump 874
+        integer(value 4) = byte 2
+        jump 874
 
     case "back":
-    integer(value 4) = byte 3
-    jump 874
+        integer(value 4) = byte 3
+        jump 874
 
     case "bags":
-    integer(value 4) = byte 4
-    jump 874
+        integer(value 4) = byte 4
+        jump 874
 
     case "shov":
-    integer(value 4) = byte 5
-    jump 874
+        integer(value 4) = byte 5
+        jump 874
 
     case "powd":
-    integer(value 4) = byte 6
-    jump 874
+        integer(value 4) = byte 6
+        jump 874
 
     case "bye":
-    print("\"I'm glad you stopped by.\" He gives you a firm handshake.\n")
-    bye()
+        print("\"I'm glad you stopped by.\" He gives you a firm handshake.\n")
+        bye()
 
     case "*":
+        if random(byte 0, byte 1):
+            print("\"I'm sorry?\"\n")
 
-    if random(byte 0, byte 1):
-    print("\"I'm sorry?\"\n")
+        else:
+            print("\"Hrmmph, well, perhaps you could ask someone else.\"\n")
 
-    else:
-    print("\"Hrmmph, well, perhaps you could ask someone else.\"\n")
+        endif
 
-    endif
+        jump 333
 
-    jump 333
+        // Unreachable code!
 
-# Unreachable code!
     esac
 
     jump 333
 
 874:
     if equals(integer(value 23), byte 0):
-    integer(value 3) = byte 0
-    jump 1010
+        integer(value 3) = byte 0
+        jump 1010
 
     endif
 
+894:
     integer(value 0) = byte 0
     integer(value 1) = byte 1
+
+908:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#1. $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-    jump 908
+        jump 908
 
     endif
 
@@ -146,23 +152,25 @@ interaction:
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-    jump 312
+        jump 312
 
     endif
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-    jump 894
+        jump 894
 
     endif
 
+1010:
     if or(less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, data(dword 1747, integer(value 4)))), weight(data(dword 1761, integer(value 4)), byte 1)), less(objectsCount(character(integer(value 3), byte 0), byte 88), data(dword 1747, integer(value 4)))):
-    integer(value 5) = byte 1
-    jump 1322
+        integer(value 5) = byte 1
+        jump 1322
 
     endif
 
+1073:
     integer(value 0) = data(dword 1747, integer(value 4))
     string(value 0) = data(dword 1775, integer(value 4))
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
@@ -171,39 +179,41 @@ interaction:
     ('INPUT', 5)
 
     if greater(integer(value 5), byte 100):
-    print("\"Come now, that's a little much don't you think?\"")
-    wait()
+        print("\"Come now, that's a little much don't you think?\"")
+        wait()
 
-    print("\n\n")
-    jump 1073
+        print("\n\n")
+        jump 1073
 
     endif
 
     if equals(integer(value 5), byte 0):
-    print("$N frowns at $Y. \"Hrmmph. That was a fair price. Well...\"")
-    wait()
+        print("$N frowns at $Y. \"Hrmmph. That was a fair price. Well...\"")
+        wait()
 
-    print("\n")
-    jump 312
+        print("\n")
+        jump 312
 
     endif
 
+1322:
     integer(value 2) = integer(value 5)
     integer(value 0) = byte 0
     integer(value 1) = byte 0
 
+1343:
     if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, multiply(integer(value 2), data(dword 1747, integer(value 4))))), weight(data(dword 1761, integer(value 4)), integer(value 2))):
-    integer(value 1) = byte 1
-    integer(value 0) = byte 1
-    integer(value 2) = minus(integer(value 2), byte 1)
-    jump 1458
+        integer(value 1) = byte 1
+        integer(value 0) = byte 1
+        integer(value 2) = minus(integer(value 2), byte 1)
+        jump 1458
 
     endif
 
     if less(objectsCount(character(integer(value 3), byte 0), byte 88), multiply(integer(value 2), data(dword 1747, integer(value 4)))):
-    integer(value 1) = byte 2
-    integer(value 2) = minus(integer(value 2), byte 1)
-    jump 1458
+        integer(value 1) = byte 2
+        integer(value 2) = minus(integer(value 2), byte 1)
+        jump 1458
 
     endif
 
@@ -211,32 +221,33 @@ interaction:
 
 1458:
     if integer(value 2):
-    jump 1343
+        jump 1343
 
     endif
 
     if equals(integer(value 1), byte 1):
-    string(value 0) = data(dword 1775, integer(value 4))
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-    print("$N looks at $Y. \"You haven't any room in your pack.\"")
-    wait()
+        string(value 0) = data(dword 1775, integer(value 4))
+        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        print("$N looks at $Y. \"You haven't any room in your pack.\"")
+        wait()
 
-    print("\n")
-    jump 312
+        print("\n")
+        jump 312
 
     endif
 
     if equals(integer(value 1), byte 2):
-    string(value 0) = data(dword 1775, integer(value 4))
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-    print("$N looks at $Y. \"A $0 costs more gold than you have.\"")
-    wait()
+        string(value 0) = data(dword 1775, integer(value 4))
+        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        print("$N looks at $Y. \"A $0 costs more gold than you have.\"")
+        wait()
 
-    print("\n")
-    jump 312
+        print("\n")
+        jump 312
 
     endif
 
+1643:
     ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('multiply', [('integer', [('value', 2)]), ('data', [('dword', 1747), ('integer', [('value', 4)])])]))
     ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('data', [('dword', 1761), ('integer', [('value', 4)])]), ('byte', 0), ('integer', [('value', 2)]))
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
@@ -248,11 +259,6 @@ interaction:
     print("\n")
     jump 312
 
-1747:
-    ['INTEGERS', [3, 4, 20, 10, 3, 15, 30]]
-
-1761:
-    ['INTEGERS', [90, 83, 77, 99, 188, 104, 223]]
-
-1775:
-    ['STRINGS', ['Torch', 'Flask of Oil', 'Gem', 'Backpack', 'Bag', 'Shovel', 'Powder Keg', '"There ya go."', '"That\'s all you can carry."', '"That\'s all you can afford."']]
+    [['INTEGERS', [3, 4, 20, 10, 3, 15, 30]]]
+    [['INTEGERS', [90, 83, 77, 99, 188, 104, 223]]]
+    [['STRINGS', ['Torch', 'Flask of Oil', 'Gem', 'Backpack', 'Bag', 'Shovel', 'Powder Keg', '"There ya go."', '"That\'s all you can carry."', '"That\'s all you can afford."']]]

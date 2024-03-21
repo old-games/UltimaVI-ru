@@ -16,7 +16,7 @@ interaction:
     integer(value 0) = partyHasObject(word 417, byte 0)
 
     if equals(integer(value 0), word 32769):
-    jump 790
+        jump 790
 
     endif
 
@@ -26,12 +26,13 @@ interaction:
     print("\n\n\"Will you give it to me?\"")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"I guess I cannot help you much, then.\"")
-    jump 790
+        print("\"I guess I cannot help you much, then.\"")
+        jump 790
 
     case "y":
-
     esac
 
     ('GIVE', ('word', 417), ('byte', 0), ('integer', [('value', 0)]), ('byte', 235))
@@ -42,14 +43,16 @@ interaction:
     print("\n\n\"So, does the subject of @pirates interest you?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("He shrugs. \"As you wish.\"")
-    jump 790
+        print("He shrugs. \"As you wish.\"")
+        jump 790
 
     case "y":
-
     esac
 
+462:
     print("\"Well, first, there is one in Serpent's Hold. I cannot recall her ")
     print("name, but she has a piece of the map with her.\"")
     wait()
@@ -68,106 +71,109 @@ interaction:
     print("\n")
 
     ask()
-    case "name":
-    print("\"My name is Sandstone Angus.\"")
-    wait()
 
-    print("\n\n\"Most folks call me Sandy.\"")
-    ('SETF', ('byte', 235), ('value', 0))
-    jump 790
+    // Wrong flow!
+    case "name":
+        print("\"My name is Sandstone Angus.\"")
+        wait()
+
+        print("\n\n\"Most folks call me Sandy.\"")
+        ('SETF', ('byte', 235), ('value', 0))
+        jump 790
 
     case "job":
-    print("\"I cook for Lord @Whitsaber.\"")
-    wait()
+        print("\"I cook for Lord @Whitsaber.\"")
+        wait()
 
-    print("\n\n\"He especially likes my recipe for fish in a white wine @sauce.\"")
-    jump 790
+        print("\n\n\"He especially likes my recipe for fish in a white wine @sauce.\"")
+        jump 790
 
     case "fish":
     case "sauc":
     case "wine":
-    print("\"It's my specialty!\"")
-    jump 790
+        print("\"It's my specialty!\"")
+        jump 790
 
     case "alre":
     case "four":
     case "much":
     case "said":
+        if equals(hasBit(byte 235, byte 2), byte 1):
+            print("\"Before Lord Whitsaber came to Trinsic to be our mayor, he had another")
+            print(" job...\"")
+            wait()
 
-    if equals(hasBit(byte 235, byte 2), byte 1):
-    print("\"Before Lord Whitsaber came to Trinsic to be our mayor, he had another")
-    print(" job...\"")
-    wait()
+            print("\n\"As first mate to Captain Hawkins himself! His real name is Alastor ")
+            print("Gordon.\"")
+            jump 790
 
-    print("\n\"As first mate to Captain Hawkins himself! His real name is Alastor ")
-    print("Gordon.\"")
-    jump 790
+        endif
 
-    endif
-
-    jump 1666
+        jump 1666
 
     case "lord":
     case "map":
     case "whit":
-    print("\"Hmmm. I'd better get back to cooking... Excuse me.\"")
-    wait()
 
-    print("\n\nHe walks away mumbling, \"Magincian @pastry...\"")
+1228:
+        print("\"Hmmm. I'd better get back to cooking... Excuse me.\"")
+        wait()
 
-    if equals(hasBit(byte 235, byte 2), byte 1):
-    jump 790
+        print("\n\nHe walks away mumbling, \"Magincian @pastry...\"")
 
-    endif
+        if equals(hasBit(byte 235, byte 2), byte 1):
+            jump 790
 
-    print("\n")
-    bye()
+        endif
+
+        print("\n")
+        bye()
 
     case "map":
     case "pira":
+        if equals(hasBit(byte 235, byte 2), byte 1):
+            jump 462
 
-    if equals(hasBit(byte 235, byte 2), byte 1):
-    jump 462
+        else:
+            jump 1228
 
-    else:
-    jump 1228
-
-    endif
+        endif
 
     case "magi":
     case "past":
     case "pie":
+        if equals(hasBit(byte 235, byte 2), byte 1):
+            print("\"Truly it shall be a magnificent desert!\"")
+            jump 790
 
-    if equals(hasBit(byte 235, byte 2), byte 1):
-    print("\"Truly it shall be a magnificent desert!\"")
-    jump 790
+        endif
 
-    endif
-
-    print("\"I could do you a @favor if you did one for me first.\"")
-    jump 790
+        print("\"I could do you a @favor if you did one for me first.\"")
+        jump 790
 
     case "favo":
     case "firs":
-    jump 1708
+        jump 1708
 
     case "egg":
-    print("\"Only a @dragon's will do.\"")
-    jump 790
+        print("\"Only a @dragon's will do.\"")
+        jump 790
 
     case "drag":
-    print("\"There's a lair in the dungeon Destard, to the northwest.\"")
-    wait()
+        print("\"There's a lair in the dungeon Destard, to the northwest.\"")
+        wait()
 
-    print("\n\n\"It's not far.\"")
-    jump 790
+        print("\n\n\"It's not far.\"")
+        jump 790
 
     case "bye":
-    print("\"Bye.\"\n")
-    bye()
+        print("\"Bye.\"\n")
+        bye()
 
     case "*":
-    print("\"Sorry, I can't help you with that.\"")
+
+1666:
+        print("\"Sorry, I can't help you with that.\"")
 
     esac
 
@@ -184,15 +190,18 @@ interaction:
     print("\n\n\"I'll give you one guess to this riddle.\"\n")
 
     ask()
+
+    // Wrong flow!
     case "egg":
-    print("\"Very good!\"")
-    jump 1891
+        print("\"Very good!\"")
+        jump 1891
 
     case "*":
-    print("\"It's an egg, of course.\"")
+        print("\"It's an egg, of course.\"")
 
     esac
 
+1891:
     wait()
 
     print("\n\n\"To make Magincian pastry, I require one dragon's @egg.\"")

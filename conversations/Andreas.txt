@@ -12,35 +12,36 @@ description:
 
 interaction:
     if hasBit(byte 235, value 0):
-    jump 281
+        jump 281
 
     endif
 
     ('SETF', ('byte', 235), ('value', 0))
 
     if integer(value 16):
-    print("\"Hey, foxy! I bet you'd like me to unsheathe my weapon so you can have")
-    print(" a look...\"")
-    jump 424
+        print("\"Hey, foxy! I bet you'd like me to unsheathe my weapon so you can have")
+        print(" a look...\"")
+        jump 424
 
     else:
-    print("\"Hey there! Welcome to our humble caravan!\"")
-    wait()
+        print("\"Hey there! Welcome to our humble caravan!\"")
+        wait()
 
-    print("\n\n\"You look like a bold warrior - would you like to spar a bit for ")
-    print("practice?\" ")
-    jump 3309
+        print("\n\n\"You look like a bold warrior - would you like to spar a bit for ")
+        print("practice?\" ")
+        jump 3309
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 281:
     if integer(value 16):
-    print("\"Ah, I see you couldn't stay away... I have that effect on women.\"")
+        print("\"Ah, I see you couldn't stay away... I have that effect on women.\"")
 
     else:
-    print("\"Welcome back, $P. Came for some more of our gypsy hospitality, I ")
-    print("see!\"")
+        print("\"Welcome back, $P. Came for some more of our gypsy hospitality, I ")
+        print("see!\"")
 
     endif
 
@@ -48,47 +49,49 @@ interaction:
     print("\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"I am Andreas, prince of the @gypsies.\"")
-    jump 424
+        print("\"I am Andreas, prince of the @gypsies.\"")
+        jump 424
 
     case "job":
-    print("\"I live the carefree life of a @gypsy, traveling hither and yon.\"")
-    wait()
+        print("\"I live the carefree life of a @gypsy, traveling hither and yon.\"")
+        wait()
 
-    print("\n\n")
-    jump 2011
+        print("\n\n")
+        jump 2011
 
     case "love":
-    jump 2011
+        jump 2011
 
     case "prof":
     case "serv":
-    print("\"We all have our @talents. I myself happen to have two.\"")
-    wait()
+        print("\"We all have our @talents. I myself happen to have two.\"")
+        wait()
 
-    print("\n\n\"I'd be glad to show you sometime!\"")
-    jump 424
+        print("\n\n\"I'd be glad to show you sometime!\"")
+        jump 424
 
     case "show":
     case "tale":
-    print("\"What, you mean @swordplay? Just ask, and I'll give thee a @lesson you")
-    print(" won't forget!\"")
-    jump 424
+        print("\"What, you mean @swordplay? Just ask, and I'll give thee a @lesson you")
+        print(" won't forget!\"")
+        jump 424
 
     case "wand":
-    print("\"She practices the world's oldest @profession. I, of course, have ")
-    print("perfected it, and thus need no practice.\"")
-    jump 424
+        print("\"She practices the world's oldest @profession. I, of course, have ")
+        print("perfected it, and thus need no practice.\"")
+        jump 424
 
     case "artu":
-    print("\"He's my dad - the king of the gypsies!\"")
-    jump 424
+        print("\"He's my dad - the king of the gypsies!\"")
+        jump 424
 
     case "map":
-    print("\"A map? Aye, @Arturos has some scrap like that. I know nothing more of")
-    print(" it.\"")
-    jump 424
+        print("\"A map? Aye, @Arturos has some scrap like that. I know nothing more of")
+        print(" it.\"")
+        jump 424
 
     case "care":
     case "gyps":
@@ -96,42 +99,41 @@ interaction:
     case "life":
     case "prin":
     case "trav":
-    jump 4135
+        jump 4135
 
     case "less":
     case "spar":
     case "swor":
     case "unsh":
     case "weap":
-    print("\"Would you like to spar a bit?\" ")
-    jump 3309
+        print("\"Would you like to spar a bit?\" ")
+        jump 3309
 
     case "silv":
     case "tabl":
-    jump 3741
+        jump 3741
 
     case "bye":
+        if hasBit(byte 235, byte 7):
+            print("\"Come again soon.\"\n")
+            ('CLEARF', ('byte', 235), ('byte', 7))
+            bye()
 
-    if hasBit(byte 235, byte 7):
-    print("\"Come again soon.\"\n")
-    ('CLEARF', ('byte', 235), ('byte', 7))
-    bye()
+        endif
 
-    endif
+        if equals(integer(value 16), byte 1):
+            print("\"I hope we get better acquainted when next we meet.\"")
+            wait()
 
-    if equals(integer(value 16), byte 1):
-    print("\"I hope we get better acquainted when next we meet.\"")
-    wait()
+            print("\n\n\"I like your clothes, but I think you'd look better without them...\"")
+            print("\n")
 
-    print("\n\n\"I like your clothes, but I think you'd look better without them...\"")
-    print("\n")
+        else:
+            print("\"May your travels prove interesting.\"\n")
 
-    else:
-    print("\"May your travels prove interesting.\"\n")
+        endif
 
-    endif
-
-    bye()
+        bye()
 
     case "boff":
     case "hay":
@@ -143,62 +145,61 @@ interaction:
     case "screw":
     case "sex":
     case "suck":
+        if hasBit(byte 235, byte 7):
+            jump 4359
 
-    if hasBit(byte 235, byte 7):
-    jump 4359
+        endif
 
-    endif
+        print("\"Oho, so that's what you're after, you naughty ")
 
-    print("\"Oho, so that's what you're after, you naughty ")
+        if integer(value 16):
+            print("girl")
 
-    if integer(value 16):
-    print("girl")
+        else:
+            print("boy")
 
-    else:
-    print("boy")
+        endif
 
-    endif
+        print("!\"")
+        wait()
 
-    print("!\"")
-    wait()
+        print("\n\n")
 
-    print("\n\n")
+        if integer(value 16):
+            print("\"For a mere 10 gold pieces, I'll transport you to the heights of ")
+            print("ecstasy. Will it be yea or nay?\"")
 
-    if integer(value 16):
-    print("\"For a mere 10 gold pieces, I'll transport you to the heights of ")
-    print("ecstasy. Will it be yea or nay?\"")
+        else:
+            print("\"Well... Normally I'm more of a ladies' man. But I guess your money is")
+            print(" as good as anyone else's. It'll cost you 10 gold, okay?\"")
 
-    else:
-    print("\"Well... Normally I'm more of a ladies' man. But I guess your money is")
-    print(" as good as anyone else's. It'll cost you 10 gold, okay?\"")
+        endif
 
-    endif
+        if equals(integer(value 23), byte 0):
+            wait()
 
-    if equals(integer(value 23), byte 0):
-    wait()
+            print("\n\nA voice in the back of your head asks, \"Do you really have time for ")
+            print("this?\"")
+            wait()
 
-    print("\n\nA voice in the back of your head asks, \"Do you really have time for ")
-    print("this?\"")
-    wait()
+            print("\n\n")
+            jump 2451
 
-    print("\n\n")
-    jump 2451
+        endif
 
-    endif
+        wait()
 
-    wait()
+        ('SETNAME', ('character', [('byte', 1), ('byte', 0)]))
+        ('PORTRAIT', ('character', [('byte', 1), ('byte', 0)]))
+        print("\n\n$Y interrupts. \"`$G, I really doubt we have time for this...\"")
+        wait()
 
-    ('SETNAME', ('character', [('byte', 1), ('byte', 0)]))
-    ('PORTRAIT', ('character', [('byte', 1), ('byte', 0)]))
-    print("\n\n$Y interrupts. \"`$G, I really doubt we have time for this...\"")
-    wait()
-
-    ('PORTRAIT', ('byte', 235))
-    jump 2451
+        ('PORTRAIT', ('byte', 235))
+        jump 2451
 
     case "*":
-    print("\"Don't trouble yourself about that. The art of the @sword and the art ")
-    print("of @love are all that really matter.\"")
+        print("\"Don't trouble yourself about that. The art of the @sword and the art ")
+        print("of @love are all that really matter.\"")
 
     esac
 
@@ -206,9 +207,9 @@ interaction:
 
 2011:
     if integer(value 16):
-    print("\"Naturally, when so lovely a lady as yourself comes along, I offer, ")
-    print("shall we say, my @services.\"")
-    jump 424
+        print("\"Naturally, when so lovely a lady as yourself comes along, I offer, ")
+        print("shall we say, my @services.\"")
+        jump 424
 
     endif
 
@@ -216,19 +217,19 @@ interaction:
     print(" the ladies.\"")
 
     if partyHas(byte 62):
-    wait()
+        wait()
 
-    ('PORTRAIT', ('byte', 62))
-    print("\n\n\"I'll just bet he does!\"")
-    wait()
+        ('PORTRAIT', ('byte', 62))
+        print("\n\n\"I'll just bet he does!\"")
+        wait()
 
-    ('PORTRAIT', ('byte', 235))
-    print("\n\n")
+        ('PORTRAIT', ('byte', 235))
+        print("\n\n")
 
     else:
-    wait()
+        wait()
 
-    print("\n\n")
+        print("\n\n")
 
     endif
 
@@ -236,36 +237,40 @@ interaction:
     print("right?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    print("\"Can't say I blame you. In fact, if she wasn't my sister...\"")
-    jump 424
+        print("\"Can't say I blame you. In fact, if she wasn't my sister...\"")
+        jump 424
 
     case "n":
-    print("\"Hmm, wouldn't have figured you for the type...\"")
-    jump 424
+        print("\"Hmm, wouldn't have figured you for the type...\"")
+        jump 424
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 2451:
     print("\n\"Well, come on. Yea or nay, $G?\" ")
 
     askc("yn")
-    case "n":
-    print("\"As you like. But take my advice--you should live a little now.\"")
-    wait()
 
-    print("\n\n\"That way, you'll have something to remember when you're old and ")
-    print("gray...\"")
-    jump 424
+    // Wrong flow!
+    case "n":
+        print("\"As you like. But take my advice--you should live a little now.\"")
+        wait()
+
+        print("\n\n\"That way, you'll have something to remember when you're old and ")
+        print("gray...\"")
+        jump 424
 
     case "y":
+        if less(objectsCount(byte 1, byte 88), byte 10):
+            print("\"Hey, you don't have the money! I don't take charity cases.\"")
+            jump 424
 
-    if less(objectsCount(byte 1, byte 88), byte 10):
-    print("\"Hey, you don't have the money! I don't take charity cases.\"")
-    jump 424
-
-    endif
+        endif
 
     esac
 
@@ -279,19 +284,19 @@ interaction:
     print("weary but satisfied.")
 
     if equals(integer(value 23), byte 0):
-    print("You try to ignore the nagging voice in the back of your head that says")
-    print(" you shouldn't have wasted time like that.")
-    jump 424
+        print("You try to ignore the nagging voice in the back of your head that says")
+        print(" you shouldn't have wasted time like that.")
+        jump 424
 
     endif
 
     wait()
 
     if partyHas(byte 2):
-    integer(value 0) = byte 2
+        integer(value 0) = byte 2
 
     else:
-    integer(value 0) = character(byte 1, byte 0)
+        integer(value 0) = character(byte 1, byte 0)
 
     endif
 
@@ -311,9 +316,11 @@ interaction:
 
 3309:
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Maybe some other time.\"")
-    jump 424
+        print("\"Maybe some other time.\"")
+        jump 424
 
     esac
 
@@ -325,7 +332,7 @@ interaction:
     print("shoulder as he gives you a few pointers on fencing style.")
 
     if less(objectsCount(byte 1, byte 88), byte 25):
-    jump 424
+        jump 424
 
     endif
 
@@ -345,43 +352,47 @@ interaction:
     print("price... Shall we say 7 gold pieces?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Suit yourself.\"")
-    jump 424
+        print("\"Suit yourself.\"")
+        jump 424
 
     case "y":
+        if less(objectsCount(byte 1, byte 88), byte 7):
+            print("\"Come back when you have the money.\"")
+            jump 424
 
-    if less(objectsCount(byte 1, byte 88), byte 7):
-    print("\"Come back when you have the money.\"")
-    jump 424
+        endif
 
-    endif
+        ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 7))
+        ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 7))
+        print("\"I overheard a bard in a tavern say that it was somewhere on the Isle ")
+        print("of the Avatar.\"\n*\n\"Perhaps @Arturos could tell you precisely.\"")
+        jump 424
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 7))
-    ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 7))
-    print("\"I overheard a bard in a tavern say that it was somewhere on the Isle ")
-    print("of the Avatar.\"\n*\n\"Perhaps @Arturos could tell you precisely.\"")
-    jump 424
+        // Unreachable code!
 
-# Unreachable code!
     esac
 
 4135:
     print("\"Wouldn't you like to be a gypsy too?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"The more fool you!\"")
-    jump 424
+        print("\"The more fool you!\"")
+        jump 424
 
     esac
 
     if hasBit(byte 235, byte 7):
-    print("\"You have the carefree spirit, but alas, one must be born a gypsy.\"")
+        print("\"You have the carefree spirit, but alas, one must be born a gypsy.\"")
 
     else:
-    print("\n\"A fine thing to dream of! But one such as you could never be a ")
-    print("gypsy.\"")
+        print("\n\"A fine thing to dream of! But one such as you could never be a ")
+        print("gypsy.\"")
 
     endif
 

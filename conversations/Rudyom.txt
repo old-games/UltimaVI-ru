@@ -14,82 +14,87 @@ interaction:
 
     print("\n\"Greetings, mighty Avatar. For what hast thou come to my place?\"\n")
 
+129:
     ask()
+
+    // Wrong flow!
     case "buy":
     case "reag":
-    jump 1490
+        jump 1490
 
     case "lear":
     case "spel":
-    jump 345
+        jump 345
 
     case "book":
-    jump 2305
+        jump 2305
 
     case "name":
-    print("\"I am Rudyom.\"")
-    ('SETF', ('byte', 235), ('value', 0))
-    jump 128
+        print("\"I am Rudyom.\"")
+        ('SETF', ('byte', 235), ('value', 0))
+        jump 128
 
     case "job":
-    print("\"I sell magic @books and @reagents, and teach @spells.\"")
-    jump 128
+        print("\"I sell magic @books and @reagents, and teach @spells.\"")
+        jump 128
 
     case "bye":
-    print("\"May peace follow thee, Avatar.\"\n")
-    bye()
+        print("\"May peace follow thee, Avatar.\"\n")
+        bye()
 
     case "*":
-    print("\"Of that I will say nothing.\"")
-    jump 128
+        print("\"Of that I will say nothing.\"")
+        jump 128
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 345:
     if notEquals(integer(value 32), byte 144):
-    print("\"My shop is closed right now.\"")
-    jump 128
+        print("\"My shop is closed right now.\"")
+        jump 128
 
     endif
 
     if greater(integer(value 23), byte 0):
-    integer(value 1) = byte 0
-    integer(value 2) = byte 0
-    integer(value 4) = byte 0
-    jump 486
+        integer(value 1) = byte 0
+        integer(value 2) = byte 0
+        integer(value 4) = byte 0
+        jump 486
 
     endif
 
     integer(value 3) = character(byte 0, byte 0)
 
     if hasObject(integer(value 3), byte 57, byte 0):
-    jump 784
+        jump 784
 
     else:
-    print("\"But thou hast not a spell@book!\"")
-    jump 128
+        print("\"But thou hast not a spell@book!\"")
+        jump 128
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 486:
     if greater(integer(value 1), integer(value 23)):
-    jump 600
+        jump 600
 
     endif
 
     integer(value 3) = character(integer(value 1), byte 0)
 
     if equals(hasObject(integer(value 3), byte 57, byte 0), byte 0):
-    jump 585
+        jump 585
 
     endif
 
     if equals(integer(value 4), byte 0):
-    integer(value 4) = integer(value 3)
-    integer(value 2) = plus(integer(value 2), byte 1)
-    jump 585
+        integer(value 4) = integer(value 3)
+        integer(value 2) = plus(integer(value 2), byte 1)
+        jump 585
 
     endif
 
@@ -97,19 +102,21 @@ interaction:
     print("#2) $Y\n")
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
+
+585:
     integer(value 1) = plus(integer(value 1), byte 1)
     jump 486
 
 600:
     if equals(integer(value 2), byte 0):
-    print("\"But none of you has a spell@book!\"")
-    jump 128
+        print("\"But none of you has a spell@book!\"")
+        jump 128
 
     endif
 
     if equals(integer(value 2), byte 1):
-    integer(value 3) = integer(value 4)
-    jump 784
+        integer(value 3) = integer(value 4)
+        jump 784
 
     endif
 
@@ -118,27 +125,29 @@ interaction:
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
-    jump 129
+        jump 129
 
     endif
 
     integer(value 1) = byte 0
+
+718:
     integer(value 3) = character(integer(value 1), byte 0)
 
     if hasObject(integer(value 3), byte 57, byte 0):
-    integer(value 2) = minus(integer(value 2), byte 1)
+        integer(value 2) = minus(integer(value 2), byte 1)
 
     endif
 
     if equals(integer(value 2), byte 0):
-    jump 784
+        jump 784
 
     endif
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 1), integer(value 23)):
-    jump 718
+        jump 718
 
     endif
 
@@ -150,27 +159,27 @@ interaction:
     ('INPUTNUM', 0)
 
     if equals(integer(value 0), byte 0):
-    jump 128
+        jump 128
 
     endif
 
     if greater(integer(value 0), byte 8):
-    print("\"As everybody knows, there are only eight circles.\"")
-    wait()
+        print("\"As everybody knows, there are only eight circles.\"")
+        wait()
 
-    print("\n\n")
-    jump 784
+        print("\n\n")
+        jump 784
 
     endif
 
     if greater(integer(value 0), integer(value 1)):
-    print("\"I sense that $Y is only ready for the #1$1 Circle.\"")
-    wait()
+        print("\"I sense that $Y is only ready for the #1$1 Circle.\"")
+        wait()
 
-    print("\n\n\"But such matters are not my concern...\"")
-    wait()
+        print("\n\n\"But such matters are not my concern...\"")
+        wait()
 
-    print("\n\n")
+        print("\n\n")
 
     endif
 
@@ -178,21 +187,23 @@ interaction:
     integer(value 0) = multiply(integer(value 0), byte 10)
 
     if equals(data(dword 2876, integer(value 0)), word 255):
-    print("\"I have no spells of that circle.\"")
-    wait()
+        print("\"I have no spells of that circle.\"")
+        wait()
 
-    print("\n\n")
-    jump 784
+        print("\n\n")
+        jump 784
 
     endif
 
     integer(value 2) = byte 1
+
+1125:
     string(value 0) = data(dword 3036, minus(plus(integer(value 0), integer(value 2)), byte 1))
     print("#2) $0\n")
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if notEquals(data(dword 2876, minus(plus(integer(value 0), integer(value 2)), byte 1)), word 255):
-    jump 1125
+        jump 1125
 
     endif
 
@@ -200,11 +211,11 @@ interaction:
     ('INPUTNUM', 4)
 
     if or(equals(integer(value 4), byte 0), greaterOrEquals(integer(value 4), integer(value 2))):
-    print("\"Perhaps $Y is not ready for this circle.\"")
-    wait()
+        print("\"Perhaps $Y is not ready for this circle.\"")
+        wait()
 
-    print("\n\n")
-    jump 784
+        print("\n\n")
+        jump 784
 
     endif
 
@@ -212,42 +223,45 @@ interaction:
     integer(value 5) = plus(byte 20, multiply(integer(value 0), byte 2))
 
     if less(objectsCount(integer(value 3), byte 88), integer(value 5)):
-    print("\"$Y lacks the #5 gold required.\"")
-    wait()
+        print("\"$Y lacks the #5 gold required.\"")
+        wait()
 
-    print("\n\n")
-    jump 784
+        print("\n\n")
+        jump 784
 
     endif
 
     print("\"That spell costs #5 gold. Interested?\" ")
 
     askc("yn")
-    case "y":
-    print("$N hands $Y a piece of rune-covered parchment.")
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
-    ('NEW', ('integer', [('value', 3)]), ('byte', 58), ('data', [('dword', 2876), ('plus', [('integer', [('value', 0)]), ('integer', [('value', 4)])])]), ('byte', 1))
-    wait()
 
-    print("\n\n")
-    jump 784
+    // Wrong flow!
+    case "y":
+        print("$N hands $Y a piece of rune-covered parchment.")
+        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
+        ('NEW', ('integer', [('value', 3)]), ('byte', 58), ('data', [('dword', 2876), ('plus', [('integer', [('value', 0)]), ('integer', [('value', 4)])])]), ('byte', 1))
+        wait()
+
+        print("\n\n")
+        jump 784
 
     case "n":
-    jump 784
+        jump 784
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1490:
     if notEquals(integer(value 32), byte 144):
-    print("\"My shop is closed right now.\"")
-    jump 128
+        print("\"My shop is closed right now.\"")
+        jump 128
 
     endif
 
     if greater(integer(value 23), byte 0):
-    integer(value 2) = byte 1
-    jump 1568
+        integer(value 2) = byte 1
+        jump 1568
 
     endif
 
@@ -260,8 +274,8 @@ interaction:
     print("#2) $Y\n")
 
     if lessOrEquals(integer(value 2), integer(value 23)):
-    integer(value 2) = plus(integer(value 2), byte 1)
-    jump 1568
+        integer(value 2) = plus(integer(value 2), byte 1)
+        jump 1568
 
     endif
 
@@ -269,21 +283,24 @@ interaction:
     ('INPUTNUM', 2)
 
     if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
-    jump 129
+        jump 129
 
     else:
-    integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
+        integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
 
     endif
 
+1670:
     ('SETNAME', ('integer', [('value', 3)]))
     integer(value 1) = byte 1
+
+1681:
     string(value 1) = data(dword 2782, minus(integer(value 1), byte 1))
     print("#1) $1\n")
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if greater(data(dword 2750, minus(integer(value 1), byte 1)), byte 0):
-    jump 1681
+        jump 1681
 
     endif
 
@@ -291,8 +308,8 @@ interaction:
     ('INPUTNUM', 2)
 
     if or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1))):
-    integer(value 2) = byte 1
-    jump 129
+        integer(value 2) = byte 1
+        jump 129
 
     endif
 
@@ -307,22 +324,23 @@ interaction:
     ('INPUT', 4)
 
     if greater(integer(value 4), word 500):
-    integer(value 4) = word 500
+        integer(value 4) = word 500
 
     endif
 
     if equals(integer(value 4), byte 0):
-    jump 1670
+        jump 1670
 
     endif
 
+1915:
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 2750, integer(value 2)), byte 1)):
-    jump 2043
+        jump 2043
 
     endif
 
     if less(objectsCount(integer(value 3), byte 88), integer(value 1)):
-    jump 2174
+        jump 2174
 
     endif
 
@@ -331,72 +349,75 @@ interaction:
     integer(value 5) = plus(integer(value 5), byte 1)
 
     if equals(integer(value 5), integer(value 4)):
-    print("$N hands $Y the $1.")
-    wait()
+        print("$N hands $Y the $1.")
+        wait()
 
-    print("\n\n")
-    jump 1670
+        print("\n\n")
+        jump 1670
 
     else:
-    jump 1915
+        jump 1915
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 2043:
     if integer(value 5):
-    print("\"Thou cannot carry that much!\"")
-    wait()
+        print("\"Thou cannot carry that much!\"")
+        wait()
 
-    print("\n\n\"I'll give thee #5; thou dost not need the rest.\"")
-    wait()
+        print("\n\n\"I'll give thee #5; thou dost not need the rest.\"")
+        wait()
 
-    print("\n\n")
-    jump 1670
+        print("\n\n")
+        jump 1670
 
     else:
-    print("\"Thou cannot carry any $1!\"")
-    wait()
+        print("\"Thou cannot carry any $1!\"")
+        wait()
 
-    print("\n\n")
-    jump 1670
+        print("\n\n")
+        jump 1670
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 2174:
     if integer(value 5):
-    print("\"Thou cannot afford that much!\"")
-    wait()
+        print("\"Thou cannot afford that much!\"")
+        wait()
 
-    print("\n\n\"I'll give thee #5; thou cannot have the rest.\"")
-    wait()
+        print("\n\n\"I'll give thee #5; thou cannot have the rest.\"")
+        wait()
 
-    print("\n\n")
-    jump 1670
+        print("\n\n")
+        jump 1670
 
     else:
-    print("\"Thou cannot afford any $1!\"")
-    wait()
+        print("\"Thou cannot afford any $1!\"")
+        wait()
 
-    print("\n\n")
-    jump 1670
+        print("\n\n")
+        jump 1670
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 2305:
     if notEquals(integer(value 32), byte 144):
-    wait()
+        wait()
 
-    print("\n\n\"My shop is closed right now.\"")
-    jump 128
+        print("\n\n\"My shop is closed right now.\"")
+        jump 128
 
     endif
 
     if integer(value 23):
-    integer(value 2) = byte 1
-    jump 2383
+        integer(value 2) = byte 1
+        jump 2383
 
     endif
 
@@ -409,8 +430,8 @@ interaction:
     print("#2) $Y\n")
 
     if lessOrEquals(integer(value 2), integer(value 23)):
-    integer(value 2) = plus(integer(value 2), byte 1)
-    jump 2383
+        integer(value 2) = plus(integer(value 2), byte 1)
+        jump 2383
 
     endif
 
@@ -418,67 +439,59 @@ interaction:
     ('INPUTNUM', 2)
 
     if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
-    jump 128
+        jump 128
 
     else:
-    integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
+        integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
 
     endif
 
+2485:
     ('SETNAME', ('integer', [('value', 3)]))
 
     if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 50)), weight(byte 57, byte 1)):
-    print("\"But thou cannot carry a spellbook!\"")
-    jump 128
+        print("\"But thou cannot carry a spellbook!\"")
+        jump 128
 
     endif
 
     if less(objectsCount(integer(value 3), byte 88), byte 50):
-    print("\"But thou cannot afford a spellbook!\"")
-    jump 128
+        print("\"But thou cannot afford a spellbook!\"")
+        jump 128
 
     endif
 
     print("\"A spellbook costs 50 gold pieces. Interested?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 50))
-    ('NEW', ('integer', [('value', 3)]), ('byte', 57), ('byte', 0), ('byte', 1))
-    jump 128
+        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 50))
+        ('NEW', ('integer', [('value', 3)]), ('byte', 57), ('byte', 0), ('byte', 1))
+        jump 128
 
     case "n":
+        if integer(value 23):
+            print("\"Perhaps one of thy friends then.\"")
+            wait()
 
-    if integer(value 23):
-    print("\"Perhaps one of thy friends then.\"")
-    wait()
+            print("\n\n")
+            integer(value 2) = byte 1
+            jump 2383
 
-    print("\n\n")
-    integer(value 2) = byte 1
-    jump 2383
+        else:
+            jump 128
 
-    else:
-    jump 128
+            // Unreachable code!
 
-# Unreachable code!
-    endif
+        endif
 
     esac
 
-2750:
-    ['INTEGERS', [66, 67, 68, 70, 71, 72, 0, 0]]
-
-2766:
-    ['INTEGERS', [3, 1, 2, 2, 2, 1, 0, 0]]
-
-2782:
-    ['STRINGS', ['Blood Moss', 'Garlic', 'Ginseng', 'Nightshade', 'Spider Silk', 'Sulfurous Ash', ' ', ' ']]
-
-2849:
-    ['STRINGS', ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th']]
-
-2876:
-    ['INTEGERS', [0, 4, 6, 8, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37, 255, 0, 0, 0, 0, 0, 0, 0, 0, 52, 255, 0, 0, 0, 0, 0, 0, 0, 0, 70, 72, 255, 0, 0, 0, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 255, 0, 0, 0, 0, 0, 0, 0, 0]]
-
-3036:
-    ['STRINGS', ['Create Food', 'Douse', 'Heal', 'Ignite', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Mass Awaken', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Great Heal', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Pickpocket', 'Seance', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Resurrect', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']]
+    [['INTEGERS', [66, 67, 68, 70, 71, 72, 0, 0]]]
+    [['INTEGERS', [3, 1, 2, 2, 2, 1, 0, 0]]]
+    [['STRINGS', ['Blood Moss', 'Garlic', 'Ginseng', 'Nightshade', 'Spider Silk', 'Sulfurous Ash', ' ', ' ']]]
+    [['STRINGS', ['th', 'st', 'nd', 'rd', 'th', 'th', 'th', 'th', 'th']]]
+    [['INTEGERS', [0, 4, 6, 8, 255, 255, 255, 255, 255, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 37, 255, 0, 0, 0, 0, 0, 0, 0, 0, 52, 255, 0, 0, 0, 0, 0, 0, 0, 0, 70, 72, 255, 0, 0, 0, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 117, 255, 0, 0, 0, 0, 0, 0, 0, 0]]]
+    [['STRINGS', ['Create Food', 'Douse', 'Heal', 'Ignite', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Mass Awaken', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Great Heal', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Pickpocket', 'Seance', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'Resurrect', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ']]]

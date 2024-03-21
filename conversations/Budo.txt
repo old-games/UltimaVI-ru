@@ -11,7 +11,7 @@ interaction:
     print("\"Good $T! ")
 
     if hasBit(byte 235, value 0):
-    jump 339
+        jump 339
 
     endif
 
@@ -20,16 +20,16 @@ interaction:
     wait()
 
     if partyHas(byte 2):
-    ('PORTRAIT', ('byte', 2))
-    print("\n\n\"Don't be ridiculous! This is the first time we've ever been in your")
-    print(" shop!\" says Dupre.")
-    wait()
+        ('PORTRAIT', ('byte', 2))
+        print("\n\n\"Don't be ridiculous! This is the first time we've ever been in your")
+        print(" shop!\" says Dupre.")
+        wait()
 
-    ('PORTRAIT', ('byte', 235))
-    print("\n\n\"Oh, I'm sorry. I must have thought you were somebody you aren't.")
+        ('PORTRAIT', ('byte', 235))
+        print("\n\n\"Oh, I'm sorry. I must have thought you were somebody you aren't.")
 
     else:
-    print("\n\n\"I'm afraid it still hasn't arrived.")
+        print("\n\n\"I'm afraid it still hasn't arrived.")
 
     endif
 
@@ -39,168 +39,169 @@ interaction:
     print("\n\n\"Do you need to buy some supplies?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    print("\"Which, @torches, @oil, @lockpicks, @gems, @backpacks, @bags, ")
-    print("@shovels, or @powder kegs?\"")
-    jump 601
+        print("\"Which, @torches, @oil, @lockpicks, @gems, @backpacks, @bags, ")
+        print("@shovels, or @powder kegs?\"")
+        jump 601
 
     case "n":
-    print("\"Then it must be Thursday--or possibly Tuesday.\"")
-    wait()
+        print("\"Then it must be Thursday--or possibly Tuesday.\"")
+        wait()
 
-    print("\n\n\"I never seem to sell anything on Tuesdays.\"")
-    jump 601
+        print("\n\n\"I never seem to sell anything on Tuesdays.\"")
+        jump 601
 
 577:
-    print("\"What can I do you for?\"\n")
+        print("\"What can I do you for?\"\n")
 
 601:
-    print("\n")
+        print("\n")
 
-    ask()
+        ask()
+
     case "name":
-    print("\"Why, it's Budo, I believe. That's what it was last week.\"")
-    wait()
+        print("\"Why, it's Budo, I believe. That's what it was last week.\"")
+        wait()
 
-    print("\n\n\"Some call me 'the @Den', but I don't think that's my name.\"")
-    jump 601
+        print("\n\n\"Some call me 'the @Den', but I don't think that's my name.\"")
+        jump 601
 
     case "den":
-    print("\"I think someone told me that was @Nick's name.\"")
-    jump 601
+        print("\"I think someone told me that was @Nick's name.\"")
+        jump 601
 
     case "nick":
-    print("\"I've never met him, myself.\"")
-    jump 601
+        print("\"I've never met him, myself.\"")
+        jump 601
 
     case "orre":
-    print("\"I don't know what it is, but I've got one on order.\"")
-    jump 601
+        print("\"I don't know what it is, but I've got one on order.\"")
+        jump 601
 
     case "job":
-    print("\"Oh, I sell this and that.\"")
-    wait()
+        print("\"Oh, I sell this and that.\"")
+        wait()
 
-    print("\n\n\"I'm not sure what 'this' and 'that' are, but I @sell a lot of ")
-    print("them!\"")
-    wait()
+        print("\n\n\"I'm not sure what 'this' and 'that' are, but I @sell a lot of ")
+        print("them!\"")
+        wait()
 
-    print("\n\n\"People give me @money for them, that is.\"")
-    jump 601
+        print("\n\n\"People give me @money for them, that is.\"")
+        jump 601
 
     case "mone":
-    print("\"It's not as sweet as @honey, but you can trade one for the other.\"")
-    jump 601
+        print("\"It's not as sweet as @honey, but you can trade one for the other.\"")
+        jump 601
 
     case "hone":
     case "swee":
-    print("\"I like honey.\"")
-    jump 601
+        print("\"I like honey.\"")
+        jump 601
 
     case "belt":
     case "guil":
     case "thie":
+        if hasBit(byte 235, byte 7):
+            print("\"To keep the guild safe, each member only knows the names of two ")
+            print("others.\"")
+            wait()
 
-    if hasBit(byte 235, byte 7):
-    print("\"To keep the guild safe, each member only knows the names of two ")
-    print("others.\"")
-    wait()
+            print("\n\n\"You're safer not knowing more about the guild than you have to, ")
+            print("believe me...\"")
+            jump 601
 
-    print("\n\n\"You're safer not knowing more about the guild than you have to, ")
-    print("believe me...\"")
-    jump 601
+        endif
 
-    endif
+        if notEquals(partyHasObject(byte 25, byte 0), word 32769):
+            print("He glances about quickly, to make sure nobody else is listening.")
+            wait()
 
-    if notEquals(partyHasObject(byte 25, byte 0), word 32769):
-    print("He glances about quickly, to make sure nobody else is listening.")
-    wait()
+            print("\n\nIn a low voice he says, \"Congratulations, and welcome to the guild.\"")
+            wait()
 
-    print("\n\nIn a low voice he says, \"Congratulations, and welcome to the guild.\"")
-    wait()
+            print("\n\n\"I can offer you the standard member's discount on all supplies ")
+            print("now.\"")
+            wait()
 
-    print("\n\n\"I can offer you the standard member's discount on all supplies ")
-    print("now.\"")
-    wait()
+            print("\n\n\"Just remember, whatever you do, don't tell anyone about our ")
+            print("@guild!\"")
+            ('SETF', ('byte', 235), ('byte', 7))
+            jump 601
 
-    print("\n\n\"Just remember, whatever you do, don't tell anyone about our ")
-    print("@guild!\"")
-    ('SETF', ('byte', 235), ('byte', 7))
-    jump 601
+        endif
 
-    endif
+        print("A startling change comes over his features.")
+        wait()
 
-    print("A startling change comes over his features.")
-    wait()
+        print("\n\nSuddenly the good-natured bumbler that stood before you has been ")
+        print("transformed into a shrewd, sharp, dangerous looking man.")
+        wait()
 
-    print("\n\nSuddenly the good-natured bumbler that stood before you has been ")
-    print("transformed into a shrewd, sharp, dangerous looking man.")
-    wait()
+        print("\n\nHe leans forward staring straight into your eyes as he asks \"Who ")
+        print("sent you?\"\n")
 
-    print("\n\nHe leans forward staring straight into your eyes as he asks \"Who ")
-    print("sent you?\"\n")
-
-    ask()
-    print("\n\"Uh-huh. Well... Were you hoping to join?\" ")
-    jump 2414
+        ask()
+        print("\n\"Uh-huh. Well... Were you hoping to join?\" ")
+        jump 2414
 
     case "buy":
     case "sell":
     case "that":
     case "this":
-    print("\"Which, @torches, @oil, @lockpicks, @gems, @backpacks, @bags, ")
-    print("@shovels, or @powder @kegs?\"")
-    jump 601
+        print("\"Which, @torches, @oil, @lockpicks, @gems, @backpacks, @bags, ")
+        print("@shovels, or @powder @kegs?\"")
+        jump 601
 
     case "torc":
-    integer(value 4) = byte 0
-    jump 3392
+        integer(value 4) = byte 0
+        jump 3392
 
     case "oil":
-    integer(value 4) = byte 1
-    jump 3392
+        integer(value 4) = byte 1
+        jump 3392
 
     case "lock":
-    integer(value 4) = byte 2
-    jump 3392
+        integer(value 4) = byte 2
+        jump 3392
 
     case "gem":
-    integer(value 4) = byte 3
-    jump 3392
+        integer(value 4) = byte 3
+        jump 3392
 
     case "back":
-    integer(value 4) = byte 4
-    jump 3392
+        integer(value 4) = byte 4
+        jump 3392
 
     case "bags":
-    integer(value 4) = byte 5
-    jump 3392
+        integer(value 4) = byte 5
+        jump 3392
 
     case "shov":
-    integer(value 4) = byte 6
-    jump 3392
+        integer(value 4) = byte 6
+        jump 3392
 
     case "keg":
     case "powd":
-    integer(value 4) = byte 7
-    jump 3392
+        integer(value 4) = byte 7
+        jump 3392
 
     case "bye":
+        if hasBit(byte 235, byte 7):
+            print("He winks at you. \"The guild is behind you, as long as you keep our ")
+            print("secret.\"\n")
 
-    if hasBit(byte 235, byte 7):
-    print("He winks at you. \"The guild is behind you, as long as you keep our ")
-    print("secret.\"\n")
+        else:
+            print("\"Ta ta for now.\"\n")
 
-    else:
-    print("\"Ta ta for now.\"\n")
+        endif
 
-    endif
-
-    bye()
+        bye()
 
     case "*":
-    print("\"$Z? It seems to me I knew something about that, but I'm having ")
-    print("trouble with my remembering.\"")
+        print("\"$Z? It seems to me I knew something about that, but I'm having ")
+        print("trouble with my remembering.\"")
 
     esac
 
@@ -208,88 +209,94 @@ interaction:
 
 2414:
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("He leans even closer, transfixing you with his gaze.")
-    wait()
+        print("He leans even closer, transfixing you with his gaze.")
+        wait()
 
-    print("\n\n\"Then just remember this. I don't take kindly to anyone spreading ")
-    print("secrets around.\"")
-    wait()
+        print("\n\n\"Then just remember this. I don't take kindly to anyone spreading ")
+        print("secrets around.\"")
+        wait()
 
-    print("\n\n\"If you were to tell anyone I'm involved with the guild, well...\"")
-    wait()
+        print("\n\n\"If you were to tell anyone I'm involved with the guild, well...\"")
+        wait()
 
-    print("\n\n\"Let's just say accidents can happen to anyone--even the Avatar.\"")
-    wait()
+        print("\n\n\"Let's just say accidents can happen to anyone--even the Avatar.\"")
+        wait()
 
-    print("\n\n\"Now get out of my shop.\"\n")
-    bye()
+        print("\n\n\"Now get out of my shop.\"\n")
+        bye()
 
     case "y":
-    print("\"All right, maybe you've got what it takes. We'll see.\"")
-    wait()
+        print("\"All right, maybe you've got what it takes. We'll see.\"")
+        wait()
 
-    print("\n\n\"To be a member of the thieves' guild, you have to get your own ")
-    print("belt.\"")
-    wait()
+        print("\n\n\"To be a member of the thieves' guild, you have to get your own ")
+        print("belt.\"")
+        wait()
 
-    print("\n\n\"Now we have a limited membership, so there's only so many belts in ")
-    print("the world.\"")
-    wait()
+        print("\n\n\"Now we have a limited membership, so there's only so many belts in ")
+        print("the world.\"")
+        wait()
 
-    print("\n\n\"If you want one of them, you have to 'retire' a member of the ")
-    print("guild.\"")
-    wait()
+        print("\n\n\"If you want one of them, you have to 'retire' a member of the ")
+        print("guild.\"")
+        wait()
 
-    print("\n\n\"Lucky for you, it just happens there's a member we'd like to see ")
-    print("'retired' soon.\"")
-    wait()
+        print("\n\n\"Lucky for you, it just happens there's a member we'd like to see ")
+        print("'retired' soon.\"")
+        wait()
 
-    print("\n\n\"Her hideout is deep below Britain, in the sewers. You'd best watch ")
-    print("out for the rats down there!\"")
-    wait()
+        print("\n\n\"Her hideout is deep below Britain, in the sewers. You'd best watch ")
+        print("out for the rats down there!\"")
+        wait()
 
-    print("\n\n\"One last thing... It\nwould be an embarassment for the guild to have")
-    print(" bodies turning up inconveniently.\"")
-    wait()
+        print("\n\n\"One last thing... It\nwould be an embarassment for the guild to have")
+        print(" bodies turning up inconveniently.\"")
+        wait()
 
-    print("\n\n\"So don't get too violent unless you have to.\"")
-    wait()
+        print("\n\n\"So don't get too violent unless you have to.\"")
+        wait()
 
-    print("\n\n\"I'll talk to you when you get back.\"\n")
-    bye()
+        print("\n\n\"I'll talk to you when you get back.\"\n")
+        bye()
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 3392:
     if hasBit(byte 235, byte 7):
-    data(dword 4379, byte 0) = data(dword 4395, byte 0)
-    data(dword 4379, byte 1) = data(dword 4395, byte 1)
-    data(dword 4379, byte 2) = data(dword 4395, byte 2)
-    data(dword 4379, byte 3) = data(dword 4395, byte 3)
-    data(dword 4379, byte 4) = data(dword 4395, byte 4)
-    data(dword 4379, byte 5) = data(dword 4395, byte 5)
-    data(dword 4379, byte 6) = data(dword 4395, byte 6)
-    data(dword 4379, byte 7) = data(dword 4395, byte 7)
+        data(dword 4379, byte 0) = data(dword 4395, byte 0)
+        data(dword 4379, byte 1) = data(dword 4395, byte 1)
+        data(dword 4379, byte 2) = data(dword 4395, byte 2)
+        data(dword 4379, byte 3) = data(dword 4395, byte 3)
+        data(dword 4379, byte 4) = data(dword 4395, byte 4)
+        data(dword 4379, byte 5) = data(dword 4395, byte 5)
+        data(dword 4379, byte 6) = data(dword 4395, byte 6)
+        data(dword 4379, byte 7) = data(dword 4395, byte 7)
 
     endif
 
     if equals(integer(value 23), byte 0):
-    integer(value 3) = byte 0
-    jump 3688
+        integer(value 3) = byte 0
+        jump 3688
 
     endif
 
+3572:
     integer(value 0) = byte 0
     integer(value 1) = byte 1
+
+3586:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#1. $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-    jump 3586
+        jump 3586
 
     endif
 
@@ -297,23 +304,25 @@ interaction:
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-    jump 577
+        jump 577
 
     endif
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-    jump 3572
+        jump 3572
 
     endif
 
+3688:
     if or(less(canCarry(character(integer(value 3), byte 0)), weight(data(dword 4411, integer(value 4)), byte 1)), less(objectsCount(character(integer(value 3), byte 0), byte 88), data(dword 4379, integer(value 4)))):
-    integer(value 5) = byte 1
-    jump 3973
+        integer(value 5) = byte 1
+        jump 3973
 
     endif
 
+3739:
     integer(value 0) = data(dword 4379, integer(value 4))
     string(value 0) = data(dword 4427, integer(value 4))
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
@@ -322,39 +331,41 @@ interaction:
     ('INPUT', 5)
 
     if greater(integer(value 5), byte 100):
-    print("\"Come now, that's a little much don't you think?\"")
-    wait()
+        print("\"Come now, that's a little much don't you think?\"")
+        wait()
 
-    print("\n\n")
-    jump 3739
+        print("\n\n")
+        jump 3739
 
     endif
 
     if equals(integer(value 5), byte 0):
-    print("$N frowns at $Y, \"That was a good price.\"")
-    wait()
+        print("$N frowns at $Y, \"That was a good price.\"")
+        wait()
 
-    print("\n\n")
-    jump 577
+        print("\n\n")
+        jump 577
 
     endif
 
+3973:
     integer(value 2) = integer(value 5)
     integer(value 0) = byte 0
     integer(value 1) = byte 0
 
+3994:
     if less(canCarry(character(integer(value 3), byte 0)), weight(data(dword 4411, integer(value 4)), integer(value 2))):
-    integer(value 1) = byte 1
-    integer(value 0) = byte 1
-    integer(value 2) = minus(integer(value 2), byte 1)
-    jump 4094
+        integer(value 1) = byte 1
+        integer(value 0) = byte 1
+        integer(value 2) = minus(integer(value 2), byte 1)
+        jump 4094
 
     endif
 
     if less(objectsCount(character(integer(value 3), byte 0), byte 88), multiply(integer(value 2), data(dword 4379, integer(value 4)))):
-    integer(value 1) = byte 2
-    integer(value 2) = minus(integer(value 2), byte 1)
-    jump 4094
+        integer(value 1) = byte 2
+        integer(value 2) = minus(integer(value 2), byte 1)
+        jump 4094
 
     endif
 
@@ -362,29 +373,29 @@ interaction:
 
 4094:
     if integer(value 2):
-    jump 3994
+        jump 3994
 
     endif
 
     if equals(integer(value 1), byte 1):
-    string(value 0) = data(dword 4427, integer(value 4))
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-    print("$N looks at $Y. \"You haven't any room in your pack.\"")
-    wait()
+        string(value 0) = data(dword 4427, integer(value 4))
+        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        print("$N looks at $Y. \"You haven't any room in your pack.\"")
+        wait()
 
-    print("\n\n")
-    jump 577
+        print("\n\n")
+        jump 577
 
     endif
 
     if equals(integer(value 1), byte 2):
-    string(value 0) = data(dword 4427, integer(value 4))
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-    print("\"I think you have less gold than you thought.\"")
-    wait()
+        string(value 0) = data(dword 4427, integer(value 4))
+        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        print("\"I think you have less gold than you thought.\"")
+        wait()
 
-    print("\n\n")
-    jump 577
+        print("\n\n")
+        jump 577
 
     endif
 
@@ -400,14 +411,7 @@ interaction:
     print("\n\n")
     jump 577
 
-4379:
-    ['INTEGERS', [5, 5, 7, 15, 10, 5, 20, 40]]
-
-4395:
-    ['INTEGERS', [3, 3, 5, 9, 6, 3, 12, 24]]
-
-4411:
-    ['INTEGERS', [90, 83, 63, 77, 99, 188, 104, 223]]
-
-4427:
-    ['STRINGS', ['Torch', 'Oil', 'Lockpick', 'Gem', 'Backpack', 'Bag', 'Shovel', 'Powder Keg', '"There you go."', '"That\'s all you can carry."', '"That\'s all you can afford."']]
+    [['INTEGERS', [5, 5, 7, 15, 10, 5, 20, 40]]]
+    [['INTEGERS', [3, 3, 5, 9, 6, 3, 12, 24]]]
+    [['INTEGERS', [90, 83, 63, 77, 99, 188, 104, 223]]]
+    [['STRINGS', ['Torch', 'Oil', 'Lockpick', 'Gem', 'Backpack', 'Bag', 'Shovel', 'Powder Keg', '"There you go."', '"That\'s all you can carry."', '"That\'s all you can afford."']]]

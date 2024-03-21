@@ -12,55 +12,58 @@ description:
 
 interaction:
     if hasBit(byte 235, value 0):
-    print("\"Welcome back, stranger.\" He winks at you.\n")
+        print("\"Welcome back, stranger.\" He winks at you.\n")
 
     else:
-    print("\"Welcome.\" He makes a sweeping gesture with his hat.\n")
+        print("\"Welcome.\" He makes a sweeping gesture with his hat.\n")
 
     endif
 
+156:
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"Shawn, friend.\"\n")
-    ('SETF', ('byte', 235), ('value', 0))
-    jump 156
+        print("\"Shawn, friend.\"\n")
+        ('SETF', ('byte', 235), ('value', 0))
+        jump 156
 
     case "buy":
-    print("\"Which: @ham, @ale, @mead, @wine, or @rations?\"\n")
-    jump 156
+        print("\"Which: @ham, @ale, @mead, @wine, or @rations?\"\n")
+        jump 156
 
     case "job":
-    print("\"I sell @ham, @ale, @mead, @wine, and @rations.\"\n")
-    jump 156
+        print("\"I sell @ham, @ale, @mead, @wine, and @rations.\"\n")
+        jump 156
 
     case "ham":
-    jump 1018
+        jump 1018
 
     case "mead":
-    integer(value 4) = byte 0
-    jump 528
+        integer(value 4) = byte 0
+        jump 528
 
     case "ale":
-    integer(value 4) = byte 1
-    jump 528
+        integer(value 4) = byte 1
+        jump 528
 
     case "wine":
-    integer(value 4) = byte 2
-    jump 528
+        integer(value 4) = byte 2
+        jump 528
 
     case "rati":
-    jump 1471
+        jump 1471
 
     case "shaw":
-    print("\"That's it.\"\n")
-    jump 156
+        print("\"That's it.\"\n")
+        jump 156
 
     case "bye":
-    print("\"I'm glad you stopped by.\" He gives you a firm handshake.\n")
-    bye()
+        print("\"I'm glad you stopped by.\" He gives you a firm handshake.\n")
+        bye()
 
     case "*":
-    print("\"I'm sorry. Perhaps you could ask someone else.\"\n")
+        print("\"I'm sorry. Perhaps you could ask someone else.\"\n")
 
     esac
 
@@ -68,20 +71,23 @@ interaction:
 
 528:
     if equals(integer(value 23), byte 0):
-    integer(value 3) = character(byte 0, byte 0)
-    jump 692
+        integer(value 3) = character(byte 0, byte 0)
+        jump 692
 
     endif
 
+551:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
+
+565:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#2. $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-    jump 565
+        jump 565
 
     endif
 
@@ -89,70 +95,79 @@ interaction:
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-    print("\"Very well...\"\n")
-    jump 156
+        print("\"Very well...\"\n")
+        jump 156
 
     endif
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-    jump 551
+        jump 551
 
     endif
 
     integer(value 3) = character(integer(value 3), byte 0)
+
+692:
     ('SETNAME', ('integer', [('value', 3)]))
     integer(value 1) = data(dword 2217, integer(value 4))
     print("$N smiles at $Y and says, \"That will cost you #1 gold. Interested?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    jump 812
+        jump 812
 
     case "n":
-    print("\"Very well...\"\n")
-    jump 156
+        print("\"Very well...\"\n")
+        jump 156
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 812:
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 2223, integer(value 4)), byte 1)):
-    print("\"You can't carry it, $Y.\"\n")
-    jump 156
+        print("\"You can't carry it, $Y.\"\n")
+        jump 156
 
     endif
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-    ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 2223), ('integer', [('value', 4)])]), ('byte', 0), ('byte', 1))
-    print("\"Fine!\" After accepting $Y's gold, $N hands over the purchase.\n")
-    jump 156
+        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+        ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 2223), ('integer', [('value', 4)])]), ('byte', 0), ('byte', 1))
+        print("\"Fine!\" After accepting $Y's gold, $N hands over the purchase.\n")
+        jump 156
 
     else:
-    print("\"You don't have enough gold, $Y.\"\n")
-    jump 156
+        print("\"You don't have enough gold, $Y.\"\n")
+        jump 156
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 1018:
     if equals(integer(value 23), byte 0):
-    integer(value 3) = character(byte 0, byte 0)
-    jump 1182
+        integer(value 3) = character(byte 0, byte 0)
+        jump 1182
 
     endif
 
+1041:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
+
+1055:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#2. $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-    jump 1055
+        jump 1055
 
     endif
 
@@ -160,66 +175,73 @@ interaction:
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-    print("\"Very well...\"\n")
-    jump 156
+        print("\"Very well...\"\n")
+        jump 156
 
     endif
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-    jump 1041
+        jump 1041
 
     endif
 
     integer(value 3) = character(integer(value 3), byte 0)
+
+1182:
     ('SETNAME', ('integer', [('value', 3)]))
     print("\"It'll cost you 5 gold for the ham. Interested?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
+        if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 5)), weight(byte 133, byte 1)):
+            print("\"You can't carry it, $Y.\"\n")
+            jump 156
 
-    if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 5)), weight(byte 133, byte 1)):
-    print("\"You can't carry it, $Y.\"\n")
-    jump 156
+        endif
 
-    endif
+        if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 5):
+            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 5))
+            ('NEW', ('integer', [('value', 3)]), ('byte', 133), ('byte', 0), ('byte', 1))
+            print("\"Excellent!\" After accepting the gold, $N serves $Y the ham.\n")
+            jump 156
 
-    if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 5):
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 5))
-    ('NEW', ('integer', [('value', 3)]), ('byte', 133), ('byte', 0), ('byte', 1))
-    print("\"Excellent!\" After accepting the gold, $N serves $Y the ham.\n")
-    jump 156
+        else:
+            print("\"How were you looking to pay for the meal? Eh?\"\n")
+            jump 156
 
-    else:
-    print("\"How were you looking to pay for the meal? Eh?\"\n")
-    jump 156
-
-    endif
+        endif
 
     case "n":
-    print("\"Very well...\"\n")
-    jump 156
+        print("\"Very well...\"\n")
+        jump 156
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1471:
     if equals(integer(value 23), byte 0):
-    integer(value 3) = character(byte 0, byte 0)
-    jump 1635
+        integer(value 3) = character(byte 0, byte 0)
+        jump 1635
 
     endif
 
+1494:
     integer(value 0) = byte 0
     integer(value 1) = byte 1
+
+1508:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#1. $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-    jump 1508
+        jump 1508
 
     endif
 
@@ -227,62 +249,67 @@ interaction:
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-    print("\"Very well...\"\n")
-    jump 156
+        print("\"Very well...\"\n")
+        jump 156
 
     endif
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-    jump 1494
+        jump 1494
 
     endif
 
     integer(value 3) = character(integer(value 3), byte 0)
+
+1635:
     ('SETNAME', ('integer', [('value', 3)]))
 
     if or(less(plus(canCarry(integer(value 3)), weight(byte 88, byte 4)), weight(byte 129, byte 1)), less(objectsCount(integer(value 3), byte 88), byte 4)):
-    integer(value 5) = byte 1
-    jump 1899
+        integer(value 5) = byte 1
+        jump 1899
 
     endif
 
+1678:
     print("$N looks at $Y and says, \"It'll cost you 4 gold for each ration. How ")
     print("many do you want?\" ")
     ('INPUT', 5)
 
     if greater(integer(value 5), byte 100):
-    print("\"Come now, that's a little much, don't you think?\"")
-    wait()
+        print("\"Come now, that's a little much, don't you think?\"")
+        wait()
 
-    print("\n\n")
-    jump 1678
+        print("\n\n")
+        jump 1678
 
     endif
 
     if equals(integer(value 5), byte 0):
-    print("$N frowns at $Y and says, \"That was a good price.\"\n")
-    jump 156
+        print("$N frowns at $Y and says, \"That was a good price.\"\n")
+        jump 156
 
     endif
 
+1899:
     integer(value 2) = integer(value 5)
     integer(value 0) = byte 0
     integer(value 1) = byte 0
 
+1920:
     if less(plus(canCarry(integer(value 3)), weight(byte 88, multiply(byte 4, integer(value 2)))), weight(byte 129, integer(value 2))):
-    integer(value 1) = byte 1
-    integer(value 0) = byte 1
-    integer(value 2) = minus(integer(value 2), byte 1)
-    jump 2011
+        integer(value 1) = byte 1
+        integer(value 0) = byte 1
+        integer(value 2) = minus(integer(value 2), byte 1)
+        jump 2011
 
     endif
 
     if less(objectsCount(integer(value 3), byte 88), multiply(integer(value 2), byte 4)):
-    integer(value 1) = byte 2
-    integer(value 2) = minus(integer(value 2), byte 1)
-    jump 2011
+        integer(value 1) = byte 2
+        integer(value 2) = minus(integer(value 2), byte 1)
+        jump 2011
 
     endif
 
@@ -290,19 +317,19 @@ interaction:
 
 2011:
     if integer(value 2):
-    jump 1920
+        jump 1920
 
     endif
 
     if equals(integer(value 1), byte 1):
-    print("\"You haven't any room in your pack, $Y.\"\n")
-    jump 156
+        print("\"You haven't any room in your pack, $Y.\"\n")
+        jump 156
 
     endif
 
     if equals(integer(value 1), byte 2):
-    print("\"Mutton rations cost more gold than you have, $Y.\"\n")
-    jump 156
+        print("\"Mutton rations cost more gold than you have, $Y.\"\n")
+        jump 156
 
     endif
 
@@ -317,8 +344,5 @@ interaction:
     print("\n")
     jump 156
 
-2217:
-    ['INTEGERS', [5, 3, 4]]
-
-2223:
-    ['INTEGERS', [116, 117, 115, 25933, 25697, 16640, 25964, 22272, 28265, 101, 21538, 25960, 25970, 31008, 8289, 28519, 8750, 8704, 26708, 29793, 29479, 24864, 27756, 31008, 30063, 25376, 28257, 25376, 29281, 31090, 8750, 8704, 26708, 29793, 29479, 24864, 27756, 31008, 30063, 25376, 28257, 24864, 26214, 29295, 11876, 34]]
+    [['INTEGERS', [5, 3, 4]]]
+    [['INTEGERS', [116, 117, 115, 25933, 25697, 16640, 25964, 22272, 28265, 101, 21538, 25960, 25970, 31008, 8289, 28519, 8750, 8704, 26708, 29793, 29479, 24864, 27756, 31008, 30063, 25376, 28257, 25376, 29281, 31090, 8750, 8704, 26708, 29793, 29479, 24864, 27756, 31008, 30063, 25376, 28257, 24864, 26214, 29295, 11876, 34]]]

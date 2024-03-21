@@ -13,12 +13,12 @@ interaction:
     print("\n")
 
     if equals(hasBit(byte 235, value 1), byte 0):
-    jump 177
+        jump 177
 
     endif
 
     if random(byte 0, byte 1):
-    ('CLEARF', ('byte', 235), ('value', 1))
+        ('CLEARF', ('byte', 235), ('value', 1))
 
     endif
 
@@ -28,137 +28,140 @@ interaction:
 
 177:
     if hasBit(byte 235, value 0):
-    print("\"What brings you back to disturb the musings of the @mad mage Sutek ")
-    print("again?\"")
+        print("\"What brings you back to disturb the musings of the @mad mage Sutek ")
+        print("again?\"")
 
     else:
-    print("\"So, Avatar, you disturb the musings of the @mad mage Sutek!\"")
-    wait()
+        print("\"So, Avatar, you disturb the musings of the @mad mage Sutek!\"")
+        wait()
 
-    print("\n\n\"What wisdom dost thou seek?\"")
-    ('SETF', ('byte', 235), ('value', 0))
+        print("\n\n\"What wisdom dost thou seek?\"")
+        ('SETF', ('byte', 235), ('value', 0))
 
     endif
 
+359:
     print("\n")
 
     ask()
-    case "name":
-    print("\"The name Sutek strikes fear in the hearts of mere mortals!\"")
-    wait()
 
-    print("\n\n\"Everyone knows the name of Sutek the @Mad!\"")
-    jump 1722
+    // Wrong flow!
+    case "name":
+        print("\"The name Sutek strikes fear in the hearts of mere mortals!\"")
+        wait()
+
+        print("\n\n\"Everyone knows the name of Sutek the @Mad!\"")
+        jump 1722
 
     case "job":
-    print("\"Sutek the @Mad is the greatest mage the land has ever known!\"")
-    jump 1835
+        print("\"Sutek the @Mad is the greatest mage the land has ever known!\"")
+        jump 1835
 
     case "ball":
-    print("\"Balloonist? Yes, Sutek remembers him.\"")
-    wait()
+        print("\"Balloonist? Yes, Sutek remembers him.\"")
+        wait()
 
-    print("\n\n\"He died in Sutek's @catacombs, like most of the others who have ")
-    print("ever worked for Sutek!\"")
+        print("\n\n\"He died in Sutek's @catacombs, like most of the others who have ")
+        print("ever worked for Sutek!\"")
 
-    if hasBit(byte 235, value 1):
-    jump 1722
+        if hasBit(byte 235, value 1):
+            jump 1722
 
-    else:
-    jump 1972
+        else:
+            jump 1972
 
-    endif
+        endif
 
     case "mad":
-    print("\"Yes! Sutek is mad!\"")
-    wait()
+        print("\"Yes! Sutek is mad!\"")
+        wait()
 
-    print("\n\n\"They say there is a fine line between genius and madness.\"")
-    wait()
+        print("\n\n\"They say there is a fine line between genius and madness.\"")
+        wait()
 
-    print("\n\n\"Well, Sutek hops up and down on that line, cursing the fools that ")
-    print("surround him!\"")
-    jump 1722
+        print("\n\n\"Well, Sutek hops up and down on that line, cursing the fools that ")
+        print("surround him!\"")
+        jump 1722
 
     case "cata":
-    print("\"Sutek hired many brilliant engineers to build the catacombs that lie ")
-    print("beneath his castle.\"")
-    wait()
+        print("\"Sutek hired many brilliant engineers to build the catacombs that lie ")
+        print("beneath his castle.\"")
+        wait()
 
-    print("\n\n\"The catacombs are filled with the bones of those engineers!\"")
-    wait()
+        print("\n\n\"The catacombs are filled with the bones of those engineers!\"")
+        wait()
 
-    print("\n\"The @Pushme-@Pullyu knows where all such bones can be found!\"")
-    jump 1722
+        print("\n\"The @Pushme-@Pullyu knows where all such bones can be found!\"")
+        jump 1722
 
     case "pull":
     case "push":
-    print("\"Sutek created the Pushme-Pullyu as a test for fools!\"")
-    wait()
+        print("\"Sutek created the Pushme-Pullyu as a test for fools!\"")
+        wait()
 
-    print("\n\n\"If you can pass the test, you will learn what you wish to know!\"")
-    jump 1722
+        print("\n\n\"If you can pass the test, you will learn what you wish to know!\"")
+        jump 1722
 
     case "bye":
+        if hasBit(byte 235, value 1):
+            print("\"What?!\"")
+            wait()
 
-    if hasBit(byte 235, value 1):
-    print("\"What?!\"")
-    wait()
+            print("\n\n\"Sutek grants thou a piece of wisdom to take to thy grave, and thou ")
+            print("refusest it?\"")
+            wait()
 
-    print("\n\n\"Sutek grants thou a piece of wisdom to take to thy grave, and thou ")
-    print("refusest it?\"")
-    wait()
+            print("\n\n\"Then thou must die!\"\n")
+            ('WORKTYPE', ('byte', 235), ('byte', 153))
+            bye()
 
-    print("\n\n\"Then thou must die!\"\n")
-    ('WORKTYPE', ('byte', 235), ('byte', 153))
-    bye()
+        else:
+            print("\"How darest thou leave the presence of Sutek the Mad before he has ")
+            print("dissmissed you?!\"\n")
+            wait()
 
-    else:
-    print("\"How darest thou leave the presence of Sutek the Mad before he has ")
-    print("dissmissed you?!\"\n")
-    wait()
+            print("\n\"If thou art so rude, then I banish thee from my presence!\"")
+            wait()
 
-    print("\n\"If thou art so rude, then I banish thee from my presence!\"")
-    wait()
+            print("\n\n\"Begone, and pester Sutek no further!\"\n")
+            bye()
 
-    print("\n\n\"Begone, and pester Sutek no further!\"\n")
-    bye()
-
-    endif
+        endif
 
     case "*":
+        if random(byte 0, byte 1):
+            print("\"Yes, Sutek knows all about $Z.\"")
+            wait()
 
-    if random(byte 0, byte 1):
-    print("\"Yes, Sutek knows all about $Z.\"")
-    wait()
+            print("\n\n\"But he won't tell you!\"")
 
-    print("\n\n\"But he won't tell you!\"")
+        else:
+            print("\"Only a fool would disturb Sutek with frivolous matters such as that!\"")
 
-    else:
-    print("\"Only a fool would disturb Sutek with frivolous matters such as that!\"")
+        endif
 
-    endif
+        jump 1722
 
-    jump 1722
+        // Unreachable code!
 
-# Unreachable code!
     esac
 
 1722:
     if hasBit(byte 235, value 1):
-    wait()
+        wait()
 
-    print("\n\n\"Thy question is answered.\"")
-    wait()
+        print("\n\n\"Thy question is answered.\"")
+        wait()
 
-    print("\n\n\"Now flee before the awesome wrath of the mad mage Sutek!\"\n")
-    ('WORKTYPE', ('byte', 235), ('byte', 153))
-    bye()
+        print("\n\n\"Now flee before the awesome wrath of the mad mage Sutek!\"\n")
+        ('WORKTYPE', ('byte', 235), ('byte', 153))
+        bye()
 
     else:
-    jump 359
+        jump 359
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 1835:
@@ -170,17 +173,20 @@ interaction:
     print("\n\n\"Don't you, $G?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    print("\"Good.\"")
-    jump 1722
+        print("\"Good.\"")
+        jump 1722
 
     case "n":
-    print("\"No?! Then you must die!\"")
-    wait()
+        print("\"No?! Then you must die!\"")
+        wait()
 
-    jump 2206
+        jump 2206
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1972:
@@ -189,23 +195,26 @@ interaction:
     print("\n\n\"Dost thou seek employment with Sutek the @Mad?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    print("\"Well, too bad! Sutek isn't hiring today!\"")
-    jump 359
+        print("\"Well, too bad! Sutek isn't hiring today!\"")
+        jump 359
 
     case "n":
-    print("\"No?!\"")
-    wait()
+        print("\"No?!\"")
+        wait()
 
-    print("\n\n\"What sort of fool passes up the opportunity to work for the ")
-    print("greatest genius of this age?\"")
-    wait()
+        print("\n\n\"What sort of fool passes up the opportunity to work for the ")
+        print("greatest genius of this age?\"")
+        wait()
 
-    print("\n\n\"Such fools must die!\"")
-    wait()
+        print("\n\n\"Such fools must die!\"")
+        wait()
 
     esac
 
+2206:
     print("\n\n\"But Sutek is mad, and so he will grant you one last nugget of ")
     print("wisdom before thy death!\"")
     wait()

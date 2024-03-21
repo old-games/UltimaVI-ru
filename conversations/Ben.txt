@@ -12,13 +12,13 @@ description:
 
 interaction:
     if equals(integer(value 32), byte 143):
-    jump 226
+        jump 226
 
     endif
 
     if and(hasBit(byte 235, value 0), equals(hasBit(byte 235, value 1), byte 0)):
-    print("\"You're welcome here.\"")
-    jump 495
+        print("\"You're welcome here.\"")
+        jump 495
 
     endif
 
@@ -31,27 +31,27 @@ interaction:
 
 226:
     if hasBit(byte 235, value 1):
-    print("\"Hah, sneakin' around in my @forest, huh?\"")
-    wait()
+        print("\"Hah, sneakin' around in my @forest, huh?\"")
+        wait()
 
-    print("\n\n")
+        print("\n\n")
 
     endif
 
     if equals(hasBit(byte 235, value 0), byte 0):
-    print("\"I told the last one of ya that came by that I'll have nothin' t'do ")
-    print("with yer @wars, so shove off!\"")
-    ('SETF', ('byte', 235), ('value', 0))
-    ('SETF', ('byte', 235), ('value', 1))
-    jump 495
+        print("\"I told the last one of ya that came by that I'll have nothin' t'do ")
+        print("with yer @wars, so shove off!\"")
+        ('SETF', ('byte', 235), ('value', 0))
+        ('SETF', ('byte', 235), ('value', 1))
+        jump 495
 
     endif
 
     if hasBit(byte 235, value 1):
-    print("\n\n\"I told ya once already that I want to be left @alone!\"")
+        print("\n\n\"I told ya once already that I want to be left @alone!\"")
 
     else:
-    print("\"Hullo again, friend.\"")
+        print("\"Hullo again, friend.\"")
 
     endif
 
@@ -61,147 +61,153 @@ interaction:
     print("\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"Ben. My @friends call me Big Ben.\"")
-    wait()
+        print("\"Ben. My @friends call me Big Ben.\"")
+        wait()
 
-    print("\n\n")
+        print("\n\n")
 
-    if hasBit(byte 235, value 1):
-    print("\"But you ain't one of my friends.\"")
+        if hasBit(byte 235, value 1):
+            print("\"But you ain't one of my friends.\"")
 
-    else:
-    print("\"I guess you can call me 'Big Ben'.\" He smiles broadly.")
+        else:
+            print("\"I guess you can call me 'Big Ben'.\" He smiles broadly.")
 
-    endif
+        endif
 
-    jump 495
+        jump 495
 
     case "big":
+        if hasBit(byte 235, value 1):
+            print("He fires a look at you. \"I said only my @friends call me that.\"")
 
-    if hasBit(byte 235, value 1):
-    print("He fires a look at you. \"I said only my @friends call me that.\"")
+        else:
+            print("\"'Tis my name. Don't wear it out.\" He laughs resoundingly at his wit.")
 
-    else:
-    print("\"'Tis my name. Don't wear it out.\" He laughs resoundingly at his wit.")
+        endif
 
-    endif
-
-    jump 495
+        jump 495
 
     case "ben":
-    print("\"'Tis my name. Don't wear it out.\" He laughs resoundingly at his wit.")
-    jump 495
+        print("\"'Tis my name. Don't wear it out.\" He laughs resoundingly at his wit.")
+        jump 495
 
     case "frie":
-    print("\"It surprises you that I would have some.\"")
-    wait()
+        print("\"It surprises you that I would have some.\"")
+        wait()
 
-    print("\n\n\"Sometimes it surprises me too.\" He laughs.")
-    jump 495
+        print("\n\n\"Sometimes it surprises me too.\" He laughs.")
+        jump 495
 
     case "job":
-    print("\"Have ya never seen a lumberman before?\"")
-    wait()
+        print("\"Have ya never seen a lumberman before?\"")
+        wait()
 
-    print("\n\n\"Look around. Those stacks o' @wood don't cut themselves.\"")
-    jump 495
+        print("\n\n\"Look around. Those stacks o' @wood don't cut themselves.\"")
+        jump 495
 
     case "fore":
-    print("\"Aye, this is where I cut trees, and I don't like strangers wanderin' ")
-    print("through!\"")
+        print("\"Aye, this is where I cut trees, and I don't like strangers wanderin' ")
+        print("through!\"")
 
-    if equals(hasBit(byte 235, value 1), byte 0):
-    wait()
+        if equals(hasBit(byte 235, value 1), byte 0):
+            wait()
 
-    print("\n\n\"You're welcome here, though.\"")
+            print("\n\n\"You're welcome here, though.\"")
 
-    endif
+        endif
 
-    jump 495
+        jump 495
 
     case "alon":
     case "war":
-    print("\"Ever since I won that choppin' contest, the @king's had a notion I'd ")
-    print("be good at wittlin' on men the same way.\"")
-    wait()
+        print("\"Ever since I won that choppin' contest, the @king's had a notion I'd ")
+        print("be good at wittlin' on men the same way.\"")
+        wait()
 
-    print("\n\n\"Well, you can tell him I'm not interested.\"")
-    jump 495
+        print("\n\n\"Well, you can tell him I'm not interested.\"")
+        jump 495
 
     case "king":
-    print("\"You are from the king, ain't ya?\"")
-    jump 1623
+        print("\"You are from the king, ain't ya?\"")
+        jump 1623
 
     case "buy":
     case "log":
     case "wood":
     case "yew":
-    print("\"Aye, are ya here to buy a log?\" ")
-    jump 1697
+        print("\"Aye, are ya here to buy a log?\" ")
+        jump 1697
 
     case "bye":
-    print("\"Careful in those woods now.")
+        print("\"Careful in those woods now.")
 
-    if hasBit(byte 235, value 1):
-    print(" Accidents happen....\"\n")
+        if hasBit(byte 235, value 1):
+            print(" Accidents happen....\"\n")
 
-    else:
-    print(".\"\n")
+        else:
+            print(".\"\n")
 
-    endif
+        endif
 
-    bye()
+        bye()
 
     case "*":
-    print("\"I spend too much time in these woods. Ask someone else.\"")
-    jump 495
+        print("\"I spend too much time in these woods. Ask someone else.\"")
+        jump 495
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1623:
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    print("\"I knew it!\"")
-    ('SETF', ('byte', 235), ('value', 1))
-    jump 495
+        print("\"I knew it!\"")
+        ('SETF', ('byte', 235), ('value', 1))
+        jump 495
 
     case "n":
-    print("\"Oh.\" He seems friendlier now.")
-    ('CLEARF', ('byte', 235), ('value', 1))
-    jump 495
+        print("\"Oh.\" He seems friendlier now.")
+        ('CLEARF', ('byte', 235), ('value', 1))
+        jump 495
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1697:
     askc("yn")
+
+    // Wrong flow!
     case "y":
+        if integer(value 23):
+            integer(value 0) = byte 1
+            jump 1833
 
-    if integer(value 23):
-    integer(value 0) = byte 1
-    jump 1833
+        else:
+            integer(value 3) = character(byte 0, byte 0)
+            jump 1981
 
-    else:
-    integer(value 3) = character(byte 0, byte 0)
-    jump 1981
-
-    endif
+        endif
 
     case "n":
+        if hasBit(byte 235, value 1):
+            print("\"Well, what do ya want then?\"")
 
-    if hasBit(byte 235, value 1):
-    print("\"Well, what do ya want then?\"")
+        else:
+            print("\"Well, come back sometime and I'll cut one for ya.\"")
 
-    else:
-    print("\"Well, come back sometime and I'll cut one for ya.\"")
+        endif
 
-    endif
+        jump 495
 
-    jump 495
+        // Unreachable code!
 
-# Unreachable code!
     esac
 
 1833:
@@ -209,8 +215,8 @@ interaction:
     print("#0) $Y\n")
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-    integer(value 0) = plus(integer(value 0), byte 1)
-    jump 1833
+        integer(value 0) = plus(integer(value 0), byte 1)
+        jump 1833
 
     endif
 
@@ -218,53 +224,58 @@ interaction:
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
-    print("\"Well, why'd ya say you wanted one?\"")
-    jump 495
+        print("\"Well, why'd ya say you wanted one?\"")
+        jump 495
 
     endif
 
     integer(value 2) = minus(integer(value 2), byte 1)
 
     if greater(integer(value 2), integer(value 23)):
-    integer(value 0) = byte 1
-    jump 1833
+        integer(value 0) = byte 1
+        jump 1833
 
     endif
 
     integer(value 3) = character(integer(value 2), byte 0)
+
+1981:
     ('SETNAME', ('integer', [('value', 3)]))
 
     if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 5)), weight(word 274, byte 1)):
-    print("\"But $Y can't carry a log!\"")
-    jump 495
+        print("\"But $Y can't carry a log!\"")
+        jump 495
 
     endif
 
     if less(objectsCount(integer(value 3), byte 88), byte 5):
-    print("\"But $Y don't have 5 gold!\"")
-    jump 495
+        print("\"But $Y don't have 5 gold!\"")
+        jump 495
 
     endif
 
     print("\"Logs is 5 gold apiece. Ya still want one?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 5))
-    ('NEW', ('integer', [('value', 3)]), ('word', 274), ('byte', 0), ('byte', 1))
-    print("$N takes $Y's gold and hands over a fine yew log.")
+        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 5))
+        ('NEW', ('integer', [('value', 3)]), ('word', 274), ('byte', 0), ('byte', 1))
+        print("$N takes $Y's gold and hands over a fine yew log.")
 
-    if hasBit(byte 235, value 1):
-    print("*\n\nBen seems friendlier now.")
-    ('CLEARF', ('byte', 235), ('value', 1))
+        if hasBit(byte 235, value 1):
+            print("*\n\nBen seems friendlier now.")
+            ('CLEARF', ('byte', 235), ('value', 1))
 
-    endif
+        endif
 
-    jump 495
+        jump 495
 
     case "n":
-    print("\"Too pricey for ya, eh?\"")
-    jump 495
+        print("\"Too pricey for ya, eh?\"")
+        jump 495
 
-# Unreachable code!
+        // Unreachable code!
+
     esac

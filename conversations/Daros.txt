@@ -12,82 +12,83 @@ interaction:
     print("\"Hey hey hey! Welcome to the finest sewers in Britannia.")
 
     if equals(hasBit(byte 235, value 0), byte 0):
-    ('SETF', ('byte', 235), ('value', 0))
-    print("\"\n*\n\"You look like you need a nickname, so I'll call you 'ducks.'")
+        ('SETF', ('byte', 235), ('value', 0))
+        print("\"\n*\n\"You look like you need a nickname, so I'll call you 'ducks.'")
 
     endif
 
     print("\"\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"My name's Daros, old duck.\" He shakes your hand.")
-    jump 222
+        print("\"My name's Daros, old duck.\" He shakes your hand.")
+        jump 222
 
     case "job":
-    print("\"Well, ducky, I keep the @sewers running the way they should.\"\n*\n\"When")
-    print(" work is slow, sometimes I play a @joke or two on my @friends to keep ")
-    print("things lively.\" He winks at you.")
-    jump 222
+        print("\"Well, ducky, I keep the @sewers running the way they should.\"\n*\n\"When")
+        print(" work is slow, sometimes I play a @joke or two on my @friends to keep ")
+        print("things lively.\" He winks at you.")
+        jump 222
 
     case "frie":
-    print("\"Even though we don't know each other that well, I'd like to think of ")
-    print("you as my friend already.\"")
-    jump 222
+        print("\"Even though we don't know each other that well, I'd like to think of ")
+        print("you as my friend already.\"")
+        jump 222
 
     case "joke":
     case "play":
-    print("\"Oh you know, ducks, the usual kinds.\" He nudges you in the ribs.")
-    jump 222
+        print("\"Oh you know, ducks, the usual kinds.\" He nudges you in the ribs.")
+        jump 222
 
     case "sewe":
     case "work":
-    print("\"@Britain is the biggest city in the world, and all those people use a")
-    print(" lot of @water.\"\n*\n\"All the runoff drains down here. It's not a bad ")
-    print("place to work, really, except for the @rats.\"")
-    jump 222
+        print("\"@Britain is the biggest city in the world, and all those people use a")
+        print(" lot of @water.\"\n*\n\"All the runoff drains down here. It's not a bad ")
+        print("place to work, really, except for the @rats.\"")
+        jump 222
 
     case "rat":
-    print("\"They're pretty big, ducky, but not to worry.\"\n*\n\"They usually won't ")
-    print("eat you until after they've killed you first.\"\n*\n\"Of course, if you ")
-    print("have a set of @panpipes, I hear you can just pipe them away...\"")
-    jump 222
+        print("\"They're pretty big, ducky, but not to worry.\"\n*\n\"They usually won't ")
+        print("eat you until after they've killed you first.\"\n*\n\"Of course, if you ")
+        print("have a set of @panpipes, I hear you can just pipe them away...\"")
+        jump 222
 
     case "pan":
     case "pipe":
-    print("\"I don't have a set myself. I usually just @run away.\"")
-    jump 222
+        print("\"I don't have a set myself. I usually just @run away.\"")
+        jump 222
 
     case "away":
     case "run":
-    print("\"It's real good exercise!\"")
-    jump 222
+        print("\"It's real good exercise!\"")
+        jump 222
 
     case "drai":
     case "runo":
     case "wate":
-    print("\"I wouldn't go swimming around here, ducks.\"")
-    jump 222
+        print("\"I wouldn't go swimming around here, ducks.\"")
+        jump 222
 
     case "brit":
-    print("\"Go back up and have a look! I'm sure it's still there.\"\n*\nHe grins, ")
-    print("obviously delighted with his own sense of humor.")
-    jump 222
+        print("\"Go back up and have a look! I'm sure it's still there.\"\n*\nHe grins, ")
+        print("obviously delighted with his own sense of humor.")
+        jump 222
 
     case "bye":
+        if and(greater(canCarry(byte 1), weight(byte 169, byte 1)), equals(hasObject(byte 1, byte 169, byte 0), byte 0)):
+            ('NEW', ('byte', 1), ('byte', 169), ('byte', 0), ('byte', 1))
 
-    if and(greater(canCarry(byte 1), weight(byte 169, byte 1)), equals(hasObject(byte 1, byte 169, byte 0), byte 0)):
-    ('NEW', ('byte', 1), ('byte', 169), ('byte', 0), ('byte', 1))
+        endif
 
-    endif
-
-    print("\"See you around, old duck.\"\n\n*He gives you a hearty slap on the back ")
-    print("as you leave, which almost knocks one of the straps on your pack ")
-    print("loose.\n")
-    bye()
+        print("\"See you around, old duck.\"\n\n*He gives you a hearty slap on the back ")
+        print("as you leave, which almost knocks one of the straps on your pack ")
+        print("loose.\n")
+        bye()
 
     case "*":
-    print("\"That's not something I talk about much, down here...\"")
+        print("\"That's not something I talk about much, down here...\"")
 
     esac
 

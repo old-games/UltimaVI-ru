@@ -15,144 +15,150 @@ interaction:
     print("\n")
 
     if hasBit(byte 235, value 0):
-    print("\"Well, hello again, Avatar!\"")
-    wait()
+        print("\"Well, hello again, Avatar!\"")
+        wait()
 
-    print("\n\n")
+        print("\n\n")
 
     else:
-    ('SETF', ('byte', 235), ('value', 0))
+        ('SETF', ('byte', 235), ('value', 0))
 
     endif
 
     print("\"How can I help thee this fine $T?\"\n")
 
     ask()
-    case "name":
-    print("\"I'm Michelle.\"")
-    wait()
 
-    print("\n\n\"Thou needn't tell me thy name, $P. The Avatar is famous throughout ")
-    print("the land!\"")
-    jump 129
+    // Wrong flow!
+    case "name":
+        print("\"I'm Michelle.\"")
+        wait()
+
+        print("\n\n\"Thou needn't tell me thy name, $P. The Avatar is famous throughout ")
+        print("the land!\"")
+        jump 129
 
     case "job":
-    print("\"I weave baskets and beehives, just like my @father and his father ")
-    print("before him.\"")
-    wait()
+        print("\"I weave baskets and beehives, just like my @father and his father ")
+        print("before him.\"")
+        wait()
 
-    print("\n\n\"My @baskets are sold throughout Britannia!\" she adds proudly.")
-    jump 129
+        print("\n\n\"My @baskets are sold throughout Britannia!\" she adds proudly.")
+        jump 129
 
     case "bask":
     case "beeh":
+        if notEquals(integer(value 32), byte 144):
+            print("\"Come to my shop when I'm open!\"")
+            jump 129
 
-    if notEquals(integer(value 32), byte 144):
-    print("\"Come to my shop when I'm open!\"")
-    jump 129
+        else:
+            jump 1112
 
-    else:
-    jump 1112
-
-    endif
+        endif
 
     case "buy":
+        if notEquals(integer(value 32), byte 144):
+            print("\"Come to my shop when I'm open!\"")
+            jump 129
 
-    if notEquals(integer(value 32), byte 144):
-    print("\"Come to my shop when I'm open!\"")
-    jump 129
+        else:
+            jump 1242
 
-    else:
-    jump 1242
-
-    endif
+        endif
 
     case "sell":
-    print("\"I have all I need, and have no reason to purchase anything more.\"")
-    wait()
+        print("\"I have all I need, and have no reason to purchase anything more.\"")
+        wait()
 
-    print("\n\n\"But I appreciate thy offer.\"")
-    jump 129
+        print("\n\n\"But I appreciate thy offer.\"")
+        jump 129
 
     case "ball":
     case "fath":
-    print("\"Father once told me a story of weaving a basket large enough for ")
-    print("eight people!\"")
-    wait()
+        print("\"Father once told me a story of weaving a basket large enough for ")
+        print("eight people!\"")
+        wait()
 
-    print("\n\n\"He never showed me the @plans, though.\"")
-    jump 129
+        print("\n\n\"He never showed me the @plans, though.\"")
+        jump 129
 
     case "plan":
+        if notEquals(integer(value 32), byte 144):
+            print("\"Ask when I'm open for business!\"")
+            jump 129
 
-    if notEquals(integer(value 32), byte 144):
-    print("\"Ask when I'm open for business!\"")
-    jump 129
+        endif
 
-    endif
+        integer(value 9) = partyHasObject(word 270, byte 0)
 
-    integer(value 9) = partyHasObject(word 270, byte 0)
+        if equals(integer(value 9), word 32769):
+            print("\"Yes, without accurate plans it takes far too much time to craft a ")
+            print("basket.\"")
+            jump 129
 
-    if equals(integer(value 9), word 32769):
-    print("\"Yes, without accurate plans it takes far too much time to craft a ")
-    print("basket.\"")
-    jump 129
+        endif
 
-    endif
+        print("\"Then it was true! Father did weave a basket that big!\"")
+        wait()
 
-    print("\"Then it was true! Father did weave a basket that big!\"")
-    wait()
+        print("\n\n\"Surely I could do the same.\"")
+        wait()
 
-    print("\n\n\"Surely I could do the same.\"")
-    wait()
+        print("\n\nShe studies the plans for a moment.")
+        wait()
 
-    print("\n\nShe studies the plans for a moment.")
-    wait()
-
-    print("\n\n")
-    jump 2268
+        print("\n\n")
+        jump 2268
 
     case "bye":
-    print("\"Farewell! I hope I've aided thy quest!\"\n")
-    bye()
+        print("\"Farewell! I hope I've aided thy quest!\"\n")
+        bye()
 
     case "*":
-    print("\"Beg pardon?\"")
-    jump 129
+        print("\"Beg pardon?\"")
+        jump 129
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1112:
     print("\"Wouldst thou like to buy one of my weavings?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"All right, though I can give thou the best price in the land!\"")
-    jump 129
+        print("\"All right, though I can give thou the best price in the land!\"")
+        jump 129
 
     case "y":
-    jump 1242
+        jump 1242
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1242:
     if equals(integer(value 23), byte 0):
-    integer(value 3) = byte 0
-    jump 1385
+        integer(value 3) = byte 0
+        jump 1385
 
     endif
 
+1262:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
+
+1276:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
     print("#2) $Y\n")
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 23)):
-    jump 1276
+        jump 1276
 
     endif
 
@@ -160,34 +166,36 @@ interaction:
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-    jump 2139
+        jump 2139
 
     endif
 
     integer(value 3) = minus(integer(value 3), byte 1)
 
     if greater(integer(value 3), integer(value 23)):
-    jump 1262
+        jump 1262
 
     endif
 
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+
+1385:
     print("1) Basket\n2) Beehive\n3) Custom job\n\"Which item?\" ")
     ('INPUTNUM', 0)
 
     if equals(integer(value 0), byte 0):
-    jump 2139
+        jump 2139
 
     endif
 
     integer(value 0) = minus(integer(value 0), byte 1)
 
     if greater(integer(value 0), byte 1):
-    print("\"I fear my schedule is packed.\"")
-    wait()
+        print("\"I fear my schedule is packed.\"")
+        wait()
 
-    print("\n\n\"I have no time to create a basket for which I have no @plans.\"")
-    jump 129
+        print("\n\n\"I have no time to create a basket for which I have no @plans.\"")
+        jump 129
 
     endif
 
@@ -200,19 +208,20 @@ interaction:
     ('INPUTNUM', 4)
 
     if equals(integer(value 4), byte 0):
-    jump 1385
+        jump 1385
 
     endif
 
     integer(value 5) = byte 0
 
+1681:
     if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(dword 3732, integer(value 0)), byte 1)):
-    jump 1799
+        jump 1799
 
     endif
 
     if less(objectsCount(character(integer(value 3), byte 0), byte 88), integer(value 1)):
-    jump 1921
+        jump 1921
 
     endif
 
@@ -221,55 +230,58 @@ interaction:
     integer(value 5) = plus(integer(value 5), byte 1)
 
     if equals(integer(value 5), integer(value 4)):
-    jump 2053
+        jump 2053
 
     else:
-    jump 1681
+        jump 1681
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 1799:
     if integer(value 5):
-    print("\"Thou canst not carry that many!\"")
-    wait()
+        print("\"Thou canst not carry that many!\"")
+        wait()
 
-    print("\n\n\"I will sell thee just #5 $1\\s.\"")
-    wait()
+        print("\n\n\"I will sell thee just #5 $1\\s.\"")
+        wait()
 
-    print("\n\n")
-    jump 2053
+        print("\n\n")
+        jump 2053
 
     else:
-    print("\"But thou canst not carry any $1s!\"")
-    jump 2139
+        print("\"But thou canst not carry any $1s!\"")
+        jump 2139
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 1921:
     if integer(value 5):
-    print("\"Thou hast not enough gold for that many!\"")
-    wait()
+        print("\"Thou hast not enough gold for that many!\"")
+        wait()
 
-    print("\n\n\"I will sell thee just #5 $1\\s.\"")
-    wait()
+        print("\n\n\"I will sell thee just #5 $1\\s.\"")
+        wait()
 
-    print("\n\n")
-    jump 2053
+        print("\n\n")
+        jump 2053
 
     else:
-    print("\"But thou canst not afford any $1s!\"")
-    jump 2139
+        print("\"But thou canst not afford any $1s!\"")
+        jump 2139
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 2053:
     print("Michelle takes $Y's money and hands over the $1")
 
     if greater(integer(value 5), byte 1):
-    print("s")
+        print("s")
 
     endif
 
@@ -281,30 +293,32 @@ interaction:
     print("\n\n\"Is there aught else thou wouldst buy?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    jump 1242
+        jump 1242
 
     case "n":
+        if equals(integer(value 5), byte 0):
+            print("\"Perhaps some other time.\"")
+            jump 129
 
-    if equals(integer(value 5), byte 0):
-    print("\"Perhaps some other time.\"")
-    jump 129
+        endif
 
-    endif
+        print("\"Enjoy thy $1")
 
-    print("\"Enjoy thy $1")
+        if greater(integer(value 5), byte 1):
+            print("s.\"")
 
-    if greater(integer(value 5), byte 1):
-    print("s.\"")
+        else:
+            print(".\"")
 
-    else:
-    print(".\"")
+        endif
 
-    endif
+        jump 129
 
-    jump 129
+        // Unreachable code!
 
-# Unreachable code!
     esac
 
 2268:
@@ -312,21 +326,22 @@ interaction:
     integer(value 0) = word 422
     integer(value 9) = weight(word 422, byte 1)
 
+2294:
     if greater(integer(value 6), integer(value 23)):
-    print("\"But it would weigh six stones!\"")
-    wait()
+        print("\"But it would weigh six stones!\"")
+        wait()
 
-    print("\n\n\"Thou couldst not carry such a basket, loaded as thou art.\"")
-    wait()
+        print("\n\n\"Thou couldst not carry such a basket, loaded as thou art.\"")
+        wait()
 
-    print("\n\n\"Lighten thy load, and then I will weave thee this basket.\"")
-    jump 129
+        print("\n\n\"Lighten thy load, and then I will weave thee this basket.\"")
+        jump 129
 
     endif
 
     if greater(integer(value 9), plus(canCarry(character(integer(value 6), byte 0)), weight(byte 88, word 300))):
-    integer(value 6) = plus(integer(value 6), byte 1)
-    jump 2294
+        integer(value 6) = plus(integer(value 6), byte 1)
+        jump 2294
 
     endif
 
@@ -334,14 +349,17 @@ interaction:
     print("interested?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    jump 2640
+        jump 2640
 
     case "n":
-    print("\"I do not blame thee. 'Tis a huge undertaking!\"")
-    jump 129
+        print("\"I do not blame thee. 'Tis a huge undertaking!\"")
+        jump 129
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 2640:
@@ -350,39 +368,41 @@ interaction:
     integer(value 3) = byte 0
     integer(value 4) = byte 0
 
+2669:
     if greater(integer(value 3), integer(value 23)):
-    print("\"Thou hast not enough money for the basket.\"")
-    wait()
+        print("\"Thou hast not enough money for the basket.\"")
+        wait()
 
-    print("\n\n\"I fear I cannot afford to start such a task on a mere #2 gold ")
-    print("crown\\s.\"")
-    jump 129
+        print("\n\n\"I fear I cannot afford to start such a task on a mere #2 gold ")
+        print("crown\\s.\"")
+        jump 129
 
     endif
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
 
     if less(integer(value 5), integer(value 1)):
-    integer(value 1) = minus(integer(value 1), integer(value 5))
-    integer(value 2) = plus(integer(value 2), integer(value 5))
-    integer(value 3) = plus(integer(value 3), byte 1)
-    jump 2669
+        integer(value 1) = minus(integer(value 1), integer(value 5))
+        integer(value 2) = plus(integer(value 2), integer(value 5))
+        integer(value 3) = plus(integer(value 3), byte 1)
+        jump 2669
 
     else:
-    print("Your party takes up a collection to pay for the basket.")
-    integer(value 1) = word 400
-    integer(value 2) = byte 0
-    integer(value 4) = integer(value 3)
-    integer(value 3) = byte 0
-    jump 2947
+        print("Your party takes up a collection to pay for the basket.")
+        integer(value 1) = word 400
+        integer(value 2) = byte 0
+        integer(value 4) = integer(value 3)
+        integer(value 3) = byte 0
+        jump 2947
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 2947:
     if equals(integer(value 3), integer(value 4)):
-    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-    jump 3030
+        ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+        jump 3030
 
     endif
 
@@ -401,18 +421,21 @@ interaction:
     print("\n\n\"Hast thou found a silk weaver yet?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    print("\"Thou art wise, then. 'Tis a huge bag this will require.\"")
-    jump 3338
+        print("\"Thou art wise, then. 'Tis a huge bag this will require.\"")
+        jump 3338
 
     case "n":
-    print("\"Well, I can see that this will require a huge silk bag.\"")
-    wait()
+        print("\"Well, I can see that this will require a huge silk bag.\"")
+        wait()
 
-    print("\n\n\"I know not where thou might find a silk weaver to craft it!\"")
-    jump 3338
+        print("\n\n\"I know not where thou might find a silk weaver to craft it!\"")
+        jump 3338
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 3338:
@@ -424,14 +447,18 @@ interaction:
     print("\n\n\"I do not mean to pry, but why dost thou need a balloon anyway?\"\n")
 
     ask()
+
+    // Wrong flow!
     case "*":
-    print("\"I'm afraid I don't understand.\"\n")
+        print("\"I'm afraid I don't understand.\"\n")
 
     esac
 
     ask()
+
+    // Wrong flow!
     case "*":
-    print("\"Oh, I see.\"")
+        print("\"Oh, I see.\"")
 
     esac
 
@@ -457,11 +484,6 @@ interaction:
     print("\n\nShe gives the basket to $Y, who struggles under its weight.")
     jump 129
 
-3728:
-    ['INTEGERS', [10, 15]]
-
-3732:
-    ['INTEGERS', [191, 182]]
-
-3736:
-    ['STRINGS', ['basket', 'beehive', '"These baskets are sturdy and decorative."*\n\n"Thou\'lt find no better in all Britannia for the price, a mere #1 gold."', '"If thou hast need of beehives, these woven ones are the best thou\'lt find!"*\n\n"And cheap, too, at #1 apiece."']]
+    [['INTEGERS', [10, 15]]]
+    [['INTEGERS', [191, 182]]]
+    [['STRINGS', ['basket', 'beehive', '"These baskets are sturdy and decorative."*\n\n"Thou\'lt find no better in all Britannia for the price, a mere #1 gold."', '"If thou hast need of beehives, these woven ones are the best thou\'lt find!"*\n\n"And cheap, too, at #1 apiece."']]]

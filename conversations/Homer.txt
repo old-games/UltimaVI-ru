@@ -15,41 +15,41 @@ interaction:
     ('CLEARF', ('byte', 235), ('byte', 7))
 
     if and(and(and(and(and(and(and(notEquals(partyHasObject(word 400, byte 0), word 32769), notEquals(partyHasObject(word 401, byte 0), word 32769)), notEquals(partyHasObject(word 402, byte 0), word 32769)), notEquals(partyHasObject(word 403, byte 0), word 32769)), notEquals(partyHasObject(word 404, byte 0), word 32769)), notEquals(partyHasObject(word 405, byte 0), word 32769)), notEquals(partyHasObject(word 406, byte 0), word 32769)), notEquals(partyHasObject(word 407, byte 0), word 32769)):
-    ('SETF', ('byte', 235), ('byte', 7))
+        ('SETF', ('byte', 235), ('byte', 7))
 
     endif
 
     if hasBit(byte 235, byte 4):
-    print("\"You served your purpose by bringing me the cloak... Now I have no ")
-    print("further need of you.\"")
-    wait()
+        print("\"You served your purpose by bringing me the cloak... Now I have no ")
+        print("further need of you.\"")
+        wait()
 
-    print("\n\n\"I have big plans now, and no time to waste talking.\"\n")
-    bye()
+        print("\n\n\"I have big plans now, and no time to waste talking.\"\n")
+        bye()
 
     endif
 
     if hasBit(byte 235, byte 2):
-    ('CLEARF', ('byte', 235), ('byte', 2))
-    print("\"")
-    jump 4306
+        ('CLEARF', ('byte', 235), ('byte', 2))
+        print("\"")
+        jump 4306
 
     endif
 
     if hasBit(byte 235, value 1):
-    ('CLEARF', ('byte', 235), ('value', 1))
-    print("\"")
-    jump 4848
+        ('CLEARF', ('byte', 235), ('value', 1))
+        print("\"")
+        jump 4848
 
     endif
 
     if hasBit(byte 235, byte 5):
-    jump 3284
+        jump 3284
 
     endif
 
     if hasBit(byte 235, byte 6):
-    jump 3872
+        jump 3872
 
     endif
 
@@ -57,117 +57,116 @@ interaction:
     print(" want?\"\n")
 
     ask()
-    case "name":
-    print("\"Who wants to know?\"\n")
 
-    ask()
-    print("\n\"Fine, '$Z' - if that's what your name really is... You can call me ")
-    print("Homer.\"")
-    ('SETF', ('byte', 235), ('value', 0))
-    jump 484
+    // Wrong flow!
+    case "name":
+        print("\"Who wants to know?\"\n")
+
+        ask()
+        print("\n\"Fine, '$Z' - if that's what your name really is... You can call me ")
+        print("Homer.\"")
+        ('SETF', ('byte', 235), ('value', 0))
+        jump 484
 
     case "home":
-    print("\"Well, get on with it!\"")
-    jump 484
+        print("\"Well, get on with it!\"")
+        jump 484
 
     case "job":
-    print("\"I once sailed on the ship called '@Empire,' under Captain @Hawkins.\"")
-    jump 484
+        print("\"I once sailed on the ship called '@Empire,' under Captain @Hawkins.\"")
+        jump 484
 
     case "empi":
     case "sail":
-    print("\"It was wrecked on the cape, southwest of here. Not too far from ")
-    print("Serpent's Hold.\"")
+        print("\"It was wrecked on the cape, southwest of here. Not too far from ")
+        print("Serpent's Hold.\"")
+
     case "hawk":
-    print("His eyes light up with hatred. \"That heartless bastard...\"")
-    wait()
+        print("His eyes light up with hatred. \"That heartless bastard...\"")
+        wait()
 
-    print("\n\n\"He was killed by his own men, and it was no worse than he ")
-    print("deserved.\"")
-    wait()
+        print("\n\n\"He was killed by his own men, and it was no worse than he ")
+        print("deserved.\"")
+        wait()
 
-    print("\n\nHe hesitates, then adds quickly, \"Of course, I had nothing to do ")
-    print("with it.\"")
-    jump 484
+        print("\n\nHe hesitates, then adds quickly, \"Of course, I had nothing to do ")
+        print("with it.\"")
+        jump 484
 
     case "silv":
     case "tabl":
+        if notEquals(partyHasObject(byte 25, byte 0), word 32769):
+            jump 1306
 
-    if notEquals(partyHasObject(byte 25, byte 0), word 32769):
-    jump 1306
+        endif
 
-    endif
+        print("He regards you warily. \"Who sent you?\"\n")
 
-    print("He regards you warily. \"Who sent you?\"\n")
+        ask()
+        print("\n\"I see.\" He screws his face up into an even more suspicious ")
+        print("expression than before.")
+        wait()
 
-    ask()
-    print("\n\"I see.\" He screws his face up into an even more suspicious ")
-    print("expression than before.")
-    wait()
+        print("\n\n\"Just why do you want to know about it, anyway?\"\n")
 
-    print("\n\n\"Just why do you want to know about it, anyway?\"\n")
+        ask()
+        print("\n\"You're not a member of the @guild. I don't have to tell you ")
+        print("anything.\"")
+        jump 484
 
-    ask()
-    print("\n\"You're not a member of the @guild. I don't have to tell you ")
-    print("anything.\"")
-    jump 484
-
-    print("\"You're looking for the silver tablet? It's part of Captain Hawkin's ")
-    print("buried @treasure.\"")
-    jump 484
+1306:
+        print("\"You're looking for the silver tablet? It's part of Captain Hawkin's ")
+        print("buried @treasure.\"")
+        jump 484
 
     case "buri":
     case "trea":
+        if notEquals(partyHasObject(byte 25, byte 0), word 32769):
+            print("\"It was buried in a small @cave.\"")
 
-    if notEquals(partyHasObject(byte 25, byte 0), word 32769):
-    print("\"It was buried in a small @cave.\"")
+        else:
+            print("\"Don't know anything about it.\"")
 
-    else:
-    print("\"Don't know anything about it.\"")
+        endif
 
-    endif
-
-    jump 484
+        jump 484
 
     case "cave":
+        if notEquals(partyHasObject(byte 25, byte 0), word 32769):
+            jump 1821
 
-    if notEquals(partyHasObject(byte 25, byte 0), word 32769):
-    jump 1821
+        else:
+            print("\"What are you talking about?\"")
 
-    else:
-    print("\"What are you talking about?\"")
+        endif
 
-    endif
-
-    jump 484
+        jump 484
 
     case "guil":
-    print("\"Go ask Budo. And you didn't hear that from me, understand?\"")
-    jump 484
+        print("\"Go ask Budo. And you didn't hear that from me, understand?\"")
+        jump 484
 
     case "bye":
+        if notEquals(partyHasObject(byte 25, byte 0), word 32769):
+            print("\"Farewell, brother thief.\"")
 
-    if notEquals(partyHasObject(byte 25, byte 0), word 32769):
-    print("\"Farewell, brother thief.\"")
+        else:
+            print("\"Can't say its been a pleasure.\"")
 
-    else:
-    print("\"Can't say its been a pleasure.\"")
+        endif
 
-    endif
-
-    print("\n")
-    bye()
+        print("\n")
+        bye()
 
     case "*":
+        if notEquals(partyHasObject(byte 25, byte 0), word 32769):
+            print("\"Can't help you there.\"")
 
-    if notEquals(partyHasObject(byte 25, byte 0), word 32769):
-    print("\"Can't help you there.\"")
+        else:
+            print("\"You've got an awful lot of questions... Maybe I don't care to talk ")
+            print("about $Z.\"")
 
-    else:
-    print("\"You've got an awful lot of questions... Maybe I don't care to talk ")
-    print("about $Z.\"")
-
-    endif
+        endif
 
     esac
 
@@ -243,12 +242,13 @@ interaction:
     print("\"Have you found the storm cloak yet?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Then get off your duff and go dig it up!\"\n")
-    bye()
+        print("\"Then get off your duff and go dig it up!\"\n")
+        bye()
 
     case "y":
-
     esac
 
     print("\"Then hand it over and we're even.\" His eyes gleam with greedy ")
@@ -258,27 +258,28 @@ interaction:
     print("\n\nDo you give him the cloak? ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Blast ye! If I still had two good legs, I'd keelhaul the lot of you!\"")
-    wait()
+        print("\"Blast ye! If I still had two good legs, I'd keelhaul the lot of you!\"")
+        wait()
 
-    print("\n\n\"We had a deal! Besides, I helped steal that treasure myself, fair ")
-    print("and square.\"")
-    wait()
+        print("\n\n\"We had a deal! Besides, I helped steal that treasure myself, fair ")
+        print("and square.\"")
+        wait()
 
-    print("\n\"Can't trust anybody these days...\"\n")
-    ('SUB_KARMA', ('byte', 10))
-    bye()
+        print("\n\"Can't trust anybody these days...\"\n")
+        ('SUB_KARMA', ('byte', 10))
+        bye()
 
     case "y":
-
     esac
 
     integer(value 0) = partyHasObject(byte 81, byte 0)
 
     if equals(integer(value 0), word 32769):
-    print("You have no storm cloak to give him.\n")
-    bye()
+        print("You have no storm cloak to give him.\n")
+        bye()
 
     endif
 
@@ -293,18 +294,19 @@ interaction:
     print("\"So, have ye found the eight pieces of the map yet?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Then what are you wasting my time for?\"")
-    jump 484
+        print("\"Then what are you wasting my time for?\"")
+        jump 484
 
     case "y":
-
     esac
 
     if equals(hasBit(byte 235, byte 7), byte 0):
-    print("\"Best count again. You need eight pieces before I'll bargain with ")
-    print("you.\"")
-    jump 484
+        print("\"Best count again. You need eight pieces before I'll bargain with ")
+        print("you.\"")
+        jump 484
 
     endif
 
@@ -327,13 +329,14 @@ interaction:
     print("it a deal?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "n":
-    print("\"Suit yourself, mate, that's the only deal I'll offer.\"\n")
-    ('SETF', ('byte', 235), ('byte', 2))
-    bye()
+        print("\"Suit yourself, mate, that's the only deal I'll offer.\"\n")
+        ('SETF', ('byte', 235), ('byte', 2))
+        bye()
 
     case "y":
-
     esac
 
     print("\n\"Okay. The ninth piece of the map is hidden...\"")
@@ -355,17 +358,19 @@ interaction:
     print(" cloak, won't you?\" ")
 
     askc("yn")
-    case "n":
-    print("\"Don't want to keep your word now that you have the map, eh?\"")
-    wait()
 
-    print("\n\"Well, then, I won't tell you where you need to dig to find the ")
-    print("treasure!\"\n")
-    ('SETF', ('byte', 235), ('value', 1))
-    bye()
+    // Wrong flow!
+    case "n":
+        print("\"Don't want to keep your word now that you have the map, eh?\"")
+        wait()
+
+        print("\n\"Well, then, I won't tell you where you need to dig to find the ")
+        print("treasure!\"\n")
+        ('SETF', ('byte', 235), ('value', 1))
+        bye()
 
     case "y":
-    ('SETF', ('byte', 235), ('byte', 5))
+        ('SETF', ('byte', 235), ('byte', 5))
 
     esac
 

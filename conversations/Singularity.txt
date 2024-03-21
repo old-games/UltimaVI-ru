@@ -22,53 +22,55 @@ interaction:
     print("\n\n")
 
     if integer(value 26):
-    print("\"There is no more wisdom for thee to acquire here, noble Avatar.\"")
-    wait()
+        print("\"There is no more wisdom for thee to acquire here, noble Avatar.\"")
+        wait()
 
-    print("\n\n\"Seek the Codex, and may nothing impede thy sacred quest!\"")
-    wait()
+        print("\n\n\"Seek the Codex, and may nothing impede thy sacred quest!\"")
+        wait()
 
-    print("\n")
-    bye()
+        print("\n")
+        bye()
 
     endif
 
     if hasBit(byte 235, byte 2):
-    print("\"Hast thou completed thy journey to the @catacombs?\" ")
+        print("\"Hast thou completed thy journey to the @catacombs?\" ")
 
-    askc("yn")
+        askc("yn")
+
     case "y":
-    print("\"What is the Mantra of Singularity?\"\n")
-    jump 1638
+        print("\"What is the Mantra of Singularity?\"\n")
+        jump 1638
 
     esac
 
     print("\n\"Which catacomb dost thou seek?\"")
     jump 798
 
+    // Wrong flow!
     endif
 
     if less(integer(value 20), byte 40):
-    print("\"Thy deeds make thee unworthy of enlightenment.\"")
-    wait()
+        print("\"Thy deeds make thee unworthy of enlightenment.\"")
+        wait()
 
-    print("\n\n\"Return when thy path is more focused.\"")
-    wait()
+        print("\n\n\"Return when thy path is more focused.\"")
+        wait()
 
-    print("\n")
-    bye()
+        print("\n")
+        bye()
 
     endif
 
     if greater(integer(value 20), byte 80):
-    print("\"Thou hast far to travel and much to achieve, but thy inner fire will ")
-    print("surely guide thy way.\"")
+        print("\"Thou hast far to travel and much to achieve, but thy inner fire will ")
+        print("surely guide thy way.\"")
 
     else:
-    print("\"Thou hast far to travel and much to achieve.\"")
-    wait()
+        print("\"Thou hast far to travel and much to achieve.\"")
+        wait()
 
-    print("\n\n\"May the wisdom imparted here help purify thy inner flame.\"")
+        print("\n\n\"May the wisdom imparted here help purify thy inner flame.\"")
 
     endif
 
@@ -77,132 +79,138 @@ interaction:
     print("\n\n\"What do you seek, Avatar?\"\n")
 
     ask()
+
+    // Wrong flow!
     case "code":
     case "mant":
     case "ques":
     case "sacr":
+        if hasBit(byte 235, byte 2):
+            print("\"What is the Mantra of Singularity?\"\n")
+            jump 1638
 
-    if hasBit(byte 235, byte 2):
-    print("\"What is the Mantra of Singularity?\"\n")
-    jump 1638
+        else:
+            print("\"Look deep inside thyself, Avatar, and answer this:\"")
+            wait()
 
-    else:
-    print("\"Look deep inside thyself, Avatar, and answer this:\"")
-    wait()
+            print("\n\"For whom dost thou truly seek the Codex?\"\n")
+            jump 2380
 
-    print("\n\"For whom dost thou truly seek the Codex?\"\n")
-    jump 2380
-
-    endif
+        endif
 
     case "cont":
     case "dili":
     case "pass":
-    integer(value 0) = indexOf(dword 3487, byte 35)
-    string(value 0) = data(dword 3487, integer(value 0))
-    string(value 1) = data(dword 3514, integer(value 0))
-    print("\"$0 is one of the guiding principles of the gargoyle race.\"")
-    wait()
+        integer(value 0) = indexOf(dword 3487, byte 35)
+        string(value 0) = data(dword 3487, integer(value 0))
+        string(value 1) = data(dword 3514, integer(value 0))
+        print("\"$0 is one of the guiding principles of the gargoyle race.\"")
+        wait()
 
-    print("\n\n\"Go thou into the @Catacombs of $0, near the coast to the $1 of ")
-    print("here.\"")
-    wait()
+        print("\n\n\"Go thou into the @Catacombs of $0, near the coast to the $1 of ")
+        print("here.\"")
+        wait()
 
-    print("\n\n\"There you will find the being who most exemplifies this ")
-    print("@principle.\"")
-    jump 798
+        print("\n\n\"There you will find the being who most exemplifies this ")
+        print("@principle.\"")
+        jump 798
 
     case "prin":
     case "thre":
-    print("\"The three principles of @Control, @Passion and @Diligence form the ")
-    print("basis of the gargoyle way of life.\"")
-    jump 798
+        print("\"The three principles of @Control, @Passion and @Diligence form the ")
+        print("basis of the gargoyle way of life.\"")
+        jump 798
 
     case "job":
     case "name":
-    print("\"Thou hast reached the Altar of Singularity. What dost thou seek?\"")
-    jump 798
+        print("\"Thou hast reached the Altar of Singularity. What dost thou seek?\"")
+        jump 798
 
     case "cata":
-    print("\"Which catacomb dost thou seek?\"")
-    jump 798
+        print("\"Which catacomb dost thou seek?\"")
+        jump 798
 
     case "bye":
-    print("The mystic voice falls silent, and you leave the altar.\n")
-    bye()
+        print("The mystic voice falls silent, and you leave the altar.\n")
+        bye()
 
     case "*":
+        if random(byte 0, byte 1):
+            print("\"The answer to that lies elsewhere.\"")
 
-    if random(byte 0, byte 1):
-    print("\"The answer to that lies elsewhere.\"")
+        else:
+            print("\"The answer to that lies within thyself.\"")
 
-    else:
-    print("\"The answer to that lies within thyself.\"")
+        endif
 
-    endif
+        jump 798
 
-    jump 798
+        // Unreachable code!
 
-# Unreachable code!
     esac
 
 1638:
     ask()
+
+    // Wrong flow!
     case "un-or-us":
     case "unorus":
-    print("\"Let the principle of control guide thy quest.\"")
-    wait()
 
-    print("\n\n\"Let the principle of passion drive thy quest.\"")
-    wait()
+1656:
+        print("\"Let the principle of control guide thy quest.\"")
+        wait()
 
-    print("\n\n\"Let the principle of diligence maintain thy quest.\"")
-    wait()
+        print("\n\n\"Let the principle of passion drive thy quest.\"")
+        wait()
 
-    print("\n\n\"Then wilt thou truly achieve the unified spirit and singularity of ")
-    print("purpose that is necessary for success in all endeavors.\"")
-    wait()
+        print("\n\n\"Let the principle of diligence maintain thy quest.\"")
+        wait()
 
-    print("\n\n\"This is the gargoyle way; let it be thy way as well.\"")
-    wait()
+        print("\n\n\"Then wilt thou truly achieve the unified spirit and singularity of ")
+        print("purpose that is necessary for success in all endeavors.\"")
+        wait()
 
-    print("\n\nThe altar glows with a cold blue flame.")
-    wait()
+        print("\n\n\"This is the gargoyle way; let it be thy way as well.\"")
+        wait()
 
-    print("\n\nYou feel compelled to seek out the Codex.")
-    wait()
+        print("\n\nThe altar glows with a cold blue flame.")
+        wait()
 
-    print("\n\nYour final quest has begun!")
-    ('ADD_KARMA', ('byte', 10))
-    integer(value 26) = byte 1
-    wait()
+        print("\n\nYou feel compelled to seek out the Codex.")
+        wait()
 
-    print("\n")
-    bye()
+        print("\n\nYour final quest has begun!")
+        ('ADD_KARMA', ('byte', 10))
+        integer(value 26) = byte 1
+        wait()
+
+        print("\n")
+        bye()
 
     case "or-un-us":
     case "or-us-un":
     case "un-us-or":
     case "us-or-un":
     case "us-un-or":
-    jump 1656
+        jump 1656
 
     case "orunus":
     case "orusun":
     case "unusor":
     case "usorun":
     case "usunor":
-    jump 1656
+        jump 1656
 
     case "*":
-    print("\"You have not yet become familiar with the wisdom of the gargoyle ")
-    print("race.\"")
-    wait()
+        print("\"You have not yet become familiar with the wisdom of the gargoyle ")
+        print("race.\"")
+        wait()
 
-    print("\n\n\"Continue thy search.\"")
-    jump 798
+        print("\n\n\"Continue thy search.\"")
+        jump 798
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 2320:
@@ -210,98 +218,97 @@ interaction:
 
 2380:
     ask()
+
+    // Wrong flow!
     case "all":
     case "both":
     case "ever":
     case "our":
     case "peac":
-    print("\"Thy answer is wise.\"")
-    wait()
+        print("\"Thy answer is wise.\"")
+        wait()
 
-    print("\n\n\"But how canst thou truly work for the good of a race whose ways ")
-    print("thou dost not understand?\"")
-    wait()
+        print("\n\n\"But how canst thou truly work for the good of a race whose ways ")
+        print("thou dost not understand?\"")
+        wait()
 
-    print("\n\n\"Go thou into the @Catacombs of @Control, @Passion and @Diligence.\"")
-    wait()
+        print("\n\n\"Go thou into the @Catacombs of @Control, @Passion and @Diligence.\"")
+        wait()
 
-    print("\n\n\"In each wilt thou find the final resting place of the being who ")
-    print("most exemplifies that @principle.\"")
-    wait()
+        print("\n\n\"In each wilt thou find the final resting place of the being who ")
+        print("most exemplifies that @principle.\"")
+        wait()
 
-    print("\n\n\"Return when thou hast found these @catacombs.\"")
-    ('SETF', ('byte', 235), ('byte', 2))
-    jump 798
+        print("\n\n\"Return when thou hast found these @catacombs.\"")
+        ('SETF', ('byte', 235), ('byte', 2))
+        jump 798
 
     case "brit":
     case "huma":
     case "lord":
     case "me":
     case "my":
-    print("\"Thy answer is foolish.\"")
-    wait()
+        print("\"Thy answer is foolish.\"")
+        wait()
 
-    print("\n\n\"A journey made for selfish reasons can never be a sacred quest, ")
-    print("regardless of its goal.\"")
-    wait()
+        print("\n\n\"A journey made for selfish reasons can never be a sacred quest, ")
+        print("regardless of its goal.\"")
+        wait()
 
-    jump 2320
+        jump 2320
 
     case "garg":
     case "inqu":
     case "lead":
     case "scho":
     case "seer":
-    print("\"Thy answer is foolish.\"")
-    wait()
+        print("\"Thy answer is foolish.\"")
+        wait()
 
-    print("\n\n\"There is no nobility or honor in betraying one's own race for the ")
-    print("sake of another.\"")
-    wait()
+        print("\n\n\"There is no nobility or honor in betraying one's own race for the ")
+        print("sake of another.\"")
+        wait()
 
-    print("\n\n\"Such a path can never be a sacred quest.\"")
-    wait()
+        print("\n\n\"Such a path can never be a sacred quest.\"")
+        wait()
 
-    jump 2320
+        jump 2320
 
     case "beh":
     case "bole":
     case "drax":
     case "naxa":
     case "valk":
-    print("\"Thy answer is foolish.\"")
-    wait()
+        print("\"Thy answer is foolish.\"")
+        wait()
 
-    print("\n\n\"Thy compassion is acknowledged, but compassion is not the key to ")
-    print("success.\"")
-    wait()
+        print("\n\n\"Thy compassion is acknowledged, but compassion is not the key to ")
+        print("success.\"")
+        wait()
 
-    print("\n\n\"The motive must be as one with the goal for a journey to become a ")
-    print("sacred quest.\"")
-    wait()
+        print("\n\n\"The motive must be as one with the goal for a journey to become a ")
+        print("sacred quest.\"")
+        wait()
 
-    jump 2320
+        jump 2320
 
     case "bye":
-    print("\"Return when thou canst truly answer this question.\"\n")
-    bye()
+        print("\"Return when thou canst truly answer this question.\"\n")
+        bye()
 
     case "*":
-    print("\"Thy answer is foolish.\"")
-    wait()
+        print("\"Thy answer is foolish.\"")
+        wait()
 
-    print("\n\n\"Thy mind must be focused clearly on thy path for thy journey to ")
-    print("become a sacred quest.\"")
-    wait()
+        print("\n\n\"Thy mind must be focused clearly on thy path for thy journey to ")
+        print("become a sacred quest.\"")
+        wait()
 
-    jump 2320
+        jump 2320
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
-3487:
-    ['STRINGS', ['Control', 'Diligence', 'Passion']]
-    end-of-list-marker
-
-3514:
-    ['STRINGS', ['west', 'south', 'east']]
+    [['STRINGS', ['Control', 'Diligence', 'Passion']], 'end-of-list-marker']
+    [['STRINGS', ['west', 'south', 'east']]]

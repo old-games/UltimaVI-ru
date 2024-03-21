@@ -13,44 +13,45 @@ interaction:
     print("\n")
 
     if and(equals(integer(value 21), byte 1), equals(partyHasObject(byte 76, byte 0), byte 1)):
-    jump 372
+        jump 372
 
     endif
 
     if integer(value 21):
-    print("\"The False Prophet!\" the gargoyle shouts. \"Begone, begone!\"")
+        print("\"The False Prophet!\" the gargoyle shouts. \"Begone, begone!\"")
 
     else:
-    print("\"An-bal-sil-fer!\" the gargoyle shouts. \"Gres por! Gres por!\"")
+        print("\"An-bal-sil-fer!\" the gargoyle shouts. \"Gres por! Gres por!\"")
 
     endif
 
     wait()
 
     if partyHas(byte 4):
-    ('PORTRAIT', ('byte', 4))
-    print("\n\nHalf-jokingly, Iolo says, \"We'd better do as he says.\"")
-    wait()
+        ('PORTRAIT', ('byte', 4))
+        print("\n\nHalf-jokingly, Iolo says, \"We'd better do as he says.\"")
+        wait()
 
-    print("\n\n\"After all, we don't know what kind of meat that is!\n")
-    bye()
+        print("\n\n\"After all, we don't know what kind of meat that is!\n")
+        bye()
 
     else:
-    print("\n")
-    bye()
+        print("\n")
+        bye()
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 372:
     if hasBit(byte 235, value 0):
-    print("\"To welcome you back, False Prophet!\"")
+        print("\"To welcome you back, False Prophet!\"")
 
     else:
-    print("\"The False Prophet!\"")
-    wait()
+        print("\"The False Prophet!\"")
+        wait()
 
-    print("\n\n\"To welcome you to my place of cooking.\"")
+        print("\n\n\"To welcome you to my place of cooking.\"")
 
     endif
 
@@ -59,89 +60,90 @@ interaction:
     print("\n\n\"To offer you the best @food in all the world!\"\n")
 
     ask()
+
+    // Wrong flow!
     case "food":
+        if notEquals(integer(value 32), byte 143):
+            print("\"To not have food on me. To have you visit my shop.\"")
+            jump 530
 
-    if notEquals(integer(value 32), byte 143):
-    print("\"To not have food on me. To have you visit my shop.\"")
-    jump 530
+        endif
 
-    endif
-
-    jump 1586
+        jump 1586
 
     case "hors":
     case "meat":
-    print("\"To be famous among all gargoyles for the quality of my horseflesh!\"")
-    jump 530
+        print("\"To be famous among all gargoyles for the quality of my horseflesh!\"")
+        jump 530
 
     case "name":
-    print("\"To be called Foodmaker, not having a name yet.\"")
-    wait()
+        print("\"To be called Foodmaker, not having a name yet.\"")
+        wait()
 
-    print("\n\n\"But to be the finest cook in the land!\"")
-    wait()
+        print("\n\n\"But to be the finest cook in the land!\"")
+        wait()
 
-    print("\n\n\"To receive a name someday soon for my skill!\"")
-    jump 530
+        print("\n\n\"To receive a name someday soon for my skill!\"")
+        jump 530
 
     case "good":
-    print("\"The goodscrafter? To be pathetic!\" the huge gargoyle scowls.")
-    wait()
+        print("\"The goodscrafter? To be pathetic!\" the huge gargoyle scowls.")
+        wait()
 
-    print("\n\n\"To have self-pity, when strength and long work will give success!\"")
-    wait()
+        print("\n\n\"To have self-pity, when strength and long work will give success!\"")
+        wait()
 
-    print("\n\n\"To wish to hear no more about that creature.\"")
-    jump 530
+        print("\n\n\"To wish to hear no more about that creature.\"")
+        jump 530
 
     case "job":
-    print("\"To cook and serve food for all the gargoyles who live in these ")
-    print("parts!\"")
-    wait()
+        print("\"To cook and serve food for all the gargoyles who live in these ")
+        print("parts!\"")
+        wait()
 
-    print("\n\n\"Also to guide and instruct the @wingless ones in cooking chores.\"")
-    jump 530
+        print("\n\n\"Also to guide and instruct the @wingless ones in cooking chores.\"")
+        jump 530
 
     case "wing":
-    print("\"To have to watch their every move!\"")
-    wait()
+        print("\"To have to watch their every move!\"")
+        wait()
 
-    print("\n\n\"But to acknowledge that they are vital to our society.\"")
-    jump 530
+        print("\n\n\"But to acknowledge that they are vital to our society.\"")
+        jump 530
 
     case "bye":
+        if hasBit(byte 235, value 0):
+            jump 2448
 
-    if hasBit(byte 235, value 0):
-    jump 2448
+        else:
+            integer(value 2) = random(byte 1, plus(integer(value 23), byte 1))
+            integer(value 0) = byte 0
+            jump 2151
 
-    else:
-    integer(value 2) = random(byte 1, plus(integer(value 23), byte 1))
-    integer(value 0) = byte 0
-    jump 2151
-
-    endif
+        endif
 
     case "bunc":
     case "grap":
     case "plan":
     case "wine":
-    print("\"Well, yes, of course to have that as well.\"")
-    wait()
+        print("\"Well, yes, of course to have that as well.\"")
+        wait()
 
-    print("\n\n\"But to be famous for my roast horseflesh!\"")
-    wait()
+        print("\n\n\"But to be famous for my roast horseflesh!\"")
+        wait()
 
-    print("\n\n\"To offer you some of this fine @food!\"")
-    jump 530
+        print("\n\n\"To offer you some of this fine @food!\"")
+        jump 530
 
     case "*":
-    print("\"To not know what $Z is.\"")
-    wait()
+        print("\"To not know what $Z is.\"")
+        wait()
 
-    print("\n\n\"But to gladly cook it for you if you tell me the recipe!\"")
-    jump 530
+        print("\n\n\"But to gladly cook it for you if you tell me the recipe!\"")
+        jump 530
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1586:
@@ -155,51 +157,54 @@ interaction:
     print("\n\nDo you take the meat? ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    print("You")
+        print("You")
 
-    if integer(value 23):
-    print("r party eats the profferred food.")
+        if integer(value 23):
+            print("r party eats the profferred food.")
 
-    else:
-    print(" eat the profferred food.")
+        else:
+            print(" eat the profferred food.")
 
-    endif
+        endif
 
-    wait()
+        wait()
 
-    print("\n\nThe flavor is unlike anything you've had before.")
+        print("\n\nThe flavor is unlike anything you've had before.")
 
-    if equals(and(integer(value 23), partyHas(byte 4)), byte 0):
-    jump 530
+        if equals(and(integer(value 23), partyHas(byte 4)), byte 0):
+            jump 530
 
-    endif
+        endif
 
-    wait()
+        wait()
 
-    ('PORTRAIT', ('byte', 4))
-    print("\n\nIolo speaks. \"I wonder what sort of @meat this is, $P.\"")
-    wait()
+        ('PORTRAIT', ('byte', 4))
+        print("\n\nIolo speaks. \"I wonder what sort of @meat this is, $P.\"")
+        wait()
 
-    ('PORTRAIT', ('byte', 235))
-    print("\n\nThe gargoyle beams with pride. \"To ask you: Is it not the best @meat")
-    print(" you have ever eaten?\"")
-    jump 530
+        ('PORTRAIT', ('byte', 235))
+        print("\n\nThe gargoyle beams with pride. \"To ask you: Is it not the best @meat")
+        print(" you have ever eaten?\"")
+        jump 530
 
     case "n":
-    print("\"To be saddened by your not liking!\"")
-    wait()
+        print("\"To be saddened by your not liking!\"")
+        wait()
 
-    print("\n\n\"To know of no finer cooker of @horseflesh than myself!\"")
-    jump 530
+        print("\n\n\"To know of no finer cooker of @horseflesh than myself!\"")
+        jump 530
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 2151:
     if greater(integer(value 0), integer(value 24)):
-    ('SETF', ('byte', 235), ('value', 0))
-    jump 2448
+        ('SETF', ('byte', 235), ('value', 0))
+        jump 2448
 
     endif
 
@@ -207,8 +212,8 @@ interaction:
     integer(value 1) = character(integer(value 0), byte 0)
 
     if greater(weight(byte 135, integer(value 2)), canCarry(integer(value 1))):
-    integer(value 0) = plus(integer(value 0), byte 1)
-    jump 2151
+        integer(value 0) = plus(integer(value 0), byte 1)
+        jump 2151
 
     endif
 
@@ -222,33 +227,36 @@ interaction:
     print("\n\nDo you accept his gift? ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    ('NEW', ('integer', [('value', 1)]), ('byte', 135), ('byte', 0), ('integer', [('value', 2)]))
-    ('SETNAME', ('integer', [('value', 1)]))
-    print("The chef gives ")
+        ('NEW', ('integer', [('value', 1)]), ('byte', 135), ('byte', 0), ('integer', [('value', 2)]))
+        ('SETNAME', ('integer', [('value', 1)]))
+        print("The chef gives ")
 
-    if equals(integer(value 1), byte 1):
-    print("you")
+        if equals(integer(value 1), byte 1):
+            print("you")
 
-    else:
-    print("$Y")
+        else:
+            print("$Y")
 
-    endif
+        endif
 
-    print(" #2 horse chop\\s.")
-    wait()
+        print(" #2 horse chop\\s.")
+        wait()
 
-    print("\n\n")
-    jump 2448
+        print("\n\n")
+        jump 2448
 
     case "n":
-    print("\"Well then, to save it here for you!\"")
-    wait()
+        print("\"Well then, to save it here for you!\"")
+        wait()
 
-    print("\n\n")
-    jump 2448
+        print("\n\n")
+        jump 2448
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 2448:

@@ -15,89 +15,93 @@ interaction:
     print("\"Ah, welcome, $G! Come have a @drink with me!\"")
 
     if equals(hasBit(byte 235, value 0), byte 0):
-    ('SETF', ('byte', 235), ('value', 0))
-    wait()
+        ('SETF', ('byte', 235), ('value', 0))
+        wait()
 
-    print("\n\"Have you had your fortune told yet?\"")
+        print("\n\"Have you had your fortune told yet?\"")
 
-    askc("yn")
+        askc("yn")
+
     case "y":
     case "n":
-
     esac
 
     print("\"Some people think @Penumbra's a hoax. But she knows her stuff. You ")
     print("should bear with her - she can truly be of great assistance to you.\"")
 
+    // Wrong flow!
     endif
 
+346:
     print("\n")
 
     ask()
-    case "name":
-    print("\"Derydlus. And what was yours again?\"\n")
 
-    ask()
-    print("\n\"Oh, yes, of course. Come, have a seat.\"")
-    jump 346
+    // Wrong flow!
+    case "name":
+        print("\"Derydlus. And what was yours again?\"\n")
+
+        ask()
+        print("\n\"Oh, yes, of course. Come, have a seat.\"")
+        jump 346
 
     case "job":
-    print("\"Trying to discover all the subtleties of Frasier's @Folly is almost a")
-    print(" career in itself!\"\n*\nHe smiles.")
-    jump 346
+        print("\"Trying to discover all the subtleties of Frasier's @Folly is almost a")
+        print(" career in itself!\"\n*\nHe smiles.")
+        jump 346
 
     case "drin":
-    print("\"Aye, this is the home of Frasier's @Folly!\"")
-    jump 346
+        print("\"Aye, this is the home of Frasier's @Folly!\"")
+        jump 346
 
     case "disc":
     case "foll":
     case "fras":
     case "subt":
-    print("\"In all the towns of Britannia, you'll find no better brew.\"")
-    jump 346
+        print("\"In all the towns of Britannia, you'll find no better brew.\"")
+        jump 346
 
     case "mand":
-    print("\"Here's to Mandrake!\"")
-    jump 346
+        print("\"Here's to Mandrake!\"")
+        jump 346
 
     case "manr":
-    print("\"My drinking buddy! Let's drink a toast to him, wherever he is.\"")
+        print("\"My drinking buddy! Let's drink a toast to him, wherever he is.\"")
 
-    if isNearby(byte 40):
-    wait()
+        if isNearby(byte 40):
+            wait()
 
-    ('PORTRAIT', ('byte', 40))
-    print("\n\n\"I'll drink to that!\"")
-    wait()
+            ('PORTRAIT', ('byte', 40))
+            print("\n\n\"I'll drink to that!\"")
+            wait()
 
-    ('PORTRAIT', ('byte', 235))
+            ('PORTRAIT', ('byte', 235))
 
-    endif
+        endif
 
-    jump 346
+        jump 346
 
     case "penu":
-    print("\"She's a strange one, but she has the gift.\"")
-    jump 346
+        print("\"She's a strange one, but she has the gift.\"")
+        jump 346
 
     case "bye":
-    print("\"Leaving already? And you're not even wobbling yet...\"\n")
-    bye()
+        print("\"Leaving already? And you're not even wobbling yet...\"\n")
+        bye()
 
     case "*":
+        if random(byte 0, byte 1):
+            print("\"I'll drink to that,\" he says, suiting action to words.")
 
-    if random(byte 0, byte 1):
-    print("\"I'll drink to that,\" he says, suiting action to words.")
+        else:
+            print("\"`$Z? Aye, indeed! A toast to $Z!\"")
 
-    else:
-    print("\"`$Z? Aye, indeed! A toast to $Z!\"")
+        endif
 
-    endif
+        jump 346
 
-    jump 346
+        // Unreachable code!
 
-# Unreachable code!
     esac
 
     jump 346

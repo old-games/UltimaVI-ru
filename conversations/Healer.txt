@@ -13,14 +13,14 @@ interaction:
     print("\n")
 
     if integer(value 21):
-    jump 131
+        jump 131
 
     endif
 
     print("\"An in mani u")
 
     if integer(value 23):
-    print("lem")
+        print("lem")
 
     endif
 
@@ -32,7 +32,7 @@ interaction:
 
 131:
     if equals(partyHasObject(byte 76, byte 0), byte 1):
-    jump 314
+        jump 314
 
     endif
 
@@ -50,139 +50,144 @@ interaction:
 
 314:
     if hasBit(byte 235, value 0):
-    print("\"To be happy to see you again, noble one.\"")
-    wait()
+        print("\"To be happy to see you again, noble one.\"")
+        wait()
 
-    print("\n\n\"But to be sad that you seek my services.\"")
-    wait()
+        print("\n\n\"But to be sad that you seek my services.\"")
+        wait()
 
     else:
-    print("\"To see the amulet, the symbol of your courage and nobility.\"")
-    wait()
+        print("\"To see the amulet, the symbol of your courage and nobility.\"")
+        wait()
 
-    print("\n\n\"To wish to help you however I can.\"")
-    wait()
+        print("\n\n\"To wish to help you however I can.\"")
+        wait()
 
-    ('SETF', ('byte', 235), ('value', 0))
+        ('SETF', ('byte', 235), ('value', 0))
 
     endif
 
+517:
     print("\n")
 
     ask()
+
+    // Wrong flow!
     case "cure":
     case "heal":
-    jump 1426
+        jump 1426
 
     case "dead":
     case "resu":
-    print("\"To ask me to raise the dead?\"")
-    wait()
+        print("\"To ask me to raise the dead?\"")
+        wait()
 
-    print("\n\n\"To apologize, but that is beyond my power.\"")
-    wait()
+        print("\n\n\"To apologize, but that is beyond my power.\"")
+        wait()
 
-    print("\n\n\"To doubt that anyone can do that!\"")
-    jump 517
+        print("\n\n\"To doubt that anyone can do that!\"")
+        jump 517
 
     case "bye":
-    print("\"May fortune prevent the need for your return!\"\n")
-    ('SETF', ('byte', 235), ('value', 0))
-    bye()
+        print("\"May fortune prevent the need for your return!\"\n")
+        ('SETF', ('byte', 235), ('value', 0))
+        bye()
 
     case "name":
-    print("\"To be nameless, being only a healer.\"")
-    jump 517
+        print("\"To be nameless, being only a healer.\"")
+        jump 517
 
     case "job":
-    print("\"To be entrusted with the tasks of @healing those wounded and @curing ")
-    print("those sick.\"")
-    wait()
+        print("\"To be entrusted with the tasks of @healing those wounded and @curing ")
+        print("those sick.\"")
+        wait()
 
-    print("\n\n\"To do this for all, as a service to society.\"")
-    jump 517
+        print("\n\n\"To do this for all, as a service to society.\"")
+        jump 517
 
     case "good":
-    print("\"The goodscrafter? To regret his condition.\"")
-    wait()
+        print("\"The goodscrafter? To regret his condition.\"")
+        wait()
 
-    print("\n\n\"To know that he is in great pain after the loss of his @family.\"")
-    jump 517
+        print("\n\n\"To know that he is in great pain after the loss of his @family.\"")
+        jump 517
 
     case "fami":
-    print("\"To know that his family was lost when the edges of the world @fell ")
-    print("off.\"")
-    wait()
+        print("\"To know that his family was lost when the edges of the world @fell ")
+        print("off.\"")
+        wait()
 
-    print("\n\n\"But to have less and less patience for his dispassionate self-")
-    print("pity.\"")
-    jump 517
+        print("\n\n\"But to have less and less patience for his dispassionate self-")
+        print("pity.\"")
+        jump 517
 
     case "fell":
     case "off":
-    print("\"Yes, during the cataclysms.\"")
-    wait()
+        print("\"Yes, during the cataclysms.\"")
+        wait()
 
-    print("\n\n\"To have lost friends myself during that bad time.\"")
-    wait()
+        print("\n\n\"To have lost friends myself during that bad time.\"")
+        wait()
 
-    print("\n\n\"But to maintain the struggle for life diligently!\"")
-    jump 517
+        print("\n\n\"But to maintain the struggle for life diligently!\"")
+        jump 517
 
     case "*":
-    print("\"To be a healer, dedicated only to my @job. To know nothing about $Z.\"")
-    jump 517
+        print("\"To be a healer, dedicated only to my @job. To know nothing about $Z.\"")
+        jump 517
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1426:
     if notEquals(integer(value 32), byte 143):
-    print("\"To ask that you see me at my shop.\"")
-    jump 517
+        print("\"To ask that you see me at my shop.\"")
+        jump 517
 
     endif
 
     if greater(integer(value 23), byte 0):
-    integer(value 1) = byte 0
-    integer(value 2) = byte 0
-    integer(value 4) = byte 0
-    jump 1621
+        integer(value 1) = byte 0
+        integer(value 2) = byte 0
+        integer(value 4) = byte 0
+        jump 1621
 
     endif
 
     integer(value 3) = character(byte 0, byte 0)
 
     if or(isWounded(integer(value 3)), isPoisoned(integer(value 3))):
-    jump 1972
+        jump 1972
 
     else:
-    print("\"To be unfamiliar with human anatomy...\"")
-    wait()
+        print("\"To be unfamiliar with human anatomy...\"")
+        wait()
 
-    print("\n\n\"But to be certain that you are well!\"")
-    jump 2658
+        print("\n\n\"But to be certain that you are well!\"")
+        jump 2658
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 1621:
     if greater(integer(value 1), integer(value 23)):
-    jump 1735
+        jump 1735
 
     endif
 
     integer(value 3) = character(integer(value 1), byte 0)
 
     if equals(or(isWounded(integer(value 3)), isPoisoned(integer(value 3))), byte 0):
-    jump 1720
+        jump 1720
 
     endif
 
     if equals(integer(value 4), byte 0):
-    integer(value 4) = integer(value 3)
-    integer(value 2) = plus(integer(value 2), byte 1)
-    jump 1720
+        integer(value 4) = integer(value 3)
+        integer(value 2) = plus(integer(value 2), byte 1)
+        jump 1720
 
     endif
 
@@ -190,22 +195,24 @@ interaction:
     print("#2) $Y\n")
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
+
+1720:
     integer(value 1) = plus(integer(value 1), byte 1)
     jump 1621
 
 1735:
     if equals(integer(value 2), byte 0):
-    print("\"To be unfamiliar with human anatomy...\"")
-    wait()
+        print("\"To be unfamiliar with human anatomy...\"")
+        wait()
 
-    print("\n\n\"But to be certain that all of you are well!\"")
-    jump 2658
+        print("\n\n\"But to be certain that all of you are well!\"")
+        jump 2658
 
     endif
 
     if equals(integer(value 2), byte 1):
-    integer(value 3) = integer(value 4)
-    jump 1972
+        integer(value 3) = integer(value 4)
+        jump 1972
 
     endif
 
@@ -214,27 +221,29 @@ interaction:
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
-    jump 2658
+        jump 2658
 
     endif
 
     integer(value 1) = byte 0
+
+1906:
     integer(value 3) = character(integer(value 1), byte 0)
 
     if or(isWounded(integer(value 3)), isPoisoned(integer(value 3))):
-    integer(value 2) = minus(integer(value 2), byte 1)
+        integer(value 2) = minus(integer(value 2), byte 1)
 
     endif
 
     if equals(integer(value 2), byte 0):
-    jump 1972
+        jump 1972
 
     endif
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 1), integer(value 23)):
-    jump 1906
+        jump 1906
 
     endif
 
@@ -245,8 +254,9 @@ interaction:
 
     print("\n\n")
 
+2040:
     if equals(hasBit(byte 235, byte 2), byte 0):
-    jump 2157
+        jump 2157
 
     endif
 
@@ -254,10 +264,10 @@ interaction:
     ('CURE', ('integer', [('value', 3)]))
 
     if equals(integer(value 3), byte 1):
-    print("You drink the potion and feel restored!")
+        print("You drink the potion and feel restored!")
 
     else:
-    print("$Y drinks the potion and feels restored!")
+        print("$Y drinks the potion and feels restored!")
 
     endif
 
@@ -265,59 +275,63 @@ interaction:
 
 2157:
     print("\"To drink this and be healthy.\"")
+
+2188:
     wait()
 
     print("\n\nDo")
 
     if equals(integer(value 3), byte 1):
-    print(" you")
+        print(" you")
 
     else:
-    print("es $Y")
+        print("es $Y")
 
     endif
 
     print(" drink it? ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
+        if less(integer(value 9), byte 2):
+            jump 2390
 
-    if less(integer(value 9), byte 2):
-    jump 2390
+        else:
+            ('SETF', ('byte', 235), ('byte', 2))
+            jump 2040
 
-    else:
-    ('SETF', ('byte', 235), ('byte', 2))
-    jump 2040
-
-    endif
+        endif
 
     case "n":
-    print("The gargoyle shrugs.\n\n\"To assure you that it is safe and ")
-    print("invigorating.\"")
-    wait()
+        print("The gargoyle shrugs.\n\n\"To assure you that it is safe and ")
+        print("invigorating.\"")
+        wait()
 
-    print("\n\n\"But not to force anyone to act against their will.\"")
-    wait()
+        print("\n\n\"But not to force anyone to act against their will.\"")
+        wait()
 
-    jump 517
+        jump 517
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 2390:
     if equals(integer(value 3), byte 1):
-    print("You drink the potion and feel ")
+        print("You drink the potion and feel ")
 
     else:
-    print("$Y drinks the potion and feels ")
+        print("$Y drinks the potion and feels ")
 
     endif
 
     if integer(value 9):
-    print("deathly ill!")
+        print("deathly ill!")
 
     else:
-    print("slightly dizzy.")
+        print("slightly dizzy.")
 
     endif
 

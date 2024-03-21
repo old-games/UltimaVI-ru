@@ -14,140 +14,142 @@ interaction:
     integer(value 9) = byte 60
 
     if hasBit(byte 235, value 0):
-    print("\"Hello again, my friend")
+        print("\"Hello again, my friend")
 
     else:
-    print("\"Hello, stranger")
-    ('SETF', ('byte', 235), ('value', 0))
+        print("\"Hello, stranger")
+        ('SETF', ('byte', 235), ('value', 0))
 
     endif
 
     if integer(value 23):
-    print("s. What can I do for you")
+        print("s. What can I do for you")
 
     else:
-    print(". What can I do for thee")
+        print(". What can I do for thee")
 
     endif
 
     print(" this $T?\"\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"Some call me Immanuelle, $G.\"")
-    wait()
+        print("\"Some call me Immanuelle, $G.\"")
+        wait()
 
-    print("\n\n\"Others call me...something @else.\"")
-    wait()
+        print("\n\n\"Others call me...something @else.\"")
+        wait()
 
-    print("\n\nShe winks at you.")
-    jump 196
+        print("\n\nShe winks at you.")
+        jump 196
 
     case "else":
     case "some":
+        if equals(integer(value 16), byte 0):
+            print("\"Perhaps some time I will @show you...\"")
 
-    if equals(integer(value 16), byte 0):
-    print("\"Perhaps some time I will @show you...\"")
+        else:
+            print("\"I think you get the idea.\"")
 
-    else:
-    print("\"I think you get the idea.\"")
+        endif
 
-    endif
-
-    jump 196
+        jump 196
 
     case "show":
-    print("\"Not here.\"")
-    jump 196
+        print("\"Not here.\"")
+        jump 196
 
     case "job":
-    print("\"I raise horses here, in the stables.\"")
-    wait()
+        print("\"I raise horses here, in the stables.\"")
+        wait()
 
-    print("\n\n\"I also sell @horses, if you wish to @buy one.\"")
-    jump 196
+        print("\n\n\"I also sell @horses, if you wish to @buy one.\"")
+        jump 196
 
     case "hors":
     case "sell":
-    print("\"I can hardly bear to part with any of these magnificent beasts.\"")
-    wait()
+        print("\"I can hardly bear to part with any of these magnificent beasts.\"")
+        wait()
 
-    print("\n\n\"But there are a few that fail to please me.\"")
-    wait()
+        print("\n\n\"But there are a few that fail to please me.\"")
+        wait()
 
-    print("\n\n\"If you wish to @buy one of them, just say the word.\"")
-    jump 196
+        print("\n\n\"If you wish to @buy one of them, just say the word.\"")
+        jump 196
 
     case "buy":
+        if notEquals(integer(value 32), byte 143):
+            print("\"Come to my shop when I'm open!\"")
+            jump 196
 
-    if notEquals(integer(value 32), byte 143):
-    print("\"Come to my shop when I'm open!\"")
-    jump 196
+        else:
+            jump 851
 
-    else:
-    jump 851
-
-    endif
+        endif
 
     case "bye":
-    print("\"Come back again soon!\"")
+        print("\"Come back again soon!\"")
 
-    if equals(integer(value 16), byte 0):
-    wait()
+        if equals(integer(value 16), byte 0):
+            wait()
 
-    print("\n\nAs you leave, she blows you a kiss.")
+            print("\n\nAs you leave, she blows you a kiss.")
 
-    endif
+        endif
 
-    print("\n")
-    bye()
+        print("\n")
+        bye()
 
     case "*":
-    print("\"Beg pardon, $G?\"")
-    jump 196
+        print("\"Beg pardon, $G?\"")
+        jump 196
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 851:
     if greater(integer(value 23), byte 0):
-    integer(value 1) = byte 0
-    integer(value 2) = byte 0
-    integer(value 4) = byte 0
-    jump 951
+        integer(value 1) = byte 0
+        integer(value 2) = byte 0
+        integer(value 4) = byte 0
+        jump 951
 
     endif
 
     integer(value 3) = character(byte 0, byte 0)
 
     if hasHorse(integer(value 3)):
-    print("\"But thou already hast a horse!\"")
-    jump 196
+        print("\"But thou already hast a horse!\"")
+        jump 196
 
     else:
-    integer(value 4) = byte 1
-    jump 1252
+        integer(value 4) = byte 1
+        jump 1252
 
-# Unreachable code!
+        // Unreachable code!
+
     endif
 
 951:
     if greater(integer(value 1), integer(value 23)):
-    jump 1058
+        jump 1058
 
     endif
 
     integer(value 3) = character(integer(value 1), byte 0)
 
     if hasHorse(integer(value 3)):
-    jump 1043
+        jump 1043
 
     endif
 
     if equals(integer(value 4), byte 0):
-    integer(value 4) = integer(value 3)
-    integer(value 2) = plus(integer(value 2), byte 1)
-    jump 1043
+        integer(value 4) = integer(value 3)
+        integer(value 2) = plus(integer(value 2), byte 1)
+        jump 1043
 
     endif
 
@@ -155,19 +157,21 @@ interaction:
     print("#2) $Y\n")
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
+
+1043:
     integer(value 1) = plus(integer(value 1), byte 1)
     jump 951
 
 1058:
     if equals(integer(value 2), byte 0):
-    print("\"But all of you are already on horses!\"")
-    jump 196
+        print("\"But all of you are already on horses!\"")
+        jump 196
 
     endif
 
     if equals(integer(value 2), byte 1):
-    integer(value 3) = integer(value 4)
-    jump 1252
+        integer(value 3) = integer(value 4)
+        jump 1252
 
     endif
 
@@ -178,27 +182,29 @@ interaction:
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
-    jump 196
+        jump 196
 
     endif
 
     integer(value 1) = byte 0
+
+1187:
     integer(value 3) = character(integer(value 1), byte 0)
 
     if equals(hasHorse(integer(value 3)), byte 0):
-    integer(value 2) = minus(integer(value 2), byte 1)
+        integer(value 2) = minus(integer(value 2), byte 1)
 
     endif
 
     if equals(integer(value 2), byte 0):
-    jump 1252
+        jump 1252
 
     endif
 
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 1), integer(value 23)):
-    jump 1187
+        jump 1187
 
     endif
 
@@ -210,30 +216,33 @@ interaction:
     print("\n\n")
 
     if less(objectsCount(integer(value 3), byte 88), integer(value 9)):
-    print("\"But thou canst not afford one!\"")
-    jump 1532
+        print("\"But thou canst not afford one!\"")
+        jump 1532
 
     endif
 
     print("\"My price is #9 gold pieces, no less. Interested?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
-    print("\"Good!\" $N takes $Y's gold, and hands over the reins of a fine horse.")
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 9)]))
-    ('HORSE', ('integer', [('value', 3)]))
-    jump 1532
+        print("\"Good!\" $N takes $Y's gold, and hands over the reins of a fine horse.")
+        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 9)]))
+        ('HORSE', ('integer', [('value', 3)]))
+        jump 1532
 
     case "n":
-    print("\"Perhaps some other time then.\"")
-    jump 1532
+        print("\"Perhaps some other time then.\"")
+        jump 1532
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
 1532:
     if integer(value 4):
-    jump 196
+        jump 196
 
     endif
 
@@ -242,10 +251,10 @@ interaction:
     print("\n\n\"How about ")
 
     if greater(integer(value 23), byte 1):
-    print("one of thy friends")
+        print("one of thy friends")
 
     else:
-    print("thy friend")
+        print("thy friend")
 
     endif
 

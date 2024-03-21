@@ -12,54 +12,57 @@ description:
 
 interaction:
     if hasBit(byte 235, value 1):
-    print("\"What you back for? I thought you not like my @inn.\"\n")
-    jump 154
+        print("\"What you back for? I thought you not like my @inn.\"\n")
+        jump 154
 
     endif
 
     if hasBit(byte 235, value 0):
-    print("\"Heylo again.\"\n")
+        print("\"Heylo again.\"\n")
 
     else:
-    print("\"Heylo to you.\"\n")
+        print("\"Heylo to you.\"\n")
 
     endif
 
+154:
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"@Petroph.\"\n")
-    ('SETF', ('byte', 235), ('value', 0))
-    jump 154
+        print("\"@Petroph.\"\n")
+        ('SETF', ('byte', 235), ('value', 0))
+        jump 154
 
     case "petr":
-    print("\"Da, Petroph.\"\n")
-    jump 154
+        print("\"Da, Petroph.\"\n")
+        jump 154
 
     case "job":
-    print("\"I am keeping the @inn, here at King's Ransom.\"\n")
-    jump 154
+        print("\"I am keeping the @inn, here at King's Ransom.\"\n")
+        jump 154
 
     case "inn":
     case "room":
-    jump 401
+        jump 401
 
     case "bye":
+        if hasBit(byte 235, value 1):
+            print("\"Da, goodbye and good riddance!\"\n")
 
-    if hasBit(byte 235, value 1):
-    print("\"Da, goodbye and good riddance!\"\n")
+        else:
+            print("\"Have a nice day.\"\n")
 
-    else:
-    print("\"Have a nice day.\"\n")
+        endif
 
-    endif
-
-    bye()
+        bye()
 
     case "*":
-    print("\"You speak too quick. What was that?\"\n")
-    jump 154
+        print("\"You speak too quick. What was that?\"\n")
+        jump 154
 
-# Unreachable code!
+        // Unreachable code!
+
     esac
 
     jump 154
@@ -69,31 +72,34 @@ interaction:
     print("\"#0 gold for you to stay and have meal, good?\" ")
 
     askc("yn")
+
+    // Wrong flow!
     case "y":
+        if less(objectsCount(byte 1, byte 88), integer(value 0)):
+            print("\"Must pay in advance for rooms. Sorry, is policy.\"\n")
+            jump 154
 
-    if less(objectsCount(byte 1, byte 88), integer(value 0)):
-    print("\"Must pay in advance for rooms. Sorry, is policy.\"\n")
-    jump 154
+        endif
 
-    endif
+        ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
+        ('CLEARF', ('byte', 235), ('value', 1))
+        print("You sleep in a comfortable bed...\n")
+        sleep()
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    ('CLEARF', ('byte', 235), ('value', 1))
-    print("You sleep in a comfortable bed...\n")
-    SLEEP
-    print("\nYou wake rested and eat a large breakfast.")
-    wait()
+        print("\nYou wake rested and eat a large breakfast.")
+        wait()
 
-    print("\n\n\"Good morning to you.\"\n")
-    jump 154
+        print("\n\n\"Good morning to you.\"\n")
+        jump 154
 
     case "n":
-    print("\"What, maybe you don't like my inn?\"")
-    wait()
+        print("\"What, maybe you don't like my inn?\"")
+        wait()
 
-    print("\n\n\"Well, maybe I don't like you either!\"\n")
-    ('SETF', ('byte', 235), ('value', 1))
-    jump 154
+        print("\n\n\"Well, maybe I don't like you either!\"\n")
+        ('SETF', ('byte', 235), ('value', 1))
+        jump 154
 
-# Unreachable code!
+        // Unreachable code!
+
     esac

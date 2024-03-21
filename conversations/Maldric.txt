@@ -9,7 +9,7 @@ description:
 
 interaction:
     if hasBit(byte 235, value 0):
-    jump 464
+        jump 464
 
     endif
 
@@ -25,11 +25,11 @@ interaction:
     print("Avatar! I've always wanted to meet you.\"\n*\n\"")
 
     if equals(integer(value 16), byte 1):
-    print("From the day I first saw your portrait, I knew you must be the most ")
-    print("beautiful woman in all Britannia.\"")
+        print("From the day I first saw your portrait, I knew you must be the most ")
+        print("beautiful woman in all Britannia.\"")
 
     else:
-    print("You're the greatest hero in all the land.\"")
+        print("You're the greatest hero in all the land.\"")
 
     endif
 
@@ -39,85 +39,88 @@ interaction:
     print("\n")
 
     if equals(integer(value 16), byte 1):
-    print("\"Oh, $G Avatar, 'tis an unexpected pleasure to see you again!\"")
+        print("\"Oh, $G Avatar, 'tis an unexpected pleasure to see you again!\"")
 
     else:
-    print("\"Hey, my old buddy $P! Good to see you again.\"")
+        print("\"Hey, my old buddy $P! Good to see you again.\"")
 
     endif
 
+582:
     print("\n")
 
     ask()
+
+    // Wrong flow!
     case "name":
-    print("\"Maldric, I am. Once Maldric the @boar hunter, now Maldric the cook.\"")
-    jump 582
+        print("\"Maldric, I am. Once Maldric the @boar hunter, now Maldric the cook.\"")
+        jump 582
 
     case "boar":
     case "hunt":
     case "once":
-    print("\"Aye, I used to live in the @forest and hunt wild boars.\"\n*\n\"But one ")
-    print("day I presented a @roast boar as a gift to his @majesty, and he liked ")
-    print("it so much he hired me as his @cook.\"")
-    jump 582
+        print("\"Aye, I used to live in the @forest and hunt wild boars.\"\n*\n\"But one ")
+        print("day I presented a @roast boar as a gift to his @majesty, and he liked ")
+        print("it so much he hired me as his @cook.\"")
+        jump 582
 
     case "maje":
-    print("\"Yes, Lord @British himself.\"")
-    jump 582
+        print("\"Yes, Lord @British himself.\"")
+        jump 582
 
     case "fore":
-    print("\"Those were good times. But I'm happy here.\"")
-    jump 582
+        print("\"Those were good times. But I'm happy here.\"")
+        jump 582
 
     case "gift":
     case "like":
     case "pres":
     case "roas":
-    print("\"The secret is in the spices. It's an old family @recipe.\"")
-    jump 582
+        print("\"The secret is in the spices. It's an old family @recipe.\"")
+        jump 582
 
     case "fami":
     case "reci":
     case "secr":
-    print("\"I'll never tell.")
+        print("\"I'll never tell.")
 
-    if equals(integer(value 16), byte 1):
-    print(" Though for one so sweet, I must say I'm tempted.")
+        if equals(integer(value 16), byte 1):
+            print(" Though for one so sweet, I must say I'm tempted.")
 
-    endif
+        endif
 
-    print("\"")
-    jump 582
+        print("\"")
+        jump 582
 
     case "job":
-    print("\"I @cook for all those who live in the @castle, and for any @guests ")
-    print("who dine with Lord British as well.\"\n*\n\"'Tis sastisfying work, yet at ")
-    print("times I wish I could @travel with one such as you...\"")
-    jump 582
+        print("\"I @cook for all those who live in the @castle, and for any @guests ")
+        print("who dine with Lord British as well.\"\n*\n\"'Tis sastisfying work, yet at ")
+        print("times I wish I could @travel with one such as you...\"")
+        jump 582
 
     case "dine":
     case "gues":
-    print("\"Lord British has many friends.\"")
-    jump 582
+        print("\"Lord British has many friends.\"")
+        jump 582
 
     case "cast":
-    print("\"A fancier home than any of my family ever lived in. Yet I still miss ")
-    print("my simple hut in the forest.\"")
+        print("\"A fancier home than any of my family ever lived in. Yet I still miss ")
+        print("my simple hut in the forest.\"")
 
-    if equals(integer(value 16), byte 1):
-    print("\n*\n\"I wish it were still there, so I could invite you to come spend an")
-    print(" evening by the @fireplace with me...")
+        if equals(integer(value 16), byte 1):
+            print("\n*\n\"I wish it were still there, so I could invite you to come spend an")
+            print(" evening by the @fireplace with me...")
 
-    endif
+        endif
 
-    jump 582
+        jump 582
 
     case "even":
     case "fire":
     case "invi":
     case "spen":
-    print("\"There's fire enough in my kitchen, but 'tis no place for romance.\"")
-    jump 582
+        print("\"There's fire enough in my kitchen, but 'tis no place for romance.\"")
+        jump 582
 
     case "join":
     case "kitc":
@@ -126,31 +129,30 @@ interaction:
     case "trav":
     case "warr":
     case "wish":
-    print("\"I shouldn't even speak of such things.\"\n*\n\"After all, you are the ")
-    print("Avatar, and I but a lowly cook. Please forgive me.\"\n")
-    bye()
+        print("\"I shouldn't even speak of such things.\"\n*\n\"After all, you are the ")
+        print("Avatar, and I but a lowly cook. Please forgive me.\"\n")
+        bye()
 
     case "brit":
     case "lord":
-    print("\"He's a good man. Likes plenty of @pepper in his stew.\"")
-    jump 582
+        print("\"He's a good man. Likes plenty of @pepper in his stew.\"")
+        jump 582
 
     case "pepp":
     case "stew":
-    print("\"Spice puts some variety in life, is what I always say.\"")
-    jump 582
+        print("\"Spice puts some variety in life, is what I always say.\"")
+        jump 582
 
     case "spic":
+        if equals(integer(value 16), byte 0):
+            jump 2115
 
-    if equals(integer(value 16), byte 0):
-    jump 2115
+        else:
+            print("\"You're a pretty spicy little number yourself!\"")
 
-    else:
-    print("\"You're a pretty spicy little number yourself!\"")
+        endif
 
-    endif
-
-    jump 582
+        jump 582
 
     case "adve":
     case "frie":
@@ -160,34 +162,36 @@ interaction:
     case "peop":
     case "spic":
     case "vari":
-    print("\"Yes indeed.\"")
-    jump 582
+
+2115:
+        print("\"Yes indeed.\"")
+        jump 582
 
     case "avat":
-    print("\"I've heard about all of your adventures. I wish I were a warrior too,")
-    print(" and not just a cook!\"")
-    jump 582
+        print("\"I've heard about all of your adventures. I wish I were a warrior too,")
+        print(" and not just a cook!\"")
+        jump 582
 
     case "cook":
-    print("\"I like having a job where I can make people happy.\"")
-    jump 582
+        print("\"I like having a job where I can make people happy.\"")
+        jump 582
 
     case "bye":
-    print("\"See you later. And next time you dine with his majesty, I'll cook you")
-    print(" something special.\"")
+        print("\"See you later. And next time you dine with his majesty, I'll cook you")
+        print(" something special.\"")
 
-    if equals(integer(value 16), byte 1):
-    print("*\n\nHe seems about to say more, with a hopeful look in his eyes.\n*\nBut ")
-    print("then he turns away without speaking.")
+        if equals(integer(value 16), byte 1):
+            print("*\n\nHe seems about to say more, with a hopeful look in his eyes.\n*\nBut ")
+            print("then he turns away without speaking.")
 
-    endif
+        endif
 
-    print("\n")
-    bye()
+        print("\n")
+        bye()
 
     case "*":
-    print("\"Funny you should mention that... It reminds me of my secret recipe ")
-    print("for @roast boar.\"")
+        print("\"Funny you should mention that... It reminds me of my secret recipe ")
+        print("for @roast boar.\"")
 
     esac
 
