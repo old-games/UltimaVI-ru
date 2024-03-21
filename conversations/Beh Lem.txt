@@ -190,7 +190,7 @@ interaction:
 
     case "join":
         if partyHas(byte 235):
-            ('DPRINT', [('byte', 3), ('dword', 4206)])
+            ('DPRINT', ('dword', 4206), ('byte', 3))
             jump 1027
 
         else:
@@ -235,7 +235,7 @@ interaction:
             jump 1027
 
         else:
-            ('DPRINT', [('byte', 3), ('dword', 4206)])
+            ('DPRINT', ('dword', 4206), ('byte', 3))
             jump 1027
         fi
 
@@ -297,7 +297,7 @@ interaction:
             jump 3117
 
         else:
-            ('DPRINT', [('byte', 3), ('dword', 4206)])
+            ('DPRINT', ('dword', 4206), ('byte', 3))
         fi
 
         jump 1027
@@ -307,13 +307,13 @@ interaction:
             print("\"Good! To know that he very much wanted to speak with you.\"")
 
         else:
-            ('DPRINT', [('byte', 3), ('dword', 4206)])
+            ('DPRINT', ('dword', 4206), ('byte', 3))
         fi
 
         jump 1027
 
     case "*":
-        ('DPRINT', [('random', [('byte', 0), ('byte', 4)]), ('dword', 4206)])
+        ('DPRINT', ('dword', 4206), ('random', [('byte', 0), ('byte', 4)]))
         jump 1027
 
         // Unreachable code!
@@ -458,7 +458,4 @@ interaction:
         // Unreachable code!
     fi
 
-    print("\"To know nothing about that.\" \"To be young. To think you should ask ")
-    print("someone older.\" \"To truly wish I could help you with that.\" \"To not ")
-    print("understand what you mean by $Z.\" \"To not have enough experience to ")
-    print("answer that.\" ")
+    ('STRINGS', ['"To know nothing about that."', '"To be young. To think you should ask someone older."', '"To truly wish I could help you with that."', '"To not understand what you mean by $Z."', '"To not have enough experience to answer that."'], [])

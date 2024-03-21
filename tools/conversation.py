@@ -39,25 +39,29 @@ def _read_word(stream, visited_labels):
     return int.from_bytes(data, 'little')
 
 
+def _is_text(byte):
+    return byte in (9, 0x0a) or 0x20 <= byte < 0x80
+
+
 def _read_string(stream, visited_labels, end):
     result = bytearray()
     while _peek_byte(stream) not in end:
         byte = _read_byte(stream, visited_labels)
-        assert byte == 0x0a or byte >= 0x20
+        assert _is_text(byte)
         result.append(byte)
     return result.decode('ascii')
 
 
 def _try_read_string(stream, end):
     result = bytearray()
-    tell = stream.tell()
+    start = stream.tell()
     while _peek_byte(stream) not in end:
         byte = _read_byte(stream, set())
-        if byte < 0x20 and byte != 0x0a:
-            stream.seek(tell)
+        if not _is_text(byte):
+            stream.seek(start)
             return None
         result.append(byte)
-    stream.seek(tell)
+    stream.seek(start)
     return result.decode('ascii')
 
 
@@ -160,11 +164,11 @@ def _add_branch_ended(branches_ended, stack, choices, keywords):
     branches_ended[tuple(stack)] = True
 
 
-def _read_instructions(stream, result, labels, visited_labels, data, unreachable, end):
+def _read_instructions(stream, result, labels, visited_labels, unreachable_labels, data, end):
     all_instructions = {
         0x9c, 0x9e,
         0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6,
-        0xb0, 0xb5, 0xb6, 0xb9, 0xba, 0xbe, 0xbf,
+        0xb0, 0xb5, 0xb6, 0xb9, 0xb9, 0xba, 0xbe, 0xbf,
         0xc4, 0xc5, 0xc9, 0xcb, 0xcd,
         0xd6, 0xd8, 0xd9, 0xdb,
         0xee, 0xef,
@@ -179,7 +183,7 @@ def _read_instructions(stream, result, labels, visited_labels, data, unreachable
     while (
         (code := _peek_byte(stream)) not in end
         and code is not None
-        and ((offset := stream.tell()) not in data or not unreachable)
+        and ((offset := stream.tell()) not in data or unreachable_labels is None)
         and (None not in end or not branches_ended[tuple()]) # Выходим, если читать больше нечего или не ждём окончания определённого блока.
     ):
         # FIXME get rid of end
@@ -187,12 +191,16 @@ def _read_instructions(stream, result, labels, visited_labels, data, unreachable
         # FIXME merge data with interaction
         # FIXME read till the end for look , add ff, f1, f2, f3 as regular instructions
         # FIXME f1, f2 are stop operators
+        # TODO расклеить слова
+        # FIXME unreachable сделать однокомандными?
 
         if offset in visited_labels:
+            if unreachable_labels is not None and offset not in unreachable_labels:
+                unreachable_labels = None
             # Необходимо прочитать код повторно, если мы прыгнули в новый контекст, он может закончиться раньше или позже, чем в прошлый раз.
             # FIXME assert this is not array
             # FIXME quit if we already came here from start point or with same stack
-            pass
+            # FIXME чекнуть после всего этого может эвристики внизу больше не нужны
 
         # FIXME чекать что записываем в result то же самое
 
@@ -221,9 +229,9 @@ def _read_instructions(stream, result, labels, visited_labels, data, unreachable
         elif code == 0xa3:
             _read_byte(stream, visited_labels)
             result[offset] = 'ELSE',
-            flow, tell = stack.pop()
+            flow, start = stack.pop()
             assert flow == 'if'
-            stack.append(('else', tell))
+            stack.append(('else', start))
             branches_ended[tuple(stack)] = False
 
         elif code == 0xb0:
@@ -271,7 +279,15 @@ def _read_instructions(stream, result, labels, visited_labels, data, unreachable
 
         elif code == 0xb5:
             _read_byte(stream, visited_labels)
-            result[offset] = 'DPRINT', _read_expressions(stream, visited_labels, data, 0xa7)
+            index, strings = _read_expressions(stream, visited_labels, data, 0xa7)
+            assert strings[0] == 'dword'
+            data.setdefault(strings[1], None)
+            _set_data_type(data, strings[1], 'string')
+            result[offset] = 'DPRINT', strings, index
+
+        elif code == 0xb8:
+            _read_byte(stream, visited_labels)
+            result[offset] = 'ENDOFLIST',
 
         elif code == 0xb9:
             _read_byte(stream, visited_labels)
@@ -391,7 +407,12 @@ def _read_instructions(stream, result, labels, visited_labels, data, unreachable
             result[offset] = 'PRINT', _read_string(stream, visited_labels, end | all_instructions)
 
         else:
-            raise ValueError('Wrong string format')
+            return False
+
+        if unreachable_labels is not None:
+            unreachable_labels.add(offset)
+
+    return True
 
 
 def _format_expression(expression):
@@ -407,7 +428,7 @@ def _format_expression(expression):
 
 
 def _format_string(string):
-    escaping = str.maketrans({'\\': '\\\\', '"': '\\"', '\n': '\\n'})
+    escaping = str.maketrans({'\\': '\\\\', '"': '\\"', '\n': '\\n', '\t': '\\t'})
     return string.translate(escaping)
 
 
@@ -445,6 +466,8 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
 
     # FIXME пометить некорректные выходы из блоков
 
+    # FIXME если есть ссылка на interaction/desc то использовать её
+
     for label, instruction in instructions:
         if label == description:
             empty_prefix_line()
@@ -458,10 +481,10 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
             empty_prefix_line()
             append(f'{label}:', force_level=0)
 
-        if label in unreachable_labels:
+        if label in unreachable_labels and instruction[0] != 'ENDOFLIST':
             empty_prefix_line()
             append('// Unreachable code!')
-            #FIXME mark each line
+            # TODO mark each line
 
         # FIXME string escaping
         if instruction[0] == 'IF':
@@ -484,7 +507,11 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
 
         elif instruction[0] == 'ASK':
             empty_prefix_line()
-            append(f'ask()')
+            append('ask()')
+
+        elif instruction[0] == 'ENDOFLIST':
+            append('endOfList()')
+            empty_prefix_line()
 
         elif instruction[0] == 'CASE':
             empty_prefix_line()
@@ -568,83 +595,95 @@ def decode(conversation):
     result.append('')
     assert _read_byte(stream, visited_labels) == 0xf1
     description = stream.tell()
-    _read_instructions(stream, blocks, labels, visited_labels, data, False, {0xf2})
+    _read_instructions(stream, blocks, labels, visited_labels, None, data, {0xf2})
 
     assert _read_byte(stream, visited_labels) == 0xf2
     interaction = stream.tell()
-    _read_instructions(stream, blocks, labels, visited_labels, data, False, {None})
+    _read_instructions(stream, blocks, labels, visited_labels, None, data, {None})
 
     # TODO support jumps to the middle of unknown blocks with branches
     # FIXME at least detect it
     while labels - visited_labels:
         label = next(iter(labels - visited_labels))
         stream.seek(label)
-        _read_instructions(stream, blocks, labels, visited_labels, data, False, {None})
+        _read_instructions(stream, blocks, labels, visited_labels, None, data, {None})
         # FIXME split code with label in the middle, sometimes in the middle of string
 
-    types = dict(sorted(data.items()))
-    offsets = list(types)
-    assert set(types.values()) <= {'integer', 'string'}
-
-    for left, right in zip(offsets, offsets[1:] + [len(conversation)]):
-        stream.seek(left)
-        if types[left] == 'integer':
-            integers = []
-
-            assert left not in blocks
-            blocks[left] = [['INTEGERS', integers]]
-
-            for _ in range(left, right, 2):
-                if stream.tell() in visited_labels:
-                    break
-                if stream.tell() + 1 in visited_labels or stream.tell() + 1 == right:
-                    integers.append(_read_byte(stream, visited_labels))
-                    blocks[left].append('no-trailing-byte')
-                else:
-                    integers.append(_read_word(stream, visited_labels))
-
-        else:
-            assert types[left] == 'string'
-            strings = []
-            string = bytearray()
-
-            assert left not in blocks
-            blocks[left] = [['STRINGS', strings]]
-
-            for _ in range(left, right):
-                if stream.tell() in visited_labels:
-                    break
-                byte = _read_byte(stream, visited_labels)
-                if not byte:
-                    strings.append(string.decode('ascii'))
-                    string = bytearray()
-                else:
-                    string.append(byte)
-
-            if string:
-                if string == b'\xb8':
-                    blocks[left].append('end-of-list-marker') # FIXME to command
-                else:
-                    strings.append(string.decode('ascii'))
-                    blocks[left].append('no-trailing-byte')
-
-    #if {conversation[i] for i in sorted(set(range(len(conversation))) - visited_labels)} - {0xa2, 0xee, 0xb6}:
-    #    print(sorted(set(range(len(conversation))) - visited_labels))
-    #    print([hex(conversation[i]) for i in sorted(set(range(len(conversation))) - visited_labels)])
-
+    visited_data = set()
     unreachable_labels = set()
     error_labels = set()
+    while set(data) != visited_data or set(range(len(conversation))) != visited_labels | error_labels:
+        while new_data := set(data) - visited_data:
+            types = dict(sorted(((label, data[label]) for label in new_data)))
+            offsets = list(types)
+            assert set(types.values()) <= {'integer', 'string'}
 
-    while missed_labels := set(range(len(conversation))) - visited_labels - error_labels:
-        label = min(missed_labels)
-        # TODO ссылки могут не работать, чекнуть
-        # TODO данные могут не работать, чекнуть
+            for left, right in zip(offsets, offsets[1:] + [len(conversation)]):
+                stream.seek(left)
+                visited_data.add(left)
+                if types[left] == 'integer':
+                    integers = []
+                    comments = []
+
+                    assert left not in blocks
+                    blocks[left] = 'INTEGERS', integers, comments
+
+                    for offset in range(left, right, 2):
+                        if offset in visited_labels:
+                            break
+
+                        if offset + 1 in visited_labels or offset + 1 == right:
+                            integers.append(_read_byte(stream, visited_labels))
+                            comments.append('no-trailing-byte')
+                            break
+
+                        else:
+                            integers.append(_read_word(stream, visited_labels))
+
+                else:
+                    assert types[left] == 'string'
+                    strings = []
+                    comments = []
+                    string = bytearray()
+
+                    assert left not in blocks
+                    blocks[left] = 'STRINGS', strings, comments
+
+                    for offset in range(left, right):
+                        if offset in visited_labels:
+                            break
+
+                        # FIXME reuse _try_read_string? without overlap
+                        if (byte := _peek_byte(stream)) and not _is_text(byte):
+                            break
+
+                        _read_byte(stream, visited_labels)
+
+                        if not byte:
+                            strings.append(string.decode('ascii'))
+                            string = bytearray()
+
+                        else:
+                            string.append(byte)
+
+                    if string:
+                        strings.append(string.decode('ascii'))
+                        comments.append('no-trailing-byte')
+
+        while new_labels := set(range(len(conversation))) - visited_labels - error_labels:
+            label = min(new_labels)
+            # TODO ссылки могут не работать, чекнуть
+            # TODO данные могут не работать, чекнуть
+            stream.seek(label)
+            # TODO не ставить unreachable на endif else esac
+            if not _read_instructions(stream, blocks, labels, visited_labels, unreachable_labels, data, {None}):
+                # TODO это кривота, по 1 шагу читать, воткнуть это внутрь функции
+                error_labels.add(label)
+
+    for label in sorted(set(range(len(conversation))) - visited_labels):
+        # TODO склеить их по 2 байта в integers?
         stream.seek(label)
-        try:
-            _read_instructions(stream, blocks, labels, visited_labels, data, True, {None})
-        except ValueError:
-            error_labels.add(label)
-        unreachable_labels.add(label)
+        blocks[label] = 'UNUSED', _read_byte(stream, visited_labels)
 
     assert set(range(len(conversation))) - visited_labels == set()
 
