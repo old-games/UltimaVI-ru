@@ -1,4 +1,3 @@
-import hashlib
 import io
 import textwrap
 
@@ -16,8 +15,10 @@ def _peek_byte(stream):
 
 
 def _read_byte(stream, visited_labels):
-    visited_labels.add(stream.tell())
-    return ord(_read_char(stream, visited_labels))
+    data = stream.read(1)
+    assert len(data) == 1
+    visited_labels |= set(range(stream.tell()-1, stream.tell()))
+    return int.from_bytes(data, 'little')
 
 
 def _check_byte(stream, visited_labels, byte):
@@ -47,6 +48,7 @@ def _read_string(stream, visited_labels, end):
 
 def _set_data_type(data, offset, type):
     assert data[offset] in (None, type)
+    # FIXME Can also collect and check afterwards.
     data[offset] = type
 
 
@@ -128,51 +130,40 @@ def _read_expressions(stream, visited_labels, data, end):
     return expressions
 
 
-def _is_ended(result):
-    # TODO include this to _read_instructions call on the fly updating last_block
-    branch_ended = False
-    keywords_covered = set()
-    for i in range(len(result)-1, -1, -1):
-        if result[i] == 'BYE' or result[i][0] == 'JUMP':
-            branch_ended = True
-        elif result[i][0] == 'IF':
-            # Ветка завершена если или до IF или после или в обеих ветках IF будет jump FIXME typos
-            branch_ended = branch_ended or _is_ended(result[i][2]) and _is_ended(result[i][3])
-        elif result[i][0] == 'CASE':
-            # TODO support nested cases
-            keywords = result[i][1].split(',')
-            if branch_ended:
-                if '*' in keywords:
-                    return True
-                keywords_covered |= set(keywords)
-            branch_ended = False
-        elif result[i][0] == 'ASK':
-            keywords_covered = set()
-        elif result[i][0] == 'ASKC':
-            if keywords_covered >= set(result[i][1]):
-                return True
-            keywords_covered = set()
-    return branch_ended
-    # TODO надо проходить не в обратном порядке, а по тому пути (по возможным путям) по которому мы пришли из заданной точки. Может быть и как попало ок.
+def _add_branch_ended(branches_ended, stack, choices, keywords):
+    if stack:
+        parent = stack[:-1]
+        # FIXME simplify
+        if stack[-1][0] == 'else' and branches_ended[(*parent, ('if', stack[-1][1]))]:
+            _add_branch_ended(branches_ended, parent, choices, keywords)
+        if stack[-1][0] == 'case' and '*' in keywords[tuple(stack)]:
+            _add_branch_ended(branches_ended, parent, choices, keywords)
+        if stack[-1][0] == 'case' and choices.get(tuple(parent)) is not None: # Mondain, no ask, no tell.
+            choices[tuple(parent)] -= keywords[tuple(stack)]
+            if not choices[tuple(parent)]:
+                _add_branch_ended(branches_ended, parent, choices, keywords)
+    branches_ended[tuple(stack)] = True
 
 
-def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, end):
+def _read_instructions(stream, labels, visited_labels, data, end):
     result = []
 
     all_instructions = {
         0x9c, 0x9e,
-        0xa1, 0xa4, 0xa5, 0xa6,
+        0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6,
         0xb0, 0xb5, 0xb6, 0xb9, 0xba, 0xbe, 0xbf,
         0xc4, 0xc5, 0xc9, 0xcb, 0xcd,
         0xd6, 0xd8, 0xd9, 0xdb,
         0xee, 0xef,
         0xf3, 0xf7, 0xf8, 0xf9, 0xfb, 0xfc,
     }
-    if allow_solo_endif:
-        all_instructions.add(0xa2)
 
+    stack = []
+    branches_ended = {tuple(): False}
+    choices = {}
+    keywords = {}
     # TODO there are more instructions in the game
-    while (code := _peek_byte(stream)) not in end and stream.tell() not in visited_labels:
+    while (code := _peek_byte(stream)) not in end and stream.tell() not in visited_labels: # FIXME check this is a code we encountered in visited_labels
         offset = stream.tell()
         # FIXME linearize and get rid of end
         # FIXME get rid of expand
@@ -180,6 +171,7 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, e
         # FIXME merge data with interaction
         # FIXME read till the end for look , add ff, f1, f2, f3 manually
         # FIXME get rid of json, make it custom
+        # FIXME f1, f2 are stop operators
 
         if code == 0x9c:
             _read_byte(stream, visited_labels)
@@ -192,32 +184,37 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, e
         elif code == 0xa1:
             _read_byte(stream, visited_labels)
             expression = _one(_read_expressions(stream, visited_labels, data, 0xa7))
-            sub_visited_labels = set()
-            instructions = _read_instructions(stream, labels, sub_visited_labels, data, allow_solo_endif, {0xa2, 0xa3})
-            visited_labels |= sub_visited_labels
-            if _read_byte(stream, visited_labels) == 0xa3:
-                sub_visited_labels = set() # FIXME does it help?
-                alternative_instructions = _read_instructions(stream, labels, sub_visited_labels, data, allow_solo_endif, {0xa2})
-                visited_labels |= sub_visited_labels
-                _read_byte(stream, visited_labels)
-            else:
-                alternative_instructions = tuple()
-            result.append(('IF', expression, instructions, alternative_instructions))
+            result.append(('IF', expression))
+            stack.append(('if', stream.tell()))
+            branches_ended[tuple(stack)] = False
 
-        elif code == 0xa2 and allow_solo_endif:
-            # Happens once, with Valkadesh.
+        elif code == 0xa2:
             _read_byte(stream, visited_labels)
-            result.append('SOLO_ENDIF')
+            result.append('ENDIF')
+            if stack:
+                assert stack[-1][0] in ('if', 'else')
+                del stack[-1]
+
+        elif code == 0xa3:
+            _read_byte(stream, visited_labels)
+            result.append('ELSE')
+            flow, tell = stack.pop()
+            assert flow == 'if'
+            stack.append(('else', tell))
+            branches_ended[tuple(stack)] = False
 
         elif code == 0xb0:
             _read_byte(stream, visited_labels)
             label = _read_dword(stream, visited_labels)
             labels.add(label)
             result.append(('JUMP', label))
+            print(stream.tell())
+            _add_branch_ended(branches_ended, stack, choices, keywords)
 
         elif code == 0xb6:
             _read_byte(stream, visited_labels)
             result.append('BYE')
+            _add_branch_ended(branches_ended, stack, choices, keywords)
 
         elif code == 0xa4:
             _read_byte(stream, visited_labels)
@@ -317,22 +314,34 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, e
         elif code == 0xee:
             _read_byte(stream, visited_labels)
             # May be absent
+            if stack and stack[-1][0] == 'case':
+                del stack[-1]
             result.append('ESAC')
 
         elif code == 0xef:
             # TODO can't have nested keywords
             _read_byte(stream, visited_labels)
-            keywords = _read_string(stream, visited_labels, {0xf6})
+            argument = _read_string(stream, visited_labels, {0xf6}).split(',')
             _read_byte(stream, visited_labels)
-            result.append(('CASE', keywords))
+            result.append(('CASE', argument))
+            # FIXME Save keywords and check later with parent choices
+            # TODO вложенные ask в case ? leak choices to parent
+            if stack and stack[-1][0] == 'case':
+                del stack[-1]
+            stack.append(('case', stream.tell()))
+            keywords[tuple(stack)] = set(argument)
+            branches_ended[tuple(stack)] = False
 
         elif code == 0xf7:
             _read_byte(stream, visited_labels)
             result.append('ASK')
+            choices[tuple(stack)] = None
 
         elif code == 0xf8:
             _read_byte(stream, visited_labels)
-            result.append(('ASKC', _read_string(stream, visited_labels, end | all_instructions)))
+            argument = _read_string(stream, visited_labels, end | all_instructions)
+            result.append(('ASKC', argument))
+            choices[tuple(stack)] = set(argument)
 
         elif code == 0xf9:
             _read_byte(stream, visited_labels)
@@ -360,9 +369,12 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, e
             result.append(('PRINT', _read_string(stream, visited_labels, end | all_instructions)))
 
         # FIXME move to main while
-        if _peek_byte(stream) is None or _is_ended(result) and None in end:
+        if _peek_byte(stream) is None or branches_ended[tuple()] and None in end:
             # Выходим, если читать больше нечего или не ждём окончания определённого блока.
             break
+
+    #assert branches_ended[tuple()]
+    #assert not stack
 
     return result
 
@@ -377,23 +389,6 @@ def _format_expression(expression):
             arguments.append(_format_expression(argument))
 
         return f'{expression[0]}({", ".join(arguments)})'
-
-
-def _expand_instructions(original_label, instructions, labels):
-    result = []
-    for instruction in instructions:
-        if instruction[0] == 'IF':
-            result.append((instruction[0], instruction[1]))
-            result.extend(instruction[2])
-            if instruction[3]:
-                result.append('ELSE')
-                result.extend(instruction[3])
-            result.append('ENDIF')
-
-        else:
-            result.append(instruction)
-
-    yield original_label, result # FIXME get rid of original_label
 
 
 def _format_string(string):
@@ -431,7 +426,13 @@ def _format_instructions(instructions):
             result.append(f'ask()')
 
         elif instruction[0] == 'CASE':
-            result.append(f'case "{_format_string(instruction[1])}":')
+            result.append(f'case "{_format_string(",".join(instruction[1]))}":')
+            # FIXME Format keywords
+            # case "a":
+            # case "b":
+            # case "c":
+            #     ...
+            # esac
 
         elif instruction[0] == 'ASSIGN':
             result.append(f'{_format_expression(instruction[1])} = {_format_expression(instruction[2])}')
@@ -475,16 +476,12 @@ def _format_instructions(instructions):
     return [f'    {line}' if line else '' for line in result]
 
 
-def decode(raw_conversation):
-    stream = io.BufferedReader(io.BytesIO(raw_conversation))
+def decode(conversation):
+    stream = io.BufferedReader(io.BytesIO(conversation))
     result = []
     labels = set()
     visited_labels = set()
     data = {}
-
-    digest = hashlib.sha256(raw_conversation).hexdigest()
-
-    allow_solo_endif = digest == '85f1912ed262ba67a28fdff87c31575d6dd2cea0fbf431ef73e2be77d0958a0d'
 
     assert _read_byte(stream, visited_labels) == 0xff
     result.append(f'id({_read_byte(stream, visited_labels)})')
@@ -503,28 +500,28 @@ def decode(raw_conversation):
     result.append('')
     assert _read_byte(stream, visited_labels) == 0xf1
     result.append('description:')
-    result.extend(_format_instructions(_read_instructions(stream, labels, visited_labels, data, allow_solo_endif, {0xf2})))
+    result.extend(_format_instructions(_read_instructions(stream, labels, visited_labels, data, {0xf2})))
 
     result.append('')
     assert _read_byte(stream, visited_labels) == 0xf2
     result.append('interaction:')
     start = stream.tell()
 
-    blocks = {stream.tell(): _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, {None})}
+    blocks = {stream.tell(): _read_instructions(stream, labels, visited_labels, data, {None})}
 
     # TODO support jumps to the middle of unknown blocks with branches
     # FIXME at least detect it
     while labels - visited_labels:
         label = next(iter(labels - visited_labels))
         stream.seek(label)
-        blocks[label] = _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, {None})
+        blocks[label] = _read_instructions(stream, labels, visited_labels, data, {None})
         # FIXME split code with label in the middle, sometimes in the middle of string
 
     types = dict(sorted(data.items()))
     offsets = list(types)
     assert set(types.values()) <= {'integer', 'string'}
 
-    for left, right in zip(offsets, offsets[1:] + [len(raw_conversation)]):
+    for left, right in zip(offsets, offsets[1:] + [len(conversation)]):
         stream.seek(left)
         if types[left] == 'integer':
             integers = []
@@ -566,13 +563,24 @@ def decode(raw_conversation):
                     strings.append(string.decode('ascii'))
                     blocks[left].append('no-trailing-byte')
 
-    assert set(range(len(data))) - visited_labels == set()
+    while missed_labels := set(range(len(conversation))) - visited_labels:
+        label = min(missed_labels)
+        # FIXME Пометить как неиспользуемый код.
+        # TODO ссылки могут не работать, чекнуть
+        # TODO данные могут не работать, чекнуть
+        # TODO лейблы здесь не нужны
+        print(label)
+        stream.seek(label)
+        blocks[label] = _read_instructions(stream, labels, visited_labels, data, {None})
 
-    for k, v in sorted(blocks.items()):
-        for label, expanded in _expand_instructions(k, v, labels):
-            if label != start: # FIXME substitute jumps
-                result.append('')
-                result.append(f'{label}:')
-            result.extend(_format_instructions(expanded))
+    print(sorted(set(range(len(conversation))) - visited_labels))
+    print([hex(conversation[i]) for i in sorted(set(range(len(conversation))) - visited_labels)])
+    assert set(range(len(conversation))) - visited_labels == set()
+
+    for label, instructions in sorted(blocks.items()):
+        if label != start: # FIXME substitute jumps
+            result.append('')
+            result.append(f'{label}:')
+        result.extend(_format_instructions(instructions))
 
     return ''.join((line + '\n' for line in result))
