@@ -1,11 +1,11 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(38)
 
 id(137)
-name("Blaine")
+name('Blaine')
 
 description:
-    print("a slightly built gypsy lad.\n*")
+    print('a slightly built gypsy lad.\n*')
 
 interaction:
     if partyHas(byte 235):
@@ -13,137 +13,137 @@ interaction:
     fi
 
     if hasBit(byte 135, byte 7):
-        print("\"Our dog did his best trick for you. You should show him some ")
-        print("appreciation.\"\n")
+        print('"Our dog did his best trick for you. You should show him some ')
+        print('appreciation."\n')
         bye()
     fi
 
-    print("\"Good $T.\"\n")
+    print('"Good $T."\n')
 
     ask()
 
-    case "name":
-        print("\"I am called Blaine.\"")
+    case 'name':
+        print('"I am called Blaine."')
         ('SETF', ('byte', 235), ('value', 0))
         jump 146
 
-    case "job":
-        print("\"I am a @juggler. But I would fain @join thee and go adventuring.\"")
+    case 'job':
+        print('"I am a @juggler. But I would fain @join thee and go adventuring."')
         jump 146
 
-    case "adve":
-    case "join":
+    case 'adve':
+    case 'join':
         jump 1662
 
-    case "jugg":
+    case 'jugg':
         jump 876
 
-    case "advi":
+    case 'advi':
         jump 657
 
-    case "buy":
-    case "sell":
-        print("\"I don't have anything to sell just now. Check back with me next ")
-        print("week.\"")
+    case 'buy':
+    case 'sell':
+        print('"I don\'t have anything to sell just now. Check back with me next ')
+        print('week."')
         jump 146
 
-    case "bye":
-        print("\"Here's a little tune to lighten your step on the road ahead.\"\n")
+    case 'bye':
+        print('"Here\'s a little tune to lighten your step on the road ahead."\n')
         wait()
 
-        print("\n\"Said the youthful earl to the gypsy girl,\nAs the moon was casting ")
-        print("its silver shine:\"\n*\n\"Dear little lady, my gypsy lady,\nLet me kiss ")
-        print("those sweet lips of thine.\"\n")
+        print('\n"Said the youthful earl to the gypsy girl,\nAs the moon was casting ')
+        print('its silver shine:"\n*\n"Dear little lady, my gypsy lady,\nLet me kiss ')
+        print('those sweet lips of thine."\n')
         bye()
 
-    case "*":
-        print("\"I can't help you with that.\"")
+    case '*':
+        print('"I can\'t help you with that."')
     esac
 
     jump 146
 
 657:
-    print("\"My advice will cost you a gold coin. What do you say?\" ")
+    print('"My advice will cost you a gold coin. What do you say?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"As you wish.\"")
+    case 'n':
+        print('"As you wish."')
         jump 146
     esac
 
-    print("\n")
+    print('\n')
 
     if less(objectsCount(byte 1, byte 88), byte 1):
-        print("\"Best check your purse.\"")
+        print('"Best check your purse."')
         jump 146
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 1))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 1))
-    print("\"Almost due east of Iolo's hut there lives a powerful enchanter.\"")
+    print('"Almost due east of Iolo\'s hut there lives a powerful enchanter."')
     jump 146
 
 876:
-    print("\"I charge five gold for juggling. Would you like to see some?\" ")
+    print('"I charge five gold for juggling. Would you like to see some?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"Perhaps some other time.\"")
+    case 'n':
+        print('"Perhaps some other time."')
         jump 146
     esac
 
-    print("\n")
+    print('\n')
 
     if less(objectsCount(byte 1, byte 88), byte 5):
-        print("\"Best check your purse.\"")
+        print('"Best check your purse."')
         jump 146
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 5))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 5))
-    print("The gypsy juggler takes three wands out of his knapsack and sets their")
-    print(" ends afire.\n*\nTossing them into the air, he begins juggling.\n*\nThe ")
-    print("pattern is elaborate, almost hypnotic as the tips of the wands ")
-    print("describe great flaming arcs and spirals through the air. \n*\nAt regular")
-    print(" intervals he tosses one around behind his back.\n*\nYet somehow it ")
-    print("always finds its way back into the pattern with the other two, without")
-    print(" missing a beat.\n")
+    print('The gypsy juggler takes three wands out of his knapsack and sets their')
+    print(' ends afire.\n*\nTossing them into the air, he begins juggling.\n*\nThe ')
+    print('pattern is elaborate, almost hypnotic as the tips of the wands ')
+    print('describe great flaming arcs and spirals through the air. \n*\nAt regular')
+    print(' intervals he tosses one around behind his back.\n*\nYet somehow it ')
+    print('always finds its way back into the pattern with the other two, without')
+    print(' missing a beat.\n')
     wait()
 
-    print("\nAt last he catches all three of the wands in one hand, waves them ")
-    print("with a great flourish, and bows deeply before you.*\n\nAs he ")
-    print("extinguishes the wands, he says \"I hope you enjoyed the show.\"")
+    print('\nAt last he catches all three of the wands in one hand, waves them ')
+    print('with a great flourish, and bows deeply before you.*\n\nAs he ')
+    print('extinguishes the wands, he says "I hope you enjoyed the show."')
     jump 146
 
 1662:
     if partyHas(byte 235):
 1667:
-        print("\"I have joined you already!\"")
+        print('"I have joined you already!"')
         jump 146
     fi
 
-    print("\"Do you want me to come with you?\" ")
+    print('"Do you want me to come with you?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"Okay. Let me know if you need my help later.\"")
+    case 'n':
+        print('"Okay. Let me know if you need my help later."')
         jump 146
     esac
 
-    print("\n")
+    print('\n')
     integer(value 0) = partyJoin(byte 235)
 
     if equals(integer(value 0), byte 1):
-        print("\"Not while you're in that thing!\"")
+        print('"Not while you\'re in that thing!"')
         jump 146
     fi
 
     if equals(integer(value 0), byte 2):
-        print("\"You have enough travelling with you already.\"\n*\n\"If you ask one of ")
-        print("them to @leave first, I'd be happy to join you.\"")
+        print('"You have enough travelling with you already."\n*\n"If you ask one of ')
+        print('them to @leave first, I\'d be happy to join you."')
         jump 146
     fi
 
@@ -151,30 +151,30 @@ interaction:
         jump 1667
     fi
 
-    print("\"I look forward to the many adventures we will share.\"\n")
+    print('"I look forward to the many adventures we will share."\n')
     bye()
 
 2047:
-    print("\"I knew it! You don't really want to have a gypsy around.\"\n*\n\"You wish")
-    print(" me to leave you now, right?\" ")
+    print('"I knew it! You don\'t really want to have a gypsy around."\n*\n"You wish')
+    print(' me to leave you now, right?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"Oh, pardon my mistake.\"\n*\n\"It's just that we gypsies often have ")
-        print("trouble finding acceptance among the gorgios.\"\n*\n\"I'm very grateful ")
-        print("that you've given me the chance to come along on your quest.\"\n")
+    case 'n':
+        print('"Oh, pardon my mistake."\n*\n"It\'s just that we gypsies often have ')
+        print('trouble finding acceptance among the gorgios."\n*\n"I\'m very grateful ')
+        print('that you\'ve given me the chance to come along on your quest."\n')
         bye()
     esac
 
     integer(value 0) = partyLeave(byte 235)
 
     if equals(integer(value 0), byte 1):
-        print("\"Let's get our feet back on solid ground first, okay?\"")
+        print('"Let\'s get our feet back on solid ground first, okay?"')
         jump 146
     fi
 
-    print("\n\"Fine. I'll be with my fellow gypsies if you change your mind.\"\n*\n\"I ")
-    print("suppose you'll be wanting to keep all this equipment.\"\n*\nHe leaves ")
-    print("everything he was carrying in a pile on the ground.\n")
+    print('\n"Fine. I\'ll be with my fellow gypsies if you change your mind."\n*\n"I ')
+    print('suppose you\'ll be wanting to keep all this equipment."\n*\nHe leaves ')
+    print('everything he was carrying in a pile on the ground.\n')
     bye()

@@ -1,76 +1,76 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(58)
 
 id(58)
-name("Nicodemus")
+name('Nicodemus')
 
 description:
-    print("a wizened old man with a ready smile.")
+    print('a wizened old man with a ready smile.')
     wait()
 
     f3()
 
 interaction:
-    print("\n\"Good $T, Avatar. For what purpose hast thou come?\"\n")
+    print('\n"Good $T, Avatar. For what purpose hast thou come?"\n')
 
 105:
     ask()
 
-    case "buy":
-    case "reag":
+    case 'buy':
+    case 'reag':
         jump 1684
 
-    case "lear":
-    case "spel":
+    case 'lear':
+    case 'spel':
         jump 584
 
-    case "book":
+    case 'book':
         jump 2456
 
-    case "sta":
+    case 'sta':
         jump 2855
 
-    case "name":
-        print("\"I am Nicodemus.\"")
+    case 'name':
+        print('"I am Nicodemus."')
         ('SETF', ('byte', 235), ('value', 0))
         jump 104
 
-    case "job":
-        print("\"Why, bless me, I work here!\"")
+    case 'job':
+        print('"Why, bless me, I work here!"')
         wait()
 
-        print("\n\n\"I sell @reagents, teach @spells, and craft magic @staves.\"")
+        print('\n\n"I sell @reagents, teach @spells, and craft magic @staves."')
         wait()
 
-        print("\n\n\"I also do a little @experimenting.\"")
+        print('\n\n"I also do a little @experimenting."')
         jump 104
 
-    case "expe":
-        print("\"Oh, nothing a great adventurer such as yourself would be @interested ")
-        print("in.\"")
+    case 'expe':
+        print('"Oh, nothing a great adventurer such as yourself would be @interested ')
+        print('in."')
         jump 104
 
-    case "inte":
-        print("He gets a suspicious look in his eyes.")
+    case 'inte':
+        print('He gets a suspicious look in his eyes.')
         wait()
 
-        print("\n\n\"Don't be too nosy, ")
+        print('\n\n"Don\'t be too nosy, ')
 
         if integer(value 16):
-            print("girlie!\"")
+            print('girlie!"')
 
         else:
-            print("sonny!\"")
+            print('sonny!"')
         fi
 
         jump 104
 
-    case "bye":
-        print("\"Come back anytime!\"\n")
+    case 'bye':
+        print('"Come back anytime!"\n')
         bye()
 
-    case "*":
-        print("\"Nope, nope, I won't talk about that!\"")
+    case '*':
+        print('"Nope, nope, I won\'t talk about that!"')
         jump 104
     esac
 
@@ -88,7 +88,7 @@ interaction:
         jump 980
 
     else:
-        print("\"But thou hast not a spell@book!\"")
+        print('"But thou hast not a spell@book!"')
         jump 104
     fi
 
@@ -110,7 +110,7 @@ interaction:
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
-    print("#2) $Y\n")
+    print('#2) $Y\n')
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
 
@@ -120,7 +120,7 @@ interaction:
 
 796:
     if equals(integer(value 2), byte 0):
-        print("\"But none of you has a spell@book!\"")
+        print('"But none of you has a spell@book!"')
         jump 104
     fi
 
@@ -130,7 +130,7 @@ interaction:
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
-    print("#2) $Y\n\"Which of you?\" ")
+    print('#2) $Y\n"Which of you?" ')
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
@@ -160,7 +160,7 @@ interaction:
     ('SETNAME', ('integer', [('value', 3)]))
     integer(value 1) = level(integer(value 3), byte 0)
     string(value 1) = data(dword 3527, integer(value 1))
-    print("\"In which Circle does $Y wish to study?\" ")
+    print('"In which Circle does $Y wish to study?" ')
     ('INPUTNUM', 0)
 
     if equals(integer(value 0), byte 0):
@@ -168,31 +168,31 @@ interaction:
     fi
 
     if greater(integer(value 0), byte 8):
-        print("\"As everybody knows, there are only eight circles.\"")
+        print('"As everybody knows, there are only eight circles."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 980
     fi
 
     if greater(integer(value 0), integer(value 1)):
-        print("\"I sense that $Y is only ready for the #1$1 Circle.\"")
+        print('"I sense that $Y is only ready for the #1$1 Circle."')
         wait()
 
-        print("\n\n\"But such matters are not my concern...\"")
+        print('\n\n"But such matters are not my concern..."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
     fi
 
     integer(value 0) = minus(integer(value 0), byte 1)
     integer(value 0) = multiply(integer(value 0), byte 10)
 
     if equals(data(dword 3554, integer(value 0)), byte 0):
-        print("\"I have no spells of that circle.\"")
+        print('"I have no spells of that circle."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 980
     fi
 
@@ -200,21 +200,21 @@ interaction:
 
 1320:
     string(value 6) = data(dword 3714, minus(plus(integer(value 0), integer(value 2)), byte 1))
-    print("#2) $6\n")
+    print('#2) $6\n')
     integer(value 2) = plus(integer(value 2), byte 1)
 
     if greater(data(dword 3554, minus(plus(integer(value 0), integer(value 2)), byte 1)), byte 0):
         jump 1320
     fi
 
-    print("\"Which of these?\" ")
+    print('"Which of these?" ')
     ('INPUTNUM', 4)
 
     if or(equals(integer(value 4), byte 0), greaterOrEquals(integer(value 4), integer(value 2))):
-        print("\"Perhaps $Y is not ready for this circle.\"")
+        print('"Perhaps $Y is not ready for this circle."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 980
     fi
 
@@ -222,27 +222,27 @@ interaction:
     integer(value 5) = plus(byte 20, multiply(integer(value 0), byte 2))
 
     if less(objectsCount(integer(value 3), byte 88), integer(value 5)):
-        print("\"$Y lacks the #5 gold required.\"")
+        print('"$Y lacks the #5 gold required."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 980
     fi
 
-    print("\"That spell costs #5 gold. Interested?\" ")
+    print('"That spell costs #5 gold. Interested?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
-        print("$N hands $Y a piece of rune-covered parchment.")
+    case 'y':
+        print('$N hands $Y a piece of rune-covered parchment.')
         ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
         ('NEW', ('integer', [('value', 3)]), ('byte', 58), ('data', [('dword', 3554), ('plus', [('integer', [('value', 0)]), ('integer', [('value', 4)])])]), ('byte', 1))
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 980
 
-    case "n":
+    case 'n':
         jump 980
     esac
 
@@ -258,14 +258,14 @@ interaction:
 1719:
     integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
     ('SETNAME', ('integer', [('value', 3)]))
-    print("#2) $Y\n")
+    print('#2) $Y\n')
 
     if lessOrEquals(integer(value 2), integer(value 23)):
         integer(value 2) = plus(integer(value 2), byte 1)
         jump 1719
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 2)
 
     if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
@@ -281,14 +281,14 @@ interaction:
 
 1832:
     string(value 1) = data(dword 3469, minus(integer(value 1), byte 1))
-    print("#1) $1\n")
+    print('#1) $1\n')
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if greater(data(dword 3437, minus(integer(value 1), byte 1)), byte 0):
         jump 1832
     fi
 
-    print("\"Which of these?\" ")
+    print('"Which of these?" ')
     ('INPUTNUM', 2)
 
     if or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1))):
@@ -300,10 +300,10 @@ interaction:
     integer(value 1) = data(dword 3453, integer(value 2))
     string(value 1) = data(dword 3469, integer(value 2))
     integer(value 5) = byte 0
-    print("\"$1 costs #1 per portion.\"")
+    print('"$1 costs #1 per portion."')
     wait()
 
-    print("\n\n\"How many dost thou want?\" ")
+    print('\n\n"How many dost thou want?" ')
     ('INPUT', 4)
 
     if greater(integer(value 4), word 500):
@@ -328,10 +328,10 @@ interaction:
     integer(value 5) = plus(integer(value 5), byte 1)
 
     if equals(integer(value 5), integer(value 4)):
-        print("$N hands $Y the $1.")
+        print('$N hands $Y the $1.')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1821
 
     else:
@@ -340,39 +340,39 @@ interaction:
 
 2194:
     if integer(value 5):
-        print("\"Thou cannot carry that much!\"")
+        print('"Thou cannot carry that much!"')
         wait()
 
-        print("\n\n\"I'll give thee #5; thou dost not need the rest.\"")
+        print('\n\n"I\'ll give thee #5; thou dost not need the rest."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1821
 
     else:
-        print("\"Thou cannot carry any $1!\"")
+        print('"Thou cannot carry any $1!"')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1821
     fi
 
 2325:
     if integer(value 5):
-        print("\"Thou cannot afford that much!\"")
+        print('"Thou cannot afford that much!"')
         wait()
 
-        print("\n\n\"I'll give thee #5; thou cannot have the rest.\"")
+        print('\n\n"I\'ll give thee #5; thou cannot have the rest."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1821
 
     else:
-        print("\"Thou cannot afford any $1!\"")
+        print('"Thou cannot afford any $1!"')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1821
     fi
 
@@ -388,14 +388,14 @@ interaction:
 2488:
     integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
     ('SETNAME', ('integer', [('value', 3)]))
-    print("#2) $Y\n")
+    print('#2) $Y\n')
 
     if lessOrEquals(integer(value 2), integer(value 23)):
         integer(value 2) = plus(integer(value 2), byte 1)
         jump 2488
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 2)
 
     if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
@@ -409,30 +409,30 @@ interaction:
     ('SETNAME', ('integer', [('value', 3)]))
 
     if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 45)), weight(byte 57, byte 1)):
-        print("\"But thou cannot carry a spellbook!\"")
+        print('"But thou cannot carry a spellbook!"')
         jump 104
     fi
 
     if less(objectsCount(integer(value 3), byte 88), byte 45):
-        print("\"But thou cannot afford a spellbook!\"")
+        print('"But thou cannot afford a spellbook!"')
         jump 104
     fi
 
-    print("\"A spellbook costs 45 gold pieces. Interested?\" ")
+    print('"A spellbook costs 45 gold pieces. Interested?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 45))
         ('NEW', ('integer', [('value', 3)]), ('byte', 57), ('byte', 0), ('byte', 1))
         jump 104
 
-    case "n":
+    case 'n':
         if integer(value 23):
-            print("\"Perhaps one of thy friends then.\"")
+            print('"Perhaps one of thy friends then."')
             wait()
 
-            print("\n\n")
+            print('\n\n')
             integer(value 2) = byte 1
             jump 2488
 
@@ -442,25 +442,25 @@ interaction:
     esac
 
 2855:
-    print("\"Yes, I make magical yew staves.\"")
+    print('"Yes, I make magical yew staves."')
     wait()
 
-    print("\n\n\"If thou knowest the Enchant spell, thou canst lock a spell within ")
-    print("the staff for quick use!\"")
+    print('\n\n"If thou knowest the Enchant spell, thou canst lock a spell within ')
+    print('the staff for quick use!"')
     wait()
 
-    print("\n\n\"A yew staff costs 100 gold pieces, but it's worth twice that!\"")
+    print('\n\n"A yew staff costs 100 gold pieces, but it\'s worth twice that!"')
     wait()
 
-    print("\n\n\"Wouldst thou like to buy one?\" ")
+    print('\n\n"Wouldst thou like to buy one?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"Perhaps some other time, then.\"")
+    case 'n':
+        print('"Perhaps some other time, then."')
         jump 104
 
-    case "y":
+    case 'y':
         if integer(value 23):
             integer(value 2) = byte 1
             jump 3163
@@ -473,14 +473,14 @@ interaction:
 3163:
         integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
         ('SETNAME', ('integer', [('value', 3)]))
-        print("#2) $Y\n")
+        print('#2) $Y\n')
 
         if lessOrEquals(integer(value 2), integer(value 23)):
             integer(value 2) = plus(integer(value 2), byte 1)
             jump 3163
         fi
 
-        print("\"Which of you?\" ")
+        print('"Which of you?" ')
         ('INPUTNUM', 2)
 
         if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
@@ -494,16 +494,16 @@ interaction:
         ('SETNAME', ('integer', [('value', 3)]))
 
         if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 100)), weight(byte 78, byte 1)):
-            print("\"But thou cannot carry a staff!\"")
+            print('"But thou cannot carry a staff!"')
             jump 104
         fi
 
         if less(objectsCount(integer(value 3), byte 88), byte 100):
-            print("\"But thou cannot afford a staff!\"")
+            print('"But thou cannot afford a staff!"')
             jump 104
         fi
 
-        print("The old man hands $Y a yew staff.")
+        print('The old man hands $Y a yew staff.')
         ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 100))
         ('NEW', ('integer', [('value', 3)]), ('byte', 78), ('byte', 0), ('byte', 1))
         jump 104

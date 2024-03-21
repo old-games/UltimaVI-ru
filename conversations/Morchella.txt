@@ -1,131 +1,131 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(57)
 
 id(156)
-name("Morchella")
+name('Morchella')
 
 description:
-    print("a tough-looking woman with a walk like a troll.")
+    print('a tough-looking woman with a walk like a troll.')
     wait()
 
-    print("\n")
+    print('\n')
 
 interaction:
-    print("She stares insolently at you.\n")
+    print('She stares insolently at you.\n')
 
     ask()
 
-    case "name":
-        print("\"I'm Morchella.\"")
+    case 'name':
+        print('"I\'m Morchella."')
         ('SETF', ('byte', 235), ('value', 0))
         jump 91
 
-    case "job":
-        print("\"I be a retired @sailor, that I am.")
+    case 'job':
+        print('"I be a retired @sailor, that I am.')
 
         if partyHas(byte 2):
-            print("\"")
+            print('"')
             wait()
 
             ('PORTRAIT', ('byte', 2))
-            print("\n\n\"Thou wert a @pirate!\"")
+            print('\n\n"Thou wert a @pirate!"')
             wait()
 
             ('PORTRAIT', ('byte', 235))
-            print("\n\n\"Well! How rude!\" She turns up her nose and leaves.\n")
+            print('\n\n"Well! How rude!" She turns up her nose and leaves.\n')
             bye()
         fi
 
-        print(" An honest one, mind ye.\"")
+        print(' An honest one, mind ye."')
         jump 91
 
-    case "pira":
-        print("\"I know nothing about that!\" She walks off in a huff.\n")
+    case 'pira':
+        print('"I know nothing about that!" She walks off in a huff.\n')
         bye()
 
-    case "hone":
-    case "sail":
-        print("\"That's right, me bucko. Why, I've sailed with Lord @British and ")
-        print("Captain @John.")
+    case 'hone':
+    case 'sail':
+        print('"That\'s right, me bucko. Why, I\'ve sailed with Lord @British and ')
+        print('Captain @John.')
         jump 91
 
-    case "brit":
-    case "lord":
-        print("\"He walks with a limp, ye know. 'Fraid of mice, too, he is.\"")
+    case 'brit':
+    case 'lord':
+        print('"He walks with a limp, ye know. \'Fraid of mice, too, he is."')
         jump 91
 
-    case "capt":
-    case "john":
-        print("\"He offered to marry me but of course I refused. Didn't want to be ")
-        print("tied down.\"")
+    case 'capt':
+    case 'john':
+        print('"He offered to marry me but of course I refused. Didn\'t want to be ')
+        print('tied down."')
         jump 91
 
-    case "map":
-        print("She looks around furtively first. \"Well, now, I might have seen the ")
-        print("likes of that in me travels...\"")
+    case 'map':
+        print('She looks around furtively first. "Well, now, I might have seen the ')
+        print('likes of that in me travels..."')
         wait()
 
-        print("\n\"Tell ye what, matey:\"")
+        print('\n"Tell ye what, matey:"')
         wait()
 
-        print("\n\n\"If ye give me a @shield of the Order of the Serpent, I'll tell ye ")
-        print("where that map be at.\"")
+        print('\n\n"If ye give me a @shield of the Order of the Serpent, I\'ll tell ye ')
+        print('where that map be at."')
         jump 91
 
-    case "cara":
-    case "lad":
-        print("\"I might even ask 'im to marry me.\" She winks slyly at you.")
+    case 'cara':
+    case 'lad':
+        print('"I might even ask \'im to marry me." She winks slyly at you.')
         jump 91
 
-    case "bye":
-        print("\"So long, matey.\"\n")
+    case 'bye':
+        print('"So long, matey."\n')
         bye()
 
-    case "magi":
-    case "serp":
-    case "shie":
+    case 'magi':
+    case 'serp':
+    case 'shie':
         jump 1013
 
-    case "*":
-        print("\"Don't know what to say 'bout that, matey.\"")
+    case '*':
+        print('"Don\'t know what to say \'bout that, matey."')
         jump 91
 
 1013:
         if hasBit(byte 235, byte 7):
-            print("\"Now all I need is a magic sword; then methinks I'll be a knight.\"")
+            print('"Now all I need is a magic sword; then methinks I\'ll be a knight."')
             jump 91
         fi
 
         integer(value 0) = partyHasObject(byte 16, byte 0)
 
         if equals(integer(value 0), word 32769):
-            print("\"If I had a Silver Serpent shield, I'd give it to @Caradon.\"")
+            print('"If I had a Silver Serpent shield, I\'d give it to @Caradon."')
             wait()
 
-            print("\n\n\"He's a fine, brave lad, he is.\"")
+            print('\n\n"He\'s a fine, brave lad, he is."')
             jump 91
         fi
 
-        print("\"That be quite a prize there, matey. Will ye trade it to me for a bit ")
-        print("o' map?\" ")
+        print('"That be quite a prize there, matey. Will ye trade it to me for a bit ')
+        print('o\' map?" ')
 
-        askc("yn")
+        askc('yn')
 
-    case "n":
-        print("\"Then leave me be!\" She turns her back angrily on you and walks off.\n")
+    case 'n':
+        print('"Then leave me be!" She turns her back angrily on you and walks off.\n')
         bye()
     esac
 
     ('GIVE', ('byte', 16), ('byte', 0), ('integer', [('value', 0)]), ('byte', 235))
     ('SETF', ('byte', 235), ('byte', 7))
     ('GIVE', ('word', 405), ('byte', 0), ('byte', 235), ('integer', [('value', 0)]))
-    print("\nFrom a little box Morchella hands over a piece of paper. It is a ")
-    print("piece of the pirate map.")
+    print('\nFrom a little box Morchella hands over a piece of paper. It is a ')
+    print('piece of the pirate map.')
     wait()
 
-    print("\n\n\"I was going to give this magic shield to Caradon, but methinks I'll")
-    print(" keep it for meself instead!\"")
+    print('\n\n"I was going to give this magic shield to Caradon, but methinks I\'ll')
+    print(' keep it for meself instead!"')
     wait()
 
-    print("\n\n\"Good $T, $G.\" She walks off.\n")
+    print('\n\n"Good $T, $G." She walks off.\n')
     bye()

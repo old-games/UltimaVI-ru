@@ -1,70 +1,70 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(71)
 
 id(170)
-name("Lensmaker")
+name('Lensmaker')
 
 description:
-    print("a very old gargoyle.")
+    print('a very old gargoyle.')
 
 interaction:
     wait()
 
-    print("\n")
+    print('\n')
 
     if equals(integer(value 21), byte 0):
-        print("The gargoyle gasps in terror and wheezes, \"An-bal-sil-fer!\"")
+        print('The gargoyle gasps in terror and wheezes, "An-bal-sil-fer!"')
         wait()
 
-        print("\n\nThen he faints dead away!\n")
+        print('\n\nThen he faints dead away!\n')
         ('WORKTYPE', ('byte', 235), ('byte', 145))
         bye()
     fi
 
     if notEquals(partyHasObject(byte 76, byte 0), byte 1):
-        print("The gargoyle gasps in terror and wheezes, \"The False Prophet!\"")
+        print('The gargoyle gasps in terror and wheezes, "The False Prophet!"')
         wait()
 
-        print("\n\nThen he faints dead away!\n")
+        print('\n\nThen he faints dead away!\n')
         ('WORKTYPE', ('byte', 235), ('byte', 145))
         bye()
     fi
 
     if equals(hasBit(byte 235, value 0), byte 0):
-        print("The venerable gargoyle peers at you.")
+        print('The venerable gargoyle peers at you.')
         wait()
 
-        print("\n\n\"Greetings, False Prophet.\"")
+        print('\n\n"Greetings, False Prophet."')
         wait()
 
-        print("\n\n\"To have been told by @Naxatilor, long ago, that the you would one ")
-        print("day come to me, wearing the Amulet of Submission.\"")
+        print('\n\n"To have been told by @Naxatilor, long ago, that the you would one ')
+        print('day come to me, wearing the Amulet of Submission."')
         wait()
 
-        print("\n\n\"To never have believed it would come to pass.\"")
+        print('\n\n"To never have believed it would come to pass."')
         wait()
 
-        print("\n\n\"To ask what service I can perform?\"")
+        print('\n\n"To ask what service I can perform?"')
         ('SETF', ('byte', 235), ('value', 0))
         jump 805
     fi
 
     if equals(hasBit(byte 235, byte 2), byte 0):
-        print("\"To ask how again I may help you?\"")
+        print('"To ask how again I may help you?"')
         jump 805
     fi
 
     integer(value 0) = partyHasObject(word 395, byte 0)
 
     if equals(integer(value 0), word 32769):
-        print("\"To wonder why you have not brought back the broken lens?!\"")
+        print('"To wonder why you have not brought back the broken lens?!"')
         wait()
 
-        print("\n\n\"To have already told you that I need it in order to craft a new ")
-        print("one!\"")
+        print('\n\n"To have already told you that I need it in order to craft a new ')
+        print('one!"')
         wait()
 
-        print("\n\n\"To ask what you think I can do without it?\"")
+        print('\n\n"To ask what you think I can do without it?"')
         jump 805
 
     else:
@@ -72,19 +72,19 @@ interaction:
     fi
 
 805:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "lens":
-    case "vort":
+    case 'lens':
+    case 'vort':
         integer(value 0) = partyHasObject(word 395, byte 0)
 
         if equals(integer(value 0), word 32769):
-            print("\"To remember little from so long ago,\" the gargoyle croaks.")
+            print('"To remember little from so long ago," the gargoyle croaks.')
             wait()
 
-            print("\n\n\"To require the pieces of the lens in order to make a new copy.\"")
+            print('\n\n"To require the pieces of the lens in order to make a new copy."')
             ('SETF', ('byte', 235), ('byte', 2))
             jump 805
 
@@ -92,84 +92,84 @@ interaction:
             jump 1806
         fi
 
-    case "name":
-        print("\"To lack a name, of course.\"")
+    case 'name':
+        print('"To lack a name, of course."')
         wait()
 
-        print("\n\n\"But to be called Lor-wis-lem, the scholar of light, by many learned")
-        print(" gargoyles.\"")
+        print('\n\n"But to be called Lor-wis-lem, the scholar of light, by many learned')
+        print(' gargoyles."')
         wait()
 
-        print("\n\nAs he says this, the ancient gargoyle beams with pride.")
+        print('\n\nAs he says this, the ancient gargoyle beams with pride.')
         jump 805
 
-    case "job":
-        print("\"To craft the finest lenses in the land,\" the gargoyle says proudly.")
+    case 'job':
+        print('"To craft the finest lenses in the land," the gargoyle says proudly.')
         wait()
 
-        print("\n\n\"Also to teach my young @apprentices not to cut themselves on the ")
-        print("glass!\"")
+        print('\n\n"Also to teach my young @apprentices not to cut themselves on the ')
+        print('glass!"')
         jump 805
 
-    case "appr":
-    case "teac":
-    case "youn":
-        print("\"To be nearing the end of my @time.\"")
+    case 'appr':
+    case 'teac':
+    case 'youn':
+        print('"To be nearing the end of my @time."')
         wait()
 
-        print("\n\n\"To have one last sacred duty:\"")
+        print('\n\n"To have one last sacred duty:"')
         wait()
 
-        print("\n\n\"To pass on my skill to the next generation.\"")
+        print('\n\n"To pass on my skill to the next generation."')
         jump 805
 
-    case "end":
-    case "time":
-        print("\"To be over a thousand years old.\"")
+    case 'end':
+    case 'time':
+        print('"To be over a thousand years old."')
         wait()
 
-        print("\n\n\"To seem a mere youth compared to @Naxatilor, however.\"")
+        print('\n\n"To seem a mere youth compared to @Naxatilor, however."')
         jump 805
 
-    case "naxa":
-        print("\"To have helped Naxatilor create the Vortex Lens, centuries ago.\"")
+    case 'naxa':
+        print('"To have helped Naxatilor create the Vortex Lens, centuries ago."')
         wait()
 
-        print("\n\n\"To have found him venerable and ancient even then!\"")
+        print('\n\n"To have found him venerable and ancient even then!"')
         jump 805
 
-    case "bye":
-        print("\"To be honored to have helped you, False Prophet.\"\n")
+    case 'bye':
+        print('"To be honored to have helped you, False Prophet."\n')
         bye()
 
-    case "*":
-        print("\"To be old. To suggest you ask that of others.\"")
+    case '*':
+        print('"To be old. To suggest you ask that of others."')
         jump 805
     esac
 
 1806:
-    print("\"To see the shattered Vortex Lens you carry.\"")
+    print('"To see the shattered Vortex Lens you carry."')
     wait()
 
-    print("\n\n\"To remember making it, so very long ago.\"")
+    print('\n\n"To remember making it, so very long ago."')
     wait()
 
-    print("\n\n")
+    print('\n\n')
     ('DELETE', ('integer', [('value', 0)]), ('word', 395), ('byte', 0), ('byte', 1))
-    print("Taking the shards of glass, the lensmaker turns to his grinding table.")
+    print('Taking the shards of glass, the lensmaker turns to his grinding table.')
     wait()
 
-    print("\n\nIn a short while, he has crafted a new Vortex Lens!")
+    print('\n\nIn a short while, he has crafted a new Vortex Lens!')
     wait()
 
-    print("\n\n\"To have far greater skill now than when first I made this lens,\" he")
-    print(" says smugly.")
+    print('\n\n"To have far greater skill now than when first I made this lens," he')
+    print(' says smugly.')
     wait()
 
-    print("\n\n\"To require little time to repair it.\"")
+    print('\n\n"To require little time to repair it."')
     wait()
 
-    print("\n\nHe hands you the restored Vortex Lens.")
+    print('\n\nHe hands you the restored Vortex Lens.')
     ('NEW', ('integer', [('value', 0)]), ('word', 396), ('byte', 0), ('byte', 1))
     ('CLEARF', ('byte', 235), ('byte', 2))
     jump 805

@@ -1,14 +1,14 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(64)
 
 id(64)
-name("Selganor")
+name('Selganor')
 
 description:
-    print("a slender, graceful man tuning a lute.")
+    print('a slender, graceful man tuning a lute.')
     wait()
 
-    print("\n")
+    print('\n')
 
 interaction:
     if equals(hasBit(byte 235, byte 5), byte 0):
@@ -16,81 +16,81 @@ interaction:
     fi
 
     if hasBit(byte 235, byte 7):
-        print("\"Hello. There's something I need to ask you, what was it...\"")
+        print('"Hello. There\'s something I need to ask you, what was it..."')
         wait()
 
-        print("\n\n\"Oh, yes, now I remember!\"")
+        print('\n\n"Oh, yes, now I remember!"')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1968
     fi
 
-    print("\"Hail and welcome, $P!\"\n")
+    print('"Hail and welcome, $P!"\n')
 
     ask()
 
-    case "name":
-        print("\"My name is Selganor. 'Tis a name with a long @history...\"")
+    case 'name':
+        print('"My name is Selganor. \'Tis a name with a long @history..."')
         wait()
 
-        print("\n\n\"But you have the look of one with more important @business.\"")
+        print('\n\n"But you have the look of one with more important @business."')
         ('SETF', ('byte', 235), ('value', 0))
         jump 196
 
-    case "hist":
-    case "selg":
-        print("\"It means 'seeker of the @crystal'. Perhaps I'll tell you more some ")
-        print("other time.\"")
+    case 'hist':
+    case 'selg':
+        print('"It means \'seeker of the @crystal\'. Perhaps I\'ll tell you more some ')
+        print('other time."')
         jump 196
 
-    case "crys":
-    case "seek":
-        print("\"That's quite a @tale.\"")
+    case 'crys':
+    case 'seek':
+        print('"That\'s quite a @tale."')
         jump 196
 
-    case "tale":
-        print("\"Indeed.\"")
+    case 'tale':
+        print('"Indeed."')
         jump 196
 
-    case "busi":
-    case "impo":
-        print("\"Perhaps you're interested in joining the @guild.\"")
+    case 'busi':
+    case 'impo':
+        print('"Perhaps you\'re interested in joining the @guild."')
         jump 196
 
-    case "job":
-        print("\"I am the @guildmaster of artisans.\"")
+    case 'job':
+        print('"I am the @guildmaster of artisans."')
         jump 196
 
-    case "rune":
+    case 'rune':
         if hasBit(byte 235, byte 6):
-            print("\"I already loaned you the rune.\"")
+            print('"I already loaned you the rune."')
             jump 196
         fi
 
-        print("\"I'd be glad to loan you the rune, but only members of the @guild are ")
-        print("allowed to handle it.\"")
+        print('"I\'d be glad to loan you the rune, but only members of the @guild are ')
+        print('allowed to handle it."')
         jump 196
 
-    case "arti":
-    case "guil":
-    case "join":
-    case "loan":
-    case "memb":
+    case 'arti':
+    case 'guil':
+    case 'join':
+    case 'loan':
+    case 'memb':
         if hasBit(byte 235, byte 6):
-            print("\"Wait a minute... You're already a member of the guild!\"")
+            print('"Wait a minute... You\'re already a member of the guild!"')
             jump 196
         fi
 
-        print("\"If you want to join the guild, you need to do two things.\"")
+        print('"If you want to join the guild, you need to do two things."')
         wait()
 
-        print("\n\n\"First, you need to make a set of @panpipes. @Julia can teach you ")
-        print("how to that.\"")
+        print('\n\n"First, you need to make a set of @panpipes. @Julia can teach you ')
+        print('how to that."')
         wait()
 
-        print("\n\n\"You also need to commit '@Stones' to memory. 'Tis a simple tune - ")
-        print("ask @Gwenno to play it for thee.\"")
+        print('\n\n"You also need to commit \'@Stones\' to memory. \'Tis a simple tune - ')
+        print('ask @Gwenno to play it for thee."')
 
         if equals(hasBit(byte 235, byte 6), byte 0):
             ('SETF', ('byte', 235), ('byte', 7))
@@ -98,143 +98,143 @@ interaction:
 
         jump 196
 
-    case "pan":
-    case "pipe":
-    case "ston":
+    case 'pan':
+    case 'pipe':
+    case 'ston':
         jump 1968
 
-    case "juli":
+    case 'juli':
         if partyHas(byte 67):
-            print("\"Yes, ask her about it.\"")
+            print('"Yes, ask her about it."')
 
         else:
-            print("\"She made my @lute - and most of our other instruments as well.\"")
+            print('"She made my @lute - and most of our other instruments as well."')
             wait()
 
-            print("\n\n\"She lives just across the road, next door to Lady @Isabella.\"")
+            print('\n\n"She lives just across the road, next door to Lady @Isabella."')
         fi
 
         jump 196
 
-    case "isab":
-        print("\"She's the mayor.\"")
+    case 'isab':
+        print('"She\'s the mayor."')
         jump 196
 
-    case "gwen":
-        print("\"I know she's around here somewhere...\"")
+    case 'gwen':
+        print('"I know she\'s around here somewhere..."')
 
         if isNearby(byte 66):
             wait()
 
             ('PORTRAIT', ('byte', 66))
-            print("\n\n\"I'm right here, Selganor!\"")
+            print('\n\n"I\'m right here, Selganor!"')
             wait()
 
             ('PORTRAIT', ('byte', 235))
-            print("\n\n\"Ah, I knew you'd be somewhere close by.\"")
+            print('\n\n"Ah, I knew you\'d be somewhere close by."')
         fi
 
         jump 196
 
-    case "inst":
-    case "lute":
-        print("\"I prefer stringed instruments. They make such lovely sounds.\"")
+    case 'inst':
+    case 'lute':
+        print('"I prefer stringed instruments. They make such lovely sounds."')
         jump 196
 
-    case "ball":
-        print("\"Oh, are you looking for the man who invented the balloon?\" He stares ")
-        print("upward, stroking his chin pensively.")
+    case 'ball':
+        print('"Oh, are you looking for the man who invented the balloon?" He stares ')
+        print('upward, stroking his chin pensively.')
         wait()
 
-        print("\n\n\"Ah yes, now I remember. He flew to @Sutek's castle.\"")
+        print('\n\n"Ah yes, now I remember. He flew to @Sutek\'s castle."')
         wait()
 
-        print("\n\n\"Said something about a big job he had to do there.\"")
+        print('\n\n"Said something about a big job he had to do there."')
         jump 196
 
-    case "cast":
-    case "flew":
-    case "sute":
-        print("\"Sutek lives on an @island, far to the south.\"")
+    case 'cast':
+    case 'flew':
+    case 'sute':
+        print('"Sutek lives on an @island, far to the south."')
         jump 196
 
-    case "isla":
-        print("\"It's east of Serpent's Hold.\"")
+    case 'isla':
+        print('"It\'s east of Serpent\'s Hold."')
         jump 196
 
-    case "bye":
-        print("\"It was nice talking to you.\"\n")
+    case 'bye':
+        print('"It was nice talking to you."\n')
         bye()
 
-    case "*":
-        print("\"I don't think I can help you there.\"")
+    case '*':
+        print('"I don\'t think I can help you there."')
     esac
 
     jump 196
 
 1968:
     if hasBit(byte 235, byte 6):
-        print("\"You should play your panpipes often - 'twill lighten your step on the")
-        print(" long road ahead.\"")
+        print('"You should play your panpipes often - \'twill lighten your step on the')
+        print(' long road ahead."')
         jump 196
     fi
 
-    print("\"Have you made a set of panpipes?\"")
+    print('"Have you made a set of panpipes?"')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"Oh. Well, @Julia can show you how if you need help.\"")
+    case 'n':
+        print('"Oh. Well, @Julia can show you how if you need help."')
         jump 196
 
-    case "y":
+    case 'y':
         if equals(partyHasObject(byte 153, byte 0), word 32769):
-            print("\"But I don't see any!\"")
+            print('"But I don\'t see any!"')
             jump 196
         fi
     esac
 
-    print("He inspects the pipes. \"Very good, very good indeed.\"")
+    print('He inspects the pipes. "Very good, very good indeed."')
     wait()
 
-    print("\n\n\"Now tell me the sequence of notes in 'Stones' and I'll induct you ")
-    print("into the guild.\"")
+    print('\n\n"Now tell me the sequence of notes in \'Stones\' and I\'ll induct you ')
+    print('into the guild."')
     wait()
 
-    print("\n\n\"Numeric notation will be fine.\"\n")
+    print('\n\n"Numeric notation will be fine."\n')
 
     ask()
 
-    case "678987":
-    case "8767653":
-        print("\"Excellent!\" He strums a chord on his lute, then taps you lightly once")
-        print(" on each shoulder with it.")
+    case '678987':
+    case '8767653':
+        print('"Excellent!" He strums a chord on his lute, then taps you lightly once')
+        print(' on each shoulder with it.')
         wait()
 
-        print("\n\"You are now a full member of the guild of artisans.\"")
+        print('\n"You are now a full member of the guild of artisans."')
         wait()
 
-        print("\n\nHe reaches into a belt-pouch, takes out the Rune of Sacrifice, and ")
-        print("hands it to you.")
+        print('\n\nHe reaches into a belt-pouch, takes out the Rune of Sacrifice, and ')
+        print('hands it to you.')
         wait()
 
-        print("\n\n\"I'm sure you'll be needing this in your travels.\"")
+        print('\n\n"I\'m sure you\'ll be needing this in your travels."')
         wait()
 
-        print("\n\"I know you'll find some solution to this gargoyle problem.\"")
+        print('\n"I know you\'ll find some solution to this gargoyle problem."')
         ('GIVE', ('byte', 246), ('byte', 0), ('byte', 235), ('byte', 1))
         ('SETF', ('byte', 235), ('byte', 6))
         ('CLEARF', ('byte', 235), ('byte', 7))
         jump 196
 
-    case "*":
-        print("\"No, I'm afraid that's not it. Gwenno can help you learn the notes.\"")
+    case '*':
+        print('"No, I\'m afraid that\'s not it. Gwenno can help you learn the notes."')
         jump 196
     esac
 
 2863:
-    print("\"Oh, hello. Maybe you can help me with something.\"\n*\n\"My nephew is ")
-    print("studying alchemy, and he needs to know this.\"\n*\n")
+    print('"Oh, hello. Maybe you can help me with something."\n*\n"My nephew is ')
+    print('studying alchemy, and he needs to know this."\n*\n')
     integer(value 6) = random(byte 1, byte 4)
 
     if equals(integer(value 6), byte 1):
@@ -254,83 +254,83 @@ interaction:
     fi
 
 3040:
-    print("\"What kind of fork should mandrake roots be prepared with?\"\n")
+    print('"What kind of fork should mandrake roots be prepared with?"\n')
 
     ask()
 
-    case "silv":
+    case 'silv':
         jump 3691
 
-    case "bye":
+    case 'bye':
         jump 3739
 
-    case "*":
-        print("\"No, that doesn't sound right. If only I had a Compendium to look it ")
-        print("up in...\"")
+    case '*':
+        print('"No, that doesn\'t sound right. If only I had a Compendium to look it ')
+        print('up in..."')
         jump 3099
     esac
 
 3209:
-    print("\"What part of the nightshade mushroom is used in spellcasting?\"\n")
+    print('"What part of the nightshade mushroom is used in spellcasting?"\n')
 
     ask()
 
-    case "cap":
-    case "fung":
-    case "spor":
+    case 'cap':
+    case 'fung':
+    case 'spor':
         jump 3691
 
-    case "bye":
+    case 'bye':
         jump 3739
 
-    case "*":
-        print("\"No, that doesn't sound right. If only I had a Compendium to look it ")
-        print("up in...\"")
+    case '*':
+        print('"No, that doesn\'t sound right. If only I had a Compendium to look it ')
+        print('up in..."')
         jump 3272
     esac
 
 3391:
-    print("\"Where does sulfurous ash come from?\"\n")
+    print('"Where does sulfurous ash come from?"\n')
 
     ask()
 
-    case "erup":
-    case "volc":
+    case 'erup':
+    case 'volc':
         jump 3691
 
-    case "bye":
+    case 'bye':
         jump 3739
 
-    case "*":
-        print("\"No, that doesn't sound right. If only I had a Compendium to look it ")
-        print("up in...\"")
+    case '*':
+        print('"No, that doesn\'t sound right. If only I had a Compendium to look it ')
+        print('up in..."')
         jump 3428
     esac
 
 3543:
-    print("\"What are black pearls used for?\"\n")
+    print('"What are black pearls used for?"\n')
 
     ask()
 
-    case "kine":
-    case "prop":
+    case 'kine':
+    case 'prop':
         jump 3691
 
-    case "bye":
+    case 'bye':
         jump 3739
 
-    case "*":
-        print("\"No, that doesn't sound right. If only I had a Compendium to look it ")
-        print("up in...\"")
+    case '*':
+        print('"No, that doesn\'t sound right. If only I had a Compendium to look it ')
+        print('up in..."')
         jump 3576
     esac
 
 3691:
-    print("\"Thanks! Now what can I do for you?\"")
+    print('"Thanks! Now what can I do for you?"')
     ('SETF', ('byte', 235), ('byte', 5))
     jump 196
 
 3739:
-    print("\"Hmmmm... I wish I knew the answer to that question...\"\n*\nHe turns ")
-    print("away from you absent-mindedly.\n")
+    print('"Hmmmm... I wish I knew the answer to that question..."\n*\nHe turns ')
+    print('away from you absent-mindedly.\n')
     bye()

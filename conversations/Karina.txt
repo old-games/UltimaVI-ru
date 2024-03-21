@@ -1,165 +1,165 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(35)
 
 id(134)
-name("Karina")
+name('Karina')
 
 description:
-    print("a gypsy girl poised on the verge of womanhood.")
+    print('a gypsy girl poised on the verge of womanhood.')
 
 interaction:
     if hasBit(byte 135, byte 7):
-        print("*\n\"How could you be so mean to Kador! You go and apologize to my poor ")
-        print("little dog this instant!\"\n")
+        print('*\n"How could you be so mean to Kador! You go and apologize to my poor ')
+        print('little dog this instant!"\n')
         bye()
     fi
 
 161:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "name":
+    case 'name':
         jump 907
 
-    case "advi":
+    case 'advi':
         jump 1260
 
-    case "buy":
-    case "sell":
-        print("\"I have nothing to sell you. Talk to my father.\"")
+    case 'buy':
+    case 'sell':
+        print('"I have nothing to sell you. Talk to my father."')
         jump 161
 
-    case "job":
-        print("\"@Father says I'm supposed to @dance for @gorgios.\"")
+    case 'job':
+        print('"@Father says I\'m supposed to @dance for @gorgios."')
         jump 161
 
-    case "gorg":
-        print("\"That's what we call anyone who isn't a @gypsy.\"")
+    case 'gorg':
+        print('"That\'s what we call anyone who isn\'t a @gypsy."')
         jump 161
 
-    case "gyps":
-        print("\"It's a nice life, but it gets lonely. I miss my @sister.\"")
+    case 'gyps':
+        print('"It\'s a nice life, but it gets lonely. I miss my @sister."')
         jump 161
 
-    case "sist":
+    case 'sist':
         jump 1040
 
-    case "penu":
-        print("\"")
+    case 'penu':
+        print('"')
         jump 1063
 
-    case "fath":
-    case "zolt":
-        print("\"He is Zoltan, @king of the gypsies!\"")
+    case 'fath':
+    case 'zolt':
+        print('"He is Zoltan, @king of the gypsies!"')
         jump 161
 
-    case "king":
-        print("\"Well, that's what he says.\"")
+    case 'king':
+        print('"Well, that\'s what he says."')
         jump 161
 
-    case "capt":
-    case "john":
-    case "lyca":
-    case "silv":
-    case "tabl":
-        print("\"Ask my father.\"")
+    case 'capt':
+    case 'john':
+    case 'lyca':
+    case 'silv':
+    case 'tabl':
+        print('"Ask my father."')
         jump 161
 
-    case "danc":
-        print("\"Oh, I just couldn't, not in front of so many @people.\"")
+    case 'danc':
+        print('"Oh, I just couldn\'t, not in front of so many @people."')
         jump 161
 
-    case "coul":
-    case "fron":
-    case "many":
-    case "peop":
-        print("\"I'd be too @embarassed!\"")
+    case 'coul':
+    case 'fron':
+    case 'many':
+    case 'peop':
+        print('"I\'d be too @embarassed!"')
         jump 161
 
-    case "emba":
-        print("\"Well... Do you promise not to make fun of me?\" ")
+    case 'emba':
+        print('"Well... Do you promise not to make fun of me?" ')
         jump 1542
 
-    case "dog":
-    case "kado":
-        print("\"He's such a sweet little doggie...\"")
+    case 'dog':
+    case 'kado':
+        print('"He\'s such a sweet little doggie..."')
         jump 161
 
-    case "bye":
-        print("\"Good bye, and sweet dreams to you.\"\n")
+    case 'bye':
+        print('"Good bye, and sweet dreams to you."\n')
         bye()
 
-    case "*":
-        print("\"I can't help you with that.\"")
+    case '*':
+        print('"I can\'t help you with that."')
     esac
 
     jump 161
 
 907:
-    print("\"My name is Karina.\" she says, looking shyly at the ground. \"Do you ")
-    print("think it's a pretty name?\" ")
+    print('"My name is Karina." she says, looking shyly at the ground. "Do you ')
+    print('think it\'s a pretty name?" ')
     ('SETF', ('byte', 235), ('value', 0))
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
-        print("\"Thank you.\"")
+    case 'y':
+        print('"Thank you."')
 
-    case "n":
-        print("\"Oh.\"")
+    case 'n':
+        print('"Oh."')
     esac
 
     jump 161
 
 1040:
-    print("\"Her name is Penumbra. Have you any news of her?\" ")
+    print('"Her name is Penumbra. Have you any news of her?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"If you do, please come tell me. I miss her so much...\"")
+    case 'n':
+        print('"If you do, please come tell me. I miss her so much..."')
         jump 161
     esac
 
-    print("\n\"Oh! I'm so glad to hear she's okay!\" She throws her arms around you ")
-    print("and kisses you on the cheek.")
+    print('\n"Oh! I\'m so glad to hear she\'s okay!" She throws her arms around you ')
+    print('and kisses you on the cheek.')
     jump 161
 
 1260:
-    print("\"I have to ask you for a gold piece for my advice. Is that okay?\" ")
+    print('"I have to ask you for a gold piece for my advice. Is that okay?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"It was my father's idea!\"")
+    case 'n':
+        print('"It was my father\'s idea!"')
         jump 161
     esac
 
     if less(objectsCount(byte 1, byte 88), byte 1):
-        print("\n\"I'm sorry. I'm not supposed to help you unless you pay.\"")
+        print('\n"I\'m sorry. I\'m not supposed to help you unless you pay."')
         jump 161
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 1))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 1))
-    print("\n\"Ask our dog, @Kador, to do some tricks for you. He knows lots of ")
-    print("them!\"")
+    print('\n"Ask our dog, @Kador, to do some tricks for you. He knows lots of ')
+    print('them!"')
     jump 161
 
 1542:
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("She turns away from you.\n")
+    case 'n':
+        print('She turns away from you.\n')
         ('SUB_KARMA', ('byte', 5))
         bye()
     esac
 
-    print("\nSuddenly she starts dancing a dance of haunting beauty, to the sound ")
-    print("of music that seems to emanate from nowhere.*\n\nIt's one of the most ")
-    print("wondrous sights you've ever seen.*\n\nAfter a timeless time, the music ")
-    print("ceases, and she turns and runs away.\n")
+    print('\nSuddenly she starts dancing a dance of haunting beauty, to the sound ')
+    print('of music that seems to emanate from nowhere.*\n\nIt\'s one of the most ')
+    print('wondrous sights you\'ve ever seen.*\n\nAfter a timeless time, the music ')
+    print('ceases, and she turns and runs away.\n')
 
     if equals(hasBit(byte 235, byte 7), byte 0):
         ('ADD_KARMA', ('byte', 10))

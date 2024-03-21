@@ -1,23 +1,23 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(22)
 
 id(121)
-name("Fentrissa")
+name('Fentrissa')
 
 description:
-    print("a strong, sinewy woman with a hard look about her.")
+    print('a strong, sinewy woman with a hard look about her.')
     wait()
 
-    print("\n")
+    print('\n')
 
 interaction:
     integer(value 5) = byte 0
 
     if hasBit(byte 235, value 0):
-        print("\"Smell that salt air, friend. Brings a tear to me eye...\"\n")
+        print('"Smell that salt air, friend. Brings a tear to me eye..."\n')
 
     else:
-        print("\"Welcome, welcome!\" She slaps you heartily on the back.\n")
+        print('"Welcome, welcome!" She slaps you heartily on the back.\n')
     fi
 
 194:
@@ -25,50 +25,50 @@ interaction:
 
     ask()
 
-    case "name":
-        print("\"@Fentrissa.\"\n")
+    case 'name':
+        print('"@Fentrissa."\n')
         ('SETF', ('byte', 235), ('value', 0))
         jump 194
 
-    case "fent":
-        print("\"A strong name, as strong as the @sea.\" She looks into the distance.\n")
+    case 'fent':
+        print('"A strong name, as strong as the @sea." She looks into the distance.\n')
         jump 194
 
-    case "sea":
-        print("\"Beautiful thing, but a @jealous man he is.\"\n")
+    case 'sea':
+        print('"Beautiful thing, but a @jealous man he is."\n')
         jump 194
 
-    case "jeal":
-    case "man":
-        print("\"Many call her a female.\"")
+    case 'jeal':
+    case 'man':
+        print('"Many call her a female."')
         wait()
 
-        print("\n\n\"If ya ask me, men are much more unpredictable.\"\n")
+        print('\n\n"If ya ask me, men are much more unpredictable."\n')
         jump 194
 
-    case "buy":
-    case "deed":
+    case 'buy':
+    case 'deed':
         if equals(integer(value 1), byte 0):
-            print("\"You bought my last craft.\"\n")
+            print('"You bought my last craft."\n')
             jump 194
         fi
 
-        print("\"I sell")
+        print('"I sell')
 
         if or(equals(integer(value 1), byte 1), equals(integer(value 1), byte 2)):
-            print(" @ships.\"\n")
+            print(' @ships."\n')
             jump 194
         fi
 
         if or(equals(integer(value 1), byte 3), equals(integer(value 1), byte 6)):
-            print(" @skiffs.\"\n")
+            print(' @skiffs."\n')
             jump 194
         fi
 
-        print(" @ships and @skiffs.\"\n")
+        print(' @ships and @skiffs."\n')
         jump 194
 
-    case "ship":
+    case 'ship':
         if hasObject(byte 235, byte 149, byte 1):
             integer(value 9) = byte 0
             jump 1165
@@ -79,10 +79,10 @@ interaction:
             jump 1165
         fi
 
-        print("\"Sorry, I sold you my last one.\"\n")
+        print('"Sorry, I sold you my last one."\n')
         jump 194
 
-    case "skif":
+    case 'skif':
         if hasObject(byte 235, byte 149, word 128):
             integer(value 9) = byte 2
             jump 1165
@@ -93,34 +93,34 @@ interaction:
             jump 1165
         fi
 
-        print("\"Sorry, I sold you my last one.\"\n")
+        print('"Sorry, I sold you my last one."\n')
         jump 194
 
-    case "job":
+    case 'job':
         if equals(integer(value 1), byte 0):
-            print("\"I'm out of work after selling you all my ships and skiffs.\"\n")
+            print('"I\'m out of work after selling you all my ships and skiffs."\n')
             jump 194
         fi
 
         if or(equals(integer(value 1), byte 1), equals(integer(value 1), byte 2)):
-            print("\"I have @ships for sale, but I sold you my last @skiff.\"\n")
+            print('"I have @ships for sale, but I sold you my last @skiff."\n')
             jump 194
         fi
 
         if or(equals(integer(value 1), byte 3), equals(integer(value 1), byte 6)):
-            print("\"I sold you my last @ship, but I still have some @skiffs left.\"\n")
+            print('"I sold you my last @ship, but I still have some @skiffs left."\n')
             jump 194
         fi
 
-        print("\"I sell @ships and @skiffs.\"\n")
+        print('"I sell @ships and @skiffs."\n')
         jump 194
 
-    case "bye":
-        print("\"Have a good one.\" She bows, hands on her hips.\n")
+    case 'bye':
+        print('"Have a good one." She bows, hands on her hips.\n')
         bye()
 
-    case "*":
-        print("\"Ask around.\"\n")
+    case '*':
+        print('"Ask around."\n')
     esac
 
     jump 194
@@ -137,7 +137,7 @@ interaction:
 
 1199:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2. $Y\n")
+    print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -145,7 +145,7 @@ interaction:
         jump 1199
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
@@ -161,14 +161,14 @@ interaction:
 1301:
     integer(value 4) = data(dword 2033, integer(value 9))
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-    print("$N turns to $Y, \"It'll cost you #4 gold for the deed. Interested?\"")
+    print('$N turns to $Y, "It\'ll cost you #4 gold for the deed. Interested?"')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(canCarry(character(integer(value 3), byte 0)), weight(byte 149, byte 1)):
             ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-            print("$N looks at $Y. \"You look pretty full to me.\"\n")
+            print('$N looks at $Y. "You look pretty full to me."\n')
             jump 194
         fi
 
@@ -177,24 +177,24 @@ interaction:
 1471:
         ('GIVE', ('byte', 149), ('data', [('dword', 2041), ('integer', [('value', 9)])]), ('byte', 235), ('character', [('integer', [('value', 3)]), ('byte', 0)]))
         ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-        print("\"Excellent!\" After accepting the gold, $N hands $Y the deed.")
+        print('"Excellent!" After accepting the gold, $N hands $Y the deed.')
         wait()
 
         integer(value 5) = byte 1
-        print("\n\n")
+        print('\n\n')
         jump 1584
 
-    case "n":
+    case 'n':
         jump 1584
     esac
 
 1584:
     if integer(value 5):
-        print("\"Sail her straight.\"\n")
+        print('"Sail her straight."\n')
         jump 194
     fi
 
-    print("\"You'll ne'er find a better craft.\"\n")
+    print('"You\'ll ne\'er find a better craft."\n')
     jump 194
 
 1656:
@@ -208,13 +208,13 @@ interaction:
         jump 1960
 
 1705:
-        print("\"Your party hasn't enough money.\"")
+        print('"Your party hasn\'t enough money."')
         wait()
 
-        print("\n\n\"It looks like you're #1 gold piece\\s short.\"")
+        print('\n\n"It looks like you\'re #1 gold piece\\s short."')
         wait()
 
-        print("\n\n\"Sorry.\"\n")
+        print('\n\n"Sorry."\n')
         jump 194
     fi
 
@@ -230,10 +230,10 @@ interaction:
 
     else:
         ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-        print("Your party takes up a collection for the deed.")
+        print('Your party takes up a collection for the deed.')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1471
     fi
 

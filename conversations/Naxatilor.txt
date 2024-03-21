@@ -1,24 +1,24 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(69)
 
 id(168)
-name("Naxatilor")
+name('Naxatilor')
 
 description:
-    print("a dark, rough-skinned gargoyle.")
+    print('a dark, rough-skinned gargoyle.')
 
 interaction:
     wait()
 
-    print("\n")
+    print('\n')
 
     if equals(integer(value 21), byte 0):
-        print("The venerable gargoyle does not acknowledge your presence.\n")
+        print('The venerable gargoyle does not acknowledge your presence.\n')
         bye()
     fi
 
     if notEquals(partyHasObject(byte 76, byte 0), byte 1):
-        print("\"To have nothing to say to you, False Prophet!\"\n")
+        print('"To have nothing to say to you, False Prophet!"\n')
         bye()
     fi
 
@@ -27,195 +27,195 @@ interaction:
     fi
 
     if hasBit(byte 235, value 0):
-        print("\"To greet you again, $P.\"")
+        print('"To greet you again, $P."')
         jump 822
     fi
 
-    print("\"To greet you, $P, Avatar of the Underworld.\"")
+    print('"To greet you, $P, Avatar of the Underworld."')
     wait()
 
-    print("\n\n\"To see the Amulet of Submission around your neck.\"")
+    print('\n\n"To see the Amulet of Submission around your neck."')
     wait()
 
-    print("\n\n\"To consider your acceptance of this both noble and wise.\"")
+    print('\n\n"To consider your acceptance of this both noble and wise."')
     wait()
 
-    print("\n\n")
+    print('\n\n')
 
     if less(integer(value 20), byte 40):
-        print("\"To observe by your aura that such honorable deeds are rare for you.\"")
+        print('"To observe by your aura that such honorable deeds are rare for you."')
         wait()
 
-        print("\n\n\"To not be surprised, then, that you are @fated to destroy a world.\"")
+        print('\n\n"To not be surprised, then, that you are @fated to destroy a world."')
         jump 822
     fi
 
     if less(integer(value 20), byte 80):
-        print("\"To observe by your aura that you are not a being of evil.\"")
+        print('"To observe by your aura that you are not a being of evil."')
         wait()
 
-        print("\n\n\"To regret for your sake, then, that you are @fated to destroy a ")
-        print("world.\"")
+        print('\n\n"To regret for your sake, then, that you are @fated to destroy a ')
+        print('world."')
         jump 822
     fi
 
-    print("\"To observe by your aura that you are truly a being of honor.\"")
+    print('"To observe by your aura that you are truly a being of honor."')
     wait()
 
-    print("\n\n\"To be surprised, then, that you are @fated to destroy a world.\"")
+    print('\n\n"To be surprised, then, that you are @fated to destroy a world."')
     ('SETF', ('byte', 235), ('value', 0))
 
 822:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "scho":
-    case "valk":
-        print("\"To have spoken to Scholar Valkadesh?\"")
+    case 'scho':
+    case 'valk':
+        print('"To have spoken to Scholar Valkadesh?"')
         wait()
 
-        print("\n\n\"Then surely to know what harm you have caused my world!\"")
+        print('\n\n"Then surely to know what harm you have caused my world!"')
         wait()
 
-        print("\n\n\"To have no @choice but to return the Codex!\"")
+        print('\n\n"To have no @choice but to return the Codex!"')
         jump 822
 
-    case "dest":
-    case "fate":
-    case "worl":
-        print("\"To have wreaked great havoc in this land by your theft of the Codex!\"")
+    case 'dest':
+    case 'fate':
+    case 'worl':
+        print('"To have wreaked great havoc in this land by your theft of the Codex!"')
         wait()
 
-        print("\n\n\"To have no @choice but to return it!\"")
+        print('\n\n"To have no @choice but to return it!"')
         jump 822
 
-    case "choi":
-    case "retu":
-        print("\"To see only two alternatives: to return the @Codex, or to give up ")
-        print("your life.\"")
+    case 'choi':
+    case 'retu':
+        print('"To see only two alternatives: to return the @Codex, or to give up ')
+        print('your life."')
         jump 822
 
-    case "sacr":
-        print("\"Hss...Yes, to know of the three meanings of that word.\"")
+    case 'sacr':
+        print('"Hss...Yes, to know of the three meanings of that word."')
         wait()
 
-        print("\n\n\"To ask to which type of sacrifice you refer: @self, @others or ")
-        print("items of @value?\"")
+        print('\n\n"To ask to which type of sacrifice you refer: @self, @others or ')
+        print('items of @value?"')
         jump 822
 
-    case "self":
-        print("\"To admire your willingness to sacrifice your life for the good of my ")
-        print("people.\"")
+    case 'self':
+        print('"To admire your willingness to sacrifice your life for the good of my ')
+        print('people."')
         wait()
 
-        print("\n\n\"But to doubt that that is the meaning of the prophecy.\"")
+        print('\n\n"But to doubt that that is the meaning of the prophecy."')
         jump 822
 
-    case "othe":
-        print("\"What?!\"")
+    case 'othe':
+        print('"What?!"')
         wait()
 
-        print("\n\n\"To suggest that you can atone for your misdeed by bathing in the ")
-        print("blood of others?!\"")
+        print('\n\n"To suggest that you can atone for your misdeed by bathing in the ')
+        print('blood of others?!"')
         wait()
 
-        print("\n\n")
+        print('\n\n')
 
         if less(integer(value 20), byte 40):
-            print("\"To find such thoughts well in keeping with the blackness of your ")
-            print("aura!\"")
+            print('"To find such thoughts well in keeping with the blackness of your ')
+            print('aura!"')
 
         else:
-            print("\"To find such thoughts unworthy of your honorable aura!\"")
+            print('"To find such thoughts unworthy of your honorable aura!"')
         fi
 
         jump 822
 
-    case "item":
-    case "valu":
-        print("\"To know of only one item of true value--the Codex itself.\"")
+    case 'item':
+    case 'valu':
+        print('"To know of only one item of true value--the Codex itself."')
         wait()
 
-        print("\n\n\"Surely not to destroy the Codex!?\" ")
+        print('\n\n"Surely not to destroy the Codex!?" ')
         jump 3883
 
-    case "retu":
-    case "ritu":
-    case "vort":
-        print("\"To direct you to go to the Hall of Knowledge, south of here.\"")
+    case 'retu':
+    case 'ritu':
+    case 'vort':
+        print('"To direct you to go to the Hall of Knowledge, south of here."')
         wait()
 
-        print("\n\n\"There to read the Book of Ritual.\"")
+        print('\n\n"There to read the Book of Ritual."')
         wait()
 
-        print("\n\n\"There also to get the Vortex Lens!\"")
+        print('\n\n"There also to get the Vortex Lens!"')
         wait()
 
-        print("\n\n\"Then to return here, where I will tell you what must be done!\"")
+        print('\n\n"Then to return here, where I will tell you what must be done!"')
         ('SETF', ('byte', 235), ('byte', 2))
         jump 822
 
-    case "both":
-    case "peop":
-        print("\"To be able to see the @Vortex from both sides of the world!\"")
+    case 'both':
+    case 'peop':
+        print('"To be able to see the @Vortex from both sides of the world!"')
         wait()
 
-        print("\n\n\"To benefit both races equally if the Codex is @returned there!\"")
+        print('\n\n"To benefit both races equally if the Codex is @returned there!"')
         jump 822
 
-    case "name":
-        print("\"To be called Naxatilor.\"")
+    case 'name':
+        print('"To be called Naxatilor."')
         jump 822
 
-    case "job":
-        print("\"To be a seer, mystic advisor to my people.\"")
+    case 'job':
+        print('"To be a seer, mystic advisor to my people."')
         wait()
 
-        print("\n\n\"But to be unable to avert what is written in the Book of ")
-        print("Prophecies.\"")
+        print('\n\n"But to be unable to avert what is written in the Book of ')
+        print('Prophecies."')
         jump 822
 
-    case "huma":
-    case "lens":
-    case "seco":
-        print("\"To be sure to show the human lensmaker the Vortex Lens.\"")
+    case 'huma':
+    case 'lens':
+    case 'seco':
+        print('"To be sure to show the human lensmaker the Vortex Lens."')
         wait()
 
-        print("\n\n\"Also to be sure to tell the human lensmaker that his lens must be ")
-        print("concave!\"")
+        print('\n\n"Also to be sure to tell the human lensmaker that his lens must be ')
+        print('concave!"')
         wait()
 
-        print("\n\n\"To be most important--concave!\"")
+        print('\n\n"To be most important--concave!"')
         jump 822
 
-    case "code":
-        print("\"To know not where the Codex is.\"")
+    case 'code':
+        print('"To know not where the Codex is."')
         wait()
 
-        print("\n\n\"But to remember that Captain Bolesh just returned from the Codex!\"")
+        print('\n\n"But to remember that Captain Bolesh just returned from the Codex!"')
         wait()
 
-        print("\n\n\"To suggest you seek him. To try the healer's house to the north.\"")
+        print('\n\n"To suggest you seek him. To try the healer\'s house to the north."')
         jump 822
 
-    case "hall":
-    case "know":
-        print("\"To find the Vortex Lens in the Hall of Knowledge, south of here.\"")
+    case 'hall':
+    case 'know':
+        print('"To find the Vortex Lens in the Hall of Knowledge, south of here."')
         jump 822
 
-    case "bye":
+    case 'bye':
         if hasBit(byte 235, byte 2):
-            print("\"Farewell! To return when you have visited the Hall of Knowledge!\"\n")
+            print('"Farewell! To return when you have visited the Hall of Knowledge!"\n')
 
         else:
-            print("\"Farewell, $P. To return when there is more we can discuss.\"\n")
+            print('"Farewell, $P. To return when there is more we can discuss."\n')
         fi
 
         bye()
 
-    case "*":
-        print("\"To have no time to discuss that.\"")
+    case '*':
+        print('"To have no time to discuss that."')
         jump 822
     esac
 
@@ -224,79 +224,79 @@ interaction:
         jump 3272
 
     else:
-        print("\"Yes, to see that the Vortex Lens is no longer whole.\"")
+        print('"Yes, to see that the Vortex Lens is no longer whole."')
         wait()
 
-        print("\n\n\"To go to the lensmaker, whose house is northeast of here.\"")
+        print('\n\n"To go to the lensmaker, whose house is northeast of here."')
         wait()
 
-        print("\n\n\"To get the lens repaired there!\"")
+        print('\n\n"To get the lens repaired there!"')
         wait()
 
-        print("\n\n\"Then to return here with the whole lens!\"\n")
+        print('\n\n"Then to return here with the whole lens!"\n')
         bye()
     fi
 
 3272:
     if equals(partyHasObject(word 396, byte 0), word 32769):
-        print("\"To require the Vortex Lens, foolish human!\"")
+        print('"To require the Vortex Lens, foolish human!"')
         wait()
 
-        print("\n\n\"To waste no more time!\"")
+        print('\n\n"To waste no more time!"')
         wait()
 
-        print("\n\n\"To go to the @Hall of Knowledge and get the lens!\"")
+        print('\n\n"To go to the @Hall of Knowledge and get the lens!"')
         wait()
 
-        print("\n\n\"To bring it to me personally, Avatar!\"")
+        print('\n\n"To bring it to me personally, Avatar!"')
         jump 822
     fi
 
-    print("\"Good, to see that you have the Vortex Lens.\"")
+    print('"Good, to see that you have the Vortex Lens."')
     wait()
 
-    print("\n\n\"To have read the Book of Ritual as well?\" ")
+    print('\n\n"To have read the Book of Ritual as well?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"Then to go to the Hall of Knowledge and do so!\"\n")
+    case 'n':
+        print('"Then to go to the Hall of Knowledge and do so!"\n')
         bye()
 
-    case "y":
+    case 'y':
         ('CLEARF', ('byte', 235), ('byte', 2))
-        print("\"Good. To be unable to reverse the ritual myself.\"")
+        print('"Good. To be unable to reverse the ritual myself."')
         wait()
 
-        print("\n\n\"But to know that the Codex itself will say how to return it to the ")
-        print("Vortex.\"")
+        print('\n\n"But to know that the Codex itself will say how to return it to the ')
+        print('Vortex."')
         wait()
 
-        print("\n\n\"To know also that you will need a second lens.\"")
+        print('\n\n"To know also that you will need a second lens."')
         wait()
 
-        print("\n\n\"To require a human-crafted @lens, so that your people may also see ")
-        print("the @Codex.\"")
+        print('\n\n"To require a human-crafted @lens, so that your people may also see ')
+        print('the @Codex."')
         jump 822
     esac
 
 3883:
-    askc("yn")
+    askc('yn')
 
-    case "y":
-        print("\"To be utterly without hope in the face of such ignorance.\"")
+    case 'y':
+        print('"To be utterly without hope in the face of such ignorance."')
         wait()
 
-        print("\n\n\"To refuse to converse with a daemon.\"\n")
+        print('\n\n"To refuse to converse with a daemon."\n')
         bye()
 
-    case "n":
-        print("\"Perhaps to have another alternative...\"")
+    case 'n':
+        print('"Perhaps to have another alternative..."')
         wait()
 
-        print("\n\n\"Yes! To return the Codex to the @Vortex!\"")
+        print('\n\n"Yes! To return the Codex to the @Vortex!"')
         wait()
 
-        print("\n\n\"To then be available to @both our peoples!\"")
+        print('\n\n"To then be available to @both our peoples!"')
         jump 822
     esac

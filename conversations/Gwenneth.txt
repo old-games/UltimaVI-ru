@@ -1,16 +1,16 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(16)
 
 id(16)
-name("Gwenneth")
+name('Gwenneth')
 
 description:
-    print("a petite woman with flowing brown hair.")
+    print('a petite woman with flowing brown hair.')
     wait()
 
 interaction:
     integer(value 8) = byte 4
-    print("\n")
+    print('\n')
 
     if hasBit(byte 235, value 0):
         jump 612
@@ -19,240 +19,240 @@ interaction:
     ('SETF', ('byte', 235), ('value', 0))
 
     if partyHas(byte 4):
-        print("\"Iolo!")
+        print('"Iolo!')
 
     else:
         jump 519
     fi
 
     if integer(value 23):
-        print(" And thy companions as well!\"")
+        print(' And thy companions as well!"')
 
     else:
-        print("\"")
+        print('"')
     fi
 
     wait()
 
-    print("\n\n\"I heard rumors that you were in town!\"")
+    print('\n\n"I heard rumors that you were in town!"')
     wait()
 
     ('PORTRAIT', ('byte', 4))
-    print("\n\nIolo greets his former apprentice warmly.")
+    print('\n\nIolo greets his former apprentice warmly.')
     wait()
 
-    print("\n\n\"How goes business, Gwenneth?\"")
+    print('\n\n"How goes business, Gwenneth?"')
     wait()
 
     ('PORTRAIT', ('byte', 235))
-    print("\n\n\"Very well, very well indeed. Sir Geoffrey himself just placed quite")
-    print(" a large order!\"")
+    print('\n\n"Very well, very well indeed. Sir Geoffrey himself just placed quite')
+    print(' a large order!"')
     wait()
 
-    print("\n\n\"Much demand for bows these days, what with the @gargoyles!\"")
+    print('\n\n"Much demand for bows these days, what with the @gargoyles!"')
 
     if integer(value 23):
         wait()
 
-        print("\n\nTurning to you, Gwenneth says, \"And what can I do for Iolo's friend")
+        print('\n\nTurning to you, Gwenneth says, "And what can I do for Iolo\'s friend')
 
     else:
         jump 690
     fi
 
     if greater(integer(value 23), byte 1):
-        print("s")
+        print('s')
     fi
 
-    print(" this fine $T?\"")
+    print(' this fine $T?"')
     jump 690
 
 519:
-    print("\"I recongize thee! Thou art Iolo's friend, $P!\"")
+    print('"I recongize thee! Thou art Iolo\'s friend, $P!"')
     wait()
 
-    print("\n\n\"What can I do for thee this fine $T?\"")
+    print('\n\n"What can I do for thee this fine $T?"')
     jump 690
 
 612:
-    print("\"Hello again. What can I do for thee this fine $T?\"")
+    print('"Hello again. What can I do for thee this fine $T?"')
     jump 690
 
 668:
-    print("\n\"What'll it be next?\"\n")
+    print('\n"What\'ll it be next?"\n')
 
 690:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "buy":
+    case 'buy':
         jump 3916
 
-    case "sell":
+    case 'sell':
         jump 2994
 
-    case "name":
+    case 'name':
         if partyHas(byte 4):
-            print("\"What a strange question. I'm Gwenneth, of course.\"")
+            print('"What a strange question. I\'m Gwenneth, of course."')
             wait()
 
-            print("\n\n\"Just ask Iolo!\"")
+            print('\n\n"Just ask Iolo!"')
 
         else:
-            print("\"But dost thou not know Iolo?\"")
+            print('"But dost thou not know Iolo?"')
             wait()
 
-            print("\n\n\"Well, I am his former aprrentice, Gwenneth.\"")
+            print('\n\n"Well, I am his former aprrentice, Gwenneth."')
         fi
 
         jump 690
 
-    case "job":
-        print("\"Once was I Iolo's apprentice, but then he decided to retire.\"")
+    case 'job':
+        print('"Once was I Iolo\'s apprentice, but then he decided to retire."')
         wait()
 
-        print("\n\n\"Now 'tis my shop, and I craft the bows sold here!\"")
+        print('\n\n"Now \'tis my shop, and I craft the bows sold here!"')
         wait()
 
-        print("\n\n\\\"'Course, 'tis still called @Iolo's Bows, out of respect for the ")
-        print("master.\"")
+        print('\n\n\\"\'Course, \'tis still called @Iolo\'s Bows, out of respect for the ')
+        print('master."')
 
         if partyHas(byte 4):
             wait()
 
-            print("\n\nAt this, Iolo blushes humbly.")
+            print('\n\nAt this, Iolo blushes humbly.')
             jump 690
 
         else:
             jump 690
         fi
 
-    case "garg":
-        print("\"I hear from the soldiers that the gargoyles are fierce opponents.\"")
+    case 'garg':
+        print('"I hear from the soldiers that the gargoyles are fierce opponents."')
         wait()
 
-        print("\n\n\"Some gargoyles move like the wind itself, and can strike you like ")
-        print("lightning bolts!\"")
+        print('\n\n"Some gargoyles move like the wind itself, and can strike you like ')
+        print('lightning bolts!"')
         wait()
 
-        print("\n\n\"The gargoyles also have a strange and terrible @weapon.\"")
+        print('\n\n"The gargoyles also have a strange and terrible @weapon."')
         jump 690
 
-    case "weap":
-        print("\"'Tis called a boomerang, and it is a most bizarre ranged weapon.\"")
+    case 'weap':
+        print('"\'Tis called a boomerang, and it is a most bizarre ranged weapon."')
         wait()
 
-        print("\n\n\"It flies out to strike its target, then returns to the hand that ")
-        print("threw it!\"")
+        print('\n\n"It flies out to strike its target, then returns to the hand that ')
+        print('threw it!"')
         wait()
 
-        print("\n\n\"Against such magic the soldiers chose to arm themselves with good, ")
-        print("stout Britannian bows!\"")
+        print('\n\n"Against such magic the soldiers chose to arm themselves with good, ')
+        print('stout Britannian bows!"')
         jump 690
 
-    case "iolo":
+    case 'iolo':
         if partyHas(byte 4):
-            print("She smiles. \"I would not wish to speak of Iolo amongst his friends.\"")
+            print('She smiles. "I would not wish to speak of Iolo amongst his friends."')
             wait()
 
-            print("\n\n\"I might embarass him!\"")
+            print('\n\n"I might embarass him!"')
 
         else:
-            print("\"Nay, I really would not wish to speak of my master behind his back.\"")
+            print('"Nay, I really would not wish to speak of my master behind his back."')
         fi
 
         jump 690
 
-    case "arro":
-    case "bolt":
-        print("\"Aye, usually do I carry those in stock.\"")
+    case 'arro':
+    case 'bolt':
+        print('"Aye, usually do I carry those in stock."')
         wait()
 
-        print("\n\n\"But there has been a shortage of late, because of the @gargoyle ")
-        print("war.\"")
+        print('\n\n"But there has been a shortage of late, because of the @gargoyle ')
+        print('war."')
         wait()
 
-        print("\n\n\"Go see Lynn the Fletcher, over to the north.\"")
+        print('\n\n"Go see Lynn the Fletcher, over to the north."')
         jump 690
 
-    case "lynn":
-        print("\"Lynn is a fine fletcher, and usually keeps me supplied with @arrows ")
-        print("and @bolts.\"")
+    case 'lynn':
+        print('"Lynn is a fine fletcher, and usually keeps me supplied with @arrows ')
+        print('and @bolts."')
         wait()
 
-        print("\n\n\"I've none left in stock, though, since the soldiers bought them ")
-        print("all.\"")
+        print('\n\n"I\'ve none left in stock, though, since the soldiers bought them ')
+        print('all."')
         jump 690
 
-    case "trip":
+    case 'trip':
         if hasBit(byte 235, byte 2):
-            print("\"I fear I had but one triple crossbow for sale.\"")
+            print('"I fear I had but one triple crossbow for sale."')
             wait()
 
-            print("\n\n\"Come back in six months and I may have another.\"")
+            print('\n\n"Come back in six months and I may have another."')
             jump 690
 
         else:
             jump 2409
         fi
 
-    case "bye":
+    case 'bye':
         if integer(value 23):
-            print("\"Farewell, all of you.\"")
+            print('"Farewell, all of you."')
 
         else:
-            print("\"Farewell to thee!\"")
+            print('"Farewell to thee!"')
         fi
 
         if partyHas(byte 4):
             wait()
 
-            print("\n\n\"Iolo, I'll see thee again soon with thy share of this month's ")
-            print("profits!\"")
+            print('\n\n"Iolo, I\'ll see thee again soon with thy share of this month\'s ')
+            print('profits!"')
         fi
 
-        print("\n")
+        print('\n')
         bye()
 
-    case "*":
-        print("\"Beg pardon?\"")
+    case '*':
+        print('"Beg pardon?"')
     esac
 
     jump 690
 
 2409:
-    print("\"Ah, I see thou art a discerning buyer.\"")
+    print('"Ah, I see thou art a discerning buyer."')
     wait()
 
-    print("\n\n\"The triple-crossbow is a marvel to behold.\"")
+    print('\n\n"The triple-crossbow is a marvel to behold."')
     wait()
 
-    print("\n\n\"This enchanted weapon fires three bolts at once!\"")
+    print('\n\n"This enchanted weapon fires three bolts at once!"')
     wait()
 
-    print("\n\n\"Normally, I would not offer it for sale.\"")
+    print('\n\n"Normally, I would not offer it for sale."')
     wait()
 
-    print("\n\n\"But, because thy cause is important, I will allow thee--and thee ")
-    print("only!--to buy it.\"")
+    print('\n\n"But, because thy cause is important, I will allow thee--and thee ')
+    print('only!--to buy it."')
     wait()
 
-    print("\n\n\"But I fear I must charge 400 gold for it.\"")
+    print('\n\n"But I fear I must charge 400 gold for it."')
     wait()
 
-    print("\n\n\"Dost thou wish to buy this weapon?\" ")
+    print('\n\n"Dost thou wish to buy this weapon?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(plus(canCarry(character(byte 0, byte 0)), weight(byte 88, word 400)), weight(byte 50, byte 0)):
-            print("\"But thou cannot carry it!\"")
+            print('"But thou cannot carry it!"')
             jump 690
         fi
 
         if less(objectsCount(character(byte 0, byte 0), byte 88), word 400):
-            print("\"But thou cannot afford it!\"")
+            print('"But thou cannot afford it!"')
             jump 690
         fi
 
@@ -262,8 +262,8 @@ interaction:
         jump 690
     esac
 
-    case "n":
-        print("\"It will be here, waiting for thee, if thou hast a need for it.\"")
+    case 'n':
+        print('"It will be here, waiting for thee, if thou hast a need for it."')
         jump 690
     esac
 
@@ -297,20 +297,20 @@ interaction:
     fi
 
     if equals(integer(value 3), byte 0):
-        print("\"Sorry, none of you has anything I need.\"")
+        print('"Sorry, none of you has anything I need."')
         wait()
 
-        print("\n")
+        print('\n')
         jump 668
     fi
 
     if equals(integer(value 2), byte 1):
         integer(value 3) = character(data(dword 4870, byte 0), byte 0)
         ('SETNAME', ('integer', [('value', 3)]))
-        print("\"Aye, $Y has something of interest...\"")
+        print('"Aye, $Y has something of interest..."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 3379
     fi
 
@@ -319,14 +319,14 @@ interaction:
 
 3262:
     ('SETNAME', ('character', [('data', [('dword', 4870), ('minus', [('integer', [('value', 1)]), ('byte', 1)])]), ('byte', 0)]))
-    print("#1) $Y\n")
+    print('#1) $Y\n')
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 1), integer(value 2)):
         jump 3262
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
@@ -368,16 +368,16 @@ interaction:
     integer(value 0) = byte 1
 
 3499:
-    print("#0) ")
+    print('#0) ')
     ('DPRINT', ('dword', 4811), ('data', [('dword', 4840), ('minus', [('integer', [('value', 0)]), ('byte', 1)])]))
-    print("\n")
+    print('\n')
     integer(value 0) = plus(integer(value 0), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 5)):
         jump 3499
     fi
 
-    print("\"Which item?\" ")
+    print('"Which item?" ')
     ('INPUTNUM', 6)
 
     if greater(integer(value 6), integer(value 5)):
@@ -394,49 +394,49 @@ interaction:
     string(value 0) = data(dword 4811, integer(value 6))
     integer(value 7) = divide(data(dword 4793, integer(value 6)), byte 2)
     ('SETNAME', ('integer', [('value', 3)]))
-    print("\"Will you take #7 gold for that $0, $Y?\" ")
+    print('"Will you take #7 gold for that $0, $Y?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
+    case 'n':
         if equals(integer(value 5), byte 1):
-            print("\"Perhaps some other time, then.\"")
+            print('"Perhaps some other time, then."')
             wait()
 
-            print("\n")
+            print('\n')
             jump 668
 
         else:
-            print("\"Perhaps something else then?\"")
+            print('"Perhaps something else then?"')
             wait()
 
-            print("\n\n")
+            print('\n\n')
             jump 3379
         fi
 
-    case "y":
+    case 'y':
         ('SETNAME', ('integer', [('value', 3)]))
-        print("\"Done!\" $N hands $Y #7 gold pieces and takes the $0.")
+        print('"Done!" $N hands $Y #7 gold pieces and takes the $0.')
         ('DELETE', ('integer', [('value', 3)]), ('data', [('dword', 4801), ('integer', [('value', 6)])]), ('byte', 0), ('byte', 1))
         ('NEW', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 7)]))
 
         if equals(integer(value 5), byte 1):
-            print("\n")
+            print('\n')
             jump 668
 
         else:
             wait()
 
-            print("\n\n")
+            print('\n\n')
             jump 3379
         fi
     esac
 
 3885:
-    print("\"Changed your mind, eh?\"")
+    print('"Changed your mind, eh?"')
     wait()
 
-    print("\n")
+    print('\n')
     jump 668
 
 3916:
@@ -451,7 +451,7 @@ interaction:
 
 3950:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2) $Y\n")
+    print('#2) $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -459,7 +459,7 @@ interaction:
         jump 3950
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
@@ -480,7 +480,7 @@ interaction:
 
 4073:
     string(value 0) = data(dword 4811, minus(integer(value 0), byte 1))
-    print("#0) $0\n")
+    print('#0) $0\n')
     integer(value 0) = plus(integer(value 0), byte 1)
 
     if lessOrEquals(integer(value 0), integer(value 8)):
@@ -488,7 +488,7 @@ interaction:
     fi
 
     integer(value 7) = integer(value 0)
-    print("\"Which item?\" ")
+    print('"Which item?" ')
     ('INPUTNUM', 0)
 
     if equals(integer(value 0), byte 0):
@@ -502,36 +502,36 @@ interaction:
     integer(value 0) = minus(integer(value 0), byte 1)
     integer(value 1) = data(dword 4793, integer(value 0))
     string(value 1) = data(dword 4811, integer(value 0))
-    print("\"That $1 costs #1 gold.\"")
+    print('"That $1 costs #1 gold."')
     wait()
 
-    print("\n\n\"Interested, $Y?\" ")
+    print('\n\n"Interested, $Y?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         jump 4270
 
-    case "n":
+    case 'n':
         jump 4062
     esac
 
 4270:
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 4801, integer(value 0)), byte 1)):
-        print("\"But 'twould make thee o'erburdened, $Y!\"")
+        print('"But \'twould make thee o\'erburdened, $Y!"')
         wait()
 
-        print("\n")
+        print('\n')
         jump 668
     fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):
         ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
         ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 4801), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 1))
-        print("\"Excellent!\"\n\nAfter accepting $Y's gold, $N hands over the $1.")
+        print('"Excellent!"\n\nAfter accepting $Y\'s gold, $N hands over the $1.')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 4062
 
     else:
@@ -540,34 +540,34 @@ interaction:
 
 4461:
     if equals(partyHas(byte 4), byte 0):
-        print("\"But thou hast not enough gold, $Y!\"")
+        print('"But thou hast not enough gold, $Y!"')
         wait()
 
-        print("\n")
+        print('\n')
         jump 668
     fi
 
     if equals(hasBit(byte 235, byte 3), byte 0):
-        print("\"Thou hast not enough gold, $Y.\"")
+        print('"Thou hast not enough gold, $Y."')
         wait()
 
-        print("\n\nShe winks at Iolo. \"But I think I can trust thee with credit, just ")
-        print("this once!\"")
+        print('\n\nShe winks at Iolo. "But I think I can trust thee with credit, just ')
+        print('this once!"')
         ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 4801), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 1))
         ('SETF', ('byte', 235), ('byte', 3))
         wait()
 
-        print("\n")
+        print('\n')
         jump 668
 
     else:
-        print("\"I'm sorry, $Y, but I cannot offer more credit, even to thee.\"")
+        print('"I\'m sorry, $Y, but I cannot offer more credit, even to thee."')
         wait()
 
-        print("\n\n\"The @gargoyle wars make my wares much in demand!\"")
+        print('\n\n"The @gargoyle wars make my wares much in demand!"')
         wait()
 
-        print("\n")
+        print('\n')
         jump 668
     fi
 

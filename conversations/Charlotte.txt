@@ -1,126 +1,126 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(95)
 
 id(95)
-name("Charlotte")
+name('Charlotte')
 
 description:
-    print("a pretty young woman with downcast eyes.")
+    print('a pretty young woman with downcast eyes.')
 
 interaction:
     wait()
 
-    print("\n")
+    print('\n')
 
     if hasBit(byte 235, value 0):
-        print("\"Hello again, $G.\"")
+        print('"Hello again, $G."')
 
     else:
-        print("\"Good $T, $G.\"")
+        print('"Good $T, $G."')
     fi
 
 95:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "name":
-        print("\"I am called Charlotte @Weaver, $G.\"")
+    case 'name':
+        print('"I am called Charlotte @Weaver, $G."')
         ('SETF', ('byte', 235), ('value', 0))
         jump 95
 
-    case "job":
-        print("\"I am but a humble @weaver, $G.\"")
+    case 'job':
+        print('"I am but a humble @weaver, $G."')
         jump 95
 
-    case "weav":
-        print("\"I turn @wool into cloth.\"")
+    case 'weav':
+        print('"I turn @wool into cloth."')
         wait()
 
-        print("\n\n\"I am not very good, but some people take pity on me and buy my ")
-        print("@cloth anyway.\"")
+        print('\n\n"I am not very good, but some people take pity on me and buy my ')
+        print('@cloth anyway."')
         jump 95
 
-    case "buy":
-    case "clot":
+    case 'buy':
+    case 'clot':
         if and(notEquals(integer(value 32), byte 144), notEquals(integer(value 32), byte 146)):
-            print("\"Come to my shop when I'm open!\"")
+            print('"Come to my shop when I\'m open!"')
             jump 95
 
         else:
-            print("\"Wouldst thou like some cloth?\" ")
+            print('"Wouldst thou like some cloth?" ')
             jump 902
         fi
 
-    case "sell":
-    case "wool":
+    case 'sell':
+    case 'wool':
         if and(notEquals(integer(value 32), byte 144), notEquals(integer(value 32), byte 146)):
-            print("\"Come to my shop when I'm open!\"")
+            print('"Come to my shop when I\'m open!"')
             jump 95
 
         else:
-            print("\"Hast thou some wool to sell?\" ")
+            print('"Hast thou some wool to sell?" ')
             jump 940
         fi
 
-    case "silk":
+    case 'silk':
         if and(notEquals(integer(value 32), byte 144), notEquals(integer(value 32), byte 146)):
-            print("\"Come to my shop when I'm open!\"")
+            print('"Come to my shop when I\'m open!"')
             jump 95
 
         else:
             jump 978
         fi
 
-    case "bag":
-    case "ball":
-    case "plan":
+    case 'bag':
+    case 'ball':
+    case 'plan':
         jump 2433
 
-    case "mari":
-        print("\"She lives in Paws.\"")
+    case 'mari':
+        print('"She lives in Paws."')
         jump 95
 
-    case "arbe":
-        print("\"He lives in Paws.\"")
+    case 'arbe':
+        print('"He lives in Paws."')
         jump 95
 
-    case "humb":
-        print("\"'Tis really not my place to speak of that, $G.\"")
+    case 'humb':
+        print('"\'Tis really not my place to speak of that, $G."')
         wait()
 
-        print("\n\n\"But honesty is a virtue too, and honesty forces me to admit that I ")
-        print("am the humblest person in New Magencia.\"")
+        print('\n\n"But honesty is a virtue too, and honesty forces me to admit that I ')
+        print('am the humblest person in New Magencia."')
         jump 95
 
-    case "bye":
-        print("\"Farewell, $G!\"\n")
+    case 'bye':
+        print('"Farewell, $G!"\n')
         bye()
 
-    case "*":
-        print("\"'Tis really not my place to speak of that, $G.\"")
+    case '*':
+        print('"\'Tis really not my place to speak of that, $G."')
         jump 95
     esac
 
 902:
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         jump 1964
 
-    case "n":
-        print("\"As you wish, $G.\"")
+    case 'n':
+        print('"As you wish, $G."')
         jump 95
     esac
 
 940:
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         jump 1435
 
-    case "n":
-        print("\"As you wish, $G.\"")
+    case 'n':
+        print('"As you wish, $G."')
         jump 95
     esac
 
@@ -128,36 +128,36 @@ interaction:
     integer(value 0) = partyHasObject(byte 226, byte 0)
 
     if equals(integer(value 0), word 32769):
-        print("\"Begging thy pardon, $G, but I see no silk!\"")
+        print('"Begging thy pardon, $G, but I see no silk!"')
         jump 95
     fi
 
     ('SETNAME', ('integer', [('value', 0)]))
-    print("\"Aye, $Y, I can weave thy silk thread into cloth.\"")
+    print('"Aye, $Y, I can weave thy silk thread into cloth."')
     wait()
 
-    print("\n\n\"It will cost thee 10 gold. Interested?\" ")
+    print('\n\n"It will cost thee 10 gold. Interested?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(objectsCount(integer(value 0), byte 88), byte 10):
-            print("\"Begging thy pardon, $Y, but thou dost not have 10 gold!\"")
+            print('"Begging thy pardon, $Y, but thou dost not have 10 gold!"')
             jump 95
         fi
 
         ('DELETE', ('integer', [('value', 0)]), ('byte', 88), ('byte', 0), ('byte', 10))
         ('DELETE', ('integer', [('value', 0)]), ('byte', 226), ('byte', 0), ('byte', 1))
-        print("Turning to her loom, Charlotte soon weaves the thread into fine silk ")
-        print("cloth.")
+        print('Turning to her loom, Charlotte soon weaves the thread into fine silk ')
+        print('cloth.')
         wait()
 
-        print("\n\n\"Finished!\" She takes $Y's gold and hands over the cloth.")
+        print('\n\n"Finished!" She takes $Y\'s gold and hands over the cloth.')
         ('NEW', ('integer', [('value', 0)]), ('byte', 241), ('byte', 0), ('byte', 1))
         jump 95
 
-    case "n":
-        print("\"Thou knowest best, $Y.\"")
+    case 'n':
+        print('"Thou knowest best, $Y."')
         jump 95
     esac
 
@@ -175,17 +175,17 @@ interaction:
     integer(value 0) = plus(integer(value 0), byte 1)
 
     if equals(integer(value 3), byte 0):
-        print("\"Begging thy pardon, but I see no wool!\"")
+        print('"Begging thy pardon, but I see no wool!"')
         jump 95
     fi
 
     if equals(integer(value 2), byte 1):
         integer(value 3) = character(data(dword 2784, byte 0), byte 0)
         ('SETNAME', ('integer', [('value', 3)]))
-        print("\"Aye, $Y, I will buy wool from thee...\"")
+        print('"Aye, $Y, I will buy wool from thee..."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1777
     fi
 
@@ -194,18 +194,18 @@ interaction:
 
 1644:
     ('SETNAME', ('character', [('data', [('dword', 2784), ('minus', [('integer', [('value', 1)]), ('byte', 1)])]), ('byte', 0)]))
-    print("#1) $Y\n")
+    print('#1) $Y\n')
     integer(value 1) = plus(integer(value 1), byte 1)
 
     if lessOrEquals(integer(value 1), integer(value 2)):
         jump 1644
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        print("\"As you wish...\"")
+        print('"As you wish..."')
         jump 95
     fi
 
@@ -218,16 +218,16 @@ interaction:
     integer(value 3) = character(data(dword 2784, integer(value 3)), byte 0)
 
 1777:
-    print("\"Will you take 10 gold crowns for a bale of wool, $Y?\" ")
+    print('"Will you take 10 gold crowns for a bale of wool, $Y?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"Perhaps some other time, then.\"")
+    case 'n':
+        print('"Perhaps some other time, then."')
         jump 95
 
-    case "y":
-        print("\"Done!\" $N hands $Y 10 gold pieces and takes the wool.")
+    case 'y':
+        print('"Done!" $N hands $Y 10 gold pieces and takes the wool.')
         ('DELETE', ('integer', [('value', 3)]), ('byte', 190), ('byte', 0), ('byte', 1))
         ('NEW', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 10))
         jump 95
@@ -245,7 +245,7 @@ interaction:
 
 1998:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2) $Y\n")
+    print('#2) $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -253,11 +253,11 @@ interaction:
         jump 1998
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        print("\"As you wish, $G.\"")
+        print('"As you wish, $G."')
         jump 95
     fi
 
@@ -271,55 +271,55 @@ interaction:
 
 2128:
     ('SETNAME', ('integer', [('value', 3)]))
-    print("\"My cloth costs 25 gold. Interested, $Y?\" ")
+    print('"My cloth costs 25 gold. Interested, $Y?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         jump 2218
 
-    case "n":
-        print("\"Thou knowest best, $Y.\"")
+    case 'n':
+        print('"Thou knowest best, $Y."')
         jump 95
     esac
 
 2218:
     if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 25)), weight(byte 185, byte 1)):
-        print("\"But 'twould make thee o'erburdened, $Y!\"")
+        print('"But \'twould make thee o\'erburdened, $Y!"')
         jump 95
     fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 25):
         ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 25))
         ('NEW', ('integer', [('value', 3)]), ('byte', 185), ('byte', 0), ('byte', 1))
-        print("\"Many thanks!\"\n\nAfter accepting $Y's gold, $N hands over the cloth.")
+        print('"Many thanks!"\n\nAfter accepting $Y\'s gold, $N hands over the cloth.')
         jump 95
 
     else:
-        print("\"But thou hast not enough gold, $Y!\"")
+        print('"But thou hast not enough gold, $Y!"')
         jump 95
     fi
 
 2433:
     if equals(partyHasObject(word 270, byte 0), word 32769):
-        print("\"I'm not sure what you mean.\"")
+        print('"I\'m not sure what you mean."')
         jump 95
     fi
 
     if notEquals(partyHasObject(byte 241, byte 0), word 32769):
-        print("\"Take the cloth to @Marissa. Mayhap she can sew it into a bag for ")
-        print("thee.\"")
+        print('"Take the cloth to @Marissa. Mayhap she can sew it into a bag for ')
+        print('thee."')
         jump 95
     fi
 
     if notEquals(partyHasObject(byte 226, byte 0), word 32769):
-        print("\"I can weave that @silk for thee... Then thou should speak with ")
-        print("@Marissa.\"")
+        print('"I can weave that @silk for thee... Then thou should speak with ')
+        print('@Marissa."')
         jump 95
     fi
 
-    print("\"If you had some @silk thread, I could help thee. Go ask @Arbeth if he")
-    print(" has any to spare.\"")
+    print('"If you had some @silk thread, I could help thee. Go ask @Arbeth if he')
+    print(' has any to spare."')
     jump 95
 
     ('UNKNOWN', 0)

@@ -1,97 +1,97 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(9)
 
 id(108)
-name("Ubermon")
+name('Ubermon')
 
 description:
-    print("a tall man with a disarming grin.")
+    print('a tall man with a disarming grin.')
     wait()
 
-    print("\n")
+    print('\n')
 
 interaction:
     if hasBit(byte 235, value 0):
         jump 129
     fi
 
-    print("\"Hello, mein freund")
+    print('"Hello, mein freund')
 
     if integer(value 23):
-        print("en.\"")
+        print('en."')
 
     else:
-        print(".\"")
+        print('."')
     fi
 
-    print(" His thick fingers grab your hand.\n")
+    print(' His thick fingers grab your hand.\n')
     jump 178
 
 129:
-    print("\"You are back. Gut.\" He leans back on his heels.\n")
+    print('"You are back. Gut." He leans back on his heels.\n')
 
 178:
     ask()
 
-    case "name":
-        print("\"Ubermon @Kalbmilch.\"\n")
+    case 'name':
+        print('"Ubermon @Kalbmilch."\n')
         ('SETF', ('byte', 235), ('value', 0))
         jump 178
 
-    case "kalb":
-    case "uber":
-        print("\"At your zervice.\" He snaps to attention.\n")
+    case 'kalb':
+    case 'uber':
+        print('"At your zervice." He snaps to attention.\n')
         jump 178
 
-    case "job":
-        print("\"I @milk de cows und make de @cheese.\"")
+    case 'job':
+        print('"I @milk de cows und make de @cheese."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
 
         if equals(integer(value 32), byte 144):
-            print("\"You vant to buy someting, just say de word.\"\n")
+            print('"You vant to buy someting, just say de word."\n')
 
         else:
-            print("\"You vant to buy someting, come by my dairy ven I'm open.\"\n")
+            print('"You vant to buy someting, come by my dairy ven I\'m open."\n')
         fi
 
         jump 178
 
-    case "buy":
-    case "word":
+    case 'buy':
+    case 'word':
         if notEquals(integer(value 32), byte 144):
-            print("\"Come by my dairy ven I'm open, ja?\"\n")
+            print('"Come by my dairy ven I\'m open, ja?"\n')
             jump 178
         fi
 
-        print("\"Ja, sure, vat you vant - milk or @cheese?\"\n")
+        print('"Ja, sure, vat you vant - milk or @cheese?"\n')
         jump 178
 
-    case "milk":
+    case 'milk':
         if notEquals(integer(value 32), byte 144):
-            print("\"Come by my dairy ven I'm open, ja?\"\n")
+            print('"Come by my dairy ven I\'m open, ja?"\n')
             jump 178
         fi
 
         integer(value 4) = byte 0
         jump 771
 
-    case "chee":
+    case 'chee':
         if notEquals(integer(value 32), byte 144):
-            print("\"Come by my dairy ven I'm open, ja?\"\n")
+            print('"Come by my dairy ven I\'m open, ja?"\n')
             jump 178
         fi
 
         integer(value 4) = byte 1
         jump 771
 
-    case "bye":
-        print("\"Take care among ze British, now.\"\n")
+    case 'bye':
+        print('"Take care among ze British, now."\n')
         bye()
 
-    case "*":
-        print("\"Now I not know vat you say.\"\n")
+    case '*':
+        print('"Now I not know vat you say."\n')
         jump 178
     esac
 
@@ -110,7 +110,7 @@ interaction:
 
 808:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2. $Y\n")
+    print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -118,11 +118,11 @@ interaction:
         jump 808
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        print("\"Vell, okay...\"\n")
+        print('"Vell, okay..."\n')
         jump 178
     fi
 
@@ -137,41 +137,41 @@ interaction:
 936:
     ('SETNAME', ('integer', [('value', 3)]))
     integer(value 1) = data(dword 1236, integer(value 4))
-    print("\"That'll be #1 crowns, okay?\" ")
+    print('"That\'ll be #1 crowns, okay?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         jump 1043
 
-    case "n":
-        print("\"Vell, okay, but is very good for you!\"\n")
+    case 'n':
+        print('"Vell, okay, but is very good for you!"\n')
         jump 178
     esac
 
 1043:
     if less(objectsCount(integer(value 3), byte 88), integer(value 1)):
-        print("\"You have not ze gold right now.\"\n")
+        print('"You have not ze gold right now."\n')
         jump 178
     fi
 
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 1240, integer(value 4)), byte 1)):
-        print("\"You don't have room to carry it.\"\n")
+        print('"You don\'t have room to carry it."\n')
         jump 178
     fi
 
     ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
     ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 1240), ('integer', [('value', 4)])]), ('byte', 0), ('byte', 1))
-    print("\"Good!\" $N gives $Y the ")
+    print('"Good!" $N gives $Y the ')
 
     if integer(value 4):
-        print("cheese")
+        print('cheese')
 
     else:
-        print("milk")
+        print('milk')
     fi
 
-    print(".\n")
+    print('.\n')
     jump 178
 
     ('INTEGERS', [3, 5], [])

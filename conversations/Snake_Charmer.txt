@@ -1,99 +1,99 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(72)
 
 id(171)
-name("Snake_Charmer")
+name('Snake_Charmer')
 
 description:
-    print("an old winged gargoyle.")
+    print('an old winged gargoyle.')
 
 interaction:
     if equals(integer(value 21), byte 0):
-        print("The gargoyle shouts, \"An-bal-sil-fer!\" and flees!\n")
+        print('The gargoyle shouts, "An-bal-sil-fer!" and flees!\n')
         ('WORKTYPE', ('byte', 235), ('byte', 154))
         bye()
     fi
 
     if notEquals(partyHasObject(byte 76, byte 0), byte 1):
-        print("The gargoyle shouts, \"The False Prophet!\" and flees!\n")
+        print('The gargoyle shouts, "The False Prophet!" and flees!\n')
         ('WORKTYPE', ('byte', 235), ('byte', 154))
         bye()
     fi
 
     if hasBit(byte 235, value 0):
-        print("\"To feel honored by your visit, False Prophet.\"")
+        print('"To feel honored by your visit, False Prophet."')
 
     else:
-        print("The gargoyle seems afraid of you at first.")
+        print('The gargoyle seems afraid of you at first.')
         wait()
 
-        print("\n\nThen he notices the amulet around your neck.")
+        print('\n\nThen he notices the amulet around your neck.')
         wait()
 
-        print("\n\n\"To--to feel honored to address you, False Prophet.\"")
+        print('\n\n"To--to feel honored to address you, False Prophet."')
         ('SETF', ('byte', 235), ('value', 0))
     fi
 
     wait()
 
-    print("\n\n\"To ask what you wish of a simple @snakecharmer?\"\n")
+    print('\n\n"To ask what you wish of a simple @snakecharmer?"\n')
 
     ask()
 
-    case "name":
-        print("The gargoyle laughs nervously.")
+    case 'name':
+        print('The gargoyle laughs nervously.')
         wait()
 
-        print("\n\n\"To lack a name, of course.")
+        print('\n\n"To lack a name, of course.')
         wait()
 
-        print("\n\n\"To be called simply by my @job, snakecharmer.\"")
+        print('\n\n"To be called simply by my @job, snakecharmer."')
         jump 435
 
-    case "job":
-        print("\"To summon the silver @snake, and to direct the young warriors in ")
-        print("defeating it.\"")
+    case 'job':
+        print('"To summon the silver @snake, and to direct the young warriors in ')
+        print('defeating it."')
         wait()
 
-        print("\n\n\"Then to extract the venom so that I can make the @battle-drug.\"")
+        print('\n\n"Then to extract the venom so that I can make the @battle-drug."')
         jump 435
 
-    case "batt":
-    case "drug":
-    case "veno":
-        print("\"To make the drug for our bravest warriors, who take it and turn into ")
-        print("fighting daemons!\"")
+    case 'batt':
+    case 'drug':
+    case 'veno':
+        print('"To make the drug for our bravest warriors, who take it and turn into ')
+        print('fighting daemons!"')
         wait()
 
-        print("\n\n\"To express sorrow that the drug is fatal, but to express awe and ")
-        print("respect for the warriors' sacrifice.\"")
+        print('\n\n"To express sorrow that the drug is fatal, but to express awe and ')
+        print('respect for the warriors\' sacrifice."')
         jump 435
 
-    case "char":
-    case "silv":
-    case "snak":
-    case "summ":
-        print("\"To use the great @horn to summon the silver snake.\"")
+    case 'char':
+    case 'silv':
+    case 'snak':
+    case 'summ':
+        print('"To use the great @horn to summon the silver snake."')
         wait()
 
-        print("\n\n\"To always require many warriors to defeat the creature!\"")
+        print('\n\n"To always require many warriors to defeat the creature!"')
         jump 435
 
-    case "horn":
-        print("\"To find the horn just north of my house.\"")
+    case 'horn':
+        print('"To find the horn just north of my house."')
         wait()
 
-        print("\n\n\"But to warn you never to blow the horn!\"")
+        print('\n\n"But to warn you never to blow the horn!"')
         wait()
 
-        print("\n\n\"To be in grave peril from the snake without a squad of warriors!\"")
+        print('\n\n"To be in grave peril from the snake without a squad of warriors!"')
         jump 435
 
-    case "bye":
-        print("\"To express my thanks for the sacrifice you have chosen to make!\"\n")
+    case 'bye':
+        print('"To express my thanks for the sacrifice you have chosen to make!"\n')
         bye()
 
-    case "*":
-        print("\"To be but a simple snake charmer, unfamiliar with matters such as ")
-        print("that.\"")
+    case '*':
+        print('"To be but a simple snake charmer, unfamiliar with matters such as ')
+        print('that."')
         jump 435

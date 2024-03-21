@@ -428,8 +428,8 @@ def _format_expression(expression):
 
 
 def _format_string(string):
-    escaping = str.maketrans({'\\': '\\\\', '"': '\\"', '\n': '\\n', '\t': '\\t'})
-    return string.translate(escaping)
+    escaping = str.maketrans({'\\': '\\\\', "'": "\\'", '\n': '\\n', '\t': '\\t'})
+    return f"'{string.translate(escaping)}'"
 
 
 def _format_instructions(instructions, labels, unreachable_labels, description, interaction):
@@ -496,14 +496,14 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
         # FIXME rename
         elif instruction[0] == 'ASKC':
             empty_prefix_line()
-            append(f'askc("{_format_string(instruction[1])}")')
+            append(f'askc({_format_string(instruction[1])})')
 
         elif instruction[0] == 'PRINT':
             # FIXME smarter, with spaces at starts of lines, use minus all indent and print ?
             lines = textwrap.wrap(instruction[1], expand_tabs=False, replace_whitespace=False, drop_whitespace=False)
             assert ''.join(lines) == instruction[1]
             for line in lines:
-                append(f'print("{_format_string(line)}")')
+                append(f'print({_format_string(line)})')
 
         elif instruction[0] == 'ASK':
             empty_prefix_line()
@@ -517,7 +517,7 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
             empty_prefix_line()
             decrease_level('case')
             for case in sorted(instruction[1]):
-                append(f'case "{_format_string(case)}":')
+                append(f'case {_format_string(case)}:')
             increase_level('case')
 
         elif instruction[0] == 'ASSIGN':
@@ -586,7 +586,7 @@ def decode(conversation):
         name = 'Dr. Cat'
     elif name == 'ed':
         name = 'Ed'
-    result.append(f'name("{_format_string(name)}")')
+    result.append(f'name({_format_string(name)})')
 
     if _check_byte(stream, visited_labels, 0xf3):
         result.append('')

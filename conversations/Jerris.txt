@@ -1,127 +1,127 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(50)
 
 id(50)
-name("Jerris")
+name('Jerris')
 
 description:
-    print("a slender man with boots that come up to his thighs.")
+    print('a slender man with boots that come up to his thighs.')
     wait()
 
-    print("\n")
+    print('\n')
 
 interaction:
     if equals(integer(value 32), byte 153):
-        print("\"Don't you know it's rude to interrupt a man when he's brawling?\"\n")
+        print('"Don\'t you know it\'s rude to interrupt a man when he\'s brawling?"\n')
         bye()
     fi
 
-    print("\"Hello there, $G.\"")
+    print('"Hello there, $G."')
 
     if notEquals(integer(value 32), byte 144):
         jump 397
     fi
 
-    print("\n\n\"Care to join me in a drink?\" ")
+    print('\n\n"Care to join me in a drink?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"Not a mead drinker, I guess.\" He shrugs.")
+    case 'n':
+        print('"Not a mead drinker, I guess." He shrugs.')
         jump 397
 
-    case "y":
-        print("He hands you a mug for a swallow.")
+    case 'y':
+        print('He hands you a mug for a swallow.')
         wait()
 
-        print("\n\nIt is warmed @mead, sweet and bubbly, with a cinnamon stick in it.")
+        print('\n\nIt is warmed @mead, sweet and bubbly, with a cinnamon stick in it.')
         wait()
 
-        print("\n\n\"Comes from Verity Isle,\" he says.")
+        print('\n\n"Comes from Verity Isle," he says.')
     esac
 
 397:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "isle":
-    case "mead":
-    case "mug":
-    case "veri":
-        print("\"It's mostly made of honey. Ask a brewer.\"")
+    case 'isle':
+    case 'mead':
+    case 'mug':
+    case 'veri':
+        print('"It\'s mostly made of honey. Ask a brewer."')
         jump 397
 
-    case "name":
-        print("\"Jerris is my name. And yourself?\"\n")
+    case 'name':
+        print('"Jerris is my name. And yourself?"\n')
 
         ask()
-        print("\n\"Pleased to make your acquaintance.\"")
+        print('\n"Pleased to make your acquaintance."')
         ('SETF', ('byte', 235), ('value', 0))
         jump 397
 
-    case "job":
-        print("\"Some day I hope to join @Zellivan's Stalwarts and be a guard.\"")
+    case 'job':
+        print('"Some day I hope to join @Zellivan\'s Stalwarts and be a guard."')
         jump 397
 
-    case "guar":
-    case "stal":
-    case "zell":
-        print("\"When that last earthquake struck, I was pinned 'neath a great tree ")
-        print("branch.\"")
+    case 'guar':
+    case 'stal':
+    case 'zell':
+        print('"When that last earthquake struck, I was pinned \'neath a great tree ')
+        print('branch."')
         wait()
 
-        print("\n\n\"Lord Zellivan himself hoisted it up while a guard pulled me clear.\"")
+        print('\n\n"Lord Zellivan himself hoisted it up while a guard pulled me clear."')
         jump 397
 
-    case "mous":
-    case "rat":
-        print("\"It was a rat, as sure as the world is flat.\"")
+    case 'mous':
+    case 'rat':
+        print('"It was a rat, as sure as the world is flat."')
         wait()
 
-        print("\n\n\"Darndest thing, too.\"")
+        print('\n\n"Darndest thing, too."')
         wait()
 
-        print("\n\n\"Nomaan dropped the rune and the rat took it into a little @hole.\"")
+        print('\n\n"Nomaan dropped the rune and the rat took it into a little @hole."')
         jump 397
 
-    case "hole":
-    case "rune":
+    case 'hole':
+    case 'rune':
         jump 1157
 
-    case "mant":
-        print("\"It's in the refrain of the @song.\"")
+    case 'mant':
+        print('"It\'s in the refrain of the @song."')
         jump 397
 
-    case "refr":
-    case "sing":
-    case "song":
-        print("\"Well, I'd rather not sing alone. Get Culham to play it.\"")
+    case 'refr':
+    case 'sing':
+    case 'song':
+        print('"Well, I\'d rather not sing alone. Get Culham to play it."')
         jump 397
 
-    case "bye":
-        print("\"Goodbye.\"\n")
+    case 'bye':
+        print('"Goodbye."\n')
         bye()
 
-    case "*":
-        print("\"Sorry, $G.  I can't help ye with that.\"")
+    case '*':
+        print('"Sorry, $G.  I can\'t help ye with that."')
         jump 397
     esac
 
 1157:
-    print("\"It's right there. On the north wall. See it?\" ")
+    print('"It\'s right there. On the north wall. See it?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"Look carefully, $G. Ye will see it if ye keep on looking.\"")
+    case 'n':
+        print('"Look carefully, $G. Ye will see it if ye keep on looking."')
 
         if partyHas(byte 3):
             wait()
 
             ('PORTRAIT', ('byte', 3))
-            print("\n\nShamino points to a spot west of the bar where the wall meets the ")
-            print("ground. \"There it is.\"")
+            print('\n\nShamino points to a spot west of the bar where the wall meets the ')
+            print('ground. "There it is."')
             wait()
 
             ('PORTRAIT', ('byte', 50))
@@ -129,7 +129,7 @@ interaction:
 
         jump 397
 
-    case "y":
-        print("\"Obviously a rat hole.\"")
+    case 'y':
+        print('"Obviously a rat hole."')
         jump 397
     esac

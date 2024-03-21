@@ -1,117 +1,117 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(74)
 
 id(74)
-name("Doris")
+name('Doris')
 
 description:
-    print("a stunningly beautiful young woman.")
+    print('a stunningly beautiful young woman.')
 
 interaction:
-    print("\nThe woman never looks up from the book she's reading, even when you ")
-    print("speak to her.")
+    print('\nThe woman never looks up from the book she\'s reading, even when you ')
+    print('speak to her.')
     wait()
 
-    print("\n\n\"Yes, what do you want")
+    print('\n\n"Yes, what do you want')
 
     if hasBit(byte 235, value 0):
-        print(" now?\"")
+        print(' now?"')
 
     else:
-        print("?\"")
+        print('?"')
         ('SETF', ('byte', 235), ('value', 0))
     fi
 
 173:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "name":
-        print("\"My name's Doris, but you can just call me '@Hey @you.'\"")
+    case 'name':
+        print('"My name\'s Doris, but you can just call me \'@Hey @you.\'"')
         wait()
 
-        print("\n\n\"Everyone else does.\"")
+        print('\n\n"Everyone else does."')
         jump 173
 
-    case "hey":
-    case "you":
-        print("\"Typical,\" she mutters.")
+    case 'hey':
+    case 'you':
+        print('"Typical," she mutters.')
         jump 173
 
-    case "job":
-        print("\"I'm in charge of the Tinker's Inn while my @father's away.\"")
+    case 'job':
+        print('"I\'m in charge of the Tinker\'s Inn while my @father\'s away."')
         wait()
 
-        print("\n\n\"If you have any complaint, no matter how trivial, please feel free ")
-        print("to bother me.\"")
+        print('\n\n"If you have any complaint, no matter how trivial, please feel free ')
+        print('to bother me."')
         wait()
 
-        print("\n\nIt doesn't really sound like she means what she said.")
+        print('\n\nIt doesn\'t really sound like she means what she said.')
         jump 173
 
-    case "inn":
-    case "rest":
-    case "room":
-        print("\"Room and board's 5 gold per night per person, cash in advance.\"")
+    case 'inn':
+    case 'rest':
+    case 'room':
+        print('"Room and board\'s 5 gold per night per person, cash in advance."')
         wait()
 
-        print("\n\n\"Interested?\" ")
+        print('\n\n"Interested?" ')
         jump 1168
 
-    case "beau":
-        print("\"Yes, that's what they all say.\"")
+    case 'beau':
+        print('"Yes, that\'s what they all say."')
         jump 173
 
-    case "fath":
-        print("\"My father called me back from the @Lycaeum so that he could go fight ")
-        print("the gargoyles.\"")
+    case 'fath':
+        print('"My father called me back from the @Lycaeum so that he could go fight ')
+        print('the gargoyles."')
         jump 173
 
-    case "book":
-    case "lyca":
-    case "read":
-        print("\"Yes, I'm learning the mystic arts from the great @Xiao.\"")
+    case 'book':
+    case 'lyca':
+    case 'read':
+        print('"Yes, I\'m learning the mystic arts from the great @Xiao."')
         wait()
 
-        print("\n\n\"Though I doubt you'd know much about that sort of thing.\"")
+        print('\n\n"Though I doubt you\'d know much about that sort of thing."')
         jump 173
 
-    case "xiao":
-        print("\"She is the wisest mage in all Britannia.\"")
+    case 'xiao':
+        print('"She is the wisest mage in all Britannia."')
         wait()
 
-        print("\n\n\"Only she can teach the spells of the greatest @power.\"")
+        print('\n\n"Only she can teach the spells of the greatest @power."')
         jump 173
 
-    case "brit":
-    case "grea":
-    case "mage":
-    case "powe":
-    case "spel":
-    case "wise":
-        print("\"Mmm-hmm, that's right.\"")
+    case 'brit':
+    case 'grea':
+    case 'mage':
+    case 'powe':
+    case 'spel':
+    case 'wise':
+        print('"Mmm-hmm, that\'s right."')
         jump 173
 
-    case "bye":
-        print("\"Mmm-hmmm,\" she mutters as you leave.\n")
+    case 'bye':
+        print('"Mmm-hmmm," she mutters as you leave.\n')
         bye()
 
-    case "*":
+    case '*':
         if random(byte 0, byte 1):
-            print("\"Oh really?\"")
+            print('"Oh really?"')
 
         else:
-            print("\"Hmm, fascinating,\" she yawns.")
+            print('"Hmm, fascinating," she yawns.')
         fi
 
         jump 173
     esac
 
 1168:
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if integer(value 23):
             integer(value 1) = multiply(plus(integer(value 23), byte 1), byte 5)
             jump 1310
@@ -120,14 +120,14 @@ interaction:
             jump 1226
         fi
 
-    case "n":
-        print("\"What a pity.\"")
+    case 'n':
+        print('"What a pity."')
         jump 173
     esac
 
 1226:
     if less(objectsCount(character(byte 0, byte 0), byte 88), byte 5):
-        print("\"No pay, no stay. 5 gold, cash in advance.\"")
+        print('"No pay, no stay. 5 gold, cash in advance."')
         jump 173
 
     else:
@@ -142,10 +142,10 @@ interaction:
 
 1331:
     if greater(integer(value 3), integer(value 23)):
-        print("\"No pay, no stay.\"")
+        print('"No pay, no stay."')
         wait()
 
-        print("\n\n\"#1 gold for the lot of you, cash in advance.\"")
+        print('\n\n"#1 gold for the lot of you, cash in advance."')
         jump 173
     fi
 
@@ -158,7 +158,7 @@ interaction:
         jump 1331
 
     else:
-        print("Your party takes up a collection to pay for the rooms.")
+        print('Your party takes up a collection to pay for the rooms.')
         integer(value 1) = multiply(plus(integer(value 23), byte 1), byte 5)
         integer(value 2) = byte 0
         integer(value 4) = integer(value 3)
@@ -171,7 +171,7 @@ interaction:
         ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1647
     fi
 
@@ -182,12 +182,12 @@ interaction:
     jump 1561
 
 1647:
-    print("Putting all thoughts of the rude innkeeper out of your mind, you drift")
-    print(" off into a pleasant sleep.\n")
+    print('Putting all thoughts of the rude innkeeper out of your mind, you drift')
+    print(' off into a pleasant sleep.\n')
     sleep()
 
     wait()
 
-    print("\nThe next morning, Doris sullenly serves you breakfast and then ")
-    print("returns to her studies.")
+    print('\nThe next morning, Doris sullenly serves you breakfast and then ')
+    print('returns to her studies.')
     jump 173

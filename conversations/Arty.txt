@@ -1,33 +1,33 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(28)
 
 id(28)
-name("Arty")
+name('Arty')
 
 description:
-    print("a silent but good-natured man.")
+    print('a silent but good-natured man.')
     wait()
 
-    print("\n")
+    print('\n')
 
 interaction:
     integer(value 5) = byte 0
 
     if equals(integer(value 32), byte 138):
-        print("He looks up from his tankard of ale, sees you and smiles.")
+        print('He looks up from his tankard of ale, sees you and smiles.')
 
     else:
-        print("He grins widely and waves at you.")
+        print('He grins widely and waves at you.')
         ('SETF', ('byte', 235), ('value', 0))
     fi
 
 152:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "name":
-        print("He points to his mouth and shakes his head.")
+    case 'name':
+        print('He points to his mouth and shakes his head.')
 
         if integer(value 23):
             integer(value 0) = character(byte 1, byte 0)
@@ -35,41 +35,41 @@ interaction:
             wait()
 
             ('PORTRAIT', ('integer', [('value', 0)]))
-            print("\n\n$Y speaks. \"I know of this person, $G.\"")
+            print('\n\n$Y speaks. "I know of this person, $G."')
             wait()
 
-            print("\n\n\"He is Arty the Mute, a local shipwright and an honored citizen.\"")
+            print('\n\n"He is Arty the Mute, a local shipwright and an honored citizen."')
             wait()
 
             ('PORTRAIT', ('byte', 235))
-            print("\n\nThe man smiles and nods.")
+            print('\n\nThe man smiles and nods.')
         fi
 
         jump 152
 
-    case "mute":
-        print("Arty smiles and nods.")
+    case 'mute':
+        print('Arty smiles and nods.')
         jump 152
 
-    case "deaf":
-        print("The man shakes his head.")
+    case 'deaf':
+        print('The man shakes his head.')
         jump 152
 
-    case "buy":
+    case 'buy':
         if notEquals(integer(value 32), byte 146):
-            print("The man looks at you, puzzled.")
+            print('The man looks at you, puzzled.')
             jump 152
         fi
 
         if equals(hasObject(byte 235, byte 149, byte 0), byte 0):
-            print("The man shakes his head and spreads his hands as if to say \"sorry.\"")
+            print('The man shakes his head and spreads his hands as if to say "sorry."')
             jump 152
         fi
 
-        print("The man smiles and points to ")
+        print('The man smiles and points to ')
 
         if or(hasObject(byte 235, byte 149, data(dword 2459, byte 0)), hasObject(byte 235, byte 149, data(dword 2459, byte 1))):
-            print("the deed to a @ship")
+            print('the deed to a @ship')
             integer(value 1) = byte 1
 
         else:
@@ -77,23 +77,23 @@ interaction:
         fi
 
         if equals(or(hasObject(byte 235, byte 149, data(dword 2459, byte 2)), hasObject(byte 235, byte 149, data(dword 2459, byte 3))), byte 0):
-            print(".")
+            print('.')
             jump 152
         fi
 
         if integer(value 1):
-            print(" and to a ")
+            print(' and to a ')
 
         else:
-            print("the deed to a ")
+            print('the deed to a ')
         fi
 
-        print("@skiff.")
+        print('@skiff.')
         jump 152
 
-    case "ship":
+    case 'ship':
         if notEquals(integer(value 32), byte 146):
-            print("The man looks at you, puzzled.")
+            print('The man looks at you, puzzled.')
             jump 152
         fi
 
@@ -107,12 +107,12 @@ interaction:
             jump 1572
         fi
 
-        print("The man shakes his head and spreads his hands as if to say \"sorry.\"")
+        print('The man shakes his head and spreads his hands as if to say "sorry."')
         jump 152
 
-    case "skif":
+    case 'skif':
         if notEquals(integer(value 32), byte 146):
-            print("The man looks at you, puzzled.")
+            print('The man looks at you, puzzled.')
             jump 152
         fi
 
@@ -126,50 +126,50 @@ interaction:
             jump 1572
         fi
 
-        print("The man shakes his head and spreads his hands as if to say \"sorry.\"")
+        print('The man shakes his head and spreads his hands as if to say "sorry."')
         jump 152
 
-    case "job":
+    case 'job':
         if equals(integer(value 32), byte 138):
-            print("The man looks at you, puzzled.*\n\nThen he raises his tankard and goes ")
-            print("back to drinking.")
+            print('The man looks at you, puzzled.*\n\nThen he raises his tankard and goes ')
+            print('back to drinking.')
             jump 152
         fi
 
         if equals(integer(value 32), byte 146):
-            print("He smiles and points to the workbench.")
+            print('He smiles and points to the workbench.')
             wait()
 
-            print("\n\nOn the bench, you see the tools of a shipwright.")
+            print('\n\nOn the bench, you see the tools of a shipwright.')
             jump 152
         fi
 
         jump 1467
 
-    case "bye":
-        print("Arty waves as you leave, then returns to ")
+    case 'bye':
+        print('Arty waves as you leave, then returns to ')
 
         if equals(integer(value 32), byte 138):
-            print("his ale.\n")
+            print('his ale.\n')
 
         else:
-            print("what he was doing.\n")
+            print('what he was doing.\n')
         fi
 
         bye()
 
-    case "*":
+    case '*':
         if equals(integer(value 32), byte 138):
-            print("The man just shrugs and takes another swig from his mug.")
+            print('The man just shrugs and takes another swig from his mug.')
             jump 152
         fi
 
 1467:
         if random(byte 0, byte 1):
-            print("The man seems frustrated, as if there were something he wanted to say.")
+            print('The man seems frustrated, as if there were something he wanted to say.')
 
         else:
-            print("The man just shrugs.")
+            print('The man just shrugs.')
         fi
 
         jump 152
@@ -189,7 +189,7 @@ interaction:
 
 1613:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2) $Y\n")
+    print('#2) $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -197,7 +197,7 @@ interaction:
         jump 1613
     fi
 
-    print("Who is buying? ")
+    print('Who is buying? ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
@@ -214,16 +214,16 @@ interaction:
     integer(value 3) = character(integer(value 3), byte 0)
     integer(value 4) = data(dword 2451, integer(value 9))
     ('SETNAME', ('integer', [('value', 3)]))
-    print("$N shows $Y a deed. Written on it is the price, #4 gold.")
+    print('$N shows $Y a deed. Written on it is the price, #4 gold.')
     wait()
 
-    print("\n\nDoes $Y want to buy the deed? ")
+    print('\n\nDoes $Y want to buy the deed? ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(plus(canCarry(integer(value 3)), weight(byte 88, data(dword 2451, integer(value 9)))), weight(byte 149, byte 1)):
-            print("$Y cannot carry that.")
+            print('$Y cannot carry that.')
             jump 152
         fi
 
@@ -235,32 +235,32 @@ interaction:
             jump 1942
         fi
 
-    case "n":
+    case 'n':
         jump 2034
     esac
 
 1942:
     ('GIVE', ('byte', 149), ('data', [('dword', 2459), ('integer', [('value', 9)])]), ('byte', 235), ('integer', [('value', 3)]))
-    print("After accepting the gold, $N smiles and hands $Y the deed.")
+    print('After accepting the gold, $N smiles and hands $Y the deed.')
     integer(value 5) = byte 1
     wait()
 
-    print("\n\n")
+    print('\n\n')
     jump 2034
 
 2034:
     if integer(value 5):
-        print("$N seems pleased.")
+        print('$N seems pleased.')
 
     else:
-        print("$N shrugs.")
+        print('$N shrugs.')
     fi
 
     jump 152
 
 2072:
     if equals(integer(value 23), byte 0):
-        print("You don't have enough gold for that.")
+        print('You don\'t have enough gold for that.')
         jump 152
     fi
 
@@ -271,7 +271,7 @@ interaction:
 
 2155:
     if greater(integer(value 6), integer(value 23)):
-        print("Your party doesn't have enough gold for that.")
+        print('Your party doesn\'t have enough gold for that.')
         jump 152
     fi
 
@@ -284,7 +284,7 @@ interaction:
         jump 2155
 
     else:
-        print("Your party takes up a collection to purchase the vessel.")
+        print('Your party takes up a collection to purchase the vessel.')
         integer(value 1) = data(dword 2451, integer(value 9))
         integer(value 2) = byte 0
         integer(value 4) = integer(value 6)
@@ -297,7 +297,7 @@ interaction:
         ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1942
     fi
 

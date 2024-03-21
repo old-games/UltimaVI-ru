@@ -1,46 +1,46 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(37)
 
 id(37)
-name("Dargoth")
+name('Dargoth')
 
 description:
-    print("a stern, severe man in white robes.")
+    print('a stern, severe man in white robes.')
     wait()
 
 interaction:
-    print("\nYou interrupt the man from his research.")
+    print('\nYou interrupt the man from his research.')
     wait()
 
-    print("\n\n\"Yes, yes, what is it?\"")
+    print('\n\n"Yes, yes, what is it?"')
     wait()
 
-    print("\n\n")
+    print('\n\n')
     integer(value 0) = partyHasObject(word 339, byte 0)
 
     if notEquals(integer(value 0), word 32769):
         jump 2332
     fi
 
-    print("\"You've come for healing, I suppose.\"\n")
+    print('"You\'ve come for healing, I suppose."\n')
 
     ask()
 
-    case "heal":
+    case 'heal':
         jump 817
 
-    case "cure":
+    case 'cure':
         jump 1571
 
-    case "resu":
+    case 'resu':
         integer(value 0) = partyHasObject(word 339, byte 0)
 
         if equals(integer(value 0), word 32769):
-            print("He raises an eyebrow.")
+            print('He raises an eyebrow.')
             wait()
 
-            print("\n\n\"You may not be my choice for dinner conversation, but none of you ")
-            print("are dead.\"")
+            print('\n\n"You may not be my choice for dinner conversation, but none of you ')
+            print('are dead."')
             jump 179
 
         else:
@@ -48,40 +48,40 @@ interaction:
             jump 2447
         fi
 
-    case "name":
-        print("\"I am Dargoth, master of medical lore.\"")
+    case 'name':
+        print('"I am Dargoth, master of medical lore."')
         ('SETF', ('byte', 235), ('value', 0))
         jump 179
 
-    case "job":
-        print("\"My true calling is research.\"")
+    case 'job':
+        print('"My true calling is research."')
         wait()
 
-        print("\n\n\"My studies here have advanced the healing art throughout the ")
-        print("world!\"")
+        print('\n\n"My studies here have advanced the healing art throughout the ')
+        print('world!"')
         wait()
 
-        print("\n\n\"But, more often than not, I am called upon to @cure poison ivy and ")
-        print("@heal paper cuts!\"")
+        print('\n\n"But, more often than not, I am called upon to @cure poison ivy and ')
+        print('@heal paper cuts!"')
         wait()
 
-        print("\n\n\"I grow weary of such trifles!\"")
+        print('\n\n"I grow weary of such trifles!"')
         jump 179
 
-    case "bye":
-    case "no":
-        print("\"Stay out of trouble!\"")
+    case 'bye':
+    case 'no':
+        print('"Stay out of trouble!"')
         wait()
 
-        print("\n\n\"I don't want to see my fine workmanship wasted!\"\n")
+        print('\n\n"I don\'t want to see my fine workmanship wasted!"\n')
         bye()
 
-    case "yes":
-        print("\"Well, what can I do for thee?\"")
+    case 'yes':
+        print('"Well, what can I do for thee?"')
         jump 179
 
-    case "*":
-        print("\"Come, come, get to the point. I'm a busy man!\"")
+    case '*':
+        print('"Come, come, get to the point. I\'m a busy man!"')
         jump 179
     esac
 
@@ -99,7 +99,7 @@ interaction:
         jump 1245
 
     else:
-        print("\"I can do nothing for those scars. Still, they look healed.\"")
+        print('"I can do nothing for those scars. Still, they look healed."')
         jump 1539
     fi
 
@@ -121,7 +121,7 @@ interaction:
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
-    print("#2) $Y\n")
+    print('#2) $Y\n')
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
 
@@ -131,7 +131,7 @@ interaction:
 
 1048:
     if equals(integer(value 2), byte 0):
-        print("\"Why do you waste my time? None of you are wounded!\"")
+        print('"Why do you waste my time? None of you are wounded!"')
         jump 1539
     fi
 
@@ -141,7 +141,7 @@ interaction:
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
-    print("#2) $Y\n\"Which of you?\" ")
+    print('#2) $Y\n"Which of you?" ')
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
@@ -171,39 +171,39 @@ interaction:
     ('SETNAME', ('integer', [('value', 3)]))
 
     if random(byte 0, byte 1):
-        print("\"$Y, your injury is most interesting!\"")
+        print('"$Y, your injury is most interesting!"')
 
     else:
-        print("\"Ah! $Y, you have an injury worthy of my skill!\"")
+        print('"Ah! $Y, you have an injury worthy of my skill!"')
     fi
 
     wait()
 
-    print("\n\n\"It will cost you 30 gold for me to heal you, interested?\" ")
+    print('\n\n"It will cost you 30 gold for me to heal you, interested?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(objectsCount(integer(value 3), byte 88), byte 30):
             jump 1501
 
         else:
-            print("Laying hands upon $Y, Dargoth mends the wounds.")
+            print('Laying hands upon $Y, Dargoth mends the wounds.')
             ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 30))
             ('HEAL', ('integer', [('value', 3)]))
             jump 179
         fi
 
-    case "n":
+    case 'n':
 1501:
-        print("\"I need to be paid to heal you.\"")
+        print('"I need to be paid to heal you."')
         jump 1539
     esac
 
 1539:
     wait()
 
-    print("\n\n\"What else do you need?\"")
+    print('\n\n"What else do you need?"')
     jump 179
 
 1571:
@@ -220,7 +220,7 @@ interaction:
         jump 1987
 
     else:
-        print("\"You don't look good, but you're not poisoned.\"")
+        print('"You don\'t look good, but you\'re not poisoned."')
         jump 1539
     fi
 
@@ -242,7 +242,7 @@ interaction:
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
-    print("#2) $Y\n")
+    print('#2) $Y\n')
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
 
@@ -252,7 +252,7 @@ interaction:
 
 1789:
     if equals(integer(value 2), byte 0):
-        print("\"Why do you waste my time? None of you are poisoned!\"")
+        print('"Why do you waste my time? None of you are poisoned!"')
         jump 1539
     fi
 
@@ -262,7 +262,7 @@ interaction:
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
-    print("#2) $Y\n\"Which of you?\" ")
+    print('#2) $Y\n"Which of you?" ')
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
@@ -292,50 +292,50 @@ interaction:
     ('SETNAME', ('integer', [('value', 3)]))
 
     if random(byte 0, byte 1):
-        print("\"Fascinating, $Y! I have read about such poison only in ancient ")
-        print("books!\"")
+        print('"Fascinating, $Y! I have read about such poison only in ancient ')
+        print('books!"')
 
     else:
-        print("\"I haven't gotten many cases like this since they invented swamp ")
-        print("boots.\"")
+        print('"I haven\'t gotten many cases like this since they invented swamp ')
+        print('boots."')
     fi
 
     wait()
 
-    print("\n\n\"It'll cost 10 gold to cure you, interested?\" ")
+    print('\n\n"It\'ll cost 10 gold to cure you, interested?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(objectsCount(integer(value 3), byte 88), byte 10):
             jump 2289
 
         else:
-            print("Laying hands upon $Y, Dargoth removes the poison.")
+            print('Laying hands upon $Y, Dargoth removes the poison.')
             ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 10))
             ('CURE', ('integer', [('value', 3)]))
             jump 1539
         fi
 
-    case "n":
+    case 'n':
 2289:
-        print("\"If you can't pay, I can't cure you.\"")
+        print('"If you can\'t pay, I can\'t cure you."')
         jump 1539
     esac
 
 2332:
     ('SETNAME', ('integer', [('value', 0)]))
-    print("\"Oh.\" Seeing the dead body that $Y carries, he becomes more polite.")
+    print('"Oh." Seeing the dead body that $Y carries, he becomes more polite.')
     wait()
 
-    print("\n\n\"I am sorry you've lost a compatriot.\"")
+    print('\n\n"I am sorry you\'ve lost a compatriot."')
     wait()
 
-    print("\n\n\"For 400 gold I can attempt resurrection, interested?\" ")
+    print('\n\n"For 400 gold I can attempt resurrection, interested?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(objectsCount(integer(value 0), byte 88), word 400):
             jump 2609
 
@@ -343,8 +343,8 @@ interaction:
             jump 3008
         fi
 
-    case "n":
-        print("\"Resurrection is a difficult task. I'm sorry, but I need to be paid.\"")
+    case 'n':
+        print('"Resurrection is a difficult task. I\'m sorry, but I need to be paid."')
         jump 179
     esac
 
@@ -356,13 +356,13 @@ interaction:
 
 2638:
     if greater(integer(value 3), integer(value 23)):
-        print("\"That ain't enough money.\"")
+        print('"That ain\'t enough money."')
         wait()
 
-        print("\n\n\"You are #1 gold piece\\s short.\"")
+        print('\n\n"You are #1 gold piece\\s short."')
         wait()
 
-        print("\n\n\"Go see a gravedigger. I'll reckon his price'll be lower.\"")
+        print('\n\n"Go see a gravedigger. I\'ll reckon his price\'ll be lower."')
         jump 179
     fi
 
@@ -375,7 +375,7 @@ interaction:
         jump 2638
 
     else:
-        print("Your party takes up a collection for their fallen comrade.")
+        print('Your party takes up a collection for their fallen comrade.')
         integer(value 1) = word 400
         integer(value 2) = byte 0
         integer(value 4) = integer(value 3)
@@ -388,7 +388,7 @@ interaction:
         ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 3008
     fi
 
@@ -399,30 +399,30 @@ interaction:
     jump 2922
 
 3008:
-    print("Dargoth lays hands upon the corpse...")
+    print('Dargoth lays hands upon the corpse...')
     wait()
 
-    print("\n\n\"Doman...\"")
+    print('\n\n"Doman..."')
     wait()
 
-    print("\n\n\"thixus...\"")
+    print('\n\n"thixus..."')
     wait()
 
-    print("\n\n\"anretu!\"")
+    print('\n\n"anretu!"')
     ('RESURRECT', ('integer', [('value', 0)]))
     wait()
 
-    print("\n\nAnd the dead live again!")
+    print('\n\nAnd the dead live again!')
     integer(value 0) = partyHasObject(word 339, byte 0)
 
     if notEquals(integer(value 0), word 32769):
         ('SETNAME', ('integer', [('value', 0)]))
         wait()
 
-        print("\n\n\"I see that $Y carries another slain friend.\"")
+        print('\n\n"I see that $Y carries another slain friend."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 2447
 
     else:

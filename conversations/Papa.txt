@@ -1,143 +1,143 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(44)
 
 id(143)
-name("Papa")
+name('Papa')
 
 description:
-    print("a huge male cyclops.")
+    print('a huge male cyclops.')
 
 interaction:
     wait()
 
-    print("\n")
+    print('\n')
 
     if hasBit(byte 235, byte 2):
-        print("\"Hoh, hoh. You back!\"")
+        print('"Hoh, hoh. You back!"')
         wait()
 
-        print("\n\n\"You bring good fish.\"")
+        print('\n\n"You bring good fish."')
         wait()
 
-        print("\n\n\"Bring more?\" ")
+        print('\n\n"Bring more?" ')
 
-        askc("yn")
+        askc('yn')
 
-        case "y":
+        case 'y':
             jump 845
 
-        case "n":
-            print("\"No fish?\" The cyclops seems sad.")
+        case 'n':
+            print('"No fish?" The cyclops seems sad.')
             jump 232
         esac
     fi
 
     if hasBit(byte 235, value 0):
-        print("\"Hoh! You bring fish?\" ")
+        print('"Hoh! You bring fish?" ')
 
-        askc("yn")
+        askc('yn')
 
-        case "y":
+        case 'y':
             jump 845
 
-        case "n":
-            print("\"Get @fish!\"")
+        case 'n':
+            print('"Get @fish!"')
             jump 232
         esac
     fi
 
-    print("\"Who you?\"")
+    print('"Who you?"')
     ('SETF', ('byte', 235), ('value', 0))
 
 232:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "name":
-        print("\"Me cyclops.\"")
+    case 'name':
+        print('"Me cyclops."')
         wait()
 
-        print("\n\n\"@Tiny one say me 'Papa.'\"")
+        print('\n\n"@Tiny one say me \'Papa.\'"')
         jump 232
 
-    case "one":
-    case "tiny":
-        print("\"Find him on shore.\"")
+    case 'one':
+    case 'tiny':
+        print('"Find him on shore."')
         wait()
 
-        print("\n\n\"One-eye little one die long ago.\"")
+        print('\n\n"One-eye little one die long ago."')
         wait()
 
-        print("\n\n\"Female want little one, so keep tiny one.\"")
+        print('\n\n"Female want little one, so keep tiny one."')
         wait()
 
-        print("\n\n\"Not strong like one-eye little one.\"")
+        print('\n\n"Not strong like one-eye little one."')
         jump 232
 
-    case "job":
-        print("\"Live here! Eat, hunt!\"")
+    case 'job':
+        print('"Live here! Eat, hunt!"')
         jump 232
 
-    case "cell":
-        print("\"Cellar no go. @Locked.\"")
+    case 'cell':
+        print('"Cellar no go. @Locked."')
         jump 232
 
-    case "key":
-    case "lock":
+    case 'key':
+    case 'lock':
         if hasObject(byte 235, byte 64, byte 13):
-            print("\"Got key. Want key?\" ")
+            print('"Got key. Want key?" ')
             jump 745
 
         else:
-            print("\"No got key.\"")
+            print('"No got key."')
             jump 232
         fi
 
-    case "big":
-    case "blac":
-    case "bloc":
-    case "cube":
-        print("\"Mine. In @cellar. No get!\"")
+    case 'big':
+    case 'blac':
+    case 'bloc':
+    case 'cube':
+        print('"Mine. In @cellar. No get!"')
         jump 232
 
-    case "fish":
-        print("\"Fish good.\"")
+    case 'fish':
+        print('"Fish good."')
         wait()
 
-        print("\n\n\"Like eat much fish!\"")
+        print('\n\n"Like eat much fish!"')
         jump 232
 
-    case "bye":
-        print("\"Come back, bring ")
+    case 'bye':
+        print('"Come back, bring ')
 
         if hasBit(byte 235, byte 2):
-            print("more ")
+            print('more ')
         fi
 
-        print("fish!\"\n")
+        print('fish!"\n')
         bye()
 
-    case "*":
-        print("\"What mean $Z?\"")
+    case '*':
+        print('"What mean $Z?"')
         jump 232
     esac
 
 745:
-    askc("yn")
+    askc('yn')
 
-    case "y":
-        print("\"Want fish!\"")
+    case 'y':
+        print('"Want fish!"')
         wait()
 
-        print("\n\n\"Use pole, get fish.\"")
+        print('\n\n"Use pole, get fish."')
         wait()
 
-        print("\n\n\"Want key, bring fish!\"")
+        print('\n\n"Want key, bring fish!"')
         jump 232
 
-    case "n":
-        print("\"Why ask no want?\"")
+    case 'n':
+        print('"Why ask no want?"')
         jump 232
     esac
 
@@ -146,21 +146,21 @@ interaction:
     integer(value 0) = partyHasObject(word 265, byte 0)
 
     if equals(integer(value 0), word 32769):
-        print("\"Where fish? No smell fish.\"")
+        print('"Where fish? No smell fish."')
         jump 232
     fi
 
     ('DELETE', ('integer', [('value', 0)]), ('word', 265), ('byte', 0), ('byte', 1))
 
     if hasBit(byte 235, byte 2):
-        print("\"Good fish! Good friend!\"")
+        print('"Good fish! Good friend!"')
         jump 232
     fi
 
-    print("\"Good fish! Here, key.\"")
+    print('"Good fish! Here, key."')
     wait()
 
-    print("\n\nThe cyclops hands you a large, rusted key.")
+    print('\n\nThe cyclops hands you a large, rusted key.')
     ('GIVE', ('byte', 64), ('byte', 13), ('byte', 235), ('byte', 1))
     ('SETF', ('byte', 235), ('byte', 2))
     jump 232

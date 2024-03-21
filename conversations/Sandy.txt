@@ -1,129 +1,129 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(75)
 
 id(75)
-name("Sandy")
+name('Sandy')
 
 description:
-    print("a shifty-eyed man with a strange smile. He smells of rancid grease and")
-    print(" cooking smoke.")
+    print('a shifty-eyed man with a strange smile. He smells of rancid grease and')
+    print(' cooking smoke.')
     wait()
 
-    print("\n")
+    print('\n')
 
 interaction:
-    print("\"Hello there, $G.\"")
+    print('"Hello there, $G."')
     integer(value 0) = partyHasObject(word 417, byte 0)
 
     if equals(integer(value 0), word 32769):
         jump 790
     fi
 
-    print("*\n\n\"That big, carefully wrapped bundle could only be a dragon's egg!\"")
+    print('*\n\n"That big, carefully wrapped bundle could only be a dragon\'s egg!"')
     wait()
 
-    print("\n\n\"Will you give it to me?\"")
+    print('\n\n"Will you give it to me?"')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"I guess I cannot help you much, then.\"")
+    case 'n':
+        print('"I guess I cannot help you much, then."')
         jump 790
 
-    case "y":
+    case 'y':
     esac
 
     ('GIVE', ('word', 417), ('byte', 0), ('integer', [('value', 0)]), ('byte', 235))
     ('SETF', ('byte', 235), ('byte', 2))
-    print("\"Now I can make Humble Pie!\" Overjoyed, he gives you a hug.")
+    print('"Now I can make Humble Pie!" Overjoyed, he gives you a hug.')
     wait()
 
-    print("\n\n\"So, does the subject of @pirates interest you?\" ")
+    print('\n\n"So, does the subject of @pirates interest you?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("He shrugs. \"As you wish.\"")
+    case 'n':
+        print('He shrugs. "As you wish."')
         jump 790
 
-    case "y":
+    case 'y':
     esac
 
 462:
-    print("\"Well, first, there is one in Serpent's Hold. I cannot recall her ")
-    print("name, but she has a piece of the map with her.\"")
+    print('"Well, first, there is one in Serpent\'s Hold. I cannot recall her ')
+    print('name, but she has a piece of the map with her."')
     wait()
 
-    print("\n\n\"Second, there is one on Dagger Isle. A hermit.\"")
+    print('\n\n"Second, there is one on Dagger Isle. A hermit."')
     wait()
 
-    print("\n\n\"Third, I know of a pirate at Empath Abbey, or thereabouts. ")
-    print("Nathaniel Moorehead was his name.\"")
+    print('\n\n"Third, I know of a pirate at Empath Abbey, or thereabouts. ')
+    print('Nathaniel Moorehead was his name."')
     wait()
 
-    print("\n\n\"The @fourth... but then maybe I've said too much already.\"")
+    print('\n\n"The @fourth... but then maybe I\'ve said too much already."')
     jump 790
 
 790:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "name":
-        print("\"My name is Sandstone Angus.\"")
+    case 'name':
+        print('"My name is Sandstone Angus."')
         wait()
 
-        print("\n\n\"Most folks call me Sandy.\"")
+        print('\n\n"Most folks call me Sandy."')
         ('SETF', ('byte', 235), ('value', 0))
         jump 790
 
-    case "job":
-        print("\"I cook for Lord @Whitsaber.\"")
+    case 'job':
+        print('"I cook for Lord @Whitsaber."')
         wait()
 
-        print("\n\n\"He especially likes my recipe for fish in a white wine @sauce.\"")
+        print('\n\n"He especially likes my recipe for fish in a white wine @sauce."')
         jump 790
 
-    case "fish":
-    case "sauc":
-    case "wine":
-        print("\"It's my specialty!\"")
+    case 'fish':
+    case 'sauc':
+    case 'wine':
+        print('"It\'s my specialty!"')
         jump 790
 
-    case "alre":
-    case "four":
-    case "much":
-    case "said":
+    case 'alre':
+    case 'four':
+    case 'much':
+    case 'said':
         if equals(hasBit(byte 235, byte 2), byte 1):
-            print("\"Before Lord Whitsaber came to Trinsic to be our mayor, he had another")
-            print(" job...\"")
+            print('"Before Lord Whitsaber came to Trinsic to be our mayor, he had another')
+            print(' job..."')
             wait()
 
-            print("\n\"As first mate to Captain Hawkins himself! His real name is Alastor ")
-            print("Gordon.\"")
+            print('\n"As first mate to Captain Hawkins himself! His real name is Alastor ')
+            print('Gordon."')
             jump 790
         fi
 
         jump 1666
 
-    case "lord":
-    case "map":
-    case "whit":
+    case 'lord':
+    case 'map':
+    case 'whit':
 1228:
-        print("\"Hmmm. I'd better get back to cooking... Excuse me.\"")
+        print('"Hmmm. I\'d better get back to cooking... Excuse me."')
         wait()
 
-        print("\n\nHe walks away mumbling, \"Magincian @pastry...\"")
+        print('\n\nHe walks away mumbling, "Magincian @pastry..."')
 
         if equals(hasBit(byte 235, byte 2), byte 1):
             jump 790
         fi
 
-        print("\n")
+        print('\n')
         bye()
 
-    case "map":
-    case "pira":
+    case 'map':
+    case 'pira':
         if equals(hasBit(byte 235, byte 2), byte 1):
             jump 462
 
@@ -131,65 +131,65 @@ interaction:
             jump 1228
         fi
 
-    case "magi":
-    case "past":
-    case "pie":
+    case 'magi':
+    case 'past':
+    case 'pie':
         if equals(hasBit(byte 235, byte 2), byte 1):
-            print("\"Truly it shall be a magnificent desert!\"")
+            print('"Truly it shall be a magnificent desert!"')
             jump 790
         fi
 
-        print("\"I could do you a @favor if you did one for me first.\"")
+        print('"I could do you a @favor if you did one for me first."')
         jump 790
 
-    case "favo":
-    case "firs":
+    case 'favo':
+    case 'firs':
         jump 1708
 
-    case "egg":
-        print("\"Only a @dragon's will do.\"")
+    case 'egg':
+        print('"Only a @dragon\'s will do."')
         jump 790
 
-    case "drag":
-        print("\"There's a lair in the dungeon Destard, to the northwest.\"")
+    case 'drag':
+        print('"There\'s a lair in the dungeon Destard, to the northwest."')
         wait()
 
-        print("\n\n\"It's not far.\"")
+        print('\n\n"It\'s not far."')
         jump 790
 
-    case "bye":
-        print("\"Bye.\"\n")
+    case 'bye':
+        print('"Bye."\n')
         bye()
 
-    case "*":
+    case '*':
 1666:
-        print("\"Sorry, I can't help you with that.\"")
+        print('"Sorry, I can\'t help you with that."')
     esac
 
     jump 790
 
 1708:
-    print("\"Let's see...\"")
+    print('"Let\'s see..."')
     wait()
 
-    print("\n\n\"'A golden orb on a crystal sea, in a box sans hinges, lid, or ")
-    print("key.'\"")
+    print('\n\n"\'A golden orb on a crystal sea, in a box sans hinges, lid, or ')
+    print('key.\'"')
     wait()
 
-    print("\n\n\"I'll give you one guess to this riddle.\"\n")
+    print('\n\n"I\'ll give you one guess to this riddle."\n')
 
     ask()
 
-    case "egg":
-        print("\"Very good!\"")
+    case 'egg':
+        print('"Very good!"')
         jump 1891
 
-    case "*":
-        print("\"It's an egg, of course.\"")
+    case '*':
+        print('"It\'s an egg, of course."')
     esac
 
 1891:
     wait()
 
-    print("\n\n\"To make Magincian pastry, I require one dragon's @egg.\"")
+    print('\n\n"To make Magincian pastry, I require one dragon\'s @egg."')
     jump 790

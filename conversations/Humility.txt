@@ -1,42 +1,42 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(100)
 
 id(199)
-name("Humility")
+name('Humility')
 
 description:
-    print("the altar of Humility.")
+    print('the altar of Humility.')
 
     f3()
 
 interaction:
     wait()
 
-    print("\nAs you kneel before the altar, a mystical voice sounds in your head.")
+    print('\nAs you kneel before the altar, a mystical voice sounds in your head.')
     wait()
 
-    print("\n\n")
+    print('\n\n')
 
     if less(integer(value 20), byte 40):
-        print("\"Thou hast much to learn about humility.\"")
+        print('"Thou hast much to learn about humility."')
         jump 252
     fi
 
     if less(integer(value 20), byte 80):
-        print("\"Thy deeds have shown admirable humility.\"")
+        print('"Thy deeds have shown admirable humility."')
 
     else:
-        print("\"Thy deeds serve as an example to all.\"")
+        print('"Thy deeds serve as an example to all."')
     fi
 
 252:
     wait()
 
-    print("\n\nDo you wish to meditate at this altar? ")
+    print('\n\nDo you wish to meditate at this altar? ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
+    case 'n':
         bye()
     esac
 
@@ -48,11 +48,11 @@ interaction:
 322:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
-    print("\n")
+    print('\n')
 
 337:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2. $Y\n")
+    print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -60,11 +60,11 @@ interaction:
         jump 337
     fi
 
-    print("\"Who will meditate?\" ")
+    print('"Who will meditate?" ')
     ('INPUTNUM', 0)
 
     if equals(integer(value 0), byte 0):
-        print("\n")
+        print('\n')
         bye()
     fi
 
@@ -75,34 +75,34 @@ interaction:
     fi
 
 441:
-    print("\"Speak the Mantra of Humility.\"\n")
+    print('"Speak the Mantra of Humility."\n')
 
     ask()
-    print("\n\"$Z... $Z...\"")
+    print('\n"$Z... $Z..."')
     wait()
 
-    print("\n\n\"$Z... $Z...\"")
+    print('\n\n"$Z... $Z..."')
     wait()
 
-    print("\n\n\"$Z... $Z...\"")
+    print('\n\n"$Z... $Z..."')
     wait()
 
-    print("\n")
+    print('\n')
 
-    case "lum":
-        print("\"The humblest citizen of all the land, ")
+    case 'lum':
+        print('"The humblest citizen of all the land, ')
         wait()
 
-        print("when clad in the armor of a righteous cause, ")
+        print('when clad in the armor of a righteous cause, ')
         wait()
 
-        print("is stronger than all the hosts of error.\"")
+        print('is stronger than all the hosts of error."')
         wait()
 
         jump 699
 
-    case "*":
-        print("You receive no enlightenment.")
+    case '*':
+        print('You receive no enlightenment.')
         wait()
 
         jump 911
@@ -138,15 +138,15 @@ interaction:
     if greaterOrEquals(integer(value 3), data(dword 1020, integer(value 2))):
         integer(value 2) = level(integer(value 1), byte 1)
         ('SETNAME', ('integer', [('value', 1)]))
-        print("\n\n$Y has gained a level!")
+        print('\n\n$Y has gained a level!')
         wait()
     fi
 
 911:
-    print("\n\n\"There is naught else for you to learn here and now.\"")
+    print('\n\n"There is naught else for you to learn here and now."')
     wait()
 
-    print("\n\n\"Return when thy journey has progressed further.\"\n")
+    print('\n\n"Return when thy journey has progressed further."\n')
     bye()
 
     ('INTEGERS', [0, 100, 200, 400, 800, 1600, 3200, 6400], [])

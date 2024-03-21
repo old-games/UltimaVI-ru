@@ -1,70 +1,70 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(29)
 
 id(29)
-name("Lynn")
+name('Lynn')
 
 description:
-    print("a tall, willowy woman with long blond hair.")
+    print('a tall, willowy woman with long blond hair.')
     wait()
 
 interaction:
     integer(value 5) = byte 0
-    print("\n")
+    print('\n')
 
     if hasBit(byte 235, value 0):
-        print("\"Well, hello again, Avatar!\"")
+        print('"Well, hello again, Avatar!"')
         wait()
 
-        print("\n\n")
+        print('\n\n')
 
     else:
         ('SETF', ('byte', 235), ('value', 0))
     fi
 
-    print("\"How can I help thee this fine $T?\"\n")
+    print('"How can I help thee this fine $T?"\n')
 
     ask()
 
-    case "name":
-        print("\"I'm Lynn.\"")
+    case 'name':
+        print('"I\'m Lynn."')
         wait()
 
-        print("\n\n\"Thou needn't tell me thy name, $P. The Avatar is famous throughout ")
-        print("the land!\"")
+        print('\n\n"Thou needn\'t tell me thy name, $P. The Avatar is famous throughout ')
+        print('the land!"')
         jump 140
 
-    case "job":
-        print("\"I am a fletcher.\"")
+    case 'job':
+        print('"I am a fletcher."')
         wait()
 
-        print("\n\n\"I make @arrows and @bolts for the armies of Lord British himself!\"")
+        print('\n\n"I make @arrows and @bolts for the armies of Lord British himself!"')
         jump 140
 
-    case "arro":
-    case "bolt":
-    case "buy":
+    case 'arro':
+    case 'bolt':
+    case 'buy':
         jump 541
 
-    case "sell":
-        print("\"I have all I need, and have no reason to purchase anything more.\"")
+    case 'sell':
+        print('"I have all I need, and have no reason to purchase anything more."')
         wait()
 
-        print("\n\n\"But I appreciate thy offer.\"")
+        print('\n\n"But I appreciate thy offer."')
         jump 140
 
-    case "bye":
-        print("\"Farewell! I hope I've aided thy quest!\"\n")
+    case 'bye':
+        print('"Farewell! I hope I\'ve aided thy quest!"\n')
         bye()
 
-    case "*":
-        print("\"Beg pardon?\"")
+    case '*':
+        print('"Beg pardon?"')
         jump 140
     esac
 
 541:
     if notEquals(integer(value 32), byte 146):
-        print("\"Come to my shop when I'm open!\"")
+        print('"Come to my shop when I\'m open!"')
         jump 140
     fi
 
@@ -79,7 +79,7 @@ interaction:
 
 620:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2) $Y\n")
+    print('#2) $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -87,7 +87,7 @@ interaction:
         jump 620
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
@@ -103,7 +103,7 @@ interaction:
     ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
 
 729:
-    print("1) Arrows\n2) Crossbow Bolts\n\"Which item?\" ")
+    print('1) Arrows\n2) Crossbow Bolts\n"Which item?" ')
     ('INPUTNUM', 0)
 
     if equals(integer(value 0), byte 0):
@@ -113,19 +113,19 @@ interaction:
     integer(value 0) = minus(integer(value 0), byte 1)
 
     if greater(integer(value 0), byte 1):
-        print("\"Beg pardon, $G?\"")
+        print('"Beg pardon, $G?"')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 729
     fi
 
     integer(value 1) = data(dword 1511, integer(value 0))
     string(value 1) = data(dword 1519, integer(value 0))
-    print("\"I sell $1s only by the dozen.\"")
+    print('"I sell $1s only by the dozen."')
     wait()
 
-    print("\n\n\"How many dozens?\" ")
+    print('\n\n"How many dozens?" ')
     ('INPUTNUM', 4)
 
     if equals(integer(value 4), byte 0):
@@ -156,65 +156,65 @@ interaction:
 
 1050:
     if integer(value 5):
-        print("\"Thou canst not carry that many!\"")
+        print('"Thou canst not carry that many!"')
         wait()
 
-        print("\n\n\"I will sell thee just #5 dozen $1s.\"")
+        print('\n\n"I will sell thee just #5 dozen $1s."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1321
 
     else:
-        print("\"But thou canst not carry any $1s!\"")
+        print('"But thou canst not carry any $1s!"')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1400
     fi
 
 1180:
     if integer(value 5):
-        print("\"Thou hast not enough gold for that many!\"")
+        print('"Thou hast not enough gold for that many!"')
         wait()
 
-        print("\n\n\"I will sell thee just #5 dozen $1\\s.\"")
+        print('\n\n"I will sell thee just #5 dozen $1\\s."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1321
 
     else:
-        print("\"But thou canst not afford any $1s!\"")
+        print('"But thou canst not afford any $1s!"')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1400
     fi
 
 1321:
-    print("Lynn takes $Y's money and hands over the $1s.")
+    print('Lynn takes $Y\'s money and hands over the $1s.')
     wait()
 
-    print("\n\n\"I appreciate thy business.\"")
+    print('\n\n"I appreciate thy business."')
     wait()
 
-    print("\n\n\"Is there aught else thou wouldst buy?\" ")
+    print('\n\n"Is there aught else thou wouldst buy?" ')
 
 1400:
-    print("\"Is there aught else thou wouldst buy?\" ")
+    print('"Is there aught else thou wouldst buy?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         jump 541
 
-    case "n":
+    case 'n':
         if equals(integer(value 5), byte 0):
-            print("\"Perhaps some other time.\"")
+            print('"Perhaps some other time."')
 
         else:
-            print("\"Enjoy thy $1s.\"")
+            print('"Enjoy thy $1s."')
         fi
 
         jump 140

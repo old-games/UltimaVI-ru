@@ -1,87 +1,87 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(12)
 
 id(12)
-name("Nan")
+name('Nan')
 
 description:
-    print("a nervous young bard.\n*")
+    print('a nervous young bard.\n*')
 
 interaction:
-    print("\"I would play for thee, but I'm worried about my lute.\"\n")
+    print('"I would play for thee, but I\'m worried about my lute."\n')
 
     ask()
 
-    case "name":
-        print("\"I am Lady Nan.\"")
+    case 'name':
+        print('"I am Lady Nan."')
         ('SETF', ('byte', 235), ('value', 0))
         jump 85
 
-    case "job":
-        print("\"Why, making @music, of course.\"")
+    case 'job':
+        print('"Why, making @music, of course."')
         jump 85
 
-    case "musi":
-        print("\"With my @lute.\"")
+    case 'musi':
+        print('"With my @lute."')
         jump 85
 
-    case "lute":
-    case "musi":
-    case "play":
-    case "worr":
-        print("\"Every time I pick up my lute, @spiders crawl out of it.\"\n*\n\"There ")
-        print("must be hundreds of them nesting in there!\"")
+    case 'lute':
+    case 'musi':
+    case 'play':
+    case 'worr':
+        print('"Every time I pick up my lute, @spiders crawl out of it."\n*\n"There ')
+        print('must be hundreds of them nesting in there!"')
         jump 85
 
-    case "craw":
-    case "hund":
-    case "nest":
-    case "spid":
-        print("\"I hate spiders! They're creepy, ugly, disgusting things! Why won't ")
-        print("they leave me alone?\"")
+    case 'craw':
+    case 'hund':
+    case 'nest':
+    case 'spid':
+        print('"I hate spiders! They\'re creepy, ugly, disgusting things! Why won\'t ')
+        print('they leave me alone?"')
 
         if partyHas(byte 4):
             wait()
 
             ('PORTRAIT', ('byte', 4))
-            print("\n\nIolo says to her, \"Now, now, my dear. Have you forgotten about the ")
-            print("@gloves I gave you?\"")
+            print('\n\nIolo says to her, "Now, now, my dear. Have you forgotten about the ')
+            print('@gloves I gave you?"')
             wait()
 
             ('PORTRAIT', ('byte', 235))
-            print("\n\n\"Oh, yes. Perhaps if I wore those I could play...\"")
+            print('\n\n"Oh, yes. Perhaps if I wore those I could play..."')
         fi
 
         jump 85
 
-    case "glov":
-        print("\"Iolo gave them to me for my birthday.\"")
+    case 'glov':
+        print('"Iolo gave them to me for my birthday."')
         jump 85
 
-    case "comp":
-        print("\"Yes, I know of the @Rune and @Mantra of Compassion.\"")
+    case 'comp':
+        print('"Yes, I know of the @Rune and @Mantra of Compassion."')
         jump 85
 
-    case "mant":
-        print("\"The Mantra of Compassion is 'mu.' Is that a spider on your shoulder?\"")
-        print("\n*\n\"No, 'tis just a trick of the light.\"")
+    case 'mant':
+        print('"The Mantra of Compassion is \'mu.\' Is that a spider on your shoulder?"')
+        print('\n*\n"No, \'tis just a trick of the light."')
         jump 85
 
-    case "rune":
-        print("\"'Twas given to our most promising student, young @Ariana.\"")
+    case 'rune':
+        print('"\'Twas given to our most promising student, young @Ariana."')
         jump 85
 
-    case "aria":
-        print("\"She's very talented. She'll go far, if the spiders don't get her...\"")
+    case 'aria':
+        print('"She\'s very talented. She\'ll go far, if the spiders don\'t get her..."')
         jump 85
 
-    case "bye":
-        print("\"Fare thee well, and watch thy step! The spiders are lurking ")
-        print("everywhere.\"\n")
+    case 'bye':
+        print('"Fare thee well, and watch thy step! The spiders are lurking ')
+        print('everywhere."\n')
         bye()
 
-    case "*":
-        print("\"I cannot help thee with that.\"")
+    case '*':
+        print('"I cannot help thee with that."')
     esac
 
     jump 85

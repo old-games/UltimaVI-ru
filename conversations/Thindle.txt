@@ -1,136 +1,136 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(1)
 
 id(100)
-name("Thindle")
+name('Thindle')
 
 description:
-    print("a little, white haired man hunched over with age.")
+    print('a little, white haired man hunched over with age.')
     wait()
 
-    print("\n\n")
+    print('\n\n')
 
 interaction:
     if hasBit(byte 235, value 0):
-        print("\"Back, back, back they come.\" He smiles to himself and claps his ")
-        print("hands.\n")
+        print('"Back, back, back they come." He smiles to himself and claps his ')
+        print('hands.\n')
 
     else:
-        print("\"Yes, yes, yes,\" he says, bobbing his head up and down.\n")
+        print('"Yes, yes, yes," he says, bobbing his head up and down.\n')
     fi
 
 199:
     ask()
 
-    case "name":
-        print("\"@Thindle the spindler.\" He grins at you.\n")
+    case 'name':
+        print('"@Thindle the spindler." He grins at you.\n')
         ('SETF', ('byte', 235), ('value', 0))
         jump 199
 
-    case "thin":
-        print("\"Yes, yes, yes. That was quite a guess!\"\n")
+    case 'thin':
+        print('"Yes, yes, yes. That was quite a guess!"\n')
         jump 199
 
-    case "buy":
-        print("\"Oh my, oh my, you must need cloth.\"")
+    case 'buy':
+        print('"Oh my, oh my, you must need cloth."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
 
         if notEquals(integer(value 32), byte 146):
-            print("\"Come to my shop when I'm open and I'll sell you some!\"\n")
+            print('"Come to my shop when I\'m open and I\'ll sell you some!"\n')
             jump 199
         fi
 
         jump 1545
 
-    case "sell":
-        print("\"Sell, now, its thread I feel.\"")
+    case 'sell':
+        print('"Sell, now, its thread I feel."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
 
         if notEquals(integer(value 32), byte 146):
-            print("\"Come to my shop when I'm open and I'll buy it!\"\n")
+            print('"Come to my shop when I\'m open and I\'ll buy it!"\n')
             jump 199
         fi
 
         jump 2058
 
-    case "job":
-        print("\"Sew, sew, I @sew 'cause I said so.\"\n")
+    case 'job':
+        print('"Sew, sew, I @sew \'cause I said so."\n')
         jump 199
 
-    case "sew":
-        print("\"Beautiful @clothes, more pretty than those,\" he points to your ")
-        print("stomach.\n")
+    case 'sew':
+        print('"Beautiful @clothes, more pretty than those," he points to your ')
+        print('stomach.\n')
         jump 199
 
-    case "beau":
-    case "clot":
-        print("\"Yes again, friend!\"\n")
+    case 'beau':
+    case 'clot':
+        print('"Yes again, friend!"\n')
         jump 199
 
-    case "mort":
-        print("\"Shorty is my friend. We play @flippits together.\"\n")
+    case 'mort':
+        print('"Shorty is my friend. We play @flippits together."\n')
         jump 199
 
-    case "bag":
-    case "ball":
-    case "silk":
-        print("\"Silk? Oh no, oh no.\"")
+    case 'bag':
+    case 'ball':
+    case 'silk':
+        print('"Silk? Oh no, oh no."')
         wait()
 
-        print("\n\n\"Can't work silk, oh my, no.\"")
+        print('\n\n"Can\'t work silk, oh my, no."')
         wait()
 
-        print("\n\n\"See @Charlotte. She can, yes she can!\"\n")
+        print('\n\n"See @Charlotte. She can, yes she can!"\n')
         jump 199
 
-    case "char":
-        print("\"Humble Charlotte, yes. She can help you.\"")
+    case 'char':
+        print('"Humble Charlotte, yes. She can help you."')
         wait()
 
-        print("\n\n\"She lives in New Magincia.\"\n")
+        print('\n\n"She lives in New Magincia."\n')
         jump 199
 
-    case "flip":
-        print("\"You should learn, you should learn.\"")
+    case 'flip':
+        print('"You should learn, you should learn."')
         wait()
 
-        print("\n\n\"A nice piece of bone and a small hard @pea--that's all ya need.\"\n")
+        print('\n\n"A nice piece of bone and a small hard @pea--that\'s all ya need."\n')
         jump 199
 
-    case "bone":
-    case "nice":
-    case "piec":
-        print("\"Like an old dog bone. You'll need a @hat too.\"\n")
+    case 'bone':
+    case 'nice':
+    case 'piec':
+        print('"Like an old dog bone. You\'ll need a @hat too."\n')
         jump 199
 
-    case "hard":
-    case "pea":
-    case "smal":
-        print("\"The smaller, the better.\" He pulls an old @bone from his pocket and a")
-        print(" small pea.")
+    case 'hard':
+    case 'pea':
+    case 'smal':
+        print('"The smaller, the better." He pulls an old @bone from his pocket and a')
+        print(' small pea.')
         wait()
 
-        print("\n\n\"Now you get a @hat.\"\n")
+        print('\n\n"Now you get a @hat."\n')
         jump 199
 
-    case "hat":
-        print("He puts the hat down and mumbles \"Put the pea in front of bone...\"")
+    case 'hat':
+        print('He puts the hat down and mumbles "Put the pea in front of bone..."')
         wait()
 
-        print("\n\nHe gestures with his hands. \"...and flippit on home.\" The pea sails ")
-        print("into the hat.\n")
+        print('\n\nHe gestures with his hands. "...and flippit on home." The pea sails ')
+        print('into the hat.\n')
         jump 199
 
-    case "bye":
-        print("\"Bye now. Bye. Say hi to @Mortude if you see him.\"\n")
+    case 'bye':
+        print('"Bye now. Bye. Say hi to @Mortude if you see him."\n')
         bye()
 
-    case "*":
-        print("He scratches his head and looks around.\n")
+    case '*':
+        print('He scratches his head and looks around.\n')
     esac
 
     jump 199
@@ -147,7 +147,7 @@ interaction:
 
 1582:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2. $Y\n")
+    print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -155,11 +155,11 @@ interaction:
         jump 1582
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        print("\"Very well, but 'tis fine cloth, yes indeed...\"\n")
+        print('"Very well, but \'tis fine cloth, yes indeed..."\n')
         jump 199
     fi
 
@@ -172,13 +172,13 @@ interaction:
     integer(value 3) = character(integer(value 3), byte 0)
 
 1742:
-    print("\"It'll cost you 15 gold for the cloth. Interested?\" ")
+    print('"It\'ll cost you 15 gold for the cloth. Interested?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 15)), weight(byte 185, byte 1)):
-            print("\"You look pretty full to me.\"\n")
+            print('"You look pretty full to me."\n')
             jump 199
         fi
 
@@ -186,16 +186,16 @@ interaction:
             ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 15))
             ('NEW', ('integer', [('value', 3)]), ('byte', 185), ('byte', 0), ('byte', 1))
             ('SETNAME', ('integer', [('value', 3)]))
-            print("\"Excellent!\" After accepting $Y's gold, $N hands over the cloth.\n")
+            print('"Excellent!" After accepting $Y\'s gold, $N hands over the cloth.\n')
             jump 199
 
         else:
-            print("\"No discounts, friend. Sorry.\"\n")
+            print('"No discounts, friend. Sorry."\n')
             jump 199
         fi
 
-    case "n":
-        print("\"Very well, but 'tis fine cloth, yes indeed...\"\n")
+    case 'n':
+        print('"Very well, but \'tis fine cloth, yes indeed..."\n')
         jump 199
     esac
 
@@ -229,7 +229,7 @@ interaction:
     fi
 
     if equals(integer(value 3), byte 0):
-        print("\"Sorry, none of you has anything I need.\"\n")
+        print('"Sorry, none of you has anything I need."\n')
         jump 199
     fi
 
@@ -244,7 +244,7 @@ interaction:
 
 2276:
     ('SETNAME', ('character', [('data', [('dword', 2746), ('integer', [('value', 0)])]), ('byte', 0)]))
-    print("#1. $Y\n")
+    print('#1. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
 
@@ -252,11 +252,11 @@ interaction:
         jump 2276
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        print("\"Very well, very well, I can see you don't want to sell.\"\n")
+        print('"Very well, very well, I can see you don\'t want to sell."\n')
         jump 199
     fi
 
@@ -273,22 +273,22 @@ interaction:
     ('SETNAME', ('integer', [('value', 3)]))
 
     if equals(integer(value 4), byte 0):
-        print("\"Sorry, you don't have any thread.\"\n")
+        print('"Sorry, you don\'t have any thread."\n')
         jump 199
     fi
 
-    print("$N turns to $Y, and says \"Will you take 6 gold for that Thread?\" ")
+    print('$N turns to $Y, and says "Will you take 6 gold for that Thread?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
-        print("\"Done!\" He hands $Y 6 gold pieces and takes the thread.\n")
+    case 'y':
+        print('"Done!" He hands $Y 6 gold pieces and takes the thread.\n')
         ('DELETE', ('integer', [('value', 3)]), ('byte', 225), ('byte', 0), ('byte', 1))
         ('NEW', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 6))
         jump 199
 
-    case "n":
-        print("\"Very well, very well, I can see you don't want to sell.\"\n")
+    case 'n':
+        print('"Very well, very well, I can see you don\'t want to sell."\n')
         jump 199
     esac
 

@@ -1,67 +1,67 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(19)
 
 id(118)
-name("Shawn")
+name('Shawn')
 
 description:
-    print("a charismatic man with an engaging smile.")
+    print('a charismatic man with an engaging smile.')
     wait()
 
-    print("\n")
+    print('\n')
 
 interaction:
     if hasBit(byte 235, value 0):
-        print("\"Welcome back, stranger.\" He winks at you.\n")
+        print('"Welcome back, stranger." He winks at you.\n')
 
     else:
-        print("\"Welcome.\" He makes a sweeping gesture with his hat.\n")
+        print('"Welcome." He makes a sweeping gesture with his hat.\n')
     fi
 
 156:
     ask()
 
-    case "name":
-        print("\"Shawn, friend.\"\n")
+    case 'name':
+        print('"Shawn, friend."\n')
         ('SETF', ('byte', 235), ('value', 0))
         jump 156
 
-    case "buy":
-        print("\"Which: @ham, @ale, @mead, @wine, or @rations?\"\n")
+    case 'buy':
+        print('"Which: @ham, @ale, @mead, @wine, or @rations?"\n')
         jump 156
 
-    case "job":
-        print("\"I sell @ham, @ale, @mead, @wine, and @rations.\"\n")
+    case 'job':
+        print('"I sell @ham, @ale, @mead, @wine, and @rations."\n')
         jump 156
 
-    case "ham":
+    case 'ham':
         jump 1018
 
-    case "mead":
+    case 'mead':
         integer(value 4) = byte 0
         jump 528
 
-    case "ale":
+    case 'ale':
         integer(value 4) = byte 1
         jump 528
 
-    case "wine":
+    case 'wine':
         integer(value 4) = byte 2
         jump 528
 
-    case "rati":
+    case 'rati':
         jump 1471
 
-    case "shaw":
-        print("\"That's it.\"\n")
+    case 'shaw':
+        print('"That\'s it."\n')
         jump 156
 
-    case "bye":
-        print("\"I'm glad you stopped by.\" He gives you a firm handshake.\n")
+    case 'bye':
+        print('"I\'m glad you stopped by." He gives you a firm handshake.\n')
         bye()
 
-    case "*":
-        print("\"I'm sorry. Perhaps you could ask someone else.\"\n")
+    case '*':
+        print('"I\'m sorry. Perhaps you could ask someone else."\n')
     esac
 
     jump 156
@@ -78,7 +78,7 @@ interaction:
 
 565:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2. $Y\n")
+    print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -86,11 +86,11 @@ interaction:
         jump 565
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        print("\"Very well...\"\n")
+        print('"Very well..."\n')
         jump 156
     fi
 
@@ -105,32 +105,32 @@ interaction:
 692:
     ('SETNAME', ('integer', [('value', 3)]))
     integer(value 1) = data(dword 2217, integer(value 4))
-    print("$N smiles at $Y and says, \"That will cost you #1 gold. Interested?\" ")
+    print('$N smiles at $Y and says, "That will cost you #1 gold. Interested?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         jump 812
 
-    case "n":
-        print("\"Very well...\"\n")
+    case 'n':
+        print('"Very well..."\n')
         jump 156
     esac
 
 812:
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 2223, integer(value 4)), byte 1)):
-        print("\"You can't carry it, $Y.\"\n")
+        print('"You can\'t carry it, $Y."\n')
         jump 156
     fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):
         ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
         ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 2223), ('integer', [('value', 4)])]), ('byte', 0), ('byte', 1))
-        print("\"Fine!\" After accepting $Y's gold, $N hands over the purchase.\n")
+        print('"Fine!" After accepting $Y\'s gold, $N hands over the purchase.\n')
         jump 156
 
     else:
-        print("\"You don't have enough gold, $Y.\"\n")
+        print('"You don\'t have enough gold, $Y."\n')
         jump 156
     fi
 
@@ -146,7 +146,7 @@ interaction:
 
 1055:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2. $Y\n")
+    print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -154,11 +154,11 @@ interaction:
         jump 1055
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        print("\"Very well...\"\n")
+        print('"Very well..."\n')
         jump 156
     fi
 
@@ -172,29 +172,29 @@ interaction:
 
 1182:
     ('SETNAME', ('integer', [('value', 3)]))
-    print("\"It'll cost you 5 gold for the ham. Interested?\" ")
+    print('"It\'ll cost you 5 gold for the ham. Interested?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 5)), weight(byte 133, byte 1)):
-            print("\"You can't carry it, $Y.\"\n")
+            print('"You can\'t carry it, $Y."\n')
             jump 156
         fi
 
         if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 5):
             ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 5))
             ('NEW', ('integer', [('value', 3)]), ('byte', 133), ('byte', 0), ('byte', 1))
-            print("\"Excellent!\" After accepting the gold, $N serves $Y the ham.\n")
+            print('"Excellent!" After accepting the gold, $N serves $Y the ham.\n')
             jump 156
 
         else:
-            print("\"How were you looking to pay for the meal? Eh?\"\n")
+            print('"How were you looking to pay for the meal? Eh?"\n')
             jump 156
         fi
 
-    case "n":
-        print("\"Very well...\"\n")
+    case 'n':
+        print('"Very well..."\n')
         jump 156
     esac
 
@@ -210,7 +210,7 @@ interaction:
 
 1508:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#1. $Y\n")
+    print('#1. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
 
@@ -218,11 +218,11 @@ interaction:
         jump 1508
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        print("\"Very well...\"\n")
+        print('"Very well..."\n')
         jump 156
     fi
 
@@ -243,20 +243,20 @@ interaction:
     fi
 
 1678:
-    print("$N looks at $Y and says, \"It'll cost you 4 gold for each ration. How ")
-    print("many do you want?\" ")
+    print('$N looks at $Y and says, "It\'ll cost you 4 gold for each ration. How ')
+    print('many do you want?" ')
     ('INPUT', 5)
 
     if greater(integer(value 5), byte 100):
-        print("\"Come now, that's a little much, don't you think?\"")
+        print('"Come now, that\'s a little much, don\'t you think?"')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 1678
     fi
 
     if equals(integer(value 5), byte 0):
-        print("$N frowns at $Y and says, \"That was a good price.\"\n")
+        print('$N frowns at $Y and says, "That was a good price."\n')
         jump 156
     fi
 
@@ -287,24 +287,24 @@ interaction:
     fi
 
     if equals(integer(value 1), byte 1):
-        print("\"You haven't any room in your pack, $Y.\"\n")
+        print('"You haven\'t any room in your pack, $Y."\n')
         jump 156
     fi
 
     if equals(integer(value 1), byte 2):
-        print("\"Mutton rations cost more gold than you have, $Y.\"\n")
+        print('"Mutton rations cost more gold than you have, $Y."\n')
         jump 156
     fi
 
 2139:
     ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('multiply', [('integer', [('value', 2)]), ('byte', 4)]))
     ('NEW', ('integer', [('value', 3)]), ('byte', 129), ('byte', 0), ('integer', [('value', 2)]))
-    print("He hands $Y #2 mutton ration\\s.")
+    print('He hands $Y #2 mutton ration\\s.')
     wait()
 
-    print("\n\n")
+    print('\n\n')
     ('DPRINT', ('dword', 2243), ('integer', [('value', 1)]))
-    print("\n")
+    print('\n')
     jump 156
 
     ('INTEGERS', [5, 3, 4], [])

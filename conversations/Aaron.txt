@@ -1,105 +1,105 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(69)
 
 id(69)
-name("Aaron")
+name('Aaron')
 
 description:
-    print("a plump blond man with curly blond hair and a cheerful face.")
+    print('a plump blond man with curly blond hair and a cheerful face.')
     wait()
 
 interaction:
-    print("\n")
+    print('\n')
 
     if hasBit(byte 235, value 0):
-        print("\"Hello again, Avatar!\"")
+        print('"Hello again, Avatar!"')
 
     else:
-        print("\"Hello hello!\"")
+        print('"Hello hello!"')
     fi
 
     wait()
 
-    print("\n\n\"What can I do for you this $T?\"\n")
+    print('\n\n"What can I do for you this $T?"\n')
 
     ask()
 
-    case "name":
+    case 'name':
         if hasBit(byte 235, value 0):
-            print("\"That's funny. I remember your name!\"")
+            print('"That\'s funny. I remember your name!"')
 
         else:
-            print("\"My name's Aaron.\"")
+            print('"My name\'s Aaron."')
             ('SETF', ('byte', 235), ('value', 0))
         fi
 
         jump 150
 
-    case "job":
-        print("\"I run the sawmill! Is there anything I can do for thee?\"")
+    case 'job':
+        print('"I run the sawmill! Is there anything I can do for thee?"')
         jump 150
 
-    case "saw":
-        print("\"Yes, I saw logs into @boards.\"")
+    case 'saw':
+        print('"Yes, I saw logs into @boards."')
         jump 150
 
-    case "boar":
-    case "log":
+    case 'boar':
+    case 'log':
         if notEquals(integer(value 32), byte 144):
-            print("\"Come to my shop when I'm open!\"")
+            print('"Come to my shop when I\'m open!"')
             jump 150
         fi
 
         integer(value 0) = partyHasObject(word 274, byte 0)
 
         if equals(integer(value 0), word 32769):
-            print("\"My mill makes smooth boards and planks out of rough-cut logs.\"")
+            print('"My mill makes smooth boards and planks out of rough-cut logs."')
             jump 150
         fi
 
         ('SETNAME', ('integer', [('value', 0)]))
-        print("\"Aye, I see $Y has a yew log.\" He inspects the wood with a practiced ")
-        print("eye.")
+        print('"Aye, I see $Y has a yew log." He inspects the wood with a practiced ')
+        print('eye.')
         wait()
 
-        print("\n\n\"Good grain. Yes, I can make a fine board out of this log.\"")
+        print('\n\n"Good grain. Yes, I can make a fine board out of this log."')
         wait()
 
-        print("\n\n\"But it will cost thee 5 gold, $Y!\"\n\n\"Still interested?\" ")
+        print('\n\n"But it will cost thee 5 gold, $Y!"\n\n"Still interested?" ')
         jump 733
 
-    case "bye":
-        print("\"Farewell!\"\n")
+    case 'bye':
+        print('"Farewell!"\n')
         ('SETF', ('byte', 235), ('value', 0))
         bye()
 
-    case "*":
-        print("\"Beg pardon?\"")
+    case '*':
+        print('"Beg pardon?"')
         jump 150
     esac
 
 733:
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(objectsCount(integer(value 0), byte 88), byte 5):
-            print("\"Sorry, but I can't work for free!\"")
+            print('"Sorry, but I can\'t work for free!"')
             wait()
 
-            print("\n\n\"Come back when you have the 5 gold!\"")
+            print('\n\n"Come back when you have the 5 gold!"')
             jump 150
         fi
 
         ('DELETE', ('integer', [('value', 0)]), ('word', 274), ('byte', 0), ('byte', 1))
         ('DELETE', ('integer', [('value', 0)]), ('byte', 88), ('byte', 0), ('byte', 5))
-        print("Aaron goes to his saw and turns the log into a flat, sanded board.")
+        print('Aaron goes to his saw and turns the log into a flat, sanded board.')
         wait()
 
-        print("\n\n\"There!\" He hands $Y the finished product.")
+        print('\n\n"There!" He hands $Y the finished product.')
         ('NEW', ('integer', [('value', 0)]), ('word', 277), ('byte', 0), ('byte', 1))
         jump 150
 
-    case "n":
-        print("\"Oh. Well, perhaps some other time then.\"")
+    case 'n':
+        print('"Oh. Well, perhaps some other time then."')
         jump 150
     esac

@@ -1,14 +1,14 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(65)
 
 id(65)
-name("Tara")
+name('Tara')
 
 description:
-    print("a kindly old woman.")
+    print('a kindly old woman.')
     wait()
 
-    print("\n")
+    print('\n')
 
 interaction:
     integer(value 0) = partyHasObject(word 339, byte 0)
@@ -19,34 +19,34 @@ interaction:
 
     if equals(hasBit(byte 235, value 0), byte 0):
         ('SETF', ('byte', 235), ('value', 0))
-        print("\"Welcome to my place of healing, Avatar.\"")
+        print('"Welcome to my place of healing, Avatar."')
         wait()
 
-        print("\n\n\"I hope thou needest not my services!\"")
+        print('\n\n"I hope thou needest not my services!"')
 
     else:
-        print("\"Welcome again, noble Avatar.\"")
+        print('"Welcome again, noble Avatar."')
         wait()
 
-        print("\n\n\"I hope this visit is for pleasure, not business!\"")
+        print('\n\n"I hope this visit is for pleasure, not business!"')
     fi
 
 236:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "heal":
+    case 'heal':
         jump 724
 
-    case "cure":
+    case 'cure':
         jump 1555
 
-    case "resu":
+    case 'resu':
         integer(value 0) = partyHasObject(word 339, byte 0)
 
         if equals(integer(value 0), word 32769):
-            print("\"But gladly can I say that none of your party is dead!\"")
+            print('"But gladly can I say that none of your party is dead!"')
             jump 236
 
         else:
@@ -54,41 +54,41 @@ interaction:
             jump 2453
         fi
 
-    case "name":
-        print("\"My name is Tara.\"")
+    case 'name':
+        print('"My name is Tara."')
         jump 236
 
-    case "job":
-        print("\"I'm the healer for this town.\"")
+    case 'job':
+        print('"I\'m the healer for this town."')
         wait()
 
-        print("\n\n\"I've cared for the @unfit here for threescore years!\"")
+        print('\n\n"I\'ve cared for the @unfit here for threescore years!"')
         jump 236
 
-    case "unfi":
-        print("\"Those who need @healing, @curing, or to be @resurrected.\"")
+    case 'unfi':
+        print('"Those who need @healing, @curing, or to be @resurrected."')
         jump 236
 
-    case "mant":
-    case "sacr":
-        print("\"'Cah,' that is the word of sacrifice.\"")
+    case 'mant':
+    case 'sacr':
+        print('"\'Cah,\' that is the word of sacrifice."')
         jump 236
 
-    case "bye":
-    case "no":
-        print("\"Farewell!\"\n")
+    case 'bye':
+    case 'no':
+        print('"Farewell!"\n')
         bye()
 
-    case "yes":
-        print("\"What can I do for thee?\"")
+    case 'yes':
+        print('"What can I do for thee?"')
         jump 236
 
-    case "*":
+    case '*':
         if random(byte 0, byte 1):
-            print("\"I don't understand $Z.\"")
+            print('"I don\'t understand $Z."')
 
         else:
-            print("\"I beg thy pardon?\"")
+            print('"I beg thy pardon?"')
         fi
 
         jump 236
@@ -108,7 +108,7 @@ interaction:
         jump 1086
 
     else:
-        print("\"But thou art well!\"")
+        print('"But thou art well!"')
         jump 1507
     fi
 
@@ -130,7 +130,7 @@ interaction:
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
-    print("#2) $Y\n")
+    print('#2) $Y\n')
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
 
@@ -140,7 +140,7 @@ interaction:
 
 915:
     if equals(integer(value 2), byte 0):
-        print("\"But all of you are well!\"")
+        print('"But all of you are well!"')
         jump 1507
     fi
 
@@ -150,7 +150,7 @@ interaction:
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
-    print("#2) $Y\n\"Which of you?\" ")
+    print('#2) $Y\n"Which of you?" ')
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
@@ -178,47 +178,47 @@ interaction:
 
 1086:
     ('SETNAME', ('integer', [('value', 3)]))
-    print("\"I see thy injury, $Y.\"")
+    print('"I see thy injury, $Y."')
     wait()
 
-    print("\n\n\"Wilt thou make an offering of 30 gold?\" ")
+    print('\n\n"Wilt thou make an offering of 30 gold?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(objectsCount(integer(value 3), byte 88), byte 30):
             jump 1311
 
         else:
-            print("Tara approaches $Y and binds the wounds.")
+            print('Tara approaches $Y and binds the wounds.')
             ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 30))
             ('HEAL', ('integer', [('value', 3)]))
             jump 236
         fi
 
-    case "n":
+    case 'n':
         if less(objectsCount(integer(value 3), byte 88), byte 30):
             jump 1311
 
         else:
-            print("\"If thou wilt not pay, I cannot heal thee.\"")
+            print('"If thou wilt not pay, I cannot heal thee."')
             jump 1507
         fi
     esac
 
 1311:
     if less(integer(value 20), byte 40):
-        print("\"I'm sorry. Without an offering I cannot heal thee.\"")
+        print('"I\'m sorry. Without an offering I cannot heal thee."')
         jump 236
 
     else:
-        print("\"Thou art poor, but thy cause is just.\"")
+        print('"Thou art poor, but thy cause is just."')
         wait()
 
-        print("\n\n\"I will heal thee without payment.\"")
+        print('\n\n"I will heal thee without payment."')
         wait()
 
-        print("\n\nSasha approaches $Y and binds the wounds.")
+        print('\n\nSasha approaches $Y and binds the wounds.')
         ('HEAL', ('integer', [('value', 3)]))
         jump 1507
     fi
@@ -226,7 +226,7 @@ interaction:
 1507:
     wait()
 
-    print("\n\n\"Is there aught else I can do for thee?\"")
+    print('\n\n"Is there aught else I can do for thee?"')
     jump 236
 
 1555:
@@ -243,7 +243,7 @@ interaction:
         jump 1917
 
     else:
-        print("\"But thou art well!\"")
+        print('"But thou art well!"')
         jump 1507
     fi
 
@@ -265,7 +265,7 @@ interaction:
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
-    print("#2) $Y\n")
+    print('#2) $Y\n')
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
 
@@ -275,7 +275,7 @@ interaction:
 
 1746:
     if equals(integer(value 2), byte 0):
-        print("\"But all of you are well!\"")
+        print('"But all of you are well!"')
         jump 1507
     fi
 
@@ -285,7 +285,7 @@ interaction:
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
-    print("#2) $Y\n\"Which of you?\" ")
+    print('#2) $Y\n"Which of you?" ')
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
@@ -313,67 +313,67 @@ interaction:
 
 1917:
     ('SETNAME', ('integer', [('value', 3)]))
-    print("\"I see thy injury, $Y.\"")
+    print('"I see thy injury, $Y."')
     wait()
 
-    print("\n\n\"Wilt thou make an offering of 10 gold?\" ")
+    print('\n\n"Wilt thou make an offering of 10 gold?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(objectsCount(integer(value 3), byte 88), byte 10):
             jump 2174
 
         else:
-            print("Tara grabs a vial and pours it down $Y's throat.")
+            print('Tara grabs a vial and pours it down $Y\'s throat.')
             wait()
 
-            print("\n\n$Y feels much better.")
+            print('\n\n$Y feels much better.')
             ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 10))
             ('CURE', ('integer', [('value', 3)]))
             jump 1507
         fi
 
-    case "n":
+    case 'n':
         if less(objectsCount(integer(value 3), byte 88), byte 10):
             jump 2174
 
         else:
-            print("\"If thou wilt not pay, I cannot heal thee.\"")
+            print('"If thou wilt not pay, I cannot heal thee."')
             jump 1507
         fi
     esac
 
 2174:
     if less(integer(value 20), byte 40):
-        print("\"I'm sorry. Without an offering I cannot heal thee.\"")
+        print('"I\'m sorry. Without an offering I cannot heal thee."')
         jump 236
 
     else:
-        print("\"Thou art poor, but thy cause is just.\"")
+        print('"Thou art poor, but thy cause is just."')
         wait()
 
-        print("\n\n\"I will heal thee without payment.\"")
+        print('\n\n"I will heal thee without payment."')
         wait()
 
-        print("\n\nTara grabs a vial and pours it down $Y's throat.")
+        print('\n\nTara grabs a vial and pours it down $Y\'s throat.')
         wait()
 
-        print("\n\n$Y feels much better.")
+        print('\n\n$Y feels much better.')
         ('CURE', ('integer', [('value', 3)]))
         jump 1507
     fi
 
 2401:
     ('SETNAME', ('integer', [('value', 0)]))
-    print("\"Oh! I see that $Y carries a fallen comrade!\"")
+    print('"Oh! I see that $Y carries a fallen comrade!"')
     wait()
 
-    print("\n\n\"Wilt thou make an offering of 400 gold?\" ")
+    print('\n\n"Wilt thou make an offering of 400 gold?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(objectsCount(integer(value 0), byte 88), word 400):
             jump 2587
 
@@ -381,8 +381,8 @@ interaction:
             jump 2926
         fi
 
-    case "n":
-        print("\"Then there is naught I can do save grieve with thee.\"")
+    case 'n':
+        print('"Then there is naught I can do save grieve with thee."')
         jump 236
     esac
 
@@ -394,10 +394,10 @@ interaction:
 
 2616:
     if greater(integer(value 3), integer(value 23)):
-        print("\"That isn't enough money.\"")
+        print('"That isn\'t enough money."')
         wait()
 
-        print("\n\n\"Thou art #1 gold piece\\s short.\"")
+        print('\n\n"Thou art #1 gold piece\\s short."')
         jump 236
     fi
 
@@ -410,7 +410,7 @@ interaction:
         jump 2616
 
     else:
-        print("Your party takes up a collection for their fallen comrade.")
+        print('Your party takes up a collection for their fallen comrade.')
         integer(value 1) = word 400
         integer(value 2) = byte 0
         integer(value 4) = integer(value 3)
@@ -423,7 +423,7 @@ interaction:
         ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 2926
     fi
 
@@ -434,30 +434,30 @@ interaction:
     jump 2840
 
 2926:
-    print("Tara lays hands upon the corpse...")
+    print('Tara lays hands upon the corpse...')
     wait()
 
-    print("\n\n\"Doman...\"")
+    print('\n\n"Doman..."')
     wait()
 
-    print("\n\n\"thixus...\"")
+    print('\n\n"thixus..."')
     wait()
 
-    print("\n\n\"anretu!\"")
+    print('\n\n"anretu!"')
     ('RESURRECT', ('integer', [('value', 0)]))
     wait()
 
-    print("\n\nAnd the dead live again!")
+    print('\n\nAnd the dead live again!')
     integer(value 0) = partyHasObject(word 339, byte 0)
 
     if notEquals(integer(value 0), word 32769):
         ('SETNAME', ('integer', [('value', 0)]))
         wait()
 
-        print("\n\n\"I see that $Y carries another slain friend.\"")
+        print('\n\n"I see that $Y carries another slain friend."')
         wait()
 
-        print("\n\n")
+        print('\n\n')
         jump 2453
 
     else:

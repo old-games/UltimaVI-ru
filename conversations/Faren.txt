@@ -1,14 +1,14 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(50)
 
 id(149)
-name("Faren")
+name('Faren')
 
 description:
-    print("a good looking young man with a wine glass in his hand.")
+    print('a good looking young man with a wine glass in his hand.')
     wait()
 
-    print("\n")
+    print('\n')
 
 interaction:
     integer(value 5) = byte 0
@@ -17,88 +17,88 @@ interaction:
         jump 142
     fi
 
-    print("\"Hello,\" he says, extending a delicate hand.")
+    print('"Hello," he says, extending a delicate hand.')
     ('SETF', ('byte', 235), ('value', 0))
     wait()
 
-    print("\n")
+    print('\n')
     jump 211
 
 142:
-    print("\"I have seen your face before,\" he says, cocking his head sideways.")
+    print('"I have seen your face before," he says, cocking his head sideways.')
     wait()
 
-    print("\n\n\"What is it you need?\"\n")
+    print('\n\n"What is it you need?"\n')
 
 211:
-    print("\n\"What is it you need?\"\n")
+    print('\n"What is it you need?"\n')
 
 235:
     ask()
 
-    case "name":
-        print("\"@Faren.\"")
+    case 'name':
+        print('"@Faren."')
         wait()
 
-        print("\n\n\"@Faren the @drunk as some call me.\" He winks at you.\n")
+        print('\n\n"@Faren the @drunk as some call me." He winks at you.\n')
         jump 235
 
-    case "drun":
-        print("\"Just kidding.\" He smiles broadly.")
+    case 'drun':
+        print('"Just kidding." He smiles broadly.')
         wait()
 
-        print("\n")
+        print('\n')
         jump 211
 
-    case "fare":
-        print("\"You might have noticed the similarity between my @sister and me.\"\n")
+    case 'fare':
+        print('"You might have noticed the similarity between my @sister and me."\n')
         jump 235
 
-    case "sist":
-        print("\"A beautiful lass @Stephanie is.\"\n")
+    case 'sist':
+        print('"A beautiful lass @Stephanie is."\n')
         jump 235
 
-    case "step":
-        print("\"Have you met her? Then you know she is @blind.\"\n")
+    case 'step':
+        print('"Have you met her? Then you know she is @blind."\n')
         jump 235
 
-    case "blin":
-        print("\"Yes, has been so since birth.\"")
+    case 'blin':
+        print('"Yes, has been so since birth."')
         wait()
 
-        print("\n\n\"For her it is like being born a @gargoyle.\"\n")
+        print('\n\n"For her it is like being born a @gargoyle."\n')
         jump 235
 
-    case "garg":
-        print("\"She knows no other life. It is her lot to make the best of her ")
-        print("situation.\"")
+    case 'garg':
+        print('"She knows no other life. It is her lot to make the best of her ')
+        print('situation."')
         wait()
 
-        print("\n\n\"In this she is no different than you or I.\" He pauses to gather his")
-        print(" thoughts.")
+        print('\n\n"In this she is no different than you or I." He pauses to gather his')
+        print(' thoughts.')
         wait()
 
-        print("\n\n\"Even gargoyles face this dilemma, I'll wager.\"")
+        print('\n\n"Even gargoyles face this dilemma, I\'ll wager."')
         wait()
 
-        print("\n\n\"But we know them more by the ways they differ from us, rather than ")
-        print("their similarities.\"\n")
+        print('\n\n"But we know them more by the ways they differ from us, rather than ')
+        print('their similarities."\n')
         jump 235
 
-    case "buy":
-    case "wine":
+    case 'buy':
+    case 'wine':
         jump 1132
 
-    case "job":
-        print("\"I sell many types of @wine, made right here.\" He clicks his tongue.\n")
+    case 'job':
+        print('"I sell many types of @wine, made right here." He clicks his tongue.\n')
         jump 235
 
-    case "bye":
-        print("\"Have a nice $T.\" He sips his wineglass.\n")
+    case 'bye':
+        print('"Have a nice $T." He sips his wineglass.\n')
         bye()
 
-    case "*":
-        print("He scratches his head and looks around.\n")
+    case '*':
+        print('He scratches his head and looks around.\n')
     esac
 
     jump 235
@@ -115,7 +115,7 @@ interaction:
 
 1169:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2. $Y\n")
+    print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -123,7 +123,7 @@ interaction:
         jump 1169
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
@@ -144,14 +144,14 @@ interaction:
 
 1292:
     string(value 0) = data(dword 1870, minus(integer(value 0), byte 1))
-    print("#0. $0\n")
+    print('#0. $0\n')
     integer(value 0) = plus(integer(value 0), byte 1)
 
     if less(integer(value 0), byte 7):
         jump 1292
     fi
 
-    print("\"Which item?\" ")
+    print('"Which item?" ')
     ('INPUTNUM', 0)
 
     if equals(integer(value 0), byte 0):
@@ -165,60 +165,60 @@ interaction:
     integer(value 0) = minus(integer(value 0), byte 1)
     string(value 0) = data(dword 1870, integer(value 0))
     integer(value 1) = data(dword 1846, integer(value 0))
-    print("$N smiles at $Y. \"For $0 it will cost you #1 gold. Interested?\" ")
+    print('$N smiles at $Y. "For $0 it will cost you #1 gold. Interested?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
+    case 'n':
         jump 1281
 
-    case "y":
+    case 'y':
     esac
 
-    print("\n")
+    print('\n')
 
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 1858, integer(value 0)), byte 1)):
         ('SETNAME', ('integer', [('value', 3)]))
-        print("$N glances at $Y, \"You look pretty full to me.\"")
+        print('$N glances at $Y, "You look pretty full to me."')
         wait()
 
-        print("\n")
+        print('\n')
         jump 211
     fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), data(dword 1846, integer(value 0))):
         ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 1846), ('integer', [('value', 0)])]))
         ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 1858), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 1))
-        print("\"Excellent!\" After accepting $Y's gold, $N hands over the wine.")
+        print('"Excellent!" After accepting $Y\'s gold, $N hands over the wine.')
         wait()
 
-        print("\n")
+        print('\n')
         integer(value 5) = byte 1
         string(value 1) = data(dword 1870, integer(value 0))
-        print("\n")
+        print('\n')
         jump 1281
 
     else:
-        print("$N looks at $Y. \"You don't have enough gold.\"")
+        print('$N looks at $Y. "You don\'t have enough gold."')
         wait()
 
-        print("\n")
+        print('\n')
         jump 211
     fi
 
 1778:
     if integer(value 5):
-        print("\"Enjoy your $1.\"")
+        print('"Enjoy your $1."')
         wait()
 
-        print("\n")
+        print('\n')
         jump 211
     fi
 
-    print("\"Too bad, it's really good wine.\"")
+    print('"Too bad, it\'s really good wine."')
     wait()
 
-    print("\n")
+    print('\n')
     jump 211
 
     ('INTEGERS', [10, 20, 30, 40, 100, 100], [])

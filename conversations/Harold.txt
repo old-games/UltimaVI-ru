@@ -1,42 +1,42 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(78)
 
 id(78)
-name("Harold")
+name('Harold')
 
 description:
-    print("a tall, muscular man with a solemn look on his face.")
+    print('a tall, muscular man with a solemn look on his face.')
     wait()
 
 interaction:
-    print("\n\"Welcome, $G.\"")
+    print('\n"Welcome, $G."')
     wait()
 
 79:
-    print("\n\n\"What can I do for you?\"\n")
+    print('\n\n"What can I do for you?"\n')
 
     ask()
 
-    case "name":
-        print("\"My name is Harold.\"")
+    case 'name':
+        print('"My name is Harold."')
         ('SETF', ('byte', 235), ('value', 0))
         jump 105
 
-    case "buy":
-    case "hors":
-    case "shoe":
+    case 'buy':
+    case 'hors':
+    case 'shoe':
         jump 258
 
-    case "job":
-        print("\"@Horseshoes are my living.\"")
+    case 'job':
+        print('"@Horseshoes are my living."')
         jump 105
 
-    case "bye":
-        print("\"Farewell.\"\n")
+    case 'bye':
+        print('"Farewell."\n')
         bye()
 
-    case "*":
-        print("\"I can't help you with that.\"")
+    case '*':
+        print('"I can\'t help you with that."')
         jump 105
     esac
 
@@ -52,7 +52,7 @@ interaction:
 
 292:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2. $Y\n")
+    print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -60,7 +60,7 @@ interaction:
         jump 292
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
@@ -74,13 +74,13 @@ interaction:
     fi
 
 394:
-    print("\"It'll cost you 2 gold for the horseshoes, interested?\" ")
+    print('"It\'ll cost you 2 gold for the horseshoes, interested?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(canCarry(character(integer(value 3), byte 0)), weight(byte 202, byte 1)):
-            print("\"You look pretty full to me.\"")
+            print('"You look pretty full to me."')
             wait()
 
             jump 79
@@ -90,7 +90,7 @@ interaction:
             ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 2))
             ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 202), ('byte', 0), ('byte', 1))
             ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-            print("\"Here you go.\"")
+            print('"Here you go."')
             wait()
 
             integer(value 5) = byte 1
@@ -98,13 +98,13 @@ interaction:
 
         else:
             ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-            print("\"Best check your coinpouch again.\"")
+            print('"Best check your coinpouch again."')
             wait()
 
             jump 79
         fi
 
-    case "n":
-        print("Very well.\"")
+    case 'n':
+        print('Very well."')
         jump 105
     esac

@@ -1,42 +1,42 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(96)
 
 id(195)
-name("Justice")
+name('Justice')
 
 description:
-    print("the altar of Justice.")
+    print('the altar of Justice.')
 
     f3()
 
 interaction:
     wait()
 
-    print("\nAs you kneel before the altar, a mystical voice sounds in your head.")
+    print('\nAs you kneel before the altar, a mystical voice sounds in your head.')
     wait()
 
-    print("\n\n")
+    print('\n\n')
 
     if less(integer(value 20), byte 40):
-        print("\"Thou hast much to learn about justice.\"")
+        print('"Thou hast much to learn about justice."')
         jump 248
     fi
 
     if less(integer(value 20), byte 80):
-        print("\"Thy deeds have shown admirable justice.\"")
+        print('"Thy deeds have shown admirable justice."')
 
     else:
-        print("\"Thy deeds serve as an example to all.\"")
+        print('"Thy deeds serve as an example to all."')
     fi
 
 248:
     wait()
 
-    print("\n\nDo you wish to meditate at this altar? ")
+    print('\n\nDo you wish to meditate at this altar? ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
+    case 'n':
         bye()
     esac
 
@@ -48,11 +48,11 @@ interaction:
 318:
     integer(value 0) = byte 0
     integer(value 2) = byte 1
-    print("\n")
+    print('\n')
 
 333:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2. $Y\n")
+    print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -60,11 +60,11 @@ interaction:
         jump 333
     fi
 
-    print("\"Who will meditate?\" ")
+    print('"Who will meditate?" ')
     ('INPUTNUM', 0)
 
     if equals(integer(value 0), byte 0):
-        print("\n")
+        print('\n')
         bye()
     fi
 
@@ -75,31 +75,31 @@ interaction:
     fi
 
 437:
-    print("\"Speak the Mantra of Justice.\"\n")
+    print('"Speak the Mantra of Justice."\n')
 
     ask()
-    print("\n\"$Z... $Z...\"")
+    print('\n"$Z... $Z..."')
     wait()
 
-    print("\n\n\"$Z... $Z...\"")
+    print('\n\n"$Z... $Z..."')
     wait()
 
-    print("\n\n\"$Z... $Z...\"")
+    print('\n\n"$Z... $Z..."')
     wait()
 
-    print("\n")
+    print('\n')
 
-    case "beh":
-        print("\"Justice without force is impotent.\"")
+    case 'beh':
+        print('"Justice without force is impotent."')
         wait()
 
-        print("\n\n\"Force without justice is tyranny.\"")
+        print('\n\n"Force without justice is tyranny."')
         wait()
 
         jump 641
 
-    case "*":
-        print("You receive no enlightenment.")
+    case '*':
+        print('You receive no enlightenment.')
         wait()
 
         jump 910
@@ -137,21 +137,21 @@ interaction:
         integer(value 4) = intelligence(integer(value 1), byte 1)
         integer(value 4) = dexterity(integer(value 1), byte 1)
         ('SETNAME', ('integer', [('value', 1)]))
-        print("\n\n$Y has gained a level...")
+        print('\n\n$Y has gained a level...')
         wait()
 
-        print("\n\nintelligence...")
+        print('\n\nintelligence...')
         wait()
 
-        print("\n\nand dexterity!")
+        print('\n\nand dexterity!')
         wait()
     fi
 
 910:
-    print("\n\n\"There is naught else for you to learn here and now.\"")
+    print('\n\n"There is naught else for you to learn here and now."')
     wait()
 
-    print("\n\n\"Return when thy journey has progressed further.\"\n")
+    print('\n\n"Return when thy journey has progressed further."\n')
     bye()
 
     ('INTEGERS', [0, 100, 200, 400, 800, 1600, 3200, 6400], [])

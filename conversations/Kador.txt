@@ -1,16 +1,16 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(36)
 
 id(135)
-name("Kador")
+name('Kador')
 
 description:
-    print("an amiable, shaggy mutt.\n")
+    print('an amiable, shaggy mutt.\n')
 
 interaction:
     if hasBit(byte 235, byte 7):
-        print("*The dog gets up and brings you his bowl again, looking at you ")
-        print("expectantly. ")
+        print('*The dog gets up and brings you his bowl again, looking at you ')
+        print('expectantly. ')
         jump 1100
     fi
 
@@ -18,116 +18,116 @@ interaction:
     ('SETF', ('byte', 235), ('value', 0))
 
 141:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "capt":
-    case "job":
-    case "john":
-    case "name":
-    case "sell":
-    case "silv":
-    case "tabl":
-        print("The dog looks at you with a puzzled expression on his face.")
+    case 'capt':
+    case 'job':
+    case 'john':
+    case 'name':
+    case 'sell':
+    case 'silv':
+    case 'tabl':
+        print('The dog looks at you with a puzzled expression on his face.')
         jump 141
 
-    case "tric":
-        print("The dog looks at you expectantly.")
+    case 'tric':
+        print('The dog looks at you expectantly.')
         jump 141
 
-    case "sit":
-        print("The dog sits.")
+    case 'sit':
+        print('The dog sits.')
         ('SETF', ('byte', 235), ('byte', 7))
         jump 141
 
-    case "fetc":
-        print("The dog fetches a stick and lays it at your feet.")
+    case 'fetc':
+        print('The dog fetches a stick and lays it at your feet.')
         ('SETF', ('byte', 235), ('byte', 7))
         jump 141
 
-    case "shak":
-        print("The dog shakes paws with you.")
+    case 'shak':
+        print('The dog shakes paws with you.')
         ('SETF', ('byte', 235), ('byte', 7))
         jump 141
 
-    case "heel":
-        print("The dog bites your heel.")
+    case 'heel':
+        print('The dog bites your heel.')
         ('SETF', ('byte', 235), ('byte', 7))
         jump 141
 
-    case "beg":
-        print("The dog begs.")
+    case 'beg':
+        print('The dog begs.')
         ('SETF', ('byte', 235), ('byte', 7))
         jump 141
 
-    case "dead":
-    case "play":
-        print("The dog plays dead.")
+    case 'dead':
+    case 'play':
+        print('The dog plays dead.')
         ('SETF', ('byte', 235), ('byte', 7))
         jump 141
 
-    case "over":
-    case "roll":
-        print("The dog rolls over.")
+    case 'over':
+    case 'roll':
+        print('The dog rolls over.')
         ('SETF', ('byte', 235), ('byte', 7))
         jump 141
 
-    case "advi":
-    case "spea":
+    case 'advi':
+    case 'spea':
         if hasBit(byte 235, byte 6):
             ('DPRINT', ('dword', 1353), ('random', [('byte', 0), ('byte', 3)]))
             jump 141
         fi
 
-        print("\"I feel that the whole debate over 'free will' versus 'determinism' ")
-        print("arises from an artificial semantic division. In light of the work of ")
-        print("Godel and Heisenberg, it is evident that the two concepts are ")
-        print("indistinguishable and thus, for all practical purposes, identical.\"")
+        print('"I feel that the whole debate over \'free will\' versus \'determinism\' ')
+        print('arises from an artificial semantic division. In light of the work of ')
+        print('Godel and Heisenberg, it is evident that the two concepts are ')
+        print('indistinguishable and thus, for all practical purposes, identical."')
         ('SETF', ('byte', 235), ('byte', 6))
         ('SETF', ('byte', 235), ('byte', 7))
         jump 141
 
-    case "andr":
-    case "artu":
-    case "wand":
-        print("\"Grrrrrrr...\"")
+    case 'andr':
+    case 'artu':
+    case 'wand':
+        print('"Grrrrrrr..."')
 
-    case "bye":
+    case 'bye':
         if equals(hasBit(byte 235, byte 7), byte 0):
-            print("\"Ruff.\"\n")
+            print('"Ruff."\n')
             bye()
 
         else:
             jump 988
         fi
 
-    case "*":
+    case '*':
         ('DPRINT', ('dword', 1353), ('random', [('byte', 0), ('byte', 3)]))
     esac
 
     jump 141
 
 988:
-    print("The dog picks up a bowl in his mouth and holds it up to you.\n*\nYou see")
-    print(" that it has several coins in it already. Do you give him any money? ")
+    print('The dog picks up a bowl in his mouth and holds it up to you.\n*\nYou see')
+    print(' that it has several coins in it already. Do you give him any money? ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
+    case 'n':
 1133:
-        print("After a while the dog sets down the bowl, lies down, and starts ")
-        print("whimpering.\n")
+        print('After a while the dog sets down the bowl, lies down, and starts ')
+        print('whimpering.\n')
         ('SUB_KARMA', ('byte', 5))
         bye()
     esac
 
 1215:
-    print("\nHow much do you give? ")
+    print('\nHow much do you give? ')
     ('INPUT', 0)
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
-        print("You don't have that much.\n")
+        print('You don\'t have that much.\n')
         jump 1215
     fi
 
@@ -138,7 +138,7 @@ interaction:
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
     ('CLEARF', ('byte', 235), ('byte', 7))
-    print("The dog seems pleased.\n")
+    print('The dog seems pleased.\n')
     bye()
 
     ('STRINGS', ['"Arf!"', '"Bow wow."', 'The dog jumps up and tries to lick your face.', '"Woof, woof!"'], [])

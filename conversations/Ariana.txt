@@ -1,11 +1,11 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(13)
 
 id(13)
-name("Ariana")
+name('Ariana')
 
 description:
-    print("a cute little girl with short hair.\n*")
+    print('a cute little girl with short hair.\n*')
 
 interaction:
     if hasBit(byte 235, byte 7):
@@ -16,88 +16,88 @@ interaction:
         jump 180
     fi
 
-    print("\"My parents told me never to talk to strangers. What's your name?\"\n")
+    print('"My parents told me never to talk to strangers. What\'s your name?"\n')
 
     ask()
-    print("\n\"Ok. Now I can talk to you!\"")
+    print('\n"Ok. Now I can talk to you!"')
     ('SETF', ('byte', 235), ('value', 0))
     jump 198
 
 180:
-    print("\"Oh, hello again.\"\n")
+    print('"Oh, hello again."\n')
 
     ask()
 
-    case "name":
-        print("She curtsies gracefully. \"Ariana is my name.\"")
+    case 'name':
+        print('She curtsies gracefully. "Ariana is my name."')
         jump 198
 
-    case "job":
-        print("\"I'm learning to be a @bard. I like to @play the harpsichord best.\"")
+    case 'job':
+        print('"I\'m learning to be a @bard. I like to @play the harpsichord best."')
         jump 198
 
-    case "bard":
-        print("\"I want to be a bard when I grow up. They have more @fun than ")
-        print("anybody!\"")
+    case 'bard':
+        print('"I want to be a bard when I grow up. They have more @fun than ')
+        print('anybody!"')
         jump 198
 
-    case "comp":
-        print("\"They taught me all about compassion. They say it's very important for")
-        print(" bards.\"")
+    case 'comp':
+        print('"They taught me all about compassion. They say it\'s very important for')
+        print(' bards."')
         jump 198
 
-    case "mant":
-        print("\"I can't remember it now... And @Kenneth just taught it to me last ")
-        print("week...\"\n*\n\"Wait, I know! It's 'mo!'\"\n*\n\"Or maybe it was 'om'... Or ")
-        print("'mu,' or 'um'... It was something like that.\"")
+    case 'mant':
+        print('"I can\'t remember it now... And @Kenneth just taught it to me last ')
+        print('week..."\n*\n"Wait, I know! It\'s \'mo!\'"\n*\n"Or maybe it was \'om\'... Or ')
+        print('\'mu,\' or \'um\'... It was something like that."')
         jump 198
 
-    case "rune":
+    case 'rune':
         jump 1475
 
-    case "harp":
-    case "music":
-    case "play":
-    case "song":
+    case 'harp':
+    case 'music':
+    case 'play':
+    case 'song':
         jump 843
 
-    case "fun":
-        print("\"Oh yes, lots of it!\"")
+    case 'fun':
+        print('"Oh yes, lots of it!"')
         jump 198
 
-    case "ken":
-        print("\"He's my teacher.\"")
+    case 'ken':
+        print('"He\'s my teacher."')
         jump 198
 
-    case "bye":
-        print("\"See you later.\"\n")
+    case 'bye':
+        print('"See you later."\n')
         bye()
 
-    case "*":
-        print("\"What do you mean?\"")
+    case '*':
+        print('"What do you mean?"')
     esac
 
     jump 198
 
 843:
-    print("\"I've been studying to be a bard since I was this many.\" She holds up ")
-    print("three fingers.\n*\n\"I'd like to play something for you, but I'm not good")
-    print(" enough yet.\"\n*\nShe looks away for a moment, then turns back to you, ")
-    print("blushing slightly.\n*\n\"Will you come back to hear my music when I am ")
-    print("older, if you can?\" ")
+    print('"I\'ve been studying to be a bard since I was this many." She holds up ')
+    print('three fingers.\n*\n"I\'d like to play something for you, but I\'m not good')
+    print(' enough yet."\n*\nShe looks away for a moment, then turns back to you, ')
+    print('blushing slightly.\n*\n"Will you come back to hear my music when I am ')
+    print('older, if you can?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("The little girl sniffles, seeming suddenly on the verge of tears.\n\n")
-        print("*\"I'm sorry,\" she says, \"I shouldn't have asked.\" She turns her back, ")
-        print("as if ashamed to face you.\n")
+    case 'n':
+        print('The little girl sniffles, seeming suddenly on the verge of tears.\n\n')
+        print('*"I\'m sorry," she says, "I shouldn\'t have asked." She turns her back, ')
+        print('as if ashamed to face you.\n')
         ('SUB_KARMA', ('byte', 5))
         bye()
 
-    case "y":
-        print("The little girl's face breaks out into a smile bright enough to light ")
-        print("up the whole room.\n*\n\"Really? I would like that very much.\"")
+    case 'y':
+        print('The little girl\'s face breaks out into a smile bright enough to light ')
+        print('up the whole room.\n*\n"Really? I would like that very much."')
 
         if equals(hasBit(byte 235, byte 4), byte 0):
             ('ADD_KARMA', ('byte', 10))
@@ -109,35 +109,35 @@ interaction:
 
 1475:
     if hasBit(byte 235, byte 6):
-        print("\"I already gave it to you, silly. I hope you can figure out how to use")
-        print(" it.\"")
+        print('"I already gave it to you, silly. I hope you can figure out how to use')
+        print(' it."')
         jump 198
     fi
 
-    print("\"I have the Rune of Compassion. Isn't it pretty?\" She reaches into her")
-    print(" pocket and takes it out to show you.*\n\n\"Do you need it for ")
-    print("something?\" ")
+    print('"I have the Rune of Compassion. Isn\'t it pretty?" She reaches into her')
+    print(' pocket and takes it out to show you.*\n\n"Do you need it for ')
+    print('something?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"Ok.\"")
+    case 'n':
+        print('"Ok."')
         jump 198
     esac
 
-    print("\n\"Are you on an important quest?\" ")
+    print('\n"Are you on an important quest?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"I'd best hold onto it then. I was told to look after it carefully.\"")
+    case 'n':
+        print('"I\'d best hold onto it then. I was told to look after it carefully."')
         jump 198
 
-    case "y":
-        print("\"I'm not supposed to let anyone else have it. But if you truly need ")
-        print("it...\"\n*\n\"I don't know what I should do.\"\n*\n\"I know! My parents run ")
-        print("the Blue Boar Tavern. Go ask them if you can borrow the rune.\"\n*\n\"If ")
-        print("they say 'tis okay, I'll give it to you.\"")
+    case 'y':
+        print('"I\'m not supposed to let anyone else have it. But if you truly need ')
+        print('it..."\n*\n"I don\'t know what I should do."\n*\n"I know! My parents run ')
+        print('the Blue Boar Tavern. Go ask them if you can borrow the rune."\n*\n"If ')
+        print('they say \'tis okay, I\'ll give it to you."')
         ('SETF', ('byte', 235), ('byte', 7))
         ('SETF', ('byte', 235), ('byte', 5))
     esac
@@ -145,19 +145,19 @@ interaction:
     jump 198
 
 2104:
-    print("\"Hi! Did you get permission from my parents to borrow the rune?\"")
+    print('"Hi! Did you get permission from my parents to borrow the rune?"')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
+    case 'y':
         if less(canCarry(character(integer(value 3), byte 0)), weight(byte 243, byte 1)):
-            print("\"Oh, you're carrying too much right now. You'd better come back for it")
-            print(" later.\"")
+            print('"Oh, you\'re carrying too much right now. You\'d better come back for it')
+            print(' later."')
             jump 198
         fi
 
-        print("\"Then here you are.\" She hands you the rune. \"I wish you the best of ")
-        print("luck on your quest.\"")
+        print('"Then here you are." She hands you the rune. "I wish you the best of ')
+        print('luck on your quest."')
 
         if hasBit(byte 235, byte 5):
             ('SUB_KARMA', ('byte', 10))
@@ -168,7 +168,7 @@ interaction:
         ('GIVE', ('byte', 243), ('byte', 0), ('byte', 235), ('byte', 1))
         jump 198
 
-    case "n":
-        print("\"Well, if you get their permission later, let me know.\"")
+    case 'n':
+        print('"Well, if you get their permission later, let me know."')
         jump 198
     esac

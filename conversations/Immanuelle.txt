@@ -1,103 +1,103 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(80)
 
 id(80)
-name("Immanuelle")
+name('Immanuelle')
 
 description:
-    print("a sultry, dark-skinned woman dressed in riding-leathers.")
+    print('a sultry, dark-skinned woman dressed in riding-leathers.')
     wait()
 
-    print("\n")
+    print('\n')
 
 interaction:
     integer(value 9) = byte 60
 
     if hasBit(byte 235, value 0):
-        print("\"Hello again, my friend")
+        print('"Hello again, my friend')
 
     else:
-        print("\"Hello, stranger")
+        print('"Hello, stranger')
         ('SETF', ('byte', 235), ('value', 0))
     fi
 
     if integer(value 23):
-        print("s. What can I do for you")
+        print('s. What can I do for you')
 
     else:
-        print(". What can I do for thee")
+        print('. What can I do for thee')
     fi
 
-    print(" this $T?\"\n")
+    print(' this $T?"\n')
 
     ask()
 
-    case "name":
-        print("\"Some call me Immanuelle, $G.\"")
+    case 'name':
+        print('"Some call me Immanuelle, $G."')
         wait()
 
-        print("\n\n\"Others call me...something @else.\"")
+        print('\n\n"Others call me...something @else."')
         wait()
 
-        print("\n\nShe winks at you.")
+        print('\n\nShe winks at you.')
         jump 196
 
-    case "else":
-    case "some":
+    case 'else':
+    case 'some':
         if equals(integer(value 16), byte 0):
-            print("\"Perhaps some time I will @show you...\"")
+            print('"Perhaps some time I will @show you..."')
 
         else:
-            print("\"I think you get the idea.\"")
+            print('"I think you get the idea."')
         fi
 
         jump 196
 
-    case "show":
-        print("\"Not here.\"")
+    case 'show':
+        print('"Not here."')
         jump 196
 
-    case "job":
-        print("\"I raise horses here, in the stables.\"")
+    case 'job':
+        print('"I raise horses here, in the stables."')
         wait()
 
-        print("\n\n\"I also sell @horses, if you wish to @buy one.\"")
+        print('\n\n"I also sell @horses, if you wish to @buy one."')
         jump 196
 
-    case "hors":
-    case "sell":
-        print("\"I can hardly bear to part with any of these magnificent beasts.\"")
+    case 'hors':
+    case 'sell':
+        print('"I can hardly bear to part with any of these magnificent beasts."')
         wait()
 
-        print("\n\n\"But there are a few that fail to please me.\"")
+        print('\n\n"But there are a few that fail to please me."')
         wait()
 
-        print("\n\n\"If you wish to @buy one of them, just say the word.\"")
+        print('\n\n"If you wish to @buy one of them, just say the word."')
         jump 196
 
-    case "buy":
+    case 'buy':
         if notEquals(integer(value 32), byte 143):
-            print("\"Come to my shop when I'm open!\"")
+            print('"Come to my shop when I\'m open!"')
             jump 196
 
         else:
             jump 851
         fi
 
-    case "bye":
-        print("\"Come back again soon!\"")
+    case 'bye':
+        print('"Come back again soon!"')
 
         if equals(integer(value 16), byte 0):
             wait()
 
-            print("\n\nAs you leave, she blows you a kiss.")
+            print('\n\nAs you leave, she blows you a kiss.')
         fi
 
-        print("\n")
+        print('\n')
         bye()
 
-    case "*":
-        print("\"Beg pardon, $G?\"")
+    case '*':
+        print('"Beg pardon, $G?"')
         jump 196
     esac
 
@@ -112,7 +112,7 @@ interaction:
     integer(value 3) = character(byte 0, byte 0)
 
     if hasHorse(integer(value 3)):
-        print("\"But thou already hast a horse!\"")
+        print('"But thou already hast a horse!"')
         jump 196
 
     else:
@@ -138,7 +138,7 @@ interaction:
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
-    print("#2) $Y\n")
+    print('#2) $Y\n')
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
 
@@ -148,7 +148,7 @@ interaction:
 
 1058:
     if equals(integer(value 2), byte 0):
-        print("\"But all of you are already on horses!\"")
+        print('"But all of you are already on horses!"')
         jump 196
     fi
 
@@ -158,9 +158,9 @@ interaction:
     fi
 
     ('SETNAME', ('integer', [('value', 4)]))
-    print("#2) $Y\n")
+    print('#2) $Y\n')
     integer(value 4) = byte 0
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 2)
 
     if equals(integer(value 2), byte 0):
@@ -188,28 +188,28 @@ interaction:
 
 1252:
     ('SETNAME', ('integer', [('value', 3)]))
-    print("\"Aye, $Y, thou hast need of a horse.\"")
+    print('"Aye, $Y, thou hast need of a horse."')
     wait()
 
-    print("\n\n")
+    print('\n\n')
 
     if less(objectsCount(integer(value 3), byte 88), integer(value 9)):
-        print("\"But thou canst not afford one!\"")
+        print('"But thou canst not afford one!"')
         jump 1532
     fi
 
-    print("\"My price is #9 gold pieces, no less. Interested?\" ")
+    print('"My price is #9 gold pieces, no less. Interested?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "y":
-        print("\"Good!\" $N takes $Y's gold, and hands over the reins of a fine horse.")
+    case 'y':
+        print('"Good!" $N takes $Y\'s gold, and hands over the reins of a fine horse.')
         ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 9)]))
         ('HORSE', ('integer', [('value', 3)]))
         jump 1532
 
-    case "n":
-        print("\"Perhaps some other time then.\"")
+    case 'n':
+        print('"Perhaps some other time then."')
         jump 1532
     esac
 
@@ -220,19 +220,19 @@ interaction:
 
     wait()
 
-    print("\n\n\"How about ")
+    print('\n\n"How about ')
 
     if greater(integer(value 23), byte 1):
-        print("one of thy friends")
+        print('one of thy friends')
 
     else:
-        print("thy friend")
+        print('thy friend')
     fi
 
-    print("?\"")
+    print('?"')
     wait()
 
-    print("\n\n")
+    print('\n\n')
     integer(value 1) = byte 0
     integer(value 2) = byte 0
     integer(value 4) = byte 0

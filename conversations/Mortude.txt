@@ -1,88 +1,88 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(2)
 
 id(101)
-name("Mortude")
+name('Mortude')
 
 description:
-    print("a man nearly as wide as he is tall.")
+    print('a man nearly as wide as he is tall.')
     wait()
 
-    print("\n")
+    print('\n')
 
 interaction:
     if hasBit(byte 235, value 0):
-        print("\"What now?\" he sighs.\n")
+        print('"What now?" he sighs.\n')
 
     else:
-        print("\"What?\" he grumbles.\n")
+        print('"What?" he grumbles.\n')
     fi
 
 99:
     ask()
 
-    case "name":
-        print("\"As the sign on my door reads, '@Mortude the Ropemaker.'\"\n")
+    case 'name':
+        print('"As the sign on my door reads, \'@Mortude the Ropemaker.\'"\n')
         jump 99
 
-    case "mort":
-        print("\"What?\" He snorts a bit then clears his throat.\n")
+    case 'mort':
+        print('"What?" He snorts a bit then clears his throat.\n')
         jump 99
 
-    case "job":
-        print("He looks at you and raises one eyebrow. \"I said I makes @rope.\"\n")
+    case 'job':
+        print('He looks at you and raises one eyebrow. "I said I makes @rope."\n')
         jump 99
 
-    case "buy":
-    case "make":
-    case "rope":
-        print("\"The strongest you'll ever tug!\" he says, pushing out his chest.")
+    case 'buy':
+    case 'make':
+    case 'rope':
+        print('"The strongest you\'ll ever tug!" he says, pushing out his chest.')
         wait()
 
-        print("\n\n")
+        print('\n\n')
 
         if notEquals(integer(value 32), byte 144):
-            print("\"Come to my shop when I'm open and I'll show you!\"\n")
+            print('"Come to my shop when I\'m open and I\'ll show you!"\n')
             jump 99
         fi
 
         jump 885
 
-    case "thin":
-        print("\"He's a pretty good @flippits, player.\"\n")
+    case 'thin':
+        print('"He\'s a pretty good @flippits, player."\n')
         jump 99
 
-    case "flip":
-        print("\"You have a @bone on ya? We'll play.\"\n")
+    case 'flip':
+        print('"You have a @bone on ya? We\'ll play."\n')
         jump 99
 
-    case "bone":
-        print("\"An old @dog bone or somethin'?\"\n")
+    case 'bone':
+        print('"An old @dog bone or somethin\'?"\n')
         jump 99
 
-    case "dog":
-    case "old":
-        print("\"The smaller, the better. And maybe a @hat.\"\n")
+    case 'dog':
+    case 'old':
+        print('"The smaller, the better. And maybe a @hat."\n')
         jump 99
 
-    case "hat":
-        print("\"A haaat,\" he repeats, mockingly. \"Never played 'ave ya?\"\n")
+    case 'hat':
+        print('"A haaat," he repeats, mockingly. "Never played \'ave ya?"\n')
         jump 99
 
-    case "no":
-        print("\"Too bad.\"\n")
+    case 'no':
+        print('"Too bad."\n')
         jump 99
 
-    case "bye":
-        print("\"Yeah, yeah.\" He plods off, grumbling.\n")
+    case 'bye':
+        print('"Yeah, yeah." He plods off, grumbling.\n')
         bye()
 
-    case "*":
+    case '*':
         if random(byte 0, byte 1):
-            print("\"Oh, never mind...\"\n")
+            print('"Oh, never mind..."\n')
 
         else:
-            print("He plays with his braided hair a moment then shrugs.\n")
+            print('He plays with his braided hair a moment then shrugs.\n')
         fi
 
         jump 99
@@ -103,7 +103,7 @@ interaction:
 
 922:
     ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
-    print("#2. $Y\n")
+    print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -111,11 +111,11 @@ interaction:
         jump 922
     fi
 
-    print("\"Which of you?\" ")
+    print('"Which of you?" ')
     ('INPUTNUM', 3)
 
     if equals(integer(value 3), byte 0):
-        print("\"Too bad. You'll never find better rope.\"\n")
+        print('"Too bad. You\'ll never find better rope."\n')
         jump 99
     fi
 
@@ -129,29 +129,29 @@ interaction:
 
 1076:
     ('SETNAME', ('integer', [('value', 3)]))
-    print("$N smiles at $Y, \"For my fine rope it will cost you 5 gold. ")
-    print("Interested?\" ")
+    print('$N smiles at $Y, "For my fine rope it will cost you 5 gold. ')
+    print('Interested?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"Too bad. You'll never find better rope.\"\n")
+    case 'n':
+        print('"Too bad. You\'ll never find better rope."\n')
         jump 99
 
-    case "y":
+    case 'y':
         if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 5)), weight(word 284, byte 1)):
-            print("\"You look pretty full to me.\"\n")
+            print('"You look pretty full to me."\n')
             jump 99
         fi
 
         if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 5):
             ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 5))
             ('NEW', ('integer', [('value', 3)]), ('word', 284), ('byte', 0), ('byte', 1))
-            print("\"Fine, fine!\" After accepting $Y's gold, $N hands over the rope.\n")
+            print('"Fine, fine!" After accepting $Y\'s gold, $N hands over the rope.\n')
             jump 99
 
         else:
-            print("\"You don't have enough gold.\"\n")
+            print('"You don\'t have enough gold."\n')
             jump 99
         fi
     esac

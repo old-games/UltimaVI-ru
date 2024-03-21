@@ -1,111 +1,111 @@
-source("CONVERSE.B")
+source('CONVERSE.B')
 index(73)
 
 id(172)
-name("Goodscrafter")
+name('Goodscrafter')
 
 description:
-    print("a quiet, listless gargoyle.")
+    print('a quiet, listless gargoyle.')
     wait()
 
 interaction:
-    print("\n")
+    print('\n')
 
     if and(equals(integer(value 21), byte 1), equals(partyHasObject(byte 76, byte 0), byte 1)):
         jump 297
     fi
 
     if integer(value 21):
-        print("\"Oh, the False Prophet,\" the gargoyle says calmly.")
+        print('"Oh, the False Prophet," the gargoyle says calmly.')
         wait()
 
-        print("\n\n\"To suppose that you have come to kill me as well. All right.\"")
+        print('\n\n"To suppose that you have come to kill me as well. All right."')
 
     else:
-        print("\"An-bal-sil-fer,\" the gargoyle says calmly. \"Sum in-korp i. Vers.\"")
+        print('"An-bal-sil-fer," the gargoyle says calmly. "Sum in-korp i. Vers."')
     fi
 
     wait()
 
-    print("\n\nThe gargoyle silently awaits his fate.\n")
+    print('\n\nThe gargoyle silently awaits his fate.\n')
     bye()
 
 297:
     if hasBit(byte 235, value 0):
-        print("\"To ask why you disturb me again, False Prophet.\"")
+        print('"To ask why you disturb me again, False Prophet."')
 
     else:
-        print("\"To see the Amulet of Submission.\"")
+        print('"To see the Amulet of Submission."')
         wait()
 
-        print("\n\n\"To suppose, then, that my world has been saved.\"")
+        print('\n\n"To suppose, then, that my world has been saved."')
         wait()
 
-        print("\n\n\"But to feel that salvation has come too @late.\"")
+        print('\n\n"But to feel that salvation has come too @late."')
         wait()
 
         ('SETF', ('byte', 235), ('value', 0))
     fi
 
 498:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "late":
-    case "too":
-        print("\"To refuse to discuss my @grief with the being who caused it.\"")
+    case 'late':
+    case 'too':
+        print('"To refuse to discuss my @grief with the being who caused it."')
         jump 498
 
-    case "grie":
-        print("\"Surely to know what pain you have caused by stealing the Codex?\"")
+    case 'grie':
+        print('"Surely to know what pain you have caused by stealing the Codex?"')
         wait()
 
-        print("\n\n\"To not believe that you care. To believe, in fact, that you enjoy ")
-        print("causing @suffering.\"")
+        print('\n\n"To not believe that you care. To believe, in fact, that you enjoy ')
+        print('causing @suffering."')
         jump 498
 
-    case "help":
-    case "no":
-    case "suff":
-        print("\"To not believe that you would do anything to help.\"")
+    case 'help':
+    case 'no':
+    case 'suff':
+        print('"To not believe that you would do anything to help."')
         jump 498
 
-    case "name":
-        print("\"To not have a name.\"")
+    case 'name':
+        print('"To not have a name."')
         wait()
 
-        print("\n\n\"To have nothing at all now...\"")
+        print('\n\n"To have nothing at all now..."')
         jump 498
 
-    case "job":
-        print("\"To be a goodscrafter.\"")
+    case 'job':
+        print('"To be a goodscrafter."')
         wait()
 
-        print("\n\n\"Though to have no reason to make @goods now.\"")
+        print('\n\n"Though to have no reason to make @goods now."')
         jump 498
 
-    case "buy":
-    case "good":
-        print("\"To invite you to take what you want.\"")
+    case 'buy':
+    case 'good':
+        print('"To invite you to take what you want."')
         jump 498
 
-    case "fami":
-        print("\"To have lost my entire family in the @cataclysms.\"")
+    case 'fami':
+        print('"To have lost my entire family in the @cataclysms."')
         jump 498
 
-    case "cata":
-        print("\"To wish not to speak of it.\"")
+    case 'cata':
+        print('"To wish not to speak of it."')
         jump 498
 
-    case "bye":
-        print("\"To wait here for you to return to kill me.\"\n")
+    case 'bye':
+        print('"To wait here for you to return to kill me."\n')
         bye()
 
-    case "*":
-        print("\"To not care about $Z.\"")
+    case '*':
+        print('"To not care about $Z."')
         wait()
 
-        print("\n\n\"To not care about anything now.\"")
+        print('\n\n"To not care about anything now."')
         jump 498
     esac

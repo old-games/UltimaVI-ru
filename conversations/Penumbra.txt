@@ -1,288 +1,288 @@
-source("CONVERSE.A")
+source('CONVERSE.A')
 index(41)
 
 id(41)
-name("Penumbra")
+name('Penumbra')
 
 description:
-    print("a small, inscrutable woman, cloaked in shadows.")
+    print('a small, inscrutable woman, cloaked in shadows.')
     wait()
 
-    print("\n")
+    print('\n')
 
 interaction:
     if equals(hasBit(byte 235, value 0), byte 0):
-        print("\"Ah, hello Avatar. I was wondering when you would get here.\"")
+        print('"Ah, hello Avatar. I was wondering when you would get here."')
         ('SETF', ('byte', 235), ('value', 0))
 
     else:
-        print("\"I see you have yet to fulfill your destiny.\"")
+        print('"I see you have yet to fulfill your destiny."')
     fi
 
 183:
-    print("\n")
+    print('\n')
 
     ask()
 
-    case "name":
-        print("\"I am the one known as @Penumbra.\"")
+    case 'name':
+        print('"I am the one known as @Penumbra."')
         jump 183
 
-    case "penu":
-        print("\"I am the daughter of the eclipse.\"")
+    case 'penu':
+        print('"I am the daughter of the eclipse."')
         jump 183
 
-    case "job":
-        print("\"I am a @fortune teller.\"")
+    case 'job':
+        print('"I am a @fortune teller."')
         jump 183
 
-    case "fort":
-    case "tell":
-        print("\"Yes, I can foretell your @future for you.\"")
+    case 'fort':
+    case 'tell':
+        print('"Yes, I can foretell your @future for you."')
         jump 183
 
-    case "fore":
-    case "futu":
+    case 'fore':
+    case 'futu':
         jump 1419
 
-    case "beyv":
-        print("\"Yes he was a terribly @honest fellow.\"")
+    case 'beyv':
+        print('"Yes he was a terribly @honest fellow."')
         wait()
 
-        print("\n\n\"Alas, though, he lacked the virtue of tact.\"")
+        print('\n\n"Alas, though, he lacked the virtue of tact."')
         wait()
 
-        print("\n\n\"He told the truth once too often, and those he spoke of did not ")
-        print("appreciate it.\"")
+        print('\n\n"He told the truth once too often, and those he spoke of did not ')
+        print('appreciate it."')
         wait()
 
-        print("\n\n\"He's buried in the catacombs under Moonglow now, pushing up ")
-        print("@daffodils.\"")
+        print('\n\n"He\'s buried in the catacombs under Moonglow now, pushing up ')
+        print('@daffodils."')
         wait()
 
-        print("\n\n\"Even virtue has its price.\"")
+        print('\n\n"Even virtue has its price."')
         jump 183
 
-    case "daff":
-        print("\"Yes, daffodils.\"")
+    case 'daff':
+        print('"Yes, daffodils."')
         jump 183
 
-    case "hone":
-        print("\"I can tell you of both the @rune and the @mantra.\"")
+    case 'hone':
+        print('"I can tell you of both the @rune and the @mantra."')
         jump 183
 
-    case "rune":
-        print("\"'Twas buried with @Beyvin, rest his shade.\"")
+    case 'rune':
+        print('"\'Twas buried with @Beyvin, rest his shade."')
         jump 183
 
-    case "mant":
+    case 'mant':
         jump 913
 
-    case "bye":
-        print("\"Your destiny awaits.\"\n")
+    case 'bye':
+        print('"Your destiny awaits."\n')
         bye()
 
-    case "*":
-        print("\"You must seek the answer to that elsewhere.\"")
+    case '*':
+        print('"You must seek the answer to that elsewhere."')
     esac
 
     jump 183
 
 913:
-    print("\"For five gold coins I can use my powers to divine the mantra for you.")
-    print(" Shall I do this?\" ")
+    print('"For five gold coins I can use my powers to divine the mantra for you.')
+    print(' Shall I do this?" ')
 
-    askc("yn")
+    askc('yn')
 
-    case "n":
-        print("\"It is a small price for so profound a word.\"")
+    case 'n':
+        print('"It is a small price for so profound a word."')
         jump 183
 
-    case "y":
+    case 'y':
     esac
 
     if less(objectsCount(byte 1, byte 88), byte 5):
-        print("\"Your ambitions outreach your means.\"")
+        print('"Your ambitions outreach your means."')
         jump 183
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 5))
     ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 5))
-    print("She closes her eyes in concentration. For long minutes you wait.")
+    print('She closes her eyes in concentration. For long minutes you wait.')
     wait()
 
-    print("\n\n")
+    print('\n\n')
 
     if partyHas(byte 2):
         ('PORTRAIT', ('byte', 2))
-        print("\"What are we waiting for!\" whispers Dupre.")
+        print('"What are we waiting for!" whispers Dupre.')
         wait()
 
-        print("\n\n\"She's doubtless fallen asleep, and you've wasted good money for ")
-        print("nothing...\"")
+        print('\n\n"She\'s doubtless fallen asleep, and you\'ve wasted good money for ')
+        print('nothing..."')
         wait()
 
         ('PORTRAIT', ('byte', 235))
-        print("\n\n")
+        print('\n\n')
     fi
 
-    print("Finally Penumbra opens her eyes again. \"The word you seek is 'ahm.'\"")
+    print('Finally Penumbra opens her eyes again. "The word you seek is \'ahm.\'"')
     jump 183
 
 1419:
-    print("\"I require a small donation for my services.\"\n\nHow much do you give ")
-    print("her? ")
+    print('"I require a small donation for my services."\n\nHow much do you give ')
+    print('her? ')
     ('INPUT', 0)
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
-        print("You don't have that much.")
+        print('You don\'t have that much.')
         jump 1464
     fi
 
     if equals(integer(value 0), byte 0):
-        print("\"So be it.\"")
+        print('"So be it."')
         jump 183
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    print("She holds her hands out on either side of her crystal ball, not quite ")
-    print("touching it, and closes her eyes.")
+    print('She holds her hands out on either side of her crystal ball, not quite ')
+    print('touching it, and closes her eyes.')
     wait()
 
-    print("\n\nAfter a time, she speaks.")
+    print('\n\nAfter a time, she speaks.')
     wait()
 
-    print("\n\n\"The future looks dark. All is unclear.\"")
+    print('\n\n"The future looks dark. All is unclear."')
     wait()
 
-    print("\n\n\"Some more gold would shed further light on your destiny...\"\n\nHow ")
-    print("much do you give her? ")
+    print('\n\n"Some more gold would shed further light on your destiny..."\n\nHow ')
+    print('much do you give her? ')
     ('INPUT', 0)
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
-        print("You don't have that much.")
+        print('You don\'t have that much.')
         jump 1810
     fi
 
     if equals(integer(value 0), byte 0):
-        print("\"So be it.\"")
+        print('"So be it."')
         jump 183
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    print("\"Though all is dark, I see a light at the end of the tunnel.\"")
+    print('"Though all is dark, I see a light at the end of the tunnel."')
     wait()
 
-    print("\n\n\"Quickly - more coins before I lose the thread of this vision!\"\n\nHow")
-    print(" much do you give her? ")
+    print('\n\n"Quickly - more coins before I lose the thread of this vision!"\n\nHow')
+    print(' much do you give her? ')
     ('INPUT', 0)
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
-        print("You don't have that much.")
+        print('You don\'t have that much.')
         jump 2046
     fi
 
     if equals(integer(value 0), byte 0):
-        print("\"So be it.\"")
+        print('"So be it."')
         jump 183
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    print("\"Much conflict lies before you. Your end...\"")
+    print('"Much conflict lies before you. Your end..."')
     wait()
 
-    print("\n\n\"I cannot see it. More gold is needed.\"\n\nHow much do you give her? ")
+    print('\n\n"I cannot see it. More gold is needed."\n\nHow much do you give her? ')
     ('INPUT', 0)
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
-        print("You don't have that much.")
+        print('You don\'t have that much.')
         jump 2241
     fi
 
     if equals(integer(value 0), byte 0):
-        print("\"So be it.\"")
+        print('"So be it."')
         jump 183
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    print("\"You shall travel throughout the land before you are through.\"")
+    print('"You shall travel throughout the land before you are through."')
     wait()
 
-    print("\n\n\"A few more coins and all should be clear.\"\n\nHow much do you give ")
-    print("her? ")
+    print('\n\n"A few more coins and all should be clear."\n\nHow much do you give ')
+    print('her? ')
     ('INPUT', 0)
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
-        print("You don't have that much.")
+        print('You don\'t have that much.')
         jump 2458
     fi
 
     if equals(integer(value 0), byte 0):
-        print("\"So be it.\"")
+        print('"So be it."')
         jump 183
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    print("\"You will journey into the depths of the earth...\"")
+    print('"You will journey into the depths of the earth..."')
     wait()
 
-    print("\n\n\"Strange creatures will you face...\"")
+    print('\n\n"Strange creatures will you face..."')
     wait()
 
-    print("\n\n\"I can almost see the end now.\"\n\nHow much do you give her? ")
+    print('\n\n"I can almost see the end now."\n\nHow much do you give her? ')
     ('INPUT', 0)
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
-        print("You don't have that much.")
+        print('You don\'t have that much.')
         jump 2690
     fi
 
     if equals(integer(value 0), byte 0):
-        print("\"So be it.\"")
+        print('"So be it."')
         jump 183
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    print("\"You and your companions will face terrible choices...\"")
+    print('"You and your companions will face terrible choices..."')
     wait()
 
-    print("\n\n\"You will need powerful magic to prevail...\"")
+    print('\n\n"You will need powerful magic to prevail..."')
     wait()
 
-    print("\n\n\"Wait... There is some barrier before me.\"")
+    print('\n\n"Wait... There is some barrier before me."')
     wait()
 
-    print("\n\n\"Give me just one more coin and I think I can break through it.\"\n\n")
-    print("How much do you give her? ")
+    print('\n\n"Give me just one more coin and I think I can break through it."\n\n')
+    print('How much do you give her? ')
     ('INPUT', 0)
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
-        print("You don't have that much.")
+        print('You don\'t have that much.')
         jump 3013
     fi
 
     if equals(integer(value 0), byte 0):
-        print("\"So be it.\"")
+        print('"So be it."')
         jump 183
     fi
 
     ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    print("\"Yes, now all is made clear to me!\"")
+    print('"Yes, now all is made clear to me!"')
     wait()
 
-    print("\n\n\"I see a great Vortex.\"")
+    print('\n\n"I see a great Vortex."')
     wait()
 
-    print("\n\n\"There is a violet lens that is crucial to your quest. It is broken,")
-    print(" and must be made whole.\"")
+    print('\n\n"There is a violet lens that is crucial to your quest. It is broken,')
+    print(' and must be made whole."')
     wait()
 
-    print("\n\n\"But one lens is not enough! A blue lens is needed as well.\"")
+    print('\n\n"But one lens is not enough! A blue lens is needed as well."')
     wait()
 
-    print("\n\n\"You must have two lenses, else all is for naught.\"")
+    print('\n\n"You must have two lenses, else all is for naught."')
     wait()
 
-    print("\n\nShe opens her eyes. \"I can see no more for now. Leave me, that I ")
-    print("might rest.\"\n")
+    print('\n\nShe opens her eyes. "I can see no more for now. Leave me, that I ')
+    print('might rest."\n')
     bye()
