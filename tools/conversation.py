@@ -266,16 +266,17 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
 
         elif code == 0xa6:
             # TODO support packing and unpacking
+            # TODO support assigning strings
             _read_byte(stream, visited_labels)
             left = _one(_read_expressions(stream, visited_labels, data, 0xa8))
             right = _one(_read_expressions(stream, visited_labels, data, 0xa7))
 
             if left[0] == 'data':
-                assert right[0] in ('data', 'integer') # TODO support assigning strings
+                assert right[0] in ('data', 'integer')
                 _set_data_type(data, left[1][0][1], 'integer')
 
             if right[0] == 'data':
-                assert left[0] in ('data', 'string', 'integer') # TODO support assigning strings
+                assert left[0] in ('data', 'string', 'integer')
                 if left[0] == 'string':
                     _set_data_type(data, right[1][0][1], 'string')
                 else:
