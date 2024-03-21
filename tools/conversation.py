@@ -405,11 +405,11 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
         else:
             level -= 1
 
-    def append(line=None):
+    def append(line=None, force_level=None):
         nonlocal last_level
         if line:
-            result.append(f'{" "*level*4}{line}')
-            last_level = level
+            last_level = level if force_level is None else force_level
+            result.append(f'{" "*last_level*4}{line}')
         else:
             result.append('')
 
@@ -420,21 +420,17 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
     # FIXME пометить некорректные выходы из блоков
 
     for label, instruction in instructions:
-        level, save_level = 0, level
-
         if label == description:
             empty_prefix_line()
-            append('description:')
+            append('description:', force_level=0)
 
         if label == interaction:
             empty_prefix_line()
-            append('interaction:')
+            append('interaction:', force_level=0)
 
         if label in labels:
             empty_prefix_line()
-            append(f'{label}:')
-
-        level = save_level
+            append(f'{label}:', force_level=0)
 
         if label in unreachable_labels:
             empty_prefix_line()
