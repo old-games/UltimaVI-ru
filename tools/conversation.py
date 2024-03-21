@@ -169,7 +169,7 @@ def _add_branch_ended(branches_ended, stack, choices, keywords):
     branches_ended[tuple(stack)] = True
 
 
-def _read_instructions(stream, result, labels, visited_labels, unreachable_labels, data, end):
+def _read_instructions(stream, result, labels, visited_labels, unreachable_labels, error_labels, data, end):
     all_instructions = {
         0x9c, 0x9e,
         0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6,
@@ -356,8 +356,8 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
             result[offset] = 'CURE', _one(_read_expressions(stream, visited_labels, data, 0xa7))
 
         elif code == 0xee:
+            # May be absent.
             _read_byte(stream, visited_labels)
-            # May be absent
             if stack and stack[-1][0] == 'case':
                 del stack[-1]
             result[offset] = 'ESAC',
@@ -413,12 +413,12 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
 
         else:
             assert unreachable_labels is not None
-            return False
+            assert error_labels is not None
+            error_labels.add(offset)
+            break
 
         if unreachable_labels is not None:
             unreachable_labels.add(offset)
-
-    return True
 
 
 def _format_expression(expression):
@@ -601,22 +601,23 @@ def decode(conversation):
     result.append('')
     assert _read_byte(stream, visited_labels) == 0xf1
     description = stream.tell()
-    _read_instructions(stream, blocks, labels, visited_labels, None, data, {0xf2})
+    _read_instructions(stream, blocks, labels, visited_labels, None, None, data, {0xf2})
 
     assert _read_byte(stream, visited_labels) == 0xf2
     interaction = stream.tell()
-    _read_instructions(stream, blocks, labels, visited_labels, None, data, {None})
+    _read_instructions(stream, blocks, labels, visited_labels, None, None, data, {None})
 
     while labels - visited_labels:
         label = next(iter(labels - visited_labels))
         stream.seek(label)
-        _read_instructions(stream, blocks, labels, visited_labels, None, data, {None})
+        _read_instructions(stream, blocks, labels, visited_labels, None, None, data, {None})
 
     visited_data = set()
     unreachable_labels = set()
     error_labels = set()
     while set(data) != visited_data or set(range(len(conversation))) != visited_labels | error_labels:
         while new_data := set(data) - visited_data:
+            # FIXME вынести в _read_integers , _read_strings
             types = dict(sorted(((label, data[label]) for label in new_data)))
             offsets = list(types)
             assert set(types.values()) <= {'integer', 'string'}
@@ -678,13 +679,11 @@ def decode(conversation):
             # TODO ссылки могут не работать, чекнуть
             # TODO данные могут не работать, чекнуть
             stream.seek(label)
-            if not _read_instructions(stream, blocks, labels, visited_labels, unreachable_labels, data, {None}):
-                # TODO это кривота, по 1 шагу читать, воткнуть это внутрь функции
-                error_labels.add(label)
+            _read_instructions(stream, blocks, labels, visited_labels, unreachable_labels, error_labels, data, {None})
 
     for label in sorted(set(range(len(conversation))) - visited_labels):
-        # TODO склеить их по 2 байта в integers?
         stream.seek(label)
+        # TODO вызвать _read_integers
         blocks[label] = 'UNKNOWN', _read_byte(stream, visited_labels)
 
     assert set(range(len(conversation))) - visited_labels == set()
