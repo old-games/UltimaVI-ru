@@ -165,7 +165,7 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, e
         0xc4, 0xc5, 0xc9, 0xcb, 0xcd,
         0xd6, 0xd8, 0xd9, 0xdb,
         0xee, 0xef,
-        0xf7, 0xf8, 0xf9, 0xfb, 0xfc,
+        0xf3, 0xf7, 0xf8, 0xf9, 0xfb, 0xfc,
     }
     if allow_solo_endif:
         all_instructions.add(0xa2)
@@ -345,6 +345,10 @@ def _read_instructions(stream, labels, visited_labels, data, allow_solo_endif, e
             assert _read_byte(stream, visited_labels) == 0xb2
             result.append(('INPUT', number))
 
+        elif code == 0xf3:
+            _read_byte(stream, visited_labels)
+            result.append('F3')
+
         elif code == 0xfc:
             _read_byte(stream, visited_labels)
             number = _read_byte(stream, visited_labels)
@@ -422,6 +426,9 @@ def _format_instructions(instructions):
         elif instruction == 'ENDIF':
             result.append('endif')
 
+        elif instruction == 'F3':
+            result.append('f3()')
+
         elif instruction == 'WAIT':
             result.append('wait()')
 
@@ -469,11 +476,7 @@ def decode(raw_conversation):
     result.append('')
     assert _read_byte(stream, visited_labels) == 0xf1
     result.append('description:')
-    result.extend(_format_instructions(_read_instructions(stream, labels, visited_labels, data, allow_solo_endif, {0xf2, 0xf3})))
-
-    if _check_byte(stream, visited_labels, 0xf3):
-        result.append('')
-        result.append('f3()')
+    result.extend(_format_instructions(_read_instructions(stream, labels, visited_labels, data, allow_solo_endif, {0xf2})))
 
     result.append('')
     assert _read_byte(stream, visited_labels) == 0xf2
