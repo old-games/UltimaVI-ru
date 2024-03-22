@@ -186,6 +186,9 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
     }
     # TODO there are more instructions in the game
 
+    def add(*args):
+        result[offset] = code, stream.tell() - offset, *args
+
     stack = []
     branches_ended = {tuple(): False}
     choices = {}
@@ -217,7 +220,7 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
 
         if code == 0x9c:
             _read_byte(stream, visited_labels)
-            result[offset] = 'HORSE', _one(_read_expressions(stream, visited_labels, data, 0xa7))
+            result[offset] = code, _one(_read_expressions(stream, visited_labels, data, 0xa7))
 
         elif code == 0x9e:
             _read_byte(stream, visited_labels)
@@ -232,18 +235,18 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
 
         elif code == 0xa2:
             _read_byte(stream, visited_labels)
-            result[offset] = 'ENDIF',
             if stack:
                 assert stack[-1][0] in ('if', 'else')
                 del stack[-1]
+            add()
 
         elif code == 0xa3:
             _read_byte(stream, visited_labels)
-            result[offset] = 'ELSE',
             flow, start = stack.pop()
             assert flow == 'if'
             stack.append(('else', start))
             branches_ended[tuple(stack)] = False
+            add()
 
         elif code == 0xb0:
             _read_byte(stream, visited_labels)
@@ -287,7 +290,7 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
                 else:
                     _set_data_type(data, right[1][0][1], 'integer')
 
-            result[offset] = 'ASSIGN', left, right
+            result[offset] = code, left, right
 
         elif code == 0xb5:
             _read_byte(stream, visited_labels)
@@ -299,7 +302,7 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
 
         elif code == 0xb8:
             _read_byte(stream, visited_labels)
-            result[offset] = 'ENDOFLIST',
+            result[offset] = code,
 
         elif code == 0xb9:
             _read_byte(stream, visited_labels)
@@ -366,14 +369,14 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
             _read_byte(stream, visited_labels)
             if stack and stack[-1][0] == 'case':
                 del stack[-1]
-            result[offset] = 'ESAC',
+            add()
 
         elif code == 0xef:
             # TODO can't have nested keywords
             _read_byte(stream, visited_labels)
             argument = _read_string(stream, visited_labels, {0xf6}).split(',')
             _read_byte(stream, visited_labels)
-            result[offset] = 'CASE', argument
+            result[offset] = 0xef, argument
             # TODO вложенные ask в case ? leak choices to parent
             if stack and stack[-1][0] == 'case':
                 del stack[-1]
@@ -383,13 +386,13 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
 
         elif code == 0xf7:
             _read_byte(stream, visited_labels)
-            result[offset] = 'ASK',
+            result[offset] = code,
             choices[tuple(stack)] = None
 
         elif code == 0xf8:
             _read_byte(stream, visited_labels)
             argument = _read_string(stream, visited_labels, end | all_instructions)
-            result[offset] = 'CHOICE', argument
+            result[offset] = code, argument
             choices[tuple(stack)] = set(argument)
 
         elif code == 0xf9:
@@ -406,7 +409,7 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
 
         elif code == 0xf3:
             _read_byte(stream, visited_labels)
-            result[offset] = 'F3',
+            add()
 
         elif code == 0xfc:
             _read_byte(stream, visited_labels)
@@ -483,7 +486,10 @@ def _read_strings(stream, result, visited_labels, unreachable_labels, end):
 
 
 def _format_expression(expression):
-    if expression[0] in ('byte', 'word', 'dword', 'value'):
+    if not expression:
+        return ''
+
+    elif expression[0] in ('byte', 'word', 'dword', 'value'):
         return ' '.join(map(str, expression))
 
     else:
@@ -531,7 +537,7 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
         if result and result[-1] == '':
             del result[-1]
 
-    for label, instruction in instructions:
+    for label, (code, *arguments) in instructions:
         if label == description:
             empty_prefix_line()
             append('description:', force_level=0)
@@ -544,92 +550,95 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
             empty_prefix_line()
             append(f'label_{label}:', force_level=0)
 
-        if label in unreachable_labels and instruction[0] not in ('ENDOFLIST', 'ESAC', 'ELSE', 'ENDIF'):
+        if label in unreachable_labels and code not in (0xa2, 0xa3, 0xb8, 0xee):
             empty_prefix_line()
             append('// Unreachable code!')
             # TODO mark each line
 
-        if instruction[0] == 'IF':
+        # FIXME sort
+        if code == 'IF':
             empty_prefix_line()
-            append(f'if {_format_expression(instruction[1])}:')
-            #result.extend(textwrap.wrap(f'if {_format_expression(instruction[1])}:', subsequent_indent='    '))  # FIXME
+            append(f'if {_format_expression(arguments[0])}:')
+            #result.extend(textwrap.wrap(f'if {_format_expression(arguments[0])}:', subsequent_indent='    '))  # FIXME
             increase_level('if')
 
-        # FIXME rename
-        elif instruction[0] == 'CHOICE':
+        elif code == 0xf8:
             empty_prefix_line()
-            append(f'choice({_format_string(instruction[1])})')
+            append(f'choice({_format_string(arguments[0])})')
 
-        elif instruction[0] == 'PRINT':
+        elif code == 'PRINT':
             # FIXME smarter, with spaces at starts of lines, use minus all indent and print ?
-            lines = textwrap.wrap(instruction[1], expand_tabs=False, replace_whitespace=False, drop_whitespace=False)
-            assert ''.join(lines) == instruction[1]
+            lines = textwrap.wrap(arguments[0], expand_tabs=False, replace_whitespace=False, drop_whitespace=False)
+            assert ''.join(lines) == arguments[0]
             for line in lines:
                 append(f'print({_format_string(line)})')
 
-        elif instruction[0] == 'ASK':
+        elif code == 0xf7:
             empty_prefix_line()
             append('ask()')
 
-        elif instruction[0] == 'ENDOFLIST':
+        elif code == 0xb8:
             append('endOfList()')
             empty_prefix_line()
 
-        elif instruction[0] == 'CASE':
+        elif code == 0xef:
             empty_prefix_line()
             decrease_level('case')
-            for case in sorted(instruction[1]):
+            for case in sorted(arguments[0]):
                 append(f'case {_format_string(case)}:')
             increase_level('case')
 
-        elif instruction[0] == 'ASSIGN':
-            append(f'{_format_expression(instruction[1])} = {_format_expression(instruction[2])}')
+        elif code == 0xa6:
+            append(f'{_format_expression(arguments[0])} = {_format_expression(arguments[1])}')
 
-        elif instruction[0] == 'ESAC':
+        elif code == 0xee:
             remove_empty_line()
             decrease_level('esac')
             append('esac')
             append()
 
-        elif instruction[0] == 'ENDIF':
+        elif code == 0x9c:
+            append(f'horse({_format_expression(arguments[0])})')
+
+        elif code == 0xa2:
             remove_empty_line()
             decrease_level('if')
             append('fi')
             append()
 
-        elif instruction[0] == 'F3':
+        elif code == 0xf3:
             empty_prefix_line()
             append('f3()')
 
-        elif instruction[0] == 'WAIT':
+        elif code == 'WAIT':
             append('wait()')
             append()
 
-        elif instruction[0] == 'ELSE':
+        elif code == 0xa3:
             empty_prefix_line()
             decrease_level('if')
             append('else:')
             increase_level('if')
 
-        elif instruction[0] == 'BYE':
+        elif code == 'BYE':
             append('bye()')
             append()
 
-        elif instruction[0] == 'SLEEP':
+        elif code == 'SLEEP':
             append('sleep()')
             append()
 
-        elif instruction[0] in ('INTEGERS', 'STRINGS'):
+        elif code in ('INTEGERS', 'STRINGS'):
             empty_prefix_line()
-            if instruction[2][-1:] == ['unused']:
+            if arguments[1][-1:] == ['unused']:
                 name = 'unused'
-                del instruction[2][-1]
+                del arguments[1][-1]
             else:
-                name = 'integers' if instruction[0] == 'INTEGERS' else 'strings'
+                name = 'integers' if code == 'INTEGERS' else 'strings'
             append(f'{name}_{label} = [', force_level=0)
             values = []
-            for item in instruction[1]:
-                values.append(str(item) if instruction[0] == 'INTEGERS' else _format_string(item))
+            for item in arguments[0]:
+                values.append(str(item) if code == 'INTEGERS' else _format_string(item))
             max_size = max(map(len, values)) + 1
             for index, value in enumerate(values):
                 # FIXME переделать названия в выражениях
@@ -638,17 +647,17 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
             append(f']', force_level=0)
             append()
 
-        elif instruction[0] == 'JUMP':
-            if instruction[1] == description:
+        elif code == 'JUMP':
+            if arguments[0] == description:
                 append(f'jump description')
-            elif instruction[1] == interaction:
+            elif arguments[0] == interaction:
                 append(f'jump interaction')
             else:
-                append(f'jump label_{instruction[1]}')
+                append(f'jump label_{arguments[0]}')
             append()
 
         else:
-            append(str(instruction))
+            append(str((code, *arguments)))
 
     if result and result[-1] == '':
         del result[-1]
