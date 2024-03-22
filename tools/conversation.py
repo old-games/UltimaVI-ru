@@ -692,10 +692,11 @@ def decode(conversation):
         stream.seek(label)
         _read_instructions(stream, blocks, labels, visited_labels, None, None, data, {None})
 
+    remaining_labels = set(range(len(conversation))) - visited_labels
     visited_data = set()
     unreachable_labels = set()
     error_labels = set()
-    while set(data) != visited_data or set(range(len(conversation))) != visited_labels | error_labels:
+    while set(data) != visited_data or remaining_labels != error_labels:
         while new_data := set(data) - visited_data:
             types = dict(sorted(((label, data[label]) for label in new_data)))
             offsets = list(types)
@@ -711,21 +712,21 @@ def decode(conversation):
                     assert types[left] == 'string'
                     _read_strings(stream, blocks, visited_labels, None, right)
 
-        # FIXME set(range(len(conversation))) to var
-        while remaining_labels := set(range(len(conversation))) - visited_labels - error_labels:
-            label = min(remaining_labels)
+        remaining_labels -= visited_labels
+
+        while remaining_labels - error_labels:
+            label = min(remaining_labels - error_labels)
             stream.seek(label)
             # TODO ссылки могут не работать, чекнуть
             # TODO данные могут не работать, чекнуть
             _read_instructions(stream, blocks, labels, visited_labels, unreachable_labels, error_labels, data, {None})
+            remaining_labels -= visited_labels
 
-    # FIXME set(range(len(conversation))) to var
-    while remaining_labels := set(range(len(conversation))) - visited_labels:
+    while remaining_labels:
         label = min(remaining_labels)
         stream.seek(label)
         _read_integers(stream, blocks, visited_labels, unreachable_labels, len(conversation))
-
-    assert set(range(len(conversation))) - visited_labels == set()
+        remaining_labels -= visited_labels
 
     result.extend(_format_instructions(sorted(blocks.items()), labels, unreachable_labels, description, interaction))
 
