@@ -10,8 +10,13 @@ def _read_char(stream, visited_labels):
 
 
 def _peek_byte(stream):
-    data = stream.peek(1)
-    return data[0] if data else None
+    data = stream.peek(1)[:1]
+    return int.from_bytes(data, 'little') if len(data) == 1 else None
+
+
+def _peek_word(stream):
+    data = stream.peek(2)[:2]
+    return int.from_bytes(data, 'little') if len(data) == 2 else None
 
 
 def _read_byte(stream, visited_labels):
@@ -422,6 +427,61 @@ def _read_instructions(stream, result, labels, visited_labels, unreachable_label
             unreachable_labels.add(offset)
 
 
+def _read_integers(stream, result, visited_labels, unreachable_labels, end):
+    integers = []
+    comments = []
+
+    offset = stream.tell()
+    assert offset not in result
+    result[offset] = 'INTEGERS', integers, comments
+
+    for offset in range(offset, end, 2):
+        if offset in visited_labels or _peek_byte(stream) is None:
+            break
+
+        if offset + 1 in visited_labels or offset + 1 == end or _peek_word(stream) is None:
+            integers.append(_read_byte(stream, visited_labels))
+            comments.append('no-trailing-byte')
+            break
+
+        else:
+            integers.append(_read_word(stream, visited_labels))
+
+    if unreachable_labels is not None:
+        comments.append('unused')
+
+
+def _read_strings(stream, result, visited_labels, unreachable_labels, end):
+    strings = []
+    comments = []
+    string = bytearray()
+
+    offset = stream.tell()
+    assert offset not in result
+    result[offset] = 'STRINGS', strings, comments
+
+    for offset in range(offset, end):
+        if offset in visited_labels:
+            break
+
+        # FIXME reuse _try_read_string? without overlap
+        if (byte := _peek_byte(stream)) and not _is_text(byte):
+            break
+
+        _read_byte(stream, visited_labels)
+
+        if not byte:
+            strings.append(string.decode('ascii'))
+            string = bytearray()
+
+        else:
+            string.append(byte)
+
+    if string:
+        strings.append(string.decode('ascii'))
+        comments.append('no-trailing-byte')
+
+
 def _format_expression(expression):
     if expression[0] in ('byte', 'word', 'dword', 'value'):
         return ' '.join(map(str, expression))
@@ -559,23 +619,22 @@ def _format_instructions(instructions, labels, unreachable_labels, description, 
             append('sleep()')
             append()
 
-        elif instruction[0] == 'STRINGS':
+        elif instruction[0] in ('INTEGERS', 'STRINGS'):
             empty_prefix_line()
-            append(f'strings_{label} = [', force_level=0)
-            for string in instruction[1]:
-                # FIXME добавить нумерацию строк в комментариях справа или слева
+            if instruction[2][-1:] == ['unused']:
+                name = 'unused'
+                del instruction[2][-1]
+            else:
+                name = 'integers' if instruction[0] == 'INTEGERS' else 'strings'
+            append(f'{name}_{label} = [', force_level=0)
+            values = []
+            for item in instruction[1]:
+                values.append(str(item) if instruction[0] == 'INTEGERS' else _format_string(item))
+            max_size = max(map(len, values)) + 1
+            for index, value in enumerate(values):
                 # FIXME переделать названия в выражениях
-                append(f'{_format_string(string)},', force_level=1)
-            append(f']', force_level=0)
-            append()
-
-        elif instruction[0] == 'INTEGERS':
-            empty_prefix_line()
-            append(f'integers_{label} = [', force_level=0)
-            for integer in instruction[1]:
-                # FIXME добавить нумерацию строк в комментариях справа или слева
-                # FIXME переделать названия в выражениях
-                append(f'{integer},', force_level=1)
+                # FIXME pad numbers to right
+                append(f'{value},'.ljust(max_size) + f' // {index}', force_level=1)
             append(f']', force_level=0)
             append()
 
@@ -638,7 +697,6 @@ def decode(conversation):
     error_labels = set()
     while set(data) != visited_data or set(range(len(conversation))) != visited_labels | error_labels:
         while new_data := set(data) - visited_data:
-            # FIXME вынести в _read_integers , _read_strings
             types = dict(sorted(((label, data[label]) for label in new_data)))
             offsets = list(types)
             assert set(types.values()) <= {'integer', 'string'}
@@ -647,65 +705,25 @@ def decode(conversation):
                 stream.seek(left)
                 visited_data.add(left)
                 if types[left] == 'integer':
-                    integers = []
-                    comments = []
-
-                    assert left not in blocks
-                    blocks[left] = 'INTEGERS', integers, comments
-
-                    for offset in range(left, right, 2):
-                        if offset in visited_labels:
-                            break
-
-                        if offset + 1 in visited_labels or offset + 1 == right:
-                            integers.append(_read_byte(stream, visited_labels))
-                            comments.append('no-trailing-byte')
-                            break
-
-                        else:
-                            integers.append(_read_word(stream, visited_labels))
+                    _read_integers(stream, blocks, visited_labels, None, right)
 
                 else:
                     assert types[left] == 'string'
-                    strings = []
-                    comments = []
-                    string = bytearray()
+                    _read_strings(stream, blocks, visited_labels, None, right)
 
-                    assert left not in blocks
-                    blocks[left] = 'STRINGS', strings, comments
-
-                    for offset in range(left, right):
-                        if offset in visited_labels:
-                            break
-
-                        # FIXME reuse _try_read_string? without overlap
-                        if (byte := _peek_byte(stream)) and not _is_text(byte):
-                            break
-
-                        _read_byte(stream, visited_labels)
-
-                        if not byte:
-                            strings.append(string.decode('ascii'))
-                            string = bytearray()
-
-                        else:
-                            string.append(byte)
-
-                    if string:
-                        strings.append(string.decode('ascii'))
-                        comments.append('no-trailing-byte')
-
-        while new_labels := set(range(len(conversation))) - visited_labels - error_labels:
-            label = min(new_labels)
+        # FIXME set(range(len(conversation))) to var
+        while remaining_labels := set(range(len(conversation))) - visited_labels - error_labels:
+            label = min(remaining_labels)
+            stream.seek(label)
             # TODO ссылки могут не работать, чекнуть
             # TODO данные могут не работать, чекнуть
-            stream.seek(label)
             _read_instructions(stream, blocks, labels, visited_labels, unreachable_labels, error_labels, data, {None})
 
-    for label in sorted(set(range(len(conversation))) - visited_labels):
+    # FIXME set(range(len(conversation))) to var
+    while remaining_labels := set(range(len(conversation))) - visited_labels:
+        label = min(remaining_labels)
         stream.seek(label)
-        # TODO вызвать _read_integers
-        blocks[label] = 'UNKNOWN', _read_byte(stream, visited_labels)
+        _read_integers(stream, blocks, visited_labels, unreachable_labels, len(conversation))
 
     assert set(range(len(conversation))) - visited_labels == set()
 
