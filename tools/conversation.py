@@ -138,21 +138,20 @@ def decode(conversation):
 
         def add(*args):
             blocks[offset] = code, stream.tell() - offset, *args
+            # FIXME чекать что записываем в result тe же самые инструкции (в add)
 
-        def add_branch_ended(branches_ended, stack, choices, keywords):
+        def add_branch_ended(stack):
             if stack:
                 parent = stack[:-1]
-                def add_parent():
-                    add_branch_ended(branches_ended, parent, choices, keywords)
                 if stack[-1][0] == 'else' and branches_ended[(*parent, ('if', stack[-1][1]))]:
-                    add_parent()
+                    add_branch_ended(parent)
                 elif stack[-1][0] == 'case':
                     if '*' in keywords[tuple(stack)]:
-                        add_parent()
+                        add_branch_ended(parent)
                     elif choices.get(tuple(parent)) is not None: # Mondain, no ask, no tell.
                         choices[tuple(parent)] -= keywords[tuple(stack)]
                         if not choices[tuple(parent)]:
-                            add_parent()
+                            add_branch_ended(parent)
             branches_ended[tuple(stack)] = True
 
         def one(collection):
@@ -239,7 +238,7 @@ def decode(conversation):
         choices = {}
         keywords = {}
 
-        # Выходим, если читать больше нечего или не ждём окончания определённого блока или встретились с данными в unreachable коде.
+        # Выходим, если читать больше нечего или встретились с данными в unreachable коде или выполнение, с которого мы начали, закончилось.
         while (code := _peek_byte(stream)) is not None and ((offset := stream.tell()) not in data or not unreachable) and not branches_ended[tuple()]:
             # Проверим, что не встречаемся с данными в обычном коде.
             assert offset not in data
@@ -251,11 +250,6 @@ def decode(conversation):
                 # Необходимо прочитать код повторно, если мы прыгнули на новую метку, контекст может закончиться раньше или позже, чем в прошлый раз.
                 if unreachable and offset not in unreachable_labels:
                     unreachable = False
-                # FIXME assert this is not array
-                # FIXME quit if we already came here from start point or with same stack
-                # FIXME чекнуть после всего этого может эвристики внизу больше не нужны
-
-            # FIXME чекать что записываем в result тe же самые инструкции (в add)
 
             if code == 0x9c:
                 _read_byte(stream, visited_labels)
@@ -263,7 +257,7 @@ def decode(conversation):
 
             elif code == 0x9e:
                 _read_byte(stream, visited_labels)
-                blocks[offset] = 'SLEEP',
+                add()
 
             elif code == 0xa1:
                 _read_byte(stream, visited_labels)
@@ -291,13 +285,13 @@ def decode(conversation):
                 _read_byte(stream, visited_labels)
                 label = _read_dword(stream, visited_labels)
                 labels.add(label)
-                blocks[offset] = 'JUMP', label
-                add_branch_ended(branches_ended, stack, choices, keywords)
+                blocks[offset] = code, label
+                add_branch_ended(stack)
 
             elif code == 0xb6:
                 _read_byte(stream, visited_labels)
-                blocks[offset] = 'BYE',
-                add_branch_ended(branches_ended, stack, choices, keywords)
+                add_branch_ended(stack)
+                add()
 
             elif code == 0xa4:
                 _read_byte(stream, visited_labels)
@@ -341,7 +335,7 @@ def decode(conversation):
 
             elif code == 0xb8:
                 _read_byte(stream, visited_labels)
-                blocks[offset] = code,
+                add()
 
             elif code == 0xb9:
                 _read_byte(stream, visited_labels)
@@ -380,7 +374,7 @@ def decode(conversation):
 
             elif code == 0xcb:
                 _read_byte(stream, visited_labels)
-                blocks[offset] = 'WAIT',
+                add()
 
             elif code == 0xcd:
                 _read_byte(stream, visited_labels)
@@ -415,7 +409,7 @@ def decode(conversation):
                 _read_byte(stream, visited_labels)
                 argument = _read_string(stream, visited_labels, {0xf6}).split(',')
                 _read_byte(stream, visited_labels)
-                blocks[offset] = 0xef, argument
+                blocks[offset] = code, argument
                 # TODO вложенные ask в case ? leak choices to parent
                 if stack and stack[-1][0] == 'case':
                     del stack[-1]
@@ -433,7 +427,7 @@ def decode(conversation):
 
             elif code == 0xf7:
                 _read_byte(stream, visited_labels)
-                blocks[offset] = code,
+                add()
                 choices[tuple(stack)] = None
 
             elif code == 0xf8:
@@ -466,10 +460,10 @@ def decode(conversation):
 
             elif code == 0xff:
                 _read_byte(stream, visited_labels)
-                blocks[offset] = 0xff, _read_byte(stream, visited_labels), _read_string(stream, visited_labels, {0xf1, 0xf3})
+                blocks[offset] = code, _read_byte(stream, visited_labels), _read_string(stream, visited_labels, {0xf1, 0xf3})
 
             elif _try_read_string(stream, all_instructions):
-                blocks[offset] = 'PRINT', _read_string(stream, visited_labels, all_instructions)
+                blocks[offset] = None, _read_string(stream, visited_labels, all_instructions)
 
             else:
                 assert unreachable
@@ -553,7 +547,7 @@ def decode(conversation):
                 empty_prefix_line()
                 append(f'choice({format_string(arguments[0])})')
 
-            elif code == 'PRINT':
+            elif code is None:
                 # FIXME smarter, with spaces at starts of lines, use minus all indent and print ?
                 lines = textwrap.wrap(arguments[0], expand_tabs=False, replace_whitespace=False, drop_whitespace=False)
                 assert ''.join(lines) == arguments[0]
@@ -597,7 +591,7 @@ def decode(conversation):
                 empty_prefix_line()
                 append('f3()')
 
-            elif code == 'WAIT':
+            elif code == 0xcb:
                 append('wait()')
                 append()
 
@@ -607,11 +601,11 @@ def decode(conversation):
                 append('else:')
                 increase_level('if')
 
-            elif code == 'BYE':
+            elif code == 0xb6:
                 append('bye()')
                 append()
 
-            elif code == 'SLEEP':
+            elif code == 0x9e:
                 append('sleep()')
                 append()
 
@@ -648,7 +642,7 @@ def decode(conversation):
                 append(f']', force_level=0)
                 append()
 
-            elif code == 'JUMP':
+            elif code == 0xb0:
                 if arguments[0] in special_labels:
                     append(f'jump {special_labels[arguments[0]]}')
                 else:
