@@ -646,7 +646,6 @@ def decode(conversation):
                 append()
 
             else:
-                print(hex(code))
                 assert False
 
         if result and result[-1] == '':
@@ -717,3 +716,449 @@ def decode(conversation):
             blocks[i] = blocks[i][0], (blocks[i][1][0], blocks[i][1][1]-cut, blocks[i][1][2][:-cut])
 
     return format_instructions()
+
+
+def encode(conversation, target_language, version):
+    assert version in (1, 2) and target_language in ('english', 'russian') and (version == 2 or target_language == 'english')
+    def tokens():
+        def token():
+            if chars:
+                yield ''.join(chars)
+                chars.clear()
+
+        chars = []
+        is_string = False
+        is_comment = False
+        while char := stream.read(1):
+            if char == '/' and not is_comment and not is_string:
+                char = stream.read(1)
+                assert char == '/'
+                is_comment = True
+
+            elif char == '\n' and is_comment:
+                is_comment = False
+
+            elif is_comment:
+                pass
+
+            elif char in ' \t\n' and not is_string:
+                yield from token()
+
+            elif char == "'":
+                if is_string:
+                    chars.append(char)
+                yield from token()
+                is_string = not is_string
+                if is_string:
+                    chars.append(char)
+
+            elif char == '\\' and is_string:
+                char = stream.read(1)
+                assert len(char) == 1
+                char = {'n': '\n', 't': '\t'}.get(char, char)
+                chars.append(char)
+
+            elif char in ',:{}()' and not is_string:
+                yield from token()
+                yield char
+
+            else:
+                chars.append(char)
+
+        assert not chars or not is_string
+        token()
+
+    def selected():
+        for token in (iterator := tokens()):
+            if token == '{':
+                languages = {}
+                while token != '}':
+                    language = unquote(next(iterator))
+                    assert language not in languages
+                    assert language in ('english', 'russian')
+                    assert next(iterator) == ':'
+                    token = next(iterator)
+                    unquote(token)
+                    languages[language] = token
+                    token = next(iterator)
+                    assert token in ',}'
+                yield languages.get(target_language)
+
+            else:
+                yield token
+
+    def check_expression(operator):
+        # FIXME remove copy-paste
+        operators = {
+            'greater': 0x81, 'greaterOrEquals': 0x82, 'less': 0x83, 'lessOrEquals': 0x84, 'notEquals': 0x85, 'equals': 0x86,
+            'plus': 0x90, 'minus': 0x91, 'multiply': 0x92, 'divide': 0x93, 'or': 0x94, 'and': 0x95,
+            'canCarry': 0x9a, 'weight': 0x9b, 'hasHorse': 0x9d, 'hasObject': 0x9f,
+            'random': 0xa0, 'hasBit': 0xab,
+            'integer': 0xb2, 'string': 0xb3, 'data': 0xb4, 'indexOf': 0xb7, 'objectsCount': 0xbb,
+            'partyHas': 0xc6, 'partyHasObject': 0xc7, 'partyJoin': 0xca, 'partyLeave': 0xcc,
+            'isNearby': 0xd7, 'isWounded': 0xda, 'isPoisoned': 0xdc, 'character': 0xdd,
+            'experience': 0xe0, 'level': 0xe1, 'strength': 0xe2, 'intelligence': 0xe3, 'dexterity': 0xe4,
+        }
+        # FIXME remove copy-paste
+        parameters = {operator: 1 for operator in (
+            'canCarry', 'hasHorse', 'integer', 'string', 'partyHas', 'partyJoin', 'partyLeave',
+            'isNearby', 'isWounded', 'isPoisoned'
+        )}
+        parameters.update({operator: 2 for operator in operators if operator not in parameters})
+        parameters.update({operator: 3 for operator in ('hasObject',)})
+
+        # FIXME value переименовать в small???
+        # FIXME inventory в showInventory
+        # FIXME portrait в showPortrait
+        # FIXME look == showCharacter???? do?
+        if operator in ('value', 'byte', 'word', 'dword'): # FIXME copy-paste
+            value = int(next(iterator))
+            if operator == 'value':
+                assert 0 <= value < 0x80
+                return value.to_bytes(1, 'little')
+            elif operator == 'byte':
+                return b'\xd3' + value.to_bytes(1, 'little')
+            elif operator == 'word':
+                return b'\xd4' + value.to_bytes(2, 'little')
+            elif operator == 'dword':
+                return b'\xd2' + value.to_bytes(4, 'little')
+
+        elif operator not in operators:
+            return None
+
+        assert next(iterator) == '('
+        result = [operators[operator].to_bytes(1, 'little')]
+
+        if operator in ('data', 'indexOf'): # FIXME copy-paste?
+            array = next(iterator)
+            result.append(b'\xd2\x00\x00\x00\x00')
+            # FIXME
+            assert next(iterator) == ','
+            result.append(read_expression())
+
+        else:
+            for index in range(parameters[operator]):
+                if index:
+                    assert next(iterator) == ','
+                result.append(read_expression())
+
+        assert next(iterator) == ')'
+        return b''.join(result[::-1])
+
+    def read_expression():
+        expression = check_expression(next(iterator))
+        assert expression is not None
+        return expression
+
+    def unquote(string):
+        assert isinstance(string, str)
+        assert len(string) >= 2
+        assert string[0] == string[-1] == "'"
+        return string[1:-1]
+
+    def write_string(string):
+        result.extend(string.encode('ascii' if version == 1 else 'cp866'))
+        if version == 2:
+            result.append(0) # FIXME string list?
+
+    result = bytearray()
+    stream = io.StringIO(conversation)
+    iterator = selected()
+
+    assert next(iterator) == 'source'
+    assert next(iterator) == '('
+    source = unquote(next(iterator))
+    assert next(iterator) == ')'
+
+    assert next(iterator) == 'index'
+    assert next(iterator) == '('
+    index = int(next(iterator))
+    assert next(iterator) == ')'
+
+    for token in iterator:
+        if token == 'id':
+            assert next(iterator) == '('
+            result.append(0xff)
+            result.append(int(next(iterator)))
+            assert next(iterator) == ')'
+
+        elif token == 'name':
+            assert next(iterator) == '('
+            write_string(unquote(next(iterator)))
+            assert next(iterator) == ')'
+
+        elif token == 'description':
+            assert next(iterator) == ':'
+            result.append(0xf1)
+
+        elif token == 'print':
+            assert next(iterator) == '('
+            write_string(unquote(next(iterator)))
+            assert next(iterator) == ')'
+
+        elif token == 'f3':
+            assert next(iterator) == '('
+            result.append(0xf3)
+            assert next(iterator) == ')'
+
+        elif token == 'sleep':
+            assert next(iterator) == '('
+            result.append(0x9e)
+            assert next(iterator) == ')'
+
+        elif token == 'endOfList':
+            assert next(iterator) == '('
+            result.append(0xb8)
+            assert next(iterator) == ')'
+
+        elif token == 'bye':
+            assert next(iterator) == '('
+            result.append(0xb6)
+            assert next(iterator) == ')'
+
+        elif token == 'inputString':
+            assert next(iterator) == '('
+            result.append(0xf9)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'inputInteger':
+            assert next(iterator) == '('
+            result.append(0xfc)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'do':
+            assert next(iterator) == '('
+            result.append(0xcd)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ','
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'look':
+            assert next(iterator) == '('
+            result.append(0xd9)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'resurrect':
+            assert next(iterator) == '('
+            result.append(0xd6)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'input':
+            assert next(iterator) == '('
+            result.append(0xfb)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'inventory':
+            assert next(iterator) == '('
+            result.append(0xbe)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'createItem':
+            assert next(iterator) == '('
+            result.append(0xb9)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ','
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ','
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ','
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'destroyItem':
+            assert next(iterator) == '('
+            result.append(0xbe)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ','
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ','
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ','
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'giveItem':
+            assert next(iterator) == '('
+            result.append(0xc9)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ','
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ','
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ','
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'wait':
+            assert next(iterator) == '('
+            result.append(0xcb)
+            assert next(iterator) == ')'
+
+        elif token == 'interaction':
+            assert next(iterator) == ':'
+            result.append(0xf2)
+
+        elif token == 'ask':
+            assert next(iterator) == '('
+            result.append(0xf7)
+            assert next(iterator) == ')'
+
+        elif token == 'if':
+            result.append(0xa1)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ':'
+
+        elif token == 'else':
+            result.append(0xa2)
+            assert next(iterator) == ':'
+
+        elif token == 'fi':
+            result.append(0xa3)
+
+        elif token == 'jump':
+            result.append(0xb0)
+            label = next(iterator)
+            result.extend(b'\x00\x00\x00\x00') # FIXME
+
+        elif token == 'case': # FIXME join them
+            case = next(iterator)
+            # if case is None...
+            #result.append(0xef)
+            assert next(iterator) == ':'
+            # FIXME
+
+        elif token == 'esac':
+            result.append(0xee)
+
+        elif token == 'createHorse':
+            assert next(iterator) == '('
+            result.append(0x9c)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'setBit':
+            assert next(iterator) == '('
+            result.append(0xa4)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ','
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'clearBit':
+            assert next(iterator) == '('
+            result.append(0xa5)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ','
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'portrait':
+            assert next(iterator) == '('
+            result.append(0xb6)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'heal':
+            assert next(iterator) == '('
+            result.append(0xd9)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'printString':
+            assert next(iterator) == '('
+            result.append(0xb5)
+            array = next(iterator) # FIXME
+            assert next(iterator) == ','
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'increaseKarma':
+            assert next(iterator) == '('
+            result.append(0xc4)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'decreaseKarma':
+            assert next(iterator) == '('
+            result.append(0xc5)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'cure':
+            assert next(iterator) == '('
+            result.append(0xdb)
+            result.extend(read_expression())
+            result.append(0xa7)
+            assert next(iterator) == ')'
+
+        elif token == 'choice':
+            assert next(iterator) == '('
+            result.append(0xf8)
+            write_string(unquote(next(iterator)))
+            assert next(iterator) == ')'
+
+        elif (expression := check_expression(token)):
+            result.append(0xa6)
+            result.extend(expression)
+            assert next(iterator) == '='
+            result.append(0xa8)
+            result.extend(read_expression())
+            result.append(0xa7)
+
+        elif (next_token := next(iterator)) == ':':
+            label = token
+            # FIXME save and update
+
+        elif next_token == '=':
+            assert (token := next(iterator)) == '['
+            array = token
+            while token != ']':
+                value = next(iterator)
+                if value == ']':
+                    break # Trailing comma.
+                token = next(iterator)
+                assert token in ',]'
+            # FIXME save and update
+
+        else:
+            assert False
+
+    return source, index, result
