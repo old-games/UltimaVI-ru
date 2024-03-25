@@ -35,7 +35,7 @@ label_178:
 
     case 'name':
         print('"Ubermon @Kalbmilch."\n')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_178
 
     case 'kalb':
@@ -109,7 +109,7 @@ label_794:
     integer(value 2) = byte 1
 
 label_808:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -119,7 +119,7 @@ label_808:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('"Vell, okay..."\n')
@@ -135,7 +135,7 @@ label_808:
     integer(value 3) = character(integer(value 3), byte 0)
 
 label_936:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     integer(value 1) = data(dword 1236, integer(value 4))
     print('"That\'ll be #1 crowns, okay?" ')
 
@@ -160,8 +160,8 @@ label_1043:
         jump label_178
     fi
 
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-    ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 1240), ('integer', [('value', 4)])]), ('byte', 0), ('byte', 1))
+    destroy(integer(value 3), byte 88, byte 0, integer(value 1))
+    create(integer(value 3), data(dword 1240, integer(value 4)), byte 0, byte 1)
     print('"Good!" $N gives $Y the ')
 
     if integer(value 4):

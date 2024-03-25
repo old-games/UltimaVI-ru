@@ -37,10 +37,10 @@ interaction:
             bye()
 
         else:
-            ('GIVE', ('byte', 64), ('byte', 11), ('integer', [('value', 0)]), ('byte', 235))
+            give(byte 64, byte 11, integer(value 0), byte 235)
             print('"Much obliged," the taciturn jailer says as he takes the key.\n')
-            ('CLEARF', ('byte', 235), ('byte', 2))
-            ('ADD_KARMA', ('byte', 7))
+            clearBit(byte 235, byte 2)
+            increaseKarma(byte 7)
             bye()
         fi
 
@@ -98,7 +98,7 @@ label_476:
 
     case 'name':
         print('"Name\'s Pridgarm."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_513
 
     case 'job':
@@ -167,10 +167,10 @@ label_1362:
             wait()
 
             print('\n\n"Give it back when you\'re done."')
-            ('DELETE', ('integer', [('value', 0)]), ('byte', 152), ('byte', 121), ('byte', 1))
-            ('GIVE', ('byte', 64), ('byte', 11), ('byte', 235), ('integer', [('value', 0)]))
-            ('SETF', ('byte', 235), ('byte', 2))
-            ('SUB_KARMA', ('byte', 5))
+            destroy(integer(value 0), byte 152, byte 121, byte 1)
+            give(byte 64, byte 11, byte 235, integer(value 0))
+            setBit(byte 235, byte 2)
+            decreaseKarma(byte 5)
         fi
 
         jump label_513
@@ -214,19 +214,19 @@ label_1802:
     print('tosses you some keys, then turns his back on you.\n')
 
     if equals(hasObject(byte 1, byte 64, byte 7), byte 0):
-        ('NEW', ('byte', 1), ('byte', 64), ('byte', 7), ('byte', 1))
+        create(byte 1, byte 64, byte 7, byte 1)
     fi
 
     if equals(hasObject(byte 1, byte 64, byte 8), byte 0):
-        ('NEW', ('byte', 1), ('byte', 64), ('byte', 8), ('byte', 1))
+        create(byte 1, byte 64, byte 8, byte 1)
     fi
 
     if equals(hasObject(byte 1, byte 64, byte 9), byte 0):
-        ('NEW', ('byte', 1), ('byte', 64), ('byte', 9), ('byte', 1))
+        create(byte 1, byte 64, byte 9, byte 1)
     fi
 
     if equals(hasObject(byte 1, byte 64, byte 10), byte 0):
-        ('NEW', ('byte', 1), ('byte', 64), ('byte', 10), ('byte', 1))
+        create(byte 1, byte 64, byte 10, byte 1)
     fi
 
     bye()

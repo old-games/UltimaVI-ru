@@ -35,7 +35,7 @@ interaction:
         wait()
 
         print('\n\n"But you have the look of one with more important @business."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_196
 
     case 'hist':
@@ -93,7 +93,7 @@ interaction:
         print('ask @Gwenno to play it for thee."')
 
         if equals(hasBit(byte 235, byte 6), byte 0):
-            ('SETF', ('byte', 235), ('byte', 7))
+            setBit(byte 235, byte 7)
         fi
 
         jump label_196
@@ -126,11 +126,11 @@ interaction:
         if isNearby(byte 66):
             wait()
 
-            ('PORTRAIT', ('byte', 66))
+            portrait(byte 66)
             print('\n\n"I\'m right here, Selganor!"')
             wait()
 
-            ('PORTRAIT', ('byte', 235))
+            portrait(byte 235)
             print('\n\n"Ah, I knew you\'d be somewhere close by."')
         fi
 
@@ -222,9 +222,9 @@ label_1968:
         wait()
 
         print('\n"I know you\'ll find some solution to this gargoyle problem."')
-        ('GIVE', ('byte', 246), ('byte', 0), ('byte', 235), ('byte', 1))
-        ('SETF', ('byte', 235), ('byte', 6))
-        ('CLEARF', ('byte', 235), ('byte', 7))
+        give(byte 246, byte 0, byte 235, byte 1)
+        setBit(byte 235, byte 6)
+        clearBit(byte 235, byte 7)
         jump label_196
 
     case '*':
@@ -327,7 +327,7 @@ label_3543:
 
 label_3691:
     print('"Thanks! Now what can I do for you?"')
-    ('SETF', ('byte', 235), ('byte', 5))
+    setBit(byte 235, byte 5)
     jump label_196
 
 label_3739:

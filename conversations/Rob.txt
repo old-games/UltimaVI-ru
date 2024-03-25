@@ -18,7 +18,7 @@ interaction:
     jump label_117
 
 label_84:
-    print('"Anything else I can do for you?"\n')
+    print('"Anything else I can do for you?"')
 
 label_117:
     print('\n')
@@ -27,7 +27,7 @@ label_117:
 
     case 'name':
         print('"I\'m Rob Frasier."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_117
 
     case 'foll':
@@ -88,7 +88,7 @@ label_566:
     integer(value 2) = byte 1
 
 label_580:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -98,7 +98,7 @@ label_580:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('"Suit yourself."')
@@ -114,7 +114,7 @@ label_580:
     integer(value 3) = character(integer(value 3), byte 0)
 
 label_708:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     integer(value 1) = data(dword 2223, integer(value 4))
     print('"That\'ll be #1 crowns, okay?" ')
 
@@ -142,8 +142,8 @@ label_798:
         jump label_1009
     fi
 
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-    ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 2229), ('integer', [('value', 4)])]), ('byte', 0), ('byte', 1))
+    destroy(integer(value 3), byte 88, byte 0, integer(value 1))
+    create(integer(value 3), data(dword 2229, integer(value 4)), byte 0, byte 1)
     integer(value 5) = byte 1
     string(value 1) = data(dword 2235, integer(value 4))
     print('"Good!" $N gives $Y the $1.')
@@ -174,7 +174,7 @@ label_1056:
     integer(value 2) = byte 1
 
 label_1070:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -184,7 +184,7 @@ label_1070:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('"Suit yourself."')
@@ -200,7 +200,7 @@ label_1070:
     integer(value 3) = character(integer(value 3), byte 0)
 
 label_1198:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('"It\'s a fine cheese. We serve it warm with sliced almonds on top."')
     wait()
 
@@ -221,8 +221,8 @@ label_1198:
             jump label_1009
         fi
 
-        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 6))
-        ('NEW', ('integer', [('value', 3)]), ('byte', 132), ('byte', 0), ('byte', 1))
+        destroy(integer(value 3), byte 88, byte 0, byte 6)
+        create(integer(value 3), byte 132, byte 0, byte 1)
         print('$N serves $Y a plate of brie.')
         integer(value 5) = byte 1
         jump label_1009
@@ -244,7 +244,7 @@ label_1562:
     integer(value 2) = byte 1
 
 label_1576:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -254,7 +254,7 @@ label_1576:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_84
@@ -275,7 +275,7 @@ label_1688:
     fi
 
     print('"I charge 3 gold per loaf. How many do you want?" ')
-    ('INPUT', 9)
+    input(integer(value 9))
 
     if greater(integer(value 9), word 200):
         integer(value 9) = word 200
@@ -330,9 +330,9 @@ label_1929:
     fi
 
 label_2035:
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('multiply', [('integer', [('value', 9)]), ('byte', 3)]))
-    ('NEW', ('integer', [('value', 3)]), ('byte', 128), ('byte', 0), ('integer', [('value', 9)]))
-    ('SETNAME', ('integer', [('value', 3)]))
+    destroy(integer(value 3), byte 88, byte 0, multiply(integer(value 9), byte 3))
+    create(integer(value 3), byte 128, byte 0, integer(value 9))
+    look(integer(value 3))
 
     if equals(integer(value 8), integer(value 9)):
         print('$N gives the bread to $Y.')

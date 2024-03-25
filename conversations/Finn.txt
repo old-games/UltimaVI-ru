@@ -8,7 +8,7 @@ description:
     print('a sly looking fellow, dressed in rags.\n')
 
 interaction:
-    ('CLEARF', ('byte', 235), ('byte', 7))
+    clearBit(byte 235, byte 7)
     print('"Hello my good ')
 
     if integer(value 16):
@@ -25,7 +25,7 @@ interaction:
         print('He glances around quickly, to see if anyone seems to be listening. ')
         print('"I\'m Lord British. But don\'t tell anyone."\n*\n"I\'m in @disguise so I ')
         print('can mingle with the @commoners."')
-        ('SETF', ('byte', 235), ('byte', 7))
+        setBit(byte 235, byte 7)
         jump label_81
 
     case 'job':
@@ -57,7 +57,7 @@ interaction:
     case 'jest':
     case 'tied':
         print('"I\'m Lord British, and I can do whatever I want to!"')
-        ('SETF', ('byte', 235), ('byte', 7))
+        setBit(byte 235, byte 7)
         jump label_81
 
     case 'disg':
@@ -83,7 +83,7 @@ interaction:
     case 'lord':
         print('"I\'m really Lord British. I can prove it to you. I know all of the ')
         print('@eight @mantras, and where the @runes are, too!"')
-        ('SETF', ('byte', 235), ('byte', 7))
+        setBit(byte 235, byte 7)
         jump label_81
 
     case 'eigh':
@@ -134,7 +134,7 @@ interaction:
         print('"Oh, that\'s just the name I\'m pretending to go by. Of course you know ')
         print('I\'m really Lord British."\n*\n"I can see you\'re too smart to be fooled ')
         print('by this disguise."')
-        ('SETF', ('byte', 235), ('byte', 7))
+        setBit(byte 235, byte 7)
         jump label_81
 
     case 'bye':
@@ -145,7 +145,7 @@ interaction:
         if and(partyHas(byte 3), hasBit(byte 235, byte 7)):
             wait()
 
-            ('PORTRAIT', ('byte', 3))
+            portrait(byte 3)
             print('\nYou see Shamino smiling - an unusual sight.\n*\nNoticing your ')
             print('attention, he says "Perhaps there\'s a little of Lord British in us ')
             print('all."')
@@ -176,7 +176,7 @@ label_2835:
 
 label_2959:
     print('\nHow much do you give? ')
-    ('INPUT', 0)
+    input(integer(value 0))
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
         print('You don\'t have that much.\n')
@@ -187,7 +187,7 @@ label_2959:
         jump label_2835
     fi
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
+    destroy(byte 1, byte 88, byte 0, integer(value 0))
+    create(byte 235, byte 88, byte 0, integer(value 0))
     print('He takes the money. "Good. I\'ll get this back to you later."')
     jump label_81

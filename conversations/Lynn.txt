@@ -19,7 +19,7 @@ interaction:
         print('\n\n')
 
     else:
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
     fi
 
     print('"How can I help thee this fine $T?"\n')
@@ -78,7 +78,7 @@ label_606:
     integer(value 2) = byte 1
 
 label_620:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2) $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -88,7 +88,7 @@ label_620:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_1400
@@ -100,11 +100,11 @@ label_620:
         jump label_606
     fi
 
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+    look(character(integer(value 3), byte 0))
 
 label_729:
     print('1) Arrows\n2) Crossbow Bolts\n"Which item?" ')
-    ('INPUTNUM', 0)
+    inputNumber(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_1400
@@ -126,7 +126,7 @@ label_729:
     wait()
 
     print('\n\n"How many dozens?" ')
-    ('INPUTNUM', 4)
+    inputNumber(integer(value 4))
 
     if equals(integer(value 4), byte 0):
         jump label_729
@@ -143,8 +143,8 @@ label_932:
         jump label_1180
     fi
 
-    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-    ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('data', [('dword', 1515), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 12))
+    destroy(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
+    create(character(integer(value 3), byte 0), data(dword 1515, integer(value 0)), byte 0, byte 12)
     integer(value 5) = plus(integer(value 5), byte 1)
 
     if equals(integer(value 5), integer(value 4)):
@@ -199,7 +199,7 @@ label_1321:
     print('\n\n"I appreciate thy business."')
     wait()
 
-    print('\n\n"Is there aught else thou wouldst buy?" ')
+    print('\n\n')
 
 label_1400:
     print('"Is there aught else thou wouldst buy?" ')

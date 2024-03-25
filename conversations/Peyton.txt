@@ -28,7 +28,7 @@ interaction:
         print('back ')
 
     else:
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
     fi
 
     print('to the Wayfarer\'s @Inn!"\n')
@@ -38,7 +38,7 @@ label_163:
 
     case 'name':
         print('"I am Peyton, and this is my place." He gestures with his hands.\n')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_163
 
     case 'peyt':
@@ -74,7 +74,7 @@ label_439:
             jump label_713
 
         else:
-            ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
+            destroy(byte 1, byte 88, byte 0, integer(value 0))
             jump label_589
         fi
 
@@ -131,7 +131,7 @@ label_791:
 
 label_997:
     if equals(integer(value 6), integer(value 4)):
-        ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 1)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+        destroy(character(integer(value 6), byte 1), byte 88, byte 0, integer(value 1))
         wait()
 
         print('\n\n')
@@ -140,6 +140,6 @@ label_997:
 
     integer(value 5) = objectsCount(character(integer(value 6), byte 1), byte 88)
     integer(value 1) = minus(integer(value 1), integer(value 5))
-    ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 1)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
+    destroy(character(integer(value 6), byte 1), byte 88, byte 0, integer(value 5))
     integer(value 6) = plus(integer(value 6), byte 1)
     jump label_997

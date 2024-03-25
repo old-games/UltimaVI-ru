@@ -14,8 +14,8 @@ interaction:
         jump label_1100
     fi
 
-    ('DPRINT', ('dword', 1353), ('random', [('byte', 0), ('byte', 3)]))
-    ('SETF', ('byte', 235), ('value', 0))
+    printString(dword 1353, random(byte 0, byte 3))
+    setBit(byte 235, value 0)
 
 label_141:
     print('\n')
@@ -38,45 +38,45 @@ label_141:
 
     case 'sit':
         print('The dog sits.')
-        ('SETF', ('byte', 235), ('byte', 7))
+        setBit(byte 235, byte 7)
         jump label_141
 
     case 'fetc':
         print('The dog fetches a stick and lays it at your feet.')
-        ('SETF', ('byte', 235), ('byte', 7))
+        setBit(byte 235, byte 7)
         jump label_141
 
     case 'shak':
         print('The dog shakes paws with you.')
-        ('SETF', ('byte', 235), ('byte', 7))
+        setBit(byte 235, byte 7)
         jump label_141
 
     case 'heel':
         print('The dog bites your heel.')
-        ('SETF', ('byte', 235), ('byte', 7))
+        setBit(byte 235, byte 7)
         jump label_141
 
     case 'beg':
         print('The dog begs.')
-        ('SETF', ('byte', 235), ('byte', 7))
+        setBit(byte 235, byte 7)
         jump label_141
 
     case 'dead':
     case 'play':
         print('The dog plays dead.')
-        ('SETF', ('byte', 235), ('byte', 7))
+        setBit(byte 235, byte 7)
         jump label_141
 
     case 'over':
     case 'roll':
         print('The dog rolls over.')
-        ('SETF', ('byte', 235), ('byte', 7))
+        setBit(byte 235, byte 7)
         jump label_141
 
     case 'advi':
     case 'spea':
         if hasBit(byte 235, byte 6):
-            ('DPRINT', ('dword', 1353), ('random', [('byte', 0), ('byte', 3)]))
+            printString(dword 1353, random(byte 0, byte 3))
             jump label_141
         fi
 
@@ -84,8 +84,8 @@ label_141:
         print('arises from an artificial semantic division. In light of the work of ')
         print('Godel and Heisenberg, it is evident that the two concepts are ')
         print('indistinguishable and thus, for all practical purposes, identical."')
-        ('SETF', ('byte', 235), ('byte', 6))
-        ('SETF', ('byte', 235), ('byte', 7))
+        setBit(byte 235, byte 6)
+        setBit(byte 235, byte 7)
         jump label_141
 
     case 'andr':
@@ -103,7 +103,7 @@ label_141:
         fi
 
     case '*':
-        ('DPRINT', ('dword', 1353), ('random', [('byte', 0), ('byte', 3)]))
+        printString(dword 1353, random(byte 0, byte 3))
     esac
 
     jump label_141
@@ -118,13 +118,13 @@ label_988:
 label_1133:
         print('After a while the dog sets down the bowl, lies down, and starts ')
         print('whimpering.\n')
-        ('SUB_KARMA', ('byte', 5))
+        decreaseKarma(byte 5)
         bye()
     esac
 
 label_1215:
     print('\nHow much do you give? ')
-    ('INPUT', 0)
+    input(integer(value 0))
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
         print('You don\'t have that much.\n')
@@ -135,9 +135,9 @@ label_1215:
         jump label_1133
     fi
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    ('CLEARF', ('byte', 235), ('byte', 7))
+    destroy(byte 1, byte 88, byte 0, integer(value 0))
+    create(byte 235, byte 88, byte 0, integer(value 0))
+    clearBit(byte 235, byte 7)
     print('The dog seems pleased.\n')
     bye()
 

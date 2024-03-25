@@ -20,7 +20,7 @@ interaction:
         print('"I\'ll have to take care of it right away."\n')
         wait()
 
-        ('SETF', ('byte', 235), ('byte', 6))
+        setBit(byte 235, byte 6)
         print('\n"You deserve a reward for helping me straighten this out."\n*\n"That ')
         print('mage over on the table was found just outside of town."\n*\n"He was ')
         print('carrying a couple of enchanted items and some money when the gargoyles')
@@ -34,14 +34,14 @@ interaction:
         print('laborer..."\n*\n"I agreed to give him an equipment allowance with his ')
         print('pay."\n*\n"No doubt it\'s all been squandered at some tavern, along with ')
         print('the rest of his pay."\n*\n"See what he has to say about that!"\n')
-        ('SETF', ('byte', 235), ('byte', 5))
+        setBit(byte 235, byte 5)
         bye()
     fi
 
     if and(hasBit(byte 178, byte 3), equals(hasBit(byte 235, byte 4), byte 0)):
         print('"So, his shovel broke? That\'s no excuse."\n*\n"Tell him he should have ')
         print('bought another one and kept working."\n')
-        ('SETF', ('byte', 235), ('byte', 4))
+        setBit(byte 235, byte 4)
         bye()
     fi
 
@@ -49,7 +49,7 @@ interaction:
         print('You pass along Mole\'s message. "Needs a shovel, does he? Tell him to ')
         print('use the one I gave him when I hired him!"\n*\n"No doubt he\'s forgotten ')
         print('he has it by now, or lost it somewhere..."\n')
-        ('SETF', ('byte', 235), ('byte', 3))
+        setBit(byte 235, byte 3)
         bye()
     fi
 
@@ -60,7 +60,7 @@ interaction:
 
     case 'name':
         print('"I am Glen D\'Arc, of the @Trinsic D\'Arcs."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_1337
 
     case 'd\'ar':
@@ -114,7 +114,7 @@ interaction:
         print('"Mole was supposed to have two more graves finished yesterday."\n*\n"I ')
         print('can\'t stand to talk to him any more - if you see him, tell him I need ')
         print('those graves dug immediately!"')
-        ('SETF', ('byte', 235), ('byte', 2))
+        setBit(byte 235, byte 2)
         jump label_1337
 
     case 'bye':
@@ -172,7 +172,7 @@ label_2841:
     print(' eerie green flame engulfs the corpse, consuming it in seconds.\n*\n')
     print('Nothing but ashes remain. The mortician sweeps them up, puts them in ')
     print('an urn, and hands it to ')
-    ('SETNAME', ('integer', [('value', 0)]))
+    look(integer(value 0))
 
     if notEquals(integer(value 0), byte 1):
         print('$Y')
@@ -182,8 +182,8 @@ label_2841:
     fi
 
     print('.\n*\n')
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 15))
-    ('DELETE', ('integer', [('value', 0)]), ('word', 339), ('byte', 0), ('byte', 1))
-    ('NEW', ('integer', [('value', 0)]), ('byte', 170), ('byte', 0), ('byte', 1))
+    destroy(byte 1, byte 88, byte 0, byte 15)
+    destroy(integer(value 0), word 339, byte 0, byte 1)
+    create(integer(value 0), byte 170, byte 0, byte 1)
     print('"Please come again if any more of your friends need my services."\n')
     bye()

@@ -32,7 +32,7 @@ interaction:
 
         print('He looks at you uneasily. "I\'m @Captain Elad. Not that it\'s any ')
         print('business of yours..."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_314
 
     case 'job':
@@ -58,12 +58,12 @@ interaction:
         if isNearby(byte 114):
             wait()
 
-            ('PORTRAIT', ('byte', 114))
+            portrait(byte 114)
             print('\n\nLeonna raises an eyebrow. "Is that so? I could tell a different ')
             print('tale..."')
             wait()
 
-            ('PORTRAIT', ('byte', 235))
+            portrait(byte 235)
         fi
 
         jump label_314
@@ -220,19 +220,19 @@ label_2394:
         jump label_3016
 
     case 'ahm':
-        ('SETF', ('byte', 235), ('byte', 6))
+        setBit(byte 235, byte 6)
     esac
 
-    ('NEW', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 5))
+    create(byte 1, byte 88, byte 0, byte 5)
     print('"Thank you! Now my meditations will succeed at last!"')
-    ('SETF', ('byte', 235), ('byte', 7))
+    setBit(byte 235, byte 7)
 
     if hasBit(byte 235, byte 6):
         print('\n')
         bye()
 
     else:
-        ('SUB_KARMA', ('byte', 5))
+        decreaseKarma(byte 5)
     fi
 
 label_3016:

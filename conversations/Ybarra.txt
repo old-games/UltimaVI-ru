@@ -32,7 +32,7 @@ interaction:
     wait()
 
     print('\n\n"I need @food, badly!"')
-    ('SETF', ('byte', 235), ('value', 0))
+    setBit(byte 235, value 0)
 
 label_269:
     print('\n')
@@ -137,13 +137,13 @@ label_1068:
         print('You share ')
 
     else:
-        ('SETNAME', ('integer', [('value', 1)]))
+        look(integer(value 1))
         print('$Y shares ')
     fi
 
     print('some food with the pathetic man.')
-    ('DELETE', ('integer', [('value', 1)]), ('data', [('dword', 1878), ('integer', [('value', 0)])]), ('byte', 0), ('objectsCount', [('integer', [('value', 1)]), ('data', [('dword', 1878), ('integer', [('value', 0)])])]))
-    ('ADD_KARMA', ('byte', 1))
+    destroy(integer(value 1), data(dword 1878, integer(value 0)), byte 0, objectsCount(integer(value 1), data(dword 1878, integer(value 0))))
+    increaseKarma(byte 1)
     wait()
 
     print('\n\n"Thunff fou," Ybarra says, stuffing the food into his mouth.')
@@ -166,7 +166,7 @@ label_1469:
     case 'y':
         print('He hands you the map piece and rubs his hands, eagerly awaiting his ')
         print('food.')
-        ('GIVE', ('word', 404), ('byte', 0), ('byte', 235), ('byte', 1))
+        give(word 404, byte 0, byte 235, byte 1)
         wait()
 
         print('\n\n')
@@ -185,7 +185,7 @@ label_1469:
 label_1661:
     print('His last shred of hope torn away from him, the withered man leaps at ')
     print('you, screaming "@Food! @Food!"\n')
-    ('WORKTYPE', ('byte', 235), ('byte', 153))
+    do(byte 235, byte 153)
     bye()
 
 label_1769:
@@ -195,7 +195,7 @@ label_1769:
 
     case 'n':
         print('The man collapses, the last of his energy gone.\n')
-        ('WORKTYPE', ('byte', 235), ('byte', 145))
+        do(byte 235, byte 145)
         bye()
 
     case 'y':

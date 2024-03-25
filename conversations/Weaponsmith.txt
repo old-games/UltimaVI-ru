@@ -26,7 +26,7 @@ interaction:
 
     print('\n\nSuddenly realizing that he is holding a weapon, the gargoyle ')
     print('attacks!\n')
-    ('WORKTYPE', ('byte', 235), ('byte', 153))
+    do(byte 235, byte 153)
     bye()
 
 label_281:
@@ -41,7 +41,7 @@ label_281:
         wait()
 
         print('\n\n"To greatly respect your nobility and courage."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
     fi
 
 label_450:
@@ -264,21 +264,21 @@ label_3365:
     choice('yn')
 
     case 'y':
-        ('NEW', ('byte', 1), ('byte', 49), ('byte', 0), ('byte', 1))
-        ('SETF', ('byte', 235), ('byte', 2))
+        create(byte 1, byte 49, byte 0, byte 1)
+        setBit(byte 235, byte 2)
 
         if partyHas(byte 3):
             print('As you take the boomerang, Shamino speaks.')
             wait()
 
-            ('PORTRAIT', ('byte', 3))
+            portrait(byte 3)
             print('\n\n"Aye, \'tis a most interesting weapon, $G."')
             wait()
 
             print('\n\n"Perhaps when our quest is through I can study its use."')
             wait()
 
-            ('PORTRAIT', ('byte', 235))
+            portrait(byte 235)
             print('\n\nThe gargoyle speaks. "To ask if anything else interests you?"')
             jump label_450
 
@@ -326,8 +326,8 @@ label_4014:
     choice('yn')
 
     case 'y':
-        ('NEW', ('byte', 1), ('byte', 91), ('byte', 0), ('byte', 1))
-        ('SETF', ('byte', 235), ('byte', 3))
+        create(byte 1, byte 91, byte 0, byte 1)
+        setBit(byte 235, byte 3)
         print('He hands you a small pouch. "To hope you find it useful."')
         jump label_450
 

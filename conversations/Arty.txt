@@ -18,7 +18,7 @@ interaction:
 
     else:
         print('He grins widely and waves at you.')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
     fi
 
 label_152:
@@ -31,17 +31,17 @@ label_152:
 
         if integer(value 23):
             integer(value 0) = character(byte 1, byte 0)
-            ('SETNAME', ('integer', [('value', 0)]))
+            look(integer(value 0))
             wait()
 
-            ('PORTRAIT', ('integer', [('value', 0)]))
+            portrait(integer(value 0))
             print('\n\n$Y speaks. "I know of this person, $G."')
             wait()
 
             print('\n\n"He is Arty the Mute, a local shipwright and an honored citizen."')
             wait()
 
-            ('PORTRAIT', ('byte', 235))
+            portrait(byte 235)
             print('\n\nThe man smiles and nods.')
         fi
 
@@ -188,7 +188,7 @@ label_1599:
     integer(value 2) = byte 1
 
 label_1613:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2) $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -198,7 +198,7 @@ label_1613:
     fi
 
     print('Who is buying? ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_2034
@@ -213,7 +213,7 @@ label_1613:
 label_1714:
     integer(value 3) = character(integer(value 3), byte 0)
     integer(value 4) = data(dword 2451, integer(value 9))
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('$N shows $Y a deed. Written on it is the price, #4 gold.')
     wait()
 
@@ -231,7 +231,7 @@ label_1714:
             jump label_2072
 
         else:
-            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 2451), ('integer', [('value', 9)])]))
+            destroy(integer(value 3), byte 88, byte 0, data(dword 2451, integer(value 9)))
             jump label_1942
         fi
 
@@ -240,7 +240,7 @@ label_1714:
     esac
 
 label_1942:
-    ('GIVE', ('byte', 149), ('data', [('dword', 2459), ('integer', [('value', 9)])]), ('byte', 235), ('integer', [('value', 3)]))
+    give(byte 149, data(dword 2459, integer(value 9)), byte 235, integer(value 3))
     print('After accepting the gold, $N smiles and hands $Y the deed.')
     integer(value 5) = byte 1
     wait()
@@ -294,7 +294,7 @@ label_2155:
 
 label_2365:
     if equals(integer(value 6), integer(value 4)):
-        ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+        destroy(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 1))
         wait()
 
         print('\n\n')
@@ -303,7 +303,7 @@ label_2365:
 
     integer(value 5) = objectsCount(character(integer(value 6), byte 0), byte 88)
     integer(value 1) = minus(integer(value 1), integer(value 5))
-    ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
+    destroy(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 5))
     integer(value 6) = plus(integer(value 6), byte 1)
     jump label_2365
 

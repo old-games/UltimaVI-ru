@@ -36,7 +36,7 @@ label_191:
     fi
 
     print('"Hrmmph. Hello." His breathing is quite heavy.')
-    ('SETF', ('byte', 235), ('value', 0))
+    setBit(byte 235, value 0)
     wait()
 
     print('\n')
@@ -46,7 +46,7 @@ label_262:
     print('"Hrmmph, well. Haven\'t we...never mind. Hrmmph."')
     wait()
 
-    print('\n\n"What do you need?"\n')
+    print('\n')
 
 label_312:
     print('\n"What do you need?"\n')
@@ -130,7 +130,7 @@ label_894:
     integer(value 1) = byte 1
 
 label_908:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#1. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
@@ -140,7 +140,7 @@ label_908:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_312
@@ -161,10 +161,10 @@ label_1010:
 label_1073:
     integer(value 0) = data(dword 1747, integer(value 4))
     string(value 0) = data(dword 1775, integer(value 4))
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+    look(character(integer(value 3), byte 0))
     print('$N looks at $Y. "It\'ll cost you #0 gold for each $0. How many do you ')
     print('want?" ')
-    ('INPUT', 5)
+    input(integer(value 5))
 
     if greater(integer(value 5), byte 100):
         print('"Come now, that\'s a little much don\'t you think?"')
@@ -210,7 +210,7 @@ label_1458:
 
     if equals(integer(value 1), byte 1):
         string(value 0) = data(dword 1775, integer(value 4))
-        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        look(character(integer(value 3), byte 0))
         print('$N looks at $Y. "You haven\'t any room in your pack."')
         wait()
 
@@ -220,7 +220,7 @@ label_1458:
 
     if equals(integer(value 1), byte 2):
         string(value 0) = data(dword 1775, integer(value 4))
-        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        look(character(integer(value 3), byte 0))
         print('$N looks at $Y. "A $0 costs more gold than you have."')
         wait()
 
@@ -229,12 +229,12 @@ label_1458:
     fi
 
 label_1643:
-    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('multiply', [('integer', [('value', 2)]), ('data', [('dword', 1747), ('integer', [('value', 4)])])]))
-    ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('data', [('dword', 1761), ('integer', [('value', 4)])]), ('byte', 0), ('integer', [('value', 2)]))
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+    destroy(character(integer(value 3), byte 0), byte 88, byte 0, multiply(integer(value 2), data(dword 1747, integer(value 4))))
+    create(character(integer(value 3), byte 0), data(dword 1761, integer(value 4)), byte 0, integer(value 2))
+    look(character(integer(value 3), byte 0))
     string(value 0) = data(dword 1775, integer(value 4))
     print('He hands $Y #2 $0\\s. ')
-    ('DPRINT', ('dword', 1829), ('integer', [('value', 1)]))
+    printString(dword 1829, integer(value 1))
     wait()
 
     print('\n')

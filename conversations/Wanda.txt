@@ -40,7 +40,7 @@ label_268:
 
     case 'name':
         print('"They call me \'@Wicked Wanda,\' $0."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_268
 
     case 'wand':
@@ -139,7 +139,7 @@ label_268:
         if hasBit(byte 235, byte 7):
             print('"\'Twas a business doing pleasure with you... I hope you come again ')
             print('soon!"\n')
-            ('CLEARF', ('byte', 235), ('byte', 7))
+            clearBit(byte 235, byte 7)
             bye()
         fi
 
@@ -152,7 +152,7 @@ label_268:
             print('again."')
         fi
 
-        ('CLEARF', ('byte', 235), ('byte', 7))
+        clearBit(byte 235, byte 7)
         print('\n')
         bye()
 
@@ -182,12 +182,12 @@ label_1658:
     wait()
 
     if integer(value 23):
-        ('SETNAME', ('character', [('byte', 1), ('byte', 0)]))
-        ('PORTRAIT', ('character', [('byte', 1), ('byte', 0)]))
+        look(character(byte 1, byte 0))
+        portrait(character(byte 1, byte 0))
         print('\n\n$Y speaks. "I don\'t think we have time for this..."')
         wait()
 
-        ('PORTRAIT', ('byte', 235))
+        portrait(byte 235)
 
     else:
         print('\n\nA voice in the back of your head asks, "Do you really have time for ')
@@ -216,8 +216,8 @@ label_1658:
             jump label_268
         fi
 
-        ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 15))
-        ('SETF', ('byte', 235), ('byte', 7))
+        destroy(byte 1, byte 88, byte 0, byte 15)
+        setBit(byte 235, byte 7)
         string(value 0) = data(dword 2887, byte 2)
         print('Taking you by the hand, the gyspy wench leads you off to her wagon.')
         wait()
@@ -228,8 +228,8 @@ label_1658:
     wait()
 
     if integer(value 23):
-        ('SETNAME', ('character', [('byte', 1), ('byte', 0)]))
-        ('PORTRAIT', ('character', [('byte', 1), ('byte', 0)]))
+        look(character(byte 1, byte 0))
+        portrait(character(byte 1, byte 0))
         print('\n\n"That\'s a fine way to be carrying on when all of Britannia is in ')
         print('danger!"')
         wait()
@@ -238,7 +238,7 @@ label_1658:
         print('wenching!"')
         wait()
 
-        ('PORTRAIT', ('byte', 235))
+        portrait(byte 235)
         print('\n\n"Nothing\'s wrong with a little fun. There\'s plenty of time... as ')
         print('long as there\'s plenty of gold!"')
 

@@ -24,7 +24,7 @@ interaction:
     print('Ok. Yeah."\n')
     wait()
 
-    ('SETF', ('byte', 235), ('value', 0))
+    setBit(byte 235, value 0)
     jump label_206
 
 label_174:
@@ -228,7 +228,7 @@ label_2696:
     integer(value 2) = byte 1
 
 label_2710:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -238,7 +238,7 @@ label_2710:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_3296
@@ -265,7 +265,7 @@ label_2829:
     fi
 
     print('"Which item?" ')
-    ('INPUTNUM', 0)
+    inputNumber(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_3296
@@ -276,7 +276,7 @@ label_2829:
     fi
 
     integer(value 0) = minus(integer(value 0), byte 1)
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     string(value 0) = data(dword 3388, integer(value 0))
     integer(value 1) = data(dword 3364, integer(value 0))
     print('$N smiles at $Y. "For $0 it will cost you #1 gold. Interested?" ')
@@ -298,8 +298,8 @@ label_2829:
     fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), data(dword 3364, integer(value 0))):
-        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 3364), ('integer', [('value', 0)])]))
-        ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 3376), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 1))
+        destroy(integer(value 3), byte 88, byte 0, data(dword 3364, integer(value 0)))
+        create(integer(value 3), data(dword 3376, integer(value 0)), byte 0, byte 1)
         print('"Excellent!" After accepting $Y\'s gold, $N hands over the wine.')
         wait()
 

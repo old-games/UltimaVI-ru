@@ -23,7 +23,7 @@ interaction:
     case 'y':
 label_188:
         print('\nHow much do you give? ')
-        ('INPUT', 0)
+        input(integer(value 0))
 
         if greater(integer(value 0), objectsCount(byte 1, byte 88)):
             print('You do not have that much.\n')
@@ -34,8 +34,8 @@ label_188:
             jump label_1885
         fi
 
-        ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-        ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
+        destroy(byte 1, byte 88, byte 0, integer(value 0))
+        create(byte 235, byte 88, byte 0, integer(value 0))
         print('"Thank, ye kindly, matey."')
     esac
 
@@ -46,7 +46,7 @@ label_323:
 
     case 'name':
         print('"I be Heftimus McPry, matey."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_323
 
     case 'job':
@@ -150,8 +150,8 @@ label_1438:
         jump label_323
     fi
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 10))
-    ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 10))
+    destroy(byte 1, byte 88, byte 0, byte 10)
+    create(byte 235, byte 88, byte 0, byte 10)
     jump label_1621
 
 label_1573:
@@ -160,8 +160,8 @@ label_1573:
         jump label_1438
     fi
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 20))
-    ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 20))
+    destroy(byte 1, byte 88, byte 0, byte 20)
+    create(byte 235, byte 88, byte 0, byte 20)
 
 label_1621:
     print('"I thank ye kindly, matey. The last I saw o\' that bit o\' parchment..."')

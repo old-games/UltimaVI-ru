@@ -24,7 +24,7 @@ label_199:
 
     case 'name':
         print('"@Thindle the spindler." He grins at you.\n')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_199
 
     case 'thin':
@@ -146,7 +146,7 @@ label_1568:
     integer(value 2) = byte 1
 
 label_1582:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -156,7 +156,7 @@ label_1582:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('"Very well, but \'tis fine cloth, yes indeed..."\n')
@@ -183,9 +183,9 @@ label_1742:
         fi
 
         if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 15):
-            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 15))
-            ('NEW', ('integer', [('value', 3)]), ('byte', 185), ('byte', 0), ('byte', 1))
-            ('SETNAME', ('integer', [('value', 3)]))
+            destroy(integer(value 3), byte 88, byte 0, byte 15)
+            create(integer(value 3), byte 185, byte 0, byte 1)
+            look(integer(value 3))
             print('"Excellent!" After accepting $Y\'s gold, $N hands over the cloth.\n')
             jump label_199
 
@@ -243,7 +243,7 @@ label_2262:
     integer(value 1) = byte 1
 
 label_2276:
-    ('SETNAME', ('character', [('data', [('dword', 2746), ('integer', [('value', 0)])]), ('byte', 0)]))
+    look(character(data(dword 2746, integer(value 0)), byte 0))
     print('#1. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
@@ -253,7 +253,7 @@ label_2276:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('"Very well, very well, I can see you don\'t want to sell."\n')
@@ -270,7 +270,7 @@ label_2276:
 
 label_2458:
     integer(value 4) = objectsCount(integer(value 3), byte 225)
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
 
     if equals(integer(value 4), byte 0):
         print('"Sorry, you don\'t have any thread."\n')
@@ -283,8 +283,8 @@ label_2458:
 
     case 'y':
         print('"Done!" He hands $Y 6 gold pieces and takes the thread.\n')
-        ('DELETE', ('integer', [('value', 3)]), ('byte', 225), ('byte', 0), ('byte', 1))
-        ('NEW', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 6))
+        destroy(integer(value 3), byte 225, byte 0, byte 1)
+        create(integer(value 3), byte 88, byte 0, byte 6)
         jump label_199
 
     case 'n':

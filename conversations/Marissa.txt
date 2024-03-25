@@ -46,7 +46,7 @@ label_283:
 
     case 'name':
         print('"Marissa. You may call me \'@Miss Trihune."\n')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_283
 
     case 'miss':
@@ -153,13 +153,13 @@ label_1477:
 
     case 'y':
         if less(objectsCount(integer(value 0), byte 88), byte 75):
-            ('SETNAME', ('integer', [('value', 0)]))
+            look(integer(value 0))
             print('"Come back when you have the gold, $Y."\n')
             jump label_283
         fi
 
-        ('DELETE', ('integer', [('value', 0)]), ('byte', 88), ('byte', 0), ('byte', 75))
-        ('DELETE', ('integer', [('value', 0)]), ('byte', 241), ('byte', 0), ('byte', 1))
+        destroy(integer(value 0), byte 88, byte 0, byte 75)
+        destroy(integer(value 0), byte 241, byte 0, byte 1)
         print('She takes the silk cloth and begins to work, following the balloon ')
         print('plans.')
         wait()
@@ -171,7 +171,7 @@ label_1477:
         wait()
 
         print('\n\n"There, \'tis done!" she cries, handing you the bag.\n')
-        ('NEW', ('integer', [('value', 0)]), ('word', 421), ('byte', 0), ('byte', 1))
+        create(integer(value 0), word 421, byte 0, byte 1)
         jump label_283
 
     case 'n':
@@ -190,7 +190,7 @@ label_1915:
     integer(value 2) = byte 1
 
 label_1929:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -200,7 +200,7 @@ label_1929:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('"Suit yourself," she sniffs, offended.\n')
@@ -217,7 +217,7 @@ label_1929:
 
 label_2080:
     print('1. Tunic\n2. Dress\n3. Pants\n"Which one?" ')
-    ('INPUTNUM', 0)
+    inputNumber(integer(value 0))
 
     if or(less(integer(value 0), byte 1), greater(integer(value 0), byte 3)):
         print('\n\n')
@@ -238,14 +238,14 @@ label_2080:
         fi
 
         if greaterOrEquals(objectsCount(integer(value 3), byte 88), data(dword 3258, integer(value 0))):
-            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 3258), ('integer', [('value', 0)])]))
-            ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 3264), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 1))
-            ('SETNAME', ('integer', [('value', 3)]))
+            destroy(integer(value 3), byte 88, byte 0, data(dword 3258, integer(value 0)))
+            create(integer(value 3), data(dword 3264, integer(value 0)), byte 0, byte 1)
+            look(integer(value 3))
             print('"Excellent!" After accepting $Y\'s gold, $N hands over the $0.\n')
             jump label_283
 
         else:
-            ('SETNAME', ('integer', [('value', 3)]))
+            look(integer(value 3))
             print('$N looks at $Y. "How rude! Don\'t ask for something you can\'t pay for!"')
             print('\n')
             jump label_283
@@ -300,7 +300,7 @@ label_2759:
     integer(value 1) = byte 1
 
 label_2773:
-    ('SETNAME', ('character', [('data', [('dword', 3242), ('integer', [('value', 0)])]), ('byte', 0)]))
+    look(character(data(dword 3242, integer(value 0)), byte 0))
     print('#1. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
@@ -310,7 +310,7 @@ label_2773:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('"Just as well. That cloth is rather shabby..."\n')
@@ -327,7 +327,7 @@ label_2773:
 
 label_2944:
     integer(value 4) = objectsCount(integer(value 3), byte 185)
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
 
     if equals(integer(value 4), byte 0):
         print('"I don\'t see any cloth, other than what you\'re wearing!"\n')
@@ -340,8 +340,8 @@ label_2944:
 
     case 'y':
         print('"Done!" She hands $Y 20 gold pieces and takes the cloth.\n')
-        ('DELETE', ('integer', [('value', 3)]), ('byte', 185), ('byte', 0), ('byte', 1))
-        ('NEW', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 20))
+        destroy(integer(value 3), byte 185, byte 0, byte 1)
+        create(integer(value 3), byte 88, byte 0, byte 20)
         jump label_283
 
     case 'n':

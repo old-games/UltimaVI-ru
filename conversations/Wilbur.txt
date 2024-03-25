@@ -18,7 +18,7 @@ interaction:
 
     else:
         print('"Greetings, traveler')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
     fi
 
     if integer(value 23):
@@ -105,7 +105,7 @@ label_650:
         jump label_742
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n')
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
@@ -125,11 +125,11 @@ label_757:
         jump label_951
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n')
     integer(value 4) = byte 0
     print('"Which of you?" ')
-    ('INPUTNUM', 2)
+    inputNumber(integer(value 2))
 
     if equals(integer(value 2), byte 0):
         jump label_186
@@ -155,7 +155,7 @@ label_886:
     fi
 
 label_951:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('"Aye, $Y, thou hast need of a horse."')
     wait()
 
@@ -172,7 +172,7 @@ label_951:
 
     case 'y':
         print('"Good!" $N takes $Y\'s gold, and hands over the reins of a fine horse.')
-        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 9)]))
+        destroy(integer(value 3), byte 88, byte 0, integer(value 9))
         horse(integer(value 3))
         jump label_1231
 

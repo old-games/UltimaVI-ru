@@ -102,7 +102,7 @@ label_908:
     integer(value 2) = byte 1
 
 label_922:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -112,7 +112,7 @@ label_922:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('"Too bad. You\'ll never find better rope."\n')
@@ -128,7 +128,7 @@ label_922:
     integer(value 3) = character(integer(value 3), byte 0)
 
 label_1076:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('$N smiles at $Y, "For my fine rope it will cost you 5 gold. ')
     print('Interested?" ')
 
@@ -145,8 +145,8 @@ label_1076:
         fi
 
         if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 5):
-            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 5))
-            ('NEW', ('integer', [('value', 3)]), ('word', 284), ('byte', 0), ('byte', 1))
+            destroy(integer(value 3), byte 88, byte 0, byte 5)
+            create(integer(value 3), word 284, byte 0, byte 1)
             print('"Fine, fine!" After accepting $Y\'s gold, $N hands over the rope.\n')
             jump label_99
 

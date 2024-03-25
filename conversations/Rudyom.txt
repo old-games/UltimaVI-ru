@@ -30,7 +30,7 @@ label_129:
 
     case 'name':
         print('"I am Rudyom."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_128
 
     case 'job':
@@ -86,7 +86,7 @@ label_486:
         jump label_585
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n')
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
@@ -106,9 +106,9 @@ label_600:
         jump label_784
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n"Which of you?" ')
-    ('INPUTNUM', 2)
+    inputNumber(integer(value 2))
 
     if equals(integer(value 2), byte 0):
         jump label_129
@@ -134,11 +134,11 @@ label_718:
     fi
 
 label_784:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     integer(value 1) = level(integer(value 3), byte 0)
     string(value 1) = data(dword 2849, integer(value 1))
     print('"In which Circle does $Y wish to study?" ')
-    ('INPUTNUM', 0)
+    inputNumber(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_128
@@ -185,7 +185,7 @@ label_1125:
     fi
 
     print('"Which of these?" ')
-    ('INPUTNUM', 4)
+    inputNumber(integer(value 4))
 
     if or(equals(integer(value 4), byte 0), greaterOrEquals(integer(value 4), integer(value 2))):
         print('"Perhaps $Y is not ready for this circle."')
@@ -212,8 +212,8 @@ label_1125:
 
     case 'y':
         print('$N hands $Y a piece of rune-covered parchment.')
-        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
-        ('NEW', ('integer', [('value', 3)]), ('byte', 58), ('data', [('dword', 2876), ('plus', [('integer', [('value', 0)]), ('integer', [('value', 4)])])]), ('byte', 1))
+        destroy(integer(value 3), byte 88, byte 0, integer(value 5))
+        create(integer(value 3), byte 58, data(dword 2876, plus(integer(value 0), integer(value 4))), byte 1)
         wait()
 
         print('\n\n')
@@ -239,7 +239,7 @@ label_1490:
 
 label_1568:
     integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('#2) $Y\n')
 
     if lessOrEquals(integer(value 2), integer(value 23)):
@@ -248,7 +248,7 @@ label_1568:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 2)
+    inputNumber(integer(value 2))
 
     if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
         jump label_129
@@ -258,7 +258,7 @@ label_1568:
     fi
 
 label_1670:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     integer(value 1) = byte 1
 
 label_1681:
@@ -271,7 +271,7 @@ label_1681:
     fi
 
     print('"Which of these?" ')
-    ('INPUTNUM', 2)
+    inputNumber(integer(value 2))
 
     if or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1))):
         integer(value 2) = byte 1
@@ -286,7 +286,7 @@ label_1681:
     wait()
 
     print('\n\n"How many dost thou want?" ')
-    ('INPUT', 4)
+    input(integer(value 4))
 
     if greater(integer(value 4), word 500):
         integer(value 4) = word 500
@@ -305,8 +305,8 @@ label_1915:
         jump label_2174
     fi
 
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-    ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 2750), ('integer', [('value', 2)])]), ('byte', 0), ('byte', 1))
+    destroy(integer(value 3), byte 88, byte 0, integer(value 1))
+    create(integer(value 3), data(dword 2750, integer(value 2)), byte 0, byte 1)
     integer(value 5) = plus(integer(value 5), byte 1)
 
     if equals(integer(value 5), integer(value 4)):
@@ -376,7 +376,7 @@ label_2305:
 
 label_2383:
     integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('#2) $Y\n')
 
     if lessOrEquals(integer(value 2), integer(value 23)):
@@ -385,7 +385,7 @@ label_2383:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 2)
+    inputNumber(integer(value 2))
 
     if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
         jump label_128
@@ -395,7 +395,7 @@ label_2383:
     fi
 
 label_2485:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
 
     if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 50)), weight(byte 57, byte 1)):
         print('"But thou cannot carry a spellbook!"')
@@ -412,8 +412,8 @@ label_2485:
     choice('yn')
 
     case 'y':
-        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 50))
-        ('NEW', ('integer', [('value', 3)]), ('byte', 57), ('byte', 0), ('byte', 1))
+        destroy(integer(value 3), byte 88, byte 0, byte 50)
+        create(integer(value 3), byte 57, byte 0, byte 1)
         jump label_128
 
     case 'n':

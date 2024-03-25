@@ -18,7 +18,7 @@ interaction:
 
     case 'name':
         print('"Once I was Aurendir the mighty - now I live a more @modest life."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_114
 
     case 'job':
@@ -156,7 +156,7 @@ label_1548:
     integer(value 2) = byte 1
 
 label_1562:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -166,7 +166,7 @@ label_1562:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_1994
@@ -193,9 +193,9 @@ label_1664:
         fi
 
         if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 5):
-            ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 5))
-            ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 190), ('byte', 0), ('byte', 1))
-            ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+            destroy(character(integer(value 3), byte 0), byte 88, byte 0, byte 5)
+            create(character(integer(value 3), byte 0), byte 190, byte 0, byte 1)
+            look(character(integer(value 3), byte 0))
             print('"Very good." After accepting $Y\'s gold, $N hands over the wool.')
             wait()
 
@@ -204,7 +204,7 @@ label_1664:
             jump label_1994
 
         else:
-            ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+            look(character(integer(value 3), byte 0))
             print('"I\'m sorry, but you don\'t seem to have enough money."')
             wait()
 

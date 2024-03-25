@@ -17,7 +17,7 @@ interaction:
         wait()
 
         print('\n\nThen he faints dead away!\n')
-        ('WORKTYPE', ('byte', 235), ('byte', 145))
+        do(byte 235, byte 145)
         bye()
     fi
 
@@ -26,7 +26,7 @@ interaction:
         wait()
 
         print('\n\nThen he faints dead away!\n')
-        ('WORKTYPE', ('byte', 235), ('byte', 145))
+        do(byte 235, byte 145)
         bye()
     fi
 
@@ -45,7 +45,7 @@ interaction:
         wait()
 
         print('\n\n"To ask what service I can perform?"')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_805
     fi
 
@@ -85,7 +85,7 @@ label_805:
             wait()
 
             print('\n\n"To require the pieces of the lens in order to make a new copy."')
-            ('SETF', ('byte', 235), ('byte', 2))
+            setBit(byte 235, byte 2)
             jump label_805
 
         else:
@@ -155,7 +155,7 @@ label_1806:
     wait()
 
     print('\n\n')
-    ('DELETE', ('integer', [('value', 0)]), ('word', 395), ('byte', 0), ('byte', 1))
+    destroy(integer(value 0), word 395, byte 0, byte 1)
     print('Taking the shards of glass, the lensmaker turns to his grinding table.')
     wait()
 
@@ -170,6 +170,6 @@ label_1806:
     wait()
 
     print('\n\nHe hands you the restored Vortex Lens.')
-    ('NEW', ('integer', [('value', 0)]), ('word', 396), ('byte', 0), ('byte', 1))
-    ('CLEARF', ('byte', 235), ('byte', 2))
+    create(integer(value 0), word 396, byte 0, byte 1)
+    clearBit(byte 235, byte 2)
     jump label_805

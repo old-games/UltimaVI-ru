@@ -33,7 +33,7 @@ interaction:
     bye()
 
 label_414:
-    ('CLEARF', ('byte', 235), ('byte', 7))
+    clearBit(byte 235, byte 7)
 
     if equals(hasBit(byte 235, value 0), byte 0):
         print('"Huzzah! I am @Zoltan, king of the gypsies!"')
@@ -42,7 +42,7 @@ label_414:
         print('"Huzzah! I am still @Zoltan, king of the gypsies!"')
     fi
 
-    ('SETF', ('byte', 235), ('value', 0))
+    setBit(byte 235, value 0)
 
 label_532:
     print('\n')
@@ -208,9 +208,9 @@ label_2887:
         jump label_532
     fi
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 2))
-    ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 2))
-    ('SETF', ('byte', 235), ('byte', 7))
+    destroy(byte 1, byte 88, byte 0, byte 2)
+    create(byte 235, byte 88, byte 0, byte 2)
+    setBit(byte 235, byte 7)
     print('\n"I\'ll tell you this:"\n*\n"Powder kegs are useful for persuading ')
     print('uncooperative doors to open."')
     jump label_532
@@ -232,9 +232,9 @@ label_3209:
         jump label_532
     fi
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 10))
-    ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 10))
-    ('SETF', ('byte', 235), ('byte', 7))
+    destroy(byte 1, byte 88, byte 0, byte 10)
+    create(byte 235, byte 88, byte 0, byte 10)
+    setBit(byte 235, byte 7)
     print('\n"Some @gorgio called \'Captain @John\' brought us the silver tablet and')
     print(' paid us to take it to the Lycaeum."\n*\n"While we were on the way ')
     print('there, we were ambushed by Captain @Hawkins and his crew."\n*\nThe ')
@@ -252,7 +252,7 @@ label_4018:
 
     case 'n':
 label_4051:
-        ('SETF', ('byte', 235), ('value', 1))
+        setBit(byte 235, value 1)
         print('"Hah! I should know better than to expect a gorgio to appreciate a ')
         print('fine gypsy dance."\n*\nProudly, he turns his back on you.\n')
         bye()
@@ -260,7 +260,7 @@ label_4051:
 
 label_4182:
     print('\nHow much do you give? ')
-    ('INPUT', 0)
+    input(integer(value 0))
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
         print('\nYou don\'t have that much.\n')
@@ -271,10 +271,10 @@ label_4182:
         jump label_4051
     fi
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    ('SETF', ('byte', 235), ('byte', 7))
-    ('CLEARF', ('byte', 235), ('value', 1))
+    destroy(byte 1, byte 88, byte 0, integer(value 0))
+    create(byte 235, byte 88, byte 0, integer(value 0))
+    setBit(byte 235, byte 7)
+    clearBit(byte 235, value 1)
     print('\nZoltan pockets the money. "Thanks."')
     jump label_532
 
@@ -289,7 +289,7 @@ label_4344:
 
 label_4379:
     integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('#2) $Y\n')
 
     if lessOrEquals(integer(value 2), integer(value 23)):
@@ -298,7 +298,7 @@ label_4379:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 2)
+    inputNumber(integer(value 2))
 
     if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
         print('\n"What else would you like to know?"')
@@ -309,7 +309,7 @@ label_4379:
     fi
 
 label_4517:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     integer(value 1) = byte 1
 
 label_4528:
@@ -322,7 +322,7 @@ label_4528:
     fi
 
     print('"Which of these?" ')
-    ('INPUTNUM', 2)
+    inputNumber(integer(value 2))
 
     if or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1))):
         integer(value 2) = byte 1
@@ -337,7 +337,7 @@ label_4528:
     wait()
 
     print('\n\n"How many do you want?" ')
-    ('INPUT', 4)
+    input(integer(value 4))
 
     if equals(integer(value 4), byte 0):
         jump label_4517
@@ -352,10 +352,10 @@ label_4742:
         jump label_4976
     fi
 
-    ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-    ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 5075), ('integer', [('value', 2)])]), ('byte', 0), ('byte', 1))
-    ('SETF', ('byte', 235), ('byte', 7))
-    ('CLEARF', ('byte', 235), ('value', 1))
+    destroy(integer(value 3), byte 88, byte 0, integer(value 1))
+    create(integer(value 3), data(dword 5075, integer(value 2)), byte 0, byte 1)
+    setBit(byte 235, byte 7)
+    clearBit(byte 235, value 1)
     integer(value 5) = plus(integer(value 5), byte 1)
 
     if equals(integer(value 5), integer(value 4)):

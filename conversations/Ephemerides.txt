@@ -50,7 +50,7 @@ label_418:
 
     case 'name':
         print('"I am Ephemerides."\n')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_418
 
     case 'job':
@@ -184,8 +184,8 @@ label_418:
         print('I\'ll try and make a copy for you."')
         wait()
 
-        ('SETF', ('byte', 235), ('byte', 7))
-        ('GIVE', ('word', 396), ('byte', 0), ('integer', [('value', 0)]), ('byte', 235))
+        setBit(byte 235, byte 7)
+        give(word 396, byte 0, integer(value 0), byte 235)
         print('\n\nBefore you can protest, he pockets the lens. "Let me know when you ')
         print('have the glass @sword."\n')
         jump label_418
@@ -245,10 +245,10 @@ label_3366:
     wait()
 
     print('\n\n"I don\'t know what you need these lenses for, but I wish you luck!"\n')
-    ('SETF', ('byte', 235), ('byte', 6))
-    ('DELETE', ('partyHasObject', [('byte', 48), ('byte', 0)]), ('byte', 48), ('byte', 0), ('byte', 1))
-    ('GIVE', ('word', 396), ('byte', 0), ('byte', 235), ('byte', 1))
-    ('NEW', ('byte', 1), ('word', 394), ('byte', 0), ('byte', 1))
+    setBit(byte 235, byte 6)
+    destroy(partyHasObject(byte 48, byte 0), byte 48, byte 0, byte 1)
+    give(word 396, byte 0, byte 235, byte 1)
+    create(byte 1, word 394, byte 0, byte 1)
     jump label_418
 
 label_3941:
@@ -262,7 +262,7 @@ label_3961:
     integer(value 1) = byte 1
 
 label_3975:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#1. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
@@ -272,7 +272,7 @@ label_3975:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_357
@@ -288,7 +288,7 @@ label_3975:
 
 label_4087:
     string(value 0) = data(dword 4491, integer(value 4))
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
 
     if less(plus(canCarry(integer(value 3)), weight(byte 88, data(dword 4479, integer(value 4)))), weight(data(dword 4485, integer(value 4)), byte 1)):
         print('$N looks at $Y. "You haven\'t any room in your pack."')
@@ -307,7 +307,7 @@ label_4087:
     fi
 
     integer(value 0) = data(dword 4479, integer(value 4))
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('$N looks at $Y. "It\'ll cost you #0 gold for a $0. Do you want one?" ')
 
     choice('yn')
@@ -321,8 +321,8 @@ label_4087:
     esac
 
     case 'y':
-        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 4479), ('integer', [('value', 4)])]))
-        ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 4485), ('integer', [('value', 4)])]), ('byte', 0), ('byte', 1))
+        destroy(integer(value 3), byte 88, byte 0, data(dword 4479, integer(value 4)))
+        create(integer(value 3), data(dword 4485, integer(value 4)), byte 0, byte 1)
         print('He hands $Y a $0.')
         wait()
 

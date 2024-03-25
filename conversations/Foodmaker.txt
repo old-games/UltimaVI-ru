@@ -26,7 +26,7 @@ interaction:
     wait()
 
     if partyHas(byte 4):
-        ('PORTRAIT', ('byte', 4))
+        portrait(byte 4)
         print('\n\nHalf-jokingly, Iolo says, "We\'d better do as he says."')
         wait()
 
@@ -166,11 +166,11 @@ label_1586:
 
         wait()
 
-        ('PORTRAIT', ('byte', 4))
+        portrait(byte 4)
         print('\n\nIolo speaks. "I wonder what sort of @meat this is, $P."')
         wait()
 
-        ('PORTRAIT', ('byte', 235))
+        portrait(byte 235)
         print('\n\nThe gargoyle beams with pride. "To ask you: Is it not the best @meat')
         print(' you have ever eaten?"')
         jump label_530
@@ -185,7 +185,7 @@ label_1586:
 
 label_2151:
     if greater(integer(value 0), integer(value 24)):
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_2448
     fi
 
@@ -197,7 +197,7 @@ label_2151:
         jump label_2151
     fi
 
-    ('SETF', ('byte', 235), ('value', 0))
+    setBit(byte 235, value 0)
     print('"Wait!"')
     wait()
 
@@ -209,8 +209,8 @@ label_2151:
     choice('yn')
 
     case 'y':
-        ('NEW', ('integer', [('value', 1)]), ('byte', 135), ('byte', 0), ('integer', [('value', 2)]))
-        ('SETNAME', ('integer', [('value', 1)]))
+        create(integer(value 1), byte 135, byte 0, integer(value 2))
+        look(integer(value 1))
         print('The chef gives ')
 
         if equals(integer(value 1), byte 1):

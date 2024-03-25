@@ -34,7 +34,7 @@ label_291:
 
     case 'name':
         print('"Grison Fairfleth, at your service."\n')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_291
 
     case 'fair':
@@ -116,7 +116,7 @@ label_1270:
     integer(value 2) = byte 1
 
 label_1284:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -126,7 +126,7 @@ label_1284:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('"Suit yourself."\n')
@@ -153,8 +153,8 @@ label_1413:
         fi
 
         if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 4):
-            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 4))
-            ('NEW', ('integer', [('value', 3)]), ('byte', 167), ('byte', 0), ('byte', 1))
+            destroy(integer(value 3), byte 88, byte 0, byte 4)
+            create(integer(value 3), byte 167, byte 0, byte 1)
             print('"Excellent!" $N hands over the flour.\n')
             jump label_291
 
@@ -212,7 +212,7 @@ label_1865:
     integer(value 1) = byte 1
 
 label_1879:
-    ('SETNAME', ('character', [('data', [('dword', 2272), ('integer', [('value', 0)])]), ('byte', 0)]))
+    look(character(data(dword 2272, integer(value 0)), byte 0))
     print('#1. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
@@ -222,7 +222,7 @@ label_1879:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('"Suit yourself."\n')
@@ -239,7 +239,7 @@ label_1879:
 
 label_2020:
     integer(value 4) = objectsCount(integer(value 3), byte 166)
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
 
     if equals(integer(value 4), byte 0):
         print('"But ya don\'t have any grain!"\n')
@@ -253,8 +253,8 @@ label_2020:
 
     case 'y':
         print('"Done!" He hands $Y 3 gold pieces and takes the sack.\n')
-        ('DELETE', ('integer', [('value', 3)]), ('byte', 166), ('byte', 0), ('byte', 1))
-        ('NEW', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 3))
+        destroy(integer(value 3), byte 166, byte 0, byte 1)
+        create(integer(value 3), byte 88, byte 0, byte 3)
         jump label_291
 
     case 'n':

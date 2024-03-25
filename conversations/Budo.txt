@@ -14,17 +14,17 @@ interaction:
         jump label_339
     fi
 
-    ('SETF', ('byte', 235), ('value', 0))
+    setBit(byte 235, value 0)
     print('I bet you\'ve come back to pick up that @orrery you ordered."')
     wait()
 
     if partyHas(byte 2):
-        ('PORTRAIT', ('byte', 2))
+        portrait(byte 2)
         print('\n\n"Don\'t be ridiculous! This is the first time we\'ve ever been in your')
         print(' shop!" says Dupre.')
         wait()
 
-        ('PORTRAIT', ('byte', 235))
+        portrait(byte 235)
         print('\n\n"Oh, I\'m sorry. I must have thought you were somebody you aren\'t.')
 
     else:
@@ -51,7 +51,7 @@ interaction:
         jump label_601
 
 label_577:
-        print('"What can I do you for?"\n')
+        print('"What can I do you for?"')
 
 label_601:
         print('\n')
@@ -123,7 +123,7 @@ label_601:
 
             print('\n\n"Just remember, whatever you do, don\'t tell anyone about our ')
             print('@guild!"')
-            ('SETF', ('byte', 235), ('byte', 7))
+            setBit(byte 235, byte 7)
             jump label_601
         fi
 
@@ -277,7 +277,7 @@ label_3572:
     integer(value 1) = byte 1
 
 label_3586:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#1. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
@@ -287,7 +287,7 @@ label_3586:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_577
@@ -308,10 +308,10 @@ label_3688:
 label_3739:
     integer(value 0) = data(dword 4379, integer(value 4))
     string(value 0) = data(dword 4427, integer(value 4))
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+    look(character(integer(value 3), byte 0))
     print('$N looks at $Y, "It\'ll cost you #0 gold for each $0, how many do you ')
     print('want?" ')
-    ('INPUT', 5)
+    input(integer(value 5))
 
     if greater(integer(value 5), byte 100):
         print('"Come now, that\'s a little much don\'t you think?"')
@@ -357,7 +357,7 @@ label_4094:
 
     if equals(integer(value 1), byte 1):
         string(value 0) = data(dword 4427, integer(value 4))
-        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        look(character(integer(value 3), byte 0))
         print('$N looks at $Y. "You haven\'t any room in your pack."')
         wait()
 
@@ -367,7 +367,7 @@ label_4094:
 
     if equals(integer(value 1), byte 2):
         string(value 0) = data(dword 4427, integer(value 4))
-        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        look(character(integer(value 3), byte 0))
         print('"I think you have less gold than you thought."')
         wait()
 
@@ -376,12 +376,12 @@ label_4094:
     fi
 
 label_4274:
-    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('multiply', [('integer', [('value', 2)]), ('data', [('dword', 4379), ('integer', [('value', 4)])])]))
-    ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('data', [('dword', 4411), ('integer', [('value', 4)])]), ('byte', 0), ('integer', [('value', 2)]))
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+    destroy(character(integer(value 3), byte 0), byte 88, byte 0, multiply(integer(value 2), data(dword 4379, integer(value 4))))
+    create(character(integer(value 3), byte 0), data(dword 4411, integer(value 4)), byte 0, integer(value 2))
+    look(character(integer(value 3), byte 0))
     string(value 0) = data(dword 4427, integer(value 4))
     print('He hands $Y #2 $0\\s. ')
-    ('DPRINT', ('dword', 4481), ('integer', [('value', 1)]))
+    printString(dword 4481, integer(value 1))
     wait()
 
     print('\n\n')

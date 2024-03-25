@@ -41,14 +41,14 @@ label_328:
     wait()
 
     if partyHas(byte 2):
-        ('PORTRAIT', ('byte', 2))
-        ('SETNAME', ('byte', 2))
+        portrait(byte 2)
+        look(byte 2)
         jump label_396
     fi
 
     if partyHas(byte 4):
-        ('PORTRAIT', ('byte', 4))
-        ('SETNAME', ('byte', 4))
+        portrait(byte 4)
+        look(byte 4)
         jump label_396
 
     else:
@@ -69,7 +69,7 @@ label_396:
 
     case 'n':
         print('"As you wish, $G."')
-        ('PORTRAIT', ('byte', 235))
+        portrait(byte 235)
         integer(value 0) = byte 0
     esac
 
@@ -186,7 +186,7 @@ label_1027:
 
     case 'join':
         if partyHas(byte 235):
-            ('DPRINT', ('dword', 4206), ('byte', 3))
+            printString(dword 4206, byte 3)
             jump label_1027
 
         else:
@@ -231,7 +231,7 @@ label_1027:
             jump label_1027
 
         else:
-            ('DPRINT', ('dword', 4206), ('byte', 3))
+            printString(dword 4206, byte 3)
             jump label_1027
         fi
 
@@ -246,7 +246,7 @@ label_1027:
         wait()
 
         print('\n')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
 
         if equals(integer(value 9), byte 1):
             print('\nDuring your absence, $9 decided to head for the surface, to inform ')
@@ -293,7 +293,7 @@ label_1027:
             jump label_3117
 
         else:
-            ('DPRINT', ('dword', 4206), ('byte', 3))
+            printString(dword 4206, byte 3)
         fi
 
         jump label_1027
@@ -303,13 +303,13 @@ label_1027:
             print('"Good! To know that he very much wanted to speak with you."')
 
         else:
-            ('DPRINT', ('dword', 4206), ('byte', 3))
+            printString(dword 4206, byte 3)
         fi
 
         jump label_1027
 
     case '*':
-        ('DPRINT', ('dword', 4206), ('random', [('byte', 0), ('byte', 4)]))
+        printString(dword 4206, random(byte 0, byte 4))
         jump label_1027
     esac
 
@@ -414,11 +414,11 @@ label_3778:
         fi
     fi
 
-    ('SETNAME', ('integer', [('value', 6)]))
+    look(integer(value 6))
     string(value 9) = string(value 34)
 
     if isNearby(integer(value 6)):
-        ('PORTRAIT', ('integer', [('value', 6)]))
+        portrait(integer(value 6))
         print('$9 speaks. "$G, I\'ll return to the surface and let everyone know of ')
         print('our progress."')
         wait()
@@ -433,7 +433,7 @@ label_3778:
     fi
 
 label_4075:
-    ('PORTRAIT', ('byte', 235))
+    portrait(byte 235)
 
     if partyJoin(byte 235):
         print('"To not be able to join you right now. To ask again later, perhaps."\n')

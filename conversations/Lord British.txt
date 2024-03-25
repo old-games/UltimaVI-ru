@@ -8,7 +8,7 @@ description:
     print('the noble ruler of Britannia.\n*')
 
 interaction:
-    ('SETF', ('byte', 235), ('value', 0))
+    setBit(byte 235, value 0)
 
     if hasBit(byte 235, byte 7):
         jump label_1819
@@ -73,13 +73,12 @@ label_446:
     print(' the lever inside to raise the portcullis, and the crank will lower ')
     print('the drawbridge."\n*\n"The same key will also let you into the sewers ')
     print('under the castle."*')
-    ('NEW', ('byte', 1), ('byte', 64), ('byte', 1), ('byte', 1))
-    ('SETF', ('byte', 235), ('byte', 7))
+    create(byte 1, byte 64, byte 1, byte 1)
+    setBit(byte 235, byte 7)
     print('\n\n"Now let me tell thee what hath transpired since thy last visit."')
     wait()
 
-    print('\n\n"The vast underworld from which thou didst rescue me hath ')
-    print('collapsed."')
+    print('\n\n')
 
 label_826:
     print('"The vast underworld from which thou didst rescue me hath collapsed."')
@@ -136,7 +135,7 @@ label_1819:
 
     print('"I see thou hath misplaced thy key to the castle."\n*\n"Here is ')
     print('another."')
-    ('NEW', ('byte', 1), ('byte', 64), ('byte', 1), ('byte', 1))
+    create(byte 1, byte 64, byte 1, byte 1)
     jump label_1967
 
 label_1925:
@@ -226,7 +225,7 @@ label_1925:
         wait()
 
         print('the stone canst conjure gates to take thee to numerous destinations."')
-        ('SETF', ('byte', 235), ('byte', 5))
+        setBit(byte 235, byte 5)
         jump label_1967
 
     case 'mant':
@@ -368,8 +367,8 @@ label_4614:
 
         print('\n\nGingerly, he takes the tome. "Here is your reward." He gives you ')
         print('some glowing gems.')
-        ('DELETE', ('partyHasObject', [('byte', 151), ('byte', 75)]), ('byte', 151), ('byte', 75), ('byte', 1))
-        ('NEW', ('byte', 1), ('byte', 77), ('byte', 0), ('integer', [('value', 0)]))
+        destroy(partyHasObject(byte 151, byte 75), byte 151, byte 75, byte 1)
+        create(byte 1, byte 77, byte 0, integer(value 0))
         jump label_1967
     esac
 
@@ -390,11 +389,11 @@ label_5330:
     integer(value 2) = character(integer(value 0), byte 0)
 
     if isWounded(integer(value 2)):
-        ('HEAL', ('integer', [('value', 2)]))
+        heal(integer(value 2))
     fi
 
     if isPoisoned(integer(value 2)):
-        ('CURE', ('integer', [('value', 2)]))
+        cure(integer(value 2))
     fi
 
     integer(value 0) = plus(integer(value 0), byte 1)

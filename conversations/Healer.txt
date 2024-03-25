@@ -60,7 +60,7 @@ label_314:
         print('\n\n"To wish to help you however I can."')
         wait()
 
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
     fi
 
 label_517:
@@ -85,7 +85,7 @@ label_517:
 
     case 'bye':
         print('"May fortune prevent the need for your return!"\n')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         bye()
 
     case 'name':
@@ -175,7 +175,7 @@ label_1621:
         jump label_1720
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n')
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
@@ -198,9 +198,9 @@ label_1735:
         jump label_1972
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n"Which of you?" ')
-    ('INPUTNUM', 2)
+    inputNumber(integer(value 2))
 
     if equals(integer(value 2), byte 0):
         jump label_2658
@@ -226,7 +226,7 @@ label_1906:
     fi
 
 label_1972:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('The gargoyle mixes strange powders into a foul-smelling brew.')
     wait()
 
@@ -237,8 +237,8 @@ label_2040:
         jump label_2157
     fi
 
-    ('HEAL', ('integer', [('value', 3)]))
-    ('CURE', ('integer', [('value', 3)]))
+    heal(integer(value 3))
+    cure(integer(value 3))
 
     if equals(integer(value 3), byte 1):
         print('You drink the potion and feel restored!')
@@ -273,7 +273,7 @@ label_2188:
             jump label_2390
 
         else:
-            ('SETF', ('byte', 235), ('byte', 2))
+            setBit(byte 235, byte 2)
             jump label_2040
         fi
 

@@ -19,7 +19,7 @@ label_79:
 
     case 'name':
         print('"My name is Harold."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_105
 
     case 'buy':
@@ -51,7 +51,7 @@ label_278:
     integer(value 2) = byte 1
 
 label_292:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -61,7 +61,7 @@ label_292:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_79
@@ -87,9 +87,9 @@ label_394:
         fi
 
         if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 2):
-            ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 2))
-            ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 202), ('byte', 0), ('byte', 1))
-            ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+            destroy(character(integer(value 3), byte 0), byte 88, byte 0, byte 2)
+            create(character(integer(value 3), byte 0), byte 202, byte 0, byte 1)
+            look(character(integer(value 3), byte 0))
             print('"Here you go."')
             wait()
 
@@ -97,7 +97,7 @@ label_394:
             jump label_79
 
         else:
-            ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+            look(character(integer(value 3), byte 0))
             print('"Best check your coinpouch again."')
             wait()
 

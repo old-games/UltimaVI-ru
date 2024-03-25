@@ -43,13 +43,13 @@ interaction:
             jump label_93
 
         else:
-            ('SETNAME', ('integer', [('value', 0)]))
+            look(integer(value 0))
             jump label_2843
         fi
 
     case 'name':
         print('"My name\'s @Tobatha."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         wait()
 
         print('\n\n"But you can call me @maam, youngster."')
@@ -137,7 +137,7 @@ label_1059:
         jump label_1154
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n')
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
@@ -157,9 +157,9 @@ label_1169:
         jump label_1364
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n"Which of you?" ')
-    ('INPUTNUM', 2)
+    inputNumber(integer(value 2))
 
     if equals(integer(value 2), byte 0):
         jump label_1801
@@ -185,7 +185,7 @@ label_1302:
     fi
 
 label_1364:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('"Aye, I see thy wound, $Y."')
     wait()
 
@@ -199,8 +199,8 @@ label_1364:
 
         else:
             print('Laying hands upon $Y, Tobatha mends the wounds.')
-            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 30))
-            ('HEAL', ('integer', [('value', 3)]))
+            destroy(integer(value 3), byte 88, byte 0, byte 30)
+            heal(integer(value 3))
             jump label_93
         fi
 
@@ -227,7 +227,7 @@ label_1610:
         wait()
 
         print('\n\nLaying hands upon $Y, Tobatha mends the wounds.')
-        ('HEAL', ('integer', [('value', 3)]))
+        heal(integer(value 3))
         jump label_1801
     fi
 
@@ -272,7 +272,7 @@ label_1938:
         jump label_2033
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n')
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
@@ -292,9 +292,9 @@ label_2048:
         jump label_2244
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n"Which of you?" ')
-    ('INPUTNUM', 2)
+    inputNumber(integer(value 2))
 
     if equals(integer(value 2), byte 0):
         jump label_1801
@@ -320,7 +320,7 @@ label_2182:
     fi
 
 label_2244:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('"Aye, $Y, I can tell that thou art poisoned."')
     wait()
 
@@ -334,8 +334,8 @@ label_2244:
 
         else:
             print('Laying hands upon $Y, Tobatha removes the poison.')
-            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 10))
-            ('CURE', ('integer', [('value', 3)]))
+            destroy(integer(value 3), byte 88, byte 0, byte 10)
+            cure(integer(value 3))
             jump label_1801
         fi
 
@@ -362,12 +362,12 @@ label_2504:
         wait()
 
         print('\n\nLaying hands upon $Y, Tobatha removes the poison.')
-        ('CURE', ('integer', [('value', 3)]))
+        cure(integer(value 3))
         jump label_1801
     fi
 
 label_2697:
-    ('SETNAME', ('integer', [('value', 0)]))
+    look(integer(value 0))
     print('"Well, ain\'t that just like youngsters?"')
     wait()
 
@@ -431,7 +431,7 @@ label_3015:
 
 label_3300:
     if equals(integer(value 3), integer(value 4)):
-        ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+        destroy(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
         wait()
 
         print('\n\n')
@@ -440,7 +440,7 @@ label_3300:
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
     integer(value 1) = minus(integer(value 1), integer(value 5))
-    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
+    destroy(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 5))
     integer(value 3) = plus(integer(value 3), byte 1)
     jump label_3300
 
@@ -455,14 +455,14 @@ label_3386:
     wait()
 
     print('\n\n"anretu!"')
-    ('RESURRECT', ('integer', [('value', 0)]))
+    resurrect(integer(value 0))
     wait()
 
     print('\n\nAnd the dead live again!')
     integer(value 0) = partyHasObject(word 339, byte 0)
 
     if notEquals(integer(value 0), word 32769):
-        ('SETNAME', ('integer', [('value', 0)]))
+        look(integer(value 0))
         wait()
 
         print('\n\n"I see that $Y\'s got another one."')

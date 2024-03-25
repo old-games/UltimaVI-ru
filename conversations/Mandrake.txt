@@ -21,7 +21,7 @@ interaction:
     print('\n\n"My name is Mandrake. And what may I call thee?"\n')
 
     ask()
-    ('SETF', ('byte', 235), ('value', 0))
+    setBit(byte 235, value 0)
     print('\n')
 
     if integer(value 16):
@@ -41,7 +41,7 @@ label_389:
     print('"$P! It\'s been too long. What brings you to this part of the realm?"\n')
 
     ask()
-    print('\n"Well, never mind that for the moment. Let me sing thee a @song!"\n')
+    print('\n"Well, never mind that for the moment. Let me sing thee a @song!"')
 
 label_525:
     print('\n')
@@ -279,7 +279,7 @@ label_3859:
     case 'y':
 label_3884:
         print('How much do you give him? ')
-        ('INPUT', 0)
+        input(integer(value 0))
 
         if greater(integer(value 0), objectsCount(byte 1, byte 88)):
             print('You don\'t have that much.\n')
@@ -290,8 +290,8 @@ label_3884:
             jump label_3859
         fi
 
-        ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-        ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
+        destroy(byte 1, byte 88, byte 0, integer(value 0))
+        create(byte 235, byte 88, byte 0, integer(value 0))
         print('"Thank you kindly."\n\n')
     esac
 
@@ -350,7 +350,7 @@ label_4447:
 
 label_4525:
     print('How much do you give him? ')
-    ('INPUT', 0)
+    input(integer(value 0))
 
     if greater(integer(value 0), objectsCount(byte 1, byte 88)):
         print('You don\'t have that much.\n\n')
@@ -361,8 +361,8 @@ label_4525:
         jump label_3859
     fi
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
-    ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
+    destroy(byte 1, byte 88, byte 0, integer(value 0))
+    create(byte 235, byte 88, byte 0, integer(value 0))
     print('"You\'re too kind."\nMandrake tells you tales for quite a while, yet ')
     print('listening to them you lose track of time.')
     wait()

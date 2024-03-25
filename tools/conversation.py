@@ -75,11 +75,10 @@ def decode(conversation):
         integers = []
         comments = []
 
-        offset = stream.tell()
-        assert offset not in blocks
-        blocks[offset] = 'INTEGERS', integers, comments
+        start_offset = stream.tell()
+        assert start_offset not in blocks
 
-        for offset in range(offset, end, 2):
+        for offset in range(start_offset, end, 2):
             if offset in visited_labels or _peek_byte(stream) is None:
                 break
 
@@ -94,16 +93,17 @@ def decode(conversation):
         if unused:
             comments.append('unused')
 
+        blocks[start_offset] = int, stream.tell()-start_offset, integers, comments # FIXME add?
+
     def read_strings(end):
         strings = []
         comments = []
         string = bytearray()
 
-        offset = stream.tell()
-        assert offset not in blocks
-        blocks[offset] = 'STRINGS', strings, comments
+        start_offset = stream.tell()
+        assert start_offset not in blocks
 
-        for offset in range(offset, end):
+        for offset in range(start_offset, end):
             if offset in visited_labels:
                 break
 
@@ -124,11 +124,13 @@ def decode(conversation):
             strings.append(string.decode('ascii'))
             comments.append('no-trailing-byte')
 
+        blocks[start_offset] = str, stream.tell()-start_offset, strings, comments # FIXME add?
+
     def read_instructions(unreachable):
         all_instructions = {
             0x9c, 0x9e,
             0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6,
-            0xb0, 0xb5, 0xb6, 0xb9, 0xb9, 0xba, 0xbe, 0xbf,
+            0xb0, 0xb5, 0xb6, 0xb9, 0xba, 0xbe, 0xbf,
             0xc4, 0xc5, 0xc9, 0xcb, 0xcd,
             0xd6, 0xd8, 0xd9, 0xdb,
             0xee, 0xef,
@@ -163,7 +165,15 @@ def decode(conversation):
             # FIXME Can also collect and check afterwards.
             data[offset] = type
 
+        def read_variable():
+            value = _read_byte(stream, visited_labels)
+            operator = _read_byte(stream, visited_labels)
+            assert operator in (0xb2, 0xb3)
+            # FIXME dont parse names, do it later
+            return ({0xb2: 'integer', 0xb3: 'string'}[operator], [('value', value)])
+
         def read_expressions(end):
+            # FIXME dont parse names, do it later
             operators = {
                 0x81: 'greater', 0x82: 'greaterOrEquals', 0x83: 'less', 0x84: 'lessOrEquals', 0x85: 'notEquals', 0x86: 'equals',
                 0x90: 'plus', 0x91: 'minus', 0x92: 'multiply', 0x93: 'divide', 0x94: 'or', 0x95: 'and',
@@ -243,17 +253,15 @@ def decode(conversation):
             # Проверим, что не встречаемся с данными в обычном коде.
             assert offset not in data
 
-            # TODO расклеить слова
-            # TODO проверить что инструкции не налезают одна на другую
-
             if offset in visited_labels:
                 # Необходимо прочитать код повторно, если мы прыгнули на новую метку, контекст может закончиться раньше или позже, чем в прошлый раз.
                 if unreachable and offset not in unreachable_labels:
                     unreachable = False
 
+            # FIXME compress (simplify)
             if code == 0x9c:
                 _read_byte(stream, visited_labels)
-                blocks[offset] = code, one(read_expressions(0xa7))
+                add(one(read_expressions(0xa7)))
 
             elif code == 0x9e:
                 _read_byte(stream, visited_labels)
@@ -261,10 +269,9 @@ def decode(conversation):
 
             elif code == 0xa1:
                 _read_byte(stream, visited_labels)
-                expression = one(read_expressions(0xa7))
-                blocks[offset] = 'IF', expression
                 stack.append(('if', stream.tell()))
                 branches_ended[tuple(stack)] = False
+                add(one(read_expressions(0xa7)))
 
             elif code == 0xa2:
                 _read_byte(stream, visited_labels)
@@ -285,8 +292,8 @@ def decode(conversation):
                 _read_byte(stream, visited_labels)
                 label = _read_dword(stream, visited_labels)
                 labels.add(label)
-                blocks[offset] = code, label
                 add_branch_ended(stack)
+                add(label)
 
             elif code == 0xb6:
                 _read_byte(stream, visited_labels)
@@ -297,13 +304,13 @@ def decode(conversation):
                 _read_byte(stream, visited_labels)
                 left = one(read_expressions(0xa7))
                 right = one(read_expressions(0xa7))
-                blocks[offset] = 'SETF', left, right
+                add(left, right)
 
             elif code == 0xa5:
                 _read_byte(stream, visited_labels)
                 left = one(read_expressions(0xa7))
                 right = one(read_expressions(0xa7))
-                blocks[offset] = 'CLEARF', left, right
+                add(left, right)
 
             elif code == 0xa6:
                 # TODO support packing and unpacking
@@ -323,7 +330,7 @@ def decode(conversation):
                     else:
                         set_data_type(right[1][0][1], 'integer')
 
-                blocks[offset] = code, left, right
+                add(left, right)
 
             elif code == 0xb5:
                 _read_byte(stream, visited_labels)
@@ -331,37 +338,20 @@ def decode(conversation):
                 assert strings[0] == 'dword'
                 data.setdefault(strings[1], None)
                 set_data_type(strings[1], 'string')
-                blocks[offset] = 'DPRINT', strings, index
+                add(strings, index)
 
             elif code == 0xb8:
                 _read_byte(stream, visited_labels)
                 add()
 
-            elif code == 0xb9:
+            elif code in (0xb9, 0xba):
                 _read_byte(stream, visited_labels)
                 arguments = [one(read_expressions(0xa7)) for _ in range(4)]
-                blocks[offset] = 'NEW', *arguments
+                add(*arguments)
 
-            elif code == 0xba:
+            elif code in (0xbe, 0xbf, 0xc4, 0xc5):
                 _read_byte(stream, visited_labels)
-                arguments = [one(read_expressions(0xa7)) for _ in range(4)]
-                blocks[offset] = 'DELETE', *arguments
-
-            elif code == 0xbe:
-                _read_byte(stream, visited_labels)
-                blocks[offset] = 'INVENTORY', one(read_expressions(0xa7))
-
-            elif code == 0xbf:
-                _read_byte(stream, visited_labels)
-                blocks[offset] = 'PORTRAIT', one(read_expressions(0xa7))
-
-            elif code == 0xc4:
-                _read_byte(stream, visited_labels)
-                blocks[offset] = 'ADD_KARMA', one(read_expressions(0xa7))
-
-            elif code == 0xc5:
-                _read_byte(stream, visited_labels)
-                blocks[offset] = 'SUB_KARMA', one(read_expressions(0xa7))
+                add(one(read_expressions(0xa7)))
 
             elif code == 0xc9:
                 _read_byte(stream, visited_labels)
@@ -370,7 +360,7 @@ def decode(conversation):
                 if arguments[1][0] == 'data': # TODO probably typehint other instructions too.
                     set_data_type(arguments[1][1][0][1], 'integer')
 
-                blocks[offset] = 'GIVE', *arguments
+                add(*arguments)
 
             elif code == 0xcb:
                 _read_byte(stream, visited_labels)
@@ -379,23 +369,11 @@ def decode(conversation):
             elif code == 0xcd:
                 _read_byte(stream, visited_labels)
                 arguments = [one(read_expressions(0xa7)) for _ in range(2)]
-                blocks[offset] = 'WORKTYPE', *arguments
+                add(*arguments)
 
-            elif code == 0xd6:
+            elif code in (0xd6, 0xd8, 0xd9, 0xdb):
                 _read_byte(stream, visited_labels)
-                blocks[offset] = 'RESURRECT', one(read_expressions(0xa7))
-
-            elif code == 0xd8:
-                _read_byte(stream, visited_labels)
-                blocks[offset] = 'SETNAME', one(read_expressions(0xa7))
-
-            elif code == 0xd9:
-                _read_byte(stream, visited_labels)
-                blocks[offset] = 'HEAL', one(read_expressions(0xa7))
-
-            elif code == 0xdb:
-                _read_byte(stream, visited_labels)
-                blocks[offset] = 'CURE', one(read_expressions(0xa7))
+                add(one(read_expressions(0xa7)))
 
             elif code == 0xee:
                 # May be absent.
@@ -409,61 +387,52 @@ def decode(conversation):
                 _read_byte(stream, visited_labels)
                 argument = _read_string(stream, visited_labels, {0xf6}).split(',')
                 _read_byte(stream, visited_labels)
-                blocks[offset] = code, argument
                 # TODO вложенные ask в case ? leak choices to parent
                 if stack and stack[-1][0] == 'case':
                     del stack[-1]
                 stack.append(('case', stream.tell()))
                 keywords[tuple(stack)] = set(argument)
                 branches_ended[tuple(stack)] = False
+                add(argument)
 
             elif code == 0xf2:
                 _read_byte(stream, visited_labels)
+                # FIXME multiple interactions
                 special_labels[stream.tell()] = 'interaction'
+                add()
 
             elif code == 0xf1:
                 _read_byte(stream, visited_labels)
+                # FIXME multiple descriptions
                 special_labels[stream.tell()] = 'description'
-
-            elif code == 0xf7:
-                _read_byte(stream, visited_labels)
                 add()
-                choices[tuple(stack)] = None
-
-            elif code == 0xf8:
-                _read_byte(stream, visited_labels)
-                argument = _read_string(stream, visited_labels, all_instructions)
-                blocks[offset] = code, argument
-                choices[tuple(stack)] = set(argument)
-
-            elif code == 0xf9:
-                _read_byte(stream, visited_labels)
-                number = _read_byte(stream, visited_labels)
-                assert _read_byte(stream, visited_labels) == 0xb3
-                blocks[offset] = 'INPUTSTR', number
-
-            elif code == 0xfb:
-                _read_byte(stream, visited_labels)
-                number = _read_byte(stream, visited_labels)
-                assert _read_byte(stream, visited_labels) == 0xb2
-                blocks[offset] = 'INPUT', number
 
             elif code == 0xf3:
                 _read_byte(stream, visited_labels)
                 add()
 
-            elif code == 0xfc:
+            elif code == 0xf7:
                 _read_byte(stream, visited_labels)
-                number = _read_byte(stream, visited_labels)
-                assert _read_byte(stream, visited_labels) == 0xb2
-                blocks[offset] = 'INPUTNUM', number
+                choices[tuple(stack)] = None
+                add()
+
+            elif code == 0xf8:
+                _read_byte(stream, visited_labels)
+                argument = _read_string(stream, visited_labels, all_instructions)
+                choices[tuple(stack)] = set(argument)
+                add(argument)
+
+            elif code in (0xf9, 0xfb, 0xfc):
+                _read_byte(stream, visited_labels)
+                add(read_variable())
 
             elif code == 0xff:
                 _read_byte(stream, visited_labels)
-                blocks[offset] = code, _read_byte(stream, visited_labels), _read_string(stream, visited_labels, {0xf1, 0xf3})
+                add(_read_byte(stream, visited_labels), _read_string(stream, visited_labels, {0xf1, 0xf3}))
 
             elif _try_read_string(stream, all_instructions):
-                blocks[offset] = None, _read_string(stream, visited_labels, all_instructions)
+                code = None
+                add(_read_string(stream, visited_labels, all_instructions))
 
             else:
                 assert unreachable
@@ -474,6 +443,22 @@ def decode(conversation):
                 unreachable_labels.add(offset)
 
     def format_instructions():
+        all_instructions = {
+            0x9c: 'horse', 0x9e: 'sleep',
+            0xa4: 'setBit', 0xa5: 'clearBit',
+            0xb5: 'printString', 0xb6: 'bye', 0xb9: 'create', 0xba: 'destroy', 0xbe: 'inventory', 0xbf: 'portrait',
+            0xc4: 'increaseKarma', 0xc5: 'decreaseKarma', 0xc9: 'give', 0xcb: 'wait', 0xcd: 'do',
+            0xd6: 'resurrect', 0xd8: 'look', 0xd9: 'heal', 0xdb: 'cure',
+            0xf3: 'f3', 0xf7: 'ask',
+            0xf9: 'inputString', 0xfb: 'input', 0xfc: 'inputNumber',
+        }
+        empty_prefix = {
+            # TODO
+        }
+        empty_suffix = {
+            # TODO
+        }
+
         def increase_level(why):
             levels.append(why)
 
@@ -492,6 +477,9 @@ def decode(conversation):
                 result.append(f'{" "*last_level*4}{line}')
             else:
                 result.append('')
+
+        def command():
+            append(f'{all_instructions[code]}({", ".join((format_expression(argument) for argument in arguments))})')
 
         def empty_prefix_line():
             if result and result[-1] != '' and last_level >= len(levels):
@@ -520,7 +508,7 @@ def decode(conversation):
         last_level = 0
         result = []
 
-        for label, (code, *arguments) in sorted(blocks.items()):
+        for label, (code, _, *arguments) in blocks:
             if label in special_labels:
                 empty_prefix_line()
                 append(f'{special_labels[label]}:', force_level=0)
@@ -536,8 +524,8 @@ def decode(conversation):
                 append('// Unreachable code!')
                 # TODO mark each line
 
-            # FIXME sort
-            if code == 'IF':
+            # FIXME sort and compress
+            if code == 0xa1:
                 empty_prefix_line()
                 append(f'if {format_expression(arguments[0])}:')
                 #result.extend(textwrap.wrap(f'if {format_expression(arguments[0])}:', subsequent_indent='    '))  # FIXME
@@ -556,7 +544,7 @@ def decode(conversation):
 
             elif code == 0xf7:
                 empty_prefix_line()
-                append('ask()')
+                command()
 
             elif code == 0xb8:
                 append('endOfList()')
@@ -572,14 +560,20 @@ def decode(conversation):
             elif code == 0xa6:
                 append(f'{format_expression(arguments[0])} = {format_expression(arguments[1])}')
 
+            elif code == 0xb5:
+                command()
+
             elif code == 0xee:
                 remove_empty_line()
                 decrease_level('esac')
                 append('esac')
                 append()
 
-            elif code == 0x9c:
-                append(f'horse({format_expression(arguments[0])})')
+            elif code in (0x9c, 0xa4, 0xa5, 0xb9, 0xba, 0xbe, 0xbf, 0xc4, 0xc5, 0xc9, 0xcd, 0xd6, 0xd8, 0xd9, 0xdb, 0xf9, 0xfb, 0xfc):
+                command()
+
+            elif code in (0xf1, 0xf2):
+                pass
 
             elif code == 0xa2:
                 remove_empty_line()
@@ -589,10 +583,10 @@ def decode(conversation):
 
             elif code == 0xf3:
                 empty_prefix_line()
-                append('f3()')
+                command()
 
             elif code == 0xcb:
-                append('wait()')
+                command()
                 append()
 
             elif code == 0xa3:
@@ -602,11 +596,11 @@ def decode(conversation):
                 increase_level('if')
 
             elif code == 0xb6:
-                append('bye()')
+                command()
                 append()
 
             elif code == 0x9e:
-                append('sleep()')
+                command()
                 append()
 
             elif code == 0xff:
@@ -622,17 +616,17 @@ def decode(conversation):
                 append(f'name({format_string(name)})', force_level=0)
                 append()
 
-            elif code in ('INTEGERS', 'STRINGS'):
+            elif code in (int, str):
                 empty_prefix_line()
                 if arguments[1][-1:] == ['unused']:
                     name = 'unused'
                     del arguments[1][-1]
                 else:
-                    name = 'integers' if code == 'INTEGERS' else 'strings'
+                    name = 'integers' if code == int else 'strings'
                 append(f'{name}_{label} = [', force_level=0)
                 values = []
                 for item in arguments[0]:
-                    values.append(str(item) if code == 'INTEGERS' else format_string(item))
+                    values.append(str(item) if code == int else format_string(item))
                 max_size = max(map(len, values)) + 1
                 for index, value in enumerate(values):
                     # FIXME переделать названия в выражениях
@@ -650,7 +644,7 @@ def decode(conversation):
                 append()
 
             else:
-                append(str((code, *arguments)))
+                assert False
 
         if result and result[-1] == '':
             del result[-1]
@@ -707,5 +701,16 @@ def decode(conversation):
         stream.seek(label)
         read_integers(True, len(conversation))
         remaining_labels -= visited_labels
+
+    # Unglue.
+    blocks = sorted(blocks.items())
+    for i, j in zip(range(len(blocks)), range(1, len(blocks))):
+        left_end = blocks[i][0] + blocks[i][1][1]
+        right = blocks[j][0]
+        assert left_end == right or left_end > right and blocks[i][1][0] is None and blocks[j][1][0] is None
+        if left_end > right:
+            assert left_end == right + blocks[j][1][1]
+            cut = left_end - right
+            blocks[i] = blocks[i][0], (blocks[i][1][0], blocks[i][1][1]-cut, blocks[i][1][2][:-cut])
 
     return format_instructions()

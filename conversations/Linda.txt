@@ -13,7 +13,7 @@ interaction:
     ask()
 
     case 'name':
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         print('"My name is Linda."')
         jump label_58
 
@@ -88,7 +88,7 @@ label_824:
     integer(value 2) = byte 1
 
 label_838:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -98,7 +98,7 @@ label_838:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_1168
@@ -122,8 +122,8 @@ label_940:
         fi
 
         if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 2):
-            ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 2))
-            ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 166), ('byte', 0), ('byte', 1))
+            destroy(character(integer(value 3), byte 0), byte 88, byte 0, byte 2)
+            create(character(integer(value 3), byte 0), byte 166, byte 0, byte 1)
             print('"Here you go."')
             wait()
 

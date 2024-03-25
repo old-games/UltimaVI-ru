@@ -21,7 +21,7 @@ interaction:
     fi
 
     print('"Why you bargin\' inta my house?" he shouts.')
-    ('SETF', ('byte', 235), ('value', 1))
+    setBit(byte 235, value 1)
     wait()
 
     print('\n\nHefting his large axe, he prepares to defend his home.\n')
@@ -38,8 +38,8 @@ label_226:
     if equals(hasBit(byte 235, value 0), byte 0):
         print('"I told the last one of ya that came by that I\'ll have nothin\' t\'do ')
         print('with yer @wars, so shove off!"')
-        ('SETF', ('byte', 235), ('value', 0))
-        ('SETF', ('byte', 235), ('value', 1))
+        setBit(byte 235, value 0)
+        setBit(byte 235, value 1)
         jump label_495
     fi
 
@@ -154,12 +154,12 @@ label_1623:
 
     case 'y':
         print('"I knew it!"')
-        ('SETF', ('byte', 235), ('value', 1))
+        setBit(byte 235, value 1)
         jump label_495
 
     case 'n':
         print('"Oh." He seems friendlier now.')
-        ('CLEARF', ('byte', 235), ('value', 1))
+        clearBit(byte 235, value 1)
         jump label_495
     esac
 
@@ -188,7 +188,7 @@ label_1697:
     esac
 
 label_1833:
-    ('SETNAME', ('character', [('minus', [('integer', [('value', 0)]), ('byte', 1)]), ('byte', 0)]))
+    look(character(minus(integer(value 0), byte 1), byte 0))
     print('#0) $Y\n')
 
     if lessOrEquals(integer(value 0), integer(value 23)):
@@ -197,7 +197,7 @@ label_1833:
     fi
 
     print('"Who wants it?" ')
-    ('INPUTNUM', 2)
+    inputNumber(integer(value 2))
 
     if equals(integer(value 2), byte 0):
         print('"Well, why\'d ya say you wanted one?"')
@@ -214,7 +214,7 @@ label_1833:
     integer(value 3) = character(integer(value 2), byte 0)
 
 label_1981:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
 
     if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 5)), weight(word 274, byte 1)):
         print('"But $Y can\'t carry a log!"')
@@ -231,13 +231,13 @@ label_1981:
     choice('yn')
 
     case 'y':
-        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 5))
-        ('NEW', ('integer', [('value', 3)]), ('word', 274), ('byte', 0), ('byte', 1))
+        destroy(integer(value 3), byte 88, byte 0, byte 5)
+        create(integer(value 3), word 274, byte 0, byte 1)
         print('$N takes $Y\'s gold and hands over a fine yew log.')
 
         if hasBit(byte 235, value 1):
             print('*\n\nBen seems friendlier now.')
-            ('CLEARF', ('byte', 235), ('value', 1))
+            clearBit(byte 235, value 1)
         fi
 
         jump label_495

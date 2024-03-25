@@ -8,7 +8,7 @@ description:
     print('your old friend Iolo.\n*')
 
 interaction:
-    ('SETF', ('byte', 235), ('value', 0))
+    setBit(byte 235, value 0)
     print('"Well, $P, do you need @help with something? Or maybe you\'ve got time ')
     print('for a @story, eh?"\n')
 
@@ -125,11 +125,11 @@ label_134:
             print('"\n')
             wait()
 
-            ('PORTRAIT', ('byte', 2))
+            portrait(byte 2)
             print('\nDupre cuts in.\n"Iolo! You promised NEVER to tell anyone about that!"\n')
             wait()
 
-            ('PORTRAIT', ('byte', 4))
+            portrait(byte 4)
             print('\n"Yes, you\'re right. I\'m sorry." He whispers to you, "Ask me later ')
             print('when he\'s not around..."')
 
@@ -183,7 +183,7 @@ label_2623:
 label_2734:
     print('Secret Cheaters Menu!\n1. Get items\n2. Set flags\n3. View npcs\n4. Edit ')
     print('party\n5. Edit player\n')
-    ('INPUTNUM', 0)
+    inputNumber(integer(value 0))
     print('\n')
 
     if equals(integer(value 0), byte 1):
@@ -211,11 +211,11 @@ label_2734:
 
 label_2911:
     print('Object number?\n')
-    ('INPUT', 0)
+    input(integer(value 0))
     print('Quality? ')
-    ('INPUT', 1)
+    input(integer(value 1))
     print('Quantity? ')
-    ('INPUT', 2)
+    input(integer(value 2))
 
     if equals(integer(value 2), byte 0):
         integer(value 2) = byte 1
@@ -225,12 +225,12 @@ label_2911:
         print('"That\'s too heavy for you... But I\'ll let you have it anyway!"\n*')
     fi
 
-    ('NEW', ('byte', 1), ('integer', [('value', 0)]), ('integer', [('value', 1)]), ('integer', [('value', 2)]))
+    create(byte 1, integer(value 0), integer(value 1), integer(value 2))
     jump label_2734
 
 label_3063:
     print('\nNpc number? ')
-    ('INPUT', 0)
+    input(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_2734
@@ -250,7 +250,7 @@ label_3117:
     fi
 
     print('\n\n0-7 to toggle, 8 or 9 exits: ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if greater(integer(value 3), byte 7):
         print('\n')
@@ -258,17 +258,17 @@ label_3117:
     fi
 
     if hasBit(integer(value 0), integer(value 3)):
-        ('CLEARF', ('integer', [('value', 0)]), ('integer', [('value', 3)]))
+        clearBit(integer(value 0), integer(value 3))
 
     else:
-        ('SETF', ('integer', [('value', 0)]), ('integer', [('value', 3)]))
+        setBit(integer(value 0), integer(value 3))
     fi
 
     jump label_3092
 
 label_3229:
     print('1. Portraits\n2. Inventories\n3. Item search\n4. Set worktype\n')
-    ('INPUTNUM', 0)
+    inputNumber(integer(value 0))
     print('\n')
 
     if equals(integer(value 0), byte 1):
@@ -291,7 +291,7 @@ label_3229:
 
 label_3349:
     print('1. Individuals\n2. View all\n')
-    ('INPUTNUM', 1)
+    inputNumber(integer(value 1))
     print('\n')
 
     if equals(integer(value 1), byte 1):
@@ -306,7 +306,7 @@ label_3349:
 
 label_3411:
     print('Npc number? ')
-    ('INPUT', 1)
+    input(integer(value 1))
     print('\n')
 
     if equals(integer(value 1), byte 0):
@@ -314,10 +314,10 @@ label_3411:
     fi
 
     if equals(integer(value 0), byte 1):
-        ('PORTRAIT', ('integer', [('value', 1)]))
+        portrait(integer(value 1))
 
     else:
-        ('INVENTORY', ('integer', [('value', 1)]))
+        inventory(integer(value 1))
     fi
 
     jump label_3411
@@ -327,10 +327,10 @@ label_3462:
 
 label_3469:
     if equals(integer(value 0), byte 1):
-        ('PORTRAIT', ('integer', [('value', 1)]))
+        portrait(integer(value 1))
 
     else:
-        ('INVENTORY', ('integer', [('value', 1)]))
+        inventory(integer(value 1))
     fi
 
     print('Npc #1.\n*')
@@ -344,7 +344,7 @@ label_3469:
 
 label_3524:
     print('Object type? ')
-    ('INPUT', 0)
+    input(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_3229
@@ -369,15 +369,15 @@ label_3585:
 
 label_3629:
     print('Npc number? ')
-    ('INPUT', 1)
+    input(integer(value 1))
 
     if equals(integer(value 1), byte 0):
         jump label_3229
     fi
 
     print('Worktype? ')
-    ('INPUT', 2)
-    ('WORKTYPE', ('integer', [('value', 1)]), ('integer', [('value', 2)]))
+    input(integer(value 2))
+    do(integer(value 1), integer(value 2))
     print('\'Tis done!\n')
     jump label_3629
 
@@ -386,7 +386,7 @@ label_3693:
     integer(value 2) = byte 1
 
 label_3707:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 1)]))
+    look(character(integer(value 0), byte 1))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -396,7 +396,7 @@ label_3707:
     fi
 
     print('Edit whom? ')
-    ('INPUTNUM', 0)
+    inputNumber(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_2734
@@ -409,7 +409,7 @@ label_3707:
     fi
 
     integer(value 0) = character(integer(value 0), byte 1)
-    ('SETNAME', ('integer', [('value', 0)]))
+    look(integer(value 0))
 
 label_3818:
     print('$Y\n')
@@ -423,7 +423,7 @@ label_3818:
     print('4. Lvl = #1\n')
     integer(value 1) = experience(integer(value 0), byte 0)
     print('5. Exp = #1\n6. Heal up\n7. Get a horse!\n')
-    ('INPUTNUM', 1)
+    inputNumber(integer(value 1))
 
     if equals(integer(value 1), byte 1):
         jump label_4057
@@ -457,7 +457,7 @@ label_3818:
 
 label_4057:
     print('\nAdd how much? ')
-    ('INPUT', 2)
+    input(integer(value 2))
 
     if equals(integer(value 1), byte 1):
         integer(value 3) = strength(integer(value 0), integer(value 2))
@@ -483,12 +483,12 @@ label_4057:
 
 label_4170:
     if isWounded(integer(value 0)):
-        ('HEAL', ('integer', [('value', 0)]))
+        heal(integer(value 0))
         print(' Healed! ')
     fi
 
     if isPoisoned(integer(value 0)):
-        ('CURE', ('integer', [('value', 0)]))
+        cure(integer(value 0))
         print(' Cured! ')
     fi
 
@@ -506,7 +506,7 @@ label_4239:
     integer(value 0) = integer(value 26)
     print('Quest flag = #0\nKarma = #9\n\n1. Set Quest Flag\n2. Add Karma\n3. Subtract')
     print(' Karma\n')
-    ('INPUTNUM', 0)
+    inputNumber(integer(value 0))
     print('\n')
 
     if equals(integer(value 0), byte 1):
@@ -525,23 +525,23 @@ label_4239:
 
 label_4371:
     print('Set to what? ')
-    ('INPUTNUM', 0)
+    inputNumber(integer(value 0))
     integer(value 26) = integer(value 0)
     print('\n')
     jump label_4239
 
 label_4400:
     print('How much? ')
-    ('INPUT', 0)
-    ('ADD_KARMA', ('integer', [('value', 0)]))
+    input(integer(value 0))
+    increaseKarma(integer(value 0))
     integer(value 9) = plus(integer(value 9), integer(value 0))
     print('\n')
     jump label_4239
 
 label_4433:
     print('How much? ')
-    ('INPUT', 0)
-    ('SUB_KARMA', ('integer', [('value', 0)]))
+    input(integer(value 0))
+    decreaseKarma(integer(value 0))
     integer(value 9) = minus(integer(value 9), integer(value 0))
     print('\n')
     jump label_4239
@@ -569,8 +569,8 @@ label_4480:
         integer(value 5) = canCarry(byte 1)
     fi
 
-    ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
-    ('NEW', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
+    destroy(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 5))
+    create(byte 1, byte 88, byte 0, integer(value 5))
     integer(value 7) = plus(integer(value 7), integer(value 5))
 
     if equals(canCarry(byte 1), byte 0):
@@ -617,7 +617,7 @@ label_4887:
         jump label_4952
     fi
 
-    ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
+    destroy(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 5))
     integer(value 7) = plus(integer(value 7), integer(value 5))
 
 label_4952:
@@ -658,7 +658,7 @@ label_5086:
         jump label_5184
     fi
 
-    ('NEW', ('integer', [('value', 9)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
+    create(integer(value 9), byte 88, byte 0, integer(value 5))
     integer(value 7) = minus(integer(value 7), integer(value 5))
 
 label_5184:
@@ -689,7 +689,7 @@ label_5279:
         jump label_5374
     fi
 
-    ('NEW', ('integer', [('value', 9)]), ('byte', 88), ('byte', 0), ('integer', [('value', 5)]))
+    create(integer(value 9), byte 88, byte 0, integer(value 5))
     integer(value 7) = minus(integer(value 7), integer(value 5))
 
     if equals(integer(value 7), byte 0):

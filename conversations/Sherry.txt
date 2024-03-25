@@ -20,15 +20,15 @@ interaction:
     if and(equals(hasBit(byte 235, byte 7), byte 0), partyHas(byte 2)):
         wait()
 
-        ('PORTRAIT', ('byte', 2))
+        portrait(byte 2)
         print('\n\n"Talking to a mouse?" says Dupre.')
         wait()
 
         print('\n\n"Methinks you\'re starting to imagine things..."')
         wait()
 
-        ('PORTRAIT', ('byte', 235))
-        ('SETF', ('byte', 235), ('byte', 7))
+        portrait(byte 235)
+        setBit(byte 235, byte 7)
     fi
 
 label_186:
@@ -54,7 +54,7 @@ label_186:
 
     case 'name':
         print('"I am Lord @British\'s friend, @Sherry."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_906
 
     case 'brit':
@@ -87,7 +87,7 @@ label_186:
 
         else:
             print('"Give me some @cheese and ask me again."')
-            ('SETF', ('byte', 235), ('byte', 6))
+            setBit(byte 235, byte 6)
             jump label_186
         fi
 
@@ -135,7 +135,7 @@ label_906:
     wait()
 
     print('\n\n"Do you have any cheese?" ')
-    ('SETF', ('byte', 235), ('byte', 6))
+    setBit(byte 235, byte 6)
 
     choice('yn')
 
@@ -162,10 +162,10 @@ label_1039:
         jump label_1347
 
     case 'y':
-        ('DELETE', ('partyHasObject', [('byte', 132), ('byte', 0)]), ('byte', 132), ('byte', 0), ('byte', 1))
-        ('NEW', ('byte', 235), ('byte', 132), ('byte', 0), ('byte', 1))
+        destroy(partyHasObject(byte 132, byte 0), byte 132, byte 0, byte 1)
+        create(byte 235, byte 132, byte 0, byte 1)
         print('"Thank you very much!"')
-        ('SETF', ('byte', 235), ('byte', 5))
+        setBit(byte 235, byte 5)
         jump label_186
     esac
 
@@ -198,7 +198,7 @@ label_1159:
     esac
 
 label_1347:
-    ('WORKTYPE', ('byte', 235), ('byte', 154))
+    do(byte 235, byte 154)
     print('\n')
     bye()
 

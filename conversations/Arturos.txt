@@ -13,7 +13,7 @@ description:
 interaction:
     print('"Hey, paisan! If you were looking to geta your @fortune told, you came')
     print(' to the right place."')
-    ('CLEARF', ('byte', 235), ('byte', 7))
+    clearBit(byte 235, byte 7)
 
 label_152:
     print('\n')
@@ -23,7 +23,7 @@ label_152:
     case 'name':
         print('"I\'ma called Arturos. That meansa either \'foolish monkey\' or \'he who ')
         print('sells cheese\', depending on howa you @translate it."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_152
 
     case 'chee':
@@ -75,9 +75,9 @@ label_152:
             jump label_152
         fi
 
-        ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 75))
-        ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 75))
-        ('SETF', ('byte', 235), ('byte', 7))
+        destroy(byte 1, byte 88, byte 0, byte 75)
+        create(byte 235, byte 88, byte 0, byte 75)
+        setBit(byte 235, byte 7)
         jump label_152
 
     case 'bye':
@@ -86,7 +86,7 @@ label_152:
         if and(hasBit(byte 235, byte 7), partyHas(byte 3)):
             wait()
 
-            ('PORTRAIT', ('byte', 3))
+            portrait(byte 3)
             print('\n\nShamino whispers to you, "Best check your coinpouch. I think I saw ')
             print('something when that gypsy hugged you."')
         fi
@@ -100,7 +100,7 @@ label_152:
         wait()
 
         print('\n\n"But hey, maybe there\'s something in the @cards about it, ah?"')
-        ('SETF', ('byte', 235), ('byte', 6))
+        setBit(byte 235, byte 6)
         jump label_152
 
     case '*':
@@ -143,8 +143,8 @@ label_1402:
             jump label_152
         fi
 
-        ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 2))
-        ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 2))
+        destroy(byte 1, byte 88, byte 0, byte 2)
+        create(byte 235, byte 88, byte 0, byte 2)
         print('He takes out a deck of cards, shuffles it, and has you pick one.')
     esac
 
@@ -263,7 +263,7 @@ label_3560:
         wait()
 
         print('\n\n"That\'s life, you know?"')
-        ('CLEARF', ('byte', 235), ('byte', 6))
+        clearBit(byte 235, byte 6)
         wait()
 
         print('\n')
@@ -283,8 +283,8 @@ label_3560:
         integer(value 1) = objectsCount(byte 1, byte 88)
     fi
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-    ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+    destroy(byte 1, byte 88, byte 0, integer(value 1))
+    create(byte 235, byte 88, byte 0, integer(value 1))
     print('"It was a pleasure doinga business with you."')
     jump label_152
 
@@ -358,7 +358,7 @@ label_4460:
             jump label_152
         fi
 
-        ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('integer', [('value', 0)]))
+        destroy(byte 1, byte 88, byte 0, integer(value 0))
 
         if less(canCarry(byte 1), weight(word 402, byte 1)):
             print('"Yeah, well, you\'ve got a lot to carry right now."')
@@ -373,6 +373,6 @@ label_4460:
         fi
 
         print('"Okay, here\'s the map, and may fortune bring you lotsa gold!"')
-        ('GIVE', ('word', 402), ('byte', 0), ('byte', 235), ('byte', 1))
+        give(word 402, byte 0, byte 235, byte 1)
         jump label_152
     esac

@@ -32,7 +32,7 @@ interaction:
 
         ask()
         print('\n"Pleased to meet thee, `$Z."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_153
 
     case 'job':
@@ -144,7 +144,7 @@ label_1618:
     integer(value 2) = byte 1
 
 label_1632:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -154,7 +154,7 @@ label_1632:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_2134
@@ -168,7 +168,7 @@ label_1632:
 
 label_1734:
     integer(value 3) = character(integer(value 3), byte 0)
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('"@Cloth or @thread, $Y?"\n')
 
     ask()
@@ -201,8 +201,8 @@ label_1814:
         fi
 
         if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 30):
-            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 2818), ('integer', [('value', 0)])]))
-            ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 2822), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 1))
+            destroy(integer(value 3), byte 88, byte 0, data(dword 2818, integer(value 0)))
+            create(integer(value 3), data(dword 2822, integer(value 0)), byte 0, byte 1)
             string(value 0) = data(dword 2826, integer(value 0))
             print('"Excellent!" After accepting $Y\'s gold, $N hands over the $0.')
             wait()
@@ -285,7 +285,7 @@ label_2399:
     integer(value 1) = byte 1
 
 label_2413:
-    ('SETNAME', ('character', [('data', [('dword', 2802), ('integer', [('value', 0)])]), ('byte', 0)]))
+    look(character(data(dword 2802, integer(value 0)), byte 0))
     print('#1. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
@@ -295,7 +295,7 @@ label_2413:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_2771
@@ -311,7 +311,7 @@ label_2413:
 
 label_2534:
     integer(value 3) = character(integer(value 3), byte 0)
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     integer(value 4) = objectsCount(integer(value 3), byte 190)
 
     if equals(integer(value 4), byte 0):
@@ -324,8 +324,8 @@ label_2534:
 
     case 'y':
         print('"Done!" He hands $Y 8 gold pieces and takes the wool.')
-        ('DELETE', ('integer', [('value', 3)]), ('byte', 190), ('byte', 0), ('byte', 1))
-        ('NEW', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 8))
+        destroy(integer(value 3), byte 190, byte 0, byte 1)
+        create(integer(value 3), byte 88, byte 0, byte 8)
         wait()
 
         print('\n')

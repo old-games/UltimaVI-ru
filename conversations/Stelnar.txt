@@ -28,15 +28,15 @@ interaction:
     if and(equals(hasBit(byte 235, byte 2), byte 0), partyHas(byte 3)):
         wait()
 
-        ('PORTRAIT', ('byte', 3))
+        portrait(byte 3)
         print('\n\n"Good $T, Stelnar." @Shamino and Stelnar shake hands. "$P, this is ')
         print('Stelnar Starhelm."')
         wait()
 
-        ('PORTRAIT', ('byte', 235))
+        portrait(byte 235)
         print('\n\n"Pleased to meet you, $G $P."')
-        ('SETF', ('byte', 235), ('value', 0))
-        ('SETF', ('byte', 235), ('byte', 2))
+        setBit(byte 235, value 0)
+        setBit(byte 235, byte 2)
     fi
 
 label_389:
@@ -46,7 +46,7 @@ label_389:
 
     case 'name':
         print('"I\'m called Starhelm."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_389
 
     case 'arvi':
@@ -99,7 +99,7 @@ label_389:
         if isNearby(byte 46):
             wait()
 
-            ('PORTRAIT', ('byte', 46))
+            portrait(byte 46)
             print('\n\n"That\'s drivel, friend Starhelm!" says Van Kellian.')
             wait()
 
@@ -109,7 +109,7 @@ label_389:
             print('\n\n"Stone indeed!"')
             wait()
 
-            ('PORTRAIT', ('byte', 235))
+            portrait(byte 235)
             print('\n\n"Bards! A gargoyle is an @ugly monster, and that\'s that."')
         fi
 
@@ -117,11 +117,11 @@ label_389:
 
     case 'ugly':
         if isNearby(byte 46):
-            ('PORTRAIT', ('byte', 46))
+            portrait(byte 46)
             print('"Van murmurs "Ugliness is but skin deep, just as beauty is."')
             wait()
 
-            ('PORTRAIT', ('byte', 235))
+            portrait(byte 235)
             print('\n\n"Gargoyle skin is very thick and deep, as everyone knows."')
 
         else:

@@ -17,7 +17,7 @@ interaction:
     fi
 
 label_80:
-    ('SETF', ('byte', 201), ('value', 0))
+    setBit(byte 201, value 0)
     print('"Again, \'@you\' of this plane address \'I\' of the Xorinite dimension."\n*')
     print('\n"By what name do \'you\' wish to be addressed at this time?"\n')
 
@@ -86,7 +86,7 @@ label_80:
         print('"If \'you\' present a reasonably dense information source to a \'wisp\' ')
         print('unit, arrangements will be made to transfer some suitably valuable ')
         print('commodity into Britannian possession."')
-        ('SETF', ('byte', 201), ('byte', 7))
+        setBit(byte 201, byte 7)
         jump label_1044
 
     case 'secr':
@@ -94,10 +94,10 @@ label_80:
         print('sample information to \'you\' again."\n*\nThe wisp pulsates, fading from ')
         print('blue to white, then back to blue again.\n*\nAs it does so, a scroll ')
         print('materializes in your hand.\n')
-        ('NEW', ('byte', 1), ('byte', 58), ('byte', 112), ('byte', 1))
+        create(byte 1, byte 58, byte 112, byte 1)
         wait()
 
-        ('SETF', ('byte', 201), ('byte', 3))
+        setBit(byte 201, byte 3)
         print('\n"This is a simple invocation of magic energy to bring about the ')
         print('cessation of all life."\n*\n"It is not a very useful or powerful form of')
         print(' magic, as it will only affect beings in the same plane where it is ')
@@ -139,7 +139,7 @@ label_3486:
         jump label_1044
     esac
 
-    ('SETF', ('byte', 201), ('byte', 6))
+    setBit(byte 201, byte 6)
     print('\nFor a few moments, the wisp pulses, saying nothing.\n*\n"It is done," ')
     print('the wisp says at last, "Rklbwm have expressed desire to possess this ')
     print('information."\n*\n"Hoping, no doubt, for a bargain, Rklbwm have offered ')
@@ -187,7 +187,7 @@ label_5062:
             integer(value 2) = word 255
         fi
 
-        ('NEW', ('integer', [('value', 1)]), ('byte', 89), ('byte', 0), ('integer', [('value', 2)]))
+        create(integer(value 1), byte 89, byte 0, integer(value 2))
 
         if equals(integer(value 2), word 255):
             jump label_5062

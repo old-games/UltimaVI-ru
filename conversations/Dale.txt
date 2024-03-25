@@ -16,7 +16,7 @@ interaction:
     jump label_107
 
 label_72:
-    print('\n"Anything else can I do for thee?"\n')
+    print('\n"Anything else can I do for thee?"')
 
 label_107:
     print('\n')
@@ -25,7 +25,7 @@ label_107:
 
     case 'name':
         print('"I am Dale the @Glassblower."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_107
 
     case 'job':
@@ -102,7 +102,7 @@ label_107:
     esac
 
 label_963:
-    ('SETNAME', ('integer', [('value', 0)]))
+    look(integer(value 0))
 
     if less(objectsCount(integer(value 0), byte 77), byte 5):
         print('"Sorry, $Y, you haven\'t enough gems."')
@@ -134,7 +134,7 @@ label_1230:
             jump label_107
         fi
 
-        ('DELETE', ('integer', [('value', 0)]), ('byte', 77), ('byte', 0), ('byte', 5))
+        destroy(integer(value 0), byte 77, byte 0, byte 5)
         print('$N turns to the furnace and begins crafting the sword.')
         wait()
 
@@ -142,7 +142,7 @@ label_1230:
         wait()
 
         print('\n\n"There she is, and a finer work thou\'lt never see!"')
-        ('NEW', ('integer', [('value', 0)]), ('byte', 48), ('byte', 0), ('byte', 1))
+        create(integer(value 0), byte 48, byte 0, byte 1)
         jump label_107
 
     case 'n':
@@ -161,7 +161,7 @@ label_1573:
     integer(value 2) = byte 1
 
 label_1587:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2) $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -171,7 +171,7 @@ label_1587:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_72
@@ -186,7 +186,7 @@ label_1587:
 label_1689:
     integer(value 3) = character(integer(value 3), byte 0)
     integer(value 0) = byte 1
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
 
 label_1710:
     string(value 0) = data(dword 2159, minus(integer(value 0), byte 1))
@@ -199,7 +199,7 @@ label_1710:
 
     integer(value 7) = integer(value 0)
     print('"Which item?" ')
-    ('INPUTNUM', 0)
+    inputNumber(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_72
@@ -236,8 +236,8 @@ label_1916:
     fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):
-        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-        ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 2151), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 1))
+        destroy(integer(value 3), byte 88, byte 0, integer(value 1))
+        create(integer(value 3), data(dword 2151, integer(value 0)), byte 0, byte 1)
         print('"Excellent!"\n\nAfter accepting $Y\'s gold, $N hands over the $1.')
         wait()
 

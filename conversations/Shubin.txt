@@ -22,7 +22,7 @@ interaction:
     jump label_221
 
 label_198:
-    print('"Why, hello there, $G."\n')
+    print('"Why, hello there, $G."')
 
 label_221:
     print('\n')
@@ -31,7 +31,7 @@ label_221:
 
     case 'name':
         print('"My name is Shubin, $G."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_221
 
     case 'job':
@@ -48,12 +48,12 @@ label_221:
         if partyHas(byte 4):
             wait()
 
-            ('PORTRAIT', ('byte', 4))
+            portrait(byte 4)
             print('\n\nYou friend Iolo rolls his eyes. "Such wisdom we can surely do ')
             print('without!"')
             wait()
 
-            ('PORTRAIT', ('byte', 235))
+            portrait(byte 235)
         fi
 
         jump label_221
@@ -114,8 +114,8 @@ label_968:
 
         if notEquals(integer(value 0), word 32769):
             print('"Oh, thank you, thank you, thank you!"')
-            ('DELETE', ('byte', 1), ('word', 417), ('byte', 0), ('byte', 1))
-            ('ADD_KARMA', ('byte', 5))
+            destroy(byte 1, word 417, byte 0, byte 1)
+            increaseKarma(byte 5)
             jump label_221
 
         else:
@@ -134,8 +134,8 @@ label_1101:
 
     case 'y':
         print('"Have a whole tray, then."')
-        ('NEW', ('byte', 1), ('byte', 130), ('byte', 0), ('byte', 1))
-        ('SETF', ('byte', 235), ('byte', 7))
+        create(byte 1, byte 130, byte 0, byte 1)
+        setBit(byte 235, byte 7)
         jump label_221
     esac
 

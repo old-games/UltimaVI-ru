@@ -27,7 +27,7 @@ label_194:
 
     case 'name':
         print('"@Fentrissa."\n')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_194
 
     case 'fent':
@@ -136,7 +136,7 @@ label_1185:
     integer(value 2) = byte 1
 
 label_1199:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -146,7 +146,7 @@ label_1199:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_1584
@@ -160,14 +160,14 @@ label_1199:
 
 label_1301:
     integer(value 4) = data(dword 2033, integer(value 9))
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+    look(character(integer(value 3), byte 0))
     print('$N turns to $Y, "It\'ll cost you #4 gold for the deed. Interested?"')
 
     choice('yn')
 
     case 'y':
         if less(canCarry(character(integer(value 3), byte 0)), weight(byte 149, byte 1)):
-            ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+            look(character(integer(value 3), byte 0))
             print('$N looks at $Y. "You look pretty full to me."\n')
             jump label_194
         fi
@@ -175,8 +175,8 @@ label_1301:
         jump label_1656
 
 label_1471:
-        ('GIVE', ('byte', 149), ('data', [('dword', 2041), ('integer', [('value', 9)])]), ('byte', 235), ('character', [('integer', [('value', 3)]), ('byte', 0)]))
-        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        give(byte 149, data(dword 2041, integer(value 9)), byte 235, character(integer(value 3), byte 0))
+        look(character(integer(value 3), byte 0))
         print('"Excellent!" After accepting the gold, $N hands $Y the deed.')
         wait()
 
@@ -224,12 +224,12 @@ label_1705:
     if less(integer(value 7), integer(value 1)):
         integer(value 1) = minus(integer(value 1), integer(value 7))
         integer(value 2) = plus(integer(value 2), integer(value 7))
-        ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 7)]))
+        destroy(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 7))
         integer(value 6) = plus(integer(value 6), byte 1)
         jump label_1693
 
     else:
-        ('DELETE', ('character', [('integer', [('value', 6)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
+        destroy(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 1))
         print('Your party takes up a collection for the deed.')
         wait()
 
@@ -241,7 +241,7 @@ label_1960:
     integer(value 8) = byte 0
 
 label_1967:
-    ('NEW', ('character', [('integer', [('value', 8)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('data', [('dword', 2017), ('integer', [('value', 8)])]))
+    create(character(integer(value 8), byte 0), byte 88, byte 0, data(dword 2017, integer(value 8)))
     integer(value 8) = plus(integer(value 8), byte 1)
 
     if less(integer(value 8), integer(value 23)):

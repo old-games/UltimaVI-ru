@@ -18,7 +18,7 @@ interaction:
     fi
 
     print('"Hello," he says, extending a delicate hand.')
-    ('SETF', ('byte', 235), ('value', 0))
+    setBit(byte 235, value 0)
     wait()
 
     print('\n')
@@ -28,7 +28,7 @@ label_142:
     print('"I have seen your face before," he says, cocking his head sideways.')
     wait()
 
-    print('\n\n"What is it you need?"\n')
+    print('\n')
 
 label_211:
     print('\n"What is it you need?"\n')
@@ -114,7 +114,7 @@ label_1155:
     integer(value 2) = byte 1
 
 label_1169:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -124,7 +124,7 @@ label_1169:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_1778
@@ -139,7 +139,7 @@ label_1169:
     integer(value 3) = character(integer(value 3), byte 0)
 
 label_1281:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     integer(value 0) = byte 1
 
 label_1292:
@@ -152,7 +152,7 @@ label_1292:
     fi
 
     print('"Which item?" ')
-    ('INPUTNUM', 0)
+    inputNumber(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_1778
@@ -178,7 +178,7 @@ label_1292:
     print('\n')
 
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 1858, integer(value 0)), byte 1)):
-        ('SETNAME', ('integer', [('value', 3)]))
+        look(integer(value 3))
         print('$N glances at $Y, "You look pretty full to me."')
         wait()
 
@@ -187,8 +187,8 @@ label_1292:
     fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), data(dword 1846, integer(value 0))):
-        ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('data', [('dword', 1846), ('integer', [('value', 0)])]))
-        ('NEW', ('integer', [('value', 3)]), ('data', [('dword', 1858), ('integer', [('value', 0)])]), ('byte', 0), ('byte', 1))
+        destroy(integer(value 3), byte 88, byte 0, data(dword 1846, integer(value 0)))
+        create(integer(value 3), data(dword 1858, integer(value 0)), byte 0, byte 1)
         print('"Excellent!" After accepting $Y\'s gold, $N hands over the wine.')
         wait()
 

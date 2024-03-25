@@ -39,7 +39,7 @@ label_246:
     jump label_316
 
 label_282:
-    print('\n"Anything else I can do for you?"\n')
+    print('\n"Anything else I can do for you?"')
 
 label_316:
     print('\n')
@@ -48,7 +48,7 @@ label_316:
 
     case 'name':
         print('"I be Arvin, mate."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_316
 
     case 'buy':
@@ -99,7 +99,7 @@ label_632:
     integer(value 2) = byte 1
 
 label_646:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -109,7 +109,7 @@ label_646:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_1065
@@ -137,7 +137,7 @@ label_748:
 
 label_823:
     if less(objectsCount(character(integer(value 3), byte 0), byte 88), integer(value 1)):
-        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        look(character(integer(value 3), byte 0))
         print('"Come back when you have some gold."')
         wait()
 
@@ -151,9 +151,9 @@ label_823:
         jump label_1065
     fi
 
-    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('integer', [('value', 1)]))
-    ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('data', [('dword', 2292), ('integer', [('value', 4)])]), ('byte', 0), ('byte', 1))
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+    destroy(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
+    create(character(integer(value 3), byte 0), data(dword 2292, integer(value 4)), byte 0, byte 1)
+    look(character(integer(value 3), byte 0))
     integer(value 5) = byte 1
     string(value 1) = data(dword 2298, integer(value 4))
     print('"All right." $N gives $Y the $1.')
@@ -185,7 +185,7 @@ label_1128:
     integer(value 2) = byte 1
 
 label_1142:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -195,7 +195,7 @@ label_1142:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_1502
@@ -214,7 +214,7 @@ label_1244:
 
     case 'y':
         if less(objectsCount(character(integer(value 3), byte 0), byte 88), byte 2):
-            ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+            look(character(integer(value 3), byte 0))
             print('"Come back when you have some gold."')
             wait()
 
@@ -228,9 +228,9 @@ label_1244:
             jump label_1502
         fi
 
-        ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('byte', 2))
-        ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 130), ('byte', 0), ('byte', 1))
-        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        destroy(character(integer(value 3), byte 0), byte 88, byte 0, byte 2)
+        create(character(integer(value 3), byte 0), byte 130, byte 0, byte 1)
+        look(character(integer(value 3), byte 0))
         print('$N gives $Y the rolls.')
         wait()
 
@@ -266,7 +266,7 @@ label_1576:
     integer(value 2) = byte 1
 
 label_1590:
-    ('SETNAME', ('character', [('integer', [('value', 0)]), ('byte', 0)]))
+    look(character(integer(value 0), byte 0))
     print('#2. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -276,7 +276,7 @@ label_1590:
     fi
 
     print('"Which of you?" ')
-    ('INPUTNUM', 3)
+    inputNumber(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_282
@@ -295,7 +295,7 @@ label_1692:
     fi
 
     print('"Rations are 4 gold apiece. How many do you want?" ')
-    ('INPUT', 9)
+    input(integer(value 9))
 
     if greater(integer(value 9), word 200):
         integer(value 9) = word 200
@@ -334,7 +334,7 @@ label_1943:
     fi
 
     if integer(value 6):
-        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        look(character(integer(value 3), byte 0))
         print('$N looks at $Y. "You haven\'t any room in your pack."')
         wait()
 
@@ -343,7 +343,7 @@ label_1943:
     fi
 
     if integer(value 7):
-        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        look(character(integer(value 3), byte 0))
         print('"Come back when you have some gold."')
         wait()
 
@@ -352,12 +352,12 @@ label_1943:
     fi
 
 label_2079:
-    ('DELETE', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 88), ('byte', 0), ('multiply', [('integer', [('value', 9)]), ('byte', 4)]))
-    ('NEW', ('character', [('integer', [('value', 3)]), ('byte', 0)]), ('byte', 129), ('byte', 0), ('integer', [('value', 9)]))
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+    destroy(character(integer(value 3), byte 0), byte 88, byte 0, multiply(integer(value 9), byte 4))
+    create(character(integer(value 3), byte 0), byte 129, byte 0, integer(value 9))
+    look(character(integer(value 3), byte 0))
 
     if equals(integer(value 8), integer(value 9)):
-        ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+        look(character(integer(value 3), byte 0))
         print('$N hands the rations to $Y.')
         wait()
 
@@ -369,7 +369,7 @@ label_2079:
     wait()
 
     print('\n\n')
-    ('SETNAME', ('character', [('integer', [('value', 3)]), ('byte', 0)]))
+    look(character(integer(value 3), byte 0))
 
     if integer(value 0):
         print('"That\'s all you can carry."')

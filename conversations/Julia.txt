@@ -154,7 +154,7 @@ label_502:
 
         if equals(integer(value 0), byte 0):
             print('"Aye, gladly! Let\'s be on our way."\n')
-            ('SETF', ('byte', 235), ('value', 0))
+            setBit(byte 235, value 0)
             bye()
         fi
 
@@ -219,7 +219,7 @@ label_502:
         wait()
 
         print('\n\n"I\'m tired of carrying all this junk anyway!"\n')
-        ('SETF', ('byte', 235), ('value', 1))
+        setBit(byte 235, value 1)
         bye()
 
     case 'bye':
@@ -243,7 +243,7 @@ label_502:
         fi
 
         print('ship\'s journey!"\n')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         bye()
 
     case '*':
@@ -316,6 +316,6 @@ label_3086:
     wait()
 
     print('\n\nShe hands you the finished pipes.')
-    ('DELETE', ('integer', [('value', 0)]), ('word', 277), ('byte', 0), ('byte', 1))
-    ('NEW', ('byte', 1), ('byte', 153), ('byte', 0), ('byte', 1))
+    destroy(integer(value 0), word 277, byte 0, byte 1)
+    create(byte 1, byte 153, byte 0, byte 1)
     jump label_502

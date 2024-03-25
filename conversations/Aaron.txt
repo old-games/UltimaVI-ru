@@ -30,7 +30,7 @@ interaction:
 
         else:
             print('"My name\'s Aaron."')
-            ('SETF', ('byte', 235), ('value', 0))
+            setBit(byte 235, value 0)
         fi
 
         jump label_150
@@ -57,7 +57,7 @@ interaction:
             jump label_150
         fi
 
-        ('SETNAME', ('integer', [('value', 0)]))
+        look(integer(value 0))
         print('"Aye, I see $Y has a yew log." He inspects the wood with a practiced ')
         print('eye.')
         wait()
@@ -70,7 +70,7 @@ interaction:
 
     case 'bye':
         print('"Farewell!"\n')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         bye()
 
     case '*':
@@ -90,13 +90,13 @@ label_733:
             jump label_150
         fi
 
-        ('DELETE', ('integer', [('value', 0)]), ('word', 274), ('byte', 0), ('byte', 1))
-        ('DELETE', ('integer', [('value', 0)]), ('byte', 88), ('byte', 0), ('byte', 5))
+        destroy(integer(value 0), word 274, byte 0, byte 1)
+        destroy(integer(value 0), byte 88, byte 0, byte 5)
         print('Aaron goes to his saw and turns the log into a flat, sanded board.')
         wait()
 
         print('\n\n"There!" He hands $Y the finished product.')
-        ('NEW', ('integer', [('value', 0)]), ('word', 277), ('byte', 0), ('byte', 1))
+        create(integer(value 0), word 277, byte 0, byte 1)
         jump label_150
 
     case 'n':

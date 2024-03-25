@@ -15,7 +15,7 @@ interaction:
         jump label_281
     fi
 
-    ('SETF', ('byte', 235), ('value', 0))
+    setBit(byte 235, value 0)
 
     if integer(value 16):
         print('"Hey, foxy! I bet you\'d like me to unsheathe my weapon so you can have')
@@ -110,7 +110,7 @@ label_424:
     case 'bye':
         if hasBit(byte 235, byte 7):
             print('"Come again soon."\n')
-            ('CLEARF', ('byte', 235), ('byte', 7))
+            clearBit(byte 235, byte 7)
             bye()
         fi
 
@@ -177,12 +177,12 @@ label_424:
 
         wait()
 
-        ('SETNAME', ('character', [('byte', 1), ('byte', 0)]))
-        ('PORTRAIT', ('character', [('byte', 1), ('byte', 0)]))
+        look(character(byte 1, byte 0))
+        portrait(character(byte 1, byte 0))
         print('\n\n$Y interrupts. "`$G, I really doubt we have time for this..."')
         wait()
 
-        ('PORTRAIT', ('byte', 235))
+        portrait(byte 235)
         jump label_2451
 
     case '*':
@@ -205,11 +205,11 @@ label_2011:
     if partyHas(byte 62):
         wait()
 
-        ('PORTRAIT', ('byte', 62))
+        portrait(byte 62)
         print('\n\n"I\'ll just bet he does!"')
         wait()
 
-        ('PORTRAIT', ('byte', 235))
+        portrait(byte 235)
         print('\n\n')
 
     else:
@@ -252,9 +252,9 @@ label_2451:
         fi
     esac
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 10))
-    ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 10))
-    ('SETF', ('byte', 235), ('byte', 7))
+    destroy(byte 1, byte 88, byte 0, byte 10)
+    create(byte 235, byte 88, byte 0, byte 10)
+    setBit(byte 235, byte 7)
     print('The gypsy leads you into a nearby wagon...')
     wait()
 
@@ -276,8 +276,8 @@ label_2451:
         integer(value 0) = character(byte 1, byte 0)
     fi
 
-    ('PORTRAIT', ('integer', [('value', 0)]))
-    ('SETNAME', ('integer', [('value', 0)]))
+    portrait(integer(value 0))
+    look(integer(value 0))
     print('\n\n$Y scowls. "Well, you\'ve certainly picked a fine one to be carrying ')
     print('on with."')
     wait()
@@ -286,7 +286,7 @@ label_2451:
     print('gargoyles, but I\'d hate to spoil your fun..."')
     wait()
 
-    ('PORTRAIT', ('byte', 235))
+    portrait(byte 235)
     print('\n\n$N laughs. "\'Tis not a crime to give yourself over to pleasure..."')
     jump label_424
 
@@ -309,8 +309,8 @@ label_3309:
         jump label_424
     fi
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 25))
-    ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 25))
+    destroy(byte 1, byte 88, byte 0, byte 25)
+    create(byte 235, byte 88, byte 0, byte 25)
     wait()
 
     print('\n\nYou\'re not sure, but you think perhaps you felt a slight tug at the ')
@@ -336,8 +336,8 @@ label_3741:
             jump label_424
         fi
 
-        ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 7))
-        ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 7))
+        destroy(byte 1, byte 88, byte 0, byte 7)
+        create(byte 235, byte 88, byte 0, byte 7)
         print('"I overheard a bard in a tavern say that it was somewhere on the Isle ')
         print('of the Avatar."\n*\n"Perhaps @Arturos could tell you precisely."')
         jump label_424

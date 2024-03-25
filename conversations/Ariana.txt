@@ -20,7 +20,7 @@ interaction:
 
     ask()
     print('\n"Ok. Now I can talk to you!"')
-    ('SETF', ('byte', 235), ('value', 0))
+    setBit(byte 235, value 0)
     jump label_198
 
 label_180:
@@ -92,7 +92,7 @@ label_843:
         print('The little girl sniffles, seeming suddenly on the verge of tears.\n\n')
         print('*"I\'m sorry," she says, "I shouldn\'t have asked." She turns her back, ')
         print('as if ashamed to face you.\n')
-        ('SUB_KARMA', ('byte', 5))
+        decreaseKarma(byte 5)
         bye()
 
     case 'y':
@@ -100,8 +100,8 @@ label_843:
         print('up the whole room.\n*\n"Really? I would like that very much."')
 
         if equals(hasBit(byte 235, byte 4), byte 0):
-            ('ADD_KARMA', ('byte', 10))
-            ('SETF', ('byte', 235), ('byte', 4))
+            increaseKarma(byte 10)
+            setBit(byte 235, byte 4)
         fi
     esac
 
@@ -138,8 +138,8 @@ label_1475:
         print('it..."\n*\n"I don\'t know what I should do."\n*\n"I know! My parents run ')
         print('the Blue Boar Tavern. Go ask them if you can borrow the rune."\n*\n"If ')
         print('they say \'tis okay, I\'ll give it to you."')
-        ('SETF', ('byte', 235), ('byte', 7))
-        ('SETF', ('byte', 235), ('byte', 5))
+        setBit(byte 235, byte 7)
+        setBit(byte 235, byte 5)
     esac
 
     jump label_198
@@ -160,12 +160,12 @@ label_2104:
         print('luck on your quest."')
 
         if hasBit(byte 235, byte 5):
-            ('SUB_KARMA', ('byte', 10))
+            decreaseKarma(byte 10)
         fi
 
-        ('CLEARF', ('byte', 235), ('byte', 7))
-        ('SETF', ('byte', 235), ('byte', 6))
-        ('GIVE', ('byte', 243), ('byte', 0), ('byte', 235), ('byte', 1))
+        clearBit(byte 235, byte 7)
+        setBit(byte 235, byte 6)
+        give(byte 243, byte 0, byte 235, byte 1)
         jump label_198
 
     case 'n':

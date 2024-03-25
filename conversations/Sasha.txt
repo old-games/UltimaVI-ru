@@ -17,7 +17,7 @@ interaction:
 
     case 'name':
         print('"My name is Sasha."')
-        ('SETF', ('byte', 235), ('value', 0))
+        setBit(byte 235, value 0)
         jump label_107
 
     case 'job':
@@ -136,7 +136,7 @@ label_1284:
         jump label_1379
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n')
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
@@ -159,9 +159,9 @@ label_1394:
         jump label_1644
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n"Which of you?" ')
-    ('INPUTNUM', 2)
+    inputNumber(integer(value 2))
 
     if equals(integer(value 2), byte 0):
         jump label_2066
@@ -187,7 +187,7 @@ label_1582:
     fi
 
 label_1644:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('"I see thy injury, $Y."')
     wait()
 
@@ -201,8 +201,8 @@ label_1644:
 
         else:
             print('Sasha approaches $Y and binds the wounds.')
-            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 40))
-            ('HEAL', ('integer', [('value', 3)]))
+            destroy(integer(value 3), byte 88, byte 0, byte 40)
+            heal(integer(value 3))
             jump label_107
         fi
 
@@ -229,7 +229,7 @@ label_1870:
         wait()
 
         print('\n\nSasha approaches $Y and binds the wounds.')
-        ('HEAL', ('integer', [('value', 3)]))
+        heal(integer(value 3))
         jump label_2066
     fi
 
@@ -277,7 +277,7 @@ label_2278:
         jump label_2373
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n')
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
@@ -300,9 +300,9 @@ label_2388:
         jump label_2639
     fi
 
-    ('SETNAME', ('integer', [('value', 4)]))
+    look(integer(value 4))
     print('#2) $Y\n"Which of you?" ')
-    ('INPUTNUM', 2)
+    inputNumber(integer(value 2))
 
     if equals(integer(value 2), byte 0):
         jump label_2066
@@ -328,7 +328,7 @@ label_2577:
     fi
 
 label_2639:
-    ('SETNAME', ('integer', [('value', 3)]))
+    look(integer(value 3))
     print('"I sense that thou art poisoned, $Y."')
     wait()
 
@@ -345,8 +345,8 @@ label_2639:
             wait()
 
             print('\n\n$Y feels much better.')
-            ('DELETE', ('integer', [('value', 3)]), ('byte', 88), ('byte', 0), ('byte', 15))
-            ('CURE', ('integer', [('value', 3)]))
+            destroy(integer(value 3), byte 88, byte 0, byte 15)
+            cure(integer(value 3))
             jump label_2066
         fi
 
@@ -376,6 +376,6 @@ label_2911:
         wait()
 
         print('\n\n$Y feels much better.')
-        ('CURE', ('integer', [('value', 3)]))
+        cure(integer(value 3))
         jump label_2066
     fi

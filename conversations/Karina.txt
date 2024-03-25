@@ -99,7 +99,7 @@ label_161:
 label_907:
     print('"My name is Karina." she says, looking shyly at the ground. "Do you ')
     print('think it\'s a pretty name?" ')
-    ('SETF', ('byte', 235), ('value', 0))
+    setBit(byte 235, value 0)
 
     choice('yn')
 
@@ -141,8 +141,8 @@ label_1260:
         jump label_161
     fi
 
-    ('DELETE', ('byte', 1), ('byte', 88), ('byte', 0), ('byte', 1))
-    ('NEW', ('byte', 235), ('byte', 88), ('byte', 0), ('byte', 1))
+    destroy(byte 1, byte 88, byte 0, byte 1)
+    create(byte 235, byte 88, byte 0, byte 1)
     print('\n"Ask our dog, @Kador, to do some tricks for you. He knows lots of ')
     print('them!"')
     jump label_161
@@ -152,7 +152,7 @@ label_1542:
 
     case 'n':
         print('She turns away from you.\n')
-        ('SUB_KARMA', ('byte', 5))
+        decreaseKarma(byte 5)
         bye()
     esac
 
@@ -162,9 +162,9 @@ label_1542:
     print('ceases, and she turns and runs away.\n')
 
     if equals(hasBit(byte 235, byte 7), byte 0):
-        ('ADD_KARMA', ('byte', 10))
-        ('SETF', ('byte', 235), ('byte', 7))
+        increaseKarma(byte 10)
+        setBit(byte 235, byte 7)
     fi
 
-    ('WORKTYPE', ('byte', 235), ('byte', 154))
+    do(byte 235, byte 154)
     bye()
