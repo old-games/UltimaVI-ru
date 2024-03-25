@@ -1,0 +1,211 @@
+source('CONVERSE.A')
+index(42)
+
+id(42)
+name({
+    'english': 'Derydlus',
+    'russian': 'FIXME Derydlus'
+})
+
+description:
+    print({
+        'english': 'a man who looks very amused--whether with his surroundings or himself ',
+        'russian': 'FIXME a man who looks very amused--whether with his surroundings or himself '
+    })
+    print({
+        'english': 'is hard to say.',
+        'russian': 'FIXME is hard to say.'
+    })
+    wait()
+
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+interaction:
+    print({
+        'english': '"Ah, welcome, $G! Come have a @drink with me!"',
+        'russian': 'FIXME "Ah, welcome, $G! Come have a @drink with me!"'
+    })
+
+    if equals(hasBit(byte 235, value 0), byte 0):
+        setBit(byte 235, value 0)
+        wait()
+
+        print({
+            'english': '\n"Have you had your fortune told yet?"',
+            'russian': 'FIXME \n"Have you had your fortune told yet?"'
+        })
+
+        choice({
+            'english': 'yn',
+            'russian': 'FIXME yn'
+        })
+
+        case {
+            'english': 'y',
+            'russian': 'FIXME y'
+        }:
+        case {
+            'english': 'n',
+            'russian': 'FIXME n'
+        }:
+        esac
+
+        print({
+            'english': '"Some people think @Penumbra\'s a hoax. But she knows her stuff. You ',
+            'russian': 'FIXME "Some people think @Penumbra\'s a hoax. But she knows her stuff. You '
+        })
+        print({
+            'english': 'should bear with her - she can truly be of great assistance to you."',
+            'russian': 'FIXME should bear with her - she can truly be of great assistance to you."'
+        })
+    fi
+
+label_346:
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"Derydlus. And what was yours again?"\n',
+            'russian': 'FIXME "Derydlus. And what was yours again?"\n'
+        })
+
+        ask()
+        print({
+            'english': '\n"Oh, yes, of course. Come, have a seat."',
+            'russian': 'FIXME \n"Oh, yes, of course. Come, have a seat."'
+        })
+        jump label_346
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"Trying to discover all the subtleties of Frasier\'s @Folly is almost a',
+            'russian': 'FIXME "Trying to discover all the subtleties of Frasier\'s @Folly is almost a'
+        })
+        print({
+            'english': ' career in itself!"\n*\nHe smiles.',
+            'russian': 'FIXME  career in itself!"\n*\nHe smiles.'
+        })
+        jump label_346
+
+    case {
+        'english': 'drin',
+        'russian': 'FIXME drin'
+    }:
+        print({
+            'english': '"Aye, this is the home of Frasier\'s @Folly!"',
+            'russian': 'FIXME "Aye, this is the home of Frasier\'s @Folly!"'
+        })
+        jump label_346
+
+    case {
+        'english': 'disc',
+        'russian': 'FIXME disc'
+    }:
+    case {
+        'english': 'foll',
+        'russian': 'FIXME foll'
+    }:
+    case {
+        'english': 'fras',
+        'russian': 'FIXME fras'
+    }:
+    case {
+        'english': 'subt',
+        'russian': 'FIXME subt'
+    }:
+        print({
+            'english': '"In all the towns of Britannia, you\'ll find no better brew."',
+            'russian': 'FIXME "In all the towns of Britannia, you\'ll find no better brew."'
+        })
+        jump label_346
+
+    case {
+        'english': 'mand',
+        'russian': 'FIXME mand'
+    }:
+        print({
+            'english': '"Here\'s to Mandrake!"',
+            'russian': 'FIXME "Here\'s to Mandrake!"'
+        })
+        jump label_346
+
+    case {
+        'english': 'manr',
+        'russian': 'FIXME manr'
+    }:
+        print({
+            'english': '"My drinking buddy! Let\'s drink a toast to him, wherever he is."',
+            'russian': 'FIXME "My drinking buddy! Let\'s drink a toast to him, wherever he is."'
+        })
+
+        if isNearby(byte 40):
+            wait()
+
+            portrait(byte 40)
+            print({
+                'english': '\n\n"I\'ll drink to that!"',
+                'russian': 'FIXME \n\n"I\'ll drink to that!"'
+            })
+            wait()
+
+            portrait(byte 235)
+        fi
+
+        jump label_346
+
+    case {
+        'english': 'penu',
+        'russian': 'FIXME penu'
+    }:
+        print({
+            'english': '"She\'s a strange one, but she has the gift."',
+            'russian': 'FIXME "She\'s a strange one, but she has the gift."'
+        })
+        jump label_346
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"Leaving already? And you\'re not even wobbling yet..."\n',
+            'russian': 'FIXME "Leaving already? And you\'re not even wobbling yet..."\n'
+        })
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        if random(byte 0, byte 1):
+            print({
+                'english': '"I\'ll drink to that," he says, suiting action to words.',
+                'russian': 'FIXME "I\'ll drink to that," he says, suiting action to words.'
+            })
+
+        else:
+            print({
+                'english': '"`$Z? Aye, indeed! A toast to $Z!"',
+                'russian': 'FIXME "`$Z? Aye, indeed! A toast to $Z!"'
+            })
+        fi
+
+        jump label_346
+    esac
+
+    // Unreachable code!
+    jump label_346

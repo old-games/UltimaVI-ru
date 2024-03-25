@@ -1,0 +1,1146 @@
+source('CONVERSE.B')
+index(29)
+
+id(128)
+name({
+    'english': 'Rudyom',
+    'russian': 'FIXME Rudyom'
+})
+
+description:
+    print({
+        'english': 'a dark, bearded man dressed in flowing white robes.',
+        'russian': 'FIXME a dark, bearded man dressed in flowing white robes.'
+    })
+
+    f3()
+
+interaction:
+    wait()
+
+    print({
+        'english': '\n"Greetings, mighty Avatar. For what hast thou come to my place?"\n',
+        'russian': 'FIXME \n"Greetings, mighty Avatar. For what hast thou come to my place?"\n'
+    })
+
+label_129:
+    ask()
+
+    case {
+        'english': 'buy',
+        'russian': 'FIXME buy'
+    }:
+    case {
+        'english': 'reag',
+        'russian': 'FIXME reag'
+    }:
+        jump label_1490
+
+    case {
+        'english': 'lear',
+        'russian': 'FIXME lear'
+    }:
+    case {
+        'english': 'spel',
+        'russian': 'FIXME spel'
+    }:
+        jump label_345
+
+    case {
+        'english': 'book',
+        'russian': 'FIXME book'
+    }:
+        jump label_2305
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"I am Rudyom."',
+            'russian': 'FIXME "I am Rudyom."'
+        })
+        setBit(byte 235, value 0)
+        jump label_128
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"I sell magic @books and @reagents, and teach @spells."',
+            'russian': 'FIXME "I sell magic @books and @reagents, and teach @spells."'
+        })
+        jump label_128
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"May peace follow thee, Avatar."\n',
+            'russian': 'FIXME "May peace follow thee, Avatar."\n'
+        })
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"Of that I will say nothing."',
+            'russian': 'FIXME "Of that I will say nothing."'
+        })
+        jump label_128
+    esac
+
+label_345:
+    if notEquals(integer(value 32), byte 144):
+        print({
+            'english': '"My shop is closed right now."',
+            'russian': 'FIXME "My shop is closed right now."'
+        })
+        jump label_128
+    fi
+
+    if greater(integer(value 23), byte 0):
+        integer(value 1) = byte 0
+        integer(value 2) = byte 0
+        integer(value 4) = byte 0
+        jump label_486
+    fi
+
+    integer(value 3) = character(byte 0, byte 0)
+
+    if hasObject(integer(value 3), byte 57, byte 0):
+        jump label_784
+
+    else:
+        print({
+            'english': '"But thou hast not a spell@book!"',
+            'russian': 'FIXME "But thou hast not a spell@book!"'
+        })
+        jump label_128
+    fi
+
+label_486:
+    if greater(integer(value 1), integer(value 23)):
+        jump label_600
+    fi
+
+    integer(value 3) = character(integer(value 1), byte 0)
+
+    if equals(hasObject(integer(value 3), byte 57, byte 0), byte 0):
+        jump label_585
+    fi
+
+    if equals(integer(value 4), byte 0):
+        integer(value 4) = integer(value 3)
+        integer(value 2) = plus(integer(value 2), byte 1)
+        jump label_585
+    fi
+
+    look(integer(value 4))
+    print({
+        'english': '#2) $Y\n',
+        'russian': 'FIXME #2) $Y\n'
+    })
+    integer(value 2) = plus(integer(value 2), byte 1)
+    integer(value 4) = integer(value 3)
+
+label_585:
+    integer(value 1) = plus(integer(value 1), byte 1)
+    jump label_486
+
+label_600:
+    if equals(integer(value 2), byte 0):
+        print({
+            'english': '"But none of you has a spell@book!"',
+            'russian': 'FIXME "But none of you has a spell@book!"'
+        })
+        jump label_128
+    fi
+
+    if equals(integer(value 2), byte 1):
+        integer(value 3) = integer(value 4)
+        jump label_784
+    fi
+
+    look(integer(value 4))
+    print({
+        'english': '#2) $Y\n"Which of you?" ',
+        'russian': 'FIXME #2) $Y\n"Which of you?" '
+    })
+    inputInteger(integer(value 2))
+
+    if equals(integer(value 2), byte 0):
+        jump label_129
+    fi
+
+    integer(value 1) = byte 0
+
+label_718:
+    integer(value 3) = character(integer(value 1), byte 0)
+
+    if hasObject(integer(value 3), byte 57, byte 0):
+        integer(value 2) = minus(integer(value 2), byte 1)
+    fi
+
+    if equals(integer(value 2), byte 0):
+        jump label_784
+    fi
+
+    integer(value 1) = plus(integer(value 1), byte 1)
+
+    if lessOrEquals(integer(value 1), integer(value 23)):
+        jump label_718
+    fi
+
+label_784:
+    look(integer(value 3))
+    integer(value 1) = level(integer(value 3), byte 0)
+    string(value 1) = data(strings_2849, integer(value 1))
+    print({
+        'english': '"In which Circle does $Y wish to study?" ',
+        'russian': 'FIXME "In which Circle does $Y wish to study?" '
+    })
+    inputInteger(integer(value 0))
+
+    if equals(integer(value 0), byte 0):
+        jump label_128
+    fi
+
+    if greater(integer(value 0), byte 8):
+        print({
+            'english': '"As everybody knows, there are only eight circles."',
+            'russian': 'FIXME "As everybody knows, there are only eight circles."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_784
+    fi
+
+    if greater(integer(value 0), integer(value 1)):
+        print({
+            'english': '"I sense that $Y is only ready for the #1$1 Circle."',
+            'russian': 'FIXME "I sense that $Y is only ready for the #1$1 Circle."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"But such matters are not my concern..."',
+            'russian': 'FIXME \n\n"But such matters are not my concern..."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+    fi
+
+    integer(value 0) = minus(integer(value 0), byte 1)
+    integer(value 0) = multiply(integer(value 0), byte 10)
+
+    if equals(data(integers_2876, integer(value 0)), word 255):
+        print({
+            'english': '"I have no spells of that circle."',
+            'russian': 'FIXME "I have no spells of that circle."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_784
+    fi
+
+    integer(value 2) = byte 1
+
+label_1125:
+    string(value 0) = data(strings_3036, minus(plus(integer(value 0), integer(value 2)), byte 1))
+    print({
+        'english': '#2) $0\n',
+        'russian': 'FIXME #2) $0\n'
+    })
+    integer(value 2) = plus(integer(value 2), byte 1)
+
+    if notEquals(data(integers_2876, minus(plus(integer(value 0), integer(value 2)), byte 1)), word 255):
+        jump label_1125
+    fi
+
+    print({
+        'english': '"Which of these?" ',
+        'russian': 'FIXME "Which of these?" '
+    })
+    inputInteger(integer(value 4))
+
+    if or(equals(integer(value 4), byte 0), greaterOrEquals(integer(value 4), integer(value 2))):
+        print({
+            'english': '"Perhaps $Y is not ready for this circle."',
+            'russian': 'FIXME "Perhaps $Y is not ready for this circle."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_784
+    fi
+
+    integer(value 4) = minus(integer(value 4), byte 1)
+    integer(value 5) = plus(byte 20, multiply(integer(value 0), byte 2))
+
+    if less(objectsCount(integer(value 3), byte 88), integer(value 5)):
+        print({
+            'english': '"$Y lacks the #5 gold required."',
+            'russian': 'FIXME "$Y lacks the #5 gold required."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_784
+    fi
+
+    print({
+        'english': '"That spell costs #5 gold. Interested?" ',
+        'russian': 'FIXME "That spell costs #5 gold. Interested?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        print({
+            'english': '$N hands $Y a piece of rune-covered parchment.',
+            'russian': 'FIXME $N hands $Y a piece of rune-covered parchment.'
+        })
+        destroyItem(integer(value 3), byte 88, byte 0, integer(value 5))
+        createItem(integer(value 3), byte 58, data(integers_2876, plus(integer(value 0), integer(value 4))), byte 1)
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_784
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        jump label_784
+    esac
+
+label_1490:
+    if notEquals(integer(value 32), byte 144):
+        print({
+            'english': '"My shop is closed right now."',
+            'russian': 'FIXME "My shop is closed right now."'
+        })
+        jump label_128
+    fi
+
+    if greater(integer(value 23), byte 0):
+        integer(value 2) = byte 1
+        jump label_1568
+    fi
+
+    integer(value 3) = character(byte 0, byte 0)
+    jump label_1670
+
+label_1568:
+    integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
+    look(integer(value 3))
+    print({
+        'english': '#2) $Y\n',
+        'russian': 'FIXME #2) $Y\n'
+    })
+
+    if lessOrEquals(integer(value 2), integer(value 23)):
+        integer(value 2) = plus(integer(value 2), byte 1)
+        jump label_1568
+    fi
+
+    print({
+        'english': '"Which of you?" ',
+        'russian': 'FIXME "Which of you?" '
+    })
+    inputInteger(integer(value 2))
+
+    if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
+        jump label_129
+
+    else:
+        integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
+    fi
+
+label_1670:
+    look(integer(value 3))
+    integer(value 1) = byte 1
+
+label_1681:
+    string(value 1) = data(strings_2782, minus(integer(value 1), byte 1))
+    print({
+        'english': '#1) $1\n',
+        'russian': 'FIXME #1) $1\n'
+    })
+    integer(value 1) = plus(integer(value 1), byte 1)
+
+    if greater(data(integers_2750, minus(integer(value 1), byte 1)), byte 0):
+        jump label_1681
+    fi
+
+    print({
+        'english': '"Which of these?" ',
+        'russian': 'FIXME "Which of these?" '
+    })
+    inputInteger(integer(value 2))
+
+    if or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1))):
+        integer(value 2) = byte 1
+        jump label_129
+    fi
+
+    integer(value 2) = minus(integer(value 2), byte 1)
+    integer(value 1) = data(integers_2766, integer(value 2))
+    string(value 1) = data(strings_2782, integer(value 2))
+    integer(value 5) = byte 0
+    print({
+        'english': '"$1 costs #1 per portion."',
+        'russian': 'FIXME "$1 costs #1 per portion."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"How many dost thou want?" ',
+        'russian': 'FIXME \n\n"How many dost thou want?" '
+    })
+    input(integer(value 4))
+
+    if greater(integer(value 4), word 500):
+        integer(value 4) = word 500
+    fi
+
+    if equals(integer(value 4), byte 0):
+        jump label_1670
+    fi
+
+label_1915:
+    if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(integers_2750, integer(value 2)), byte 1)):
+        jump label_2043
+    fi
+
+    if less(objectsCount(integer(value 3), byte 88), integer(value 1)):
+        jump label_2174
+    fi
+
+    destroyItem(integer(value 3), byte 88, byte 0, integer(value 1))
+    createItem(integer(value 3), data(integers_2750, integer(value 2)), byte 0, byte 1)
+    integer(value 5) = plus(integer(value 5), byte 1)
+
+    if equals(integer(value 5), integer(value 4)):
+        print({
+            'english': '$N hands $Y the $1.',
+            'russian': 'FIXME $N hands $Y the $1.'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_1670
+
+    else:
+        jump label_1915
+    fi
+
+label_2043:
+    if integer(value 5):
+        print({
+            'english': '"Thou cannot carry that much!"',
+            'russian': 'FIXME "Thou cannot carry that much!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"I\'ll give thee #5; thou dost not need the rest."',
+            'russian': 'FIXME \n\n"I\'ll give thee #5; thou dost not need the rest."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_1670
+
+    else:
+        print({
+            'english': '"Thou cannot carry any $1!"',
+            'russian': 'FIXME "Thou cannot carry any $1!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_1670
+    fi
+
+label_2174:
+    if integer(value 5):
+        print({
+            'english': '"Thou cannot afford that much!"',
+            'russian': 'FIXME "Thou cannot afford that much!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"I\'ll give thee #5; thou cannot have the rest."',
+            'russian': 'FIXME \n\n"I\'ll give thee #5; thou cannot have the rest."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_1670
+
+    else:
+        print({
+            'english': '"Thou cannot afford any $1!"',
+            'russian': 'FIXME "Thou cannot afford any $1!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_1670
+    fi
+
+label_2305:
+    if notEquals(integer(value 32), byte 144):
+        wait()
+
+        print({
+            'english': '\n\n"My shop is closed right now."',
+            'russian': 'FIXME \n\n"My shop is closed right now."'
+        })
+        jump label_128
+    fi
+
+    if integer(value 23):
+        integer(value 2) = byte 1
+        jump label_2383
+    fi
+
+    integer(value 3) = character(byte 0, byte 0)
+    jump label_2485
+
+label_2383:
+    integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
+    look(integer(value 3))
+    print({
+        'english': '#2) $Y\n',
+        'russian': 'FIXME #2) $Y\n'
+    })
+
+    if lessOrEquals(integer(value 2), integer(value 23)):
+        integer(value 2) = plus(integer(value 2), byte 1)
+        jump label_2383
+    fi
+
+    print({
+        'english': '"Which of you?" ',
+        'russian': 'FIXME "Which of you?" '
+    })
+    inputInteger(integer(value 2))
+
+    if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
+        jump label_128
+
+    else:
+        integer(value 3) = character(minus(integer(value 2), byte 1), byte 0)
+    fi
+
+label_2485:
+    look(integer(value 3))
+
+    if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 50)), weight(byte 57, byte 1)):
+        print({
+            'english': '"But thou cannot carry a spellbook!"',
+            'russian': 'FIXME "But thou cannot carry a spellbook!"'
+        })
+        jump label_128
+    fi
+
+    if less(objectsCount(integer(value 3), byte 88), byte 50):
+        print({
+            'english': '"But thou cannot afford a spellbook!"',
+            'russian': 'FIXME "But thou cannot afford a spellbook!"'
+        })
+        jump label_128
+    fi
+
+    print({
+        'english': '"A spellbook costs 50 gold pieces. Interested?" ',
+        'russian': 'FIXME "A spellbook costs 50 gold pieces. Interested?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        destroyItem(integer(value 3), byte 88, byte 0, byte 50)
+        createItem(integer(value 3), byte 57, byte 0, byte 1)
+        jump label_128
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        if integer(value 23):
+            print({
+                'english': '"Perhaps one of thy friends then."',
+                'russian': 'FIXME "Perhaps one of thy friends then."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n',
+                'russian': 'FIXME \n\n'
+            })
+            integer(value 2) = byte 1
+            jump label_2383
+
+        else:
+            jump label_128
+        fi
+    esac
+
+integers_2750 = [
+    66, // 0
+    67, // 1
+    68, // 2
+    70, // 3
+    71, // 4
+    72, // 5
+    0,  // 6
+    0,  // 7
+]
+
+integers_2766 = [
+    3, // 0
+    1, // 1
+    2, // 2
+    2, // 3
+    2, // 4
+    1, // 5
+    0, // 6
+    0, // 7
+]
+
+strings_2782 = [
+    {
+        'english': 'Blood Moss',
+        'russian': 'FIXME Blood Moss'
+    }, // 0
+    {
+        'english': 'Garlic',
+        'russian': 'FIXME Garlic'
+    }, // 1
+    {
+        'english': 'Ginseng',
+        'russian': 'FIXME Ginseng'
+    }, // 2
+    {
+        'english': 'Nightshade',
+        'russian': 'FIXME Nightshade'
+    }, // 3
+    {
+        'english': 'Spider Silk',
+        'russian': 'FIXME Spider Silk'
+    }, // 4
+    {
+        'english': 'Sulfurous Ash',
+        'russian': 'FIXME Sulfurous Ash'
+    }, // 5
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 6
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 7
+]
+
+strings_2849 = [
+    {
+        'english': 'th',
+        'russian': 'FIXME th'
+    }, // 0
+    {
+        'english': 'st',
+        'russian': 'FIXME st'
+    }, // 1
+    {
+        'english': 'nd',
+        'russian': 'FIXME nd'
+    }, // 2
+    {
+        'english': 'rd',
+        'russian': 'FIXME rd'
+    }, // 3
+    {
+        'english': 'th',
+        'russian': 'FIXME th'
+    }, // 4
+    {
+        'english': 'th',
+        'russian': 'FIXME th'
+    }, // 5
+    {
+        'english': 'th',
+        'russian': 'FIXME th'
+    }, // 6
+    {
+        'english': 'th',
+        'russian': 'FIXME th'
+    }, // 7
+    {
+        'english': 'th',
+        'russian': 'FIXME th'
+    }, // 8
+]
+
+integers_2876 = [
+    0,   // 0
+    4,   // 1
+    6,   // 2
+    8,   // 3
+    255, // 4
+    255, // 5
+    255, // 6
+    255, // 7
+    255, // 8
+    255, // 9
+    255, // 10
+    0,   // 11
+    0,   // 12
+    0,   // 13
+    0,   // 14
+    0,   // 15
+    0,   // 16
+    0,   // 17
+    0,   // 18
+    0,   // 19
+    37,  // 20
+    255, // 21
+    0,   // 22
+    0,   // 23
+    0,   // 24
+    0,   // 25
+    0,   // 26
+    0,   // 27
+    0,   // 28
+    0,   // 29
+    52,  // 30
+    255, // 31
+    0,   // 32
+    0,   // 33
+    0,   // 34
+    0,   // 35
+    0,   // 36
+    0,   // 37
+    0,   // 38
+    0,   // 39
+    70,  // 40
+    72,  // 41
+    255, // 42
+    0,   // 43
+    0,   // 44
+    0,   // 45
+    0,   // 46
+    0,   // 47
+    0,   // 48
+    0,   // 49
+    255, // 50
+    0,   // 51
+    0,   // 52
+    0,   // 53
+    0,   // 54
+    0,   // 55
+    0,   // 56
+    0,   // 57
+    0,   // 58
+    0,   // 59
+    255, // 60
+    0,   // 61
+    0,   // 62
+    0,   // 63
+    0,   // 64
+    0,   // 65
+    0,   // 66
+    0,   // 67
+    0,   // 68
+    0,   // 69
+    117, // 70
+    255, // 71
+    0,   // 72
+    0,   // 73
+    0,   // 74
+    0,   // 75
+    0,   // 76
+    0,   // 77
+    0,   // 78
+    0,   // 79
+]
+
+strings_3036 = [
+    {
+        'english': 'Create Food',
+        'russian': 'FIXME Create Food'
+    }, // 0
+    {
+        'english': 'Douse',
+        'russian': 'FIXME Douse'
+    }, // 1
+    {
+        'english': 'Heal',
+        'russian': 'FIXME Heal'
+    }, // 2
+    {
+        'english': 'Ignite',
+        'russian': 'FIXME Ignite'
+    }, // 3
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 4
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 5
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 6
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 7
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 8
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 9
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 10
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 11
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 12
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 13
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 14
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 15
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 16
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 17
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 18
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 19
+    {
+        'english': 'Mass Awaken',
+        'russian': 'FIXME Mass Awaken'
+    }, // 20
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 21
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 22
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 23
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 24
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 25
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 26
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 27
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 28
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 29
+    {
+        'english': 'Great Heal',
+        'russian': 'FIXME Great Heal'
+    }, // 30
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 31
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 32
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 33
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 34
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 35
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 36
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 37
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 38
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 39
+    {
+        'english': 'Pickpocket',
+        'russian': 'FIXME Pickpocket'
+    }, // 40
+    {
+        'english': 'Seance',
+        'russian': 'FIXME Seance'
+    }, // 41
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 42
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 43
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 44
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 45
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 46
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 47
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 48
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 49
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 50
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 51
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 52
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 53
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 54
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 55
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 56
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 57
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 58
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 59
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 60
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 61
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 62
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 63
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 64
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 65
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 66
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 67
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 68
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 69
+    {
+        'english': 'Resurrect',
+        'russian': 'FIXME Resurrect'
+    }, // 70
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 71
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 72
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 73
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 74
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 75
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 76
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 77
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 78
+    {
+        'english': ' ',
+        'russian': 'FIXME  '
+    }, // 79
+]

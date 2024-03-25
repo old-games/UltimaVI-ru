@@ -1,0 +1,244 @@
+source('CONVERSE.B')
+index(10)
+
+id(109)
+name({
+    'english': 'Timothy',
+    'russian': 'FIXME Timothy'
+})
+
+description:
+    print({
+        'english': 'a man with sea-blue eyes and a warm smile.',
+        'russian': 'FIXME a man with sea-blue eyes and a warm smile.'
+    })
+    wait()
+
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+interaction:
+    if hasBit(byte 235, value 0):
+        print({
+            'english': '"Welcome back, my friend',
+            'russian': 'FIXME "Welcome back, my friend'
+        })
+
+    else:
+        print({
+            'english': '"Welcome, welcome, friend',
+            'russian': 'FIXME "Welcome, welcome, friend'
+        })
+    fi
+
+    if integer(value 23):
+        print({
+            'english': 's',
+            'russian': 'FIXME s'
+        })
+    fi
+
+    print({
+        'english': '. Here for @lodging this fine $T?"\n',
+        'russian': 'FIXME . Here for @lodging this fine $T?"\n'
+    })
+
+label_153:
+    ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"@Timothy." He flashes a friendly smile and nods.\n',
+            'russian': 'FIXME "@Timothy." He flashes a friendly smile and nods.\n'
+        })
+        setBit(byte 235, value 0)
+        jump label_153
+
+    case {
+        'english': 'timo',
+        'russian': 'FIXME timo'
+    }:
+        print({
+            'english': '"I\'m named after my @uncle. He was a kind soul."\n',
+            'russian': 'FIXME "I\'m named after my @uncle. He was a kind soul."\n'
+        })
+        jump label_153
+
+    case {
+        'english': 'uncl',
+        'russian': 'FIXME uncl'
+    }:
+        print({
+            'english': '"Sir Timothy Enders Daverstock. He was a famous @knight in these ',
+            'russian': 'FIXME "Sir Timothy Enders Daverstock. He was a famous @knight in these '
+        })
+        print({
+            'english': 'parts."\n',
+            'russian': 'FIXME parts."\n'
+        })
+        jump label_153
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"It is a busy one - this job, that is. I find it rewarding, though, ',
+            'russian': 'FIXME "It is a busy one - this job, that is. I find it rewarding, though, '
+        })
+        print({
+            'english': 'meeting friendly faces."',
+            'russian': 'FIXME meeting friendly faces."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Maybe you want a @room, eh?"\n',
+            'russian': 'FIXME \n\n"Maybe you want a @room, eh?"\n'
+        })
+        jump label_153
+
+    case {
+        'english': 'inn',
+        'russian': 'FIXME inn'
+    }:
+    case {
+        'english': 'lodg',
+        'russian': 'FIXME lodg'
+    }:
+    case {
+        'english': 'room',
+        'russian': 'FIXME room'
+    }:
+    case {
+        'english': 'yes',
+        'russian': 'FIXME yes'
+    }:
+        jump label_789
+
+    case {
+        'english': 'famo',
+        'russian': 'FIXME famo'
+    }:
+    case {
+        'english': 'knig',
+        'russian': 'FIXME knig'
+    }:
+        print({
+            'english': '"He is perhaps best known for his courage in @battle."\n',
+            'russian': 'FIXME "He is perhaps best known for his courage in @battle."\n'
+        })
+        jump label_153
+
+    case {
+        'english': 'batt',
+        'russian': 'FIXME batt'
+    }:
+    case {
+        'english': 'cour',
+        'russian': 'FIXME cour'
+    }:
+        print({
+            'english': '"He once held off a score of men while his own fled to safety across a',
+            'russian': 'FIXME "He once held off a score of men while his own fled to safety across a'
+        })
+        print({
+            'english': ' bridge."\n',
+            'russian': 'FIXME  bridge."\n'
+        })
+        jump label_153
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"Farewell, friend',
+            'russian': 'FIXME "Farewell, friend'
+        })
+
+        if integer(value 23):
+            print({
+                'english': 's',
+                'russian': 'FIXME s'
+            })
+        fi
+
+        print({
+            'english': '. Travel safely."\n',
+            'russian': 'FIXME . Travel safely."\n'
+        })
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"Hmm... Nope, can\'t help you there."\n',
+            'russian': 'FIXME "Hmm... Nope, can\'t help you there."\n'
+        })
+        jump label_153
+    esac
+
+    // Unreachable code!
+    jump label_153
+
+label_789:
+    integer(value 0) = multiply(plus(integer(value 23), byte 1), byte 5)
+    print({
+        'english': '"#0 gold for you to stay and have a meal, good?" ',
+        'russian': 'FIXME "#0 gold for you to stay and have a meal, good?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        if less(objectsCount(byte 1, byte 88), integer(value 0)):
+            print({
+                'english': '"I\'m sorry, but we require cash in advance for our rooms."\n',
+                'russian': 'FIXME "I\'m sorry, but we require cash in advance for our rooms."\n'
+            })
+            bye()
+        fi
+
+        destroyItem(byte 1, byte 88, byte 0, integer(value 0))
+        print({
+            'english': 'You sleep in a comfortable bed...\n',
+            'russian': 'FIXME You sleep in a comfortable bed...\n'
+        })
+        sleep()
+
+        print({
+            'english': '\nYou wake rested and eat a large breakfast.',
+            'russian': 'FIXME \nYou wake rested and eat a large breakfast.'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Good morning, have a good day."\n',
+            'russian': 'FIXME \n\n"Good morning, have a good day."\n'
+        })
+        jump label_153
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"Perhaps some other time, then."\n',
+            'russian': 'FIXME "Perhaps some other time, then."\n'
+        })
+        jump label_153
+    esac

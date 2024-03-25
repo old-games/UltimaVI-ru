@@ -1,0 +1,246 @@
+source('CONVERSE.B')
+index(94)
+
+id(193)
+name({
+    'english': 'Compassion',
+    'russian': 'FIXME Compassion'
+})
+
+description:
+    print({
+        'english': 'the altar of Compassion.',
+        'russian': 'FIXME the altar of Compassion.'
+    })
+
+    f3()
+
+interaction:
+    wait()
+
+    print({
+        'english': '\nAs you kneel before the altar, a mystical voice sounds in your head.',
+        'russian': 'FIXME \nAs you kneel before the altar, a mystical voice sounds in your head.'
+    })
+    wait()
+
+    print({
+        'english': '\n\n',
+        'russian': 'FIXME \n\n'
+    })
+
+    if less(integer(value 20), byte 40):
+        print({
+            'english': '"Thou hast much to learn about compassion."',
+            'russian': 'FIXME "Thou hast much to learn about compassion."'
+        })
+        jump label_260
+    fi
+
+    if less(integer(value 20), byte 80):
+        print({
+            'english': '"Thy deeds have shown admirable compassion."',
+            'russian': 'FIXME "Thy deeds have shown admirable compassion."'
+        })
+
+    else:
+        print({
+            'english': '"Thy deeds serve as an example to all."',
+            'russian': 'FIXME "Thy deeds serve as an example to all."'
+        })
+    fi
+
+label_260:
+    wait()
+
+    print({
+        'english': '\n\nDo you wish to meditate at this altar? ',
+        'russian': 'FIXME \n\nDo you wish to meditate at this altar? '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        bye()
+    esac
+
+    if equals(integer(value 23), byte 0):
+        integer(value 0) = byte 0
+        jump label_449
+    fi
+
+label_330:
+    integer(value 0) = byte 0
+    integer(value 2) = byte 1
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+label_345:
+    look(character(integer(value 0), byte 0))
+    print({
+        'english': '#2. $Y\n',
+        'russian': 'FIXME #2. $Y\n'
+    })
+    integer(value 0) = plus(integer(value 0), byte 1)
+    integer(value 2) = plus(integer(value 2), byte 1)
+
+    if lessOrEquals(integer(value 0), integer(value 23)):
+        jump label_345
+    fi
+
+    print({
+        'english': '"Who will meditate?" ',
+        'russian': 'FIXME "Who will meditate?" '
+    })
+    inputInteger(integer(value 0))
+
+    if equals(integer(value 0), byte 0):
+        print({
+            'english': '\n',
+            'russian': 'FIXME \n'
+        })
+        bye()
+    fi
+
+    integer(value 0) = minus(integer(value 0), byte 1)
+
+    if greater(integer(value 0), integer(value 23)):
+        jump label_330
+    fi
+
+label_449:
+    print({
+        'english': '"Speak the Mantra of Compassion."\n',
+        'russian': 'FIXME "Speak the Mantra of Compassion."\n'
+    })
+
+    ask()
+    print({
+        'english': '\n"$Z... $Z..."',
+        'russian': 'FIXME \n"$Z... $Z..."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"$Z... $Z..."',
+        'russian': 'FIXME \n\n"$Z... $Z..."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"$Z... $Z..."',
+        'russian': 'FIXME \n\n"$Z... $Z..."'
+    })
+    wait()
+
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    case {
+        'english': 'mu',
+        'russian': 'FIXME mu'
+    }:
+        print({
+            'english': '"No beast so fierce but shows some touch of pity."',
+            'russian': 'FIXME "No beast so fierce but shows some touch of pity."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Sweet mercy is nobility\'s true badge."',
+            'russian': 'FIXME \n\n"Sweet mercy is nobility\'s true badge."'
+        })
+        wait()
+
+        jump label_673
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': 'You receive no enlightenment.',
+            'russian': 'FIXME You receive no enlightenment.'
+        })
+        wait()
+
+        jump label_914
+    esac
+
+label_673:
+    if equals(hasBit(byte 235, value 0), byte 0):
+        increaseKarma(byte 10)
+        setBit(byte 235, value 0)
+    fi
+
+    if and(and(and(and(and(and(and(hasBit(byte 192, value 0), hasBit(byte 193, value 0)), hasBit(byte 194, value 0)), hasBit(byte 195, value 0)), hasBit(byte 196, value 0)), hasBit(byte 197, value 0)), hasBit(byte 198, value 0)), hasBit(byte 199, value 0)):
+        clearBit(byte 192, value 0)
+        clearBit(byte 193, value 0)
+        clearBit(byte 194, value 0)
+        clearBit(byte 195, value 0)
+        clearBit(byte 196, value 0)
+        clearBit(byte 197, value 0)
+        clearBit(byte 198, value 0)
+        clearBit(byte 199, value 0)
+        setBit(byte 235, value 0)
+    fi
+
+    integer(value 1) = character(integer(value 0), byte 0)
+    integer(value 2) = level(integer(value 1), byte 0)
+
+    if greater(integer(value 2), byte 7):
+        jump label_914
+    fi
+
+    integer(value 3) = experience(integer(value 1), byte 0)
+
+    if greaterOrEquals(integer(value 3), data(integers_1023, integer(value 2))):
+        integer(value 2) = level(integer(value 1), byte 1)
+        integer(value 4) = dexterity(integer(value 1), byte 3)
+        look(integer(value 1))
+        print({
+            'english': '\n\n$Y has gained a level...',
+            'russian': 'FIXME \n\n$Y has gained a level...'
+        })
+        wait()
+
+        print({
+            'english': '\n\nand dexterity!',
+            'russian': 'FIXME \n\nand dexterity!'
+        })
+        wait()
+    fi
+
+label_914:
+    print({
+        'english': '\n\n"There is naught else for you to learn here and now."',
+        'russian': 'FIXME \n\n"There is naught else for you to learn here and now."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"Return when thy journey has progressed further."\n',
+        'russian': 'FIXME \n\n"Return when thy journey has progressed further."\n'
+    })
+    bye()
+
+integers_1023 = [
+    0,    // 0
+    100,  // 1
+    200,  // 2
+    400,  // 3
+    800,  // 4
+    1600, // 5
+    3200, // 6
+    6400, // 7
+]

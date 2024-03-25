@@ -1,0 +1,185 @@
+source('CONVERSE.A')
+index(78)
+
+id(78)
+name({
+    'english': 'Harold',
+    'russian': 'FIXME Harold'
+})
+
+description:
+    print({
+        'english': 'a tall, muscular man with a solemn look on his face.',
+        'russian': 'FIXME a tall, muscular man with a solemn look on his face.'
+    })
+    wait()
+
+interaction:
+    print({
+        'english': '\n"Welcome, $G."',
+        'russian': 'FIXME \n"Welcome, $G."'
+    })
+    wait()
+
+label_79:
+    print({
+        'english': '\n\n"What can I do for you?"\n',
+        'russian': 'FIXME \n\n"What can I do for you?"\n'
+    })
+
+    ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"My name is Harold."',
+            'russian': 'FIXME "My name is Harold."'
+        })
+        setBit(byte 235, value 0)
+        jump label_105
+
+    case {
+        'english': 'buy',
+        'russian': 'FIXME buy'
+    }:
+    case {
+        'english': 'hors',
+        'russian': 'FIXME hors'
+    }:
+    case {
+        'english': 'shoe',
+        'russian': 'FIXME shoe'
+    }:
+        jump label_258
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"@Horseshoes are my living."',
+            'russian': 'FIXME "@Horseshoes are my living."'
+        })
+        jump label_105
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"Farewell."\n',
+            'russian': 'FIXME "Farewell."\n'
+        })
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"I can\'t help you with that."',
+            'russian': 'FIXME "I can\'t help you with that."'
+        })
+        jump label_105
+    esac
+
+label_258:
+    if equals(integer(value 23), byte 0):
+        integer(value 3) = byte 0
+        jump label_394
+    fi
+
+label_278:
+    integer(value 0) = byte 0
+    integer(value 2) = byte 1
+
+label_292:
+    look(character(integer(value 0), byte 0))
+    print({
+        'english': '#2. $Y\n',
+        'russian': 'FIXME #2. $Y\n'
+    })
+    integer(value 0) = plus(integer(value 0), byte 1)
+    integer(value 2) = plus(integer(value 2), byte 1)
+
+    if lessOrEquals(integer(value 0), integer(value 23)):
+        jump label_292
+    fi
+
+    print({
+        'english': '"Which of you?" ',
+        'russian': 'FIXME "Which of you?" '
+    })
+    inputInteger(integer(value 3))
+
+    if equals(integer(value 3), byte 0):
+        jump label_79
+    fi
+
+    integer(value 3) = minus(integer(value 3), byte 1)
+
+    if greater(integer(value 3), integer(value 23)):
+        jump label_278
+    fi
+
+label_394:
+    print({
+        'english': '"It\'ll cost you 2 gold for the horseshoes, interested?" ',
+        'russian': 'FIXME "It\'ll cost you 2 gold for the horseshoes, interested?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        if less(canCarry(character(integer(value 3), byte 0)), weight(byte 202, byte 1)):
+            print({
+                'english': '"You look pretty full to me."',
+                'russian': 'FIXME "You look pretty full to me."'
+            })
+            wait()
+
+            jump label_79
+        fi
+
+        if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 2):
+            destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, byte 2)
+            createItem(character(integer(value 3), byte 0), byte 202, byte 0, byte 1)
+            look(character(integer(value 3), byte 0))
+            print({
+                'english': '"Here you go."',
+                'russian': 'FIXME "Here you go."'
+            })
+            wait()
+
+            integer(value 5) = byte 1
+            jump label_79
+
+        else:
+            look(character(integer(value 3), byte 0))
+            print({
+                'english': '"Best check your coinpouch again."',
+                'russian': 'FIXME "Best check your coinpouch again."'
+            })
+            wait()
+
+            jump label_79
+        fi
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': 'Very well."',
+            'russian': 'FIXME Very well."'
+        })
+        jump label_105
+    esac

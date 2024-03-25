@@ -1,0 +1,627 @@
+source('CONVERSE.A')
+index(67)
+
+id(67)
+name({
+    'english': 'Julia',
+    'russian': 'FIXME Julia'
+})
+
+description:
+    print({
+        'english': 'a sturdy woman with calloused hands and a loud manner.',
+        'russian': 'FIXME a sturdy woman with calloused hands and a loud manner.'
+    })
+
+interaction:
+    wait()
+
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    if partyHas(byte 235):
+        print({
+            'english': '"Aye, and wha\' can ye be askin\' of me?"',
+            'russian': 'FIXME "Aye, and wha\' can ye be askin\' of me?"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Sure an\' I don\'t think I can be helpin\' ya with this!"',
+            'russian': 'FIXME \n\n"Sure an\' I don\'t think I can be helpin\' ya with this!"'
+        })
+        jump label_502
+    fi
+
+    if equals(hasBit(byte 235, value 1), byte 0):
+        jump label_303
+    fi
+
+    print({
+        'english': '"Aye, so the great Avatar deigns to return, does he?"',
+        'russian': 'FIXME "Aye, so the great Avatar deigns to return, does he?"'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"Well, what does ',
+        'russian': 'FIXME \n\n"Well, what does '
+    })
+
+    if integer(value 16):
+        print({
+            'english': 'her lady',
+            'russian': 'FIXME her lady'
+        })
+
+    else:
+        print({
+            'english': 'his lord',
+            'russian': 'FIXME his lord'
+        })
+    fi
+
+    print({
+        'english': 'ship want now?"',
+        'russian': 'FIXME ship want now?"'
+    })
+    jump label_502
+
+label_303:
+    if equals(hasBit(byte 235, value 0), byte 0):
+        print({
+            'english': '"Well, then the rumors are true!"',
+            'russian': 'FIXME "Well, then the rumors are true!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"\'Tis well and good that ye have returned to our land, Avatar!"',
+            'russian': 'FIXME \n\n"\'Tis well and good that ye have returned to our land, Avatar!"'
+        })
+        jump label_502
+    fi
+
+    integer(value 0) = partyHasObject(word 277, byte 0)
+    print({
+        'english': '"Well met, Avatar. ',
+        'russian': 'FIXME "Well met, Avatar. '
+    })
+
+    if equals(integer(value 0), word 32769):
+        print({
+            'english': 'An\' what can I be doin\' for ye this $T?"',
+            'russian': 'FIXME An\' what can I be doin\' for ye this $T?"'
+        })
+
+    else:
+        jump label_2598
+    fi
+
+label_502:
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        if hasBit(byte 235, value 0):
+            print({
+                'english': '"Sure and you\'re goin\' daft, $G."',
+                'russian': 'FIXME "Sure and you\'re goin\' daft, $G."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"I be named Julia, same as the last time we met!"',
+                'russian': 'FIXME \n\n"I be named Julia, same as the last time we met!"'
+            })
+
+        else:
+            print({
+                'english': '"Named Julia I am, $G, and pleased to meet ye."',
+                'russian': 'FIXME "Named Julia I am, $G, and pleased to meet ye."'
+            })
+        fi
+
+        jump label_502
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"Instruments I make, the finest in the land."',
+            'russian': 'FIXME "Instruments I make, the finest in the land."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+
+        if partyHas(byte 235):
+            print({
+                'english': '"For now, though, I\'m followin\' ye, and glad to do it!"',
+                'russian': 'FIXME "For now, though, I\'m followin\' ye, and glad to do it!"'
+            })
+
+        else:
+            print({
+                'english': '"Not to be immodest, but I\'m respected by all the @Guild!"',
+                'russian': 'FIXME "Not to be immodest, but I\'m respected by all the @Guild!"'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Ach, but give it all up I would for a life of @adventure like your ',
+                'russian': 'FIXME \n\n"Ach, but give it all up I would for a life of @adventure like your '
+            })
+            print({
+                'english': 'own..."',
+                'russian': 'FIXME own..."'
+            })
+        fi
+
+        jump label_502
+
+    case {
+        'english': 'guil',
+        'russian': 'FIXME guil'
+    }:
+        print({
+            'english': '"If ye would like to be a member too, go talk to @Selganor."',
+            'russian': 'FIXME "If ye would like to be a member too, go talk to @Selganor."'
+        })
+        jump label_502
+
+    case {
+        'english': 'selg',
+        'russian': 'FIXME selg'
+    }:
+        print({
+            'english': '"He\'s the guildmaster."',
+            'russian': 'FIXME "He\'s the guildmaster."'
+        })
+        jump label_502
+
+    case {
+        'english': 'pan',
+        'russian': 'FIXME pan'
+    }:
+    case {
+        'english': 'pipe',
+        'russian': 'FIXME pipe'
+    }:
+        print({
+            'english': '"Sent you to me they did? Aye, I can believe that."',
+            'russian': 'FIXME "Sent you to me they did? Aye, I can believe that."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Now the panpipes are a tricky instrument."',
+            'russian': 'FIXME \n\n"Now the panpipes are a tricky instrument."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"You gotta have the finest wood."',
+            'russian': 'FIXME \n\n"You gotta have the finest wood."'
+        })
+        wait()
+
+        print({
+            'english': '\n"If you want to learn how to make pipes, you\'ll need to bring a yew ',
+            'russian': 'FIXME \n"If you want to learn how to make pipes, you\'ll need to bring a yew '
+        })
+        print({
+            'english': '@board."',
+            'russian': 'FIXME @board."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"But it must be freshly @cut!"',
+            'russian': 'FIXME \n\n"But it must be freshly @cut!"'
+        })
+        jump label_502
+
+    case {
+        'english': 'boar',
+        'russian': 'FIXME boar'
+    }:
+    case {
+        'english': 'yew',
+        'russian': 'FIXME yew'
+    }:
+        print({
+            'english': '"',
+            'russian': 'FIXME "'
+        })
+        integer(value 0) = partyHasObject(word 277, byte 0)
+        jump label_2598
+
+    case {
+        'english': 'cut',
+        'russian': 'FIXME cut'
+    }:
+    case {
+        'english': 'fres',
+        'russian': 'FIXME fres'
+    }:
+        jump label_2867
+
+    case {
+        'english': 'adve',
+        'russian': 'FIXME adve'
+    }:
+    case {
+        'english': 'life',
+        'russian': 'FIXME life'
+    }:
+        print({
+            'english': '"Aye, I\'d @join you if ye wish."',
+            'russian': 'FIXME "Aye, I\'d @join you if ye wish."'
+        })
+        jump label_502
+
+    case {
+        'english': 'join',
+        'russian': 'FIXME join'
+    }:
+        print({
+            'english': '"Join ye? Me?"',
+            'russian': 'FIXME "Join ye? Me?"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+
+        if hasBit(byte 235, value 1):
+            print({
+                'english': '"Aye, and be dumped off in the middle of nowhere again?"',
+                'russian': 'FIXME "Aye, and be dumped off in the middle of nowhere again?"'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Not likely! Find some other sap to do your bidding!"',
+                'russian': 'FIXME \n\n"Not likely! Find some other sap to do your bidding!"'
+            })
+            jump label_502
+        fi
+
+        integer(value 0) = partyJoin(byte 235)
+
+        if equals(integer(value 0), byte 0):
+            print({
+                'english': '"Aye, gladly! Let\'s be on our way."\n',
+                'russian': 'FIXME "Aye, gladly! Let\'s be on our way."\n'
+            })
+            setBit(byte 235, value 0)
+            bye()
+        fi
+
+        if equals(integer(value 0), byte 2):
+            print({
+                'english': '"Ach, I can tell that you say that to everyone ye meet."',
+                'russian': 'FIXME "Ach, I can tell that you say that to everyone ye meet."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Ask me again when you haven\'t as many companions."',
+                'russian': 'FIXME \n\n"Ask me again when you haven\'t as many companions."'
+            })
+            jump label_502
+
+        else:
+            print({
+                'english': '"What are ye, daft? ',
+                'russian': 'FIXME "What are ye, daft? '
+            })
+        fi
+
+        if equals(integer(value 0), byte 1):
+            print({
+                'english': 'If I join ye, where are we gonna go?"',
+                'russian': 'FIXME If I join ye, where are we gonna go?"'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Nay, $G. Ask me when we\'re ashore."',
+                'russian': 'FIXME \n\n"Nay, $G. Ask me when we\'re ashore."'
+            })
+            jump label_502
+
+        else:
+            print({
+                'english': 'I\'m already in your band!"',
+                'russian': 'FIXME I\'m already in your band!"'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Though now I\'m not so sure I want to be led by a crazy person..."',
+                'russian': 'FIXME \n\n"Though now I\'m not so sure I want to be led by a crazy person..."'
+            })
+            jump label_502
+        fi
+
+    case {
+        'english': 'leav',
+        'russian': 'FIXME leav'
+    }:
+        if equals(partyHas(byte 235), byte 0):
+            print({
+                'english': '"Leave! Nay, \'tis my house. You do the leavin\'!"',
+                'russian': 'FIXME "Leave! Nay, \'tis my house. You do the leavin\'!"'
+            })
+            jump label_502
+        fi
+
+        integer(value 0) = partyLeave(byte 235)
+
+        if equals(integer(value 0), byte 1):
+            print({
+                'english': '"Leave?! And jump overboard?!"',
+                'russian': 'FIXME "Leave?! And jump overboard?!"'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Ach, I get it. You\'re makin\' a wee joke!"',
+                'russian': 'FIXME \n\n"Ach, I get it. You\'re makin\' a wee joke!"'
+            })
+            jump label_502
+        fi
+
+        print({
+            'english': '"What? Oh, I suppose a craftsman isn\'t warrior enough to suit ',
+            'russian': 'FIXME "What? Oh, I suppose a craftsman isn\'t warrior enough to suit '
+        })
+
+        if integer(value 16):
+            print({
+                'english': 'her lady',
+                'russian': 'FIXME her lady'
+            })
+
+        else:
+            print({
+                'english': 'his lord',
+                'russian': 'FIXME his lord'
+            })
+        fi
+
+        print({
+            'english': 'ship\'s tastes!"',
+            'russian': 'FIXME ship\'s tastes!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Well, that\'s fine and dandy with me!"',
+            'russian': 'FIXME \n\n"Well, that\'s fine and dandy with me!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"A good $T and a good bye to the lot of ye!"',
+            'russian': 'FIXME \n\n"A good $T and a good bye to the lot of ye!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"I\'m tired of carrying all this junk anyway!"\n',
+            'russian': 'FIXME \n\n"I\'m tired of carrying all this junk anyway!"\n'
+        })
+        setBit(byte 235, value 1)
+        bye()
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        if partyHas(byte 235):
+            print({
+                'english': '"Aye, enough chatting. On with our quest!"\n',
+                'russian': 'FIXME "Aye, enough chatting. On with our quest!"\n'
+            })
+            bye()
+        fi
+
+        if equals(hasBit(byte 235, value 1), byte 0):
+            print({
+                'english': '"May fortune follow ye on thy way!"\n',
+                'russian': 'FIXME "May fortune follow ye on thy way!"\n'
+            })
+            bye()
+        fi
+
+        print({
+            'english': '"Ach, aye! I wouldna want to hinder ',
+            'russian': 'FIXME "Ach, aye! I wouldna want to hinder '
+        })
+
+        if integer(value 16):
+            print({
+                'english': 'her lady',
+                'russian': 'FIXME her lady'
+            })
+
+        else:
+            print({
+                'english': 'his lord',
+                'russian': 'FIXME his lord'
+            })
+        fi
+
+        print({
+            'english': 'ship\'s journey!"\n',
+            'russian': 'FIXME ship\'s journey!"\n'
+        })
+        setBit(byte 235, value 0)
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        if hasBit(byte 235, value 1):
+            print({
+                'english': '"Are ye daft? Why would I know anything about $Z?"',
+                'russian': 'FIXME "Are ye daft? Why would I know anything about $Z?"'
+            })
+
+        else:
+            print({
+                'english': '"Nay, $G, I know nothing about $Z."',
+                'russian': 'FIXME "Nay, $G, I know nothing about $Z."'
+            })
+        fi
+
+        jump label_502
+    esac
+
+label_2598:
+    print({
+        'english': 'Do ye have a fine yew board for me this $T?" ',
+        'russian': 'FIXME Do ye have a fine yew board for me this $T?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        if equals(integer(value 0), word 32769):
+            print({
+                'english': '"Well where is it? I canna see any board on ye!"',
+                'russian': 'FIXME "Well where is it? I canna see any board on ye!"'
+            })
+            jump label_502
+
+        else:
+            print({
+                'english': '"Ach, aye, and good wood it is, too. A fine set of pipes this will ',
+                'russian': 'FIXME "Ach, aye, and good wood it is, too. A fine set of pipes this will '
+            })
+            print({
+                'english': 'make!"',
+                'russian': 'FIXME make!"'
+            })
+            wait()
+
+            print({
+                'english': '\n\n',
+                'russian': 'FIXME \n\n'
+            })
+            jump label_3086
+        fi
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"No? What are ye, daft? I canna be makin\' pipes without wood!"',
+            'russian': 'FIXME "No? What are ye, daft? I canna be makin\' pipes without wood!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_2867
+    esac
+
+label_2867:
+    print({
+        'english': '"Go to Yew where they grow the best wood in Britannia."',
+        'russian': 'FIXME "Go to Yew where they grow the best wood in Britannia."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"Buy a freshly-cut yew log and take it to a sawmill."',
+        'russian': 'FIXME \n\n"Buy a freshly-cut yew log and take it to a sawmill."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"Have \'em cut it into a board, and bring it back here."',
+        'russian': 'FIXME \n\n"Have \'em cut it into a board, and bring it back here."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"Then I\'ll show ye how panpipes are made!"',
+        'russian': 'FIXME \n\n"Then I\'ll show ye how panpipes are made!"'
+    })
+    jump label_502
+
+label_3086:
+    print({
+        'english': 'Julia sets the wood down on a bench and starts carving.',
+        'russian': 'FIXME Julia sets the wood down on a bench and starts carving.'
+    })
+    wait()
+
+    print({
+        'english': '\n\nAs you watch, the rough board slowly turns into smooth wood rods.',
+        'russian': 'FIXME \n\nAs you watch, the rough board slowly turns into smooth wood rods.'
+    })
+    wait()
+
+    print({
+        'english': '\nThen she hollows out each rod and pegs them all together.',
+        'russian': 'FIXME \nThen she hollows out each rod and pegs them all together.'
+    })
+    wait()
+
+    print({
+        'english': '\n\nLastly, she notches each tube and cuts them all to the proper ',
+        'russian': 'FIXME \n\nLastly, she notches each tube and cuts them all to the proper '
+    })
+    print({
+        'english': 'lengths.',
+        'russian': 'FIXME lengths.'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"An\' there it is, $G, a set of panpipes fit for any bard in the ',
+        'russian': 'FIXME \n\n"An\' there it is, $G, a set of panpipes fit for any bard in the '
+    })
+    print({
+        'english': 'land!"',
+        'russian': 'FIXME land!"'
+    })
+    wait()
+
+    print({
+        'english': '\n\nShe hands you the finished pipes.',
+        'russian': 'FIXME \n\nShe hands you the finished pipes.'
+    })
+    destroyItem(integer(value 0), word 277, byte 0, byte 1)
+    createItem(byte 1, byte 153, byte 0, byte 1)
+    jump label_502

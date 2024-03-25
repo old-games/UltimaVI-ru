@@ -1,0 +1,204 @@
+source('CONVERSE.A')
+index(69)
+
+id(69)
+name({
+    'english': 'Aaron',
+    'russian': 'FIXME Aaron'
+})
+
+description:
+    print({
+        'english': 'a plump blond man with curly blond hair and a cheerful face.',
+        'russian': 'FIXME a plump blond man with curly blond hair and a cheerful face.'
+    })
+    wait()
+
+interaction:
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    if hasBit(byte 235, value 0):
+        print({
+            'english': '"Hello again, Avatar!"',
+            'russian': 'FIXME "Hello again, Avatar!"'
+        })
+
+    else:
+        print({
+            'english': '"Hello hello!"',
+            'russian': 'FIXME "Hello hello!"'
+        })
+    fi
+
+    wait()
+
+    print({
+        'english': '\n\n"What can I do for you this $T?"\n',
+        'russian': 'FIXME \n\n"What can I do for you this $T?"\n'
+    })
+
+    ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        if hasBit(byte 235, value 0):
+            print({
+                'english': '"That\'s funny. I remember your name!"',
+                'russian': 'FIXME "That\'s funny. I remember your name!"'
+            })
+
+        else:
+            print({
+                'english': '"My name\'s Aaron."',
+                'russian': 'FIXME "My name\'s Aaron."'
+            })
+            setBit(byte 235, value 0)
+        fi
+
+        jump label_150
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"I run the sawmill! Is there anything I can do for thee?"',
+            'russian': 'FIXME "I run the sawmill! Is there anything I can do for thee?"'
+        })
+        jump label_150
+
+    case {
+        'english': 'saw',
+        'russian': 'FIXME saw'
+    }:
+        print({
+            'english': '"Yes, I saw logs into @boards."',
+            'russian': 'FIXME "Yes, I saw logs into @boards."'
+        })
+        jump label_150
+
+    case {
+        'english': 'boar',
+        'russian': 'FIXME boar'
+    }:
+    case {
+        'english': 'log',
+        'russian': 'FIXME log'
+    }:
+        if notEquals(integer(value 32), byte 144):
+            print({
+                'english': '"Come to my shop when I\'m open!"',
+                'russian': 'FIXME "Come to my shop when I\'m open!"'
+            })
+            jump label_150
+        fi
+
+        integer(value 0) = partyHasObject(word 274, byte 0)
+
+        if equals(integer(value 0), word 32769):
+            print({
+                'english': '"My mill makes smooth boards and planks out of rough-cut logs."',
+                'russian': 'FIXME "My mill makes smooth boards and planks out of rough-cut logs."'
+            })
+            jump label_150
+        fi
+
+        look(integer(value 0))
+        print({
+            'english': '"Aye, I see $Y has a yew log." He inspects the wood with a practiced ',
+            'russian': 'FIXME "Aye, I see $Y has a yew log." He inspects the wood with a practiced '
+        })
+        print({
+            'english': 'eye.',
+            'russian': 'FIXME eye.'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Good grain. Yes, I can make a fine board out of this log."',
+            'russian': 'FIXME \n\n"Good grain. Yes, I can make a fine board out of this log."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"But it will cost thee 5 gold, $Y!"\n\n"Still interested?" ',
+            'russian': 'FIXME \n\n"But it will cost thee 5 gold, $Y!"\n\n"Still interested?" '
+        })
+        jump label_733
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"Farewell!"\n',
+            'russian': 'FIXME "Farewell!"\n'
+        })
+        setBit(byte 235, value 0)
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"Beg pardon?"',
+            'russian': 'FIXME "Beg pardon?"'
+        })
+        jump label_150
+    esac
+
+label_733:
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        if less(objectsCount(integer(value 0), byte 88), byte 5):
+            print({
+                'english': '"Sorry, but I can\'t work for free!"',
+                'russian': 'FIXME "Sorry, but I can\'t work for free!"'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Come back when you have the 5 gold!"',
+                'russian': 'FIXME \n\n"Come back when you have the 5 gold!"'
+            })
+            jump label_150
+        fi
+
+        destroyItem(integer(value 0), word 274, byte 0, byte 1)
+        destroyItem(integer(value 0), byte 88, byte 0, byte 5)
+        print({
+            'english': 'Aaron goes to his saw and turns the log into a flat, sanded board.',
+            'russian': 'FIXME Aaron goes to his saw and turns the log into a flat, sanded board.'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"There!" He hands $Y the finished product.',
+            'russian': 'FIXME \n\n"There!" He hands $Y the finished product.'
+        })
+        createItem(integer(value 0), word 277, byte 0, byte 1)
+        jump label_150
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"Oh. Well, perhaps some other time then."',
+            'russian': 'FIXME "Oh. Well, perhaps some other time then."'
+        })
+        jump label_150
+    esac

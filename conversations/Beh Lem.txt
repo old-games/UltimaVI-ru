@@ -1,0 +1,900 @@
+source('CONVERSE.B')
+index(65)
+
+id(164)
+name({
+    'english': 'Beh Lem',
+    'russian': 'FIXME Beh Lem'
+})
+
+description:
+    print({
+        'english': 'a small, light-skinned gargoyle.',
+        'russian': 'FIXME a small, light-skinned gargoyle.'
+    })
+
+interaction:
+    wait()
+
+    if partyHas(byte 235):
+        print({
+            'english': '\n"To ask how I can help, mighty $P," Beh Lem asks.',
+            'russian': 'FIXME \n"To ask how I can help, mighty $P," Beh Lem asks.'
+        })
+        jump label_1027
+    fi
+
+    if integer(value 21):
+        integer(value 9) = byte 0
+        jump label_888
+    fi
+
+    print({
+        'english': '\nThe gargoyle greets you enthusiastically, but you can\'t understand ',
+        'russian': 'FIXME \nThe gargoyle greets you enthusiastically, but you can\'t understand '
+    })
+    print({
+        'english': 'him!',
+        'russian': 'FIXME him!'
+    })
+    wait()
+
+    print({
+        'english': '\n\nSeeing your confusion, he switches to the human language. It\'s ',
+        'russian': 'FIXME \n\nSeeing your confusion, he switches to the human language. It\'s '
+    })
+    print({
+        'english': 'obviously a strain for him.',
+        'russian': 'FIXME obviously a strain for him.'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"Hello. I little human @speak."',
+        'russian': 'FIXME \n\n"Hello. I little human @speak."'
+    })
+    integer(value 0) = byte 0
+
+label_328:
+    integer(value 0) = plus(integer(value 0), byte 1)
+
+    if less(integer(value 0), byte 5):
+        jump label_576
+    fi
+
+    wait()
+
+    if partyHas(byte 2):
+        portrait(byte 2)
+        look(byte 2)
+        jump label_396
+    fi
+
+    if partyHas(byte 4):
+        portrait(byte 4)
+        look(byte 4)
+        jump label_396
+
+    else:
+        jump label_576
+    fi
+
+label_396:
+    print({
+        'english': '\n\n$Y speaks. "$P, let\'s away from here."',
+        'russian': 'FIXME \n\n$Y speaks. "$P, let\'s away from here."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"There\'s naught of use this creature can tell us. Agreed?" ',
+        'russian': 'FIXME \n\n"There\'s naught of use this creature can tell us. Agreed?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        print({
+            'english': 'The confused gargoyle waves good-bye.\n',
+            'russian': 'FIXME The confused gargoyle waves good-bye.\n'
+        })
+        bye()
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"As you wish, $G."',
+            'russian': 'FIXME "As you wish, $G."'
+        })
+        portrait(byte 235)
+        integer(value 0) = byte 0
+    esac
+
+label_576:
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    ask()
+
+    case {
+        'english': 'capt',
+        'russian': 'FIXME capt'
+    }:
+    case {
+        'english': 'john',
+        'russian': 'FIXME john'
+    }:
+        print({
+            'english': '"Captain John friend. He come here. I wait here."',
+            'russian': 'FIXME "Captain John friend. He come here. I wait here."'
+        })
+        jump label_328
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"No name. I Beh Lem."',
+            'russian': 'FIXME "No name. I Beh Lem."'
+        })
+        jump label_328
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"I wait here. @Captain John come."',
+            'russian': 'FIXME "I wait here. @Captain John come."'
+        })
+        jump label_328
+
+    case {
+        'english': 'huma',
+        'russian': 'FIXME huma'
+    }:
+    case {
+        'english': 'lang',
+        'russian': 'FIXME lang'
+    }:
+    case {
+        'english': 'litt',
+        'russian': 'FIXME litt'
+    }:
+    case {
+        'english': 'read',
+        'russian': 'FIXME read'
+    }:
+    case {
+        'english': 'spea',
+        'russian': 'FIXME spea'
+    }:
+        print({
+            'english': '"@Captain John teach I human speak," the gargoyle says haltingly.',
+            'russian': 'FIXME "@Captain John teach I human speak," the gargoyle says haltingly.'
+        })
+        jump label_328
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': 'The confused gargoyle waves good-bye.\n',
+            'russian': 'FIXME The confused gargoyle waves good-bye.\n'
+        })
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': 'The gargoyle shrugs.',
+            'russian': 'FIXME The gargoyle shrugs.'
+        })
+        jump label_328
+    esac
+
+label_888:
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    if equals(hasBit(byte 235, value 0), byte 0):
+        print({
+            'english': '"To greet you, human. To recognize you as the False @Prophet!"',
+            'russian': 'FIXME "To greet you, human. To recognize you as the False @Prophet!"'
+        })
+        wait()
+
+        jump label_1027
+    fi
+
+    print({
+        'english': '"Good $T, my friend',
+        'russian': 'FIXME "Good $T, my friend'
+    })
+
+    if integer(value 23):
+        print({
+            'english': 's',
+            'russian': 'FIXME s'
+        })
+    fi
+
+    print({
+        'english': '. To have met @Valkadesh yet?"',
+        'russian': 'FIXME . To have met @Valkadesh yet?"'
+    })
+    jump label_1027
+
+label_1027:
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    ask()
+
+    case {
+        'english': 'capt',
+        'russian': 'FIXME capt'
+    }:
+    case {
+        'english': 'frie',
+        'russian': 'FIXME frie'
+    }:
+    case {
+        'english': 'john',
+        'russian': 'FIXME john'
+    }:
+        print({
+            'english': '"To know Captain John! To help him and @Valkedesh in their work," the ',
+            'russian': 'FIXME "To know Captain John! To help him and @Valkedesh in their work," the '
+        })
+        print({
+            'english': 'youngster says proudly.',
+            'russian': 'FIXME youngster says proudly.'
+        })
+        jump label_1027
+
+    case {
+        'english': 'true',
+        'russian': 'FIXME true'
+    }:
+        print({
+            'english': '"To not receive a true name until I have proved myself @worthy."',
+            'russian': 'FIXME "To not receive a true name until I have proved myself @worthy."'
+        })
+        jump label_1027
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"To be called Beh Lem, which means \'just one.\' To have not yet ',
+            'russian': 'FIXME "To be called Beh Lem, which means \'just one.\' To have not yet '
+        })
+        print({
+            'english': 'received a @true name."',
+            'russian': 'FIXME received a @true name."'
+        })
+        jump label_1027
+
+    case {
+        'english': 'prov',
+        'russian': 'FIXME prov'
+    }:
+    case {
+        'english': 'wort',
+        'russian': 'FIXME wort'
+    }:
+        print({
+            'english': '"To not deserve a name yet. But to get one someday, just like my ',
+            'russian': 'FIXME "To not deserve a name yet. But to get one someday, just like my '
+        })
+        print({
+            'english': 'father @Valkadesh!"',
+            'russian': 'FIXME father @Valkadesh!"'
+        })
+        jump label_1027
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        if partyHas(byte 235):
+            print({
+                'english': '"To be here to help you, noble $P."',
+                'russian': 'FIXME "To be here to help you, noble $P."'
+            })
+
+        else:
+            print({
+                'english': '"To be here to wait for Captain @John."',
+                'russian': 'FIXME "To be here to wait for Captain @John."'
+            })
+        fi
+
+        jump label_1027
+
+    case {
+        'english': 'fath',
+        'russian': 'FIXME fath'
+    }:
+    case {
+        'english': 'scho',
+        'russian': 'FIXME scho'
+    }:
+    case {
+        'english': 'valk',
+        'russian': 'FIXME valk'
+    }:
+        if partyHas(byte 235):
+            jump label_3117
+
+        else:
+            print({
+                'english': '"To very much respect Valkadesh my father."',
+                'russian': 'FIXME "To very much respect Valkadesh my father."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"To want to be a scholar someday just like him!"\n',
+                'russian': 'FIXME \n\n"To want to be a scholar someday just like him!"\n'
+            })
+            wait()
+
+            jump label_2973
+        fi
+
+    case {
+        'english': 'dire',
+        'russian': 'FIXME dire'
+    }:
+        print({
+            'english': '"To ask what directions were unclear?"',
+            'russian': 'FIXME "To ask what directions were unclear?"'
+        })
+        jump label_1027
+
+    case {
+        'english': 'join',
+        'russian': 'FIXME join'
+    }:
+        if partyHas(byte 235):
+            printString(strings_4206, byte 3)
+            jump label_1027
+
+        else:
+            jump label_3693
+        fi
+
+    case {
+        'english': 'sacr',
+        'russian': 'FIXME sacr'
+    }:
+        print({
+            'english': '"To not know much about that. But to be sure that @Valkadesh would ',
+            'russian': 'FIXME "To not know much about that. But to be sure that @Valkadesh would '
+        })
+        print({
+            'english': 'know!"',
+            'russian': 'FIXME know!"'
+        })
+        jump label_1027
+
+    case {
+        'english': 'cont',
+        'russian': 'FIXME cont'
+    }:
+    case {
+        'english': 'dili',
+        'russian': 'FIXME dili'
+    }:
+    case {
+        'english': 'pass',
+        'russian': 'FIXME pass'
+    }:
+        print({
+            'english': '"To be one of our guiding @principles."',
+            'russian': 'FIXME "To be one of our guiding @principles."'
+        })
+        jump label_1027
+
+    case {
+        'english': 'prin',
+        'russian': 'FIXME prin'
+    }:
+        print({
+            'english': '"To be surprised that you don\'t know that!"',
+            'russian': 'FIXME "To be surprised that you don\'t know that!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To have three guiding principles - @control, @diligence, and ',
+            'russian': 'FIXME \n\n"To have three guiding principles - @control, @diligence, and '
+        })
+        print({
+            'english': '@passion."',
+            'russian': 'FIXME @passion."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To be the basis of all gargoyle beliefs."',
+            'russian': 'FIXME \n\n"To be the basis of all gargoyle beliefs."'
+        })
+        jump label_1027
+
+    case {
+        'english': 'fals',
+        'russian': 'FIXME fals'
+    }:
+    case {
+        'english': 'prop',
+        'russian': 'FIXME prop'
+    }:
+        print({
+            'english': '"To be feared by everybody - everybody except me and @Valkadesh, my ',
+            'russian': 'FIXME "To be feared by everybody - everybody except me and @Valkadesh, my '
+        })
+        print({
+            'english': 'father!"',
+            'russian': 'FIXME father!"'
+        })
+        jump label_1027
+
+    case {
+        'english': 'guid',
+        'russian': 'FIXME guid'
+    }:
+        jump label_3213
+
+    case {
+        'english': 'leav',
+        'russian': 'FIXME leav'
+    }:
+        if partyHas(byte 235):
+            print({
+                'english': '"To wish to stay with you!"\n*\n"To not leave until there is peace ',
+                'russian': 'FIXME "To wish to stay with you!"\n*\n"To not leave until there is peace '
+            })
+            print({
+                'english': 'between our races!"',
+                'russian': 'FIXME between our races!"'
+            })
+            jump label_1027
+
+        else:
+            printString(strings_4206, byte 3)
+            jump label_1027
+        fi
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"May ',
+            'russian': 'FIXME "May '
+        })
+
+        if equals(partyHas(byte 235), byte 0):
+            print({
+                'english': 'y',
+                'russian': 'FIXME y'
+            })
+        fi
+
+        print({
+            'english': 'our persistence and precision lead to success!"',
+            'russian': 'FIXME our persistence and precision lead to success!"'
+        })
+        wait()
+
+        print({
+            'english': '\n',
+            'russian': 'FIXME \n'
+        })
+        setBit(byte 235, value 0)
+
+        if equals(integer(value 9), byte 1):
+            print({
+                'english': '\nDuring your absence, $9 decided to head for the surface, to inform ',
+                'russian': 'FIXME \nDuring your absence, $9 decided to head for the surface, to inform '
+            })
+            print({
+                'english': 'Lord British of your progress.',
+                'russian': 'FIXME Lord British of your progress.'
+            })
+            wait()
+
+            print({
+                'english': '\n',
+                'russian': 'FIXME \n'
+            })
+        fi
+
+        bye()
+
+    case {
+        'english': 'lava',
+        'russian': 'FIXME lava'
+    }:
+    case {
+        'english': 'pits',
+        'russian': 'FIXME pits'
+    }:
+        print({
+            'english': '"To be in danger from the lava! To stay far away!"',
+            'russian': 'FIXME "To be in danger from the lava! To stay far away!"'
+        })
+        jump label_1027
+
+    case {
+        'english': 'moun',
+        'russian': 'FIXME moun'
+    }:
+        print({
+            'english': '"To walk clockwise around the mountains from Hythloth to reach my ',
+            'russian': 'FIXME "To walk clockwise around the mountains from Hythloth to reach my '
+        })
+        print({
+            'english': 'father\'s @house."',
+            'russian': 'FIXME father\'s @house."'
+        })
+        jump label_1027
+
+    case {
+        'english': 'hous',
+        'russian': 'FIXME hous'
+    }:
+        print({
+            'english': '"To find the house of Valkadesh my father through the pass east of the',
+            'russian': 'FIXME "To find the house of Valkadesh my father through the pass east of the'
+        })
+        print({
+            'english': ' @Hall."',
+            'russian': 'FIXME  @Hall."'
+        })
+        jump label_1027
+
+    case {
+        'english': 'hall',
+        'russian': 'FIXME hall'
+    }:
+    case {
+        'english': 'know',
+        'russian': 'FIXME know'
+    }:
+        if equals(partyHasObject(byte 76, byte 0), byte 1):
+            print({
+                'english': '"To find the Hall of Knowledge to the south of the city."',
+                'russian': 'FIXME "To find the Hall of Knowledge to the south of the city."'
+            })
+
+        else:
+            print({
+                'english': '"To avoid the Hall! To talk to @Valkadesh first!"',
+                'russian': 'FIXME "To avoid the Hall! To talk to @Valkadesh first!"'
+            })
+        fi
+
+        jump label_1027
+
+    case {
+        'english': 'all',
+        'russian': 'FIXME all'
+    }:
+    case {
+        'english': 'ever',
+        'russian': 'FIXME ever'
+    }:
+        jump label_3213
+
+    case {
+        'english': 'no',
+        'russian': 'FIXME no'
+    }:
+        if hasBit(byte 235, value 0):
+            jump label_3117
+
+        else:
+            printString(strings_4206, byte 3)
+        fi
+
+        jump label_1027
+
+    case {
+        'english': 'yes',
+        'russian': 'FIXME yes'
+    }:
+        if hasBit(byte 235, value 0):
+            print({
+                'english': '"Good! To know that he very much wanted to speak with you."',
+                'russian': 'FIXME "Good! To know that he very much wanted to speak with you."'
+            })
+
+        else:
+            printString(strings_4206, byte 3)
+        fi
+
+        jump label_1027
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        printString(strings_4206, random(byte 0, byte 4))
+        jump label_1027
+    esac
+
+label_2973:
+    print({
+        'english': '\n"To wish to meet Valkadesh?" ',
+        'russian': 'FIXME \n"To wish to meet Valkadesh?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        if partyHas(byte 164):
+            jump label_3117
+
+        else:
+            print({
+                'english': '"To go with you and @guide you there!"',
+                'russian': 'FIXME "To go with you and @guide you there!"'
+            })
+            wait()
+
+            print({
+                'english': '\n\n',
+                'russian': 'FIXME \n\n'
+            })
+            jump label_3693
+        fi
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"Oh." The little gargoyle seems saddened.',
+            'russian': 'FIXME "Oh." The little gargoyle seems saddened.'
+        })
+        jump label_1027
+    esac
+
+label_3117:
+    print({
+        'english': '"To wish @directions to the house of Valkadesh?" ',
+        'russian': 'FIXME "To wish @directions to the house of Valkadesh?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        jump label_3213
+    esac
+
+    print({
+        'english': '\n"Then to not understand you."',
+        'russian': 'FIXME \n"Then to not understand you."'
+    })
+    jump label_1027
+
+label_3213:
+    print({
+        'english': '"To go from the entrance to Hythloth westward, following the ',
+        'russian': 'FIXME "To go from the entrance to Hythloth westward, following the '
+    })
+    print({
+        'english': '@mountains."',
+        'russian': 'FIXME @mountains."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"Then to turn north, at the @Hall of Knowledge."',
+        'russian': 'FIXME \n\n"Then to turn north, at the @Hall of Knowledge."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To walk east along the mountains until you come to a narrow pass."',
+        'russian': 'FIXME \n\n"To walk east along the mountains until you come to a narrow pass."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To find the @house of Valkadesh through the pass!"',
+        'russian': 'FIXME \n\n"To find the @house of Valkadesh through the pass!"'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To see it at 40 degrees south, 65 degrees east by the sextant."',
+        'russian': 'FIXME \n\n"To see it at 40 degrees south, 65 degrees east by the sextant."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"But to take care! To avoid the @lava pits and the @Hall of ',
+        'russian': 'FIXME \n\n"But to take care! To avoid the @lava pits and the @Hall of '
+    })
+    print({
+        'english': 'Knowledge!"',
+        'russian': 'FIXME Knowledge!"'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To understand these @directions?" ',
+        'russian': 'FIXME \n\n"To understand these @directions?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        print({
+            'english': '"Good!"',
+            'russian': 'FIXME "Good!"'
+        })
+        jump label_1027
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"To ask what was unclear?"',
+            'russian': 'FIXME "To ask what was unclear?"'
+        })
+        jump label_1027
+    esac
+
+label_3693:
+    integer(value 7) = partyJoin(byte 235)
+
+    if integer(value 7):
+        jump label_3761
+    fi
+
+    print({
+        'english': 'The little gargoyle eagerly joins your group.',
+        'russian': 'FIXME The little gargoyle eagerly joins your group.'
+    })
+    jump label_1027
+
+label_3761:
+    integer(value 8) = plus(integer(value 24), byte 1)
+    integer(value 9) = byte 0
+
+label_3778:
+    if less(integer(value 8), byte 2):
+        print({
+            'english': '"To wish very much to join you. But to not have enough room in your ',
+            'russian': 'FIXME "To wish very much to join you. But to not have enough room in your '
+        })
+        print({
+            'english': 'party for another."',
+            'russian': 'FIXME party for another."'
+        })
+        jump label_1027
+    fi
+
+    integer(value 6) = character(integer(value 8), byte 1)
+
+    if or(or(equals(integer(value 6), byte 4), equals(integer(value 6), byte 3)), equals(integer(value 6), byte 2)):
+        integer(value 8) = minus(integer(value 8), byte 1)
+        jump label_3778
+
+        if partyLeave(integer(value 6)):
+            integer(value 8) = minus(integer(value 8), byte 1)
+            jump label_3778
+        fi
+    fi
+
+    look(integer(value 6))
+    string(value 9) = string(value 34)
+
+    if isNearby(integer(value 6)):
+        portrait(integer(value 6))
+        print({
+            'english': '$9 speaks. "$G, I\'ll return to the surface and let everyone know of ',
+            'russian': 'FIXME $9 speaks. "$G, I\'ll return to the surface and let everyone know of '
+        })
+        print({
+            'english': 'our progress."',
+            'russian': 'FIXME our progress."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        integer(value 9) = byte 0
+        jump label_4075
+
+    else:
+        integer(value 9) = byte 1
+        jump label_4075
+    fi
+
+label_4075:
+    portrait(byte 235)
+
+    if partyJoin(byte 235):
+        print({
+            'english': '"To not be able to join you right now. To ask again later, perhaps."\n',
+            'russian': 'FIXME "To not be able to join you right now. To ask again later, perhaps."\n'
+        })
+        bye()
+
+    else:
+        print({
+            'english': 'The little gargoyle eagerly joins your group.',
+            'russian': 'FIXME The little gargoyle eagerly joins your group.'
+        })
+        jump label_1027
+    fi
+
+strings_4206 = [
+    {
+        'english': '"To know nothing about that."',
+        'russian': 'FIXME "To know nothing about that."'
+    }, // 0
+    {
+        'english': '"To be young. To think you should ask someone older."',
+        'russian': 'FIXME "To be young. To think you should ask someone older."'
+    }, // 1
+    {
+        'english': '"To truly wish I could help you with that."',
+        'russian': 'FIXME "To truly wish I could help you with that."'
+    }, // 2
+    {
+        'english': '"To not understand what you mean by $Z."',
+        'russian': 'FIXME "To not understand what you mean by $Z."'
+    }, // 3
+    {
+        'english': '"To not have enough experience to answer that."',
+        'russian': 'FIXME "To not have enough experience to answer that."'
+    }, // 4
+]

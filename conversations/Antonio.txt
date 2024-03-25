@@ -1,0 +1,341 @@
+source('CONVERSE.A')
+index(92)
+
+id(92)
+name({
+    'english': 'Antonio',
+    'russian': 'FIXME Antonio'
+})
+
+description:
+    print({
+        'english': 'a gentleman of slight build and refined manners.\n*',
+        'russian': 'FIXME a gentleman of slight build and refined manners.\n*'
+    })
+
+interaction:
+    if hasBit(byte 235, value 0):
+        jump label_237
+    fi
+
+    print({
+        'english': '"Greetings! I am Lord Antonio. Might I ask thy name?"\n',
+        'russian': 'FIXME "Greetings! I am Lord Antonio. Might I ask thy name?"\n'
+    })
+
+label_127:
+    ask()
+
+    case {
+        'english': 'yes',
+        'russian': 'FIXME yes'
+    }:
+        print({
+            'english': '"Then prithee, what is it?"\n',
+            'russian': 'FIXME "Then prithee, what is it?"\n'
+        })
+        jump label_127
+
+    case {
+        'english': 'no',
+        'russian': 'FIXME no'
+    }:
+        print({
+            'english': '"As you wish."',
+            'russian': 'FIXME "As you wish."'
+        })
+        jump label_284
+    esac
+
+    if equals(string(value 35), string(value 25)):
+        setBit(byte 235, value 0)
+    fi
+
+    print({
+        'english': '\n"The pleasure is all mine."',
+        'russian': 'FIXME \n"The pleasure is all mine."'
+    })
+    jump label_284
+
+label_237:
+    print({
+        'english': '"Greetings, $P! What brings thee here this $T?"',
+        'russian': 'FIXME "Greetings, $P! What brings thee here this $T?"'
+    })
+
+label_284:
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"My name is Antonio."',
+            'russian': 'FIXME "My name is Antonio."'
+        })
+        jump label_284
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"I govern @New Magincia."\n\n*"Fortunately the fine people of this town ',
+            'russian': 'FIXME "I govern @New Magincia."\n\n*"Fortunately the fine people of this town '
+        })
+        print({
+            'english': 'have few disputes to settle, leaving me plenty of time for my @hobby."',
+            'russian': 'FIXME have few disputes to settle, leaving me plenty of time for my @hobby."'
+        })
+        jump label_284
+
+    case {
+        'english': 'magin',
+        'russian': 'FIXME magin'
+    }:
+    case {
+        'english': 'new',
+        'russian': 'FIXME new'
+    }:
+        print({
+            'english': '"The city of @humility is a lovely place to live."',
+            'russian': 'FIXME "The city of @humility is a lovely place to live."'
+        })
+        jump label_284
+
+    case {
+        'english': 'hobb',
+        'russian': 'FIXME hobb'
+    }:
+    case {
+        'english': 'time',
+        'russian': 'FIXME time'
+    }:
+        print({
+            'english': '"I do @magic tricks. It brings a bit of cheer into this imperfect ',
+            'russian': 'FIXME "I do @magic tricks. It brings a bit of cheer into this imperfect '
+        })
+        print({
+            'english': 'world."',
+            'russian': 'FIXME world."'
+        })
+        jump label_284
+
+    case {
+        'english': 'chee',
+        'russian': 'FIXME chee'
+    }:
+    case {
+        'english': 'magi',
+        'russian': 'FIXME magi'
+    }:
+    case {
+        'english': 'tric',
+        'russian': 'FIXME tric'
+    }:
+        jump label_978
+
+    case {
+        'english': 'humi',
+        'russian': 'FIXME humi'
+    }:
+    case {
+        'english': 'mant',
+        'russian': 'FIXME mant'
+    }:
+    case {
+        'english': 'rune',
+        'russian': 'FIXME rune'
+    }:
+        if equals(hasObject(byte 235, byte 249, byte 0), byte 0):
+            jump label_941
+        fi
+
+        print({
+            'english': '"The most @humble one amongst us knows the mantra."\n*\n"If thou canst ',
+            'russian': 'FIXME "The most @humble one amongst us knows the mantra."\n*\n"If thou canst '
+        })
+        print({
+            'english': 'find out who that is, tell me, and I will give thee the rune."*\n\n',
+            'russian': 'FIXME find out who that is, tell me, and I will give thee the rune."*\n\n'
+        })
+        jump label_1362
+
+    case {
+        'english': 'humb',
+        'russian': 'FIXME humb'
+    }:
+        if equals(hasObject(byte 235, byte 249, byte 0), byte 0):
+            jump label_941
+        fi
+
+        jump label_1362
+
+    case {
+        'english': 'cono',
+        'russian': 'FIXME cono'
+    }:
+    case {
+        'english': 'star',
+        'russian': 'FIXME star'
+    }:
+        jump label_1504
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"Until we meet again, may your road be short and your fortunes long."\n',
+            'russian': 'FIXME "Until we meet again, may your road be short and your fortunes long."\n'
+        })
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+label_941:
+        print({
+            'english': '"I cannot help thee with that."',
+            'russian': 'FIXME "I cannot help thee with that."'
+        })
+    esac
+
+    jump label_284
+
+label_978:
+    print({
+        'english': '"Wouldst thou like to see one?" ',
+        'russian': 'FIXME "Wouldst thou like to see one?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"As you wish."',
+            'russian': 'FIXME "As you wish."'
+        })
+        jump label_284
+    esac
+
+    print({
+        'english': '\n"Splendid!" Antonio reaches into his pocket and takes out a balloon.\n',
+        'russian': 'FIXME \n"Splendid!" Antonio reaches into his pocket and takes out a balloon.\n'
+    })
+    print({
+        'english': '*\nHe blows it up until it bursts, and four doves appear from inside ',
+        'russian': 'FIXME *\nHe blows it up until it bursts, and four doves appear from inside '
+    })
+    print({
+        'english': 'it, flying off towards the four points of the compass.*\n\n"Did you ',
+        'russian': 'FIXME it, flying off towards the four points of the compass.*\n\n"Did you '
+    })
+    print({
+        'english': 'enjoy that?" ',
+        'russian': 'FIXME enjoy that?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"Too bad. Perhaps I should learn a better trick."',
+            'russian': 'FIXME "Too bad. Perhaps I should learn a better trick."'
+        })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        print({
+            'english': '"I knew you would. That\'s my favorite trick!"',
+            'russian': 'FIXME "I knew you would. That\'s my favorite trick!"'
+        })
+    esac
+
+    jump label_284
+
+label_1362:
+    print({
+        'english': '"Dost thou know who is the most humble person in this town?" ',
+        'russian': 'FIXME "Dost thou know who is the most humble person in this town?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"Keep asking around."',
+            'russian': 'FIXME "Keep asking around."'
+        })
+        jump label_284
+    esac
+
+    print({
+        'english': '\n"Then what is that person\'s name?"\n',
+        'russian': 'FIXME \n"Then what is that person\'s name?"\n'
+    })
+
+    ask()
+
+    case {
+        'english': 'cono',
+        'russian': 'FIXME cono'
+    }:
+    case {
+        'english': 'star',
+        'russian': 'FIXME star'
+    }:
+label_1504:
+        print({
+            'english': '"Very astute of thee! Here is the rune, and I wish thee success on thy',
+            'russian': 'FIXME "Very astute of thee! Here is the rune, and I wish thee success on thy'
+        })
+        print({
+            'english': ' mission."\n',
+            'russian': 'FIXME  mission."\n'
+        })
+        giveItem(byte 249, byte 0, byte 235, byte 1)
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"\'Tis not fitting that thou shouldst guess."\n*\n"Make sure thou dost ',
+            'russian': 'FIXME "\'Tis not fitting that thou shouldst guess."\n*\n"Make sure thou dost '
+        })
+        print({
+            'english': 'know the answer before you speak with me again."\n',
+            'russian': 'FIXME know the answer before you speak with me again."\n'
+        })
+        decreaseKarma(byte 5)
+        bye()
+    esac

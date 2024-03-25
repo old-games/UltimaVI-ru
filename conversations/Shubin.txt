@@ -1,0 +1,369 @@
+source('CONVERSE.B')
+index(54)
+
+id(153)
+name({
+    'english': 'Shubin',
+    'russian': 'FIXME Shubin'
+})
+
+description:
+    print({
+        'english': 'a man with a wide bottom. His voice is almost like a woman\'s.',
+        'russian': 'FIXME a man with a wide bottom. His voice is almost like a woman\'s.'
+    })
+    wait()
+
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+interaction:
+    if hasBit(byte 235, byte 7):
+        jump label_198
+    fi
+
+    print({
+        'english': '"Ooh, you look so thin! Here, have a bite of bread."',
+        'russian': 'FIXME "Ooh, you look so thin! Here, have a bite of bread."'
+    })
+    wait()
+
+    print({
+        'english': '\nHe gives you a @roll; it is still warm from the oven.',
+        'russian': 'FIXME \nHe gives you a @roll; it is still warm from the oven.'
+    })
+    jump label_221
+
+label_198:
+    print({
+        'english': '"Why, hello there, $G."',
+        'russian': 'FIXME "Why, hello there, $G."'
+    })
+
+label_221:
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"My name is Shubin, $G."',
+            'russian': 'FIXME "My name is Shubin, $G."'
+        })
+        setBit(byte 235, value 0)
+        jump label_221
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"I\'m a @cook, $G."',
+            'russian': 'FIXME "I\'m a @cook, $G."'
+        })
+        jump label_221
+
+    case {
+        'english': 'sand',
+        'russian': 'FIXME sand'
+    }:
+        print({
+            'english': '"He is my friend."',
+            'russian': 'FIXME "He is my friend."'
+        })
+        jump label_221
+
+    case {
+        'english': 'mant',
+        'russian': 'FIXME mant'
+    }:
+        print({
+            'english': '"@Sandy says the mantra of eating is \'yum,\' $G. Hee, hee!"',
+            'russian': 'FIXME "@Sandy says the mantra of eating is \'yum,\' $G. Hee, hee!"'
+        })
+
+        if partyHas(byte 4):
+            wait()
+
+            portrait(byte 4)
+            print({
+                'english': '\n\nYou friend Iolo rolls his eyes. "Such wisdom we can surely do ',
+                'russian': 'FIXME \n\nYou friend Iolo rolls his eyes. "Such wisdom we can surely do '
+            })
+            print({
+                'english': 'without!"',
+                'russian': 'FIXME without!"'
+            })
+            wait()
+
+            portrait(byte 235)
+        fi
+
+        jump label_221
+
+    case {
+        'english': 'roll',
+        'russian': 'FIXME roll'
+    }:
+    case {
+        'english': 'thin',
+        'russian': 'FIXME thin'
+    }:
+        if or(hasBit(byte 235, byte 7), less(canCarry(byte 1), weight(byte 130, byte 1))):
+            print({
+                'english': '"I have no more rolls, $G."',
+                'russian': 'FIXME "I have no more rolls, $G."'
+            })
+            jump label_221
+        fi
+
+        jump label_1101
+
+    case {
+        'english': 'cook',
+        'russian': 'FIXME cook'
+    }:
+        print({
+            'english': '"Being a cook is like being an @adventurer, $G."',
+            'russian': 'FIXME "Being a cook is like being an @adventurer, $G."'
+        })
+        jump label_221
+
+    case {
+        'english': 'adve',
+        'russian': 'FIXME adve'
+    }:
+        print({
+            'english': '"Yes, $G. I must gather up all my ingredients with @care."',
+            'russian': 'FIXME "Yes, $G. I must gather up all my ingredients with @care."'
+        })
+        jump label_221
+
+    case {
+        'english': 'care',
+        'russian': 'FIXME care'
+    }:
+        print({
+            'english': '"So that I have the right @ingredients, $G."',
+            'russian': 'FIXME "So that I have the right @ingredients, $G."'
+        })
+        jump label_221
+
+    case {
+        'english': 'ingr',
+        'russian': 'FIXME ingr'
+    }:
+        print({
+            'english': '"Adventurers are always searching for this or that, $G. So are cooks."',
+            'russian': 'FIXME "Adventurers are always searching for this or that, $G. So are cooks."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Do you know of Magincian Pastry?" ',
+            'russian': 'FIXME \n\n"Do you know of Magincian Pastry?" '
+        })
+        jump label_1259
+
+    case {
+        'english': 'drag',
+        'russian': 'FIXME drag'
+    }:
+    case {
+        'english': 'egg',
+        'russian': 'FIXME egg'
+    }:
+        print({
+            'english': '"Have you one with you?" ',
+            'russian': 'FIXME "Have you one with you?" '
+        })
+        jump label_962
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"Goodbye, $G."\n',
+            'russian': 'FIXME "Goodbye, $G."\n'
+        })
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"That\'s one of the eight @mantras, isn\'t it?"',
+            'russian': 'FIXME "That\'s one of the eight @mantras, isn\'t it?"'
+        })
+    esac
+
+    jump label_221
+
+label_962:
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+label_968:
+        print({
+            'english': '"Oh, do not tease old Shubin so, $G!"',
+            'russian': 'FIXME "Oh, do not tease old Shubin so, $G!"'
+        })
+        jump label_221
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        integer(value 0) = partyHasObject(word 417, byte 0)
+
+        if notEquals(integer(value 0), word 32769):
+            print({
+                'english': '"Oh, thank you, thank you, thank you!"',
+                'russian': 'FIXME "Oh, thank you, thank you, thank you!"'
+            })
+            destroyItem(byte 1, word 417, byte 0, byte 1)
+            increaseKarma(byte 5)
+            jump label_221
+
+        else:
+            jump label_968
+        fi
+    esac
+
+label_1101:
+    print({
+        'english': 'He ask anxiously "Do you like it, $G?" ',
+        'russian': 'FIXME He ask anxiously "Do you like it, $G?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"Such a picky eater. No wonder you\'re so skinny, $G."',
+            'russian': 'FIXME "Such a picky eater. No wonder you\'re so skinny, $G."'
+        })
+        jump label_221
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        print({
+            'english': '"Have a whole tray, then."',
+            'russian': 'FIXME "Have a whole tray, then."'
+        })
+        createItem(byte 1, byte 130, byte 0, byte 1)
+        setBit(byte 235, byte 7)
+        jump label_221
+    esac
+
+label_1259:
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"It is a marvellous dish, $G. My friend Sandy gave me the recipe..."\n*',
+            'russian': 'FIXME "It is a marvellous dish, $G. My friend Sandy gave me the recipe..."\n*'
+        })
+        print({
+            'english': '\n"I\'m only missing one ingredient..."',
+            'russian': 'FIXME \n"I\'m only missing one ingredient..."'
+        })
+        jump label_1456
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        print({
+            'english': '"Well, I\'d like to make it, $G, but I cannot get one of the ',
+            'russian': 'FIXME "Well, I\'d like to make it, $G, but I cannot get one of the '
+        })
+        print({
+            'english': 'ingredients..."',
+            'russian': 'FIXME ingredients..."'
+        })
+    esac
+
+label_1456:
+    wait()
+
+    print({
+        'english': '\n\n"I sure would appreciate it if you brought it back for me if you ',
+        'russian': 'FIXME \n\n"I sure would appreciate it if you brought it back for me if you '
+    })
+    print({
+        'english': 'came across one in your travels, $G..."',
+        'russian': 'FIXME came across one in your travels, $G..."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"If you could find time for old Shubin, that is..."',
+        'russian': 'FIXME \n\n"If you could find time for old Shubin, that is..."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"Would it be too much trouble to bring me back a dragon\'s @egg, $G?"',
+        'russian': 'FIXME \n\n"Would it be too much trouble to bring me back a dragon\'s @egg, $G?"'
+    })
+    print({
+        'english': ' ',
+        'russian': 'FIXME  '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        print({
+            'english': 'He sighs. "Well, $G, it did no harm to ask, I suppose."',
+            'russian': 'FIXME He sighs. "Well, $G, it did no harm to ask, I suppose."'
+        })
+        jump label_221
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"I just know you will remember Shubin, $G. Thank you."',
+            'russian': 'FIXME "I just know you will remember Shubin, $G. Thank you."'
+        })
+        jump label_221
+    esac

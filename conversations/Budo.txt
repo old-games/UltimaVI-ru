@@ -1,0 +1,822 @@
+source('CONVERSE.B')
+index(16)
+
+id(115)
+name({
+    'english': 'Budo',
+    'russian': 'FIXME Budo'
+})
+
+description:
+    print({
+        'english': 'a chubby, jovial merchant.\n',
+        'russian': 'FIXME a chubby, jovial merchant.\n'
+    })
+
+interaction:
+    print({
+        'english': '"Good $T! ',
+        'russian': 'FIXME "Good $T! '
+    })
+
+    if hasBit(byte 235, value 0):
+        jump label_339
+    fi
+
+    setBit(byte 235, value 0)
+    print({
+        'english': 'I bet you\'ve come back to pick up that @orrery you ordered."',
+        'russian': 'FIXME I bet you\'ve come back to pick up that @orrery you ordered."'
+    })
+    wait()
+
+    if partyHas(byte 2):
+        portrait(byte 2)
+        print({
+            'english': '\n\n"Don\'t be ridiculous! This is the first time we\'ve ever been in your',
+            'russian': 'FIXME \n\n"Don\'t be ridiculous! This is the first time we\'ve ever been in your'
+        })
+        print({
+            'english': ' shop!" says Dupre.',
+            'russian': 'FIXME  shop!" says Dupre.'
+        })
+        wait()
+
+        portrait(byte 235)
+        print({
+            'english': '\n\n"Oh, I\'m sorry. I must have thought you were somebody you aren\'t.',
+            'russian': 'FIXME \n\n"Oh, I\'m sorry. I must have thought you were somebody you aren\'t.'
+        })
+
+    else:
+        print({
+            'english': '\n\n"I\'m afraid it still hasn\'t arrived.',
+            'russian': 'FIXME \n\n"I\'m afraid it still hasn\'t arrived.'
+        })
+    fi
+
+    print({
+        'english': '"',
+        'russian': 'FIXME "'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"Do you need to buy some supplies?" ',
+        'russian': 'FIXME \n\n"Do you need to buy some supplies?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        print({
+            'english': '"Which, @torches, @oil, @lockpicks, @gems, @backpacks, @bags, ',
+            'russian': 'FIXME "Which, @torches, @oil, @lockpicks, @gems, @backpacks, @bags, '
+        })
+        print({
+            'english': '@shovels, or @powder kegs?"',
+            'russian': 'FIXME @shovels, or @powder kegs?"'
+        })
+        jump label_601
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"Then it must be Thursday--or possibly Tuesday."',
+            'russian': 'FIXME "Then it must be Thursday--or possibly Tuesday."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"I never seem to sell anything on Tuesdays."',
+            'russian': 'FIXME \n\n"I never seem to sell anything on Tuesdays."'
+        })
+        jump label_601
+
+label_577:
+        print({
+            'english': '"What can I do you for?"',
+            'russian': 'FIXME "What can I do you for?"'
+        })
+
+label_601:
+        print({
+            'english': '\n',
+            'russian': 'FIXME \n'
+        })
+
+        ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"Why, it\'s Budo, I believe. That\'s what it was last week."',
+            'russian': 'FIXME "Why, it\'s Budo, I believe. That\'s what it was last week."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Some call me \'the @Den\', but I don\'t think that\'s my name."',
+            'russian': 'FIXME \n\n"Some call me \'the @Den\', but I don\'t think that\'s my name."'
+        })
+        jump label_601
+
+    case {
+        'english': 'den',
+        'russian': 'FIXME den'
+    }:
+        print({
+            'english': '"I think someone told me that was @Nick\'s name."',
+            'russian': 'FIXME "I think someone told me that was @Nick\'s name."'
+        })
+        jump label_601
+
+    case {
+        'english': 'nick',
+        'russian': 'FIXME nick'
+    }:
+        print({
+            'english': '"I\'ve never met him, myself."',
+            'russian': 'FIXME "I\'ve never met him, myself."'
+        })
+        jump label_601
+
+    case {
+        'english': 'orre',
+        'russian': 'FIXME orre'
+    }:
+        print({
+            'english': '"I don\'t know what it is, but I\'ve got one on order."',
+            'russian': 'FIXME "I don\'t know what it is, but I\'ve got one on order."'
+        })
+        jump label_601
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"Oh, I sell this and that."',
+            'russian': 'FIXME "Oh, I sell this and that."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"I\'m not sure what \'this\' and \'that\' are, but I @sell a lot of ',
+            'russian': 'FIXME \n\n"I\'m not sure what \'this\' and \'that\' are, but I @sell a lot of '
+        })
+        print({
+            'english': 'them!"',
+            'russian': 'FIXME them!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"People give me @money for them, that is."',
+            'russian': 'FIXME \n\n"People give me @money for them, that is."'
+        })
+        jump label_601
+
+    case {
+        'english': 'mone',
+        'russian': 'FIXME mone'
+    }:
+        print({
+            'english': '"It\'s not as sweet as @honey, but you can trade one for the other."',
+            'russian': 'FIXME "It\'s not as sweet as @honey, but you can trade one for the other."'
+        })
+        jump label_601
+
+    case {
+        'english': 'hone',
+        'russian': 'FIXME hone'
+    }:
+    case {
+        'english': 'swee',
+        'russian': 'FIXME swee'
+    }:
+        print({
+            'english': '"I like honey."',
+            'russian': 'FIXME "I like honey."'
+        })
+        jump label_601
+
+    case {
+        'english': 'belt',
+        'russian': 'FIXME belt'
+    }:
+    case {
+        'english': 'guil',
+        'russian': 'FIXME guil'
+    }:
+    case {
+        'english': 'thie',
+        'russian': 'FIXME thie'
+    }:
+        if hasBit(byte 235, byte 7):
+            print({
+                'english': '"To keep the guild safe, each member only knows the names of two ',
+                'russian': 'FIXME "To keep the guild safe, each member only knows the names of two '
+            })
+            print({
+                'english': 'others."',
+                'russian': 'FIXME others."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"You\'re safer not knowing more about the guild than you have to, ',
+                'russian': 'FIXME \n\n"You\'re safer not knowing more about the guild than you have to, '
+            })
+            print({
+                'english': 'believe me..."',
+                'russian': 'FIXME believe me..."'
+            })
+            jump label_601
+        fi
+
+        if notEquals(partyHasObject(byte 25, byte 0), word 32769):
+            print({
+                'english': 'He glances about quickly, to make sure nobody else is listening.',
+                'russian': 'FIXME He glances about quickly, to make sure nobody else is listening.'
+            })
+            wait()
+
+            print({
+                'english': '\n\nIn a low voice he says, "Congratulations, and welcome to the guild."',
+                'russian': 'FIXME \n\nIn a low voice he says, "Congratulations, and welcome to the guild."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"I can offer you the standard member\'s discount on all supplies ',
+                'russian': 'FIXME \n\n"I can offer you the standard member\'s discount on all supplies '
+            })
+            print({
+                'english': 'now."',
+                'russian': 'FIXME now."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Just remember, whatever you do, don\'t tell anyone about our ',
+                'russian': 'FIXME \n\n"Just remember, whatever you do, don\'t tell anyone about our '
+            })
+            print({
+                'english': '@guild!"',
+                'russian': 'FIXME @guild!"'
+            })
+            setBit(byte 235, byte 7)
+            jump label_601
+        fi
+
+        print({
+            'english': 'A startling change comes over his features.',
+            'russian': 'FIXME A startling change comes over his features.'
+        })
+        wait()
+
+        print({
+            'english': '\n\nSuddenly the good-natured bumbler that stood before you has been ',
+            'russian': 'FIXME \n\nSuddenly the good-natured bumbler that stood before you has been '
+        })
+        print({
+            'english': 'transformed into a shrewd, sharp, dangerous looking man.',
+            'russian': 'FIXME transformed into a shrewd, sharp, dangerous looking man.'
+        })
+        wait()
+
+        print({
+            'english': '\n\nHe leans forward staring straight into your eyes as he asks "Who ',
+            'russian': 'FIXME \n\nHe leans forward staring straight into your eyes as he asks "Who '
+        })
+        print({
+            'english': 'sent you?"\n',
+            'russian': 'FIXME sent you?"\n'
+        })
+
+        ask()
+        print({
+            'english': '\n"Uh-huh. Well... Were you hoping to join?" ',
+            'russian': 'FIXME \n"Uh-huh. Well... Were you hoping to join?" '
+        })
+        jump label_2414
+
+    case {
+        'english': 'buy',
+        'russian': 'FIXME buy'
+    }:
+    case {
+        'english': 'sell',
+        'russian': 'FIXME sell'
+    }:
+    case {
+        'english': 'that',
+        'russian': 'FIXME that'
+    }:
+    case {
+        'english': 'this',
+        'russian': 'FIXME this'
+    }:
+        print({
+            'english': '"Which, @torches, @oil, @lockpicks, @gems, @backpacks, @bags, ',
+            'russian': 'FIXME "Which, @torches, @oil, @lockpicks, @gems, @backpacks, @bags, '
+        })
+        print({
+            'english': '@shovels, or @powder @kegs?"',
+            'russian': 'FIXME @shovels, or @powder @kegs?"'
+        })
+        jump label_601
+
+    case {
+        'english': 'torc',
+        'russian': 'FIXME torc'
+    }:
+        integer(value 4) = byte 0
+        jump label_3392
+
+    case {
+        'english': 'oil',
+        'russian': 'FIXME oil'
+    }:
+        integer(value 4) = byte 1
+        jump label_3392
+
+    case {
+        'english': 'lock',
+        'russian': 'FIXME lock'
+    }:
+        integer(value 4) = byte 2
+        jump label_3392
+
+    case {
+        'english': 'gem',
+        'russian': 'FIXME gem'
+    }:
+        integer(value 4) = byte 3
+        jump label_3392
+
+    case {
+        'english': 'back',
+        'russian': 'FIXME back'
+    }:
+        integer(value 4) = byte 4
+        jump label_3392
+
+    case {
+        'english': 'bags',
+        'russian': 'FIXME bags'
+    }:
+        integer(value 4) = byte 5
+        jump label_3392
+
+    case {
+        'english': 'shov',
+        'russian': 'FIXME shov'
+    }:
+        integer(value 4) = byte 6
+        jump label_3392
+
+    case {
+        'english': 'keg',
+        'russian': 'FIXME keg'
+    }:
+    case {
+        'english': 'powd',
+        'russian': 'FIXME powd'
+    }:
+        integer(value 4) = byte 7
+        jump label_3392
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        if hasBit(byte 235, byte 7):
+            print({
+                'english': 'He winks at you. "The guild is behind you, as long as you keep our ',
+                'russian': 'FIXME He winks at you. "The guild is behind you, as long as you keep our '
+            })
+            print({
+                'english': 'secret."\n',
+                'russian': 'FIXME secret."\n'
+            })
+
+        else:
+            print({
+                'english': '"Ta ta for now."\n',
+                'russian': 'FIXME "Ta ta for now."\n'
+            })
+        fi
+
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"$Z? It seems to me I knew something about that, but I\'m having ',
+            'russian': 'FIXME "$Z? It seems to me I knew something about that, but I\'m having '
+        })
+        print({
+            'english': 'trouble with my remembering."',
+            'russian': 'FIXME trouble with my remembering."'
+        })
+    esac
+
+    jump label_601
+
+label_2414:
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': 'He leans even closer, transfixing you with his gaze.',
+            'russian': 'FIXME He leans even closer, transfixing you with his gaze.'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Then just remember this. I don\'t take kindly to anyone spreading ',
+            'russian': 'FIXME \n\n"Then just remember this. I don\'t take kindly to anyone spreading '
+        })
+        print({
+            'english': 'secrets around."',
+            'russian': 'FIXME secrets around."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"If you were to tell anyone I\'m involved with the guild, well..."',
+            'russian': 'FIXME \n\n"If you were to tell anyone I\'m involved with the guild, well..."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Let\'s just say accidents can happen to anyone--even the Avatar."',
+            'russian': 'FIXME \n\n"Let\'s just say accidents can happen to anyone--even the Avatar."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Now get out of my shop."\n',
+            'russian': 'FIXME \n\n"Now get out of my shop."\n'
+        })
+        bye()
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        print({
+            'english': '"All right, maybe you\'ve got what it takes. We\'ll see."',
+            'russian': 'FIXME "All right, maybe you\'ve got what it takes. We\'ll see."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To be a member of the thieves\' guild, you have to get your own ',
+            'russian': 'FIXME \n\n"To be a member of the thieves\' guild, you have to get your own '
+        })
+        print({
+            'english': 'belt."',
+            'russian': 'FIXME belt."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Now we have a limited membership, so there\'s only so many belts in ',
+            'russian': 'FIXME \n\n"Now we have a limited membership, so there\'s only so many belts in '
+        })
+        print({
+            'english': 'the world."',
+            'russian': 'FIXME the world."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"If you want one of them, you have to \'retire\' a member of the ',
+            'russian': 'FIXME \n\n"If you want one of them, you have to \'retire\' a member of the '
+        })
+        print({
+            'english': 'guild."',
+            'russian': 'FIXME guild."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Lucky for you, it just happens there\'s a member we\'d like to see ',
+            'russian': 'FIXME \n\n"Lucky for you, it just happens there\'s a member we\'d like to see '
+        })
+        print({
+            'english': '\'retired\' soon."',
+            'russian': 'FIXME \'retired\' soon."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Her hideout is deep below Britain, in the sewers. You\'d best watch ',
+            'russian': 'FIXME \n\n"Her hideout is deep below Britain, in the sewers. You\'d best watch '
+        })
+        print({
+            'english': 'out for the rats down there!"',
+            'russian': 'FIXME out for the rats down there!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"One last thing... It\nwould be an embarassment for the guild to have',
+            'russian': 'FIXME \n\n"One last thing... It\nwould be an embarassment for the guild to have'
+        })
+        print({
+            'english': ' bodies turning up inconveniently."',
+            'russian': 'FIXME  bodies turning up inconveniently."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"So don\'t get too violent unless you have to."',
+            'russian': 'FIXME \n\n"So don\'t get too violent unless you have to."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"I\'ll talk to you when you get back."\n',
+            'russian': 'FIXME \n\n"I\'ll talk to you when you get back."\n'
+        })
+        bye()
+    esac
+
+label_3392:
+    if hasBit(byte 235, byte 7):
+        data(integers_4379, byte 0) = data(integers_4395, byte 0)
+        data(integers_4379, byte 1) = data(integers_4395, byte 1)
+        data(integers_4379, byte 2) = data(integers_4395, byte 2)
+        data(integers_4379, byte 3) = data(integers_4395, byte 3)
+        data(integers_4379, byte 4) = data(integers_4395, byte 4)
+        data(integers_4379, byte 5) = data(integers_4395, byte 5)
+        data(integers_4379, byte 6) = data(integers_4395, byte 6)
+        data(integers_4379, byte 7) = data(integers_4395, byte 7)
+    fi
+
+    if equals(integer(value 23), byte 0):
+        integer(value 3) = byte 0
+        jump label_3688
+    fi
+
+label_3572:
+    integer(value 0) = byte 0
+    integer(value 1) = byte 1
+
+label_3586:
+    look(character(integer(value 0), byte 0))
+    print({
+        'english': '#1. $Y\n',
+        'russian': 'FIXME #1. $Y\n'
+    })
+    integer(value 0) = plus(integer(value 0), byte 1)
+    integer(value 1) = plus(integer(value 1), byte 1)
+
+    if lessOrEquals(integer(value 0), integer(value 23)):
+        jump label_3586
+    fi
+
+    print({
+        'english': '"Which of you?" ',
+        'russian': 'FIXME "Which of you?" '
+    })
+    inputInteger(integer(value 3))
+
+    if equals(integer(value 3), byte 0):
+        jump label_577
+    fi
+
+    integer(value 3) = minus(integer(value 3), byte 1)
+
+    if greater(integer(value 3), integer(value 23)):
+        jump label_3572
+    fi
+
+label_3688:
+    if or(less(canCarry(character(integer(value 3), byte 0)), weight(data(integers_4411, integer(value 4)), byte 1)), less(objectsCount(character(integer(value 3), byte 0), byte 88), data(integers_4379, integer(value 4)))):
+        integer(value 5) = byte 1
+        jump label_3973
+    fi
+
+label_3739:
+    integer(value 0) = data(integers_4379, integer(value 4))
+    string(value 0) = data(strings_4427, integer(value 4))
+    look(character(integer(value 3), byte 0))
+    print({
+        'english': '$N looks at $Y, "It\'ll cost you #0 gold for each $0, how many do you ',
+        'russian': 'FIXME $N looks at $Y, "It\'ll cost you #0 gold for each $0, how many do you '
+    })
+    print({
+        'english': 'want?" ',
+        'russian': 'FIXME want?" '
+    })
+    input(integer(value 5))
+
+    if greater(integer(value 5), byte 100):
+        print({
+            'english': '"Come now, that\'s a little much don\'t you think?"',
+            'russian': 'FIXME "Come now, that\'s a little much don\'t you think?"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_3739
+    fi
+
+    if equals(integer(value 5), byte 0):
+        print({
+            'english': '$N frowns at $Y, "That was a good price."',
+            'russian': 'FIXME $N frowns at $Y, "That was a good price."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_577
+    fi
+
+label_3973:
+    integer(value 2) = integer(value 5)
+    integer(value 0) = byte 0
+    integer(value 1) = byte 0
+
+label_3994:
+    if less(canCarry(character(integer(value 3), byte 0)), weight(data(integers_4411, integer(value 4)), integer(value 2))):
+        integer(value 1) = byte 1
+        integer(value 0) = byte 1
+        integer(value 2) = minus(integer(value 2), byte 1)
+        jump label_4094
+    fi
+
+    if less(objectsCount(character(integer(value 3), byte 0), byte 88), multiply(integer(value 2), data(integers_4379, integer(value 4)))):
+        integer(value 1) = byte 2
+        integer(value 2) = minus(integer(value 2), byte 1)
+        jump label_4094
+    fi
+
+    jump label_4274
+
+label_4094:
+    if integer(value 2):
+        jump label_3994
+    fi
+
+    if equals(integer(value 1), byte 1):
+        string(value 0) = data(strings_4427, integer(value 4))
+        look(character(integer(value 3), byte 0))
+        print({
+            'english': '$N looks at $Y. "You haven\'t any room in your pack."',
+            'russian': 'FIXME $N looks at $Y. "You haven\'t any room in your pack."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_577
+    fi
+
+    if equals(integer(value 1), byte 2):
+        string(value 0) = data(strings_4427, integer(value 4))
+        look(character(integer(value 3), byte 0))
+        print({
+            'english': '"I think you have less gold than you thought."',
+            'russian': 'FIXME "I think you have less gold than you thought."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_577
+    fi
+
+label_4274:
+    destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, multiply(integer(value 2), data(integers_4379, integer(value 4))))
+    createItem(character(integer(value 3), byte 0), data(integers_4411, integer(value 4)), byte 0, integer(value 2))
+    look(character(integer(value 3), byte 0))
+    string(value 0) = data(strings_4427, integer(value 4))
+    print({
+        'english': 'He hands $Y #2 $0\\s. ',
+        'russian': 'FIXME He hands $Y #2 $0\\s. '
+    })
+    printString(strings_4481, integer(value 1))
+    wait()
+
+    print({
+        'english': '\n\n',
+        'russian': 'FIXME \n\n'
+    })
+    jump label_577
+
+integers_4379 = [
+    5,  // 0
+    5,  // 1
+    7,  // 2
+    15, // 3
+    10, // 4
+    5,  // 5
+    20, // 6
+    40, // 7
+]
+
+integers_4395 = [
+    3,  // 0
+    3,  // 1
+    5,  // 2
+    9,  // 3
+    6,  // 4
+    3,  // 5
+    12, // 6
+    24, // 7
+]
+
+integers_4411 = [
+    90,  // 0
+    83,  // 1
+    63,  // 2
+    77,  // 3
+    99,  // 4
+    188, // 5
+    104, // 6
+    223, // 7
+]
+
+strings_4427 = [
+    {
+        'english': 'Torch',
+        'russian': 'FIXME Torch'
+    }, // 0
+    {
+        'english': 'Oil',
+        'russian': 'FIXME Oil'
+    }, // 1
+    {
+        'english': 'Lockpick',
+        'russian': 'FIXME Lockpick'
+    }, // 2
+    {
+        'english': 'Gem',
+        'russian': 'FIXME Gem'
+    }, // 3
+    {
+        'english': 'Backpack',
+        'russian': 'FIXME Backpack'
+    }, // 4
+    {
+        'english': 'Bag',
+        'russian': 'FIXME Bag'
+    }, // 5
+    {
+        'english': 'Shovel',
+        'russian': 'FIXME Shovel'
+    }, // 6
+    {
+        'english': 'Powder Keg',
+        'russian': 'FIXME Powder Keg'
+    }, // 7
+]
+
+strings_4481 = [
+    {
+        'english': '"There you go."',
+        'russian': 'FIXME "There you go."'
+    }, // 0
+    {
+        'english': '"That\'s all you can carry."',
+        'russian': 'FIXME "That\'s all you can carry."'
+    }, // 1
+    {
+        'english': '"That\'s all you can afford."',
+        'russian': 'FIXME "That\'s all you can afford."'
+    }, // 2
+]

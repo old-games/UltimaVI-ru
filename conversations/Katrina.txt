@@ -1,0 +1,393 @@
+source('CONVERSE.A')
+index(97)
+
+id(97)
+name({
+    'english': 'Katrina',
+    'russian': 'FIXME Katrina'
+})
+
+description:
+    print({
+        'english': 'the humble peasant Katrina.',
+        'russian': 'FIXME the humble peasant Katrina.'
+    })
+
+interaction:
+    wait()
+
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    if partyHas(byte 235):
+        print({
+            'english': '"I\'m but a simple peasant, $G."',
+            'russian': 'FIXME "I\'m but a simple peasant, $G."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"I doubt I could help in this situation."',
+            'russian': 'FIXME \n\n"I doubt I could help in this situation."'
+        })
+        jump label_830
+    fi
+
+    if hasBit(byte 235, byte 2):
+        print({
+            'english': '"Good $T, $G. Wilt thou allow me to follow you again?" ',
+            'russian': 'FIXME "Good $T, $G. Wilt thou allow me to follow you again?" '
+        })
+
+        choice({
+            'english': 'yn',
+            'russian': 'FIXME yn'
+        })
+
+        case {
+            'english': 'y',
+            'russian': 'FIXME y'
+        }:
+            print({
+                'english': '"Command me to @join and I will, $G."',
+                'russian': 'FIXME "Command me to @join and I will, $G."'
+            })
+            jump label_830
+
+        case {
+            'english': 'n',
+            'russian': 'FIXME n'
+        }:
+            print({
+                'english': '"As thou deem best, $G."',
+                'russian': 'FIXME "As thou deem best, $G."'
+            })
+            jump label_830
+        esac
+    fi
+
+    if hasBit(byte 235, value 0):
+        print({
+            'english': '"Good $T, $G! I hope thou hast fared well in thy travels?" ',
+            'russian': 'FIXME "Good $T, $G! I hope thou hast fared well in thy travels?" '
+        })
+
+        choice({
+            'english': 'yn',
+            'russian': 'FIXME yn'
+        })
+
+        case {
+            'english': 'y',
+            'russian': 'FIXME y'
+        }:
+            print({
+                'english': '"The land rejoices when all is well with the Avatar!"',
+                'russian': 'FIXME "The land rejoices when all is well with the Avatar!"'
+            })
+            jump label_830
+
+        case {
+            'english': 'n',
+            'russian': 'FIXME n'
+        }:
+            print({
+                'english': '"If there is aught a humble peasant can do to help, I am yours to ',
+                'russian': 'FIXME "If there is aught a humble peasant can do to help, I am yours to '
+            })
+            print({
+                'english': 'command."',
+                'russian': 'FIXME command."'
+            })
+            jump label_830
+        esac
+    fi
+
+    print({
+        'english': '"$P! I had heard that thou hadst returned to our land, but I dared not',
+        'russian': 'FIXME "$P! I had heard that thou hadst returned to our land, but I dared not'
+    })
+    print({
+        'english': ' believe it!"',
+        'russian': 'FIXME  believe it!"'
+    })
+    setBit(byte 235, value 0)
+    wait()
+
+    print({
+        'english': '\n\n"Hast thou returned to save our land from the @gargoyles?" ',
+        'russian': 'FIXME \n\n"Hast thou returned to save our land from the @gargoyles?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        print({
+            'english': '"Then surely we are saved already!"',
+            'russian': 'FIXME "Then surely we are saved already!"'
+        })
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"Then perhaps the crisis is not so severe as rumor says."',
+            'russian': 'FIXME "Then perhaps the crisis is not so severe as rumor says."'
+        })
+    esac
+
+    wait()
+
+    print({
+        'english': '\n\n"If there is aught a humble peasant might do to aid thy quest, $G, I',
+        'russian': 'FIXME \n\n"If there is aught a humble peasant might do to aid thy quest, $G, I'
+    })
+    print({
+        'english': ' am yours to command."\n',
+        'russian': 'FIXME  am yours to command."\n'
+    })
+
+    ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"I am called Katrina, $G, as I was the last time we met."',
+            'russian': 'FIXME "I am called Katrina, $G, as I was the last time we met."'
+        })
+        jump label_830
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"Times have changed, $G. Where once I grazed sheep, now I till the ',
+            'russian': 'FIXME "Times have changed, $G. Where once I grazed sheep, now I till the '
+        })
+        print({
+            'english': 'land."',
+            'russian': 'FIXME land."'
+        })
+        wait()
+
+        print({
+            'english': '\n"All work is the same to a peasant, $G."',
+            'russian': 'FIXME \n"All work is the same to a peasant, $G."'
+        })
+        wait()
+
+        print({
+            'english': '\n"We all do what is expected of us."',
+            'russian': 'FIXME \n"We all do what is expected of us."'
+        })
+
+        if equals(partyHas(byte 235), byte 0):
+            wait()
+
+            print({
+                'english': '\n\n"If thou wouldst have me @join thy quest, thou needst but ask."',
+                'russian': 'FIXME \n\n"If thou wouldst have me @join thy quest, thou needst but ask."'
+            })
+        fi
+
+        jump label_830
+
+    case {
+        'english': 'join',
+        'russian': 'FIXME join'
+    }:
+        if partyHas(byte 235):
+            print({
+                'english': '"Surely I misunderstand thee, $G."',
+                'russian': 'FIXME "Surely I misunderstand thee, $G."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Am I not already a member of thy band?"',
+                'russian': 'FIXME \n\n"Am I not already a member of thy band?"'
+            })
+            jump label_830
+        fi
+
+        integer(value 0) = partyJoin(byte 235)
+
+        if equals(integer(value 0), byte 0):
+            print({
+                'english': '"Since thou dost think it wise, I wilt join."',
+                'russian': 'FIXME "Since thou dost think it wise, I wilt join."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"I hope I can aid thy quest."\n',
+                'russian': 'FIXME \n\n"I hope I can aid thy quest."\n'
+            })
+            setBit(byte 235, byte 2)
+            bye()
+        fi
+
+        if equals(integer(value 0), byte 2):
+            print({
+                'english': '"I hesitate to deny any request thou might have."',
+                'russian': 'FIXME "I hesitate to deny any request thou might have."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"But thou seemst to have enough companions as it is."',
+                'russian': 'FIXME \n\n"But thou seemst to have enough companions as it is."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Mayhap if one of them left your band, thou might have more need of ',
+                'russian': 'FIXME \n\n"Mayhap if one of them left your band, thou might have more need of '
+            })
+            print({
+                'english': 'me."',
+                'russian': 'FIXME me."'
+            })
+            jump label_830
+
+        else:
+            print({
+                'english': '"But $G, there is no need to join you here, aboard ship."',
+                'russian': 'FIXME "But $G, there is no need to join you here, aboard ship."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"There is no place else to go!"',
+                'russian': 'FIXME \n\n"There is no place else to go!"'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Mayhap if thou asked again ashore."',
+                'russian': 'FIXME \n\n"Mayhap if thou asked again ashore."'
+            })
+            jump label_830
+        fi
+
+    case {
+        'english': 'leav',
+        'russian': 'FIXME leav'
+    }:
+        integer(value 0) = partyLeave(byte 235)
+
+        if or(equals(integer(value 0), byte 0), equals(integer(value 0), byte 2)):
+            print({
+                'english': '"Whatever thou thinkest best, $G. I\'ll leave my equipment with thee."\n',
+                'russian': 'FIXME "Whatever thou thinkest best, $G. I\'ll leave my equipment with thee."\n'
+            })
+            bye()
+
+        else:
+            print({
+                'english': '"But $G, there is no place for me to go."',
+                'russian': 'FIXME "But $G, there is no place for me to go."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Mayhap this should wait until we are ashore."',
+                'russian': 'FIXME \n\n"Mayhap this should wait until we are ashore."'
+            })
+            jump label_830
+        fi
+
+    case {
+        'english': 'garg',
+        'russian': 'FIXME garg'
+    }:
+        print({
+            'english': '"The gargoyles are a grave threat to the land, $G."',
+            'russian': 'FIXME "The gargoyles are a grave threat to the land, $G."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Many brave soldiers have died defending us from the invaders!"',
+            'russian': 'FIXME \n\n"Many brave soldiers have died defending us from the invaders!"'
+        })
+        jump label_830
+
+    case {
+        'english': 'humb',
+        'russian': 'FIXME humb'
+    }:
+    case {
+        'english': 'humi',
+        'russian': 'FIXME humi'
+    }:
+    case {
+        'english': 'most',
+        'russian': 'FIXME most'
+    }:
+        print({
+            'english': '"I am most sorry, $G, but I cannot answer thy question."',
+            'russian': 'FIXME "I am most sorry, $G, but I cannot answer thy question."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"\'Twould be vain of me to answer truthfully, and \'twould be worse to',
+            'russian': 'FIXME \n\n"\'Twould be vain of me to answer truthfully, and \'twould be worse to'
+        })
+        print({
+            'english': ' lie."',
+            'russian': 'FIXME  lie."'
+        })
+        jump label_830
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        if partyHas(byte 235):
+            print({
+                'english': '"May we live up to the trust placed in us."\n',
+                'russian': 'FIXME "May we live up to the trust placed in us."\n'
+            })
+
+        else:
+            print({
+                'english': '"Farewell! The Avatar carries with him the hopes of all the land."\n',
+                'russian': 'FIXME "Farewell! The Avatar carries with him the hopes of all the land."\n'
+            })
+        fi
+
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        if random(byte 0, byte 1):
+            print({
+                'english': '"A peasant such as myself knows little about $Z, $G."',
+                'russian': 'FIXME "A peasant such as myself knows little about $Z, $G."'
+            })
+
+        else:
+            print({
+                'english': '"Beg pardon, $G?"',
+                'russian': 'FIXME "Beg pardon, $G?"'
+            })
+        fi
+
+        jump label_830
+    esac

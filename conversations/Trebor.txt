@@ -1,0 +1,421 @@
+source('CONVERSE.A')
+index(72)
+
+id(72)
+name({
+    'english': 'Trebor',
+    'russian': 'FIXME Trebor'
+})
+
+description:
+    print({
+        'english': 'a tall, muscled man with a wide grin.',
+        'russian': 'FIXME a tall, muscled man with a wide grin.'
+    })
+    wait()
+
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+interaction:
+    integer(value 5) = byte 0
+
+    if hasBit(byte 235, value 0):
+        print({
+            'english': 'He squints at you. "We\'ve met, haven\'t we?"',
+            'russian': 'FIXME He squints at you. "We\'ve met, haven\'t we?"'
+        })
+
+    else:
+        print({
+            'english': '"Hello," he says, lumbering over to you and extending a large hand.',
+            'russian': 'FIXME "Hello," he says, lumbering over to you and extending a large hand.'
+        })
+        setBit(byte 235, value 0)
+    fi
+
+    wait()
+
+    print({
+        'english': '\n\n"What can I do for ya?"\n',
+        'russian': 'FIXME \n\n"What can I do for ya?"\n'
+    })
+
+    ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"Trebor."',
+            'russian': 'FIXME "Trebor."'
+        })
+        jump label_206
+
+    case {
+        'english': 'buy',
+        'russian': 'FIXME buy'
+    }:
+        if equals(hasObject(byte 235, byte 149, byte 0), byte 0):
+            print({
+                'english': '"You bought my last craft!"',
+                'russian': 'FIXME "You bought my last craft!"'
+            })
+            jump label_206
+        fi
+
+        print({
+            'english': '"I sell ',
+            'russian': 'FIXME "I sell '
+        })
+
+        if or(hasObject(byte 235, byte 149, data(integers_1824, byte 0)), hasObject(byte 235, byte 149, data(integers_1824, byte 1))):
+            print({
+                'english': '@ships',
+                'russian': 'FIXME @ships'
+            })
+            integer(value 1) = byte 1
+
+        else:
+            integer(value 1) = byte 0
+        fi
+
+        if equals(or(hasObject(byte 235, byte 149, data(integers_1824, byte 2)), hasObject(byte 235, byte 149, data(integers_1824, byte 3))), byte 0):
+            print({
+                'english': '."',
+                'russian': 'FIXME ."'
+            })
+            jump label_206
+        fi
+
+        if integer(value 1):
+            print({
+                'english': ' and ',
+                'russian': 'FIXME  and '
+            })
+        fi
+
+        print({
+            'english': '@skiffs."',
+            'russian': 'FIXME @skiffs."'
+        })
+        jump label_206
+
+    case {
+        'english': 'ship',
+        'russian': 'FIXME ship'
+    }:
+        if hasObject(byte 235, byte 149, data(integers_1824, byte 0)):
+            integer(value 9) = byte 0
+            jump label_892
+        fi
+
+        if hasObject(byte 235, byte 149, data(integers_1824, byte 1)):
+            integer(value 9) = byte 1
+            jump label_892
+        fi
+
+        print({
+            'english': '"Sorry, I sold you my last ship."',
+            'russian': 'FIXME "Sorry, I sold you my last ship."'
+        })
+        jump label_206
+
+    case {
+        'english': 'skif',
+        'russian': 'FIXME skif'
+    }:
+        if hasObject(byte 235, byte 149, data(integers_1824, byte 2)):
+            integer(value 9) = byte 2
+            jump label_892
+        fi
+
+        if hasObject(byte 235, byte 149, data(integers_1824, byte 3)):
+            integer(value 9) = byte 3
+            jump label_892
+        fi
+
+        print({
+            'english': '"Sorry, I sold you my last skiff."',
+            'russian': 'FIXME "Sorry, I sold you my last skiff."'
+        })
+        jump label_206
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        if equals(hasObject(byte 235, byte 149, byte 0), byte 0):
+            print({
+                'english': '"I used to sell ships and skiffs."',
+                'russian': 'FIXME "I used to sell ships and skiffs."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"But you bought them all!"',
+                'russian': 'FIXME \n\n"But you bought them all!"'
+            })
+            jump label_206
+        fi
+
+        print({
+            'english': '"I sell ',
+            'russian': 'FIXME "I sell '
+        })
+
+        if or(hasObject(byte 235, byte 149, data(integers_1824, byte 0)), hasObject(byte 235, byte 149, data(integers_1824, byte 1))):
+            print({
+                'english': '@ships',
+                'russian': 'FIXME @ships'
+            })
+            integer(value 1) = byte 1
+
+        else:
+            integer(value 1) = byte 0
+        fi
+
+        if equals(or(hasObject(byte 235, byte 149, data(integers_1824, byte 2)), hasObject(byte 235, byte 149, data(integers_1824, byte 3))), byte 0):
+            print({
+                'english': '."',
+                'russian': 'FIXME ."'
+            })
+            jump label_206
+        fi
+
+        if integer(value 1):
+            print({
+                'english': ' and ',
+                'russian': 'FIXME  and '
+            })
+        fi
+
+        print({
+            'english': '@skiffs."',
+            'russian': 'FIXME @skiffs."'
+        })
+        jump label_206
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"So long friend." He lumbers back to his work.\n',
+            'russian': 'FIXME "So long friend." He lumbers back to his work.\n'
+        })
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"That\'s a puzzler."',
+            'russian': 'FIXME "That\'s a puzzler."'
+        })
+        jump label_206
+    esac
+
+label_892:
+    integer(value 5) = byte 0
+
+    if equals(integer(value 23), byte 0):
+        integer(value 3) = byte 0
+        jump label_1035
+    fi
+
+label_919:
+    integer(value 0) = byte 0
+    integer(value 2) = byte 1
+
+label_933:
+    look(character(integer(value 0), byte 0))
+    print({
+        'english': '#2. $Y\n',
+        'russian': 'FIXME #2. $Y\n'
+    })
+    integer(value 0) = plus(integer(value 0), byte 1)
+    integer(value 2) = plus(integer(value 2), byte 1)
+
+    if lessOrEquals(integer(value 0), integer(value 23)):
+        jump label_933
+    fi
+
+    print({
+        'english': '"Which of you?" ',
+        'russian': 'FIXME "Which of you?" '
+    })
+    inputInteger(integer(value 3))
+
+    if equals(integer(value 3), byte 0):
+        jump label_1396
+    fi
+
+    integer(value 3) = minus(integer(value 3), byte 1)
+
+    if greater(integer(value 3), integer(value 23)):
+        jump label_919
+    fi
+
+label_1035:
+    integer(value 3) = character(integer(value 3), byte 0)
+    integer(value 4) = data(integers_1816, integer(value 9))
+    look(integer(value 3))
+    print({
+        'english': '$N turns to $Y. "It\'ll cost you #4 gold for the deed. Interested?" ',
+        'russian': 'FIXME $N turns to $Y. "It\'ll cost you #4 gold for the deed. Interested?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        if greaterOrEquals(canCarry(integer(value 3)), weight(byte 149, byte 1)):
+            jump label_1246
+        fi
+
+        if less(objectsCount(integer(value 3), byte 88), data(integers_1816, integer(value 9))):
+            integer(value 7) = objectsCount(integer(value 3), byte 88)
+
+        else:
+            integer(value 7) = data(integers_1816, integer(value 9))
+        fi
+
+        if less(plus(canCarry(integer(value 3)), integer(value 7)), weight(byte 149, byte 1)):
+            print({
+                'english': '"You look pretty full to me, $Y."',
+                'russian': 'FIXME "You look pretty full to me, $Y."'
+            })
+            jump label_206
+        fi
+
+label_1246:
+        if less(objectsCount(integer(value 3), byte 88), data(integers_1816, integer(value 9))):
+            jump label_1462
+
+        else:
+            destroyItem(integer(value 3), byte 88, byte 0, data(integers_1816, integer(value 9)))
+            jump label_1302
+        fi
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        jump label_1396
+    esac
+
+label_1302:
+    giveItem(byte 149, data(integers_1824, integer(value 9)), byte 235, integer(value 3))
+    print({
+        'english': '"Excellent!" After accepting the gold, $N hands $Y the deed.',
+        'russian': 'FIXME "Excellent!" After accepting the gold, $N hands $Y the deed.'
+    })
+    integer(value 5) = byte 1
+    wait()
+
+    print({
+        'english': '\n\n',
+        'russian': 'FIXME \n\n'
+    })
+    jump label_1396
+
+label_1396:
+    if integer(value 5):
+        print({
+            'english': '"Sail her straight."',
+            'russian': 'FIXME "Sail her straight."'
+        })
+
+    else:
+        print({
+            'english': '"You\'ll ne\'er find a better craft."',
+            'russian': 'FIXME "You\'ll ne\'er find a better craft."'
+        })
+    fi
+
+    jump label_206
+
+label_1462:
+    if equals(integer(value 23), byte 0):
+        print({
+            'english': '"Thou hast not enough gold."',
+            'russian': 'FIXME "Thou hast not enough gold."'
+        })
+        jump label_206
+    fi
+
+    integer(value 1) = data(integers_1816, integer(value 9))
+    integer(value 2) = byte 0
+    integer(value 6) = byte 0
+    integer(value 4) = byte 0
+
+label_1537:
+    if greater(integer(value 6), integer(value 23)):
+        print({
+            'english': '"Thy party hast not enough gold."',
+            'russian': 'FIXME "Thy party hast not enough gold."'
+        })
+        jump label_206
+    fi
+
+    integer(value 5) = objectsCount(character(integer(value 6), byte 0), byte 88)
+
+    if less(integer(value 5), integer(value 1)):
+        integer(value 1) = minus(integer(value 1), integer(value 5))
+        integer(value 2) = plus(integer(value 2), integer(value 5))
+        integer(value 6) = plus(integer(value 6), byte 1)
+        jump label_1537
+
+    else:
+        print({
+            'english': 'Your party takes up a collection to purchase the vessel.',
+            'russian': 'FIXME Your party takes up a collection to purchase the vessel.'
+        })
+        integer(value 1) = word 400
+        integer(value 2) = byte 0
+        integer(value 4) = integer(value 6)
+        integer(value 6) = byte 0
+        jump label_1730
+    fi
+
+label_1730:
+    if equals(integer(value 6), integer(value 4)):
+        destroyItem(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 1))
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_1302
+    fi
+
+    integer(value 5) = objectsCount(character(integer(value 6), byte 0), byte 88)
+    integer(value 1) = minus(integer(value 1), integer(value 5))
+    destroyItem(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 5))
+    integer(value 6) = plus(integer(value 6), byte 1)
+    jump label_1730
+
+integers_1816 = [
+    250, // 0
+    250, // 1
+    20,  // 2
+    20,  // 3
+]
+
+integers_1824 = [
+    5,   // 0
+    6,   // 1
+    132, // 2
+    133, // 3
+]

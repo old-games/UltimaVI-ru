@@ -1,0 +1,688 @@
+source('CONVERSE.B')
+index(101)
+
+id(200)
+name({
+    'english': 'Singularity',
+    'russian': 'FIXME Singularity'
+})
+
+description:
+    print({
+        'english': 'a finely-carved stone pyramid.',
+        'russian': 'FIXME a finely-carved stone pyramid.'
+    })
+
+    f3()
+
+interaction:
+    setBit(byte 235, value 0)
+    wait()
+
+    print({
+        'english': '\nAs you face the altar, a voice rings in your head.',
+        'russian': 'FIXME \nAs you face the altar, a voice rings in your head.'
+    })
+    wait()
+
+    print({
+        'english': '\n\nYou understand it perfectly, but you can\'t recognize the language!',
+        'russian': 'FIXME \n\nYou understand it perfectly, but you can\'t recognize the language!'
+    })
+    wait()
+
+    print({
+        'english': '\n\n',
+        'russian': 'FIXME \n\n'
+    })
+
+    if integer(value 26):
+        print({
+            'english': '"There is no more wisdom for thee to acquire here, noble Avatar."',
+            'russian': 'FIXME "There is no more wisdom for thee to acquire here, noble Avatar."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Seek the Codex, and may nothing impede thy sacred quest!"',
+            'russian': 'FIXME \n\n"Seek the Codex, and may nothing impede thy sacred quest!"'
+        })
+        wait()
+
+        print({
+            'english': '\n',
+            'russian': 'FIXME \n'
+        })
+        bye()
+    fi
+
+    if hasBit(byte 235, byte 2):
+        print({
+            'english': '"Hast thou completed thy journey to the @catacombs?" ',
+            'russian': 'FIXME "Hast thou completed thy journey to the @catacombs?" '
+        })
+
+        choice({
+            'english': 'yn',
+            'russian': 'FIXME yn'
+        })
+
+        case {
+            'english': 'y',
+            'russian': 'FIXME y'
+        }:
+            print({
+                'english': '"What is the Mantra of Singularity?"\n',
+                'russian': 'FIXME "What is the Mantra of Singularity?"\n'
+            })
+            jump label_1638
+        esac
+
+        print({
+            'english': '\n"Which catacomb dost thou seek?"',
+            'russian': 'FIXME \n"Which catacomb dost thou seek?"'
+        })
+        jump label_798
+    fi
+
+    if less(integer(value 20), byte 40):
+        print({
+            'english': '"Thy deeds make thee unworthy of enlightenment."',
+            'russian': 'FIXME "Thy deeds make thee unworthy of enlightenment."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Return when thy path is more focused."',
+            'russian': 'FIXME \n\n"Return when thy path is more focused."'
+        })
+        wait()
+
+        print({
+            'english': '\n',
+            'russian': 'FIXME \n'
+        })
+        bye()
+    fi
+
+    if greater(integer(value 20), byte 80):
+        print({
+            'english': '"Thou hast far to travel and much to achieve, but thy inner fire will ',
+            'russian': 'FIXME "Thou hast far to travel and much to achieve, but thy inner fire will '
+        })
+        print({
+            'english': 'surely guide thy way."',
+            'russian': 'FIXME surely guide thy way."'
+        })
+
+    else:
+        print({
+            'english': '"Thou hast far to travel and much to achieve."',
+            'russian': 'FIXME "Thou hast far to travel and much to achieve."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"May the wisdom imparted here help purify thy inner flame."',
+            'russian': 'FIXME \n\n"May the wisdom imparted here help purify thy inner flame."'
+        })
+    fi
+
+    wait()
+
+    print({
+        'english': '\n\n"What do you seek, Avatar?"\n',
+        'russian': 'FIXME \n\n"What do you seek, Avatar?"\n'
+    })
+
+    ask()
+
+    case {
+        'english': 'code',
+        'russian': 'FIXME code'
+    }:
+    case {
+        'english': 'mant',
+        'russian': 'FIXME mant'
+    }:
+    case {
+        'english': 'ques',
+        'russian': 'FIXME ques'
+    }:
+    case {
+        'english': 'sacr',
+        'russian': 'FIXME sacr'
+    }:
+        if hasBit(byte 235, byte 2):
+            print({
+                'english': '"What is the Mantra of Singularity?"\n',
+                'russian': 'FIXME "What is the Mantra of Singularity?"\n'
+            })
+            jump label_1638
+
+        else:
+            print({
+                'english': '"Look deep inside thyself, Avatar, and answer this:"',
+                'russian': 'FIXME "Look deep inside thyself, Avatar, and answer this:"'
+            })
+            wait()
+
+            print({
+                'english': '\n"For whom dost thou truly seek the Codex?"\n',
+                'russian': 'FIXME \n"For whom dost thou truly seek the Codex?"\n'
+            })
+            jump label_2380
+        fi
+
+    case {
+        'english': 'cont',
+        'russian': 'FIXME cont'
+    }:
+    case {
+        'english': 'dili',
+        'russian': 'FIXME dili'
+    }:
+    case {
+        'english': 'pass',
+        'russian': 'FIXME pass'
+    }:
+        integer(value 0) = indexOf(strings_3487, byte 35)
+        string(value 0) = data(strings_3487, integer(value 0))
+        string(value 1) = data(strings_3514, integer(value 0))
+        print({
+            'english': '"$0 is one of the guiding principles of the gargoyle race."',
+            'russian': 'FIXME "$0 is one of the guiding principles of the gargoyle race."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Go thou into the @Catacombs of $0, near the coast to the $1 of ',
+            'russian': 'FIXME \n\n"Go thou into the @Catacombs of $0, near the coast to the $1 of '
+        })
+        print({
+            'english': 'here."',
+            'russian': 'FIXME here."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"There you will find the being who most exemplifies this ',
+            'russian': 'FIXME \n\n"There you will find the being who most exemplifies this '
+        })
+        print({
+            'english': '@principle."',
+            'russian': 'FIXME @principle."'
+        })
+        jump label_798
+
+    case {
+        'english': 'prin',
+        'russian': 'FIXME prin'
+    }:
+    case {
+        'english': 'thre',
+        'russian': 'FIXME thre'
+    }:
+        print({
+            'english': '"The three principles of @Control, @Passion and @Diligence form the ',
+            'russian': 'FIXME "The three principles of @Control, @Passion and @Diligence form the '
+        })
+        print({
+            'english': 'basis of the gargoyle way of life."',
+            'russian': 'FIXME basis of the gargoyle way of life."'
+        })
+        jump label_798
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"Thou hast reached the Altar of Singularity. What dost thou seek?"',
+            'russian': 'FIXME "Thou hast reached the Altar of Singularity. What dost thou seek?"'
+        })
+        jump label_798
+
+    case {
+        'english': 'cata',
+        'russian': 'FIXME cata'
+    }:
+        print({
+            'english': '"Which catacomb dost thou seek?"',
+            'russian': 'FIXME "Which catacomb dost thou seek?"'
+        })
+        jump label_798
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': 'The mystic voice falls silent, and you leave the altar.\n',
+            'russian': 'FIXME The mystic voice falls silent, and you leave the altar.\n'
+        })
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        if random(byte 0, byte 1):
+            print({
+                'english': '"The answer to that lies elsewhere."',
+                'russian': 'FIXME "The answer to that lies elsewhere."'
+            })
+
+        else:
+            print({
+                'english': '"The answer to that lies within thyself."',
+                'russian': 'FIXME "The answer to that lies within thyself."'
+            })
+        fi
+
+        jump label_798
+    esac
+
+label_1638:
+    ask()
+
+    case {
+        'english': 'un-or-us',
+        'russian': 'FIXME un-or-us'
+    }:
+    case {
+        'english': 'unorus',
+        'russian': 'FIXME unorus'
+    }:
+label_1656:
+        print({
+            'english': '"Let the principle of control guide thy quest."',
+            'russian': 'FIXME "Let the principle of control guide thy quest."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Let the principle of passion drive thy quest."',
+            'russian': 'FIXME \n\n"Let the principle of passion drive thy quest."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Let the principle of diligence maintain thy quest."',
+            'russian': 'FIXME \n\n"Let the principle of diligence maintain thy quest."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Then wilt thou truly achieve the unified spirit and singularity of ',
+            'russian': 'FIXME \n\n"Then wilt thou truly achieve the unified spirit and singularity of '
+        })
+        print({
+            'english': 'purpose that is necessary for success in all endeavors."',
+            'russian': 'FIXME purpose that is necessary for success in all endeavors."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"This is the gargoyle way; let it be thy way as well."',
+            'russian': 'FIXME \n\n"This is the gargoyle way; let it be thy way as well."'
+        })
+        wait()
+
+        print({
+            'english': '\n\nThe altar glows with a cold blue flame.',
+            'russian': 'FIXME \n\nThe altar glows with a cold blue flame.'
+        })
+        wait()
+
+        print({
+            'english': '\n\nYou feel compelled to seek out the Codex.',
+            'russian': 'FIXME \n\nYou feel compelled to seek out the Codex.'
+        })
+        wait()
+
+        print({
+            'english': '\n\nYour final quest has begun!',
+            'russian': 'FIXME \n\nYour final quest has begun!'
+        })
+        increaseKarma(byte 10)
+        integer(value 26) = byte 1
+        wait()
+
+        print({
+            'english': '\n',
+            'russian': 'FIXME \n'
+        })
+        bye()
+
+    case {
+        'english': 'or-un-us',
+        'russian': 'FIXME or-un-us'
+    }:
+    case {
+        'english': 'or-us-un',
+        'russian': 'FIXME or-us-un'
+    }:
+    case {
+        'english': 'un-us-or',
+        'russian': 'FIXME un-us-or'
+    }:
+    case {
+        'english': 'us-or-un',
+        'russian': 'FIXME us-or-un'
+    }:
+    case {
+        'english': 'us-un-or',
+        'russian': 'FIXME us-un-or'
+    }:
+        jump label_1656
+
+    case {
+        'english': 'orunus',
+        'russian': 'FIXME orunus'
+    }:
+    case {
+        'english': 'orusun',
+        'russian': 'FIXME orusun'
+    }:
+    case {
+        'english': 'unusor',
+        'russian': 'FIXME unusor'
+    }:
+    case {
+        'english': 'usorun',
+        'russian': 'FIXME usorun'
+    }:
+    case {
+        'english': 'usunor',
+        'russian': 'FIXME usunor'
+    }:
+        jump label_1656
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"You have not yet become familiar with the wisdom of the gargoyle ',
+            'russian': 'FIXME "You have not yet become familiar with the wisdom of the gargoyle '
+        })
+        print({
+            'english': 'race."',
+            'russian': 'FIXME race."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Continue thy search."',
+            'russian': 'FIXME \n\n"Continue thy search."'
+        })
+        jump label_798
+    esac
+
+label_2320:
+    print({
+        'english': '\n\n"Think again, Avatar: For whom dost thou seek the Codex?"\n',
+        'russian': 'FIXME \n\n"Think again, Avatar: For whom dost thou seek the Codex?"\n'
+    })
+
+label_2380:
+    ask()
+
+    case {
+        'english': 'all',
+        'russian': 'FIXME all'
+    }:
+    case {
+        'english': 'both',
+        'russian': 'FIXME both'
+    }:
+    case {
+        'english': 'ever',
+        'russian': 'FIXME ever'
+    }:
+    case {
+        'english': 'our',
+        'russian': 'FIXME our'
+    }:
+    case {
+        'english': 'peac',
+        'russian': 'FIXME peac'
+    }:
+        print({
+            'english': '"Thy answer is wise."',
+            'russian': 'FIXME "Thy answer is wise."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"But how canst thou truly work for the good of a race whose ways ',
+            'russian': 'FIXME \n\n"But how canst thou truly work for the good of a race whose ways '
+        })
+        print({
+            'english': 'thou dost not understand?"',
+            'russian': 'FIXME thou dost not understand?"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Go thou into the @Catacombs of @Control, @Passion and @Diligence."',
+            'russian': 'FIXME \n\n"Go thou into the @Catacombs of @Control, @Passion and @Diligence."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"In each wilt thou find the final resting place of the being who ',
+            'russian': 'FIXME \n\n"In each wilt thou find the final resting place of the being who '
+        })
+        print({
+            'english': 'most exemplifies that @principle."',
+            'russian': 'FIXME most exemplifies that @principle."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Return when thou hast found these @catacombs."',
+            'russian': 'FIXME \n\n"Return when thou hast found these @catacombs."'
+        })
+        setBit(byte 235, byte 2)
+        jump label_798
+
+    case {
+        'english': 'brit',
+        'russian': 'FIXME brit'
+    }:
+    case {
+        'english': 'huma',
+        'russian': 'FIXME huma'
+    }:
+    case {
+        'english': 'lord',
+        'russian': 'FIXME lord'
+    }:
+    case {
+        'english': 'me',
+        'russian': 'FIXME me'
+    }:
+    case {
+        'english': 'my',
+        'russian': 'FIXME my'
+    }:
+        print({
+            'english': '"Thy answer is foolish."',
+            'russian': 'FIXME "Thy answer is foolish."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"A journey made for selfish reasons can never be a sacred quest, ',
+            'russian': 'FIXME \n\n"A journey made for selfish reasons can never be a sacred quest, '
+        })
+        print({
+            'english': 'regardless of its goal."',
+            'russian': 'FIXME regardless of its goal."'
+        })
+        wait()
+
+        jump label_2320
+
+    case {
+        'english': 'garg',
+        'russian': 'FIXME garg'
+    }:
+    case {
+        'english': 'inqu',
+        'russian': 'FIXME inqu'
+    }:
+    case {
+        'english': 'lead',
+        'russian': 'FIXME lead'
+    }:
+    case {
+        'english': 'scho',
+        'russian': 'FIXME scho'
+    }:
+    case {
+        'english': 'seer',
+        'russian': 'FIXME seer'
+    }:
+        print({
+            'english': '"Thy answer is foolish."',
+            'russian': 'FIXME "Thy answer is foolish."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"There is no nobility or honor in betraying one\'s own race for the ',
+            'russian': 'FIXME \n\n"There is no nobility or honor in betraying one\'s own race for the '
+        })
+        print({
+            'english': 'sake of another."',
+            'russian': 'FIXME sake of another."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Such a path can never be a sacred quest."',
+            'russian': 'FIXME \n\n"Such a path can never be a sacred quest."'
+        })
+        wait()
+
+        jump label_2320
+
+    case {
+        'english': 'beh',
+        'russian': 'FIXME beh'
+    }:
+    case {
+        'english': 'bole',
+        'russian': 'FIXME bole'
+    }:
+    case {
+        'english': 'drax',
+        'russian': 'FIXME drax'
+    }:
+    case {
+        'english': 'naxa',
+        'russian': 'FIXME naxa'
+    }:
+    case {
+        'english': 'valk',
+        'russian': 'FIXME valk'
+    }:
+        print({
+            'english': '"Thy answer is foolish."',
+            'russian': 'FIXME "Thy answer is foolish."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Thy compassion is acknowledged, but compassion is not the key to ',
+            'russian': 'FIXME \n\n"Thy compassion is acknowledged, but compassion is not the key to '
+        })
+        print({
+            'english': 'success."',
+            'russian': 'FIXME success."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"The motive must be as one with the goal for a journey to become a ',
+            'russian': 'FIXME \n\n"The motive must be as one with the goal for a journey to become a '
+        })
+        print({
+            'english': 'sacred quest."',
+            'russian': 'FIXME sacred quest."'
+        })
+        wait()
+
+        jump label_2320
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"Return when thou canst truly answer this question."\n',
+            'russian': 'FIXME "Return when thou canst truly answer this question."\n'
+        })
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"Thy answer is foolish."',
+            'russian': 'FIXME "Thy answer is foolish."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Thy mind must be focused clearly on thy path for thy journey to ',
+            'russian': 'FIXME \n\n"Thy mind must be focused clearly on thy path for thy journey to '
+        })
+        print({
+            'english': 'become a sacred quest."',
+            'russian': 'FIXME become a sacred quest."'
+        })
+        wait()
+
+        jump label_2320
+    esac
+
+strings_3487 = [
+    {
+        'english': 'Control',
+        'russian': 'FIXME Control'
+    }, // 0
+    {
+        'english': 'Diligence',
+        'russian': 'FIXME Diligence'
+    }, // 1
+    {
+        'english': 'Passion',
+        'russian': 'FIXME Passion'
+    }, // 2
+]
+
+    endOfList()
+
+strings_3514 = [
+    {
+        'english': 'west',
+        'russian': 'FIXME west'
+    }, // 0
+    {
+        'english': 'south',
+        'russian': 'FIXME south'
+    }, // 1
+    {
+        'english': 'east',
+        'russian': 'FIXME east'
+    }, // 2
+]

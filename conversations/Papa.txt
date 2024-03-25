@@ -1,0 +1,343 @@
+source('CONVERSE.B')
+index(44)
+
+id(143)
+name({
+    'english': 'Papa',
+    'russian': 'FIXME Papa'
+})
+
+description:
+    print({
+        'english': 'a huge male cyclops.',
+        'russian': 'FIXME a huge male cyclops.'
+    })
+
+interaction:
+    wait()
+
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    if hasBit(byte 235, byte 2):
+        print({
+            'english': '"Hoh, hoh. You back!"',
+            'russian': 'FIXME "Hoh, hoh. You back!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"You bring good fish."',
+            'russian': 'FIXME \n\n"You bring good fish."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Bring more?" ',
+            'russian': 'FIXME \n\n"Bring more?" '
+        })
+
+        choice({
+            'english': 'yn',
+            'russian': 'FIXME yn'
+        })
+
+        case {
+            'english': 'y',
+            'russian': 'FIXME y'
+        }:
+            jump label_845
+
+        case {
+            'english': 'n',
+            'russian': 'FIXME n'
+        }:
+            print({
+                'english': '"No fish?" The cyclops seems sad.',
+                'russian': 'FIXME "No fish?" The cyclops seems sad.'
+            })
+            jump label_232
+        esac
+    fi
+
+    if hasBit(byte 235, value 0):
+        print({
+            'english': '"Hoh! You bring fish?" ',
+            'russian': 'FIXME "Hoh! You bring fish?" '
+        })
+
+        choice({
+            'english': 'yn',
+            'russian': 'FIXME yn'
+        })
+
+        case {
+            'english': 'y',
+            'russian': 'FIXME y'
+        }:
+            jump label_845
+
+        case {
+            'english': 'n',
+            'russian': 'FIXME n'
+        }:
+            print({
+                'english': '"Get @fish!"',
+                'russian': 'FIXME "Get @fish!"'
+            })
+            jump label_232
+        esac
+    fi
+
+    print({
+        'english': '"Who you?"',
+        'russian': 'FIXME "Who you?"'
+    })
+    setBit(byte 235, value 0)
+
+label_232:
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"Me cyclops."',
+            'russian': 'FIXME "Me cyclops."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"@Tiny one say me \'Papa.\'"',
+            'russian': 'FIXME \n\n"@Tiny one say me \'Papa.\'"'
+        })
+        jump label_232
+
+    case {
+        'english': 'one',
+        'russian': 'FIXME one'
+    }:
+    case {
+        'english': 'tiny',
+        'russian': 'FIXME tiny'
+    }:
+        print({
+            'english': '"Find him on shore."',
+            'russian': 'FIXME "Find him on shore."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"One-eye little one die long ago."',
+            'russian': 'FIXME \n\n"One-eye little one die long ago."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Female want little one, so keep tiny one."',
+            'russian': 'FIXME \n\n"Female want little one, so keep tiny one."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Not strong like one-eye little one."',
+            'russian': 'FIXME \n\n"Not strong like one-eye little one."'
+        })
+        jump label_232
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"Live here! Eat, hunt!"',
+            'russian': 'FIXME "Live here! Eat, hunt!"'
+        })
+        jump label_232
+
+    case {
+        'english': 'cell',
+        'russian': 'FIXME cell'
+    }:
+        print({
+            'english': '"Cellar no go. @Locked."',
+            'russian': 'FIXME "Cellar no go. @Locked."'
+        })
+        jump label_232
+
+    case {
+        'english': 'key',
+        'russian': 'FIXME key'
+    }:
+    case {
+        'english': 'lock',
+        'russian': 'FIXME lock'
+    }:
+        if hasObject(byte 235, byte 64, byte 13):
+            print({
+                'english': '"Got key. Want key?" ',
+                'russian': 'FIXME "Got key. Want key?" '
+            })
+            jump label_745
+
+        else:
+            print({
+                'english': '"No got key."',
+                'russian': 'FIXME "No got key."'
+            })
+            jump label_232
+        fi
+
+    case {
+        'english': 'big',
+        'russian': 'FIXME big'
+    }:
+    case {
+        'english': 'blac',
+        'russian': 'FIXME blac'
+    }:
+    case {
+        'english': 'bloc',
+        'russian': 'FIXME bloc'
+    }:
+    case {
+        'english': 'cube',
+        'russian': 'FIXME cube'
+    }:
+        print({
+            'english': '"Mine. In @cellar. No get!"',
+            'russian': 'FIXME "Mine. In @cellar. No get!"'
+        })
+        jump label_232
+
+    case {
+        'english': 'fish',
+        'russian': 'FIXME fish'
+    }:
+        print({
+            'english': '"Fish good."',
+            'russian': 'FIXME "Fish good."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Like eat much fish!"',
+            'russian': 'FIXME \n\n"Like eat much fish!"'
+        })
+        jump label_232
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"Come back, bring ',
+            'russian': 'FIXME "Come back, bring '
+        })
+
+        if hasBit(byte 235, byte 2):
+            print({
+                'english': 'more ',
+                'russian': 'FIXME more '
+            })
+        fi
+
+        print({
+            'english': 'fish!"\n',
+            'russian': 'FIXME fish!"\n'
+        })
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"What mean $Z?"',
+            'russian': 'FIXME "What mean $Z?"'
+        })
+        jump label_232
+    esac
+
+label_745:
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        print({
+            'english': '"Want fish!"',
+            'russian': 'FIXME "Want fish!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Use pole, get fish."',
+            'russian': 'FIXME \n\n"Use pole, get fish."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Want key, bring fish!"',
+            'russian': 'FIXME \n\n"Want key, bring fish!"'
+        })
+        jump label_232
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"Why ask no want?"',
+            'russian': 'FIXME "Why ask no want?"'
+        })
+        jump label_232
+    esac
+
+label_845:
+    integer(value 1) = byte 0
+    integer(value 0) = partyHasObject(word 265, byte 0)
+
+    if equals(integer(value 0), word 32769):
+        print({
+            'english': '"Where fish? No smell fish."',
+            'russian': 'FIXME "Where fish? No smell fish."'
+        })
+        jump label_232
+    fi
+
+    destroyItem(integer(value 0), word 265, byte 0, byte 1)
+
+    if hasBit(byte 235, byte 2):
+        print({
+            'english': '"Good fish! Good friend!"',
+            'russian': 'FIXME "Good fish! Good friend!"'
+        })
+        jump label_232
+    fi
+
+    print({
+        'english': '"Good fish! Here, key."',
+        'russian': 'FIXME "Good fish! Here, key."'
+    })
+    wait()
+
+    print({
+        'english': '\n\nThe cyclops hands you a large, rusted key.',
+        'russian': 'FIXME \n\nThe cyclops hands you a large, rusted key.'
+    })
+    giveItem(byte 64, byte 13, byte 235, byte 1)
+    setBit(byte 235, byte 2)
+    jump label_232

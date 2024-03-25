@@ -1,0 +1,244 @@
+source('CONVERSE.A')
+index(17)
+
+id(17)
+name({
+    'english': 'Peyton',
+    'russian': 'FIXME Peyton'
+})
+
+description:
+    print({
+        'english': 'a well-dressed man with a very even temper.',
+        'russian': 'FIXME a well-dressed man with a very even temper.'
+    })
+    wait()
+
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+interaction:
+    if hasBit(byte 235, value 0):
+        print({
+            'english': '"Good $T, friend',
+            'russian': 'FIXME "Good $T, friend'
+        })
+
+    else:
+        print({
+            'english': '"Greetings, traveler',
+            'russian': 'FIXME "Greetings, traveler'
+        })
+    fi
+
+    if integer(value 23):
+        print({
+            'english': 's',
+            'russian': 'FIXME s'
+        })
+    fi
+
+    print({
+        'english': ', and welcome ',
+        'russian': 'FIXME , and welcome '
+    })
+
+    if hasBit(byte 235, value 0):
+        print({
+            'english': 'back ',
+            'russian': 'FIXME back '
+        })
+
+    else:
+        setBit(byte 235, value 0)
+    fi
+
+    print({
+        'english': 'to the Wayfarer\'s @Inn!"\n',
+        'russian': 'FIXME to the Wayfarer\'s @Inn!"\n'
+    })
+
+label_163:
+    ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"I am Peyton, and this is my place." He gestures with his hands.\n',
+            'russian': 'FIXME "I am Peyton, and this is my place." He gestures with his hands.\n'
+        })
+        setBit(byte 235, value 0)
+        jump label_163
+
+    case {
+        'english': 'peyt',
+        'russian': 'FIXME peyt'
+    }:
+        print({
+            'english': '"Did you need something?"\n',
+            'russian': 'FIXME "Did you need something?"\n'
+        })
+        jump label_163
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"I can offer you a @room for the evening."\n',
+            'russian': 'FIXME "I can offer you a @room for the evening."\n'
+        })
+        jump label_163
+
+    case {
+        'english': 'inn',
+        'russian': 'FIXME inn'
+    }:
+    case {
+        'english': 'room',
+        'russian': 'FIXME room'
+    }:
+        jump label_439
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"Goodbye. Take care of yourself."\n',
+            'russian': 'FIXME "Goodbye. Take care of yourself."\n'
+        })
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"I\'m sure you\'ll have to ask another."\n',
+            'russian': 'FIXME "I\'m sure you\'ll have to ask another."\n'
+        })
+    esac
+
+    jump label_163
+
+label_439:
+    integer(value 0) = multiply(plus(integer(value 24), byte 1), byte 8)
+    print({
+        'english': '"#0 gold for bed and breakfast. Interested?" ',
+        'russian': 'FIXME "#0 gold for bed and breakfast. Interested?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        if less(objectsCount(byte 1, byte 88), integer(value 0)):
+            jump label_713
+
+        else:
+            destroyItem(byte 1, byte 88, byte 0, integer(value 0))
+            jump label_589
+        fi
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"Well, perhaps next time you\'re in town."\n',
+            'russian': 'FIXME "Well, perhaps next time you\'re in town."\n'
+        })
+        jump label_163
+    esac
+
+label_589:
+    print({
+        'english': 'You sleep in a comfortable bed...\n',
+        'russian': 'FIXME You sleep in a comfortable bed...\n'
+    })
+    sleep()
+
+    wait()
+
+    print({
+        'english': '\nYou wake rested and eat a large breakfast.',
+        'russian': 'FIXME \nYou wake rested and eat a large breakfast.'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"Good morning, and have a good day."\n',
+        'russian': 'FIXME \n\n"Good morning, and have a good day."\n'
+    })
+    jump label_163
+
+label_713:
+    if equals(integer(value 24), byte 0):
+        print({
+            'english': 'You don\'t have enough gold for that.\n',
+            'russian': 'FIXME You don\'t have enough gold for that.\n'
+        })
+        jump label_163
+    fi
+
+    integer(value 1) = integer(value 0)
+    integer(value 2) = byte 0
+    integer(value 6) = byte 0
+    integer(value 4) = byte 0
+
+label_791:
+    if greater(integer(value 6), integer(value 24)):
+        print({
+            'english': '"I\'m sorry, cash in advance. That\'s our policy."\n',
+            'russian': 'FIXME "I\'m sorry, cash in advance. That\'s our policy."\n'
+        })
+        jump label_163
+    fi
+
+    integer(value 5) = objectsCount(character(integer(value 6), byte 1), byte 88)
+
+    if less(integer(value 5), integer(value 1)):
+        integer(value 1) = minus(integer(value 1), integer(value 5))
+        integer(value 2) = plus(integer(value 2), integer(value 5))
+        integer(value 6) = plus(integer(value 6), byte 1)
+        jump label_791
+
+    else:
+        print({
+            'english': 'Your party takes up a collection to pay for the rooms.',
+            'russian': 'FIXME Your party takes up a collection to pay for the rooms.'
+        })
+        integer(value 1) = integer(value 0)
+        integer(value 2) = byte 0
+        integer(value 4) = integer(value 6)
+        integer(value 6) = byte 0
+        jump label_997
+    fi
+
+label_997:
+    if equals(integer(value 6), integer(value 4)):
+        destroyItem(character(integer(value 6), byte 1), byte 88, byte 0, integer(value 1))
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_589
+    fi
+
+    integer(value 5) = objectsCount(character(integer(value 6), byte 1), byte 88)
+    integer(value 1) = minus(integer(value 1), integer(value 5))
+    destroyItem(character(integer(value 6), byte 1), byte 88, byte 0, integer(value 5))
+    integer(value 6) = plus(integer(value 6), byte 1)
+    jump label_997

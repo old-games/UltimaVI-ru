@@ -1,0 +1,425 @@
+source('CONVERSE.A')
+index(46)
+
+id(46)
+name({
+    'english': 'Van Kellian',
+    'russian': 'FIXME Van Kellian'
+})
+
+description:
+    print({
+        'english': 'a man dressed in velvets and silks of yellow, green and blue.',
+        'russian': 'FIXME a man dressed in velvets and silks of yellow, green and blue.'
+    })
+    wait()
+
+    print({
+        'english': '\n\nHis voice is rich and mellow.',
+        'russian': 'FIXME \n\nHis voice is rich and mellow.'
+    })
+    wait()
+
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+interaction:
+    if equals(integer(value 32), byte 153):
+        print({
+            'english': 'He glances behind him and ducks, as if expecting someone to throw ',
+            'russian': 'FIXME He glances behind him and ducks, as if expecting someone to throw '
+        })
+        print({
+            'english': 'something at him.\n*\n"Bit of a brawl going on just now. Be glad to talk',
+            'russian': 'FIXME something at him.\n*\n"Bit of a brawl going on just now. Be glad to talk'
+        })
+        print({
+            'english': ' to you some other time."\n',
+            'russian': 'FIXME  to you some other time."\n'
+        })
+        bye()
+    fi
+
+    if equals(hasBit(byte 235, value 0), byte 0):
+        setBit(byte 235, value 0)
+        print({
+            'english': '"How do you do. I am the bard Van Kellian."',
+            'russian': 'FIXME "How do you do. I am the bard Van Kellian."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Please, speak your name, $G."\n',
+            'russian': 'FIXME \n\n"Please, speak your name, $G."\n'
+        })
+
+        ask()
+        print({
+            'english': '\n"A pleasure, to be sure, $Z."',
+            'russian': 'FIXME \n"A pleasure, to be sure, $Z."'
+        })
+
+    else:
+        print({
+            'english': '"A very good $T to ye, my friend."',
+            'russian': 'FIXME "A very good $T to ye, my friend."'
+        })
+        jump label_445
+    fi
+
+label_445:
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"Call me Van."',
+            'russian': 'FIXME "Call me Van."'
+        })
+        jump label_445
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"Why, singing is my trade."',
+            'russian': 'FIXME "Why, singing is my trade."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Songs to soothe the soul and refresh the mind."',
+            'russian': 'FIXME \n\n"Songs to soothe the soul and refresh the mind."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Shall I sing for ye?" ',
+            'russian': 'FIXME \n\n"Shall I sing for ye?" '
+        })
+
+        if partyHas(byte 4):
+            wait()
+
+            portrait(byte 4)
+            print({
+                'english': '\n\nIolo rolls his eyes and whispers to you.',
+                'russian': 'FIXME \n\nIolo rolls his eyes and whispers to you.'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"He believes he does us a favor. This I must hear."',
+                'russian': 'FIXME \n\n"He believes he does us a favor. This I must hear."'
+            })
+            wait()
+
+            portrait(byte 235)
+            print({
+                'english': '\n\n"Well? How about a @song?" ',
+                'russian': 'FIXME \n\n"Well? How about a @song?" '
+            })
+        fi
+
+        jump label_2045
+
+    case {
+        'english': 'sing',
+        'russian': 'FIXME sing'
+    }:
+    case {
+        'english': 'song',
+        'russian': 'FIXME song'
+    }:
+        print({
+            'english': '"\'Tis such a topsy-turvy world ',
+            'russian': 'FIXME "\'Tis such a topsy-turvy world '
+        })
+        wait()
+
+        print({
+            'english': 'When my sweet lady-love whirls by ',
+            'russian': 'FIXME When my sweet lady-love whirls by '
+        })
+        wait()
+
+        print({
+            'english': '\nI would that I could catch her eye ',
+            'russian': 'FIXME \nI would that I could catch her eye '
+        })
+        wait()
+
+        print({
+            'english': '\nSing ho eyo he hum!"',
+            'russian': 'FIXME \nSing ho eyo he hum!"'
+        })
+        jump label_445
+
+    case {
+        'english': 'mant',
+        'russian': 'FIXME mant'
+    }:
+        print({
+            'english': '"Did ye know that the mantra of pride is \'mul?\' A @beggar told me ',
+            'russian': 'FIXME "Did ye know that the mantra of pride is \'mul?\' A @beggar told me '
+        })
+        print({
+            'english': 'that."',
+            'russian': 'FIXME that."'
+        })
+        jump label_445
+
+    case {
+        'english': 'begg',
+        'russian': 'FIXME begg'
+    }:
+    case {
+        'english': 'mul',
+        'russian': 'FIXME mul'
+    }:
+    case {
+        'english': 'prid',
+        'russian': 'FIXME prid'
+    }:
+        print({
+            'english': '"There is little enough dignity in the life of a beggar."',
+            'russian': 'FIXME "There is little enough dignity in the life of a beggar."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"I gave him a few coins, of course."',
+            'russian': 'FIXME \n\n"I gave him a few coins, of course."'
+        })
+        jump label_445
+
+    case {
+        'english': 'star',
+        'russian': 'FIXME star'
+    }:
+    case {
+        'english': 'stel',
+        'russian': 'FIXME stel'
+    }:
+        print({
+            'english': '"Starhelm and I have often debated the nature of the gargoyle @Sin ',
+            'russian': 'FIXME "Starhelm and I have often debated the nature of the gargoyle @Sin '
+        })
+        print({
+            'english': '\'Vraal."',
+            'russian': 'FIXME \'Vraal."'
+        })
+        jump label_445
+
+    case {
+        'english': '\'vra',
+        'russian': 'FIXME \'vra'
+    }:
+    case {
+        'english': 'sin',
+        'russian': 'FIXME sin'
+    }:
+    case {
+        'english': 'vraa',
+        'russian': 'FIXME vraa'
+    }:
+        print({
+            'english': '"If Lord British suffers him to live, then I will not harm him."',
+            'russian': 'FIXME "If Lord British suffers him to live, then I will not harm him."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"What possible threat could one @gargoyle living alone in the Dry ',
+            'russian': 'FIXME \n\n"What possible threat could one @gargoyle living alone in the Dry '
+        })
+        print({
+            'english': 'Lands be?"',
+            'russian': 'FIXME Lands be?"'
+        })
+
+        if isNearby(byte 45):
+            wait()
+
+            portrait(byte 45)
+            print({
+                'english': '\n\nStelnar says "I\'ll tell ye, Van."',
+                'russian': 'FIXME \n\nStelnar says "I\'ll tell ye, Van."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"If ye let one gargoyle live, ',
+                'russian': 'FIXME \n\n"If ye let one gargoyle live, '
+            })
+            wait()
+
+            print({
+                'english': 'then ye\'ll be tempted to spare trolls, ',
+                'russian': 'FIXME then ye\'ll be tempted to spare trolls, '
+            })
+            wait()
+
+            print({
+                'english': 'and then even cyclopses."',
+                'russian': 'FIXME and then even cyclopses."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"And then ye forget valour, and soon ye are overrun by monsters!"',
+                'russian': 'FIXME \n\n"And then ye forget valour, and soon ye are overrun by monsters!"'
+            })
+            wait()
+
+            portrait(byte 235)
+        fi
+
+        jump label_445
+
+    case {
+        'english': 'comp',
+        'russian': 'FIXME comp'
+    }:
+    case {
+        'english': 'valo',
+        'russian': 'FIXME valo'
+    }:
+        print({
+            'english': '"Valour comes from the courage to be virtuous."',
+            'russian': 'FIXME "Valour comes from the courage to be virtuous."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Just as compassion comes from a love of all mankind."',
+            'russian': 'FIXME \n\n"Just as compassion comes from a love of all mankind."'
+        })
+
+        if isNearby(byte 45):
+            wait()
+
+            portrait(byte 45)
+            print({
+                'english': '\n\n"Aha! That means monsters are not deserving of mercy!" says Stelnar',
+                'russian': 'FIXME \n\n"Aha! That means monsters are not deserving of mercy!" says Stelnar'
+            })
+            wait()
+
+            portrait(byte 235)
+            print({
+                'english': '\n\n"Courage grows. Why not love?"',
+                'russian': 'FIXME \n\n"Courage grows. Why not love?"'
+            })
+        fi
+
+        jump label_445
+
+    case {
+        'english': 'garg',
+        'russian': 'FIXME garg'
+    }:
+        print({
+            'english': '"Well, I hear their skin is stony and rough."',
+            'russian': 'FIXME "Well, I hear their skin is stony and rough."'
+        })
+        wait()
+
+        print({
+            'english': '\n"Their cries are fierce yowlings to make the blood run cold with ',
+            'russian': 'FIXME \n"Their cries are fierce yowlings to make the blood run cold with '
+        })
+        print({
+            'english': 'fear."',
+            'russian': 'FIXME fear."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Though, mind ye, I myself have never faced one in combat."',
+            'russian': 'FIXME \n\n"Though, mind ye, I myself have never faced one in combat."'
+        })
+        jump label_445
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"Good $T, and farewell."\n',
+            'russian': 'FIXME "Good $T, and farewell."\n'
+        })
+        bye()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"Hmm. No, I cannot help ye with that."',
+            'russian': 'FIXME "Hmm. No, I cannot help ye with that."'
+        })
+    esac
+
+    jump label_445
+
+label_2045:
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"Well, perhaps another time, then."',
+            'russian': 'FIXME "Well, perhaps another time, then."'
+        })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        print({
+            'english': 'The bard plays a harp and sings.',
+            'russian': 'FIXME The bard plays a harp and sings.'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Tho\' she disdains to speak to me ',
+            'russian': 'FIXME \n\n"Tho\' she disdains to speak to me '
+        })
+        wait()
+
+        print({
+            'english': '\nAh how I pine and sigh for her ',
+            'russian': 'FIXME \nAh how I pine and sigh for her '
+        })
+        wait()
+
+        print({
+            'english': '\nI would that I were handsome- o ',
+            'russian': 'FIXME \nI would that I were handsome- o '
+        })
+        wait()
+
+        print({
+            'english': '\nSing ho eyo he hum!"',
+            'russian': 'FIXME \nSing ho eyo he hum!"'
+        })
+    esac
+
+    jump label_445

@@ -1,0 +1,724 @@
+source('CONVERSE.B')
+index(75)
+
+id(174)
+name({
+    'english': 'Weaponsmith',
+    'russian': 'FIXME Weaponsmith'
+})
+
+description:
+    print({
+        'english': 'a young, nervous-looking gargoyle.',
+        'russian': 'FIXME a young, nervous-looking gargoyle.'
+    })
+    wait()
+
+interaction:
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    if and(equals(integer(value 21), byte 1), equals(partyHasObject(byte 76, byte 0), byte 1)):
+        jump label_281
+    fi
+
+    if integer(value 21):
+        print({
+            'english': '"The False Prophet!" the gargoyle screams. "Guards! Guards!"',
+            'russian': 'FIXME "The False Prophet!" the gargoyle screams. "Guards! Guards!"'
+        })
+
+    else:
+        print({
+            'english': '"An-bal-sil-fer!" the gargoyle screams. "Agra-lem! Agra-Lem!"',
+            'russian': 'FIXME "An-bal-sil-fer!" the gargoyle screams. "Agra-lem! Agra-Lem!"'
+        })
+    fi
+
+    wait()
+
+    print({
+        'english': '\n\nSuddenly realizing that he is holding a weapon, the gargoyle ',
+        'russian': 'FIXME \n\nSuddenly realizing that he is holding a weapon, the gargoyle '
+    })
+    print({
+        'english': 'attacks!\n',
+        'russian': 'FIXME attacks!\n'
+    })
+    do(byte 235, byte 153)
+    bye()
+
+label_281:
+    if hasBit(byte 235, value 0):
+        print({
+            'english': '"To ask how I can help you, noble one."',
+            'russian': 'FIXME "To ask how I can help you, noble one."'
+        })
+
+    else:
+        print({
+            'english': '"The False Prophet!"',
+            'russian': 'FIXME "The False Prophet!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To thank you for your upcoming sacrifice."',
+            'russian': 'FIXME \n\n"To thank you for your upcoming sacrifice."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To greatly respect your nobility and courage."',
+            'russian': 'FIXME \n\n"To greatly respect your nobility and courage."'
+        })
+        setBit(byte 235, value 0)
+    fi
+
+label_450:
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    ask()
+
+    case {
+        'english': 'buy',
+        'russian': 'FIXME buy'
+    }:
+    case {
+        'english': 'sell',
+        'russian': 'FIXME sell'
+    }:
+        print({
+            'english': '"To not understand what that means."',
+            'russian': 'FIXME "To not understand what that means."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To create these items for the use of @all."',
+            'russian': 'FIXME \n\n"To create these items for the use of @all."'
+        })
+        jump label_450
+
+    case {
+        'english': 'all',
+        'russian': 'FIXME all'
+    }:
+        print({
+            'english': '"To give these wares to any gargoyle who has need of them."',
+            'russian': 'FIXME "To give these wares to any gargoyle who has need of them."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To invite you to look around at my @wares as well."',
+            'russian': 'FIXME \n\n"To invite you to look around at my @wares as well."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To ask if any of them interest you?"',
+            'russian': 'FIXME \n\n"To ask if any of them interest you?"'
+        })
+        jump label_450
+
+    case {
+        'english': 'ware',
+        'russian': 'FIXME ware'
+    }:
+        print({
+            'english': '"To have but a few items available."',
+            'russian': 'FIXME "To have but a few items available."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To be far less adept than my former @master."',
+            'russian': 'FIXME \n\n"To be far less adept than my former @master."'
+        })
+        jump label_450
+
+    case {
+        'english': 'boom',
+        'russian': 'FIXME boom'
+    }:
+        if hasBit(byte 235, byte 2):
+            print({
+                'english': '"To wish I had more boomerangs, that I might give you another."',
+                'russian': 'FIXME "To wish I had more boomerangs, that I might give you another."'
+            })
+            jump label_450
+
+        else:
+            jump label_3365
+        fi
+
+    case {
+        'english': 'ylem',
+        'russian': 'FIXME ylem'
+    }:
+    case {
+        'english': 'zu',
+        'russian': 'FIXME zu'
+    }:
+        if hasBit(byte 235, byte 3):
+            print({
+                'english': '"To regret that I have such a small supply of zu ylem dust."',
+                'russian': 'FIXME "To regret that I have such a small supply of zu ylem dust."'
+            })
+            jump label_450
+
+        else:
+            jump label_4014
+        fi
+
+    case {
+        'english': 'good',
+        'russian': 'FIXME good'
+    }:
+        print({
+            'english': '"To consider him a discredit to the race!"',
+            'russian': 'FIXME "To consider him a discredit to the race!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Most of all, to consider him a @dishonor to my late master!"',
+            'russian': 'FIXME \n\n"Most of all, to consider him a @dishonor to my late master!"'
+        })
+        jump label_450
+
+    case {
+        'english': 'dish',
+        'russian': 'FIXME dish'
+    }:
+        print({
+            'english': '"To cheapen all our loss, all our grief, by his self-pity."',
+            'russian': 'FIXME "To cheapen all our loss, all our grief, by his self-pity."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To have lost my @master, like a father to me."',
+            'russian': 'FIXME \n\n"To have lost my @master, like a father to me."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Yet to maintain control, to maintain diligence."',
+            'russian': 'FIXME \n\n"Yet to maintain control, to maintain diligence."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Most of all to maintain passion for life."',
+            'russian': 'FIXME \n\n"Most of all to maintain passion for life."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To feel that the goodscrafter dishonors us all by abandoning our ',
+            'russian': 'FIXME \n\n"To feel that the goodscrafter dishonors us all by abandoning our '
+        })
+        print({
+            'english': 'principles."',
+            'russian': 'FIXME principles."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To feel that the goodscrafter needs a trip to the @catacombs."',
+            'russian': 'FIXME \n\n"To feel that the goodscrafter needs a trip to the @catacombs."'
+        })
+        jump label_450
+
+    case {
+        'english': 'cata',
+        'russian': 'FIXME cata'
+    }:
+        print({
+            'english': '"Yes, to have visited them myself once, long ago."',
+            'russian': 'FIXME "Yes, to have visited them myself once, long ago."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To find there shrines to our three principles: control, passion and',
+            'russian': 'FIXME \n\n"To find there shrines to our three principles: control, passion and'
+        })
+        print({
+            'english': ' diligence."',
+            'russian': 'FIXME  diligence."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To speak with these shrines and meditate, to receive new insight."',
+            'russian': 'FIXME \n\n"To speak with these shrines and meditate, to receive new insight."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To not remember where the catacombs are."',
+            'russian': 'FIXME \n\n"To not remember where the catacombs are."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To be sent there by the Temple of @Singularity."',
+            'russian': 'FIXME \n\n"To be sent there by the Temple of @Singularity."'
+        })
+        jump label_450
+
+    case {
+        'english': 'sing',
+        'russian': 'FIXME sing'
+    }:
+    case {
+        'english': 'temp',
+        'russian': 'FIXME temp'
+    }:
+        print({
+            'english': '"To find that to the north, in the mountains."',
+            'russian': 'FIXME "To find that to the north, in the mountains."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To advise you to find some way to @fly if you wish to get there, ',
+            'russian': 'FIXME \n\n"To advise you to find some way to @fly if you wish to get there, '
+        })
+        print({
+            'english': 'though!"',
+            'russian': 'FIXME though!"'
+        })
+        jump label_450
+
+    case {
+        'english': 'fly',
+        'russian': 'FIXME fly'
+    }:
+        print({
+            'english': '"To be unable to reach the Temple on foot; to be forced to fly over ',
+            'russian': 'FIXME "To be unable to reach the Temple on foot; to be forced to fly over '
+        })
+        print({
+            'english': 'the mountains."',
+            'russian': 'FIXME the mountains."'
+        })
+        jump label_450
+
+    case {
+        'english': 'silv',
+        'russian': 'FIXME silv'
+    }:
+    case {
+        'english': 'snak',
+        'russian': 'FIXME snak'
+    }:
+    case {
+        'english': 'veno',
+        'russian': 'FIXME veno'
+    }:
+        print({
+            'english': '"To be a powerful but dangerous drug!"',
+            'russian': 'FIXME "To be a powerful but dangerous drug!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To turn gargoyle warriors into unstoppable fighters!"',
+            'russian': 'FIXME \n\n"To turn gargoyle warriors into unstoppable fighters!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"But to always be fatal after the battle ends."',
+            'russian': 'FIXME \n\n"But to always be fatal after the battle ends."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To be created by the snake @charmer, who lives to the southwest."',
+            'russian': 'FIXME \n\n"To be created by the snake @charmer, who lives to the southwest."'
+        })
+        jump label_450
+
+    case {
+        'english': 'char',
+        'russian': 'FIXME char'
+    }:
+        print({
+            'english': '"Yes, to suggest you visit him if you are interested."',
+            'russian': 'FIXME "Yes, to suggest you visit him if you are interested."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To find the snake-summoning horn a most impressive sight!"',
+            'russian': 'FIXME \n\n"To find the snake-summoning horn a most impressive sight!"'
+        })
+        jump label_450
+
+    case {
+        'english': 'plan',
+        'russian': 'FIXME plan'
+    }:
+        print({
+            'english': '"To create the zu ylem dust from plants that can no longer be found."',
+            'russian': 'FIXME "To create the zu ylem dust from plants that can no longer be found."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"But to know of far worse effects of the @disasters."',
+            'russian': 'FIXME \n\n"But to know of far worse effects of the @disasters."'
+        })
+        jump label_450
+
+    case {
+        'english': 'armo',
+        'russian': 'FIXME armo'
+    }:
+    case {
+        'english': 'belt',
+        'russian': 'FIXME belt'
+    }:
+    case {
+        'english': 'helm',
+        'russian': 'FIXME helm'
+    }:
+        print({
+            'english': '"To see little of interest in that item."',
+            'russian': 'FIXME "To see little of interest in that item."'
+        })
+        jump label_450
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"May your long work and strength lead to success!"\n',
+            'russian': 'FIXME "May your long work and strength lead to success!"\n'
+        })
+        bye()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"To be but a simple @weaponsmith, False Prophet."',
+            'russian': 'FIXME "To be but a simple @weaponsmith, False Prophet."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To lack a name, as is appropriate for my station."',
+            'russian': 'FIXME \n\n"To lack a name, as is appropriate for my station."'
+        })
+        jump label_450
+
+    case {
+        'english': 'disa',
+        'russian': 'FIXME disa'
+    }:
+        print({
+            'english': '"Yes, surely to know of the disasters?"',
+            'russian': 'FIXME "Yes, surely to know of the disasters?"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To have only barely survived the earthquakes after the Codex ',
+            'russian': 'FIXME \n\n"To have only barely survived the earthquakes after the Codex '
+        })
+        print({
+            'english': 'disappeared."',
+            'russian': 'FIXME disappeared."'
+        })
+        jump label_450
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+    case {
+        'english': 'mast',
+        'russian': 'FIXME mast'
+    }:
+    case {
+        'english': 'weap',
+        'russian': 'FIXME weap'
+    }:
+    case {
+        'english': 'work',
+        'russian': 'FIXME work'
+    }:
+        print({
+            'english': '"To be the master weaponsmith now, although to have but recently been ',
+            'russian': 'FIXME "To be the master weaponsmith now, although to have but recently been '
+        })
+        print({
+            'english': 'a simple @apprentice."',
+            'russian': 'FIXME a simple @apprentice."'
+        })
+        jump label_450
+
+    case {
+        'english': 'appr',
+        'russian': 'FIXME appr'
+    }:
+        print({
+            'english': '"To greatly regret the loss of my master, killed during the ',
+            'russian': 'FIXME "To greatly regret the loss of my master, killed during the '
+        })
+        print({
+            'english': '@disasters."',
+            'russian': 'FIXME @disasters."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"But to carry on in the face of adversity."',
+            'russian': 'FIXME \n\n"But to carry on in the face of adversity."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"And certainly not to lose all passion for life, like the worthless ',
+            'russian': 'FIXME \n\n"And certainly not to lose all passion for life, like the worthless '
+        })
+        print({
+            'english': '@goodscrafter!"',
+            'russian': 'FIXME @goodscrafter!"'
+        })
+        jump label_450
+
+    case {
+        'english': 'join',
+        'russian': 'FIXME join'
+    }:
+        print({
+            'english': '"To wish I could leave on adventures..."',
+            'russian': 'FIXME "To wish I could leave on adventures..."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"But to be dedicated to my important @work."',
+            'russian': 'FIXME \n\n"But to be dedicated to my important @work."'
+        })
+        jump label_450
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"To know nothing of $Z, being but a simple weaponsmith."',
+            'russian': 'FIXME "To know nothing of $Z, being but a simple weaponsmith."'
+        })
+        jump label_450
+    esac
+
+label_3365:
+    if notEquals(integer(value 32), byte 144):
+        print({
+            'english': '"To ask you to see me at my shop!"',
+            'russian': 'FIXME "To ask you to see me at my shop!"'
+        })
+        jump label_450
+    fi
+
+    print({
+        'english': '"Ah, to see you admire these boomerangs, the work of my @master."',
+        'russian': 'FIXME "Ah, to see you admire these boomerangs, the work of my @master."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To regret being unable to create boomerangs myself."',
+        'russian': 'FIXME \n\n"To regret being unable to create boomerangs myself."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To have only a few left in stock',
+        'russian': 'FIXME \n\n"To have only a few left in stock'
+    })
+
+    if greater(weight(byte 49, byte 1), canCarry(byte 1)):
+        print({
+            'english': '."',
+            'russian': 'FIXME ."'
+        })
+        jump label_450
+    fi
+
+    print({
+        'english': ', but to offer you one."',
+        'russian': 'FIXME , but to offer you one."'
+    })
+    wait()
+
+    print({
+        'english': '\n\nDo you accept the gift? ',
+        'russian': 'FIXME \n\nDo you accept the gift? '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        createItem(byte 1, byte 49, byte 0, byte 1)
+        setBit(byte 235, byte 2)
+
+        if partyHas(byte 3):
+            print({
+                'english': 'As you take the boomerang, Shamino speaks.',
+                'russian': 'FIXME As you take the boomerang, Shamino speaks.'
+            })
+            wait()
+
+            portrait(byte 3)
+            print({
+                'english': '\n\n"Aye, \'tis a most interesting weapon, $G."',
+                'russian': 'FIXME \n\n"Aye, \'tis a most interesting weapon, $G."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Perhaps when our quest is through I can study its use."',
+                'russian': 'FIXME \n\n"Perhaps when our quest is through I can study its use."'
+            })
+            wait()
+
+            portrait(byte 235)
+            print({
+                'english': '\n\nThe gargoyle speaks. "To ask if anything else interests you?"',
+                'russian': 'FIXME \n\nThe gargoyle speaks. "To ask if anything else interests you?"'
+            })
+            jump label_450
+
+        else:
+            print({
+                'english': 'The gargoyle hands you a boomerang.',
+                'russian': 'FIXME The gargoyle hands you a boomerang.'
+            })
+        fi
+
+        jump label_450
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': 'The gargoyle nods. "Yes, to see that you already have enough weapons."',
+            'russian': 'FIXME The gargoyle nods. "Yes, to see that you already have enough weapons."'
+        })
+        jump label_450
+    esac
+
+label_4014:
+    if notEquals(integer(value 32), byte 144):
+        print({
+            'english': '"To ask that you see me at my shop!"',
+            'russian': 'FIXME "To ask that you see me at my shop!"'
+        })
+        jump label_450
+    fi
+
+    print({
+        'english': '"Yes, to be a very interesting weapon."',
+        'russian': 'FIXME "Yes, to be a very interesting weapon."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To knock out even a large animal with just a single pouch of this ',
+        'russian': 'FIXME \n\n"To knock out even a large animal with just a single pouch of this '
+    })
+    print({
+        'english': 'powder!"',
+        'russian': 'FIXME powder!"'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To be used most often by hunters, to avoid harming the meat."',
+        'russian': 'FIXME \n\n"To be used most often by hunters, to avoid harming the meat."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"Unfortunately, to make this powder from @plants that can no longer ',
+        'russian': 'FIXME \n\n"Unfortunately, to make this powder from @plants that can no longer '
+    })
+    print({
+        'english': 'be found."',
+        'russian': 'FIXME be found."'
+    })
+
+    if greater(weight(byte 91, byte 1), canCarry(byte 1)):
+        jump label_450
+    fi
+
+    wait()
+
+    print({
+        'english': '\n\n"Here, to offer you one."',
+        'russian': 'FIXME \n\n"Here, to offer you one."'
+    })
+    wait()
+
+    print({
+        'english': '\n\nDo you accept the gift? ',
+        'russian': 'FIXME \n\nDo you accept the gift? '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        createItem(byte 1, byte 91, byte 0, byte 1)
+        setBit(byte 235, byte 3)
+        print({
+            'english': 'He hands you a small pouch. "To hope you find it useful."',
+            'russian': 'FIXME He hands you a small pouch. "To hope you find it useful."'
+        })
+        jump label_450
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': 'The gargoyle nods. "To understand your reluctance."',
+            'russian': 'FIXME The gargoyle nods. "To understand your reluctance."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To know the dangers of zu ylem dust to the untrained user."',
+            'russian': 'FIXME \n\n"To know the dangers of zu ylem dust to the untrained user."'
+        })
+        jump label_450
+    esac

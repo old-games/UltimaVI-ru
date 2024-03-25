@@ -1,0 +1,596 @@
+source('CONVERSE.B')
+index(70)
+
+id(169)
+name({
+    'english': 'Valkadesh',
+    'russian': 'FIXME Valkadesh'
+})
+
+description:
+    print({
+        'english': 'a tall, thin, winged gargoyle.\n',
+        'russian': 'FIXME a tall, thin, winged gargoyle.\n'
+    })
+
+interaction:
+    if equals(integer(value 21), byte 0):
+        jump label_3333
+    fi
+
+    if hasBit(byte 235, value 0):
+        print({
+            'english': '"Greetings, friend \'$P."',
+            'russian': 'FIXME "Greetings, friend \'$P."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+
+    else:
+        jump label_344
+    fi
+
+    if equals(partyHasObject(byte 76, byte 0), byte 1):
+        print({
+            'english': '"To see you have done the honorable thing."',
+            'russian': 'FIXME "To see you have done the honorable thing."'
+        })
+        wait()
+
+        print({
+            'english': '\n"To have earned much respect from my people by doing this!"',
+            'russian': 'FIXME \n"To have earned much respect from my people by doing this!"'
+        })
+
+    else:
+        print({
+            'english': '"To hope your travels have brought you wisdom?" ',
+            'russian': 'FIXME "To hope your travels have brought you wisdom?" '
+        })
+
+        choice({
+            'english': 'yn',
+            'russian': 'FIXME yn'
+        })
+
+        case {
+            'english': 'y',
+            'russian': 'FIXME y'
+        }:
+            print({
+                'english': '"To wish to hear about it!"',
+                'russian': 'FIXME "To wish to hear about it!"'
+            })
+
+        case {
+            'english': 'n',
+            'russian': 'FIXME n'
+        }:
+            print({
+                'english': '"To regret that, and to wish to aid you."',
+                'russian': 'FIXME "To regret that, and to wish to aid you."'
+            })
+        esac
+    fi
+
+    jump label_805
+
+label_344:
+    print({
+        'english': '"To offer greetings, False Prophet."',
+        'russian': 'FIXME "To offer greetings, False Prophet."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To have waited long for you to return to this side of the world."',
+        'russian': 'FIXME \n\n"To have waited long for you to return to this side of the world."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To believe that the Book of Prophecies is wrong."',
+        'russian': 'FIXME \n\n"To believe that the Book of Prophecies is wrong."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To believe that I can reason with you, persuade you to spare my ',
+        'russian': 'FIXME \n\n"To believe that I can reason with you, persuade you to spare my '
+    })
+    print({
+        'english': 'people."',
+        'russian': 'FIXME people."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To wish to address you honorably: To ask your name?"\n',
+        'russian': 'FIXME \n\n"To wish to address you honorably: To ask your name?"\n'
+    })
+
+    ask()
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+    esac
+
+    string(value 0) = string(value 35)
+    print({
+        'english': '"Noble \'$0, to see that you are a being of honor and respect."',
+        'russian': 'FIXME "Noble \'$0, to see that you are a being of honor and respect."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To not betray that honor - to return the @Codex!"',
+        'russian': 'FIXME \n\n"To not betray that honor - to return the @Codex!"'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To save my people from the @prophecy!"',
+        'russian': 'FIXME \n\n"To save my people from the @prophecy!"'
+    })
+
+    // Wrong flow!
+    fi
+
+label_805:
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
+
+    ask()
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"To be called Valkadesh Wis-lem, Valkadesh the Scholar."',
+            'russian': 'FIXME "To be called Valkadesh Wis-lem, Valkadesh the Scholar."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To have been given a @partial name. To have yet to achieve full ',
+            'russian': 'FIXME \n\n"To have been given a @partial name. To have yet to achieve full '
+        })
+        print({
+            'english': 'honor."',
+            'russian': 'FIXME honor."'
+        })
+        jump label_805
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"To be a Scholar. To be seeking a way to avert the @prophecy."',
+            'russian': 'FIXME "To be a Scholar. To be seeking a way to avert the @prophecy."'
+        })
+        jump label_805
+
+    case {
+        'english': 'full',
+        'russian': 'FIXME full'
+    }:
+    case {
+        'english': 'hono',
+        'russian': 'FIXME hono'
+    }:
+    case {
+        'english': 'part',
+        'russian': 'FIXME part'
+    }:
+        print({
+            'english': '"To be greatly honored by even a partial name."',
+            'russian': 'FIXME "To be greatly honored by even a partial name."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To be customary among my people to give names only to those most ',
+            'russian': 'FIXME \n\n"To be customary among my people to give names only to those most '
+        })
+        print({
+            'english': 'worthy."',
+            'russian': 'FIXME worthy."'
+        })
+        jump label_805
+
+    case {
+        'english': 'prop',
+        'russian': 'FIXME prop'
+    }:
+        print({
+            'english': '"To be written in the Book of Prophecies that you would destroy our ',
+            'russian': 'FIXME "To be written in the Book of Prophecies that you would destroy our '
+        })
+        print({
+            'english': 'world."',
+            'russian': 'FIXME world."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To also be written that only the @sacrifice of the False Prophet ',
+            'russian': 'FIXME \n\n"To also be written that only the @sacrifice of the False Prophet '
+        })
+        print({
+            'english': 'would save us."',
+            'russian': 'FIXME would save us."'
+        })
+        jump label_805
+
+    case {
+        'english': 'code',
+        'russian': 'FIXME code'
+    }:
+        print({
+            'english': '"To believe that it is not too late."',
+            'russian': 'FIXME "To believe that it is not too late."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To beg you to return the Codex."',
+            'russian': 'FIXME \n\n"To beg you to return the Codex."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Avert the @prophecy! Save your life, and my people\'s lives as ',
+            'russian': 'FIXME \n\n"Avert the @prophecy! Save your life, and my people\'s lives as '
+        })
+        print({
+            'english': 'well!"',
+            'russian': 'FIXME well!"'
+        })
+        jump label_805
+
+    case {
+        'english': 'sacr',
+        'russian': 'FIXME sacr'
+    }:
+        print({
+            'english': '"To be the only alternative to returning the Codex."',
+            'russian': 'FIXME "To be the only alternative to returning the Codex."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Without the Codex, to have no @choice but to sacrifice your life!"',
+            'russian': 'FIXME \n\n"Without the Codex, to have no @choice but to sacrifice your life!"'
+        })
+        jump label_805
+
+    case {
+        'english': 'choi',
+        'russian': 'FIXME choi'
+    }:
+        print({
+            'english': '"Wait! To know that sacrifice has three meanings: of self, of others ',
+            'russian': 'FIXME "Wait! To know that sacrifice has three meanings: of self, of others '
+        })
+        print({
+            'english': 'and of valuables."',
+            'russian': 'FIXME and of valuables."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Perhaps to find a better @answer in one of those other meanings."',
+            'russian': 'FIXME \n\n"Perhaps to find a better @answer in one of those other meanings."'
+        })
+        jump label_805
+
+    case {
+        'english': 'answ',
+        'russian': 'FIXME answ'
+    }:
+    case {
+        'english': 'find',
+        'russian': 'FIXME find'
+    }:
+        print({
+            'english': '"To be unable to help more."',
+            'russian': 'FIXME "To be unable to help more."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To suggest you seek out @Naxatilor himself for further ',
+            'russian': 'FIXME \n\n"To suggest you seek out @Naxatilor himself for further '
+        })
+        print({
+            'english': 'enlightenment."',
+            'russian': 'FIXME enlightenment."'
+        })
+        jump label_805
+
+    case {
+        'english': 'naxa',
+        'russian': 'FIXME naxa'
+    }:
+    case {
+        'english': 'seer',
+        'russian': 'FIXME seer'
+    }:
+        print({
+            'english': '"To learn much from Naxatilor, the wisest gargoyle."',
+            'russian': 'FIXME "To learn much from Naxatilor, the wisest gargoyle."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To find his chambers just to the northeast of the Hall of ',
+            'russian': 'FIXME \n\n"To find his chambers just to the northeast of the Hall of '
+        })
+        print({
+            'english': 'Knowledge."',
+            'russian': 'FIXME Knowledge."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To suggest you go there and ask him of sacrifice."',
+            'russian': 'FIXME \n\n"To suggest you go there and ask him of sacrifice."'
+        })
+        jump label_805
+
+    case {
+        'english': 'drax',
+        'russian': 'FIXME drax'
+    }:
+    case {
+        'english': 'inqu',
+        'russian': 'FIXME inqu'
+    }:
+    case {
+        'english': 'lead',
+        'russian': 'FIXME lead'
+    }:
+        print({
+            'english': '"To go to Draxinusom, the Inquisitor and leader of my race."',
+            'russian': 'FIXME "To go to Draxinusom, the Inquisitor and leader of my race."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To find his chambers just to the northwest of the Hall of ',
+            'russian': 'FIXME \n\n"To find his chambers just to the northwest of the Hall of '
+        })
+        print({
+            'english': 'Knowledge."',
+            'russian': 'FIXME Knowledge."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To @surrender to him, that you may travel @freely in our land."',
+            'russian': 'FIXME \n\n"To @surrender to him, that you may travel @freely in our land."'
+        })
+        jump label_805
+
+    case {
+        'english': 'free',
+        'russian': 'FIXME free'
+    }:
+        print({
+            'english': '"To know that the moons are not properly aligned yet for the ritual."',
+            'russian': 'FIXME "To know that the moons are not properly aligned yet for the ritual."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To assure you that you will not be sacrificed for many weeks."',
+            'russian': 'FIXME \n\n"To assure you that you will not be sacrificed for many weeks."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To assure you further that surrender is the only way you can travel',
+            'russian': 'FIXME \n\n"To assure you further that surrender is the only way you can travel'
+        })
+        print({
+            'english': ' among my people."',
+            'russian': 'FIXME  among my people."'
+        })
+        jump label_805
+
+    case {
+        'english': 'surr',
+        'russian': 'FIXME surr'
+    }:
+        if equals(partyHasObject(byte 76, byte 0), byte 1):
+            print({
+                'english': '"To have done the honorable thing and now be respected and unfeared by',
+                'russian': 'FIXME "To have done the honorable thing and now be respected and unfeared by'
+            })
+            print({
+                'english': ' my people."',
+                'russian': 'FIXME  my people."'
+            })
+
+        else:
+            print({
+                'english': '"To travel to the @Inquisitor."',
+                'russian': 'FIXME "To travel to the @Inquisitor."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"To tell the Inquisitor that you surrender."',
+                'russian': 'FIXME \n\n"To tell the Inquisitor that you surrender."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Then to be no longer a threat, and no longer be feared."',
+                'russian': 'FIXME \n\n"Then to be no longer a threat, and no longer be feared."'
+            })
+        fi
+
+        jump label_805
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        if hasBit(byte 235, value 0):
+            print({
+                'english': '"May your precision and persistence lead to success!"\n',
+                'russian': 'FIXME "May your precision and persistence lead to success!"\n'
+            })
+            bye()
+
+        else:
+            setBit(byte 235, value 0)
+            print({
+                'english': 'As you turn to leave, the gargoyle stops you.',
+                'russian': 'FIXME As you turn to leave, the gargoyle stops you.'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Wait," he calls. "To be feared and hated by all gargoyles."',
+                'russian': 'FIXME \n\n"Wait," he calls. "To be feared and hated by all gargoyles."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"To be unsafe for you right now, False Prophet."',
+                'russian': 'FIXME \n\n"To be unsafe for you right now, False Prophet."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"To surrender is only answer."',
+                'russian': 'FIXME \n\n"To surrender is only answer."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"To surrender to Inquisitor."',
+                'russian': 'FIXME \n\n"To surrender to Inquisitor."'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"Then to be no longer a threat, and then not to be feared by my ',
+                'russian': 'FIXME \n\n"Then to be no longer a threat, and then not to be feared by my '
+            })
+            print({
+                'english': 'people!"',
+                'russian': 'FIXME people!"'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"To surrender to the @Inquisitor, and then to be @free to look for ',
+                'russian': 'FIXME \n\n"To surrender to the @Inquisitor, and then to be @free to look for '
+            })
+            print({
+                'english': 'the solution."',
+                'russian': 'FIXME the solution."'
+            })
+            jump label_805
+        fi
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"To be confused by your accent."',
+            'russian': 'FIXME "To be confused by your accent."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"To ask what $Z means?"',
+            'russian': 'FIXME \n\n"To ask what $Z means?"'
+        })
+        jump label_805
+    esac
+
+label_3333:
+    print({
+        'english': 'The gargoyle smiles, but his grin is somehow disturbing.',
+        'russian': 'FIXME The gargoyle smiles, but his grin is somehow disturbing.'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"I human @friend. Walk talk you."\n',
+        'russian': 'FIXME \n\n"I human @friend. Walk talk you."\n'
+    })
+
+    ask()
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"Want much to talk."',
+            'russian': 'FIXME "Want much to talk."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"@Captain John speak; Captain John go!"\n',
+            'russian': 'FIXME \n\n"@Captain John speak; Captain John go!"\n'
+        })
+        bye()
+
+    case {
+        'english': 'frie',
+        'russian': 'FIXME frie'
+    }:
+        print({
+            'english': '"@Captain John gargoyle friend. Captain John speak."',
+            'russian': 'FIXME "@Captain John gargoyle friend. Captain John speak."'
+        })
+        jump label_3425
+
+    case {
+        'english': 'capt',
+        'russian': 'FIXME capt'
+    }:
+    case {
+        'english': 'john',
+        'russian': 'FIXME john'
+    }:
+        print({
+            'english': '"Must Captain John go. Only he speak. Must go!"',
+            'russian': 'FIXME "Must Captain John go. Only he speak. Must go!"'
+        })
+        jump label_3425
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': 'In a thick accent, the gargoyle croaks, "I bad with human language."',
+            'russian': 'FIXME In a thick accent, the gargoyle croaks, "I bad with human language."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"With @Captain John must to speak."',
+            'russian': 'FIXME \n\n"With @Captain John must to speak."'
+        })
+        jump label_3425
+    esac

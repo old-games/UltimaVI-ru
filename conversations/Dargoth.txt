@@ -1,0 +1,655 @@
+source('CONVERSE.A')
+index(37)
+
+id(37)
+name({
+    'english': 'Dargoth',
+    'russian': 'FIXME Dargoth'
+})
+
+description:
+    print({
+        'english': 'a stern, severe man in white robes.',
+        'russian': 'FIXME a stern, severe man in white robes.'
+    })
+    wait()
+
+interaction:
+    print({
+        'english': '\nYou interrupt the man from his research.',
+        'russian': 'FIXME \nYou interrupt the man from his research.'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"Yes, yes, what is it?"',
+        'russian': 'FIXME \n\n"Yes, yes, what is it?"'
+    })
+    wait()
+
+    print({
+        'english': '\n\n',
+        'russian': 'FIXME \n\n'
+    })
+    integer(value 0) = partyHasObject(word 339, byte 0)
+
+    if notEquals(integer(value 0), word 32769):
+        jump label_2332
+    fi
+
+    print({
+        'english': '"You\'ve come for healing, I suppose."\n',
+        'russian': 'FIXME "You\'ve come for healing, I suppose."\n'
+    })
+
+    ask()
+
+    case {
+        'english': 'heal',
+        'russian': 'FIXME heal'
+    }:
+        jump label_817
+
+    case {
+        'english': 'cure',
+        'russian': 'FIXME cure'
+    }:
+        jump label_1571
+
+    case {
+        'english': 'resu',
+        'russian': 'FIXME resu'
+    }:
+        integer(value 0) = partyHasObject(word 339, byte 0)
+
+        if equals(integer(value 0), word 32769):
+            print({
+                'english': 'He raises an eyebrow.',
+                'russian': 'FIXME He raises an eyebrow.'
+            })
+            wait()
+
+            print({
+                'english': '\n\n"You may not be my choice for dinner conversation, but none of you ',
+                'russian': 'FIXME \n\n"You may not be my choice for dinner conversation, but none of you '
+            })
+            print({
+                'english': 'are dead."',
+                'russian': 'FIXME are dead."'
+            })
+            jump label_179
+
+        else:
+            look(integer(value 0))
+            jump label_2447
+        fi
+
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"I am Dargoth, master of medical lore."',
+            'russian': 'FIXME "I am Dargoth, master of medical lore."'
+        })
+        setBit(byte 235, value 0)
+        jump label_179
+
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"My true calling is research."',
+            'russian': 'FIXME "My true calling is research."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"My studies here have advanced the healing art throughout the ',
+            'russian': 'FIXME \n\n"My studies here have advanced the healing art throughout the '
+        })
+        print({
+            'english': 'world!"',
+            'russian': 'FIXME world!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"But, more often than not, I am called upon to @cure poison ivy and ',
+            'russian': 'FIXME \n\n"But, more often than not, I am called upon to @cure poison ivy and '
+        })
+        print({
+            'english': '@heal paper cuts!"',
+            'russian': 'FIXME @heal paper cuts!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"I grow weary of such trifles!"',
+            'russian': 'FIXME \n\n"I grow weary of such trifles!"'
+        })
+        jump label_179
+
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+    case {
+        'english': 'no',
+        'russian': 'FIXME no'
+    }:
+        print({
+            'english': '"Stay out of trouble!"',
+            'russian': 'FIXME "Stay out of trouble!"'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"I don\'t want to see my fine workmanship wasted!"\n',
+            'russian': 'FIXME \n\n"I don\'t want to see my fine workmanship wasted!"\n'
+        })
+        bye()
+
+    case {
+        'english': 'yes',
+        'russian': 'FIXME yes'
+    }:
+        print({
+            'english': '"Well, what can I do for thee?"',
+            'russian': 'FIXME "Well, what can I do for thee?"'
+        })
+        jump label_179
+
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"Come, come, get to the point. I\'m a busy man!"',
+            'russian': 'FIXME "Come, come, get to the point. I\'m a busy man!"'
+        })
+        jump label_179
+    esac
+
+label_817:
+    if greater(integer(value 23), byte 0):
+        integer(value 1) = byte 0
+        integer(value 2) = byte 0
+        integer(value 4) = byte 0
+        jump label_938
+    fi
+
+    integer(value 3) = character(byte 0, byte 0)
+
+    if isWounded(integer(value 3)):
+        jump label_1245
+
+    else:
+        print({
+            'english': '"I can do nothing for those scars. Still, they look healed."',
+            'russian': 'FIXME "I can do nothing for those scars. Still, they look healed."'
+        })
+        jump label_1539
+    fi
+
+label_938:
+    if greater(integer(value 1), integer(value 23)):
+        jump label_1048
+    fi
+
+    integer(value 3) = character(integer(value 1), byte 0)
+
+    if equals(isWounded(integer(value 3)), byte 0):
+        jump label_1033
+    fi
+
+    if equals(integer(value 4), byte 0):
+        integer(value 4) = integer(value 3)
+        integer(value 2) = plus(integer(value 2), byte 1)
+        jump label_1033
+    fi
+
+    look(integer(value 4))
+    print({
+        'english': '#2) $Y\n',
+        'russian': 'FIXME #2) $Y\n'
+    })
+    integer(value 2) = plus(integer(value 2), byte 1)
+    integer(value 4) = integer(value 3)
+
+label_1033:
+    integer(value 1) = plus(integer(value 1), byte 1)
+    jump label_938
+
+label_1048:
+    if equals(integer(value 2), byte 0):
+        print({
+            'english': '"Why do you waste my time? None of you are wounded!"',
+            'russian': 'FIXME "Why do you waste my time? None of you are wounded!"'
+        })
+        jump label_1539
+    fi
+
+    if equals(integer(value 2), byte 1):
+        integer(value 3) = integer(value 4)
+        jump label_1245
+    fi
+
+    look(integer(value 4))
+    print({
+        'english': '#2) $Y\n"Which of you?" ',
+        'russian': 'FIXME #2) $Y\n"Which of you?" '
+    })
+    inputInteger(integer(value 2))
+
+    if equals(integer(value 2), byte 0):
+        jump label_1539
+    fi
+
+    integer(value 1) = byte 0
+
+label_1183:
+    integer(value 3) = character(integer(value 1), byte 0)
+
+    if isWounded(integer(value 3)):
+        integer(value 2) = minus(integer(value 2), byte 1)
+    fi
+
+    if equals(integer(value 2), byte 0):
+        jump label_1245
+    fi
+
+    integer(value 1) = plus(integer(value 1), byte 1)
+
+    if lessOrEquals(integer(value 1), integer(value 23)):
+        jump label_1183
+    fi
+
+label_1245:
+    look(integer(value 3))
+
+    if random(byte 0, byte 1):
+        print({
+            'english': '"$Y, your injury is most interesting!"',
+            'russian': 'FIXME "$Y, your injury is most interesting!"'
+        })
+
+    else:
+        print({
+            'english': '"Ah! $Y, you have an injury worthy of my skill!"',
+            'russian': 'FIXME "Ah! $Y, you have an injury worthy of my skill!"'
+        })
+    fi
+
+    wait()
+
+    print({
+        'english': '\n\n"It will cost you 30 gold for me to heal you, interested?" ',
+        'russian': 'FIXME \n\n"It will cost you 30 gold for me to heal you, interested?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        if less(objectsCount(integer(value 3), byte 88), byte 30):
+            jump label_1501
+
+        else:
+            print({
+                'english': 'Laying hands upon $Y, Dargoth mends the wounds.',
+                'russian': 'FIXME Laying hands upon $Y, Dargoth mends the wounds.'
+            })
+            destroyItem(integer(value 3), byte 88, byte 0, byte 30)
+            heal(integer(value 3))
+            jump label_179
+        fi
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+label_1501:
+        print({
+            'english': '"I need to be paid to heal you."',
+            'russian': 'FIXME "I need to be paid to heal you."'
+        })
+        jump label_1539
+    esac
+
+label_1539:
+    wait()
+
+    print({
+        'english': '\n\n"What else do you need?"',
+        'russian': 'FIXME \n\n"What else do you need?"'
+    })
+    jump label_179
+
+label_1571:
+    if greater(integer(value 23), byte 0):
+        integer(value 1) = byte 0
+        integer(value 2) = byte 0
+        integer(value 4) = byte 0
+        jump label_1679
+    fi
+
+    integer(value 3) = character(byte 0, byte 0)
+
+    if isPoisoned(integer(value 3)):
+        jump label_1987
+
+    else:
+        print({
+            'english': '"You don\'t look good, but you\'re not poisoned."',
+            'russian': 'FIXME "You don\'t look good, but you\'re not poisoned."'
+        })
+        jump label_1539
+    fi
+
+label_1679:
+    if greater(integer(value 1), integer(value 23)):
+        jump label_1789
+    fi
+
+    integer(value 3) = character(integer(value 1), byte 0)
+
+    if equals(isPoisoned(integer(value 3)), byte 0):
+        jump label_1774
+    fi
+
+    if equals(integer(value 4), byte 0):
+        integer(value 4) = integer(value 3)
+        integer(value 2) = plus(integer(value 2), byte 1)
+        jump label_1774
+    fi
+
+    look(integer(value 4))
+    print({
+        'english': '#2) $Y\n',
+        'russian': 'FIXME #2) $Y\n'
+    })
+    integer(value 2) = plus(integer(value 2), byte 1)
+    integer(value 4) = integer(value 3)
+
+label_1774:
+    integer(value 1) = plus(integer(value 1), byte 1)
+    jump label_1679
+
+label_1789:
+    if equals(integer(value 2), byte 0):
+        print({
+            'english': '"Why do you waste my time? None of you are poisoned!"',
+            'russian': 'FIXME "Why do you waste my time? None of you are poisoned!"'
+        })
+        jump label_1539
+    fi
+
+    if equals(integer(value 2), byte 1):
+        integer(value 3) = integer(value 4)
+        jump label_1987
+    fi
+
+    look(integer(value 4))
+    print({
+        'english': '#2) $Y\n"Which of you?" ',
+        'russian': 'FIXME #2) $Y\n"Which of you?" '
+    })
+    inputInteger(integer(value 2))
+
+    if equals(integer(value 2), byte 0):
+        jump label_1539
+    fi
+
+    integer(value 1) = byte 0
+
+label_1925:
+    integer(value 3) = character(integer(value 1), byte 0)
+
+    if isPoisoned(integer(value 3)):
+        integer(value 2) = minus(integer(value 2), byte 1)
+    fi
+
+    if equals(integer(value 2), byte 0):
+        jump label_1987
+    fi
+
+    integer(value 1) = plus(integer(value 1), byte 1)
+
+    if lessOrEquals(integer(value 1), integer(value 23)):
+        jump label_1925
+    fi
+
+label_1987:
+    look(integer(value 3))
+
+    if random(byte 0, byte 1):
+        print({
+            'english': '"Fascinating, $Y! I have read about such poison only in ancient ',
+            'russian': 'FIXME "Fascinating, $Y! I have read about such poison only in ancient '
+        })
+        print({
+            'english': 'books!"',
+            'russian': 'FIXME books!"'
+        })
+
+    else:
+        print({
+            'english': '"I haven\'t gotten many cases like this since they invented swamp ',
+            'russian': 'FIXME "I haven\'t gotten many cases like this since they invented swamp '
+        })
+        print({
+            'english': 'boots."',
+            'russian': 'FIXME boots."'
+        })
+    fi
+
+    wait()
+
+    print({
+        'english': '\n\n"It\'ll cost 10 gold to cure you, interested?" ',
+        'russian': 'FIXME \n\n"It\'ll cost 10 gold to cure you, interested?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        if less(objectsCount(integer(value 3), byte 88), byte 10):
+            jump label_2289
+
+        else:
+            print({
+                'english': 'Laying hands upon $Y, Dargoth removes the poison.',
+                'russian': 'FIXME Laying hands upon $Y, Dargoth removes the poison.'
+            })
+            destroyItem(integer(value 3), byte 88, byte 0, byte 10)
+            cure(integer(value 3))
+            jump label_1539
+        fi
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+label_2289:
+        print({
+            'english': '"If you can\'t pay, I can\'t cure you."',
+            'russian': 'FIXME "If you can\'t pay, I can\'t cure you."'
+        })
+        jump label_1539
+    esac
+
+label_2332:
+    look(integer(value 0))
+    print({
+        'english': '"Oh." Seeing the dead body that $Y carries, he becomes more polite.',
+        'russian': 'FIXME "Oh." Seeing the dead body that $Y carries, he becomes more polite.'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"I am sorry you\'ve lost a compatriot."',
+        'russian': 'FIXME \n\n"I am sorry you\'ve lost a compatriot."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"For 400 gold I can attempt resurrection, interested?" ',
+        'russian': 'FIXME \n\n"For 400 gold I can attempt resurrection, interested?" '
+    })
+
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
+
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        if less(objectsCount(integer(value 0), byte 88), word 400):
+            jump label_2609
+
+        else:
+            jump label_3008
+        fi
+
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"Resurrection is a difficult task. I\'m sorry, but I need to be paid."',
+            'russian': 'FIXME "Resurrection is a difficult task. I\'m sorry, but I need to be paid."'
+        })
+        jump label_179
+    esac
+
+label_2609:
+    integer(value 1) = word 400
+    integer(value 2) = byte 0
+    integer(value 3) = byte 0
+    integer(value 4) = byte 0
+
+label_2638:
+    if greater(integer(value 3), integer(value 23)):
+        print({
+            'english': '"That ain\'t enough money."',
+            'russian': 'FIXME "That ain\'t enough money."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"You are #1 gold piece\\s short."',
+            'russian': 'FIXME \n\n"You are #1 gold piece\\s short."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n"Go see a gravedigger. I\'ll reckon his price\'ll be lower."',
+            'russian': 'FIXME \n\n"Go see a gravedigger. I\'ll reckon his price\'ll be lower."'
+        })
+        jump label_179
+    fi
+
+    integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
+
+    if less(integer(value 5), integer(value 1)):
+        integer(value 1) = minus(integer(value 1), integer(value 5))
+        integer(value 2) = plus(integer(value 2), integer(value 5))
+        integer(value 3) = plus(integer(value 3), byte 1)
+        jump label_2638
+
+    else:
+        print({
+            'english': 'Your party takes up a collection for their fallen comrade.',
+            'russian': 'FIXME Your party takes up a collection for their fallen comrade.'
+        })
+        integer(value 1) = word 400
+        integer(value 2) = byte 0
+        integer(value 4) = integer(value 3)
+        integer(value 3) = byte 0
+        jump label_2922
+    fi
+
+label_2922:
+    if equals(integer(value 3), integer(value 4)):
+        destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_3008
+    fi
+
+    integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
+    integer(value 1) = minus(integer(value 1), integer(value 5))
+    destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 5))
+    integer(value 3) = plus(integer(value 3), byte 1)
+    jump label_2922
+
+label_3008:
+    print({
+        'english': 'Dargoth lays hands upon the corpse...',
+        'russian': 'FIXME Dargoth lays hands upon the corpse...'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"Doman..."',
+        'russian': 'FIXME \n\n"Doman..."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"thixus..."',
+        'russian': 'FIXME \n\n"thixus..."'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"anretu!"',
+        'russian': 'FIXME \n\n"anretu!"'
+    })
+    resurrect(integer(value 0))
+    wait()
+
+    print({
+        'english': '\n\nAnd the dead live again!',
+        'russian': 'FIXME \n\nAnd the dead live again!'
+    })
+    integer(value 0) = partyHasObject(word 339, byte 0)
+
+    if notEquals(integer(value 0), word 32769):
+        look(integer(value 0))
+        wait()
+
+        print({
+            'english': '\n\n"I see that $Y carries another slain friend."',
+            'russian': 'FIXME \n\n"I see that $Y carries another slain friend."'
+        })
+        wait()
+
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
+        jump label_2447
+
+    else:
+        jump label_179
+    fi
