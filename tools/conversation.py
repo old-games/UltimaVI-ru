@@ -722,6 +722,26 @@ def decode(conversation):
 
 def encode(conversation, target_language, version):
     assert version in (1, 2) and target_language in ('english', 'russian') and (version == 2 or target_language == 'english')
+
+    # FIXME remove copy-paste
+    operators = {
+        'greater': 0x81, 'greaterOrEquals': 0x82, 'less': 0x83, 'lessOrEquals': 0x84, 'notEquals': 0x85, 'equals': 0x86,
+        'plus': 0x90, 'minus': 0x91, 'multiply': 0x92, 'divide': 0x93, 'or': 0x94, 'and': 0x95,
+        'canCarry': 0x9a, 'weight': 0x9b, 'hasHorse': 0x9d, 'hasObject': 0x9f,
+        'random': 0xa0, 'hasBit': 0xab,
+        'integer': 0xb2, 'string': 0xb3, 'data': 0xb4, 'indexOf': 0xb7, 'objectsCount': 0xbb,
+        'partyHas': 0xc6, 'partyHasObject': 0xc7, 'partyJoin': 0xca, 'partyLeave': 0xcc,
+        'isNearby': 0xd7, 'isWounded': 0xda, 'isPoisoned': 0xdc, 'character': 0xdd,
+        'experience': 0xe0, 'level': 0xe1, 'strength': 0xe2, 'intelligence': 0xe3, 'dexterity': 0xe4,
+    }
+    # FIXME remove copy-paste
+    parameters = {operator: 1 for operator in (
+        'canCarry', 'hasHorse', 'integer', 'string', 'partyHas', 'partyJoin', 'partyLeave',
+        'isNearby', 'isWounded', 'isPoisoned'
+    )}
+    parameters.update({operator: 2 for operator in operators if operator not in parameters})
+    parameters.update({operator: 3 for operator in ('hasObject',)})
+
     def tokens():
         def token():
             if chars:
@@ -811,68 +831,50 @@ def encode(conversation, target_language, version):
 
         yield from join_cases()
 
-    def check_expression(operator):
-        # FIXME remove copy-paste
-        operators = {
-            'greater': 0x81, 'greaterOrEquals': 0x82, 'less': 0x83, 'lessOrEquals': 0x84, 'notEquals': 0x85, 'equals': 0x86,
-            'plus': 0x90, 'minus': 0x91, 'multiply': 0x92, 'divide': 0x93, 'or': 0x94, 'and': 0x95,
-            'canCarry': 0x9a, 'weight': 0x9b, 'hasHorse': 0x9d, 'hasObject': 0x9f,
-            'random': 0xa0, 'hasBit': 0xab,
-            'integer': 0xb2, 'string': 0xb3, 'data': 0xb4, 'indexOf': 0xb7, 'objectsCount': 0xbb,
-            'partyHas': 0xc6, 'partyHasObject': 0xc7, 'partyJoin': 0xca, 'partyLeave': 0xcc,
-            'isNearby': 0xd7, 'isWounded': 0xda, 'isPoisoned': 0xdc, 'character': 0xdd,
-            'experience': 0xe0, 'level': 0xe1, 'strength': 0xe2, 'intelligence': 0xe3, 'dexterity': 0xe4,
-        }
-        # FIXME remove copy-paste
-        parameters = {operator: 1 for operator in (
-            'canCarry', 'hasHorse', 'integer', 'string', 'partyHas', 'partyJoin', 'partyLeave',
-            'isNearby', 'isWounded', 'isPoisoned'
-        )}
-        parameters.update({operator: 2 for operator in operators if operator not in parameters})
-        parameters.update({operator: 3 for operator in ('hasObject',)})
-
+    def read_expression(token=None):
         # FIXME value переименовать в small???
         # FIXME inventory в showInventory
         # FIXME portrait в showPortrait
         # FIXME look == showCharacter???? do?
+        # FIXME give -> moveItem?
+
+        operator = next(iterator) if token is None else token
+
         if operator in ('value', 'byte', 'word', 'dword'): # FIXME copy-paste
             value = int(next(iterator))
             if operator == 'value':
                 assert 0 <= value < 0x80
-                return value.to_bytes(1, 'little')
+                result.append(value)
             elif operator == 'byte':
-                return b'\xd3' + value.to_bytes(1, 'little')
+                result.append(0xd3)
+                result.append(value)
             elif operator == 'word':
-                return b'\xd4' + value.to_bytes(2, 'little')
+                result.append(0xd4)
+                result.extend(value.to_bytes(2, 'little'))
             elif operator == 'dword':
-                return b'\xd2' + value.to_bytes(4, 'little')
+                result.append(0xd2)
+                result.extend(value.to_bytes(4, 'little'))
+            return
 
-        elif operator not in operators:
-            return None
-
+        assert operator in operators
         assert next(iterator) == '('
-        result = [operators[operator].to_bytes(1, 'little')]
 
         if operator in ('data', 'indexOf'): # FIXME copy-paste?
             array = next(iterator)
-            result.append(b'\xd2\x00\x00\x00\x00')
-            # FIXME
+            result.append(0xd2)
+            placeholders[len(result)] = array
+            result.extend(b'\x00\x00\x00\x00')
             assert next(iterator) == ','
-            result.append(read_expression())
+            read_expression()
 
         else:
             for index in range(parameters[operator]):
                 if index:
                     assert next(iterator) == ','
-                result.append(read_expression())
+                read_expression()
 
+        result.append(operators[operator])
         assert next(iterator) == ')'
-        return b''.join(result[::-1])
-
-    def read_expression():
-        expression = check_expression(next(iterator))
-        assert expression is not None
-        return expression
 
     def is_string(token):
         return isinstance(token, str) and len(token) >= 2 and token[0] == token[-1] == "'"
@@ -916,7 +918,8 @@ def encode(conversation, target_language, version):
 
         elif token == 'name':
             assert next(iterator) == '('
-            write_string(unquote(next(iterator)))
+            name = unquote(next(iterator))
+            write_string(name)
             assert next(iterator) == ')'
 
         elif token == 'description':
@@ -952,100 +955,97 @@ def encode(conversation, target_language, version):
         elif token == 'inputString':
             assert next(iterator) == '('
             result.append(0xf9)
-            result.extend(read_expression())
-            result.append(0xa7)
+            read_expression()
             assert next(iterator) == ')'
 
         elif token == 'inputInteger':
             assert next(iterator) == '('
             result.append(0xfc)
-            result.extend(read_expression())
-            result.append(0xa7)
+            read_expression()
             assert next(iterator) == ')'
 
         elif token == 'do':
             assert next(iterator) == '('
             result.append(0xcd)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ','
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
         elif token == 'look':
             assert next(iterator) == '('
-            result.append(0xd9)
-            result.extend(read_expression())
+            result.append(0xd8)
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
         elif token == 'resurrect':
             assert next(iterator) == '('
             result.append(0xd6)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
         elif token == 'input':
             assert next(iterator) == '('
             result.append(0xfb)
-            result.extend(read_expression())
-            result.append(0xa7)
+            read_expression()
             assert next(iterator) == ')'
 
         elif token == 'inventory':
             assert next(iterator) == '('
             result.append(0xbe)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
         elif token == 'createItem':
             assert next(iterator) == '('
             result.append(0xb9)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ','
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ','
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ','
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
         elif token == 'destroyItem':
             assert next(iterator) == '('
-            result.append(0xbe)
-            result.extend(read_expression())
+            result.append(0xba)
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ','
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ','
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ','
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
         elif token == 'giveItem':
             assert next(iterator) == '('
             result.append(0xc9)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ','
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ','
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ','
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
@@ -1066,16 +1066,16 @@ def encode(conversation, target_language, version):
 
         elif token == 'if':
             result.append(0xa1)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ':'
 
         elif token == 'else':
-            result.append(0xa2)
+            result.append(0xa3)
             assert next(iterator) == ':'
 
         elif token == 'fi':
-            result.append(0xa3)
+            result.append(0xa2)
 
         elif token == 'jump':
             result.append(0xb0)
@@ -1096,41 +1096,41 @@ def encode(conversation, target_language, version):
         elif token == 'createHorse':
             assert next(iterator) == '('
             result.append(0x9c)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
         elif token == 'setBit':
             assert next(iterator) == '('
             result.append(0xa4)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ','
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
         elif token == 'clearBit':
             assert next(iterator) == '('
             result.append(0xa5)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ','
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
         elif token == 'portrait':
             assert next(iterator) == '('
-            result.append(0xb6)
-            result.extend(read_expression())
+            result.append(0xbf)
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
         elif token == 'heal':
             assert next(iterator) == '('
             result.append(0xd9)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
@@ -1142,28 +1142,28 @@ def encode(conversation, target_language, version):
             placeholders[len(result)] = array
             result.extend(b'\x00\x00\x00\x00')
             assert next(iterator) == ','
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
         elif token == 'increaseKarma':
             assert next(iterator) == '('
             result.append(0xc4)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
         elif token == 'decreaseKarma':
             assert next(iterator) == '('
             result.append(0xc5)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
         elif token == 'cure':
             assert next(iterator) == '('
             result.append(0xdb)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
             assert next(iterator) == ')'
 
@@ -1173,12 +1173,12 @@ def encode(conversation, target_language, version):
             write_string(unquote(next(iterator)))
             assert next(iterator) == ')'
 
-        elif (expression := check_expression(token)):
+        elif token in operators:
             result.append(0xa6)
-            result.extend(expression)
+            read_expression(token)
             assert next(iterator) == '='
             result.append(0xa8)
-            result.extend(read_expression())
+            read_expression()
             result.append(0xa7)
 
         elif (next_token := next(iterator)) == ':':
@@ -1198,7 +1198,7 @@ def encode(conversation, target_language, version):
                 else:
                     assert value_type == is_string(value)
                 if is_string(value):
-                    write_string(value, end=b'\x00')
+                    write_string(unquote(value), end=b'\x00')
                 else:
                     result.extend(int(value).to_bytes(2, 'little'))
                 token = next(iterator)
