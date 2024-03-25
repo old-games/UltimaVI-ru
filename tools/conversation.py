@@ -657,13 +657,15 @@ def decode(conversation):
     blocks = {}
     labels = set()
     visited_labels = set()
+    jumped_labels = set()
     data = {}
     special_labels = {}
 
     read_instructions(False)
 
-    while labels - visited_labels:
-        label = next(iter(labels - visited_labels))
+    while labels - jumped_labels:
+        label = next(iter(labels - jumped_labels))
+        jumped_labels.add(label)
         stream.seek(label)
         read_instructions(False)
 
@@ -787,6 +789,28 @@ def encode(conversation, target_language, version):
             else:
                 yield token
 
+    def joined_cases():
+        def join_cases():
+            if cases:
+                yield 'case'
+                yield ','.join((unquote(case) for case in cases))
+                cases.clear()
+                yield ':'
+
+        cases = []
+        for token in (iterator := selected()):
+            if token == 'case':
+                case = next(iterator)
+                if case is not None: # TODO Support no cases scenario.
+                    cases.append(case)
+                assert next(iterator) == ':'
+
+            else:
+                yield from join_cases()
+                yield token
+
+        yield from join_cases()
+
     def check_expression(operator):
         # FIXME remove copy-paste
         operators = {
@@ -850,20 +874,25 @@ def encode(conversation, target_language, version):
         assert expression is not None
         return expression
 
-    def unquote(string):
-        assert isinstance(string, str)
-        assert len(string) >= 2
-        assert string[0] == string[-1] == "'"
-        return string[1:-1]
+    def is_string(token):
+        return isinstance(token, str) and len(token) >= 2 and token[0] == token[-1] == "'"
 
-    def write_string(string):
-        result.extend(string.encode('ascii' if version == 1 else 'cp866'))
-        if version == 2:
-            result.append(0) # FIXME string list?
+    def unquote(token):
+        assert is_string(token)
+        return token[1:-1]
+
+    def write_string(string, end=b''):
+        if version == 2 and end != b'\x00':
+            end += b'\x00'
+        result.extend(string.encode('ascii' if version == 1 else 'cp866') + end)
+
+    def add_label():
+        assert token not in labels
+        labels[token] = len(result)
 
     result = bytearray()
     stream = io.StringIO(conversation)
-    iterator = selected()
+    iterator = joined_cases()
 
     assert next(iterator) == 'source'
     assert next(iterator) == '('
@@ -874,6 +903,9 @@ def encode(conversation, target_language, version):
     assert next(iterator) == '('
     index = int(next(iterator))
     assert next(iterator) == ')'
+
+    labels = {}
+    placeholders = {}
 
     for token in iterator:
         if token == 'id':
@@ -890,6 +922,7 @@ def encode(conversation, target_language, version):
         elif token == 'description':
             assert next(iterator) == ':'
             result.append(0xf1)
+            add_label()
 
         elif token == 'print':
             assert next(iterator) == '('
@@ -1024,6 +1057,7 @@ def encode(conversation, target_language, version):
         elif token == 'interaction':
             assert next(iterator) == ':'
             result.append(0xf2)
+            add_label()
 
         elif token == 'ask':
             assert next(iterator) == '('
@@ -1046,14 +1080,15 @@ def encode(conversation, target_language, version):
         elif token == 'jump':
             result.append(0xb0)
             label = next(iterator)
-            result.extend(b'\x00\x00\x00\x00') # FIXME
+            placeholders[len(result)] = label
+            result.extend(b'\x00\x00\x00\x00')
 
-        elif token == 'case': # FIXME join them
+        elif token == 'case':
+            result.append(0xef)
             case = next(iterator)
-            # if case is None...
-            #result.append(0xef)
+            write_string(case)
+            result.append(0xf6)
             assert next(iterator) == ':'
-            # FIXME
 
         elif token == 'esac':
             result.append(0xee)
@@ -1102,7 +1137,10 @@ def encode(conversation, target_language, version):
         elif token == 'printString':
             assert next(iterator) == '('
             result.append(0xb5)
-            array = next(iterator) # FIXME
+            array = next(iterator)
+            result.append(0xd2)
+            placeholders[len(result)] = array
+            result.extend(b'\x00\x00\x00\x00')
             assert next(iterator) == ','
             result.extend(read_expression())
             result.append(0xa7)
@@ -1144,21 +1182,32 @@ def encode(conversation, target_language, version):
             result.append(0xa7)
 
         elif (next_token := next(iterator)) == ':':
-            label = token
-            # FIXME save and update
+            add_label()
 
         elif next_token == '=':
+            add_label()
             assert (token := next(iterator)) == '['
             array = token
+            value_type = None
             while token != ']':
                 value = next(iterator)
                 if value == ']':
                     break # Trailing comma.
+                if value_type is None:
+                    value_type = is_string(value)
+                else:
+                    assert value_type == is_string(value)
+                if is_string(value):
+                    write_string(value, end=b'\x00')
+                else:
+                    result.extend(int(value).to_bytes(2, 'little'))
                 token = next(iterator)
                 assert token in ',]'
-            # FIXME save and update
 
         else:
             assert False
+
+    for offset, label in placeholders.items():
+        result[offset:offset+4] = labels[label].to_bytes(4, 'little')
 
     return source, index, result
