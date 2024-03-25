@@ -3,6 +3,7 @@ import json
 import os
 
 import tools
+import tools.conversation
 
 
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -59,3 +60,16 @@ with open('tools/references.json') as f:
 with open('tools/bad-references.json') as f:
     br = json.loads(f.read())
 # FIXME
+
+
+for character in os.listdir('conversations'):
+    with open(os.path.join('conversations', character)) as f:
+        data = f.read()
+
+    try:
+        tools.conversation.encode(data, target_language='english', version=1)
+        tools.conversation.encode(data, target_language='russian', version=2)
+
+    except Exception:
+        print(f'Error in {character}')
+        raise
