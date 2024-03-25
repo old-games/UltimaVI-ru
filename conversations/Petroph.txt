@@ -2,59 +2,116 @@ source('CONVERSE.B')
 index(20)
 
 id(119)
-name('Petroph')
+name({
+    'english': 'Petroph',
+    'russian': 'FIXME Petroph'
+})
 
 description:
-    print('a giant of a man with a solemn stare.')
+    print({
+        'english': 'a giant of a man with a solemn stare.',
+        'russian': 'FIXME a giant of a man with a solemn stare.'
+    })
     wait()
 
-    print('\n')
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
 
 interaction:
     if hasBit(byte 235, value 1):
-        print('"What you back for? I thought you not like my @inn."\n')
+        print({
+            'english': '"What you back for? I thought you not like my @inn."\n',
+            'russian': 'FIXME "What you back for? I thought you not like my @inn."\n'
+        })
         jump label_154
     fi
 
     if hasBit(byte 235, value 0):
-        print('"Heylo again."\n')
+        print({
+            'english': '"Heylo again."\n',
+            'russian': 'FIXME "Heylo again."\n'
+        })
 
     else:
-        print('"Heylo to you."\n')
+        print({
+            'english': '"Heylo to you."\n',
+            'russian': 'FIXME "Heylo to you."\n'
+        })
     fi
 
 label_154:
     ask()
 
-    case 'name':
-        print('"@Petroph."\n')
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"@Petroph."\n',
+            'russian': 'FIXME "@Petroph."\n'
+        })
         setBit(byte 235, value 0)
         jump label_154
 
-    case 'petr':
-        print('"Da, Petroph."\n')
+    case {
+        'english': 'petr',
+        'russian': 'FIXME petr'
+    }:
+        print({
+            'english': '"Da, Petroph."\n',
+            'russian': 'FIXME "Da, Petroph."\n'
+        })
         jump label_154
 
-    case 'job':
-        print('"I am keeping the @inn, here at King\'s Ransom."\n')
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"I am keeping the @inn, here at King\'s Ransom."\n',
+            'russian': 'FIXME "I am keeping the @inn, here at King\'s Ransom."\n'
+        })
         jump label_154
 
-    case 'inn':
-    case 'room':
+    case {
+        'english': 'inn',
+        'russian': 'FIXME inn'
+    }:
+    case {
+        'english': 'room',
+        'russian': 'FIXME room'
+    }:
         jump label_401
 
-    case 'bye':
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
         if hasBit(byte 235, value 1):
-            print('"Da, goodbye and good riddance!"\n')
+            print({
+                'english': '"Da, goodbye and good riddance!"\n',
+                'russian': 'FIXME "Da, goodbye and good riddance!"\n'
+            })
 
         else:
-            print('"Have a nice day."\n')
+            print({
+                'english': '"Have a nice day."\n',
+                'russian': 'FIXME "Have a nice day."\n'
+            })
         fi
 
         bye()
 
-    case '*':
-        print('"You speak too quick. What was that?"\n')
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"You speak too quick. What was that?"\n',
+            'russian': 'FIXME "You speak too quick. What was that?"\n'
+        })
         jump label_154
     esac
 
@@ -63,32 +120,62 @@ label_154:
 
 label_401:
     integer(value 0) = multiply(plus(integer(value 23), byte 1), byte 6)
-    print('"#0 gold for you to stay and have meal, good?" ')
+    print({
+        'english': '"#0 gold for you to stay and have meal, good?" ',
+        'russian': 'FIXME "#0 gold for you to stay and have meal, good?" '
+    })
 
-    choice('yn')
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
 
-    case 'y':
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
         if less(objectsCount(byte 1, byte 88), integer(value 0)):
-            print('"Must pay in advance for rooms. Sorry, is policy."\n')
+            print({
+                'english': '"Must pay in advance for rooms. Sorry, is policy."\n',
+                'russian': 'FIXME "Must pay in advance for rooms. Sorry, is policy."\n'
+            })
             jump label_154
         fi
 
         destroyItem(byte 1, byte 88, byte 0, integer(value 0))
         clearBit(byte 235, value 1)
-        print('You sleep in a comfortable bed...\n')
+        print({
+            'english': 'You sleep in a comfortable bed...\n',
+            'russian': 'FIXME You sleep in a comfortable bed...\n'
+        })
         sleep()
 
-        print('\nYou wake rested and eat a large breakfast.')
+        print({
+            'english': '\nYou wake rested and eat a large breakfast.',
+            'russian': 'FIXME \nYou wake rested and eat a large breakfast.'
+        })
         wait()
 
-        print('\n\n"Good morning to you."\n')
+        print({
+            'english': '\n\n"Good morning to you."\n',
+            'russian': 'FIXME \n\n"Good morning to you."\n'
+        })
         jump label_154
 
-    case 'n':
-        print('"What, maybe you don\'t like my inn?"')
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"What, maybe you don\'t like my inn?"',
+            'russian': 'FIXME "What, maybe you don\'t like my inn?"'
+        })
         wait()
 
-        print('\n\n"Well, maybe I don\'t like you either!"\n')
+        print({
+            'english': '\n\n"Well, maybe I don\'t like you either!"\n',
+            'russian': 'FIXME \n\n"Well, maybe I don\'t like you either!"\n'
+        })
         setBit(byte 235, value 1)
         jump label_154
     esac

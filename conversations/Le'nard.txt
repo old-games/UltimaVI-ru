@@ -2,71 +2,149 @@ source('CONVERSE.A')
 index(55)
 
 id(55)
-name('Le\'nard')
+name({
+    'english': 'Le\'nard',
+    'russian': 'FIXME Le\'nard'
+})
 
 description:
-    print('a short, fat, rosy-cheeked man with long hair covering his eyes.')
+    print({
+        'english': 'a short, fat, rosy-cheeked man with long hair covering his eyes.',
+        'russian': 'FIXME a short, fat, rosy-cheeked man with long hair covering his eyes.'
+    })
     wait()
 
-    print('\n')
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
 
     f3()
 
 interaction:
     if hasBit(byte 235, value 0):
-        print('"He--hello, $G. Nice to see thee again."')
+        print({
+            'english': '"He--hello, $G. Nice to see thee again."',
+            'russian': 'FIXME "He--hello, $G. Nice to see thee again."'
+        })
 
     else:
-        print('The man seems afraid of you. "Wh-what do you want?"')
+        print({
+            'english': 'The man seems afraid of you. "Wh-what do you want?"',
+            'russian': 'FIXME The man seems afraid of you. "Wh-what do you want?"'
+        })
     fi
 
 label_177:
-    print('\n')
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
 
     ask()
 
-    case 'name':
-        print('As faint as a whisper comes the word "Le\'nard."')
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': 'As faint as a whisper comes the word "Le\'nard."',
+            'russian': 'FIXME As faint as a whisper comes the word "Le\'nard."'
+        })
         setBit(byte 235, value 0)
         jump label_177
 
-    case 'job':
-        print('"I\'m a @tailor, $G."')
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"I\'m a @tailor, $G."',
+            'russian': 'FIXME "I\'m a @tailor, $G."'
+        })
         jump label_177
 
-    case 'bye':
-        print('He looks around, then waves goodbye.\n')
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': 'He looks around, then waves goodbye.\n',
+            'russian': 'FIXME He looks around, then waves goodbye.\n'
+        })
         bye()
 
-    case 'sell':
-    case 'thre':
+    case {
+        'english': 'sell',
+        'russian': 'FIXME sell'
+    }:
+    case {
+        'english': 'thre',
+        'russian': 'FIXME thre'
+    }:
         jump label_1232
 
-    case 'buy':
-    case 'tail':
-        print('"I sew @pants, @tunics and @dresses, $G. I use a lot of @thread."')
+    case {
+        'english': 'buy',
+        'russian': 'FIXME buy'
+    }:
+    case {
+        'english': 'tail',
+        'russian': 'FIXME tail'
+    }:
+        print({
+            'english': '"I sew @pants, @tunics and @dresses, $G. I use a lot of @thread."',
+            'russian': 'FIXME "I sew @pants, @tunics and @dresses, $G. I use a lot of @thread."'
+        })
         jump label_177
 
-    case 'pant':
+    case {
+        'english': 'pant',
+        'russian': 'FIXME pant'
+    }:
         integer(value 9) = byte 0
         jump label_545
 
-    case 'tuni':
+    case {
+        'english': 'tuni',
+        'russian': 'FIXME tuni'
+    }:
         integer(value 9) = byte 1
         jump label_545
 
-    case 'dres':
+    case {
+        'english': 'dres',
+        'russian': 'FIXME dres'
+    }:
         integer(value 9) = byte 2
         jump label_545
 
-    case 'bag':
-    case 'ball':
-    case 'plan':
-    case 'silk':
+    case {
+        'english': 'bag',
+        'russian': 'FIXME bag'
+    }:
+    case {
+        'english': 'ball',
+        'russian': 'FIXME ball'
+    }:
+    case {
+        'english': 'plan',
+        'russian': 'FIXME plan'
+    }:
+    case {
+        'english': 'silk',
+        'russian': 'FIXME silk'
+    }:
         jump label_1772
 
-    case '*':
-        print('He stands still for a moment and then shrugs.')
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': 'He stands still for a moment and then shrugs.',
+            'russian': 'FIXME He stands still for a moment and then shrugs.'
+        })
         jump label_177
     esac
 
@@ -82,18 +160,27 @@ label_545:
 
 label_578:
     look(character(minus(integer(value 0), byte 1), byte 0))
-    print('#0) $Y\n')
+    print({
+        'english': '#0) $Y\n',
+        'russian': 'FIXME #0) $Y\n'
+    })
 
     if lessOrEquals(integer(value 0), integer(value 23)):
         integer(value 0) = plus(integer(value 0), byte 1)
         jump label_578
     fi
 
-    print('"Who?" ')
+    print({
+        'english': '"Who?" ',
+        'russian': 'FIXME "Who?" '
+    })
     inputInteger(integer(value 2))
 
     if equals(integer(value 2), byte 0):
-        print('"Oh, sorry. I thought thou wanted to buy something."')
+        print({
+            'english': '"Oh, sorry. I thought thou wanted to buy something."',
+            'russian': 'FIXME "Oh, sorry. I thought thou wanted to buy something."'
+        })
         jump label_177
     fi
 
@@ -111,40 +198,73 @@ label_733:
     integer(value 5) = data(integers_1901, integer(value 9))
 
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 5))), weight(data(integers_1895, integer(value 9)), byte 1)):
-        print('"I\'m sorry, but I really don\'t think $Y can carry that."')
+        print({
+            'english': '"I\'m sorry, but I really don\'t think $Y can carry that."',
+            'russian': 'FIXME "I\'m sorry, but I really don\'t think $Y can carry that."'
+        })
         jump label_177
     fi
 
     if less(objectsCount(integer(value 3), byte 88), integer(value 5)):
-        print('"I\'m sorry, but I really don\'t think $Y can afford that."')
+        print({
+            'english': '"I\'m sorry, but I really don\'t think $Y can afford that."',
+            'russian': 'FIXME "I\'m sorry, but I really don\'t think $Y can afford that."'
+        })
         jump label_177
     fi
 
-    print('"That costs #5. Do you still want it?" ')
+    print({
+        'english': '"That costs #5. Do you still want it?" ',
+        'russian': 'FIXME "That costs #5. Do you still want it?" '
+    })
 
 label_947:
-    choice('yn')
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
 
-    case 'y':
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
         destroyItem(integer(value 3), byte 88, byte 0, integer(value 5))
         createItem(integer(value 3), data(integers_1895, integer(value 9)), byte 0, byte 1)
-        print('$N takes $Y\'s gold and hands over the purchase.')
+        print({
+            'english': '$N takes $Y\'s gold and hands over the purchase.',
+            'russian': 'FIXME $N takes $Y\'s gold and hands over the purchase.'
+        })
         jump label_177
 
-    case 'n':
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
         if less(integer(value 5), minus(data(integers_1901, integer(value 9)), byte 9)):
-            print('"I\'m terribly sorry, but I can\'t sell it for less!"')
+            print({
+                'english': '"I\'m terribly sorry, but I can\'t sell it for less!"',
+                'russian': 'FIXME "I\'m terribly sorry, but I can\'t sell it for less!"'
+            })
             jump label_177
         fi
 
-        print('"I\'m sorry! That\'s ')
+        print({
+            'english': '"I\'m sorry! That\'s ',
+            'russian': 'FIXME "I\'m sorry! That\'s '
+        })
 
         if less(integer(value 5), data(integers_1901, integer(value 9))):
-            print('still ')
+            print({
+                'english': 'still ',
+                'russian': 'FIXME still '
+            })
         fi
 
         integer(value 5) = minus(integer(value 5), byte 3)
-        print('too expensive, isn\'t it? Here, I\'ll sell it for #5 gold, okay?" ')
+        print({
+            'english': 'too expensive, isn\'t it? Here, I\'ll sell it for #5 gold, okay?" ',
+            'russian': 'FIXME too expensive, isn\'t it? Here, I\'ll sell it for #5 gold, okay?" '
+        })
         jump label_947
     esac
 
@@ -168,7 +288,10 @@ label_1253:
 
 label_1317:
     if equals(integer(value 3), byte 0):
-        print('"But - but none of you has any thread to sell."')
+        print({
+            'english': '"But - but none of you has any thread to sell."',
+            'russian': 'FIXME "But - but none of you has any thread to sell."'
+        })
         jump label_177
     fi
 
@@ -183,7 +306,10 @@ label_1403:
 
 label_1417:
     look(character(data(integers_1879, integer(value 0)), byte 0))
-    print('#1. $Y\n')
+    print({
+        'english': '#1. $Y\n',
+        'russian': 'FIXME #1. $Y\n'
+    })
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
 
@@ -191,7 +317,10 @@ label_1417:
         jump label_1417
     fi
 
-    print('"Which of you?" ')
+    print({
+        'english': '"Which of you?" ',
+        'russian': 'FIXME "Which of you?" '
+    })
     inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
@@ -215,31 +344,55 @@ label_1538:
         jump label_1317
     fi
 
-    print('$N turns to $Y, and says "Will you take 8 gold for that thread?" ')
+    print({
+        'english': '$N turns to $Y, and says "Will you take 8 gold for that thread?" ',
+        'russian': 'FIXME $N turns to $Y, and says "Will you take 8 gold for that thread?" '
+    })
 
-    choice('yn')
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
 
-    case 'y':
-        print('"Good, good." He hands $Y 8 gold pieces and takes the thread.')
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
+        print({
+            'english': '"Good, good." He hands $Y 8 gold pieces and takes the thread.',
+            'russian': 'FIXME "Good, good." He hands $Y 8 gold pieces and takes the thread.'
+        })
         destroyItem(character(integer(value 3), byte 0), byte 225, byte 0, byte 1)
         createItem(character(integer(value 3), byte 0), byte 88, byte 0, byte 8)
         jump label_177
 
-    case 'n':
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
         jump label_1756
     esac
 
 label_1756:
-    print('"Oh. Okay."')
+    print({
+        'english': '"Oh. Okay."',
+        'russian': 'FIXME "Oh. Okay."'
+    })
     jump label_177
 
 label_1772:
     if equals(partyHasObject(word 270, byte 0), word 32769):
-        print('"I\'m not sure what you mean."')
+        print({
+            'english': '"I\'m not sure what you mean."',
+            'russian': 'FIXME "I\'m not sure what you mean."'
+        })
         jump label_177
     fi
 
-    print('"I wouldn\'t know where to begin. Ask @Marissa in Paws."')
+    print({
+        'english': '"I wouldn\'t know where to begin. Ask @Marissa in Paws."',
+        'russian': 'FIXME "I wouldn\'t know where to begin. Ask @Marissa in Paws."'
+    })
     jump label_177
 
 integers_1879 = [

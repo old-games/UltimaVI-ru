@@ -487,7 +487,13 @@ def decode(conversation):
 
         def format_string(string):
             escaping = str.maketrans({'\\': '\\\\', "'": "\\'", '\n': '\\n', '\t': '\\t'})
-            return f"'{string.translate(escaping)}'"
+            escaped = string.translate(escaping)
+            return '\n'.join((
+                '{',
+                f"{' '*(len(levels)+1)*4}'english': '{escaped}',",
+                f"{' '*(len(levels)+1)*4}'russian': 'FIXME {escaped}'",
+                f"{' '*len(levels)*4}{'}'}"
+            ))
 
         def format_expression(expression):
             if not expression:
@@ -613,7 +619,7 @@ def decode(conversation):
                 values = []
                 for item in arguments[0]:
                     values.append(str(item) if code == int else format_string(item))
-                max_size = max(map(len, values)) + 1
+                max_size = max((len(value.splitlines()[-1]) for value in values)) + 1
                 for index, value in enumerate(values):
                     # FIXME переделать названия в выражениях
                     # FIXME pad numbers to right

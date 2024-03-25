@@ -2,69 +2,123 @@ source('CONVERSE.B')
 index(71)
 
 id(170)
-name('Lensmaker')
+name({
+    'english': 'Lensmaker',
+    'russian': 'FIXME Lensmaker'
+})
 
 description:
-    print('a very old gargoyle.')
+    print({
+        'english': 'a very old gargoyle.',
+        'russian': 'FIXME a very old gargoyle.'
+    })
 
 interaction:
     wait()
 
-    print('\n')
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
 
     if equals(integer(value 21), byte 0):
-        print('The gargoyle gasps in terror and wheezes, "An-bal-sil-fer!"')
+        print({
+            'english': 'The gargoyle gasps in terror and wheezes, "An-bal-sil-fer!"',
+            'russian': 'FIXME The gargoyle gasps in terror and wheezes, "An-bal-sil-fer!"'
+        })
         wait()
 
-        print('\n\nThen he faints dead away!\n')
+        print({
+            'english': '\n\nThen he faints dead away!\n',
+            'russian': 'FIXME \n\nThen he faints dead away!\n'
+        })
         do(byte 235, byte 145)
         bye()
     fi
 
     if notEquals(partyHasObject(byte 76, byte 0), byte 1):
-        print('The gargoyle gasps in terror and wheezes, "The False Prophet!"')
+        print({
+            'english': 'The gargoyle gasps in terror and wheezes, "The False Prophet!"',
+            'russian': 'FIXME The gargoyle gasps in terror and wheezes, "The False Prophet!"'
+        })
         wait()
 
-        print('\n\nThen he faints dead away!\n')
+        print({
+            'english': '\n\nThen he faints dead away!\n',
+            'russian': 'FIXME \n\nThen he faints dead away!\n'
+        })
         do(byte 235, byte 145)
         bye()
     fi
 
     if equals(hasBit(byte 235, value 0), byte 0):
-        print('The venerable gargoyle peers at you.')
+        print({
+            'english': 'The venerable gargoyle peers at you.',
+            'russian': 'FIXME The venerable gargoyle peers at you.'
+        })
         wait()
 
-        print('\n\n"Greetings, False Prophet."')
+        print({
+            'english': '\n\n"Greetings, False Prophet."',
+            'russian': 'FIXME \n\n"Greetings, False Prophet."'
+        })
         wait()
 
-        print('\n\n"To have been told by @Naxatilor, long ago, that the you would one ')
-        print('day come to me, wearing the Amulet of Submission."')
+        print({
+            'english': '\n\n"To have been told by @Naxatilor, long ago, that the you would one ',
+            'russian': 'FIXME \n\n"To have been told by @Naxatilor, long ago, that the you would one '
+        })
+        print({
+            'english': 'day come to me, wearing the Amulet of Submission."',
+            'russian': 'FIXME day come to me, wearing the Amulet of Submission."'
+        })
         wait()
 
-        print('\n\n"To never have believed it would come to pass."')
+        print({
+            'english': '\n\n"To never have believed it would come to pass."',
+            'russian': 'FIXME \n\n"To never have believed it would come to pass."'
+        })
         wait()
 
-        print('\n\n"To ask what service I can perform?"')
+        print({
+            'english': '\n\n"To ask what service I can perform?"',
+            'russian': 'FIXME \n\n"To ask what service I can perform?"'
+        })
         setBit(byte 235, value 0)
         jump label_805
     fi
 
     if equals(hasBit(byte 235, byte 2), byte 0):
-        print('"To ask how again I may help you?"')
+        print({
+            'english': '"To ask how again I may help you?"',
+            'russian': 'FIXME "To ask how again I may help you?"'
+        })
         jump label_805
     fi
 
     integer(value 0) = partyHasObject(word 395, byte 0)
 
     if equals(integer(value 0), word 32769):
-        print('"To wonder why you have not brought back the broken lens?!"')
+        print({
+            'english': '"To wonder why you have not brought back the broken lens?!"',
+            'russian': 'FIXME "To wonder why you have not brought back the broken lens?!"'
+        })
         wait()
 
-        print('\n\n"To have already told you that I need it in order to craft a new ')
-        print('one!"')
+        print({
+            'english': '\n\n"To have already told you that I need it in order to craft a new ',
+            'russian': 'FIXME \n\n"To have already told you that I need it in order to craft a new '
+        })
+        print({
+            'english': 'one!"',
+            'russian': 'FIXME one!"'
+        })
         wait()
 
-        print('\n\n"To ask what you think I can do without it?"')
+        print({
+            'english': '\n\n"To ask what you think I can do without it?"',
+            'russian': 'FIXME \n\n"To ask what you think I can do without it?"'
+        })
         jump label_805
 
     else:
@@ -72,19 +126,34 @@ interaction:
     fi
 
 label_805:
-    print('\n')
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
 
     ask()
 
-    case 'lens':
-    case 'vort':
+    case {
+        'english': 'lens',
+        'russian': 'FIXME lens'
+    }:
+    case {
+        'english': 'vort',
+        'russian': 'FIXME vort'
+    }:
         integer(value 0) = partyHasObject(word 395, byte 0)
 
         if equals(integer(value 0), word 32769):
-            print('"To remember little from so long ago," the gargoyle croaks.')
+            print({
+                'english': '"To remember little from so long ago," the gargoyle croaks.',
+                'russian': 'FIXME "To remember little from so long ago," the gargoyle croaks.'
+            })
             wait()
 
-            print('\n\n"To require the pieces of the lens in order to make a new copy."')
+            print({
+                'english': '\n\n"To require the pieces of the lens in order to make a new copy."',
+                'russian': 'FIXME \n\n"To require the pieces of the lens in order to make a new copy."'
+            })
             setBit(byte 235, byte 2)
             jump label_805
 
@@ -92,84 +161,189 @@ label_805:
             jump label_1806
         fi
 
-    case 'name':
-        print('"To lack a name, of course."')
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"To lack a name, of course."',
+            'russian': 'FIXME "To lack a name, of course."'
+        })
         wait()
 
-        print('\n\n"But to be called Lor-wis-lem, the scholar of light, by many learned')
-        print(' gargoyles."')
+        print({
+            'english': '\n\n"But to be called Lor-wis-lem, the scholar of light, by many learned',
+            'russian': 'FIXME \n\n"But to be called Lor-wis-lem, the scholar of light, by many learned'
+        })
+        print({
+            'english': ' gargoyles."',
+            'russian': 'FIXME  gargoyles."'
+        })
         wait()
 
-        print('\n\nAs he says this, the ancient gargoyle beams with pride.')
+        print({
+            'english': '\n\nAs he says this, the ancient gargoyle beams with pride.',
+            'russian': 'FIXME \n\nAs he says this, the ancient gargoyle beams with pride.'
+        })
         jump label_805
 
-    case 'job':
-        print('"To craft the finest lenses in the land," the gargoyle says proudly.')
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"To craft the finest lenses in the land," the gargoyle says proudly.',
+            'russian': 'FIXME "To craft the finest lenses in the land," the gargoyle says proudly.'
+        })
         wait()
 
-        print('\n\n"Also to teach my young @apprentices not to cut themselves on the ')
-        print('glass!"')
+        print({
+            'english': '\n\n"Also to teach my young @apprentices not to cut themselves on the ',
+            'russian': 'FIXME \n\n"Also to teach my young @apprentices not to cut themselves on the '
+        })
+        print({
+            'english': 'glass!"',
+            'russian': 'FIXME glass!"'
+        })
         jump label_805
 
-    case 'appr':
-    case 'teac':
-    case 'youn':
-        print('"To be nearing the end of my @time."')
+    case {
+        'english': 'appr',
+        'russian': 'FIXME appr'
+    }:
+    case {
+        'english': 'teac',
+        'russian': 'FIXME teac'
+    }:
+    case {
+        'english': 'youn',
+        'russian': 'FIXME youn'
+    }:
+        print({
+            'english': '"To be nearing the end of my @time."',
+            'russian': 'FIXME "To be nearing the end of my @time."'
+        })
         wait()
 
-        print('\n\n"To have one last sacred duty:"')
+        print({
+            'english': '\n\n"To have one last sacred duty:"',
+            'russian': 'FIXME \n\n"To have one last sacred duty:"'
+        })
         wait()
 
-        print('\n\n"To pass on my skill to the next generation."')
+        print({
+            'english': '\n\n"To pass on my skill to the next generation."',
+            'russian': 'FIXME \n\n"To pass on my skill to the next generation."'
+        })
         jump label_805
 
-    case 'end':
-    case 'time':
-        print('"To be over a thousand years old."')
+    case {
+        'english': 'end',
+        'russian': 'FIXME end'
+    }:
+    case {
+        'english': 'time',
+        'russian': 'FIXME time'
+    }:
+        print({
+            'english': '"To be over a thousand years old."',
+            'russian': 'FIXME "To be over a thousand years old."'
+        })
         wait()
 
-        print('\n\n"To seem a mere youth compared to @Naxatilor, however."')
+        print({
+            'english': '\n\n"To seem a mere youth compared to @Naxatilor, however."',
+            'russian': 'FIXME \n\n"To seem a mere youth compared to @Naxatilor, however."'
+        })
         jump label_805
 
-    case 'naxa':
-        print('"To have helped Naxatilor create the Vortex Lens, centuries ago."')
+    case {
+        'english': 'naxa',
+        'russian': 'FIXME naxa'
+    }:
+        print({
+            'english': '"To have helped Naxatilor create the Vortex Lens, centuries ago."',
+            'russian': 'FIXME "To have helped Naxatilor create the Vortex Lens, centuries ago."'
+        })
         wait()
 
-        print('\n\n"To have found him venerable and ancient even then!"')
+        print({
+            'english': '\n\n"To have found him venerable and ancient even then!"',
+            'russian': 'FIXME \n\n"To have found him venerable and ancient even then!"'
+        })
         jump label_805
 
-    case 'bye':
-        print('"To be honored to have helped you, False Prophet."\n')
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"To be honored to have helped you, False Prophet."\n',
+            'russian': 'FIXME "To be honored to have helped you, False Prophet."\n'
+        })
         bye()
 
-    case '*':
-        print('"To be old. To suggest you ask that of others."')
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"To be old. To suggest you ask that of others."',
+            'russian': 'FIXME "To be old. To suggest you ask that of others."'
+        })
         jump label_805
     esac
 
 label_1806:
-    print('"To see the shattered Vortex Lens you carry."')
+    print({
+        'english': '"To see the shattered Vortex Lens you carry."',
+        'russian': 'FIXME "To see the shattered Vortex Lens you carry."'
+    })
     wait()
 
-    print('\n\n"To remember making it, so very long ago."')
+    print({
+        'english': '\n\n"To remember making it, so very long ago."',
+        'russian': 'FIXME \n\n"To remember making it, so very long ago."'
+    })
     wait()
 
-    print('\n\n')
+    print({
+        'english': '\n\n',
+        'russian': 'FIXME \n\n'
+    })
     destroyItem(integer(value 0), word 395, byte 0, byte 1)
-    print('Taking the shards of glass, the lensmaker turns to his grinding table.')
+    print({
+        'english': 'Taking the shards of glass, the lensmaker turns to his grinding table.',
+        'russian': 'FIXME Taking the shards of glass, the lensmaker turns to his grinding table.'
+    })
     wait()
 
-    print('\n\nIn a short while, he has crafted a new Vortex Lens!')
+    print({
+        'english': '\n\nIn a short while, he has crafted a new Vortex Lens!',
+        'russian': 'FIXME \n\nIn a short while, he has crafted a new Vortex Lens!'
+    })
     wait()
 
-    print('\n\n"To have far greater skill now than when first I made this lens," he')
-    print(' says smugly.')
+    print({
+        'english': '\n\n"To have far greater skill now than when first I made this lens," he',
+        'russian': 'FIXME \n\n"To have far greater skill now than when first I made this lens," he'
+    })
+    print({
+        'english': ' says smugly.',
+        'russian': 'FIXME  says smugly.'
+    })
     wait()
 
-    print('\n\n"To require little time to repair it."')
+    print({
+        'english': '\n\n"To require little time to repair it."',
+        'russian': 'FIXME \n\n"To require little time to repair it."'
+    })
     wait()
 
-    print('\n\nHe hands you the restored Vortex Lens.')
+    print({
+        'english': '\n\nHe hands you the restored Vortex Lens.',
+        'russian': 'FIXME \n\nHe hands you the restored Vortex Lens.'
+    })
     createItem(integer(value 0), word 396, byte 0, byte 1)
     clearBit(byte 235, byte 2)
     jump label_805

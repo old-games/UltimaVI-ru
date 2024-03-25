@@ -2,112 +2,232 @@ source('CONVERSE.B')
 index(15)
 
 id(114)
-name('Leonna')
+name({
+    'english': 'Leonna',
+    'russian': 'FIXME Leonna'
+})
 
 description:
-    print('a smartly dressed woman. Her smile has a delightful subtlety to it.')
+    print({
+        'english': 'a smartly dressed woman. Her smile has a delightful subtlety to it.',
+        'russian': 'FIXME a smartly dressed woman. Her smile has a delightful subtlety to it.'
+    })
     wait()
 
-    print('\n')
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
 
 interaction:
     if partyHas(byte 235):
-        print('"Yes, $P?"')
+        print({
+            'english': '"Yes, $P?"',
+            'russian': 'FIXME "Yes, $P?"'
+        })
         jump label_318
     fi
 
     if equals(integer(value 32), byte 153):
-        print('You fail to get her attention in the midst of the brawl.\n')
+        print({
+            'english': 'You fail to get her attention in the midst of the brawl.\n',
+            'russian': 'FIXME You fail to get her attention in the midst of the brawl.\n'
+        })
         bye()
     fi
 
     if hasBit(byte 235, value 0):
-        print('Her face lights up as she recognizes you. "Hello again, $P!"')
+        print({
+            'english': 'Her face lights up as she recognizes you. "Hello again, $P!"',
+            'russian': 'FIXME Her face lights up as she recognizes you. "Hello again, $P!"'
+        })
         jump label_318
 
     else:
         setBit(byte 235, value 0)
-        print('"Oh, you must be $P, the famous Avatar! \'Tis an honor to meet thee."')
+        print({
+            'english': '"Oh, you must be $P, the famous Avatar! \'Tis an honor to meet thee."',
+            'russian': 'FIXME "Oh, you must be $P, the famous Avatar! \'Tis an honor to meet thee."'
+        })
     fi
 
     jump label_318
 
 label_318:
-    print('\n')
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
 
     ask()
 
-    case 'name':
-        print('"My name is Leonna."')
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"My name is Leonna."',
+            'russian': 'FIXME "My name is Leonna."'
+        })
         jump label_318
 
-    case 'job':
-        print('"I used to @captain my own ship."')
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
+        print({
+            'english': '"I used to @captain my own ship."',
+            'russian': 'FIXME "I used to @captain my own ship."'
+        })
         wait()
 
-        print('\n\n"But I fell on hard times, and now I sail with @Leodon on the ')
-        print('@Hind."')
+        print({
+            'english': '\n\n"But I fell on hard times, and now I sail with @Leodon on the ',
+            'russian': 'FIXME \n\n"But I fell on hard times, and now I sail with @Leodon on the '
+        })
+        print({
+            'english': '@Hind."',
+            'russian': 'FIXME @Hind."'
+        })
         jump label_318
 
-    case 'hind':
-    case 'sail':
-    case 'ship':
-        print('"A fine old vessel, the Golden Hind."')
+    case {
+        'english': 'hind',
+        'russian': 'FIXME hind'
+    }:
+    case {
+        'english': 'sail',
+        'russian': 'FIXME sail'
+    }:
+    case {
+        'english': 'ship',
+        'russian': 'FIXME ship'
+    }:
+        print({
+            'english': '"A fine old vessel, the Golden Hind."',
+            'russian': 'FIXME "A fine old vessel, the Golden Hind."'
+        })
         wait()
 
-        print('\n\n"Alas, I have little to do while she\'s being @repaired."')
+        print({
+            'english': '\n\n"Alas, I have little to do while she\'s being @repaired."',
+            'russian': 'FIXME \n\n"Alas, I have little to do while she\'s being @repaired."'
+        })
         jump label_318
 
-    case 'join':
-    case 'litt':
-    case 'repa':
+    case {
+        'english': 'join',
+        'russian': 'FIXME join'
+    }:
+    case {
+        'english': 'litt',
+        'russian': 'FIXME litt'
+    }:
+    case {
+        'english': 'repa',
+        'russian': 'FIXME repa'
+    }:
         jump label_1356
 
-    case 'leav':
+    case {
+        'english': 'leav',
+        'russian': 'FIXME leav'
+    }:
         jump label_1764
 
-    case 'leod':
-        print('"There\'s none I\'d rather ship out with."')
+    case {
+        'english': 'leod',
+        'russian': 'FIXME leod'
+    }:
+        print({
+            'english': '"There\'s none I\'d rather ship out with."',
+            'russian': 'FIXME "There\'s none I\'d rather ship out with."'
+        })
         jump label_318
 
-    case 'capt':
+    case {
+        'english': 'capt',
+        'russian': 'FIXME capt'
+    }:
         if partyHas(byte 235):
-            print('"Captain who? I know lots of Captains..."')
+            print({
+                'english': '"Captain who? I know lots of Captains..."',
+                'russian': 'FIXME "Captain who? I know lots of Captains..."'
+            })
             jump label_318
         fi
 
         integer(value 0) = plus(plus(isNearby(byte 113), isNearby(byte 111)), isNearby(byte 112))
 
         if lessOrEquals(integer(value 0), byte 1):
-            print('"Captain who? I know lots of Captains..."')
+            print({
+                'english': '"Captain who? I know lots of Captains..."',
+                'russian': 'FIXME "Captain who? I know lots of Captains..."'
+            })
             jump label_318
         fi
 
-        print('When you say \'Captain,\' all the pirates at the table turn to you ')
-        print('expectantly.')
+        print({
+            'english': 'When you say \'Captain,\' all the pirates at the table turn to you ',
+            'russian': 'FIXME When you say \'Captain,\' all the pirates at the table turn to you '
+        })
+        print({
+            'english': 'expectantly.',
+            'russian': 'FIXME expectantly.'
+        })
         wait()
 
-        print('\n\nWhen they realize you weren\'t talking to them, they return to their ')
-        print('business.')
+        print({
+            'english': '\n\nWhen they realize you weren\'t talking to them, they return to their ',
+            'russian': 'FIXME \n\nWhen they realize you weren\'t talking to them, they return to their '
+        })
+        print({
+            'english': 'business.',
+            'russian': 'FIXME business.'
+        })
         jump label_318
 
-    case 'john':
-        print('"Captain John is a madman!"')
+    case {
+        'english': 'john',
+        'russian': 'FIXME john'
+    }:
+        print({
+            'english': '"Captain John is a madman!"',
+            'russian': 'FIXME "Captain John is a madman!"'
+        })
         wait()
 
-        print('\n\n"He went down in Hythloth seeking a way to the other side of the ')
-        print('world."')
+        print({
+            'english': '\n\n"He went down in Hythloth seeking a way to the other side of the ',
+            'russian': 'FIXME \n\n"He went down in Hythloth seeking a way to the other side of the '
+        })
+        print({
+            'english': 'world."',
+            'russian': 'FIXME world."'
+        })
         wait()
 
-        print('\n\n"Said he was going to kill as many @gargoyles as he could before ')
-        print('they got him."')
+        print({
+            'english': '\n\n"Said he was going to kill as many @gargoyles as he could before ',
+            'russian': 'FIXME \n\n"Said he was going to kill as many @gargoyles as he could before '
+        })
+        print({
+            'english': 'they got him."',
+            'russian': 'FIXME they got him."'
+        })
 
         if isNearby(byte 111):
             wait()
 
             portrait(byte 111)
-            print('\n\n"That\'s not true!" says Captain Fox. "I can tell you what really ')
-            print('happened."')
+            print({
+                'english': '\n\n"That\'s not true!" says Captain Fox. "I can tell you what really ',
+                'russian': 'FIXME \n\n"That\'s not true!" says Captain Fox. "I can tell you what really '
+            })
+            print({
+                'english': 'happened."',
+                'russian': 'FIXME happened."'
+            })
             wait()
 
             portrait(byte 235)
@@ -115,16 +235,34 @@ label_318:
 
         jump label_318
 
-    case 'garg':
-        print('"Please, let\'s not talk about them."')
+    case {
+        'english': 'garg',
+        'russian': 'FIXME garg'
+    }:
+        print({
+            'english': '"Please, let\'s not talk about them."',
+            'russian': 'FIXME "Please, let\'s not talk about them."'
+        })
         jump label_318
 
-    case 'bye':
-        print('"Talk to you later."\n')
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"Talk to you later."\n',
+            'russian': 'FIXME "Talk to you later."\n'
+        })
         bye()
 
-    case '*':
-        print('"I can\'t help you with that."')
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"I can\'t help you with that."',
+            'russian': 'FIXME "I can\'t help you with that."'
+        })
     esac
 
     jump label_318
@@ -132,34 +270,64 @@ label_318:
 label_1356:
     if partyHas(byte 235):
 label_1361:
-        print('"I\'d be glad to join you--but I have already!"')
+        print({
+            'english': '"I\'d be glad to join you--but I have already!"',
+            'russian': 'FIXME "I\'d be glad to join you--but I have already!"'
+        })
         jump label_318
     fi
 
-    print('"Could I join your party, perhaps?" ')
+    print({
+        'english': '"Could I join your party, perhaps?" ',
+        'russian': 'FIXME "Could I join your party, perhaps?" '
+    })
 
-    choice('yn')
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
 
-    case 'n':
-        print('"Okay. I guess I\'ll just stay here for now."')
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
+        print({
+            'english': '"Okay. I guess I\'ll just stay here for now."',
+            'russian': 'FIXME "Okay. I guess I\'ll just stay here for now."'
+        })
         jump label_318
 
-    case 'y':
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
     esac
 
     integer(value 0) = partyJoin(byte 235)
 
     if equals(integer(value 0), byte 1):
-        print('"Not while you\'re in that thing!"')
+        print({
+            'english': '"Not while you\'re in that thing!"',
+            'russian': 'FIXME "Not while you\'re in that thing!"'
+        })
         jump label_318
     fi
 
     if equals(integer(value 0), byte 2):
-        print('"You have enough traveling with you already."')
+        print({
+            'english': '"You have enough traveling with you already."',
+            'russian': 'FIXME "You have enough traveling with you already."'
+        })
         wait()
 
-        print('\n\n"But if you ask one of them to @leave first, I\'d be happy to join ')
-        print('you."')
+        print({
+            'english': '\n\n"But if you ask one of them to @leave first, I\'d be happy to join ',
+            'russian': 'FIXME \n\n"But if you ask one of them to @leave first, I\'d be happy to join '
+        })
+        print({
+            'english': 'you."',
+            'russian': 'FIXME you."'
+        })
         jump label_318
     fi
 
@@ -167,20 +335,29 @@ label_1361:
         jump label_1361
     fi
 
-    print('"Oh good! I bet we\'ll meet a lot of interesting men..."\n')
+    print({
+        'english': '"Oh good! I bet we\'ll meet a lot of interesting men..."\n',
+        'russian': 'FIXME "Oh good! I bet we\'ll meet a lot of interesting men..."\n'
+    })
     bye()
 
 label_1764:
     if equals(partyHas(byte 235), byte 0):
 label_1772:
-        print('"I\'d have to @join you before I could leave, silly!"')
+        print({
+            'english': '"I\'d have to @join you before I could leave, silly!"',
+            'russian': 'FIXME "I\'d have to @join you before I could leave, silly!"'
+        })
         jump label_318
     fi
 
     integer(value 0) = partyLeave(byte 235)
 
     if equals(integer(value 0), byte 1):
-        print('"Let\'s get our feet back on solid ground first, okay?"')
+        print({
+            'english': '"Let\'s get our feet back on solid ground first, okay?"',
+            'russian': 'FIXME "Let\'s get our feet back on solid ground first, okay?"'
+        })
         jump label_318
     fi
 
@@ -188,9 +365,18 @@ label_1772:
         jump label_1772
     fi
 
-    print('"Okay. I\'ll go wait back at the Fallen Virgin."\n*\n"You\'re more likely ')
-    print('to need this equipment than I am."\n*\nShe sets down everything she was ')
-    print('carrying before walking off.\n')
+    print({
+        'english': '"Okay. I\'ll go wait back at the Fallen Virgin."\n*\n"You\'re more likely ',
+        'russian': 'FIXME "Okay. I\'ll go wait back at the Fallen Virgin."\n*\n"You\'re more likely '
+    })
+    print({
+        'english': 'to need this equipment than I am."\n*\nShe sets down everything she was ',
+        'russian': 'FIXME to need this equipment than I am."\n*\nShe sets down everything she was '
+    })
+    print({
+        'english': 'carrying before walking off.\n',
+        'russian': 'FIXME carrying before walking off.\n'
+    })
     bye()
 
     // Unreachable code!

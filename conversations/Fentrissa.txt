@@ -2,22 +2,37 @@ source('CONVERSE.B')
 index(22)
 
 id(121)
-name('Fentrissa')
+name({
+    'english': 'Fentrissa',
+    'russian': 'FIXME Fentrissa'
+})
 
 description:
-    print('a strong, sinewy woman with a hard look about her.')
+    print({
+        'english': 'a strong, sinewy woman with a hard look about her.',
+        'russian': 'FIXME a strong, sinewy woman with a hard look about her.'
+    })
     wait()
 
-    print('\n')
+    print({
+        'english': '\n',
+        'russian': 'FIXME \n'
+    })
 
 interaction:
     integer(value 5) = byte 0
 
     if hasBit(byte 235, value 0):
-        print('"Smell that salt air, friend. Brings a tear to me eye..."\n')
+        print({
+            'english': '"Smell that salt air, friend. Brings a tear to me eye..."\n',
+            'russian': 'FIXME "Smell that salt air, friend. Brings a tear to me eye..."\n'
+        })
 
     else:
-        print('"Welcome, welcome!" She slaps you heartily on the back.\n')
+        print({
+            'english': '"Welcome, welcome!" She slaps you heartily on the back.\n',
+            'russian': 'FIXME "Welcome, welcome!" She slaps you heartily on the back.\n'
+        })
     fi
 
 label_194:
@@ -25,50 +40,104 @@ label_194:
 
     ask()
 
-    case 'name':
-        print('"@Fentrissa."\n')
+    case {
+        'english': 'name',
+        'russian': 'FIXME name'
+    }:
+        print({
+            'english': '"@Fentrissa."\n',
+            'russian': 'FIXME "@Fentrissa."\n'
+        })
         setBit(byte 235, value 0)
         jump label_194
 
-    case 'fent':
-        print('"A strong name, as strong as the @sea." She looks into the distance.\n')
+    case {
+        'english': 'fent',
+        'russian': 'FIXME fent'
+    }:
+        print({
+            'english': '"A strong name, as strong as the @sea." She looks into the distance.\n',
+            'russian': 'FIXME "A strong name, as strong as the @sea." She looks into the distance.\n'
+        })
         jump label_194
 
-    case 'sea':
-        print('"Beautiful thing, but a @jealous man he is."\n')
+    case {
+        'english': 'sea',
+        'russian': 'FIXME sea'
+    }:
+        print({
+            'english': '"Beautiful thing, but a @jealous man he is."\n',
+            'russian': 'FIXME "Beautiful thing, but a @jealous man he is."\n'
+        })
         jump label_194
 
-    case 'jeal':
-    case 'man':
-        print('"Many call her a female."')
+    case {
+        'english': 'jeal',
+        'russian': 'FIXME jeal'
+    }:
+    case {
+        'english': 'man',
+        'russian': 'FIXME man'
+    }:
+        print({
+            'english': '"Many call her a female."',
+            'russian': 'FIXME "Many call her a female."'
+        })
         wait()
 
-        print('\n\n"If ya ask me, men are much more unpredictable."\n')
+        print({
+            'english': '\n\n"If ya ask me, men are much more unpredictable."\n',
+            'russian': 'FIXME \n\n"If ya ask me, men are much more unpredictable."\n'
+        })
         jump label_194
 
-    case 'buy':
-    case 'deed':
+    case {
+        'english': 'buy',
+        'russian': 'FIXME buy'
+    }:
+    case {
+        'english': 'deed',
+        'russian': 'FIXME deed'
+    }:
         if equals(integer(value 1), byte 0):
-            print('"You bought my last craft."\n')
+            print({
+                'english': '"You bought my last craft."\n',
+                'russian': 'FIXME "You bought my last craft."\n'
+            })
             jump label_194
         fi
 
-        print('"I sell')
+        print({
+            'english': '"I sell',
+            'russian': 'FIXME "I sell'
+        })
 
         if or(equals(integer(value 1), byte 1), equals(integer(value 1), byte 2)):
-            print(' @ships."\n')
+            print({
+                'english': ' @ships."\n',
+                'russian': 'FIXME  @ships."\n'
+            })
             jump label_194
         fi
 
         if or(equals(integer(value 1), byte 3), equals(integer(value 1), byte 6)):
-            print(' @skiffs."\n')
+            print({
+                'english': ' @skiffs."\n',
+                'russian': 'FIXME  @skiffs."\n'
+            })
             jump label_194
         fi
 
-        print(' @ships and @skiffs."\n')
+        print({
+            'english': ' @ships and @skiffs."\n',
+            'russian': 'FIXME  @ships and @skiffs."\n'
+        })
         jump label_194
 
-    case 'ship':
+    case {
+        'english': 'ship',
+        'russian': 'FIXME ship'
+    }:
         if hasObject(byte 235, byte 149, byte 1):
             integer(value 9) = byte 0
             jump label_1165
@@ -79,10 +148,16 @@ label_194:
             jump label_1165
         fi
 
-        print('"Sorry, I sold you my last one."\n')
+        print({
+            'english': '"Sorry, I sold you my last one."\n',
+            'russian': 'FIXME "Sorry, I sold you my last one."\n'
+        })
         jump label_194
 
-    case 'skif':
+    case {
+        'english': 'skif',
+        'russian': 'FIXME skif'
+    }:
         if hasObject(byte 235, byte 149, word 128):
             integer(value 9) = byte 2
             jump label_1165
@@ -93,34 +168,64 @@ label_194:
             jump label_1165
         fi
 
-        print('"Sorry, I sold you my last one."\n')
+        print({
+            'english': '"Sorry, I sold you my last one."\n',
+            'russian': 'FIXME "Sorry, I sold you my last one."\n'
+        })
         jump label_194
 
-    case 'job':
+    case {
+        'english': 'job',
+        'russian': 'FIXME job'
+    }:
         if equals(integer(value 1), byte 0):
-            print('"I\'m out of work after selling you all my ships and skiffs."\n')
+            print({
+                'english': '"I\'m out of work after selling you all my ships and skiffs."\n',
+                'russian': 'FIXME "I\'m out of work after selling you all my ships and skiffs."\n'
+            })
             jump label_194
         fi
 
         if or(equals(integer(value 1), byte 1), equals(integer(value 1), byte 2)):
-            print('"I have @ships for sale, but I sold you my last @skiff."\n')
+            print({
+                'english': '"I have @ships for sale, but I sold you my last @skiff."\n',
+                'russian': 'FIXME "I have @ships for sale, but I sold you my last @skiff."\n'
+            })
             jump label_194
         fi
 
         if or(equals(integer(value 1), byte 3), equals(integer(value 1), byte 6)):
-            print('"I sold you my last @ship, but I still have some @skiffs left."\n')
+            print({
+                'english': '"I sold you my last @ship, but I still have some @skiffs left."\n',
+                'russian': 'FIXME "I sold you my last @ship, but I still have some @skiffs left."\n'
+            })
             jump label_194
         fi
 
-        print('"I sell @ships and @skiffs."\n')
+        print({
+            'english': '"I sell @ships and @skiffs."\n',
+            'russian': 'FIXME "I sell @ships and @skiffs."\n'
+        })
         jump label_194
 
-    case 'bye':
-        print('"Have a good one." She bows, hands on her hips.\n')
+    case {
+        'english': 'bye',
+        'russian': 'FIXME bye'
+    }:
+        print({
+            'english': '"Have a good one." She bows, hands on her hips.\n',
+            'russian': 'FIXME "Have a good one." She bows, hands on her hips.\n'
+        })
         bye()
 
-    case '*':
-        print('"Ask around."\n')
+    case {
+        'english': '*',
+        'russian': 'FIXME *'
+    }:
+        print({
+            'english': '"Ask around."\n',
+            'russian': 'FIXME "Ask around."\n'
+        })
     esac
 
     jump label_194
@@ -137,7 +242,10 @@ label_1185:
 
 label_1199:
     look(character(integer(value 0), byte 0))
-    print('#2. $Y\n')
+    print({
+        'english': '#2. $Y\n',
+        'russian': 'FIXME #2. $Y\n'
+    })
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
 
@@ -145,7 +253,10 @@ label_1199:
         jump label_1199
     fi
 
-    print('"Which of you?" ')
+    print({
+        'english': '"Which of you?" ',
+        'russian': 'FIXME "Which of you?" '
+    })
     inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
@@ -161,14 +272,26 @@ label_1199:
 label_1301:
     integer(value 4) = data(integers_2033, integer(value 9))
     look(character(integer(value 3), byte 0))
-    print('$N turns to $Y, "It\'ll cost you #4 gold for the deed. Interested?"')
+    print({
+        'english': '$N turns to $Y, "It\'ll cost you #4 gold for the deed. Interested?"',
+        'russian': 'FIXME $N turns to $Y, "It\'ll cost you #4 gold for the deed. Interested?"'
+    })
 
-    choice('yn')
+    choice({
+        'english': 'yn',
+        'russian': 'FIXME yn'
+    })
 
-    case 'y':
+    case {
+        'english': 'y',
+        'russian': 'FIXME y'
+    }:
         if less(canCarry(character(integer(value 3), byte 0)), weight(byte 149, byte 1)):
             look(character(integer(value 3), byte 0))
-            print('$N looks at $Y. "You look pretty full to me."\n')
+            print({
+                'english': '$N looks at $Y. "You look pretty full to me."\n',
+                'russian': 'FIXME $N looks at $Y. "You look pretty full to me."\n'
+            })
             jump label_194
         fi
 
@@ -177,24 +300,39 @@ label_1301:
 label_1471:
         giveItem(byte 149, data(integers_2041, integer(value 9)), byte 235, character(integer(value 3), byte 0))
         look(character(integer(value 3), byte 0))
-        print('"Excellent!" After accepting the gold, $N hands $Y the deed.')
+        print({
+            'english': '"Excellent!" After accepting the gold, $N hands $Y the deed.',
+            'russian': 'FIXME "Excellent!" After accepting the gold, $N hands $Y the deed.'
+        })
         wait()
 
         integer(value 5) = byte 1
-        print('\n\n')
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
         jump label_1584
 
-    case 'n':
+    case {
+        'english': 'n',
+        'russian': 'FIXME n'
+    }:
         jump label_1584
     esac
 
 label_1584:
     if integer(value 5):
-        print('"Sail her straight."\n')
+        print({
+            'english': '"Sail her straight."\n',
+            'russian': 'FIXME "Sail her straight."\n'
+        })
         jump label_194
     fi
 
-    print('"You\'ll ne\'er find a better craft."\n')
+    print({
+        'english': '"You\'ll ne\'er find a better craft."\n',
+        'russian': 'FIXME "You\'ll ne\'er find a better craft."\n'
+    })
     jump label_194
 
 label_1656:
@@ -208,13 +346,22 @@ label_1693:
         jump label_1960
 
 label_1705:
-        print('"Your party hasn\'t enough money."')
+        print({
+            'english': '"Your party hasn\'t enough money."',
+            'russian': 'FIXME "Your party hasn\'t enough money."'
+        })
         wait()
 
-        print('\n\n"It looks like you\'re #1 gold piece\\s short."')
+        print({
+            'english': '\n\n"It looks like you\'re #1 gold piece\\s short."',
+            'russian': 'FIXME \n\n"It looks like you\'re #1 gold piece\\s short."'
+        })
         wait()
 
-        print('\n\n"Sorry."\n')
+        print({
+            'english': '\n\n"Sorry."\n',
+            'russian': 'FIXME \n\n"Sorry."\n'
+        })
         jump label_194
     fi
 
@@ -230,10 +377,16 @@ label_1705:
 
     else:
         destroyItem(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 1))
-        print('Your party takes up a collection for the deed.')
+        print({
+            'english': 'Your party takes up a collection for the deed.',
+            'russian': 'FIXME Your party takes up a collection for the deed.'
+        })
         wait()
 
-        print('\n\n')
+        print({
+            'english': '\n\n',
+            'russian': 'FIXME \n\n'
+        })
         jump label_1471
     fi
 
