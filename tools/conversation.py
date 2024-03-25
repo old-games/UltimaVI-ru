@@ -485,15 +485,23 @@ def decode(conversation):
             if result and result[-1] == '':
                 del result[-1]
 
-        def format_string(string):
+        def format_string(string, case=False):
             escaping = str.maketrans({'\\': '\\\\', "'": "\\'", '\n': '\\n', '\t': '\\t'})
             escaped = string.translate(escaping)
-            return '\n'.join((
-                '{',
-                f"{' '*(len(levels)+1)*4}'english': '{escaped}',",
-                f"{' '*(len(levels)+1)*4}'russian': 'FIXME {escaped}'",
-                f"{' '*len(levels)*4}{'}'}"
-            ))
+            if not case:
+                return '\n'.join((
+                    '{',
+                    f"{' '*(len(levels)+1)*4}'english': '{escaped}',",
+                    f"{' '*(len(levels)+1)*4}'russian': 'FIXME {escaped}'",
+                    f"{' '*len(levels)*4}{'}'}"
+                ))
+            elif string == '*':
+                return "'*'"
+            else:
+                return '\n'.join((
+                    f"{'{'}'english': {escaped}'{'}'}:",
+                    f"{' '*len(levels)*4}case {'{'}'russian': 'FIXME {escaped}'{'}'}"
+                ))
 
         def format_expression(expression):
             if not expression:
@@ -559,7 +567,7 @@ def decode(conversation):
                 empty_prefix_line()
                 decrease_level('case')
                 for case in sorted(arguments[0]):
-                    append(f'case {format_string(case)}:')
+                    append(f'case {format_string(case, case=True)}:')
                 increase_level('case')
 
             elif code == 0xa6:
