@@ -139,8 +139,10 @@ def decode(conversation):
         # TODO there are more instructions in the game
 
         def add(*args):
-            blocks[offset] = code, stream.tell() - offset, *args
-            # FIXME чекать что записываем в result тe же самые инструкции (в add)
+            instruction = code, stream.tell() - offset, *args
+            if offset in blocks:
+                assert blocks[offset] == instruction
+            blocks[offset] = instruction
 
         def add_branch_ended(stack):
             if stack:
@@ -499,7 +501,7 @@ def decode(conversation):
                 return "'*'"
             else:
                 return '\n'.join((
-                    f"{'{'}'english': {escaped}'{'}'}:",
+                    f"{'{'}'english': '{escaped}'{'}'}:",
                     f"{' '*len(levels)*4}case {'{'}'russian': 'FIXME {escaped}'{'}'}"
                 ))
 
