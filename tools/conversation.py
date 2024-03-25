@@ -568,7 +568,7 @@ def decode(conversation):
             elif code == 0xef:
                 empty_prefix_line()
                 decrease_level('case')
-                for case in sorted(arguments[0]):
+                for case in arguments[0]:
                     append(f'case {format_string(case, case=True)}:')
                 increase_level('case')
 
