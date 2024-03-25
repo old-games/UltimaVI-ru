@@ -167,8 +167,8 @@ label_1779:
     integer(value 1) = byte 0
 
 label_1786:
-    if hasObject(character(integer(value 0), byte 0), data(dword 4111, integer(value 1)), byte 0):
-        data(dword 4227, integer(value 2)) = integer(value 0)
+    if hasObject(character(integer(value 0), byte 0), data(integers_4111, integer(value 1)), byte 0):
+        data(integers_4227, integer(value 2)) = integer(value 0)
         integer(value 2) = plus(integer(value 2), byte 1)
         integer(value 3) = byte 1
         jump label_1863
@@ -196,7 +196,7 @@ label_1863:
     fi
 
     if equals(integer(value 2), byte 1):
-        integer(value 3) = character(data(dword 4227, byte 0), byte 0)
+        integer(value 3) = character(data(integers_4227, byte 0), byte 0)
         look(integer(value 3))
         print('"Aye, $Y has something of interest..."')
         wait()
@@ -209,7 +209,7 @@ label_2016:
     integer(value 1) = byte 1
 
 label_2023:
-    look(character(data(dword 4227, minus(integer(value 1), byte 1)), byte 0))
+    look(character(data(integers_4227, minus(integer(value 1), byte 1)), byte 0))
     print('#1) $Y\n')
     integer(value 1) = plus(integer(value 1), byte 1)
 
@@ -218,7 +218,7 @@ label_2023:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_2644
@@ -230,18 +230,18 @@ label_2023:
         jump label_2016
     fi
 
-    integer(value 3) = character(data(dword 4227, integer(value 3)), byte 0)
+    integer(value 3) = character(data(integers_4227, integer(value 3)), byte 0)
 
 label_2140:
     integer(value 0) = byte 0
     integer(value 5) = byte 0
 
 label_2154:
-    if equals(hasObject(integer(value 3), data(dword 4111, integer(value 0)), byte 0), byte 0):
+    if equals(hasObject(integer(value 3), data(integers_4111, integer(value 0)), byte 0), byte 0):
         jump label_2201
     fi
 
-    data(dword 4197, integer(value 5)) = integer(value 0)
+    data(integers_4197, integer(value 5)) = integer(value 0)
     integer(value 5) = plus(integer(value 5), byte 1)
 
 label_2201:
@@ -252,7 +252,7 @@ label_2201:
     fi
 
     if equals(integer(value 5), byte 1):
-        integer(value 6) = data(dword 4197, byte 0)
+        integer(value 6) = data(integers_4197, byte 0)
         jump label_2362
     fi
 
@@ -260,7 +260,7 @@ label_2201:
 
 label_2257:
     print('#0) ')
-    printString(dword 4131, data(dword 4197, minus(integer(value 0), byte 1)))
+    printString(strings_4131, data(integers_4197, minus(integer(value 0), byte 1)))
     print('\n')
     integer(value 0) = plus(integer(value 0), byte 1)
 
@@ -269,7 +269,7 @@ label_2257:
     fi
 
     print('"Which item?" ')
-    inputNumber(integer(value 6))
+    inputInteger(integer(value 6))
 
     if greater(integer(value 6), integer(value 5)):
         jump label_2140
@@ -279,11 +279,11 @@ label_2257:
         jump label_2644
     fi
 
-    integer(value 6) = data(dword 4197, minus(integer(value 6), byte 1))
+    integer(value 6) = data(integers_4197, minus(integer(value 6), byte 1))
 
 label_2362:
-    string(value 0) = data(dword 4131, integer(value 6))
-    integer(value 7) = divide(data(dword 4093, integer(value 6)), byte 2)
+    string(value 0) = data(strings_4131, integer(value 6))
+    integer(value 7) = divide(data(integers_4093, integer(value 6)), byte 2)
     look(integer(value 3))
     print('"Will you take #7 gold for that $0, $Y?" ')
 
@@ -308,8 +308,8 @@ label_2362:
     case 'y':
         look(integer(value 3))
         print('"Done!" $N hands $Y #7 gold pieces and takes the $0.')
-        destroy(integer(value 3), data(dword 4111, integer(value 6)), byte 0, byte 1)
-        create(integer(value 3), byte 88, byte 0, integer(value 7))
+        destroyItem(integer(value 3), data(integers_4111, integer(value 6)), byte 0, byte 1)
+        createItem(integer(value 3), byte 88, byte 0, integer(value 7))
 
         if equals(integer(value 5), byte 1):
             print('*\n')
@@ -351,7 +351,7 @@ label_2709:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_2644
@@ -370,11 +370,11 @@ label_2821:
     look(integer(value 3))
 
 label_2832:
-    string(value 0) = data(dword 4131, plus(integer(value 9), minus(integer(value 0), byte 1)))
+    string(value 0) = data(strings_4131, plus(integer(value 9), minus(integer(value 0), byte 1)))
     print('#0) $0\n')
     integer(value 0) = plus(integer(value 0), byte 1)
 
-    if and(integer(value 9), notEquals(data(dword 4111, plus(integer(value 9), minus(integer(value 0), byte 1))), byte 0)):
+    if and(integer(value 9), notEquals(data(integers_4111, plus(integer(value 9), minus(integer(value 0), byte 1))), byte 0)):
         jump label_2832
     fi
 
@@ -384,7 +384,7 @@ label_2832:
 
     integer(value 7) = integer(value 0)
     print('"Which item?" ')
-    inputNumber(integer(value 0))
+    inputInteger(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_2644
@@ -395,8 +395,8 @@ label_2832:
     fi
 
     integer(value 0) = minus(plus(integer(value 9), integer(value 0)), byte 1)
-    integer(value 1) = data(dword 4093, integer(value 0))
-    string(value 1) = data(dword 4131, integer(value 0))
+    integer(value 1) = data(integers_4093, integer(value 0))
+    string(value 1) = data(strings_4131, integer(value 0))
     print('"That $1 costs #1 gold."')
     wait()
 
@@ -412,7 +412,7 @@ label_2832:
     esac
 
 label_3069:
-    if less(canCarry(integer(value 3)), weight(data(dword 4111, integer(value 0)), byte 1)):
+    if less(canCarry(integer(value 3)), weight(data(integers_4111, integer(value 0)), byte 1)):
         print('"But \'twould make thee o\'erburdened, $Y!"')
         wait()
 
@@ -421,8 +421,8 @@ label_3069:
     fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):
-        destroy(integer(value 3), byte 88, byte 0, integer(value 1))
-        create(integer(value 3), data(dword 4111, integer(value 0)), byte 0, byte 1)
+        destroyItem(integer(value 3), byte 88, byte 0, integer(value 1))
+        createItem(integer(value 3), data(integers_4111, integer(value 0)), byte 0, byte 1)
         print('"Excellent!"\n\nAfter accepting $Y\'s gold, $N hands over the $1.')
         wait()
 
@@ -458,7 +458,7 @@ label_3326:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_2644
@@ -477,7 +477,7 @@ label_3438:
     print('1) Arrows\n2) Bolts\n')
     integer(value 7) = byte 2
     print('"Which kind?" ')
-    inputNumber(integer(value 0))
+    inputInteger(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_2644
@@ -488,8 +488,8 @@ label_3438:
     fi
 
     integer(value 0) = minus(plus(integer(value 9), integer(value 0)), byte 1)
-    integer(value 1) = data(dword 4093, integer(value 0))
-    string(value 1) = data(dword 4131, integer(value 0))
+    integer(value 1) = data(integers_4093, integer(value 0))
+    string(value 1) = data(strings_4131, integer(value 0))
     print('"I only sell $1s by the dozen."')
     wait()
 
@@ -507,7 +507,7 @@ label_3438:
     integer(value 6) = byte 0
 
 label_3655:
-    if less(canCarry(integer(value 3)), weight(data(dword 4111, integer(value 0)), byte 12)):
+    if less(canCarry(integer(value 3)), weight(data(integers_4111, integer(value 0)), byte 12)):
         jump label_3829
     fi
 
@@ -515,8 +515,8 @@ label_3655:
         jump label_3960
     fi
 
-    destroy(integer(value 3), byte 88, byte 0, integer(value 1))
-    create(integer(value 3), data(dword 4111, integer(value 0)), byte 0, byte 12)
+    destroyItem(integer(value 3), byte 88, byte 0, integer(value 1))
+    createItem(integer(value 3), data(integers_4111, integer(value 0)), byte 0, byte 12)
     integer(value 6) = plus(integer(value 6), byte 1)
 
     if equals(integer(value 6), integer(value 5)):

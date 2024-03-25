@@ -156,7 +156,7 @@ label_1582:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('"Very well, but \'tis fine cloth, yes indeed..."\n')
@@ -183,8 +183,8 @@ label_1742:
         fi
 
         if greaterOrEquals(objectsCount(integer(value 3), byte 88), byte 15):
-            destroy(integer(value 3), byte 88, byte 0, byte 15)
-            create(integer(value 3), byte 185, byte 0, byte 1)
+            destroyItem(integer(value 3), byte 88, byte 0, byte 15)
+            createItem(integer(value 3), byte 185, byte 0, byte 1)
             look(integer(value 3))
             print('"Excellent!" After accepting $Y\'s gold, $N hands over the cloth.\n')
             jump label_199
@@ -209,7 +209,7 @@ label_2079:
 
 label_2086:
     if objectsCount(character(integer(value 0), byte 0), byte 225):
-        data(dword 2746, integer(value 2)) = integer(value 0)
+        data(integers_2746, integer(value 2)) = integer(value 0)
         integer(value 2) = plus(integer(value 2), byte 1)
         integer(value 3) = byte 1
         jump label_2155
@@ -234,7 +234,7 @@ label_2155:
     fi
 
     if equals(integer(value 2), byte 1):
-        integer(value 3) = character(data(dword 2746, byte 0), byte 0)
+        integer(value 3) = character(data(integers_2746, byte 0), byte 0)
         jump label_2458
     fi
 
@@ -243,7 +243,7 @@ label_2262:
     integer(value 1) = byte 1
 
 label_2276:
-    look(character(data(dword 2746, integer(value 0)), byte 0))
+    look(character(data(integers_2746, integer(value 0)), byte 0))
     print('#1. $Y\n')
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 1) = plus(integer(value 1), byte 1)
@@ -253,7 +253,7 @@ label_2276:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('"Very well, very well, I can see you don\'t want to sell."\n')
@@ -266,7 +266,7 @@ label_2276:
         jump label_2262
     fi
 
-    integer(value 3) = character(data(dword 2746, integer(value 3)), byte 0)
+    integer(value 3) = character(data(integers_2746, integer(value 3)), byte 0)
 
 label_2458:
     integer(value 4) = objectsCount(integer(value 3), byte 225)
@@ -283,8 +283,8 @@ label_2458:
 
     case 'y':
         print('"Done!" He hands $Y 6 gold pieces and takes the thread.\n')
-        destroy(integer(value 3), byte 225, byte 0, byte 1)
-        create(integer(value 3), byte 88, byte 0, byte 6)
+        destroyItem(integer(value 3), byte 225, byte 0, byte 1)
+        createItem(integer(value 3), byte 88, byte 0, byte 6)
         jump label_199
 
     case 'n':

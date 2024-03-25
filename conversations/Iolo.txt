@@ -183,7 +183,7 @@ label_2623:
 label_2734:
     print('Secret Cheaters Menu!\n1. Get items\n2. Set flags\n3. View npcs\n4. Edit ')
     print('party\n5. Edit player\n')
-    inputNumber(integer(value 0))
+    inputInteger(integer(value 0))
     print('\n')
 
     if equals(integer(value 0), byte 1):
@@ -225,7 +225,7 @@ label_2911:
         print('"That\'s too heavy for you... But I\'ll let you have it anyway!"\n*')
     fi
 
-    create(byte 1, integer(value 0), integer(value 1), integer(value 2))
+    createItem(byte 1, integer(value 0), integer(value 1), integer(value 2))
     jump label_2734
 
 label_3063:
@@ -250,7 +250,7 @@ label_3117:
     fi
 
     print('\n\n0-7 to toggle, 8 or 9 exits: ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if greater(integer(value 3), byte 7):
         print('\n')
@@ -268,7 +268,7 @@ label_3117:
 
 label_3229:
     print('1. Portraits\n2. Inventories\n3. Item search\n4. Set worktype\n')
-    inputNumber(integer(value 0))
+    inputInteger(integer(value 0))
     print('\n')
 
     if equals(integer(value 0), byte 1):
@@ -291,7 +291,7 @@ label_3229:
 
 label_3349:
     print('1. Individuals\n2. View all\n')
-    inputNumber(integer(value 1))
+    inputInteger(integer(value 1))
     print('\n')
 
     if equals(integer(value 1), byte 1):
@@ -396,7 +396,7 @@ label_3707:
     fi
 
     print('Edit whom? ')
-    inputNumber(integer(value 0))
+    inputInteger(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_2734
@@ -423,7 +423,7 @@ label_3818:
     print('4. Lvl = #1\n')
     integer(value 1) = experience(integer(value 0), byte 0)
     print('5. Exp = #1\n6. Heal up\n7. Get a horse!\n')
-    inputNumber(integer(value 1))
+    inputInteger(integer(value 1))
 
     if equals(integer(value 1), byte 1):
         jump label_4057
@@ -496,7 +496,7 @@ label_4170:
 
 label_4212:
     if equals(hasHorse(integer(value 0)), byte 0):
-        horse(integer(value 0))
+        createHorse(integer(value 0))
         print(' Horsed! ')
     fi
 
@@ -506,7 +506,7 @@ label_4239:
     integer(value 0) = integer(value 26)
     print('Quest flag = #0\nKarma = #9\n\n1. Set Quest Flag\n2. Add Karma\n3. Subtract')
     print(' Karma\n')
-    inputNumber(integer(value 0))
+    inputInteger(integer(value 0))
     print('\n')
 
     if equals(integer(value 0), byte 1):
@@ -525,7 +525,7 @@ label_4239:
 
 label_4371:
     print('Set to what? ')
-    inputNumber(integer(value 0))
+    inputInteger(integer(value 0))
     integer(value 26) = integer(value 0)
     print('\n')
     jump label_4239
@@ -569,8 +569,8 @@ label_4480:
         integer(value 5) = canCarry(byte 1)
     fi
 
-    destroy(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 5))
-    create(byte 1, byte 88, byte 0, integer(value 5))
+    destroyItem(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 5))
+    createItem(byte 1, byte 88, byte 0, integer(value 5))
     integer(value 7) = plus(integer(value 7), integer(value 5))
 
     if equals(canCarry(byte 1), byte 0):
@@ -617,7 +617,7 @@ label_4887:
         jump label_4952
     fi
 
-    destroy(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 5))
+    destroyItem(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 5))
     integer(value 7) = plus(integer(value 7), integer(value 5))
 
 label_4952:
@@ -658,7 +658,7 @@ label_5086:
         jump label_5184
     fi
 
-    create(integer(value 9), byte 88, byte 0, integer(value 5))
+    createItem(integer(value 9), byte 88, byte 0, integer(value 5))
     integer(value 7) = minus(integer(value 7), integer(value 5))
 
 label_5184:
@@ -689,7 +689,7 @@ label_5279:
         jump label_5374
     fi
 
-    create(integer(value 9), byte 88, byte 0, integer(value 5))
+    createItem(integer(value 9), byte 88, byte 0, integer(value 5))
     integer(value 7) = minus(integer(value 7), integer(value 5))
 
     if equals(integer(value 7), byte 0):

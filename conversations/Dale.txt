@@ -134,7 +134,7 @@ label_1230:
             jump label_107
         fi
 
-        destroy(integer(value 0), byte 77, byte 0, byte 5)
+        destroyItem(integer(value 0), byte 77, byte 0, byte 5)
         print('$N turns to the furnace and begins crafting the sword.')
         wait()
 
@@ -142,7 +142,7 @@ label_1230:
         wait()
 
         print('\n\n"There she is, and a finer work thou\'lt never see!"')
-        create(integer(value 0), byte 48, byte 0, byte 1)
+        createItem(integer(value 0), byte 48, byte 0, byte 1)
         jump label_107
 
     case 'n':
@@ -171,7 +171,7 @@ label_1587:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_72
@@ -189,17 +189,17 @@ label_1689:
     look(integer(value 3))
 
 label_1710:
-    string(value 0) = data(dword 2159, minus(integer(value 0), byte 1))
+    string(value 0) = data(strings_2159, minus(integer(value 0), byte 1))
     print('#0) $0\n')
     integer(value 0) = plus(integer(value 0), byte 1)
 
-    if notEquals(data(dword 2151, minus(integer(value 0), byte 1)), byte 0):
+    if notEquals(data(integers_2151, minus(integer(value 0), byte 1)), byte 0):
         jump label_1710
     fi
 
     integer(value 7) = integer(value 0)
     print('"Which item?" ')
-    inputNumber(integer(value 0))
+    inputInteger(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_72
@@ -210,8 +210,8 @@ label_1710:
     fi
 
     integer(value 0) = minus(integer(value 0), byte 1)
-    integer(value 1) = data(dword 2145, integer(value 0))
-    string(value 1) = data(dword 2159, integer(value 0))
+    integer(value 1) = data(integers_2145, integer(value 0))
+    string(value 1) = data(strings_2159, integer(value 0))
     print('"That $1 costs #1 gold."')
     wait()
 
@@ -227,7 +227,7 @@ label_1710:
     esac
 
 label_1916:
-    if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 2151, integer(value 0)), byte 1)):
+    if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(integers_2151, integer(value 0)), byte 1)):
         print('"But \'twould make thee o\'erburdened, $Y!"')
         wait()
 
@@ -236,8 +236,8 @@ label_1916:
     fi
 
     if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):
-        destroy(integer(value 3), byte 88, byte 0, integer(value 1))
-        create(integer(value 3), data(dword 2151, integer(value 0)), byte 0, byte 1)
+        destroyItem(integer(value 3), byte 88, byte 0, integer(value 1))
+        createItem(integer(value 3), data(integers_2151, integer(value 0)), byte 0, byte 1)
         print('"Excellent!"\n\nAfter accepting $Y\'s gold, $N hands over the $1.')
         wait()
 

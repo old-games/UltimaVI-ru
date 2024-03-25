@@ -185,7 +185,7 @@ label_418:
         wait()
 
         setBit(byte 235, byte 7)
-        give(word 396, byte 0, integer(value 0), byte 235)
+        giveItem(word 396, byte 0, integer(value 0), byte 235)
         print('\n\nBefore you can protest, he pockets the lens. "Let me know when you ')
         print('have the glass @sword."\n')
         jump label_418
@@ -246,9 +246,9 @@ label_3366:
 
     print('\n\n"I don\'t know what you need these lenses for, but I wish you luck!"\n')
     setBit(byte 235, byte 6)
-    destroy(partyHasObject(byte 48, byte 0), byte 48, byte 0, byte 1)
-    give(word 396, byte 0, byte 235, byte 1)
-    create(byte 1, word 394, byte 0, byte 1)
+    destroyItem(partyHasObject(byte 48, byte 0), byte 48, byte 0, byte 1)
+    giveItem(word 396, byte 0, byte 235, byte 1)
+    createItem(byte 1, word 394, byte 0, byte 1)
     jump label_418
 
 label_3941:
@@ -272,7 +272,7 @@ label_3975:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_357
@@ -287,10 +287,10 @@ label_3975:
     integer(value 3) = character(integer(value 3), byte 0)
 
 label_4087:
-    string(value 0) = data(dword 4491, integer(value 4))
+    string(value 0) = data(strings_4491, integer(value 4))
     look(integer(value 3))
 
-    if less(plus(canCarry(integer(value 3)), weight(byte 88, data(dword 4479, integer(value 4)))), weight(data(dword 4485, integer(value 4)), byte 1)):
+    if less(plus(canCarry(integer(value 3)), weight(byte 88, data(integers_4479, integer(value 4)))), weight(data(integers_4485, integer(value 4)), byte 1)):
         print('$N looks at $Y. "You haven\'t any room in your pack."')
         wait()
 
@@ -298,7 +298,7 @@ label_4087:
         jump label_357
     fi
 
-    if less(objectsCount(integer(value 3), byte 88), data(dword 4479, integer(value 4))):
+    if less(objectsCount(integer(value 3), byte 88), data(integers_4479, integer(value 4))):
         print('$N looks at $Y. "`$0s cost more gold than you have."')
         wait()
 
@@ -306,7 +306,7 @@ label_4087:
         jump label_357
     fi
 
-    integer(value 0) = data(dword 4479, integer(value 4))
+    integer(value 0) = data(integers_4479, integer(value 4))
     look(integer(value 3))
     print('$N looks at $Y. "It\'ll cost you #0 gold for a $0. Do you want one?" ')
 
@@ -321,8 +321,8 @@ label_4087:
     esac
 
     case 'y':
-        destroy(integer(value 3), byte 88, byte 0, data(dword 4479, integer(value 4)))
-        create(integer(value 3), data(dword 4485, integer(value 4)), byte 0, byte 1)
+        destroyItem(integer(value 3), byte 88, byte 0, data(integers_4479, integer(value 4)))
+        createItem(integer(value 3), data(integers_4485, integer(value 4)), byte 0, byte 1)
         print('He hands $Y a $0.')
         wait()
 

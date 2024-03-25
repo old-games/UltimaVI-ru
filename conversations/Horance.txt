@@ -390,7 +390,7 @@ label_3052:
 
     look(integer(value 4))
     print('#2) $Y\n"Which of you?" ')
-    inputNumber(integer(value 2))
+    inputInteger(integer(value 2))
 
     if equals(integer(value 2), byte 0):
         jump label_281
@@ -418,9 +418,9 @@ label_3170:
 label_3236:
     look(integer(value 3))
     integer(value 1) = level(integer(value 3), byte 0)
-    string(value 1) = data(dword 5226, integer(value 1))
+    string(value 1) = data(strings_5226, integer(value 1))
     print('"In which Circle does $Y wish to study?" ')
-    inputNumber(integer(value 0))
+    inputInteger(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_280
@@ -447,7 +447,7 @@ label_3236:
     integer(value 0) = minus(integer(value 0), byte 1)
     integer(value 0) = multiply(integer(value 0), byte 10)
 
-    if equals(data(dword 5253, integer(value 0)), byte 0):
+    if equals(data(integers_5253, integer(value 0)), byte 0):
         print('"I have no spells of that circle."')
         wait()
 
@@ -458,16 +458,16 @@ label_3236:
     integer(value 2) = byte 1
 
 label_3576:
-    string(value 0) = data(dword 5413, minus(plus(integer(value 0), integer(value 2)), byte 1))
+    string(value 0) = data(strings_5413, minus(plus(integer(value 0), integer(value 2)), byte 1))
     print('#2) $0\n')
     integer(value 2) = plus(integer(value 2), byte 1)
 
-    if greater(data(dword 5253, minus(plus(integer(value 0), integer(value 2)), byte 1)), byte 0):
+    if greater(data(integers_5253, minus(plus(integer(value 0), integer(value 2)), byte 1)), byte 0):
         jump label_3576
     fi
 
     print('"Which of these?" ')
-    inputNumber(integer(value 4))
+    inputInteger(integer(value 4))
 
     if or(equals(integer(value 4), byte 0), greaterOrEquals(integer(value 4), integer(value 2))):
         print('"Perhaps $Y is not ready for this circle."')
@@ -494,8 +494,8 @@ label_3576:
 
     case 'y':
         print('$N hands $Y a piece of rune-covered parchment.')
-        destroy(integer(value 3), byte 88, byte 0, integer(value 5))
-        create(integer(value 3), byte 58, data(dword 5253, plus(integer(value 0), integer(value 4))), byte 1)
+        destroyItem(integer(value 3), byte 88, byte 0, integer(value 5))
+        createItem(integer(value 3), byte 58, data(integers_5253, plus(integer(value 0), integer(value 4))), byte 1)
         wait()
 
         print('\n\n')
@@ -527,7 +527,7 @@ label_3989:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 2))
+    inputInteger(integer(value 2))
 
     if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
         jump label_281
@@ -541,24 +541,24 @@ label_4091:
     integer(value 1) = byte 1
 
 label_4102:
-    string(value 1) = data(dword 5148, minus(integer(value 1), byte 1))
+    string(value 1) = data(strings_5148, minus(integer(value 1), byte 1))
     print('#1) $1\n')
     integer(value 1) = plus(integer(value 1), byte 1)
 
-    if greater(data(dword 5116, minus(integer(value 1), byte 1)), byte 0):
+    if greater(data(integers_5116, minus(integer(value 1), byte 1)), byte 0):
         jump label_4102
     fi
 
     print('"Which of these?" ')
-    inputNumber(integer(value 2))
+    inputInteger(integer(value 2))
 
     if or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1))):
         jump label_281
     fi
 
     integer(value 2) = minus(integer(value 2), byte 1)
-    integer(value 1) = data(dword 5132, integer(value 2))
-    string(value 1) = data(dword 5148, integer(value 2))
+    integer(value 1) = data(integers_5132, integer(value 2))
+    string(value 1) = data(strings_5148, integer(value 2))
     integer(value 5) = byte 0
     print('"$1 costs #1 per portion."')
     wait()
@@ -575,7 +575,7 @@ label_4102:
     fi
 
 label_4329:
-    if less(canCarry(integer(value 3)), weight(data(dword 5116, integer(value 2)), byte 1)):
+    if less(canCarry(integer(value 3)), weight(data(integers_5116, integer(value 2)), byte 1)):
         jump label_4451
     fi
 
@@ -583,8 +583,8 @@ label_4329:
         jump label_4582
     fi
 
-    destroy(integer(value 3), byte 88, byte 0, integer(value 1))
-    create(integer(value 3), data(dword 5116, integer(value 2)), byte 0, byte 1)
+    destroyItem(integer(value 3), byte 88, byte 0, integer(value 1))
+    createItem(integer(value 3), data(integers_5116, integer(value 2)), byte 0, byte 1)
     integer(value 5) = plus(integer(value 5), byte 1)
 
     if equals(integer(value 5), integer(value 4)):
@@ -658,7 +658,7 @@ label_4762:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 2))
+    inputInteger(integer(value 2))
 
     if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
         jump label_280
@@ -685,8 +685,8 @@ label_4864:
     choice('yn')
 
     case 'y':
-        destroy(integer(value 3), byte 88, byte 0, byte 50)
-        create(integer(value 3), byte 57, byte 0, byte 1)
+        destroyItem(integer(value 3), byte 88, byte 0, byte 50)
+        createItem(integer(value 3), byte 57, byte 0, byte 1)
         jump label_280
 
     case 'n':

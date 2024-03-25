@@ -208,8 +208,8 @@ label_2887:
         jump label_532
     fi
 
-    destroy(byte 1, byte 88, byte 0, byte 2)
-    create(byte 235, byte 88, byte 0, byte 2)
+    destroyItem(byte 1, byte 88, byte 0, byte 2)
+    createItem(byte 235, byte 88, byte 0, byte 2)
     setBit(byte 235, byte 7)
     print('\n"I\'ll tell you this:"\n*\n"Powder kegs are useful for persuading ')
     print('uncooperative doors to open."')
@@ -232,8 +232,8 @@ label_3209:
         jump label_532
     fi
 
-    destroy(byte 1, byte 88, byte 0, byte 10)
-    create(byte 235, byte 88, byte 0, byte 10)
+    destroyItem(byte 1, byte 88, byte 0, byte 10)
+    createItem(byte 235, byte 88, byte 0, byte 10)
     setBit(byte 235, byte 7)
     print('\n"Some @gorgio called \'Captain @John\' brought us the silver tablet and')
     print(' paid us to take it to the Lycaeum."\n*\n"While we were on the way ')
@@ -271,8 +271,8 @@ label_4182:
         jump label_4051
     fi
 
-    destroy(byte 1, byte 88, byte 0, integer(value 0))
-    create(byte 235, byte 88, byte 0, integer(value 0))
+    destroyItem(byte 1, byte 88, byte 0, integer(value 0))
+    createItem(byte 235, byte 88, byte 0, integer(value 0))
     setBit(byte 235, byte 7)
     clearBit(byte 235, value 1)
     print('\nZoltan pockets the money. "Thanks."')
@@ -298,7 +298,7 @@ label_4379:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 2))
+    inputInteger(integer(value 2))
 
     if or(equals(integer(value 2), byte 0), greater(integer(value 2), plus(integer(value 23), byte 1))):
         print('\n"What else would you like to know?"')
@@ -313,16 +313,16 @@ label_4517:
     integer(value 1) = byte 1
 
 label_4528:
-    string(value 1) = data(dword 5107, minus(integer(value 1), byte 1))
+    string(value 1) = data(strings_5107, minus(integer(value 1), byte 1))
     print('#1) $1\n')
     integer(value 1) = plus(integer(value 1), byte 1)
 
-    if greater(data(dword 5075, minus(integer(value 1), byte 1)), byte 0):
+    if greater(data(integers_5075, minus(integer(value 1), byte 1)), byte 0):
         jump label_4528
     fi
 
     print('"Which of these?" ')
-    inputNumber(integer(value 2))
+    inputInteger(integer(value 2))
 
     if or(equals(integer(value 2), byte 0), greaterOrEquals(integer(value 2), integer(value 1))):
         integer(value 2) = byte 1
@@ -330,8 +330,8 @@ label_4528:
     fi
 
     integer(value 2) = minus(integer(value 2), byte 1)
-    integer(value 1) = data(dword 5091, integer(value 2))
-    string(value 1) = data(dword 5107, integer(value 2))
+    integer(value 1) = data(integers_5091, integer(value 2))
+    string(value 1) = data(strings_5107, integer(value 2))
     integer(value 5) = byte 0
     print('"$1 costs #1 per portion."')
     wait()
@@ -344,7 +344,7 @@ label_4528:
     fi
 
 label_4742:
-    if less(canCarry(integer(value 3)), weight(data(dword 5075, integer(value 2)), byte 1)):
+    if less(canCarry(integer(value 3)), weight(data(integers_5075, integer(value 2)), byte 1)):
         jump label_4877
     fi
 
@@ -352,8 +352,8 @@ label_4742:
         jump label_4976
     fi
 
-    destroy(integer(value 3), byte 88, byte 0, integer(value 1))
-    create(integer(value 3), data(dword 5075, integer(value 2)), byte 0, byte 1)
+    destroyItem(integer(value 3), byte 88, byte 0, integer(value 1))
+    createItem(integer(value 3), data(integers_5075, integer(value 2)), byte 0, byte 1)
     setBit(byte 235, byte 7)
     clearBit(byte 235, value 1)
     integer(value 5) = plus(integer(value 5), byte 1)

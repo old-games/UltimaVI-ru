@@ -236,7 +236,7 @@ label_2356:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_2741
@@ -250,7 +250,7 @@ label_2356:
 
 label_2458:
     look(character(integer(value 3), byte 0))
-    integer(value 1) = data(dword 3878, integer(value 4))
+    integer(value 1) = data(integers_3878, integer(value 4))
     print('"That\'s #1 gold, okay?" ')
 
     choice('yn')
@@ -272,16 +272,16 @@ label_2529:
         jump label_281
     fi
 
-    if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(dword 3884, integer(value 4)), byte 1)):
+    if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(integers_3884, integer(value 4)), byte 1)):
         print('"You don\'t have room to carry it."')
         integer(value 5) = byte 0
         jump label_2741
     fi
 
-    destroy(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
-    create(character(integer(value 3), byte 0), data(dword 3884, integer(value 4)), byte 0, byte 1)
+    destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
+    createItem(character(integer(value 3), byte 0), data(integers_3884, integer(value 4)), byte 0, byte 1)
     integer(value 5) = byte 1
-    string(value 1) = data(dword 3890, integer(value 4))
+    string(value 1) = data(strings_3890, integer(value 4))
     print('$N gives $Y some $1.')
     wait()
 
@@ -318,7 +318,7 @@ label_2813:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_281
@@ -354,8 +354,8 @@ label_2915:
             jump label_281
         fi
 
-        destroy(character(integer(value 3), byte 0), byte 88, byte 0, byte 6)
-        create(character(integer(value 3), byte 0), byte 210, byte 0, byte 1)
+        destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, byte 6)
+        createItem(character(integer(value 3), byte 0), byte 210, byte 0, byte 1)
         print('$N gives $Y some ribs.')
         wait()
 
@@ -387,7 +387,7 @@ label_3183:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_281
@@ -465,8 +465,8 @@ label_3531:
     fi
 
 label_3664:
-    destroy(character(integer(value 3), byte 0), byte 88, byte 0, multiply(integer(value 9), byte 4))
-    create(character(integer(value 3), byte 0), byte 129, byte 0, integer(value 9))
+    destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, multiply(integer(value 9), byte 4))
+    createItem(character(integer(value 3), byte 0), byte 129, byte 0, integer(value 9))
     look(character(integer(value 3), byte 0))
 
     if equals(integer(value 8), integer(value 9)):

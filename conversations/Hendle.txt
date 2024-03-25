@@ -127,7 +127,7 @@ label_812:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('"Whatever."\n')
@@ -146,7 +146,7 @@ label_936:
     integer(value 0) = byte 1
     print('1. Ham\n2. Bacon\n3. Pork Chops\n4. Brisket\n5. Steak\n6. Ribs\n"Which ')
     print('item?" ')
-    inputNumber(integer(value 0))
+    inputInteger(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         print('"Whatever."\n')
@@ -184,7 +184,7 @@ label_936:
         integer(value 9) = word 210
     fi
 
-    integer(value 1) = data(dword 1472, integer(value 0))
+    integer(value 1) = data(integers_1472, integer(value 0))
     print('Hendle smiles at $Y, "That will cost you #1 gold. Interested?" ')
 
     choice('yn')
@@ -200,8 +200,8 @@ label_936:
         fi
 
         if greaterOrEquals(objectsCount(integer(value 3), byte 88), integer(value 1)):
-            destroy(integer(value 3), byte 88, byte 0, integer(value 1))
-            create(integer(value 3), integer(value 9), byte 0, byte 1)
+            destroyItem(integer(value 3), byte 88, byte 0, integer(value 1))
+            createItem(integer(value 3), integer(value 9), byte 0, byte 1)
             print('"Excellent!" After accepting $Y\'s gold, $N hands over the food.\n')
             jump label_181
 

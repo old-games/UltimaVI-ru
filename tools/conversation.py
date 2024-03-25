@@ -130,7 +130,7 @@ def decode(conversation):
         all_instructions = {
             0x9c, 0x9e,
             0xa1, 0xa2, 0xa3, 0xa4, 0xa5, 0xa6,
-            0xb0, 0xb5, 0xb6, 0xb9, 0xba, 0xbe, 0xbf,
+            0xb0, 0xb5, 0xb6, 0xb8, 0xb9, 0xba, 0xbe, 0xbf,
             0xc4, 0xc5, 0xc9, 0xcb, 0xcd,
             0xd6, 0xd8, 0xd9, 0xdb,
             0xee, 0xef,
@@ -184,6 +184,7 @@ def decode(conversation):
                 0xd7: 'isNearby', 0xda: 'isWounded', 0xdc: 'isPoisoned', 0xdd: 'character',
                 0xe0: 'experience', 0xe1: 'level', 0xe2: 'strength', 0xe3: 'intelligence', 0xe4: 'dexterity',
             }
+            # FIXME Address by code
             parameters = {operator: 1 for operator in (
                 'canCarry', 'hasHorse', 'integer', 'string', 'partyHas', 'partyJoin', 'partyLeave',
                 'isNearby', 'isWounded', 'isPoisoned'
@@ -300,13 +301,7 @@ def decode(conversation):
                 add_branch_ended(stack)
                 add()
 
-            elif code == 0xa4:
-                _read_byte(stream, visited_labels)
-                left = one(read_expressions(0xa7))
-                right = one(read_expressions(0xa7))
-                add(left, right)
-
-            elif code == 0xa5:
+            elif code in (0xa4, 0xa5):
                 _read_byte(stream, visited_labels)
                 left = one(read_expressions(0xa7))
                 right = one(read_expressions(0xa7))
@@ -444,13 +439,14 @@ def decode(conversation):
 
     def format_instructions():
         all_instructions = {
-            0x9c: 'horse', 0x9e: 'sleep',
+            0x9c: 'createHorse', 0x9e: 'sleep',
             0xa4: 'setBit', 0xa5: 'clearBit',
-            0xb5: 'printString', 0xb6: 'bye', 0xb9: 'create', 0xba: 'destroy', 0xbe: 'inventory', 0xbf: 'portrait',
-            0xc4: 'increaseKarma', 0xc5: 'decreaseKarma', 0xc9: 'give', 0xcb: 'wait', 0xcd: 'do',
+            0xb5: 'printString', 0xb6: 'bye',
+            0xb8: 'endOfList', 0xb9: 'createItem', 0xba: 'destroyItem', 0xbe: 'inventory', 0xbf: 'portrait',
+            0xc4: 'increaseKarma', 0xc5: 'decreaseKarma', 0xc9: 'giveItem', 0xcb: 'wait', 0xcd: 'do',
             0xd6: 'resurrect', 0xd8: 'look', 0xd9: 'heal', 0xdb: 'cure',
             0xf3: 'f3', 0xf7: 'ask',
-            0xf9: 'inputString', 0xfb: 'input', 0xfc: 'inputNumber',
+            0xf9: 'inputString', 0xfb: 'input', 0xfc: 'inputInteger', # FIXME what is difference between inputInteger and input
         }
         empty_prefix = {
             # TODO
@@ -496,6 +492,8 @@ def decode(conversation):
         def format_expression(expression):
             if not expression:
                 return ''
+            elif expression[0] == 'dword' and expression[1] in data_labels:
+                return data_labels[expression[1]]
             elif expression[0] in ('byte', 'word', 'dword', 'value'):
                 return ' '.join(map(str, expression))
             else:
@@ -503,6 +501,15 @@ def decode(conversation):
                 for argument in expression[1]:
                     arguments.append(format_expression(argument))
                 return f'{expression[0]}({", ".join(arguments)})'
+
+        data_labels = {}
+        for label, (code, _, *arguments) in blocks:
+            if code in (int, str):
+                if arguments[1][-1:] == ['unused']:
+                    name = 'unused'
+                else:
+                    name = 'integers' if code == int else 'strings'
+                data_labels[label] = f'{name}_{label}'
 
         levels = []
         last_level = 0
@@ -542,14 +549,6 @@ def decode(conversation):
                 for line in lines:
                     append(f'print({format_string(line)})')
 
-            elif code == 0xf7:
-                empty_prefix_line()
-                command()
-
-            elif code == 0xb8:
-                append('endOfList()')
-                empty_prefix_line()
-
             elif code == 0xef:
                 empty_prefix_line()
                 decrease_level('case')
@@ -560,16 +559,13 @@ def decode(conversation):
             elif code == 0xa6:
                 append(f'{format_expression(arguments[0])} = {format_expression(arguments[1])}')
 
-            elif code == 0xb5:
-                command()
-
             elif code == 0xee:
                 remove_empty_line()
                 decrease_level('esac')
                 append('esac')
                 append()
 
-            elif code in (0x9c, 0xa4, 0xa5, 0xb9, 0xba, 0xbe, 0xbf, 0xc4, 0xc5, 0xc9, 0xcd, 0xd6, 0xd8, 0xd9, 0xdb, 0xf9, 0xfb, 0xfc):
+            elif code in (0x9c, 0xa4, 0xa5, 0xb5, 0xb9, 0xba, 0xbe, 0xbf, 0xc4, 0xc5, 0xc9, 0xcd, 0xd6, 0xd8, 0xd9, 0xdb, 0xf9, 0xfb, 0xfc):
                 command()
 
             elif code in (0xf1, 0xf2):
@@ -581,13 +577,9 @@ def decode(conversation):
                 append('fi')
                 append()
 
-            elif code == 0xf3:
+            elif code in (0xf3, 0xf7):
                 empty_prefix_line()
                 command()
-
-            elif code == 0xcb:
-                command()
-                append()
 
             elif code == 0xa3:
                 empty_prefix_line()
@@ -595,11 +587,7 @@ def decode(conversation):
                 append('else:')
                 increase_level('if')
 
-            elif code == 0xb6:
-                command()
-                append()
-
-            elif code == 0x9e:
+            elif code in (0x9e, 0xb6, 0xb8, 0xcb):
                 command()
                 append()
 
@@ -618,12 +606,10 @@ def decode(conversation):
 
             elif code in (int, str):
                 empty_prefix_line()
+                name = data_labels[label]
                 if arguments[1][-1:] == ['unused']:
-                    name = 'unused'
                     del arguments[1][-1]
-                else:
-                    name = 'integers' if code == int else 'strings'
-                append(f'{name}_{label} = [', force_level=0)
+                append(f'{name} = [', force_level=0)
                 values = []
                 for item in arguments[0]:
                     values.append(str(item) if code == int else format_string(item))
@@ -644,6 +630,7 @@ def decode(conversation):
                 append()
 
             else:
+                print(hex(code))
                 assert False
 
         if result and result[-1] == '':

@@ -257,14 +257,14 @@ label_2414:
 
 label_3392:
     if hasBit(byte 235, byte 7):
-        data(dword 4379, byte 0) = data(dword 4395, byte 0)
-        data(dword 4379, byte 1) = data(dword 4395, byte 1)
-        data(dword 4379, byte 2) = data(dword 4395, byte 2)
-        data(dword 4379, byte 3) = data(dword 4395, byte 3)
-        data(dword 4379, byte 4) = data(dword 4395, byte 4)
-        data(dword 4379, byte 5) = data(dword 4395, byte 5)
-        data(dword 4379, byte 6) = data(dword 4395, byte 6)
-        data(dword 4379, byte 7) = data(dword 4395, byte 7)
+        data(integers_4379, byte 0) = data(integers_4395, byte 0)
+        data(integers_4379, byte 1) = data(integers_4395, byte 1)
+        data(integers_4379, byte 2) = data(integers_4395, byte 2)
+        data(integers_4379, byte 3) = data(integers_4395, byte 3)
+        data(integers_4379, byte 4) = data(integers_4395, byte 4)
+        data(integers_4379, byte 5) = data(integers_4395, byte 5)
+        data(integers_4379, byte 6) = data(integers_4395, byte 6)
+        data(integers_4379, byte 7) = data(integers_4395, byte 7)
     fi
 
     if equals(integer(value 23), byte 0):
@@ -287,7 +287,7 @@ label_3586:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_577
@@ -300,14 +300,14 @@ label_3586:
     fi
 
 label_3688:
-    if or(less(canCarry(character(integer(value 3), byte 0)), weight(data(dword 4411, integer(value 4)), byte 1)), less(objectsCount(character(integer(value 3), byte 0), byte 88), data(dword 4379, integer(value 4)))):
+    if or(less(canCarry(character(integer(value 3), byte 0)), weight(data(integers_4411, integer(value 4)), byte 1)), less(objectsCount(character(integer(value 3), byte 0), byte 88), data(integers_4379, integer(value 4)))):
         integer(value 5) = byte 1
         jump label_3973
     fi
 
 label_3739:
-    integer(value 0) = data(dword 4379, integer(value 4))
-    string(value 0) = data(dword 4427, integer(value 4))
+    integer(value 0) = data(integers_4379, integer(value 4))
+    string(value 0) = data(strings_4427, integer(value 4))
     look(character(integer(value 3), byte 0))
     print('$N looks at $Y, "It\'ll cost you #0 gold for each $0, how many do you ')
     print('want?" ')
@@ -335,14 +335,14 @@ label_3973:
     integer(value 1) = byte 0
 
 label_3994:
-    if less(canCarry(character(integer(value 3), byte 0)), weight(data(dword 4411, integer(value 4)), integer(value 2))):
+    if less(canCarry(character(integer(value 3), byte 0)), weight(data(integers_4411, integer(value 4)), integer(value 2))):
         integer(value 1) = byte 1
         integer(value 0) = byte 1
         integer(value 2) = minus(integer(value 2), byte 1)
         jump label_4094
     fi
 
-    if less(objectsCount(character(integer(value 3), byte 0), byte 88), multiply(integer(value 2), data(dword 4379, integer(value 4)))):
+    if less(objectsCount(character(integer(value 3), byte 0), byte 88), multiply(integer(value 2), data(integers_4379, integer(value 4)))):
         integer(value 1) = byte 2
         integer(value 2) = minus(integer(value 2), byte 1)
         jump label_4094
@@ -356,7 +356,7 @@ label_4094:
     fi
 
     if equals(integer(value 1), byte 1):
-        string(value 0) = data(dword 4427, integer(value 4))
+        string(value 0) = data(strings_4427, integer(value 4))
         look(character(integer(value 3), byte 0))
         print('$N looks at $Y. "You haven\'t any room in your pack."')
         wait()
@@ -366,7 +366,7 @@ label_4094:
     fi
 
     if equals(integer(value 1), byte 2):
-        string(value 0) = data(dword 4427, integer(value 4))
+        string(value 0) = data(strings_4427, integer(value 4))
         look(character(integer(value 3), byte 0))
         print('"I think you have less gold than you thought."')
         wait()
@@ -376,12 +376,12 @@ label_4094:
     fi
 
 label_4274:
-    destroy(character(integer(value 3), byte 0), byte 88, byte 0, multiply(integer(value 2), data(dword 4379, integer(value 4))))
-    create(character(integer(value 3), byte 0), data(dword 4411, integer(value 4)), byte 0, integer(value 2))
+    destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, multiply(integer(value 2), data(integers_4379, integer(value 4))))
+    createItem(character(integer(value 3), byte 0), data(integers_4411, integer(value 4)), byte 0, integer(value 2))
     look(character(integer(value 3), byte 0))
-    string(value 0) = data(dword 4427, integer(value 4))
+    string(value 0) = data(strings_4427, integer(value 4))
     print('He hands $Y #2 $0\\s. ')
-    printString(dword 4481, integer(value 1))
+    printString(strings_4481, integer(value 1))
     wait()
 
     print('\n\n')

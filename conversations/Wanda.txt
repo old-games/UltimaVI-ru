@@ -15,7 +15,7 @@ description:
 interaction:
     if integer(value 16):
         print('"Hello, wench. How goes it?"')
-        string(value 0) = data(dword 2887, byte 0)
+        string(value 0) = data(strings_2887, byte 0)
 
     else:
         print('"Well, hello handsome! Looking for a little... relaxation?" ')
@@ -29,7 +29,7 @@ interaction:
             print('"Ha! You must be afraid of what your mother might think."')
         esac
 
-        string(value 0) = data(dword 2887, byte 0)
+        string(value 0) = data(strings_2887, byte 0)
         jump label_268
     fi
 
@@ -204,7 +204,7 @@ label_1658:
         print('"Fine! Come back when you get permission from your mother!"')
 
         if equals(integer(value 16), byte 0):
-            string(value 0) = data(dword 2887, byte 0)
+            string(value 0) = data(strings_2887, byte 0)
         fi
 
         jump label_268
@@ -212,13 +212,13 @@ label_1658:
     case 'y':
         if less(objectsCount(byte 1, byte 88), byte 15):
             print('"Hey, I don\'t give credit! No pay, no play, capish?"')
-            string(value 0) = data(dword 2887, byte 3)
+            string(value 0) = data(strings_2887, byte 3)
             jump label_268
         fi
 
-        destroy(byte 1, byte 88, byte 0, byte 15)
+        destroyItem(byte 1, byte 88, byte 0, byte 15)
         setBit(byte 235, byte 7)
-        string(value 0) = data(dword 2887, byte 2)
+        string(value 0) = data(strings_2887, byte 2)
         print('Taking you by the hand, the gyspy wench leads you off to her wagon.')
         wait()
 

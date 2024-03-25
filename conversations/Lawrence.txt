@@ -86,7 +86,7 @@ label_450:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_834
@@ -102,7 +102,7 @@ label_450:
 
 label_562:
     look(integer(value 3))
-    integer(value 1) = data(dword 1967, integer(value 4))
+    integer(value 1) = data(integers_1967, integer(value 4))
     print('"That\'s #1 gold, okay?" ')
 
     choice('yn')
@@ -124,16 +124,16 @@ label_630:
         jump label_90
     fi
 
-    if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(dword 1973, integer(value 4)), byte 1)):
+    if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(integers_1973, integer(value 4)), byte 1)):
         print('"You don\'t have room to carry it."')
         integer(value 5) = byte 0
         jump label_834
     fi
 
-    destroy(integer(value 3), byte 88, byte 0, integer(value 1))
-    create(integer(value 3), data(dword 1973, integer(value 4)), byte 0, byte 1)
+    destroyItem(integer(value 3), byte 88, byte 0, integer(value 1))
+    createItem(integer(value 3), data(integers_1973, integer(value 4)), byte 0, byte 1)
     integer(value 5) = byte 1
-    string(value 1) = data(dword 1979, integer(value 4))
+    string(value 1) = data(strings_1979, integer(value 4))
     print('$N gives $Y some $1.')
     wait()
 
@@ -173,7 +173,7 @@ label_914:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_1249
@@ -208,8 +208,8 @@ label_1026:
             jump label_1249
         fi
 
-        destroy(integer(value 3), byte 88, byte 0, byte 3)
-        create(integer(value 3), byte 95, byte 0, byte 1)
+        destroyItem(integer(value 3), byte 88, byte 0, byte 3)
+        createItem(integer(value 3), byte 95, byte 0, byte 1)
         print('$N gives $Y some grapes.')
         wait()
 
@@ -245,7 +245,7 @@ label_1292:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_90
@@ -323,8 +323,8 @@ label_1646:
     fi
 
 label_1776:
-    destroy(integer(value 3), byte 88, byte 0, multiply(integer(value 9), byte 4))
-    create(integer(value 3), byte 129, byte 0, integer(value 9))
+    destroyItem(integer(value 3), byte 88, byte 0, multiply(integer(value 9), byte 4))
+    createItem(integer(value 3), byte 129, byte 0, integer(value 9))
     look(integer(value 3))
 
     if equals(integer(value 8), integer(value 9)):

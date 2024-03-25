@@ -88,7 +88,7 @@ label_620:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_1400
@@ -104,7 +104,7 @@ label_620:
 
 label_729:
     print('1) Arrows\n2) Crossbow Bolts\n"Which item?" ')
-    inputNumber(integer(value 0))
+    inputInteger(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_1400
@@ -120,13 +120,13 @@ label_729:
         jump label_729
     fi
 
-    integer(value 1) = data(dword 1511, integer(value 0))
-    string(value 1) = data(dword 1519, integer(value 0))
+    integer(value 1) = data(integers_1511, integer(value 0))
+    string(value 1) = data(strings_1519, integer(value 0))
     print('"I sell $1s only by the dozen."')
     wait()
 
     print('\n\n"How many dozens?" ')
-    inputNumber(integer(value 4))
+    inputInteger(integer(value 4))
 
     if equals(integer(value 4), byte 0):
         jump label_729
@@ -135,7 +135,7 @@ label_729:
     integer(value 5) = byte 0
 
 label_932:
-    if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(dword 1515, integer(value 0)), byte 12)):
+    if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(integers_1515, integer(value 0)), byte 12)):
         jump label_1050
     fi
 
@@ -143,8 +143,8 @@ label_932:
         jump label_1180
     fi
 
-    destroy(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
-    create(character(integer(value 3), byte 0), data(dword 1515, integer(value 0)), byte 0, byte 12)
+    destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
+    createItem(character(integer(value 3), byte 0), data(integers_1515, integer(value 0)), byte 0, byte 12)
     integer(value 5) = plus(integer(value 5), byte 1)
 
     if equals(integer(value 5), integer(value 4)):

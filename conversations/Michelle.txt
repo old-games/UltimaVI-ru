@@ -148,7 +148,7 @@ label_1276:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_2139
@@ -164,7 +164,7 @@ label_1276:
 
 label_1385:
     print('1) Basket\n2) Beehive\n3) Custom job\n"Which item?" ')
-    inputNumber(integer(value 0))
+    inputInteger(integer(value 0))
 
     if equals(integer(value 0), byte 0):
         jump label_2139
@@ -180,13 +180,13 @@ label_1385:
         jump label_129
     fi
 
-    integer(value 1) = data(dword 3728, integer(value 0))
-    string(value 1) = data(dword 3736, integer(value 0))
+    integer(value 1) = data(integers_3728, integer(value 0))
+    string(value 1) = data(strings_3736, integer(value 0))
     print('"Those $1s cost #1 gold apiece."')
     wait()
 
     print('\n\n"How many dost thou wish?" ')
-    inputNumber(integer(value 4))
+    inputInteger(integer(value 4))
 
     if equals(integer(value 4), byte 0):
         jump label_1385
@@ -195,7 +195,7 @@ label_1385:
     integer(value 5) = byte 0
 
 label_1681:
-    if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(dword 3732, integer(value 0)), byte 1)):
+    if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(integers_3732, integer(value 0)), byte 1)):
         jump label_1799
     fi
 
@@ -203,8 +203,8 @@ label_1681:
         jump label_1921
     fi
 
-    destroy(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
-    create(character(integer(value 3), byte 0), data(dword 3732, integer(value 0)), byte 0, byte 1)
+    destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
+    createItem(character(integer(value 3), byte 0), data(integers_3732, integer(value 0)), byte 0, byte 1)
     integer(value 5) = plus(integer(value 5), byte 1)
 
     if equals(integer(value 5), integer(value 4)):
@@ -353,13 +353,13 @@ label_2669:
 
 label_2947:
     if equals(integer(value 3), integer(value 4)):
-        destroy(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
+        destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
         jump label_3030
     fi
 
     integer(value 5) = objectsCount(character(integer(value 3), byte 0), byte 88)
     integer(value 1) = minus(integer(value 1), integer(value 5))
-    destroy(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 5))
+    destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 5))
     integer(value 3) = plus(integer(value 3), byte 1)
     jump label_2947
 
@@ -420,7 +420,7 @@ label_3338:
     wait()
 
     print('\n\n"It took less time than I had thought it might!"')
-    create(character(integer(value 6), byte 0), word 422, byte 0, byte 1)
+    createItem(character(integer(value 6), byte 0), word 422, byte 0, byte 1)
     look(character(integer(value 6), byte 0))
     wait()
 

@@ -156,7 +156,7 @@ label_486:
 
         print('"A friend of Taynith\'s, are you? Here, have one on the house." He ')
         print('hands you an ale.\n*\n')
-        create(byte 1, byte 117, byte 0, byte 1)
+        createItem(byte 1, byte 117, byte 0, byte 1)
 
 label_2264:
         print('"Taynith bet me one time I couldn\'t catch a duck with my bare hands."\n')
@@ -235,7 +235,7 @@ label_2992:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_3402
@@ -248,7 +248,7 @@ label_2992:
     fi
 
 label_3094:
-    integer(value 1) = data(dword 4860, integer(value 4))
+    integer(value 1) = data(integers_4860, integer(value 4))
     print('"That\'s #1 crowns. Want some?" ')
 
     choice('yn')
@@ -262,18 +262,18 @@ label_3094:
     esac
 
 label_3165:
-    if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(dword 4866, integer(value 4)), byte 1)):
+    if less(plus(canCarry(character(integer(value 3), byte 0)), weight(byte 88, integer(value 1))), weight(data(integers_4866, integer(value 4)), byte 1)):
         print('"You don\'t have room to carry it."')
         integer(value 5) = byte 0
         jump label_3402
     fi
 
     if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), integer(value 1)):
-        destroy(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
-        create(character(integer(value 3), byte 0), data(dword 4866, integer(value 4)), byte 0, byte 1)
+        destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, integer(value 1))
+        createItem(character(integer(value 3), byte 0), data(integers_4866, integer(value 4)), byte 0, byte 1)
         look(character(integer(value 3), byte 0))
         integer(value 5) = byte 1
-        string(value 1) = data(dword 4872, integer(value 4))
+        string(value 1) = data(strings_4872, integer(value 4))
         print('"Here you are." $N gives $Y the $1.')
         jump label_3402
 
@@ -319,7 +319,7 @@ label_3518:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_4081
@@ -345,8 +345,8 @@ label_3620:
         fi
 
         if greaterOrEquals(objectsCount(character(integer(value 3), byte 0), byte 88), byte 5):
-            destroy(character(integer(value 3), byte 0), byte 88, byte 0, byte 5)
-            create(character(integer(value 3), byte 0), byte 180, byte 0, byte 1)
+            destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, byte 5)
+            createItem(character(integer(value 3), byte 0), byte 180, byte 0, byte 1)
             look(character(integer(value 3), byte 0))
             print('$N gives $Y the milk. "You have good taste, my friend."')
             wait()
@@ -396,7 +396,7 @@ label_4121:
     fi
 
     print('"Which of you?" ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         print('\n')
@@ -474,8 +474,8 @@ label_4519:
     fi
 
 label_4650:
-    destroy(character(integer(value 3), byte 0), byte 88, byte 0, multiply(integer(value 9), byte 3))
-    create(character(integer(value 3), byte 0), byte 129, byte 0, integer(value 9))
+    destroyItem(character(integer(value 3), byte 0), byte 88, byte 0, multiply(integer(value 9), byte 3))
+    createItem(character(integer(value 3), byte 0), byte 129, byte 0, integer(value 9))
     look(character(integer(value 3), byte 0))
 
     if equals(integer(value 8), integer(value 9)):
@@ -596,7 +596,7 @@ label_5699:
 
 label_5834:
     print('There are #0 beads left. How many do you take? ')
-    inputNumber(integer(value 1))
+    inputInteger(integer(value 1))
 
     if or(or(equals(integer(value 1), byte 0), greater(integer(value 1), byte 3)), greater(integer(value 1), integer(value 0))):
         jump label_5834
@@ -664,7 +664,7 @@ label_6126:
     print('"I won!"\n*\n"Don\'t take it too hard... I\'ve had a lot of practice."\n*\n')
 
     if greater(integer(value 9), byte 0):
-        destroy(byte 1, byte 88, byte 0, integer(value 9))
+        destroyItem(byte 1, byte 88, byte 0, integer(value 9))
         print('"I\'ll put your money someplace safe, in case you want to come and win ')
         print('it back later."\n*\n')
     fi
@@ -676,7 +676,7 @@ label_6357:
 
     if greater(integer(value 9), byte 0):
         print(' He takes some money out of a pouch and pays off your wager.')
-        create(byte 1, byte 88, byte 0, integer(value 9))
+        createItem(byte 1, byte 88, byte 0, integer(value 9))
     fi
 
     if and(hasBit(byte 235, byte 7), greater(integer(value 9), byte 0)):
@@ -741,7 +741,7 @@ label_6595:
     fi
 
     print(' #0 gold crowns.')
-    destroy(integer(value 1), byte 151, byte 70, byte 1)
+    destroyItem(integer(value 1), byte 151, byte 70, byte 1)
     setBit(byte 235, byte 2)
-    create(integer(value 1), byte 88, byte 0, integer(value 0))
+    createItem(integer(value 1), byte 88, byte 0, integer(value 0))
     jump label_486

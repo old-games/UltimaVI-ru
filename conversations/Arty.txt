@@ -68,7 +68,7 @@ label_152:
 
         print('The man smiles and points to ')
 
-        if or(hasObject(byte 235, byte 149, data(dword 2459, byte 0)), hasObject(byte 235, byte 149, data(dword 2459, byte 1))):
+        if or(hasObject(byte 235, byte 149, data(integers_2459, byte 0)), hasObject(byte 235, byte 149, data(integers_2459, byte 1))):
             print('the deed to a @ship')
             integer(value 1) = byte 1
 
@@ -76,7 +76,7 @@ label_152:
             integer(value 1) = byte 0
         fi
 
-        if equals(or(hasObject(byte 235, byte 149, data(dword 2459, byte 2)), hasObject(byte 235, byte 149, data(dword 2459, byte 3))), byte 0):
+        if equals(or(hasObject(byte 235, byte 149, data(integers_2459, byte 2)), hasObject(byte 235, byte 149, data(integers_2459, byte 3))), byte 0):
             print('.')
             jump label_152
         fi
@@ -97,12 +97,12 @@ label_152:
             jump label_152
         fi
 
-        if hasObject(byte 235, byte 149, data(dword 2459, byte 0)):
+        if hasObject(byte 235, byte 149, data(integers_2459, byte 0)):
             integer(value 9) = byte 0
             jump label_1572
         fi
 
-        if hasObject(byte 235, byte 149, data(dword 2459, byte 1)):
+        if hasObject(byte 235, byte 149, data(integers_2459, byte 1)):
             integer(value 9) = byte 1
             jump label_1572
         fi
@@ -116,12 +116,12 @@ label_152:
             jump label_152
         fi
 
-        if hasObject(byte 235, byte 149, data(dword 2459, byte 2)):
+        if hasObject(byte 235, byte 149, data(integers_2459, byte 2)):
             integer(value 9) = byte 2
             jump label_1572
         fi
 
-        if hasObject(byte 235, byte 149, data(dword 2459, byte 3)):
+        if hasObject(byte 235, byte 149, data(integers_2459, byte 3)):
             integer(value 9) = byte 3
             jump label_1572
         fi
@@ -198,7 +198,7 @@ label_1613:
     fi
 
     print('Who is buying? ')
-    inputNumber(integer(value 3))
+    inputInteger(integer(value 3))
 
     if equals(integer(value 3), byte 0):
         jump label_2034
@@ -212,7 +212,7 @@ label_1613:
 
 label_1714:
     integer(value 3) = character(integer(value 3), byte 0)
-    integer(value 4) = data(dword 2451, integer(value 9))
+    integer(value 4) = data(integers_2451, integer(value 9))
     look(integer(value 3))
     print('$N shows $Y a deed. Written on it is the price, #4 gold.')
     wait()
@@ -222,16 +222,16 @@ label_1714:
     choice('yn')
 
     case 'y':
-        if less(plus(canCarry(integer(value 3)), weight(byte 88, data(dword 2451, integer(value 9)))), weight(byte 149, byte 1)):
+        if less(plus(canCarry(integer(value 3)), weight(byte 88, data(integers_2451, integer(value 9)))), weight(byte 149, byte 1)):
             print('$Y cannot carry that.')
             jump label_152
         fi
 
-        if less(objectsCount(integer(value 3), byte 88), data(dword 2451, integer(value 9))):
+        if less(objectsCount(integer(value 3), byte 88), data(integers_2451, integer(value 9))):
             jump label_2072
 
         else:
-            destroy(integer(value 3), byte 88, byte 0, data(dword 2451, integer(value 9)))
+            destroyItem(integer(value 3), byte 88, byte 0, data(integers_2451, integer(value 9)))
             jump label_1942
         fi
 
@@ -240,7 +240,7 @@ label_1714:
     esac
 
 label_1942:
-    give(byte 149, data(dword 2459, integer(value 9)), byte 235, integer(value 3))
+    giveItem(byte 149, data(integers_2459, integer(value 9)), byte 235, integer(value 3))
     print('After accepting the gold, $N smiles and hands $Y the deed.')
     integer(value 5) = byte 1
     wait()
@@ -264,7 +264,7 @@ label_2072:
         jump label_152
     fi
 
-    integer(value 1) = data(dword 2451, integer(value 9))
+    integer(value 1) = data(integers_2451, integer(value 9))
     integer(value 2) = byte 0
     integer(value 6) = byte 0
     integer(value 4) = byte 0
@@ -285,7 +285,7 @@ label_2155:
 
     else:
         print('Your party takes up a collection to purchase the vessel.')
-        integer(value 1) = data(dword 2451, integer(value 9))
+        integer(value 1) = data(integers_2451, integer(value 9))
         integer(value 2) = byte 0
         integer(value 4) = integer(value 6)
         integer(value 6) = byte 0
@@ -294,7 +294,7 @@ label_2155:
 
 label_2365:
     if equals(integer(value 6), integer(value 4)):
-        destroy(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 1))
+        destroyItem(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 1))
         wait()
 
         print('\n\n')
@@ -303,7 +303,7 @@ label_2365:
 
     integer(value 5) = objectsCount(character(integer(value 6), byte 0), byte 88)
     integer(value 1) = minus(integer(value 1), integer(value 5))
-    destroy(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 5))
+    destroyItem(character(integer(value 6), byte 0), byte 88, byte 0, integer(value 5))
     integer(value 6) = plus(integer(value 6), byte 1)
     jump label_2365
 
