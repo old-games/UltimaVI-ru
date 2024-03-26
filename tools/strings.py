@@ -205,8 +205,7 @@ with open('patches/references.json', 'w') as f:
 
 c = 0
 for name in printf:
-    r = subprocess.run(['strings', tools.get_path(name)], stdout=subprocess.PIPE, universal_newlines=True)
-    r.check_returncode()
+    r = subprocess.run(['strings', tools.get_path(name)], stdout=subprocess.PIPE, universal_newlines=True, check=True)
     t = {x for (s, _), (e, _) in tt.items() if s == name for x in re.split('[\n\r\b\t]+', e) if x}
     for i in r.stdout.splitlines():
         if i not in t:

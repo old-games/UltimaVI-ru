@@ -1,9 +1,10 @@
 import os
+import sys
 
 import tools
 
 
-output_directory = os.getcwd()
+output_directory = sys.argv[1] if len(sys.argv) == 2 else os.getcwd()
 os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 with open(tools.get_path('U6.CH'), 'rb') as f:

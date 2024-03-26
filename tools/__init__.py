@@ -13,8 +13,7 @@ def get_binaries():
 
 def get_sha():
     try:
-        r = subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], stdout=subprocess.PIPE, universal_newlines=True, check=True)
-        return r.stdout.rstrip()
+        return subprocess.run(['git', 'rev-parse', '--short', 'HEAD'], stdout=subprocess.PIPE, universal_newlines=True, check=True).stdout.rstrip()
     except Exception:
         return None
 

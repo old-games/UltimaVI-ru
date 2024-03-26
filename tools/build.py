@@ -16,9 +16,9 @@ mode = sys.argv[1] if len(sys.argv) == 2 else 'russian'
 assert mode in ('russian', 'english')
 
 with tempfile.TemporaryDirectory() as d:
-    subprocess.run(['python3', '-m', 'tools.patch', mode], cwd=d, env={'PYTHONPATH': os.getcwd()}, check=True)
+    subprocess.run(['python3', '-m', 'tools.patch', d, mode], check=True)
     # FIXME exepack
-    subprocess.run(['python3', '-m', 'tools.symbols'], cwd=d, env={'PYTHONPATH': os.getcwd()}, check=True)
+    subprocess.run(['python3', '-m', 'tools.symbols', d], check=True)
 
     for name in tools.get_compressed_files():
         with open(tools.get_path(name, d), 'rb')  as f:
@@ -61,6 +61,9 @@ with tempfile.TemporaryDirectory() as d:
 
     mode = f'-{mode}' if mode == 'english' else ''
 
-    with zipfile.ZipFile(f'UltimaVI-ru{mode}{sha}.zip', 'w') as f:
+    name = f'UltimaVI-ru{mode}{sha}.zip'
+
+    print(f'Writing {name}')
+    with zipfile.ZipFile(name, 'w') as f:
         for n in sorted(existing_files):
             f.write(os.path.join(d, n), os.path.join(f'UltimaVI-ru{mode}{sha}', n))

@@ -107,8 +107,7 @@ def nasm(code):
     with tempfile.TemporaryDirectory() as d:
         with open(f'{d}/1.asm', 'w') as f:
             f.write(f'bits 16\n{code}')
-        r = subprocess.run(['nasm', '-f', 'bin', f'{d}/1.asm', '-o', f'{d}/1.com'])
-        r.check_returncode()
+        subprocess.run(['nasm', '-f', 'bin', f'{d}/1.asm', '-o', f'{d}/1.com'], check=True)
         with open(f'{d}/1.com', 'rb') as f:
             return f.read()
 
@@ -176,11 +175,9 @@ def pi_jump(s, a):
         """)
 
 
-mode = sys.argv[1] if len(sys.argv) == 2 else 'russian'
+output_directory = sys.argv[1] if len(sys.argv) == 3 else os.getcwd()
+mode = sys.argv[2] if len(sys.argv) == 3 else 'russian'
 assert mode in ('russian', 'english')
-
-output_directory = os.getcwd()
-os.chdir(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 with open('patches/translation.json') as f:
     translation = json.loads(f.read())
@@ -234,7 +231,7 @@ for binary, functions in add_functions.items():
 
     with tempfile.TemporaryDirectory() as temp:
         for f in functions:
-            subprocess.run(['nasm', '-f', 'obj', f'patches/{os.path.splitext(binary)[0]}/{f}.asm', '-o', f'{temp}/{f}.obj']).check_returncode()
+            subprocess.run(['nasm', '-f', 'obj', f'patches/{os.path.splitext(binary)[0]}/{f}.asm', '-o', f'{temp}/{f}.obj'], check=True)
             function_address[f] = len(code_block)
             code_block += apply_obj(f'{temp}/{f}.obj', function_address[f])
 
