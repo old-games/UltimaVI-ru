@@ -126,7 +126,7 @@ class TestLZW(tests.TestCase):
         archives = tools.get_archive_files()
         for archive in archives:
             if os.path.splitext(archive)[0] != 'PORTRAIT':
-                items = tools.archive.list(os.path.join(self.script_path, 'original', archive))
+                items = tools.archive.decode(os.path.join(self.script_path, 'original', archive))
                 for i, item in enumerate(items):
                     if item is not None and int.from_bytes(item[:4], 'little') != 0:
                         data_uncompressed = tools.lzw.decompress(item)

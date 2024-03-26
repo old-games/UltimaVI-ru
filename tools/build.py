@@ -1,3 +1,4 @@
+import collections
 import os
 import shutil
 import subprocess
@@ -6,6 +7,8 @@ import tempfile
 import zipfile
 
 import tools
+import tools.archive
+import tools.conversation
 import tools.lzw
 
 
@@ -23,7 +26,21 @@ with tempfile.TemporaryDirectory() as d:
         with open(os.path.join(d, name), 'wb') as f:
             f.write(data)
 
-    existing_files = set(os.listdir(d))
+    conversations = collections.defaultdict(dict)
+    conversations_path = os.path.join(tools.get_script_path(), 'conversations')
+    for character in sorted(os.listdir(conversations_path)):
+        path = os.path.join(conversations_path, character)
+        with open(path, 'r') as f:
+            script = f.read()
+        source, index, data = tools.conversation.encode(script, mode, 2 if mode == 'russian' else 1)
+        conversations[source][index] = data
+
+    for name in tools.get_archive_files():
+        if name in ('CONVERSE.A', 'CONVERSE.B'):
+            data = [None]*(max(conversations[name]) + 1)
+            for index, item in conversations[name].items():
+                data[index] = item
+            tools.archive.pack(data, os.path.join(d, name))
 
     def recursive_copy(source, destination, sub_directory=None):
         for e in os.scandir(source):
@@ -36,6 +53,7 @@ with tempfile.TemporaryDirectory() as d:
                     os.makedirs(os.path.join(destination, e.name))
                     recursive_copy(os.path.join(source, e.name), os.path.join(destination, e.name), sub_directory=full_name)
 
+    existing_files = set(os.listdir(d))
     recursive_copy('original', d)
 
     sha = tools.get_sha()
