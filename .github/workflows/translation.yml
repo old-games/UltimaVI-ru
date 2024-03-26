@@ -18,11 +18,11 @@ jobs:
       with:
         python-version: 3.8
 
-    - name: Check with `translation`
-      run: python3 -m tools.translation
+    - name: Test conversations
+      run: python3 -m unittest tests.test_conversation.TestConversation.testUser
+
+    - name: Test translations
+      run: python3 -m unittest tests.test_translation
 
     - name: Check with `duplicates`
       run: python3 -m tools.duplicates
-
-    - name: Test
-      run: python3 -m unittest tests.test_conversation.TestConversation.testUser
