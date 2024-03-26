@@ -44,33 +44,30 @@ def _read_word(stream, visited_labels):
     return int.from_bytes(data, 'little')
 
 
-def _is_text(byte):
-    return byte in (9, 0x0a) or 0x20 <= byte < 0x80
+def decode(conversation, source, index):
+    def is_text(byte):
+        return byte in (9, 0x0a) or 0x20 <= byte < 0x80
 
+    def read_string(end):
+        result = bytearray()
+        while (byte := _peek_byte(stream)) is not None and byte not in end:
+            _read_byte(stream, visited_labels)
+            assert is_text(byte)
+            result.append(byte)
+        return result.decode('ascii')
 
-def _read_string(stream, visited_labels, end):
-    result = bytearray()
-    while (byte := _peek_byte(stream)) is not None and byte not in end:
-        _read_byte(stream, visited_labels)
-        assert _is_text(byte)
-        result.append(byte)
-    return result.decode('ascii')
+    def try_read_string(end):
+        result = bytearray()
+        start = stream.tell()
+        while (byte := _peek_byte(stream)) is not None and byte not in end:
+            _read_byte(stream, set())
+            if not is_text(byte):
+                stream.seek(start)
+                return None
+            result.append(byte)
+        stream.seek(start)
+        return result.decode('ascii')
 
-
-def _try_read_string(stream, end):
-    result = bytearray()
-    start = stream.tell()
-    while (byte := _peek_byte(stream)) is not None and byte not in end:
-        _read_byte(stream, set())
-        if not _is_text(byte):
-            stream.seek(start)
-            return None
-        result.append(byte)
-    stream.seek(start)
-    return result.decode('ascii')
-
-
-def decode(conversation):
     def read_integers(unused, end):
         integers = []
         comments = []
@@ -107,8 +104,8 @@ def decode(conversation):
             if offset in visited_labels:
                 break
 
-            # FIXME reuse _try_read_string? without overlap
-            if (byte := _peek_byte(stream)) and not _is_text(byte):
+            # FIXME reuse try_read_string? without overlap
+            if (byte := _peek_byte(stream)) and not is_text(byte):
                 break
 
             _read_byte(stream, visited_labels)
@@ -382,7 +379,7 @@ def decode(conversation):
             elif code == 0xef:
                 # TODO can't have nested keywords
                 _read_byte(stream, visited_labels)
-                argument = _read_string(stream, visited_labels, {0xf6}).split(',')
+                argument = read_string({0xf6}).split(',')
                 _read_byte(stream, visited_labels)
                 # TODO вложенные ask в case ? leak choices to parent
                 if stack and stack[-1][0] == 'case':
@@ -415,7 +412,7 @@ def decode(conversation):
 
             elif code == 0xf8:
                 _read_byte(stream, visited_labels)
-                argument = _read_string(stream, visited_labels, all_instructions)
+                argument = read_string(all_instructions)
                 choices[tuple(stack)] = set(argument)
                 add(argument)
 
@@ -425,11 +422,11 @@ def decode(conversation):
 
             elif code == 0xff:
                 _read_byte(stream, visited_labels)
-                add(_read_byte(stream, visited_labels), _read_string(stream, visited_labels, {0xf1, 0xf3}))
+                add(_read_byte(stream, visited_labels), read_string({0xf1, 0xf3}))
 
-            elif _try_read_string(stream, all_instructions):
+            elif try_read_string(all_instructions):
                 code = None
-                add(_read_string(stream, visited_labels, all_instructions))
+                add(read_string(all_instructions))
 
             else:
                 assert unreachable
@@ -529,6 +526,7 @@ def decode(conversation):
 
         levels = []
         last_level = 0
+
         result = []
 
         for label, (code, _, *arguments) in blocks:
@@ -717,7 +715,7 @@ def decode(conversation):
             cut = left_end - right
             blocks[i] = blocks[i][0], (blocks[i][1][0], blocks[i][1][1]-cut, blocks[i][1][2][:-cut])
 
-    return format_instructions()
+    return f"source('{source}')\nindex({index})\n\n{format_instructions()}"
 
 
 def encode(conversation, target_language, version):
@@ -1180,6 +1178,10 @@ def encode(conversation, target_language, version):
             result.append(0xa8)
             read_expression()
             result.append(0xa7)
+
+        elif token == 'nop':
+            assert next(iterator) == '('
+            assert next(iterator) == ')'
 
         elif (next_token := next(iterator)) == ':':
             add_label()
