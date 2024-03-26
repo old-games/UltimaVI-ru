@@ -15,7 +15,7 @@ class TestTranslation(tests.TestCase):
         return s
 
     def testTranslation(self):
-        with open('tools/translation.json') as f:
+        with open('patches/translation.json') as f:
             t = json.loads(f.read())
 
         by_source = collections.defaultdict(list)
@@ -36,7 +36,7 @@ class TestTranslation(tests.TestCase):
                         self.assertEqual(text, i['english'], f'English text could not be found at offset {i["offset"]}: "{i["english"]}".')
 
     def testNotStrings(self):
-        with open('tools/not-strings.json') as f:
+        with open('patches/not-strings.json') as f:
             ns = json.loads(f.read())
 
         by_source = collections.defaultdict(list)
@@ -58,10 +58,10 @@ class TestTranslation(tests.TestCase):
 
     def testReferences(self):
         # FIXME
-        with open('tools/references.json') as f:
+        with open('patches/references.json') as f:
             r = json.loads(f.read())
 
     def testBadReferences(self):
         # FIXME
-        with open('tools/bad-references.json') as f:
+        with open('patches/bad-references.json') as f:
             br = json.loads(f.read())

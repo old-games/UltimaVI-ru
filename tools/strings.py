@@ -43,7 +43,7 @@ def add_reference(name, offset, origin, type, segment):
 tt = {}
 rr = {}
 
-with open('tools/not-strings.json', 'r') as f:
+with open('patches/not-strings.json', 'r') as f:
     ns = {(d['source'], d['offset']) for d in json.loads(f.read())}
 
 for name, printfs in printf.items():
@@ -148,8 +148,8 @@ for name, printfs in printf.items():
                 except (IndexError, UnicodeDecodeError, AssertionError):
                     pass
 
-if os.path.isfile('tools/translation.json'):
-    with open('tools/translation.json') as f:
+if os.path.isfile('patches/translation.json'):
+    with open('patches/translation.json') as f:
         t = json.loads(f.read())
     old_tt = {(x['source'], x['offset']): (x['english'], x['russian']) for x in t}
 else:
@@ -196,11 +196,11 @@ if 'merge':
 
 
 t = [{'source': s, 'offset': o, 'english': en, 'russian': ru} for (s, o), (en, ru) in sorted(tt.items()) if (s, o) not in ns]
-with open('tools/translation.json', 'w') as f:
+with open('patches/translation.json', 'w') as f:
     print(json.dumps(t, indent=4, ensure_ascii=False), file=f)
 
 r = [{'source': s, 'offset': o, 'text': tt[(s, o)][0], 'references': sorted(d, key=lambda x: (x['origin'], x['segment'] if isinstance(x['segment'], int) else 0))} for (s, o), d in sorted(rr.items())]
-with open('tools/references.json', 'w') as f:
+with open('patches/references.json', 'w') as f:
     f.write(json.dumps(r, indent=4, ensure_ascii=False))
 
 c = 0
