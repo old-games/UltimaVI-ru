@@ -11,8 +11,13 @@ Structure:
 ## Build
 
 ```
-export PYTHONPATH=`pwd`:$PYTHONPATH
 python3 -m tools.build
+```
+
+Or:
+
+```
+python3 -m tools.build english
 ```
 
 ## Test
