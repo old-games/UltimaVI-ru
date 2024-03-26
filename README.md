@@ -1,5 +1,13 @@
 # Ultima VI: Russian Edition
 
+Structure:
+
+- `original` — original files;
+- `unpacked` — unpacked files (when it's possible);
+- `conversations` — scripts;
+- `patches` — fixes for executables;
+- `documentation` — manuals.
+
 ## Build
 
 ```

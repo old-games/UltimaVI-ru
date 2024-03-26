@@ -64,7 +64,6 @@ def patch_END(d):
     assert d[0x1c28] == 0x27
     d[0x1c16] -= 4
     d[0x1c28] += 8
-    
 
 
 def patch_GAME(d):

@@ -7,7 +7,7 @@ import sys
 import tempfile
 
 import tools
-import tools.patches
+import patches
 
 
 add_functions = {
@@ -234,7 +234,7 @@ for binary, functions in add_functions.items():
 
     with tempfile.TemporaryDirectory() as temp:
         for f in functions:
-            subprocess.run(['nasm', '-f', 'obj', f'tools/{os.path.splitext(binary)[0]}/{f}.asm', '-o', f'{temp}/{f}.obj']).check_returncode()
+            subprocess.run(['nasm', '-f', 'obj', f'patches/{os.path.splitext(binary)[0]}/{f}.asm', '-o', f'{temp}/{f}.obj']).check_returncode()
             function_address[f] = len(code_block)
             code_block += apply_obj(f'{temp}/{f}.obj', function_address[f])
 
@@ -242,11 +242,11 @@ for binary, functions in add_functions.items():
     space = len(code_block) // 0x200
 
     if binary == 'END.EXE':
-        tools.patches.patch_END(d)
+        patches.patch_END(d)
     elif binary == 'GAME.EXE':
-        tools.patches.patch_GAME(d)
+        patches.patch_GAME(d)
     elif binary == 'U.EXE':
-        tools.patches.patch_U(d)
+        patches.patch_U(d)
 
     uninitialized_fill, = find_all(d, [0xbf, None, None, 0xb9, None, None, 0x2b, 0xcf, 0xf3, 0xaa])
     initialized_size = int.from_bytes(d[uninitialized_fill+1:uninitialized_fill+3], 'little')
@@ -309,7 +309,7 @@ for binary, functions in add_functions.items():
     for f, (function_cs, function_ip, size) in functions.items():
         address = function_cs*0x10 + function_ip
         relocs[:] = [(o, s, l, v) for o, s, l, v in relocs if not v or o+s*0x10 >= address+size or o+s*0x10 < address-1]
-        tools.patches.replace(d, header+address, jump(0, function_address[f], function_cs, function_ip).ljust(size, b'\x00'))
+        patches.replace(d, header+address, jump(0, function_address[f], function_cs, function_ip).ljust(size, b'\x00'))
 
     assert set(d[relocs_base+4*relocs_size:header]) == {0}
     assert header - relocs_base >= len(relocs)*4
