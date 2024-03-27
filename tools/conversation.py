@@ -442,7 +442,7 @@ def decode(conversation, source, index):
             0xa4: 'setBit', 0xa5: 'clearBit',
             0xb5: 'printString', 0xb6: 'bye',
             0xb8: 'endOfList', 0xb9: 'createItem', 0xba: 'destroyItem', 0xbe: 'inventory', 0xbf: 'portrait',
-            0xc4: 'increaseKarma', 0xc5: 'decreaseKarma', 0xc9: 'giveItem', 0xcb: 'wait', 0xcd: 'do',
+            0xc4: 'increaseKarma', 0xc5: 'decreaseKarma', 0xc9: 'moveItem', 0xcb: 'wait', 0xcd: 'do',
             0xd6: 'resurrect', 0xd8: 'look', 0xd9: 'heal', 0xdb: 'cure',
             0xf3: 'f3', 0xf7: 'ask',
             0xf9: 'inputString', 0xfb: 'inputInteger', 0xfc: 'inputDigit',
@@ -834,7 +834,6 @@ def encode(conversation, target_language, version):
         # FIXME inventory в showInventory
         # FIXME portrait в showPortrait
         # FIXME look == showCharacter???? do?
-        # FIXME give -> moveItem?
 
         operator = next(iterator) if token is None else token
 
@@ -1031,7 +1030,7 @@ def encode(conversation, target_language, version):
             result.append(0xa7)
             assert next(iterator) == ')'
 
-        elif token == 'giveItem':
+        elif token == 'moveItem':
             assert next(iterator) == '('
             result.append(0xc9)
             read_expression()
