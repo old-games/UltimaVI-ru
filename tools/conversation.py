@@ -1,4 +1,5 @@
 import io
+import sys
 import textwrap
 
 
@@ -137,8 +138,7 @@ def decode(conversation, source, index):
 
         def add(*args):
             instruction = code, stream.tell() - offset, *args
-            if offset in blocks:
-                assert blocks[offset] == instruction
+            assert offset not in blocks or blocks[offset] == instruction
             blocks[offset] = instruction
 
         def add_branch_ended(stack):
@@ -388,6 +388,8 @@ def decode(conversation, source, index):
                 keywords[tuple(stack)] = set(argument)
                 branches_ended[tuple(stack)] = False
                 add(argument)
+                if _peek_byte(stream) == 0xef:
+                    blocks[offset+1] = ..., ...
 
             elif code == 0xf2:
                 _read_byte(stream, visited_labels)
@@ -563,6 +565,9 @@ def decode(conversation, source, index):
                 for line in lines:
                     append(f'print({format_string(line)})')
 
+            elif code is ...:
+                append('nop()')
+
             elif code == 0xef:
                 empty_prefix_line()
                 decrease_level('case')
@@ -706,14 +711,18 @@ def decode(conversation, source, index):
 
     # Unglue.
     blocks = sorted(blocks.items())
-    for i, j in zip(range(len(blocks)), range(1, len(blocks))):
-        left_end = blocks[i][0] + blocks[i][1][1]
-        right = blocks[j][0]
-        assert left_end == right or left_end > right and blocks[i][1][0] is None and blocks[j][1][0] is None
-        if left_end > right:
-            assert left_end == right + blocks[j][1][1]
-            cut = left_end - right
-            blocks[i] = blocks[i][0], (blocks[i][1][0], blocks[i][1][1]-cut, blocks[i][1][2][:-cut])
+    for i in range(len(blocks)):
+        if blocks[i][1][0] is not ...:
+            for j in range(i+1, len(blocks)):
+                if blocks[j][1][0] is not ...:
+                    left_end = blocks[i][0] + blocks[i][1][1]
+                    right = blocks[j][0]
+                    assert left_end == right or left_end > right and blocks[i][1][0] is None and blocks[j][1][0] is None
+                    if left_end > right:
+                        assert left_end == right + blocks[j][1][1]
+                        cut = left_end - right
+                        blocks[i] = blocks[i][0], (blocks[i][1][0], blocks[i][1][1]-cut, blocks[i][1][2][:-cut])
+                    break
 
     return f"source('{source}')\nindex({index})\n\n{format_instructions()}"
 
@@ -860,6 +869,7 @@ def encode(conversation, target_language, version):
             array = next(iterator)
             result.append(0xd2)
             placeholders[len(result)] = array
+            dangerous_placeholders.add(len(result))
             result.extend(b'\x00\x00\x00\x00')
             assert next(iterator) == ','
             read_expression()
@@ -905,6 +915,7 @@ def encode(conversation, target_language, version):
 
     labels = {}
     placeholders = {}
+    dangerous_placeholders = set()
 
     for token in iterator:
         if token == 'id':
@@ -1137,6 +1148,7 @@ def encode(conversation, target_language, version):
             array = next(iterator)
             result.append(0xd2)
             placeholders[len(result)] = array
+            dangerous_placeholders.add(len(result))
             result.extend(b'\x00\x00\x00\x00')
             assert next(iterator) == ','
             read_expression()
@@ -1209,6 +1221,8 @@ def encode(conversation, target_language, version):
             assert False
 
     for offset, label in placeholders.items():
-        result[offset:offset+4] = labels[label].to_bytes(4, 'little')
+        data = labels[label].to_bytes(4, 'little')
+        result[offset:offset+4] = data
+        assert offset not in dangerous_placeholders or 0xb0 not in data and 0xd4 not in data[2:4] and 0xd3 != data[3]
 
     return source, index, result

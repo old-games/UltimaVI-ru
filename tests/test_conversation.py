@@ -9,8 +9,7 @@ import tests
 class TestConversation(tests.TestCase):
     @staticmethod
     def fixScript(script):
-        script = script.replace("'Dr. Cat'", "'Dr_ Cat'").replace("'english': 'Ed'", "'english': 'ed'")
-        return re.sub("case \\{'english': 'y'\\}:\n\\s*case.*\n\\s*case \\{'english': 'n'\\}:\n\\s*case.*\n\\s*esac", "case'y':nop()case'n':esac", script)
+        return script.replace("'Dr. Cat'", "'Dr_ Cat'").replace("'english': 'Ed'", "'english': 'ed'")
 
     def testOriginal(self):
         for name in ('CONVERSE.A', 'CONVERSE.B'):
