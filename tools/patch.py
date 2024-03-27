@@ -10,22 +10,6 @@ import tools
 import patches
 
 
-add_functions = {
-    'END.EXE': {
-    },
-    'GAME.EXE': {
-        # FIXME switch to global names in asm files.
-        'putch_impl': (0x464, 0x2efa, 0x3e4),
-        #'puts_impl': (0x464, 0x32f8, 0x22),
-        'get_character_name': (0xecb, 0xa0, 0x76),
-        'toupper': (0x2ce6, 3, 0x31),
-    },
-    'INSTALL.EXE': {
-    },
-    'U.EXE': {
-    },
-}
-
 # TODO: add possibility to change english strings
 # TODO: место из под старого кода можно переиспользовать
 # TODO: добавлять место более гранулярно чем постранично
@@ -83,14 +67,14 @@ def apply_obj(path, base):
                 i += 4
 
         elif t == 0x8c:
-            externs.append(d[1:1+d[0]].decode())
+            externs.append(d[1:1+d[0]].decode('ascii'))
 
         elif t == 0x90:
             d = d[1:-2]
             i = 0
             while i < len(d):
                 s = d[i+1]
-                n = d[i+2:i+2+s].decode()
+                n = d[i+2:i+2+s].decode('ascii')
                 a = int.from_bytes(d[i+2+s:i+4+s], 'little')
                 if n.startswith('fixmeup'): # TODO избавиться от fixmeup, придумать как-то поумнее
                     fixmeups.add(a)
@@ -198,7 +182,7 @@ replaced = 0
 added = 0
 missing = 0
 
-for binary, functions in add_functions.items():
+for binary, functions in patches.add_functions.items():
     with open(tools.get_path(binary), 'rb') as f:
         d = bytearray(f.read())
 

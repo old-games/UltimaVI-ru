@@ -1,7 +1,8 @@
 import io
-import sys
 import textwrap
 
+
+# FIXME remove all this inside functions
 
 def _read_char(stream, visited_labels):
     visited_labels.add(stream.tell())
@@ -389,7 +390,7 @@ def decode(conversation, source, index):
                 branches_ended[tuple(stack)] = False
                 add(argument)
                 if _peek_byte(stream) == 0xef:
-                    blocks[offset+1] = ..., ...
+                    blocks[offset+1] = ..., ... # Derydlus
 
             elif code == 0xf2:
                 _read_byte(stream, visited_labels)
@@ -890,9 +891,11 @@ def encode(conversation, target_language, version):
         assert is_string(token)
         return token[1:-1]
 
-    def write_string(string, end=b''):
-        if version == 2 and end != b'\x00':
-            end += b'\x00'
+    def write_string(string, context):
+        if context == 'strings' or version == 2 and context != 'name':
+            end = b'\x00'
+        else:
+            end = b''
         result.extend(string.encode('ascii' if version == 1 else 'cp866') + end)
 
     def add_label():
@@ -927,7 +930,7 @@ def encode(conversation, target_language, version):
         elif token == 'name':
             assert next(iterator) == '('
             name = unquote(next(iterator))
-            write_string(name)
+            write_string(name, 'name')
             assert next(iterator) == ')'
 
         elif token == 'description':
@@ -937,7 +940,7 @@ def encode(conversation, target_language, version):
 
         elif token == 'print':
             assert next(iterator) == '('
-            write_string(unquote(next(iterator)))
+            write_string(unquote(next(iterator)), 'print')
             assert next(iterator) == ')'
 
         elif token == 'f3':
@@ -1094,7 +1097,7 @@ def encode(conversation, target_language, version):
         elif token == 'case':
             result.append(0xef)
             case = next(iterator)
-            write_string(case)
+            write_string(case, 'case')
             result.append(0xf6)
             assert next(iterator) == ':'
 
@@ -1179,7 +1182,7 @@ def encode(conversation, target_language, version):
         elif token == 'choice':
             assert next(iterator) == '('
             result.append(0xf8)
-            write_string(unquote(next(iterator)))
+            write_string(unquote(next(iterator)), 'choice')
             assert next(iterator) == ')'
 
         elif token in operators:
@@ -1211,7 +1214,7 @@ def encode(conversation, target_language, version):
                 else:
                     assert value_type == is_string(value)
                 if is_string(value):
-                    write_string(unquote(value), end=b'\x00')
+                    write_string(unquote(value), 'strings')
                 else:
                     result.extend(int(value).to_bytes(2, 'little'))
                 token = next(iterator)
@@ -1223,6 +1226,6 @@ def encode(conversation, target_language, version):
     for offset, label in placeholders.items():
         data = labels[label].to_bytes(4, 'little')
         result[offset:offset+4] = data
-        assert offset not in dangerous_placeholders or 0xb0 not in data and 0xd4 not in data[2:4] and 0xd3 != data[3]
+        assert offset not in dangerous_placeholders or 0xb0 not in data and 0xd4 not in data[2:4] and 0xd3 != data[3], 'Flow may be broken'
 
     return source, index, result

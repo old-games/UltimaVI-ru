@@ -7,10 +7,10 @@ import tools
 
 class TestTranslation(tests.TestCase):
     @staticmethod
-    def readNullTerminated(d, i):
+    def readNullTerminatedString(d, i):
         s = ''
         while d[i]:
-            s += d[i:i+1].decode()
+            s += d[i:i+1].decode('ascii')
             i += 1
         return s
 
@@ -32,7 +32,7 @@ class TestTranslation(tests.TestCase):
                     x = f.read()
                 for index, i in enumerate(ii):
                     with self.subTest(index=index):
-                        text = self.readNullTerminated(x, i['offset'])
+                        text = self.readNullTerminatedString(x, i['offset'])
                         self.assertEqual(text, i['english'], f'English text could not be found at offset {i["offset"]}: "{i["english"]}".')
 
     def testNotStrings(self):
@@ -53,7 +53,7 @@ class TestTranslation(tests.TestCase):
                     x = f.read()
                 for index, i in enumerate(ii):
                     with self.subTest(index=index):
-                        text = self.readNullTerminated(x, i['offset'])
+                        text = self.readNullTerminatedString(x, i['offset'])
                         self.assertEqual(text, i['text'], f'Text could not be found at offset {i["offset"]}: "{i["text"]}".')
 
     def testReferences(self):

@@ -1,3 +1,20 @@
+add_functions = {
+    'END.EXE': {
+    },
+    'GAME.EXE': {
+        # FIXME switch to global names in asm files — что я здесь имел в виду?
+        'putch_impl': (0x464, 0x2efa, 0x3e4),
+        #'puts_impl': (0x464, 0x32f8, 0x22),
+        'get_character_name': (0xecb, 0xa0, 0x76),
+        'toupper': (0x2ce6, 3, 0x31),
+    },
+    'INSTALL.EXE': {
+    },
+    'U.EXE': {
+    },
+}
+
+
 def replace(d, a, c):
     d[a:a+len(c)] = c
 
