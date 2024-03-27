@@ -445,7 +445,7 @@ def decode(conversation, source, index):
             0xc4: 'increaseKarma', 0xc5: 'decreaseKarma', 0xc9: 'giveItem', 0xcb: 'wait', 0xcd: 'do',
             0xd6: 'resurrect', 0xd8: 'look', 0xd9: 'heal', 0xdb: 'cure',
             0xf3: 'f3', 0xf7: 'ask',
-            0xf9: 'inputString', 0xfb: 'input', 0xfc: 'inputInteger', # FIXME what is difference between inputInteger and input
+            0xf9: 'inputString', 0xfb: 'input', 0xfc: 'inputDigit', # FIXME what is difference between inputInteger and input
         }
         empty_prefix = {
             # TODO
@@ -956,7 +956,7 @@ def encode(conversation, target_language, version):
             read_expression()
             assert next(iterator) == ')'
 
-        elif token == 'inputInteger':
+        elif token == 'inputDigit':
             assert next(iterator) == '('
             result.append(0xfc)
             read_expression()
