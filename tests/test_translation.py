@@ -2,7 +2,6 @@ import collections
 import json
 
 import tests
-import tools
 
 
 class TestTranslation(tests.TestCase):
@@ -28,7 +27,7 @@ class TestTranslation(tests.TestCase):
 
         for s, ii in by_source.items():
             with self.subTest(name=s):
-                with open(tools.get_path(s), 'rb') as f:
+                with open(f'unpacked/{s}', 'rb') as f:
                     x = f.read()
                 for index, i in enumerate(ii):
                     with self.subTest(index=index):
@@ -49,7 +48,7 @@ class TestTranslation(tests.TestCase):
 
         for s, ii in by_source.items():
             with self.subTest(name=s):
-                with open(tools.get_path(s), 'rb') as f:
+                with open(f'unpacked/{s}', 'rb') as f:
                     x = f.read()
                 for index, i in enumerate(ii):
                     with self.subTest(index=index):
