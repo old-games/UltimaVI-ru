@@ -1232,6 +1232,6 @@ def encode(conversation, target_language, version):
         data = labels[label].to_bytes(4, 'little')
         result[offset:offset+4] = data
         dangerous_ff = 0xb0 in data or 0xd4 in data[2:4] or 0xd3 == data[3]
-        assert version != 1 or offset not in dangerous_placeholders or not dangerous_ff, 'Flow may be broken'
+        assert offset not in dangerous_placeholders or not dangerous_ff, 'Flow may be broken'
 
     return source, index, result

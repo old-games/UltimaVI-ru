@@ -9,6 +9,16 @@ on:
 
 jobs:
   build:
+    strategy:
+      fail-fast: false
+      matrix:
+        patch: [english, russian]
+        conversation: [russian]
+        include:
+          - patch: english
+            conversation: english
+
+    name: patch=${{ matrix.patch }}, conversation=${{ matrix.conversation }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -19,13 +29,14 @@ jobs:
         python-version: 3.8
 
     - name: Build
+      id: build
       run: |
         sudo apt-get install nasm
-        python3 -m tools.build
+        python3 -m tools.build ${{ matrix.patch }} ${{ matrix.conversation }}
 
     - name: Upload
       uses: actions/upload-artifact@v3
       with:
-        name: UltimaVI-ru
-        path: UltimaVI-ru-*.zip
+        name: "${{ steps.build.outputs.basename }}"
+        path: "*.zip"
         if-no-files-found: error

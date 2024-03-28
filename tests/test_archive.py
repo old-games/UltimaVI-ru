@@ -7,6 +7,7 @@ import tools.archive
 
 class TestArchive(tests.TestCase):
     def testDecodeEncode(self):
+        # FIXME test 16 bit
         with tempfile.TemporaryDirectory() as d:
             for name in ('CONVERSE.A', 'CONVERSE.B', 'PORTRAIT.A', 'PORTRAIT.B', 'PORTRAIT.Z'):
                 with self.subTest(name=name):
