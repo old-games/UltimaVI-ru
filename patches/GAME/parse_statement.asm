@@ -18,25 +18,36 @@ sub_1c45:
         jmp     loc_1cbe
 
 loc_1c4e:
-        cmp     byte [bp-0x1], 0x80
-        jnc     loc_1c7c
+        cmp     byte [bp-0x1], 0x7f
+        jnz     loc_1c7c
+
+next_symbol:
+        les     bx, [0x4d50]
+        add     bx, [0xe7ab]
+        mov     al, [es:bx]
+        mov     [bp-0x1], al
+        inc     word [0xe7ab]
+
+        cmp     byte [bp-0x1], 0
+        jz      loc_1cb7
+
         cmp     byte [bp-0x1], 0x20
         jnc     loc_1c60
         cmp     byte [bp-0x1], 0xa
         jnz     loc_1c6d
 
-loc_1c60:
+loc_1c60: ; print
         mov     al, [bp-0x1]
         mov     ah, 0x0
         push    ax
 
 fixmeup0: ; far call by absolute direct address
         call    0x464:0x33d3
-        jmp     loc_1cb7
+        jmp     next_symbol
 
 loc_1c6d:
         push    ds
-        mov     ax, 0x9ed
+        mov     ax, 0x9ed ; Try to print out a control char
         push    ax
 
 fixmeup1: ; far call by absolute direct address
@@ -85,6 +96,7 @@ loc_1cbe:
         mov     al, [es:bx]
         mov     [bp-0x1], al
         inc     word [0xe7ab]
+
         cmp     byte [bp-0x1], 0xf7
         jz      loc_1cf7
         cmp     byte [bp-0x1], 0xf0

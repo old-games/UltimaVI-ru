@@ -892,11 +892,16 @@ def encode(conversation, target_language, version):
         return token[1:-1]
 
     def write_string(string, context):
-        if context == 'strings' or version == 2 and context != 'name':
+        if version == 2 and context == 'print':
+            start = b'\x7f'
+            end = b'\x00'
+        elif context == 'strings' or version == 2 and context != 'name':
+            start = b''
             end = b'\x00'
         else:
+            start = b''
             end = b''
-        result.extend(string.encode('ascii' if version == 1 else 'cp866') + end)
+        result.extend(start + string.encode('ascii' if version == 1 else 'cp866') + end)
 
     def add_label():
         assert token not in labels
