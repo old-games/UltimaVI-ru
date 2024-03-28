@@ -12,11 +12,13 @@ import tools.conversation
 import tools.lzw
 
 
-mode = sys.argv[1] if len(sys.argv) == 2 else 'russian'
-assert mode in ('russian', 'english')
+patch_language = sys.argv[1] if len(sys.argv) >= 2 else 'russian'
+conversation_language = sys.argv[2] if len(sys.argv) >= 3 else 'russian'
+assert patch_language in ('russian', 'english')
+assert conversation_language in ('russian', 'english')
 
 with tempfile.TemporaryDirectory() as d:
-    subprocess.run(['python3', '-m', 'tools.patch', d, mode], check=True)
+    subprocess.run(['python3', '-m', 'tools.patch', d, patch_language], check=True)
     # FIXME exepack
     subprocess.run(['python3', '-m', 'tools.symbols', d], check=True)
 
@@ -32,7 +34,7 @@ with tempfile.TemporaryDirectory() as d:
         path = os.path.join(conversations_path, character)
         with open(path, 'r') as f:
             script = f.read()
-        source, index, data = tools.conversation.encode(script, mode, 2 if mode == 'russian' else 1)
+        source, index, data = tools.conversation.encode(script, conversation_language, 2)
         conversations[source][index] = data
 
     for name in tools.get_archive_files():
@@ -59,11 +61,12 @@ with tempfile.TemporaryDirectory() as d:
     sha = tools.get_sha()
     sha = f'-{sha}' if sha else ''
 
-    mode = f'-{mode}' if mode == 'english' else ''
-
-    name = f'UltimaVI-ru{mode}{sha}.zip'
+    patch_mode = f'[patch={patch_language}]' if patch_language != 'russian'
+    conversation_mode = f'[conversation={conversation_language}]' if conversation_language != 'russian'
+    base = f'UltimaVI-ru{sha}{mode}'
+    name = f'{base}.zip'
 
     print(f'Writing {name}')
     with zipfile.ZipFile(name, 'w') as f:
         for n in sorted(existing_files):
-            f.write(os.path.join(d, n), os.path.join(f'UltimaVI-ru{mode}{sha}', n))
+            f.write(os.path.join(d, n), os.path.join(base, n))
