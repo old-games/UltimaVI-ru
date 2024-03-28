@@ -69,7 +69,7 @@ with tempfile.TemporaryDirectory() as d:
     print(f'Writing {name}')
     with zipfile.ZipFile(name, 'w') as f:
         for n in sorted(existing_files):
-            f.write(os.path.join(d, n), os.path.join(base, n))
+            f.write(os.path.join(d, n), os.path.join(basename, n))
 
     if outputs := os.environ.get('GITHUB_OUTPUT', None):
         with open(outputs, 'a') as f:
