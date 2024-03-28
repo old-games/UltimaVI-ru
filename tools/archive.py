@@ -5,7 +5,7 @@ import tools
 import tools.lzw
 
 
-def decode(path):
+def decode(path, bits=32):
     items = []
     offsets = {}
     with open(path, 'rb') as f:
@@ -13,14 +13,14 @@ def decode(path):
 
     current = 0
     while current < len(data):
-        offset = int.from_bytes(data[current:current+4], 'little')
+        offset = int.from_bytes(data[current:current+bits//8], 'little')
         if current in offsets:
             break
         elif offset != 0:
             assert offset not in offsets
             offsets[offset] = len(items)
         items.append(None)
-        current += 4
+        current += bits//8
 
     assert current == next(iter(offsets))
 
@@ -37,14 +37,14 @@ def decode(path):
     return items
 
 
-def encode(data, path):
-    offsets = [len(data)*4]
+def encode(data, path, bits=32):
+    offsets = [len(data)*(bits//8)]
     for item in data:
         offsets.append(offsets[-1] + (len(item) if item is not None else 0))
 
     with open(path, 'wb') as f:
         for offset, item in zip(offsets, data):
-            f.write(offset.to_bytes(4, 'little') if item is not None else b'\x00'*4)
+            f.write(offset.to_bytes(bits//8, 'little') if item is not None else b'\x00'*(bits//8))
         for offset, item in zip(offsets, data):
             if item is not None:
                 assert f.tell() == offset

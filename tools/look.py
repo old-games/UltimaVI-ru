@@ -1,4 +1,4 @@
-def unpack(data):
+def decode(data):
     result = {}
     # FIXME test
 
@@ -16,6 +16,6 @@ def unpack(data):
     return result
 
 
-def pack(look):
+def encode(look):
     # FIXME test
     pass
