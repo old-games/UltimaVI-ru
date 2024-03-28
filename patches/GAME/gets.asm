@@ -89,8 +89,9 @@ loc_2dba:
         jnl     loc_2ddb
         cmp     word [bp-0x2], byte +0x20
         jl      loc_2ddb
-        cmp     word [bp-0x2], byte +0x7e
-        jg      loc_2ddb
+
+        ; FIXME remake using `patches` :(
+
         mov     al, [bp-0x2]
         mov     bx, [bp+0x8]
         mov     [bx+si], al
