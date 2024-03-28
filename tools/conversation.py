@@ -892,11 +892,11 @@ def encode(conversation, target_language, version):
         return token[1:-1]
 
     def write_string(string, context):
-        if version == 2 and context == 'print':
-            start = b'\x7f'
-            end = b'\x00'
-        elif context == 'strings' or version == 2 and context != 'name':
+        if context == 'strings':
             start = b''
+            end = b'\x00'
+        elif version == 2 and context == 'print':
+            start = b'\x04'
             end = b'\x00'
         else:
             start = b''
@@ -940,7 +940,7 @@ def encode(conversation, target_language, version):
 
         elif token == 'description':
             assert next(iterator) == ':'
-            result.append(0xf1)
+            result.append(0xf1 if version == 1 else 1)
             add_label()
 
         elif token == 'print':
@@ -1087,11 +1087,11 @@ def encode(conversation, target_language, version):
             assert next(iterator) == ':'
 
         elif token == 'else':
-            result.append(0xa3)
+            result.append(0xa3 if version == 1 else 3)
             assert next(iterator) == ':'
 
         elif token == 'fi':
-            result.append(0xa2)
+            result.append(0xa2 if version == 1 else 2)
 
         elif token == 'jump':
             result.append(0xb0)
@@ -1100,14 +1100,14 @@ def encode(conversation, target_language, version):
             result.extend(b'\x00\x00\x00\x00')
 
         elif token == 'case':
-            result.append(0xef)
+            result.append(0xef if version == 1 else 0x0f)
             case = next(iterator)
             write_string(case, 'case')
             result.append(0xf6)
             assert next(iterator) == ':'
 
         elif token == 'esac':
-            result.append(0xee)
+            result.append(0xee if version == 1 else 0x0e)
 
         elif token == 'createHorse':
             assert next(iterator) == '('
@@ -1231,6 +1231,7 @@ def encode(conversation, target_language, version):
     for offset, label in placeholders.items():
         data = labels[label].to_bytes(4, 'little')
         result[offset:offset+4] = data
-        assert offset not in dangerous_placeholders or 0xb0 not in data and 0xd4 not in data[2:4] and 0xd3 != data[3], 'Flow may be broken'
+        dangerous_ff = 0xb0 in data or 0xd4 in data[2:4] or 0xd3 == data[3]
+        assert version != 1 or offset not in dangerous_placeholders or not dangerous_ff, 'Flow may be broken'
 
     return source, index, result

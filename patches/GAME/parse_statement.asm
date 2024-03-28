@@ -18,7 +18,7 @@ sub_1c45:
         jmp     loc_1cbe
 
 loc_1c4e:
-        cmp     byte [bp-0x1], 0x7f
+        cmp     byte [bp-0x1], 4
         jnz     loc_1c7c
 
 next_symbol:
@@ -57,7 +57,7 @@ fixmeup1: ; far call by absolute direct address
         jmp     loc_1cf7
 
 loc_1c7c:
-        cmp     byte [bp-0x1], 0xef
+        cmp     byte [bp-0x1], 0x0f
         jnz     loc_1cad
         cmp     byte [0xe79c], 0x0
         jnz     loc_1ca5
@@ -75,11 +75,24 @@ loc_1c93:
         inc     word [0xe7ab]
 
 loc_1ca5:
-        cmp     byte [bp-0x1], 0xee
+        cmp     byte [bp-0x1], 0x0e
         jnz     loc_1c93
         jmp     loc_1cb7
 
 loc_1cad:
+        cmp     byte [bp-0x1], 0xa3
+        jz      replace_a3      
+
+        cmp     byte [bp-0x1], 0xa2
+        jnz     execute
+
+        mov     byte [bp-0x1], 2
+        jmp     execute
+
+replace_a3:
+        mov     byte [bp-0x1], 3
+
+execute:
         push    word [bp-0x1]
         push    word [bp+0x6]
 
@@ -107,7 +120,7 @@ loc_1cbe:
         jz      loc_1cf7
         cmp     byte [bp-0x1], 0xf8
         jz      loc_1cf7
-        cmp     byte [bp-0x1], 0xee
+        cmp     byte [bp-0x1], 0x0e
         jz      loc_1cf7
         jmp     loc_1c4e
 

@@ -43,7 +43,7 @@ loc_00d7:
         xor     si, si
 
 loc_00d9:
-        cmp     byte [si-0x189c], 0xf1
+        cmp     byte [si-0x189c], 1
         jz      loc_00ec
         mov     ax, si
         inc     si

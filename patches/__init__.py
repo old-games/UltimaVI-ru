@@ -87,3 +87,16 @@ def patch_GAME(d):
     # 0x464:0x33d3, putch, проверка на 0x80 бит.
     assert d[0xb203:0xb206] == b'\x0d\x80\x00'
     replace(d, 0xb204, b'\x00\x01')
+
+    # Conversation format version 2.
+    replaces = {
+        (0xf1, 1): [0x142fd, 0x14358],
+        (0xa2, 2): [0x13acb, 0x13b0e],
+        (0xa3, 3): [0x13ac3],
+        (0xee, 0x0e): [0x140b1, 0x14627],
+        (0xef, 0x0f): [0x140ab, 0x140bd, 0x1459a, 0x1460b],
+    }
+    for (expected, fix), offsets in replaces.items():
+        for offset in offsets:
+            assert d[offset] == expected
+            d[offset] = fix
