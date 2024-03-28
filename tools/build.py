@@ -63,10 +63,14 @@ with tempfile.TemporaryDirectory() as d:
 
     patch_mode = f'[patch={patch_language}]' if patch_language != 'russian' else ''
     conversation_mode = f'[conversation={conversation_language}]' if conversation_language != 'russian' else ''
-    base = f'UltimaVI-ru{sha}{patch_mode}{conversation_mode}'
-    name = f'{base}.zip'
+    basename = f'UltimaVI-ru{sha}{patch_mode}{conversation_mode}'
+    name = f'{basename}.zip'
 
     print(f'Writing {name}')
     with zipfile.ZipFile(name, 'w') as f:
         for n in sorted(existing_files):
             f.write(os.path.join(d, n), os.path.join(base, n))
+
+    if outputs := os.environ.get('GITHUB_OUTPUT', None):
+        with open(outputs, 'a') as f:
+            f.write(f'name={name}\nbasename={basename}\n')
