@@ -501,7 +501,7 @@ def decode(conversation, source, index):
                 return "'*'"
             else:
                 return '\n'.join((
-                    f"{'{'}'english': '{escaped}'{'}'}:",
+                    f"'{escaped}':",
                     f"{' '*len(levels)*4}case {'{'}'russian': 'FIXME {escaped}'{'}'}"
                 ))
 
