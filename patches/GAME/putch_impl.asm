@@ -1,12 +1,13 @@
 bits 16
 
 global sub_2efa
+
 global fixmeup0
 global fixmeup1
 
 section CODE
 
-; cat unpacked/GAME.EXE | head -c44830 | tail -c+43835
+; python3 -m tools.format unpacked/GAME.EXE 0xab3a 0xaf1e 0x2efa
 
 ; TODO: clean up code, move character buffer to proper place
 

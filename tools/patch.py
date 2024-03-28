@@ -91,7 +91,10 @@ def nasm(code):
     with tempfile.TemporaryDirectory() as d:
         with open(f'{d}/1.asm', 'w') as f:
             f.write(f'bits 16\n{code}')
-        subprocess.run(['nasm', '-f', 'bin', f'{d}/1.asm', '-o', f'{d}/1.com'], check=True)
+        r = subprocess.run(['nasm', '-f', 'bin', f'{d}/1.asm', '-o', f'{d}/1.com'], stderr=subprocess.PIPE, universal_newlines=True)
+        if r.returncode != 0:
+            print(r.stderr)
+            r.check_returncode()
         with open(f'{d}/1.com', 'rb') as f:
             return f.read()
 

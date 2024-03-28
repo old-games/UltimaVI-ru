@@ -1,12 +1,13 @@
 bits 16
 
 global sub_00a0
+
 global fixmeup0
 global fixmeup1
 
 section CODE
 
-; cat unpacked/GAME.EXE | head -c74694 | tail -c+74577
+; python3 -m tools.format unpacked/GAME.EXE 0x12350 0x123c6 0xa0
 
 sub_00a0:
         push    bp
@@ -52,7 +53,7 @@ loc_00d9:
 
 loc_00ec:
         or      si, si
-        jnz     loc_00fe
+        jnz     loc_0109
         push    ds
         mov     ax, 0x98e
         push    ax
@@ -61,13 +62,6 @@ fixmeup1: ; far call by absolute direct address
         call    0x464:0x3643
         pop     cx
         pop     cx
-        jmp     loc_0109
-
-loc_00fe:
-        ; FIXME patch Dr. Cat without code.
-        cmp     word [bp+0x6], byte +0x6e
-        jnz     loc_0109
-        mov     byte [0xe766], 0x2e ; Patch Dr. Cat.
 
 loc_0109:
         mov     byte [si-0x189c], 0x0

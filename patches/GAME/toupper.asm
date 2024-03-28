@@ -4,7 +4,7 @@ global sub_0003
 
 section CODE
 
-; cat unpacked/GAME.EXE | head -c197780 | tail -c+197732
+; python3 -m tools.format unpacked/GAME.EXE 0x30463 0x30494 0x3
 
 sub_0003:
         push    bp

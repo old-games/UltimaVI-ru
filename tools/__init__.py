@@ -59,7 +59,6 @@ def get_compressed_files():
         'INTRO.M',
         'INTRO.PTR',
         'INTRO.SHP',
-        'LOOK.LZD',
         'LZDNGBLK',
         'LZMAP',
         'LZOBJBLK',
