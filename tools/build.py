@@ -61,8 +61,8 @@ with tempfile.TemporaryDirectory() as d:
     sha = tools.get_sha()
     sha = f'-{sha}' if sha else ''
 
-    patch_mode = f'[patch={patch_language}]' if patch_language != 'russian'
-    conversation_mode = f'[conversation={conversation_language}]' if conversation_language != 'russian'
+    patch_mode = f'[patch={patch_language}]' if patch_language != 'russian' else ''
+    conversation_mode = f'[conversation={conversation_language}]' if conversation_language != 'russian' else ''
     base = f'UltimaVI-ru{sha}{patch_mode}{conversation_mode}'
     name = f'{base}.zip'
 
