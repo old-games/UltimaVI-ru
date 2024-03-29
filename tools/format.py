@@ -22,9 +22,9 @@ with open(path, 'rb') as f:
     data = f.read()
 
 with tempfile.TemporaryDirectory() as d:
-    with open('block.bin', 'wb') as f:
+    with open(f'{d}/block.bin', 'wb') as f:
         f.write(data[start:end])
-    r = subprocess.run(['ndisasm', '-b', '16', '-o', str(origin), 'block.bin'], stdout=subprocess.PIPE, universal_newlines=True, check=True)
+    r = subprocess.run(['ndisasm', '-b', '16', '-o', str(origin), f'{d}/block.bin'], stdout=subprocess.PIPE, universal_newlines=True, check=True)
 
 input_lines = r.stdout.splitlines()
 
