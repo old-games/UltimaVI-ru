@@ -3,6 +3,7 @@ import re
 
 import tools.archive
 import tools.conversation
+import tools.file
 import tests
 
 
@@ -14,7 +15,7 @@ class TestConversation(tests.TestCase):
     def testOriginal(self):
         for name in ('CONVERSE.A', 'CONVERSE.B'):
             with self.subTest(name=name):
-                for index, expected in enumerate(tools.archive.unpack(os.path.join(self.script_path, 'original', name))):
+                for index, expected in enumerate(tools.archive.unpack(tools.file.read(os.path.join(self.script_path, 'original', name)))):
                     if expected is not None:
                         with self.subTest(index=index):
                             script = self.fixScript(tools.conversation.decode(expected, name, index))
@@ -26,7 +27,7 @@ class TestConversation(tests.TestCase):
     def testUser(self):
         expected = {}
         for name in ('CONVERSE.A', 'CONVERSE.B'):
-            expected[name] = tools.archive.unpack(f'{self.script_path}/original/{name}')
+            expected[name] = tools.archive.unpack(tools.file.read(f'{self.script_path}/original/{name}'))
 
         conversations_path = os.path.join(self.script_path, 'conversations')
         for script_name in os.listdir(conversations_path):

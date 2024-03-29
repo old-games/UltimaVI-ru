@@ -6,6 +6,7 @@ import time
 import tests
 import tools
 import tools.archive
+import tools.file
 import tools.lzw
 
 
@@ -123,10 +124,11 @@ class TestLZW(tests.TestCase):
         data = {}
         compressed = 0
         uncompressed = 0
+        # FIXME update archive files, add parameters
         archives = tools.get_archive_files()
         for archive in archives:
             if os.path.splitext(archive)[0] != 'PORTRAIT':
-                items = tools.archive.decode(os.path.join(self.script_path, 'original', archive))
+                items = tools.archive.decode(tools.file.read(os.path.join(self.script_path, 'original', archive)))
                 for i, item in enumerate(items):
                     if item is not None and int.from_bytes(item[:4], 'little') != 0:
                         data_uncompressed = tools.lzw.decompress(item)
@@ -134,6 +136,7 @@ class TestLZW(tests.TestCase):
                         compressed += len(item)
                         uncompressed += len(data_uncompressed)
 
+        # FIXME compressed files is changed , take into account second unpacking step `get_all_compressed_files()`
         files = tools.get_compressed_files()
         for name in files:
             with open(os.path.join(self.script_path, 'original', name), 'rb') as f:

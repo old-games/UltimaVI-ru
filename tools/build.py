@@ -9,6 +9,7 @@ import zipfile
 import tools
 import tools.archive
 import tools.conversation
+import tools.file
 import tools.lzw
 
 
@@ -18,12 +19,14 @@ assert patch_language in ('russian', 'english')
 assert conversation_language in ('russian', 'english')
 
 with tempfile.TemporaryDirectory() as d:
-    subprocess.run(['python3', '-m', 'tools.patch', d, patch_language], check=True)
+    subprocess.run(['python3', '-m', 'tools.patch', d, patch_language], check=True) # FIXME switch to function
     # FIXME exepack
-    subprocess.run(['python3', '-m', 'tools.symbols', d], check=True)
+    subprocess.run(['python3', '-m', 'tools.symbols', d], check=True) # FIXME switch to function
+
+    # FIXME get rid of tempfile
 
     for name in tools.get_compressed_files():
-        with open(tools.get_path(name, d), 'rb')  as f:
+        with open(tools.get_path(name, d), 'rb') as f:
             data = tools.lzw.compress(f.read())
         with open(os.path.join(d, name), 'wb') as f:
             f.write(data)
@@ -42,7 +45,7 @@ with tempfile.TemporaryDirectory() as d:
             data = [None]*(max(conversations[name]) + 1)
             for index, item in conversations[name].items():
                 data[index] = item
-            tools.archive.pack(data, os.path.join(d, name))
+            tools.file.write(os.path.join(d, name), tools.archive.pack(data))
 
     def recursive_copy(source, destination, sub_directory=None):
         for e in os.scandir(source):

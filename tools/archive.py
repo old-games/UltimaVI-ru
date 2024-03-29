@@ -5,11 +5,9 @@ import tools
 import tools.lzw
 
 
-def decode(path, bits=32):
+def decode(data, bits=32, ordered=True):
     items = []
     offsets = {}
-    with open(path, 'rb') as f:
-        data = bytearray(f.read())
 
     current = 0
     while current < len(data):
@@ -22,11 +20,14 @@ def decode(path, bits=32):
         items.append(None)
         current += bits//8
 
-    assert current == next(iter(offsets))
+    assert not ordered or current == next(iter(offsets))
 
     size = len(data)
     assert size not in offsets
     offsets[size] = None
+
+    if not ordered:
+        offsets = dict(sorted(offsets.items()))
 
     offsets_right = iter(offsets)
     next(offsets_right)
@@ -37,25 +38,27 @@ def decode(path, bits=32):
     return items
 
 
-def encode(data, path, bits=32):
+def encode(data, bits=32):
     offsets = [len(data)*(bits//8)]
     for item in data:
         offsets.append(offsets[-1] + (len(item) if item is not None else 0))
 
-    with open(path, 'wb') as f:
-        for offset, item in zip(offsets, data):
-            f.write(offset.to_bytes(bits//8, 'little') if item is not None else b'\x00'*(bits//8))
-        for offset, item in zip(offsets, data):
-            if item is not None:
-                assert f.tell() == offset
-                f.write(item)
-        assert f.tell() == offsets[-1]
+    result = bytearray()
+    for offset, item in zip(offsets, data):
+        result.extend(offset.to_bytes(bits//8, 'little') if item is not None else b'\x00'*(bits//8))
+    for offset, item in zip(offsets, data):
+        if item is not None:
+            assert len(result) == offset
+            result.extend(item)
+
+    assert len(result) == offsets[-1]
+    return result
 
 
-def unpack(path):
+def unpack(data):
     # FIXME test
     result = []
-    for item in decode(path):
+    for item in decode(data):
         if item is None:
             result.append(None)
         elif hashlib.sha256(item).hexdigest() == '52484ae256cef6191b79c2a09c070198cf1fdc067675ebc54fe930093f0409a7':
@@ -68,9 +71,10 @@ def unpack(path):
     return result
 
 
-def pack(data, path):
+def pack(data):
     # FIXME test
     compressed = []
     for item in data:
         compressed.append(item and tools.lzw.compress(item))
-    encode(compressed, path)
+
+    return encode(compressed)
