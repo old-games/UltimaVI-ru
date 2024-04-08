@@ -39,6 +39,36 @@ def patch_U(d):
     d[0xd23f] -= 4
     d[0xd251] += 8
 
+    #d[0x69d4] = 0xeb
+
+    #d[0x3369] = 0x90
+    #d[0x336a] = 0x90
+
+    #d[0xb431] = 0x90
+    #d[0xb432] = 0x90
+
+    #d[0x9a3e] = 0x90
+    #d[0x9a3d] = 0x90
+
+    #d[0x8c1b] = 0xeb
+
+    """ One of these used in transfer character
+    d[0xd7fb] = 0xeb
+
+    d[0x36fa] = 0xeb
+
+    d[0x2c70] = 0xeb
+    """
+
+    # Ввод имени.
+
+    assert d[0x2a52:0x2a54] == b'\x74\x03'
+    d[0x2a52] = 0x90
+    d[0x2a53] = 0x90 # FIXME не пропускать всякий мусор во ввод
+
+    assert d[0x2ba8:0x2baa] == b'\x75\x1e'
+    d[0x2ba8] = 0xeb
+
 
 def patch_END(d):
     # Высота текста "From its crimson depths Lord British emerges, trailed by ".
