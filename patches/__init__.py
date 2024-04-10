@@ -60,14 +60,36 @@ def patch_U(d):
     d[0x2c70] = 0xeb
     """
 
-    # Ввод имени.
+    # Ввод русских букв.
+    assert set(d[0x1a5cb:0x1a64b]) == {0}
+    alpha = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
+    six = alpha[:6]
+    assert len(set(alpha)) == 33
+    for letter in alpha:
+        code = ord(letter.encode('cp866'))
+        d[0x1a5cb+code-0x80] |= 8
+    for letter in alpha.upper():
+        code = ord(letter.encode('cp866'))
+        d[0x1a5cb+code-0x80] |= 4
+    for letter in six + six.upper():
+        code = ord(letter.encode('cp866'))
+        d[0x1a5cb+code-0x80] |= 0x10
 
-    assert d[0x2a52:0x2a54] == b'\x74\x03'
-    d[0x2a52] = 0x90
-    d[0x2a53] = 0x90 # FIXME не пропускать всякий мусор во ввод
+    # Return code is word.
+    assert d[0x2a91] == 0x8a
+    d[0x2a91] = 0x8b
 
-    assert d[0x2ba8:0x2baa] == b'\x75\x1e'
-    d[0x2ba8] = 0xeb
+    # Use word.
+    assert d[0x2afc] == 0x98
+    d[0x2afc] = 0x90
+
+    # FIXME
+    0x13e68
+    0x13e75
+    0x13e82
+    0x13f4a
+    0x13f6b
+    0x13f7c
 
 
 def patch_END(d):
