@@ -36,7 +36,7 @@ elif ext == '.SET':
     with open(sys.argv[1], 'rb') as f:
         s = f.read()
 
-    width = max(s[4:0x104]) + 1
+    width = max(max(s[4:0x104]) + 1, 11)
     result = []
     for r in range(16):
         result.append([f'{r*0x10:02X}'])
