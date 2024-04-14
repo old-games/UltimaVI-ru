@@ -36,12 +36,12 @@ elif ext == '.SET':
     with open(sys.argv[1], 'rb') as f:
         s = f.read()
 
-    width = max(max(s[4:0x104]) + 1, 11)
+    width = max(max(s[4:0x104]), 10) + 1
     result = []
     for r in range(16):
         result.append([f'{r*0x10:02X}'])
         for k in range(4):
-            result.append([' ']*width*16)
+            result.append(['.']*width*16)
 
     for i, (lo, hi, size) in enumerate(zip(s[0x104:0x204], s[0x204:0x304], s[4:0x104])):
         offset = hi*0x100+lo
@@ -61,6 +61,8 @@ elif ext == '.SET':
                         result[1+j//2+i//16*5][i%16*width+k] = '▄'
                     else:
                         result[1+j//2+i//16*5][i%16*width+k] = '█'
+                elif result[1+j//2+i//16*5][i%16*width+k] == '.':
+                    result[1+j//2+i//16*5][i%16*width+k] = ' '
 
     for l in result:
         print(''.join(l))
