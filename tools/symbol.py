@@ -21,7 +21,9 @@ def make_image(input_path, output_path, symbol_width):
         if row % 5:
             for column in range(len(lines[row])):
                 for shift, pixels in enumerate(('█▀', '█▄')):
-                    if lines[row][column] in pixels:
+                    if lines[row][column] == '.':
+                        color = '#ffe0e0'
+                    elif lines[row][column] in pixels:
                         color = 'black'
                     else:
                         color = 'white'
@@ -40,7 +42,7 @@ def make_image(input_path, output_path, symbol_width):
                 (row//5*8+row//5)*factor,
                 new_width-1,
                 (row//5*8+row//5+1)*factor-2,
-            ), fill='white')
+            ), fill='#ffc0c0')
             for column in range(0, len(lines[row+1]), symbol_width):
                 draw.text((column*factor+1, (row//5*8+row//5+1)*factor-2), f'{code+column//symbol_width:02X}', fill='red', anchor='ls', font=font)
 

@@ -12,7 +12,7 @@ if ext == '.CH':
     for r in range(len(x) // 128):
         result.append([f'{r*0x10:02X}'])
         for k in range(4):
-            result.append([' ']*width*16)
+            result.append(['.']*width*16)
 
     for i in range(len(x) // 128):
         for k in range(8):
@@ -28,6 +28,8 @@ if ext == '.CH':
                             result[1+k//2+i*5][j*width+l] = '▄'
                         else:
                             result[1+k//2+i*5][j*width+l] = '█'
+                    elif result[1+k//2+i*5][j*width+l] == '.':
+                        result[1+k//2+i*5][j*width+l] = ' '
 
     for l in result:
         print(''.join(l))
