@@ -43,17 +43,24 @@ for symbol in symbols:
     data = combined_font[symbol*8:symbol*8+8]
     left = 7
     right = 0
-    for i in range(8):
-        r = data[i]
-        for k in range(8):
-            if r & 1 << 7-k:
-                left = min(left, k)
-                right = max(right, k)
-    width = 1 + max(0, right-left+1)
+    if 0xb0 <= symbol < 0xe0:
+        left = 0
+        right = 7
+        start = 0
+        width = 8
+    else:
+        for i in range(8):
+            r = data[i]
+            for k in range(8):
+                if r & 1 << 7-k:
+                    left = min(left, k)
+                    right = max(right, k)
+        start = 1
+        width = 1 + max(0, right-left+1)
     y = bytearray([0]*width*8)
     for row in range(8):
-        for col in range(1, width):
-            k = left + col - 1
+        for col in range(start, width):
+            k = left + col - start
             r = data[row]
             if r & 1 << 7-k:
                 y[row*width+col] = 0x0f

@@ -39,6 +39,58 @@ def patch_U(d):
     d[0xd23f] -= 4
     d[0xd251] += 8
 
+    #d[0x69d4] = 0xeb
+
+    #d[0x3369] = 0x90
+    #d[0x336a] = 0x90
+
+    #d[0xb431] = 0x90
+    #d[0xb432] = 0x90
+
+    #d[0x9a3e] = 0x90
+    #d[0x9a3d] = 0x90
+
+    #d[0x8c1b] = 0xeb
+
+    """ One of these used in transfer character
+    d[0xd7fb] = 0xeb
+
+    d[0x36fa] = 0xeb
+
+    d[0x2c70] = 0xeb
+    """
+
+    # Ввод русских букв.
+    assert set(d[0x1a5cb:0x1a64b]) == {0}
+    alpha = 'абвгдеёжзийклмнопрстуфхцчшщъыьэюя'
+    six = alpha[:6]
+    assert len(set(alpha)) == 33
+    for letter in alpha:
+        code = ord(letter.encode('cp866'))
+        d[0x1a5cb+code-0x80] |= 8
+    for letter in alpha.upper():
+        code = ord(letter.encode('cp866'))
+        d[0x1a5cb+code-0x80] |= 4
+    for letter in six + six.upper():
+        code = ord(letter.encode('cp866'))
+        d[0x1a5cb+code-0x80] |= 0x10
+
+    # Return code is word.
+    assert d[0x2a91] == 0x8a
+    d[0x2a91] = 0x8b
+
+    # Use word.
+    assert d[0x2afc] == 0x98
+    d[0x2afc] = 0x90
+
+    # FIXME
+    0x13e68
+    0x13e75
+    0x13e82
+    0x13f4a
+    0x13f6b
+    0x13f7c
+
 
 def patch_END(d):
     # Высота текста "From its crimson depths Lord British emerges, trailed by ".
