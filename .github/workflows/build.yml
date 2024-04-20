@@ -32,6 +32,9 @@ jobs:
       id: build
       run: |
         sudo apt-get install nasm
+        pip3 install poetry
+        poetry config virtualenvs.create false
+        poetry install
         python3 -m tools.build ${{ matrix.patch }} ${{ matrix.conversation }}
 
     - name: Upload
