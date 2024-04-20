@@ -901,7 +901,16 @@ def encode(conversation, target_language, version):
         else:
             start = b''
             end = b''
-        result.extend(start + string.encode('ascii' if version == 1 else 'cp866') + end)
+        try:
+            result.extend(start + string.encode('ascii' if version == 1 else 'cp866') + end)
+        except UnicodeEncodeError as e:
+            for i, c in enumerate(string):
+                try:
+                    c.encode('ascii' if version == 1 else 'cp866')
+                except UnicodeEncodeError:
+                    break
+            e.add_note(f"Could not encode '{string}' at '{c}'.")
+            raise e
 
     def add_label():
         assert token not in labels
