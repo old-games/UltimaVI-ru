@@ -34,6 +34,12 @@ def get_path(name, current_directory='.'):
             return path
 
 
+def get_force_original_files():
+    return (
+        'MAPTILES.VGA',
+    )
+
+
 def get_compressed_files():
     return (
         'ANIMMASK.VGA',

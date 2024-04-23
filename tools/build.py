@@ -29,10 +29,11 @@ with tempfile.TemporaryDirectory() as d:
     # FIXME get rid of tempfile
 
     for name in tools.get_compressed_files():
-        with open(tools.get_path(name, d), 'rb') as f:
-            data = tools.lzw.compress(f.read())
-        with open(os.path.join(d, name), 'wb') as f:
-            f.write(data)
+        if name not in tools.get_force_original_files():
+            with open(tools.get_path(name, d), 'rb') as f:
+                data = tools.lzw.compress(f.read())
+            with open(os.path.join(d, name), 'wb') as f:
+                f.write(data)
 
     conversations = collections.defaultdict(dict)
     conversations_path = os.path.join(tools.get_script_path(), 'conversations')
