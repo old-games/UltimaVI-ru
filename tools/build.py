@@ -1,4 +1,5 @@
 import collections
+import json
 import os
 import shutil
 import subprocess
@@ -10,14 +11,15 @@ import tools
 import tools.archive
 import tools.conversation
 import tools.file
+import tools.look
 import tools.lzw
 import tools.symbols
 
 
 patch_language = sys.argv[1] if len(sys.argv) >= 2 else 'russian'
-conversation_language = sys.argv[2] if len(sys.argv) >= 3 else 'russian'
+data_language = sys.argv[2] if len(sys.argv) >= 3 else 'russian'
 assert patch_language in ('russian', 'english')
-assert conversation_language in ('russian', 'english')
+assert data_language in ('russian', 'english')
 
 with tempfile.TemporaryDirectory() as d:
     subprocess.run(['python3', '-m', 'tools.patch', d, patch_language], check=True) # FIXME switch to function
@@ -25,6 +27,11 @@ with tempfile.TemporaryDirectory() as d:
 
     for name, output in (('U6.CH.txt', 'U6.CH'), ('U6.SET.txt', 'U6.SET')):
         tools.symbols.encode(os.path.join(tools.get_script_path(), 'tools', name), os.path.join(d, output))
+
+    tools.file.write(
+        os.path.join(d, 'LOOK.LZD'),
+        tools.lzw.compress(tools.look.encode(json.loads(tools.file.read(tools.get_path('look.json'))), data_language))
+    )
 
     # FIXME get rid of tempfile
 
@@ -41,7 +48,7 @@ with tempfile.TemporaryDirectory() as d:
         path = os.path.join(conversations_path, character)
         with open(path, 'r') as f:
             script = f.read()
-        source, index, data = tools.conversation.encode(script, conversation_language, 2)
+        source, index, data = tools.conversation.encode(script, data_language, 2)
         conversations[source][index] = data
 
     for name in tools.get_archive_files():
@@ -69,8 +76,8 @@ with tempfile.TemporaryDirectory() as d:
     sha = f'-{sha}' if sha else ''
 
     patch_mode = f'[patch={patch_language}]' if patch_language != 'russian' else ''
-    conversation_mode = f'[conversation={conversation_language}]' if conversation_language != 'russian' else ''
-    basename = f'UltimaVI-ru{sha}{patch_mode}{conversation_mode}'
+    data_mode = f'[data={data_language}]' if data_language != 'russian' else ''
+    basename = f'UltimaVI-ru{sha}{patch_mode}{data_mode}'
     name = f'{basename}.zip'
 
     print(f'Writing {name}')
