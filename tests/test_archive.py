@@ -26,6 +26,7 @@ class TestArchive(tests.TestCase):
 
         data = tools.archive.decode(expected, bits=16)
         for item in data:
+            # FIXME
             assert item is not None
 
 

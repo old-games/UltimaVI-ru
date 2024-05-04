@@ -16,6 +16,12 @@ def decode(data):
     return result
 
 
-def encode(look):
-    # FIXME test
-    pass
+def encode(look, language):
+    result = bytearray()
+
+    for id, values in look.items():
+        result.extend(int(id).to_bytes(2, 'little'))
+        result.extend(values[language].encode('cp866') + b'\x00')
+
+    result.extend(int(0x801).to_bytes(2, 'little'))
+    return result
