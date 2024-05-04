@@ -11,6 +11,7 @@ import tools.archive
 import tools.conversation
 import tools.file
 import tools.lzw
+import tools.symbols
 
 
 patch_language = sys.argv[1] if len(sys.argv) >= 2 else 'russian'
@@ -21,15 +22,18 @@ assert conversation_language in ('russian', 'english')
 with tempfile.TemporaryDirectory() as d:
     subprocess.run(['python3', '-m', 'tools.patch', d, patch_language], check=True) # FIXME switch to function
     # FIXME exepack
-    subprocess.run(['python3', '-m', 'tools.symbols', d], check=True) # FIXME switch to function
+
+    for name, output in (('U6.CH.txt', 'U6.CH'), ('U6.SET.txt', 'U6.SET')):
+        tools.symbols.encode(os.path.join(tools.get_script_path(), 'tools', name), os.path.join(d, output))
 
     # FIXME get rid of tempfile
 
     for name in tools.get_compressed_files():
-        with open(tools.get_path(name, d), 'rb') as f:
-            data = tools.lzw.compress(f.read())
-        with open(os.path.join(d, name), 'wb') as f:
-            f.write(data)
+        if name not in tools.get_force_original_files():
+            with open(tools.get_path(name, d), 'rb') as f:
+                data = tools.lzw.compress(f.read())
+            with open(os.path.join(d, name), 'wb') as f:
+                f.write(data)
 
     conversations = collections.defaultdict(dict)
     conversations_path = os.path.join(tools.get_script_path(), 'conversations')

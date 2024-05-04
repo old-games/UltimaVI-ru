@@ -34,8 +34,14 @@ def get_path(name, current_directory='.'):
             return path
 
 
+def get_force_original_files():
+    return (
+        'MAPTILES.VGA',
+    )
+
+
 def get_compressed_files():
-    return [
+    return (
         'ANIMMASK.VGA',
         'BOOTUP.M',
         'BRIT.M',
@@ -80,11 +86,11 @@ def get_compressed_files():
         'U6TMUS.DRV',
         'ULTIMA.M',
         'WORLDMAP.BMP',
-    ]
+    )
 
 
 def get_compressed_executables():
-    return [
+    return (
         'END.EXE',
         'GAME.EXE',
         'INSTALL.EXE',
@@ -96,14 +102,14 @@ def get_compressed_executables():
         'TANDYPIN.EXE',
         'U.EXE',
         'ULTIMA6.EXE',
-    ]
+    )
 
 
 def get_archive_files():
-    return [
+    return (
         'CONVERSE.A',
         'CONVERSE.B',
         'PORTRAIT.A',
         'PORTRAIT.B',
         'PORTRAIT.Z',
-    ]
+    )
