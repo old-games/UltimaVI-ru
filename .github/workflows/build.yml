@@ -12,13 +12,15 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        patch: [english, russian]
-        conversation: [russian]
         include:
-          - patch: english
-            conversation: english
+        - patch: russian
+          data: russian
+        - patch: english
+          data: russian
+        - patch: english
+          data: english
 
-    name: patch=${{ matrix.patch }}, conversation=${{ matrix.conversation }}
+    name: patch=${{ matrix.patch }}, data=${{ matrix.data }}
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
@@ -35,7 +37,7 @@ jobs:
         pip3 install poetry
         poetry config virtualenvs.create false
         poetry install
-        python3 -m tools.build ${{ matrix.patch }} ${{ matrix.conversation }}
+        python3 -m tools.build ${{ matrix.patch }} ${{ matrix.data }}
 
     - name: Upload
       uses: actions/upload-artifact@v3
