@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 
+import ctypes
 import collections
 import json
+import math
 import os
 import sys
 import time
@@ -84,6 +86,26 @@ tempo = 100
 octave_shift = 0
 velocity = 100
 only_channels = (0, 1)
+adlib_notes = False
+
+adlib_frequency_numbers = [
+    [0x158, 0x16a, 0x147],
+    [0x182, 0x196, 0x16e],
+    [0x1b0, 0x1c7, 0x19a],
+    [0x1cc, 0x1e4, 0x1b5],
+    [0x203, 0x21e, 0x1e9],
+    [0x241, 0x25f, 0x224],
+    [0x286, 0x2a8, 0x266]
+]
+adlib_keys_frequency_numbers = [adlib_frequency_numbers[i][j] for i, j in [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [3, 0], [3, 1], [4, 0], [4, 1], [5, 0], [6, 2], [6, 0]]] # FIXME
+adlib_keys_frequencies = [round(14318180/4/72*n/2**(20-4), 2) for n in adlib_keys_frequency_numbers]
+adlib_shifts = []
+for tone in range(12):
+    original = 261.6255653005987*(2**(1/12))**tone
+    adlib = round(14318180/4/72*adlib_keys_frequency_numbers[tone]/2**(20-4), 2) if adlib_notes else original
+    shift = math.log(adlib/original)/math.log(2**(1/1200))
+    adlib_shifts.append(shift)
+adlib_pitches = (ctypes.c_double * 128)(*(index*100+shift for index, shift in zip(range(128), adlib_shifts*11)))
 
 t = 0
 
@@ -92,6 +114,8 @@ repeat = 1
 instruments = {instrument: program for instrument, program in song[0]['instruments']}
 
 channel_keys = {}
+
+index_size = len(str(len(song)-1))
 
 index = 1
 unvisited = set(range(1, len(song)))
@@ -128,7 +152,13 @@ while index < len(song):
         continue_label = index
 
     if command['command'] == 'instrument':
-        fs.program_select(command['channel'], sfid, 0, instruments.get(command['instrument'], 0))
+        preset = instruments.get(command['instrument'], 0)
+
+        fs.program_select(command['channel'], sfid, 0, preset)
+
+        if adlib_notes:
+            fluidsynth.fluid_synth_activate_key_tuning(fs.synth, 0, preset, 'adlib'.encode(), adlib_pitches, True)
+            fluidsynth.fluid_synth_activate_tuning(fs.synth, command['channel'], 0, preset, True)
 
     if command['command'] == 'carrier':
         fs.cc(command['channel'], 7, int(command['volume']*100))
@@ -160,10 +190,10 @@ while index < len(song):
                     channel_keys[command['channel']] = key
 
                 pressed[key].add(command['channel'])
-                print(command['channel'], command['octave'], command['tone'], command['command'])
+                print(f'\x1b[37m{str(index).rjust(index_size)}:\x1b\033[0m', command['channel'], command['octave'], command['tone'], command['command'], adlib_shifts[key-(command['octave'] + octave_shift) * 12])
 
     if command['command'] == 'sleep':
-        print(command['duration'])
+        print(f'\x1b[37m{str(index).rjust(index_size)}:\x1b\033[0m', 'sleep', command['duration'])
         print_keys()
         time.sleep(command['duration']/60*100/tempo)
         unprint_keys()
