@@ -1,0 +1,172 @@
+#!/usr/bin/env python3
+
+import collections
+import json
+import os
+import sys
+import time
+
+import fluidsynth
+
+
+def unprint_keys():
+    n = 7
+    for _ in range(n+3):
+        print(f'\x1b[1F\x1b[0K', end='')
+
+
+def print_keys():
+    n = 7
+    upper = '▉█▉ 🮈█▎ █▉█▋ 🮉█▏▕█▌ 🮊'
+    lower = '▉██▉██▉██▉██▉██▉██▉██'
+    print()
+    for _ in range(4):
+        print(upper*n+upper[:2])
+    for _ in range(3):
+        print(lower*n+lower[:2])
+    for i in range(1, n+1):
+        for j in range(12):
+            k = i*12 + j
+            if j in (1, 3, 6, 8, 10):
+                if k in pressed:
+                    print(''.join(map(str, pressed[k])).ljust(3), end='')
+                else:
+                    print('   ', end='')
+            if j in (0, 3):
+                print('   ', end='')
+    print()
+    print('  ', end='')
+    for i in range(1, n+1):
+        for j in range(12):
+            k = i*12 + j
+            if j in (0, 2, 4, 5, 7, 9, 11):
+                if k in pressed:
+                    print(''.join(map(str, pressed[k])).ljust(3), end='')
+                else:
+                    print('   ', end='')
+    print()
+
+
+name = ''.join(sys.argv[1:])
+root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+choices = {}
+for filename in os.listdir(f'{root}/music'):
+    base, extension = os.path.splitext(filename)
+    if extension == '.json':
+        with open(f'{root}/music/{filename}') as f:
+            song = json.loads(f.read())
+            choices[os.path.splitext(song[0]['name'].lower())[0]] = os.path.splitext(filename)[0]
+
+if name not in choices:
+    print('Choices:')
+    for name in choices:
+        print(f'- {name}: {choices[name]}')
+    sys.exit(0)
+
+path = f'{root}/music/{choices[name]}.json'
+print(choices[name])
+
+with open(path) as f:
+    song = json.loads(f.read())
+
+fs = fluidsynth.Synth()
+fs.start(driver='alsa')
+
+sfid = fs.sfload(f'{root}/music/Phoenix_MT-32.sf2')
+
+keys = {'C': 0, 'D': 2, 'E': 4, 'F': 5, 'G': 7, 'A': 9, 'B': 11}
+shifts = {'♭': -1, '♯': 1}
+
+pressed = collections.defaultdict(set)
+
+tempo = 100
+octave_shift = 0
+velocity = 100
+only_channels = (0, 1)
+
+t = 0
+
+repeat = 1
+
+instruments = {instrument: program for instrument, program in song[0]['instruments']}
+
+channel_keys = {}
+
+index = 1
+unvisited = set(range(1, len(song)))
+stack = []
+continue_label = 1
+while index < len(song):
+    unvisited.discard(index)
+    command = song[index]
+
+    if command['command'] == 'call':
+        assert command['count'] > 0
+        stack.append([index+1, command['index'], command['count']])
+        stack[-1][2] -= 1
+        index = stack[-1][1]
+
+    elif command['command'] == 'return':
+        if stack:
+            if stack[-1][2] > 0:
+                stack[-1][2] -= 1
+                index = stack[-1][1]
+            else:
+                index = stack[-1][0]
+                stack.pop()
+        else:
+            index = continue_label
+            if not repeat:
+                break # TODO endless mode
+            repeat -= 1
+
+    else:
+        index += 1
+
+    if command['command'] == 'continue':
+        continue_label = index
+
+    if command['command'] == 'instrument':
+        fs.program_select(command['channel'], sfid, 0, instruments.get(command['instrument'], 0))
+
+    if command['command'] == 'carrier':
+        fs.cc(command['channel'], 7, int(command['volume']*100))
+
+    if command['command'] in ('note', 'note_on', 'note_off_on'):
+        if command['channel'] in channel_keys:
+            fs.noteoff(command['channel'], channel_keys[command['channel']])
+            pressed[channel_keys[command['channel']]].discard(command['channel'])
+            if not pressed[channel_keys[command['channel']]]:
+                del pressed[channel_keys[command['channel']]]
+
+        if command['command'] == 'note_off_on' and channel_keys.get(command['channel']):
+            pass # FIXME
+
+        if command['tone'] is not None:
+            if not only_channels or command['channel'] in only_channels:
+                key = (command['octave'] + octave_shift) * 12 + keys[command['tone'][0]]
+                if len(command['tone']) > 1:
+                    assert len(command['tone']) == 2
+                    key += shifts[command['tone'][1]]
+
+                if command['command'] in ('note_on', 'note_off_on'):
+                    fs.noteon(command['channel'], key, velocity)
+                    channel_keys[command['channel']] = key
+
+                else:
+                    pass # FIXME
+                    fs.noteon(command['channel'], key, velocity * 85 // 100)
+                    channel_keys[command['channel']] = key
+
+                pressed[key].add(command['channel'])
+                print(command['channel'], command['octave'], command['tone'], command['command'])
+
+    if command['command'] == 'sleep':
+        print(command['duration'])
+        print_keys()
+        time.sleep(command['duration']/60*100/tempo)
+        unprint_keys()
+        t += command['duration']
+
+fs.delete()
