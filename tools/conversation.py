@@ -863,7 +863,11 @@ def encode(conversation, target_language, version):
                 result.extend(value.to_bytes(4, 'little'))
             return
 
-        assert operator in operators
+        try:
+            assert operator in operators
+        except AssertionError as e:
+            e.add_note(f"Unexpected operator '{operator}'.")
+            raise e
         assert next(iterator) == '('
 
         if operator in ('data', 'indexOf'): # FIXME copy-paste?
