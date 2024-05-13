@@ -87,22 +87,44 @@ octave_shift = 0
 velocity = 100
 only_channels = (0, 1)
 adlib_notes = False
+sixth_notes = True
 
 adlib_frequency_numbers = [
-    [0x158, 0x16a, 0x147],
-    [0x182, 0x196, 0x16e],
-    [0x1b0, 0x1c7, 0x19a],
-    [0x1cc, 0x1e4, 0x1b5],
-    [0x203, 0x21e, 0x1e9],
-    [0x241, 0x25f, 0x224],
-    [0x286, 0x2a8, 0x266]
+    [0x158, 0x16a, 0x147], # C
+    [0x182, 0x196, 0x16e], # D
+    [0x1b0, 0x1c7, 0x19a], # E
+    [0x1cc, 0x1e4, 0x1b5], # F
+    [0x203, 0x21e, 0x1e9], # G
+    [0x241, 0x25f, 0x224], # A
+    [0x286, 0x2a8, 0x266]  # B
 ]
-adlib_keys_frequency_numbers = [adlib_frequency_numbers[i][j] for i, j in [[0, 0], [0, 1], [1, 0], [1, 1], [2, 0], [3, 0], [3, 1], [4, 0], [4, 1], [5, 0], [6, 2], [6, 0]]] # FIXME
+"""
+    922 C
+     25 C♯ # FIXME
+     40 D♭
+   1013 D
+     40 D♯ # FIXME
+    146 E♭
+    476 E
+     28 E♯ # FIXME
+    385 F
+    197 F♯
+     19 G♭ # FIXME
+   1045 G
+     16 G♯ # FIXME
+    123 A♭
+    839 A
+      2 A♯ # FIXME
+    228 B♭
+    573 B
+"""
+adlib_keys_frequency_numbers = [adlib_frequency_numbers[i][j] for i, j in [[0, 0], [1, 2], [1, 0], [1, 2], [2, 0], [3, 0], [3, 1], [4, 0], [5, 2], [5, 0], [6, 2], [6, 0]]]
 adlib_keys_frequencies = [round(14318180/4/72*n/2**(20-4), 2) for n in adlib_keys_frequency_numbers]
 adlib_shifts = []
 for tone in range(12):
     original = 261.6255653005987*(2**(1/12))**tone
     adlib = round(14318180/4/72*adlib_keys_frequency_numbers[tone]/2**(20-4), 2) if adlib_notes else original
+    print(round(original, 2), round(adlib, 2))
     shift = math.log(adlib/original)/math.log(2**(1/1200))
     adlib_shifts.append(shift)
 adlib_pitches = (ctypes.c_double * 128)(*(index*100+shift for index, shift in zip(range(128), adlib_shifts*11)))
