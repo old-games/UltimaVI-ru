@@ -952,7 +952,8 @@ def encode(conversation, target_language, version):
         elif token == 'name':
             assert next(iterator) == '('
             name = unquote(next(iterator))
-            write_string(name, 'name')
+            if target_language in languages:
+                write_string(name, 'name')
             assert next(iterator) == ')'
 
         elif token == 'description':
@@ -962,7 +963,9 @@ def encode(conversation, target_language, version):
 
         elif token == 'print':
             assert next(iterator) == '('
-            write_string(unquote(next(iterator)), 'print')
+            string = next(iterator)
+            if target_language in languages:
+                write_string(unquote(string), 'print')
             assert next(iterator) == ')'
 
         elif token == 'f3':
@@ -1119,7 +1122,8 @@ def encode(conversation, target_language, version):
         elif token == 'case':
             result.append(0xef if version == 1 else 0x0f)
             case = next(iterator)
-            write_string(case, 'case')
+            if target_language in languages:
+                write_string(case, 'case')
             result.append(0xf6)
             assert next(iterator) == ':'
 
@@ -1204,7 +1208,9 @@ def encode(conversation, target_language, version):
         elif token == 'choice':
             assert next(iterator) == '('
             result.append(0xf8)
-            write_string(unquote(next(iterator)), 'choice')
+            string = next(iterator)
+            if target_language in languages:
+                write_string(unquote(string), 'choice')
             assert next(iterator) == ')'
 
         elif token in operators:
@@ -1249,7 +1255,8 @@ def encode(conversation, target_language, version):
                 else:
                     assert value_type == is_string(value)
                 if is_string(value):
-                    write_string(unquote(value), 'strings')
+                    if target_language in languages:
+                        write_string(unquote(value), 'strings')
                 else:
                     result.extend(int(value).to_bytes(2, 'little'))
                 token = next(iterator)
@@ -1259,6 +1266,7 @@ def encode(conversation, target_language, version):
             assert False
 
         if target_language not in languages:
+            # TODO make internal
             del result[last_result_size:]
 
     for offset, label in placeholders.items():
