@@ -9,6 +9,7 @@ import zipfile
 
 import tools
 import tools.archive
+import tools.book
 import tools.conversation
 import tools.file
 import tools.look
@@ -31,6 +32,11 @@ with tempfile.TemporaryDirectory() as d:
     tools.file.write(
         os.path.join(d, 'LOOK.LZD'),
         tools.lzw.compress(tools.look.encode(json.loads(tools.file.read(tools.get_path('look.json'))), data_language))
+    )
+
+    tools.file.write(
+        os.path.join(d, 'BOOK.DAT'),
+        tools.book.encode(json.loads(tools.file.read(tools.get_path('book.json'))), data_language)
     )
 
     # FIXME get rid of tempfile
