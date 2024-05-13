@@ -788,7 +788,7 @@ def encode(conversation, target_language, version):
                 char = {'n': '\n', 't': '\t'}.get(char, char)
                 chars.append(char)
 
-            elif char in ',:{}()' and not is_string:
+            elif char in ',:{}()[]' and not is_string:
                 yield from token()
                 yield char
 
@@ -938,7 +938,11 @@ def encode(conversation, target_language, version):
     placeholders = {}
     dangerous_placeholders = set()
 
+    languages = {target_language}
+
     for token in iterator:
+        last_result_size = len(result)
+
         if token == 'id':
             assert next(iterator) == '('
             result.append(0xff)
@@ -1215,6 +1219,19 @@ def encode(conversation, target_language, version):
             assert next(iterator) == '('
             assert next(iterator) == ')'
 
+        elif token == '[':
+            languages = set()
+            while True:
+                language = next(iterator)
+                if language == ']':
+                    break
+                assert language in ('russian', 'english')
+                languages.add(language)
+                token = next(iterator)
+                assert token in ',]'
+                if token == ']':
+                    break
+
         elif (next_token := next(iterator)) == ':':
             add_label()
 
@@ -1240,6 +1257,9 @@ def encode(conversation, target_language, version):
 
         else:
             assert False
+
+        if target_language not in languages:
+            del result[last_result_size:]
 
     for offset, label in placeholders.items():
         data = labels[label].to_bytes(4, 'little')
