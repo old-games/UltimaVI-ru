@@ -728,7 +728,7 @@ def decode(conversation, source, index):
     return f"source('{source}')\nindex({index})\n\n{format_instructions()}"
 
 
-def encode(conversation, target_language, version):
+def encode(conversation, target_language, version, ignore_flow_errors=False):
     assert version in (1, 2) and target_language in ('english', 'russian') and (version == 2 or target_language == 'english')
 
     # FIXME remove copy-paste
@@ -1273,6 +1273,6 @@ def encode(conversation, target_language, version):
         data = labels[label].to_bytes(4, 'little')
         result[offset:offset+4] = data
         dangerous_ff = 0xb0 in data or 0xd4 in data[2:4] or 0xd3 == data[3]
-        assert offset not in dangerous_placeholders or not dangerous_ff, 'Flow may be broken'
+        assert ignore_flow_errors or offset not in dangerous_placeholders or not dangerous_ff, 'Flow may be broken'
 
     return source, index, result
