@@ -15,6 +15,7 @@ RUN mv UltimaVI-ru/* .
 RUN rmdir UltimaVI-ru
 
 COPY tools/RK.COM .
+COPY tools/RK211.COM .
 COPY tools/RUSSIAN.RK .
 COPY tools/8X16.RK .
 

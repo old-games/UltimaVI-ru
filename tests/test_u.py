@@ -21,18 +21,16 @@ class TestU(tests.InstalledTestCase):
             [
                 '-c', 'MOUNT C: .',
                 '-c', 'C:',
-                '-c', 'RK.COM /L:RUSSIAN.RK /F:8X16.RK',
+                '-c', 'RK211.COM /L:RUSSIAN.RK /F:8X16.RK', # FIXME `RK.COM`
                 'U.EXE',
             ],
             configuration,
             timeout_error=AssertionError,
         ) as box:
             box.send_keys('\x1b') # Esc.
-            time.sleep(0.1)
-            box.wait_image('screenshots/U/menu.png', timeout=5)
-            # FIXME
+            box.wait_image('screenshots/U/menu.png', timeout=6)
             box.send_keys('\x11') # Ctrl+Q.
-            #time.sleep(1000) FIXME
+            box.wait_image('screenshots/U/exit.png', timeout=1)
 
     @unittest.skip('TBD')
     def testU(self):
