@@ -5,12 +5,9 @@ import testbox
 import tests
 
 
-class TestGame(tests.TestCase):
+class TestGame(tests.InstalledTestCase):
     @unittest.skip('TBD')
     def testGame(self):
-        with open('CONFIG.U6', 'wb') as f:
-            f.write(b'\x76\x6d\x61\x33\x38\x38\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
-
         # FIXME игре нужен созданный персонаж
 
         configuration = {
