@@ -1,3 +1,4 @@
+import os
 import time
 import unittest
 
@@ -5,12 +6,34 @@ import testbox
 import tests
 
 
-class TestU(tests.TestCase):
+class TestU(tests.InstalledTestCase):
+    def testExitWithDriver(self):
+        configuration = {
+            'cpu': {
+                'cycles': 'max',
+            },
+            'render': {
+                'scaler': 'normal5x',
+            },
+        }
+
+        with testbox.TestBox(
+            [
+                '-c', 'MOUNT C: .',
+                '-c', 'C:',
+                '-c', 'RK211.COM /L:RUSSIAN.RK /F:8X16.RK', # FIXME `RK.COM`
+                'U.EXE',
+            ],
+            configuration,
+            timeout_error=AssertionError,
+        ) as box:
+            box.send_keys('\x1b') # Esc.
+            box.wait_image('screenshots/U/menu.png', timeout=6)
+            box.send_keys('\x11') # Ctrl+Q.
+            box.wait_image('screenshots/U/exit.png', timeout=1)
+
     @unittest.skip('TBD')
     def testU(self):
-        with open('CONFIG.U6', 'wb') as f:
-            f.write(b'\x76\x6d\x61\x33\x38\x38\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00')
-
         configuration = {
             'cpu': {
                 'cycles': 'max',
@@ -25,7 +48,7 @@ class TestU(tests.TestCase):
                 '-c', 'MOUNT C: .',
                 '-c', 'C:',
                 '-c', 'RK.COM /L:RUSSIAN.RK /F:8X16.RK',
-    #            'U.EXE',
+                'U.EXE',
             ],
             configuration,
             timeout_error=AssertionError,

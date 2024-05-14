@@ -12,9 +12,10 @@ RUN python3 -m tools.build
 RUN unzip UltimaVI-ru.zip 
 RUN rm UltimaVI-ru.zip
 RUN mv UltimaVI-ru/* .
-RUN rm -rf UltimaVI-ru
+RUN rmdir UltimaVI-ru
 
 COPY tools/RK.COM .
+COPY tools/RK211.COM .
 COPY tools/RUSSIAN.RK .
 COPY tools/8X16.RK .
 
