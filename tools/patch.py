@@ -252,10 +252,11 @@ for binary, functions in patches.add_functions.items():
             if t['source'] == binary:
                 if not t['russian'].startswith('FIXME ') and t['russian'] != t['english']:
                     references_segments = [x['segment'] for x in references.get((binary, t['offset']), [])]
+                    new_string = t['russian'].encode('cp866')[:len(t['english'].encode('cp866'))]
 
-                    if len(t['russian'].encode('cp866')) <= len(t['english'].encode('cp866')):
+                    if len(new_string) <= len(t['english'].encode('cp866')):
                         # FIXME упаковать фразы лучше
-                        message = t['russian'].encode('cp866').ljust(len(t['english']), b'\x00')
+                        message = new_string.ljust(len(t['english']), b'\x00')
                         replaces.append((t['offset'], len(message), message))
                         replaced += 1
 
