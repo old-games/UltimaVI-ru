@@ -280,6 +280,7 @@ for binary, functions in patches.add_functions.items():
                     missing += 1
 
     ds[system_break_address:system_break_address+2] = len(ds).to_bytes(2, 'little')
+
     ds.extend(b'\x00' * ((len(ds) - ds_size + 0x1ff) // 0x200 * 0x200 - len(ds) + ds_size))
     assert (len(ds) - ds_size) % 0x200 == 0
     data_space = (len(ds) - ds_size) // 0x200
@@ -333,6 +334,13 @@ for binary, functions in patches.add_functions.items():
     d[4:6] = pages.to_bytes(2, 'little')
     d[0x0a:0x0c] = (max(0, int.from_bytes(d[0x0a:0x0c], 'little') - data_space*0x20)).to_bytes(2, 'little')
     d[0x0c:0x0e] = (max(0, int.from_bytes(d[0x0c:0x0e], 'little') - data_space*0x20)).to_bytes(2, 'little')
+
+    uncovered_system_breaks = 0
+    for i in range(len(d)-1):
+        if int.from_bytes(d[i:i+2], 'little') == system_break:
+            d[i:i+2] = system_break.to_bytes(2, 'little')
+            uncovered_system_breaks += 1
+    assert uncovered_system_breaks == 5 # TODO Search remaining system breaks by code.
 
     d = d[:header] + code_block + d[header:]
 
