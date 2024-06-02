@@ -287,6 +287,8 @@ for binary, functions in patches.add_functions.items():
     print(f'{binary} — adding {data_space*0x200 + len(code_block)} bytes for {len(functions)} functions and {added} strings')
     d[header + segments[-1]*0x10:] = ds
 
+    # FIXME patch also extra_alloc
+
     # FIXME переставил это на абзац ниже, проверить, что это ничего не ломает. как будто бы не должно
     for o, l, t in replaces: # TODO Эта штука нужна до тех пор пока есть несовместимые замены и она скрывает эти ошибки.
         assert len(t) == l
