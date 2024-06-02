@@ -335,12 +335,17 @@ for binary, functions in patches.add_functions.items():
     d[0x0a:0x0c] = (max(0, int.from_bytes(d[0x0a:0x0c], 'little') - data_space*0x20)).to_bytes(2, 'little')
     d[0x0c:0x0e] = (max(0, int.from_bytes(d[0x0c:0x0e], 'little') - data_space*0x20)).to_bytes(2, 'little')
 
-    uncovered_system_breaks = 0
-    for i in range(len(d)-1):
+    replace_system_breaks = { # TODO more strict.
+        b'\x81\xc7': 1,
+        b'\xb9': 1,
+    }
+    for i in range(len(d)):
         if int.from_bytes(d[i:i+2], 'little') == system_break:
-            d[i:i+2] = system_break.to_bytes(2, 'little')
-            uncovered_system_breaks += 1
-    assert uncovered_system_breaks == 5 # TODO Search remaining system breaks by code.
+            for prefix in replace_system_breaks:
+                if i >= len(prefix) and prefix == d[i-len(prefix):i]:
+                    replace_system_breaks[prefix] -= 1
+                    d[i:i+2] = system_break.to_bytes(2, 'little')
+    assert set(replace_system_breaks.values()) == {0}
 
     d = d[:header] + code_block + d[header:]
 
