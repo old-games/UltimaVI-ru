@@ -344,7 +344,7 @@ for binary, functions in patches.add_functions.items():
             for prefix in replace_system_breaks:
                 if i >= len(prefix) and prefix == d[i-len(prefix):i]:
                     replace_system_breaks[prefix] -= 1
-                    d[i:i+2] = system_break.to_bytes(2, 'little')
+                    d[i:i+2] = len(ds).to_bytes(2, 'little')
     assert set(replace_system_breaks.values()) == {0}
 
     d = d[:header] + code_block + d[header:]
