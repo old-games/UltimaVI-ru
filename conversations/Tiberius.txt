@@ -4,20 +4,20 @@ index(26)
 id(26)
 name({
     'english': 'Tiberius',
-    'russian': 'FIXME Tiberius'
+    'russian': 'Тиберий'
 })
 
 description:
     print({
         'english': 'a rotund man in monk\'s robes.',
-        'russian': 'FIXME a rotund man in monk\'s robes.'
+        'russian': 'упитанного мужчину в монашеских одеждах.'
     })
     wait()
 
 interaction:
     print({
         'english': '\n',
-        'russian': 'FIXME \n'
+        'russian': '\n'
     })
     integer(value 0) = partyHasObject(word 339, byte 0)
 
@@ -27,45 +27,50 @@ interaction:
 
     print({
         'english': '"Greetings, my child',
-        'russian': 'FIXME "Greetings, my child'
+        'russian': '"Приветствую,'
     })
 
     if integer(value 23):
         print({
             'english': 'ren',
-            'russian': 'FIXME ren'
+            'russian': 'дети мои'
+        })
+    else:
+        print({
+            'english': '',
+            'russian': 'дитя моё'
         })
     fi
 
     print({
         'english': '. What can I do for thee today?"',
-        'russian': 'FIXME . What can I do for thee today?"'
+        'russian': '. Чем могу помочь?"'
     })
 
 label_134:
     print({
         'english': '\n',
-        'russian': 'FIXME \n'
+        'russian': '\n'
     })
 
     ask()
 
     case 'heal':
-    case {'russian': 'FIXME heal'}:
+    case {'russian': 'леч'}:
         jump label_556
 
     case 'cure':
-    case {'russian': 'FIXME cure'}:
+    case {'russian': 'исце'}:
         jump label_1467
 
     case 'resu':
-    case {'russian': 'FIXME resu'}:
+    case {'russian': 'воск'}:
         integer(value 0) = partyHasObject(word 339, byte 0)
 
         if equals(integer(value 0), word 32769):
             print({
                 'english': '"But thou weepest for no reason! None of thy party is dead!"',
-                'russian': 'FIXME "But thou weepest for no reason! None of thy party is dead!"'
+                'russian': '"Но вы рыдаете без причины! Никто из вашего отряда не мёртв!"'
             })
             jump label_134
 
@@ -75,62 +80,67 @@ label_134:
         fi
 
     case 'name':
-    case {'russian': 'FIXME name'}:
+    case {'russian': 'имя'}:
         print({
             'english': '"I am Tiberius, healer for this town."',
-            'russian': 'FIXME "I am Tiberius, healer for this town."'
+            'russian': '"Я Тиберий, целитель этого города".'
         })
         setBit(byte 235, value 0)
         jump label_134
 
     case 'job':
-    case {'russian': 'FIXME job'}:
+    case {'russian': 'раб'}:
         print({
             'english': '"It is my responsibility to care for the sick and injured."',
-            'russian': 'FIXME "It is my responsibility to care for the sick and injured."'
+            'russian': '"Моя обязанность - заботиться о больных и раненых".'
         })
         wait()
 
         print({
             'english': '\n\n"I attempt to @heal, @cure, or if needed, @resurrect the fallen."',
-            'russian': 'FIXME \n\n"I attempt to @heal, @cure, or if needed, @resurrect the fallen."'
+            'russian': '\n\n"Я пытаюсь @лечить раны, @исцелять болезни и, при необходимости, @воскрешать павших".'
         })
         jump label_134
 
     case 'bye':
-    case {'russian': 'FIXME bye'}:
+    case {'russian': 'пока'}:
     case 'no':
-    case {'russian': 'FIXME no'}:
+    case {'russian': 'нет'}:
         print({
             'english': '"Go in peace, my child',
-            'russian': 'FIXME "Go in peace, my child'
+            'russian': '"Ступай'
         })
 
         if integer(value 23):
             print({
                 'english': 'ren',
-                'russian': 'FIXME ren'
+                'russian': 'те с миром, дети мои'
+            })
+        else:
+            print({
+                'english': '',
+                'russian': ' с миром, дитя моё'
             })
         fi
 
         print({
             'english': '."\n',
-            'russian': 'FIXME ."\n'
+            'russian': '."\n'
         })
         bye()
 
     case 'yes':
-    case {'russian': 'FIXME yes'}:
+    case {'russian': 'да'}:
         print({
             'english': '"What can I do for thee?"',
-            'russian': 'FIXME "What can I do for thee?"'
+            'russian': '"Что я могу для вас сделать?"'
         })
         jump label_134
 
     case '*':
         print({
             'english': '"I beg thy pardon?"',
-            'russian': 'FIXME "I beg thy pardon?"'
+            'russian': '"Прошу прощения?"'
         })
         jump label_134
     esac
@@ -139,7 +149,7 @@ label_556:
     if notEquals(integer(value 32), byte 144):
         print({
             'english': '"Come to my shop when I\'m open!"',
-            'russian': 'FIXME "Come to my shop when I\'m open!"'
+            'russian': '"Приходите ко мне, когда я откроюсь!"'
         })
         jump label_134
     fi
@@ -159,7 +169,7 @@ label_556:
     else:
         print({
             'english': '"Fret not, for thou art well."',
-            'russian': 'FIXME "Fret not, for thou art well."'
+            'russian': '"Не волнуйся, ибо здоров ты".'
         })
         jump label_1419
     fi
@@ -184,7 +194,7 @@ label_692:
     look(integer(value 4))
     print({
         'english': '#2) $Y\n',
-        'russian': 'FIXME #2) $Y\n'
+        'russian': '#2) $Y\n'
     })
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
@@ -197,7 +207,7 @@ label_802:
     if equals(integer(value 2), byte 0):
         print({
             'english': '"Fret not, for all of you are well!"',
-            'russian': 'FIXME "Fret not, for all of you are well!"'
+            'russian': '"Не волнуйтесь, ибо все вы здоровы!"'
         })
         jump label_1419
     fi
@@ -210,7 +220,7 @@ label_802:
     look(integer(value 4))
     print({
         'english': '#2) $Y\n"Which of you?" ',
-        'russian': 'FIXME #2) $Y\n"Which of you?" '
+        'russian': '#2) $Y\n"Кто из вас?" '
     })
     inputDigit(integer(value 2))
 
@@ -241,29 +251,29 @@ label_983:
     look(integer(value 3))
     print({
         'english': '"I see thy injury, $Y."',
-        'russian': 'FIXME "I see thy injury, $Y."'
+        'russian': '"Я вижу твоё ранение, $Y".'
     })
     wait()
 
     print({
         'english': '\n\n"Wilt thou make an offering of 30 gold?" ',
-        'russian': 'FIXME \n\n"Wilt thou make an offering of 30 gold?" '
+        'russian': '\n\n"Готов ли ты сделать пожертвование в размере 30 золотых?" '
     })
 
     choice({
         'english': 'yn',
-        'russian': 'FIXME yn'
+        'russian': 'дн'
     })
 
     case 'y':
-    case {'russian': 'FIXME y'}:
+    case {'russian': 'д'}:
         if less(objectsCount(integer(value 3), byte 88), byte 30):
             jump label_1216
 
         else:
             print({
                 'english': 'Laying hands upon $Y, Tiberius mends the wounds.',
-                'russian': 'FIXME Laying hands upon $Y, Tiberius mends the wounds.'
+                'russian': 'Возложив руки на $Y, Тиберий излечивает раны.'
             })
             destroyItem(integer(value 3), byte 88, byte 0, byte 30)
             heal(integer(value 3))
@@ -271,14 +281,14 @@ label_983:
         fi
 
     case 'n':
-    case {'russian': 'FIXME n'}:
+    case {'russian': 'н'}:
         if less(objectsCount(integer(value 3), byte 88), byte 30):
             jump label_1216
 
         else:
             print({
                 'english': '"If thou wilt not pay, I cannot heal thee."',
-                'russian': 'FIXME "If thou wilt not pay, I cannot heal thee."'
+                'russian': '"Если ты не заплатишь, я не смогу исцелить тебя".'
             })
             jump label_1419
         fi
@@ -288,26 +298,26 @@ label_1216:
     if less(integer(value 20), byte 40):
         print({
             'english': '"I\'m sorry. Without an offering I cannot heal thee."',
-            'russian': 'FIXME "I\'m sorry. Without an offering I cannot heal thee."'
+            'russian': '"Извини. Без пожертвования я не смогу исцелить тебя".'
         })
         jump label_134
 
     else:
         print({
             'english': '"Thou art poor, but thy cause is just."',
-            'russian': 'FIXME "Thou art poor, but thy cause is just."'
+            'russian': '"Ты беден, но дело твоё правое".'
         })
         wait()
 
         print({
             'english': '\n\n"I will heal thee without payment."',
-            'russian': 'FIXME \n\n"I will heal thee without payment."'
+            'russian': '\n\n"Я вылечу тебя без оплаты".'
         })
         wait()
 
         print({
             'english': '\n\nLaying hands upon $Y, Tiberius mends the wounds.',
-            'russian': 'FIXME \n\nLaying hands upon $Y, Tiberius mends the wounds.'
+            'russian': '\n\nВозложив руки на $Y, Тиберий излечивает раны.'
         })
         heal(integer(value 3))
         jump label_1419
@@ -318,7 +328,7 @@ label_1419:
 
     print({
         'english': '\n\n"Is there aught else I can do for thee?"',
-        'russian': 'FIXME \n\n"Is there aught else I can do for thee?"'
+        'russian': '\n\n"Могу ли я сделать для вас что-нибудь ещё?"'
     })
     jump label_134
 
@@ -326,7 +336,7 @@ label_1467:
     if notEquals(integer(value 32), byte 144):
         print({
             'english': '"Come to my shop when I\'m open!"',
-            'russian': 'FIXME "Come to my shop when I\'m open!"'
+            'russian': '"Приходите ко мне, когда я откроюсь!"'
         })
         jump label_134
     fi
@@ -346,7 +356,7 @@ label_1467:
     else:
         print({
             'english': '"Fret not, for thou art well."',
-            'russian': 'FIXME "Fret not, for thou art well."'
+            'russian': '"Не волнуйся, ибо здоров ты".'
         })
         jump label_1419
     fi
@@ -371,7 +381,7 @@ label_1603:
     look(integer(value 4))
     print({
         'english': '#2) $Y\n',
-        'russian': 'FIXME #2) $Y\n'
+        'russian': '#2) $Y\n'
     })
     integer(value 2) = plus(integer(value 2), byte 1)
     integer(value 4) = integer(value 3)
@@ -384,7 +394,7 @@ label_1713:
     if equals(integer(value 2), byte 0):
         print({
             'english': '"Fret not, for all of you are well."',
-            'russian': 'FIXME "Fret not, for all of you are well."'
+            'russian': '"Не волнуйтесь, ибо все вы здоровы".'
         })
         jump label_1419
     fi
@@ -397,7 +407,7 @@ label_1713:
     look(integer(value 4))
     print({
         'english': '#2) $Y\n"Which of you?" ',
-        'russian': 'FIXME #2) $Y\n"Which of you?" '
+        'russian': '#2) $Y\n"Кто из вас?" '
     })
     inputDigit(integer(value 2))
 
@@ -428,29 +438,29 @@ label_1894:
     look(integer(value 3))
     print({
         'english': '"I sense that thou art poisoned, $Y."',
-        'russian': 'FIXME "I sense that thou art poisoned, $Y."'
+        'russian': '"Я чувствую, что ты отравлен, $Y".'
     })
     wait()
 
     print({
         'english': '\n\n"Wilt thou make an offering of 10 gold?" ',
-        'russian': 'FIXME \n\n"Wilt thou make an offering of 10 gold?" '
+        'russian': '\n\n"Готов ли ты сделать пожертвование в размере 10 золотых?" '
     })
 
     choice({
         'english': 'yn',
-        'russian': 'FIXME yn'
+        'russian': 'дн'
     })
 
     case 'y':
-    case {'russian': 'FIXME y'}:
+    case {'russian': 'д'}:
         if less(objectsCount(integer(value 3), byte 88), byte 10):
             jump label_2143
 
         else:
             print({
                 'english': 'Laying hands upon $Y, Tiberius removes the poison.',
-                'russian': 'FIXME Laying hands upon $Y, Tiberius removes the poison.'
+                'russian': 'Возложив руки на $Y, Тиберий удаляет яд.'
             })
             destroyItem(integer(value 3), byte 88, byte 0, byte 10)
             cure(integer(value 3))
@@ -458,14 +468,14 @@ label_1894:
         fi
 
     case 'n':
-    case {'russian': 'FIXME n'}:
+    case {'russian': 'н'}:
         if less(objectsCount(integer(value 3), byte 88), byte 10):
             jump label_2143
 
         else:
             print({
                 'english': '"If thou wilt not pay, I cannot heal thee."',
-                'russian': 'FIXME "If thou wilt not pay, I cannot heal thee."'
+                'russian': '"Если ты не заплатишь, я не смогу исцелить тебя".'
             })
             jump label_1419
         fi
@@ -475,26 +485,26 @@ label_2143:
     if less(integer(value 20), byte 40):
         print({
             'english': '"I\'m sorry. Without an offering I cannot heal thee."',
-            'russian': 'FIXME "I\'m sorry. Without an offering I cannot heal thee."'
+            'russian': '"Извини. Без пожертвования я не смогу исцелить тебя".'
         })
         jump label_134
 
     else:
         print({
             'english': '"Thou art poor, but thy cause is just."',
-            'russian': 'FIXME "Thou art poor, but thy cause is just."'
+            'russian': '"Ты беден, но дело твоё правое".'
         })
         wait()
 
         print({
             'english': '\n\n"I will cure thee without payment."',
-            'russian': 'FIXME \n\n"I will cure thee without payment."'
+            'russian': '\n\n"Я вылечу тебя без оплаты".'
         })
         wait()
 
         print({
             'english': '\n\nLaying hands upon $Y, Tiberius removes the poison.',
-            'russian': 'FIXME \n\nLaying hands upon $Y, Tiberius removes the poison.'
+            'russian': '\n\nВозложив руки на $Y, Тиберий удаляет яд.'
         })
         cure(integer(value 3))
         jump label_1419
@@ -504,36 +514,36 @@ label_2348:
     look(integer(value 0))
     print({
         'english': '"I see that $Y carries a parted friend."',
-        'russian': 'FIXME "I see that $Y carries a parted friend."'
+        'russian': '"Я вижу, что $Y несёт павшего друга".'
     })
     wait()
 
     print({
         'english': '\n\n',
-        'russian': 'FIXME \n\n'
+        'russian': '\n\n'
     })
 
 label_2395:
     if notEquals(integer(value 32), byte 144):
         print({
             'english': '"Come to my shop when I\'m open!"',
-            'russian': 'FIXME "Come to my shop when I\'m open!"'
+            'russian': '"Приходите ко мне, когда я откроюсь!"'
         })
         jump label_134
     fi
 
     print({
         'english': '"Wilt thou make an offering of 400 gold?" ',
-        'russian': 'FIXME "Wilt thou make an offering of 400 gold?" '
+        'russian': '"Готовы ли ты сделать пожертвование в размере 400 золотых?" '
     })
 
     choice({
         'english': 'yn',
-        'russian': 'FIXME yn'
+        'russian': 'дн'
     })
 
     case 'y':
-    case {'russian': 'FIXME y'}:
+    case {'russian': 'д'}:
         if less(objectsCount(integer(value 0), byte 88), word 400):
             jump label_2574
 
@@ -542,10 +552,10 @@ label_2395:
         fi
 
     case 'n':
-    case {'russian': 'FIXME n'}:
+    case {'russian': 'н'}:
         print({
             'english': '"Then there is naught I can do save grieve with thee."',
-            'russian': 'FIXME "Then there is naught I can do save grieve with thee."'
+            'russian': '"Тогда я ничего не могу поделать, разве что скорбеть вместе с вами".'
         })
         jump label_134
     esac
@@ -560,19 +570,19 @@ label_2603:
     if greater(integer(value 3), integer(value 23)):
         print({
             'english': '"That ain\'t enough money."',
-            'russian': 'FIXME "That ain\'t enough money."'
+            'russian': '"Здесь слишком мало денег".'
         })
         wait()
 
         print({
             'english': '\n\n"Thou art #1 gold piece\\s short."',
-            'russian': 'FIXME \n\n"Thou art #1 gold piece\\s short."'
+            'russian': '\n\n"Тебе не хватает #1 золотых".'
         })
         wait()
 
         print({
             'english': '\n\n"Go see a gravedigger. I\'ll reckon his price\'ll be lower."',
-            'russian': 'FIXME \n\n"Go see a gravedigger. I\'ll reckon his price\'ll be lower."'
+            'russian': '\n\n"Можешь обратиться к могильщику. Полагаю, нго цены гораздо ниже".'
         })
         jump label_134
     fi
@@ -588,7 +598,7 @@ label_2603:
     else:
         print({
             'english': 'Your party takes up a collection for their fallen comrade.',
-            'russian': 'FIXME Your party takes up a collection for their fallen comrade.'
+            'russian': 'Отряд собирает деньги на воскрешение своего павшего товарища.'
         })
         integer(value 1) = word 400
         integer(value 2) = byte 0
@@ -604,7 +614,7 @@ label_2888:
 
         print({
             'english': '\n\n',
-            'russian': 'FIXME \n\n'
+            'russian': '\n\n'
         })
         jump label_2974
     fi
@@ -618,32 +628,32 @@ label_2888:
 label_2974:
     print({
         'english': 'Tiberius lays hands upon the corpse...',
-        'russian': 'FIXME Tiberius lays hands upon the corpse...'
+        'russian': 'Тиберий кладёт руки на тело...'
     })
     wait()
 
     print({
         'english': '\n\n"Doman..."',
-        'russian': 'FIXME \n\n"Doman..."'
+        'russian': '\n\n"Домен..."'
     })
     wait()
 
     print({
         'english': '\n\n"thixus..."',
-        'russian': 'FIXME \n\n"thixus..."'
+        'russian': '\n\n"тиксус..."'
     })
     wait()
 
     print({
         'english': '\n\n"anretu!"',
-        'russian': 'FIXME \n\n"anretu!"'
+        'russian': '\n\n"анрету!"'
     })
     resurrect(integer(value 0))
     wait()
 
     print({
         'english': '\n\nAnd the dead live again!',
-        'russian': 'FIXME \n\nAnd the dead live again!'
+        'russian': '\n\nИ мёртвый оживает!'
     })
     integer(value 0) = partyHasObject(word 339, byte 0)
 
@@ -653,13 +663,13 @@ label_2974:
 
         print({
             'english': '\n\n"I see that $Y carries another slain friend."',
-            'russian': 'FIXME \n\n"I see that $Y carries another slain friend."'
+            'russian': '\n\n"Я вижу, что $Y несёт ещё одного павшего друга".'
         })
         wait()
 
         print({
             'english': '\n\n',
-            'russian': 'FIXME \n\n'
+            'russian': '\n\n'
         })
         jump label_2395
 
