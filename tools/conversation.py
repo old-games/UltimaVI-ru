@@ -971,8 +971,9 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
             elif token == 'print':
                 assert next(iterator) == '('
                 string = next(iterator)
-                if target_language in languages:
-                    write_string(unquote(string), 'print')
+                if string is not None:
+                    if target_language in languages:
+                        write_string(unquote(string), 'print')
                 assert next(iterator) == ')'
     
             elif token == 'f3':
@@ -1118,6 +1119,9 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
                 assert next(iterator) == ':'
     
             elif token == 'fi':
+                if result[-1] == (0xa3 if version == 1 else 3):
+                    # TODO squash empty blocks to the very end
+                    del result[-1]
                 result.append(0xa2 if version == 1 else 2)
     
             elif token == 'jump':
