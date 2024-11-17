@@ -618,6 +618,8 @@ def decode(conversation, source, index):
                     name = arguments[1].replace('_', '.')
                 elif arguments[1] == 'ed':
                     name = arguments[1].capitalize()
+                elif arguments[1] == 'Snake_Charmer':
+                    name = arguments[1].replace('_', ' ')
                 else:
                     name = arguments[1]
 

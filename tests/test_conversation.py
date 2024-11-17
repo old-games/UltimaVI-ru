@@ -10,7 +10,7 @@ import tests
 class TestConversation(tests.TestCase):
     @staticmethod
     def fixScript(script):
-        return script.replace("'Dr. Cat'", "'Dr_ Cat'").replace("'english': 'Ed'", "'english': 'ed'")
+        return script.replace("'Dr. Cat'", "'Dr_ Cat'").replace("'english': 'Ed'", "'english': 'ed'").replace('Snake Charmer', 'Snake_Charmer')
 
     def testOriginal(self):
         for name in ('CONVERSE.A', 'CONVERSE.B'):
