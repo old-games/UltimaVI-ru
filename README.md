@@ -8,6 +8,14 @@ Structure:
 - `patches` — fixes for executables;
 - `documentation` — manuals.
 
+## Status
+
+|               | Decoder | Encoder | Translation |
+|--------------:|:-------:|:-------:|:-----------:|
+| Conversations |    ✅    |    ✅    |      ⏳      |
+|          Book |    ✅    |    ✅    |      ⏳      |
+|          Look |    ✅    |    ✅    |      ⏳      |
+
 ## Build
 
 ```
