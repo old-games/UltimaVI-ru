@@ -758,6 +758,7 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
                 yield ''.join(chars)
                 chars.clear()
 
+        nonlocal line_number
         chars = []
         is_string = False
         is_comment = False
@@ -774,6 +775,8 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
                 pass
 
             elif char in ' \t\n' and not is_string:
+                if char == '\n':
+                    line_number += 1
                 yield from token()
 
             elif char == "'":
@@ -798,7 +801,7 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
                 chars.append(char)
 
         assert not chars or not is_string
-        token()
+        yield from token()
 
     def selected():
         for token in (iterator := tokens()):
@@ -922,6 +925,7 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
         assert token not in labels
         labels[token] = len(result)
 
+    line_number = 1
     result = bytearray()
     stream = io.StringIO(conversation)
     iterator = joined_cases()
@@ -942,334 +946,339 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
 
     languages = {target_language}
 
-    for token in iterator:
-        last_result_size = len(result)
+    try:
+        for token in iterator:
+            last_result_size = len(result)
+    
+            if token == 'id':
+                assert next(iterator) == '('
+                result.append(0xff)
+                result.append(int(next(iterator)))
+                assert next(iterator) == ')'
+    
+            elif token == 'name':
+                assert next(iterator) == '('
+                name = unquote(next(iterator))
+                if target_language in languages:
+                    write_string(name, 'name')
+                assert next(iterator) == ')'
+    
+            elif token == 'description':
+                assert next(iterator) == ':'
+                result.append(0xf1 if version == 1 else 1)
+                add_label()
+    
+            elif token == 'print':
+                assert next(iterator) == '('
+                string = next(iterator)
+                if target_language in languages:
+                    write_string(unquote(string), 'print')
+                assert next(iterator) == ')'
+    
+            elif token == 'f3':
+                assert next(iterator) == '('
+                result.append(0xf3)
+                assert next(iterator) == ')'
+    
+            elif token == 'sleep':
+                assert next(iterator) == '('
+                result.append(0x9e)
+                assert next(iterator) == ')'
+    
+            elif token == 'endOfList':
+                assert next(iterator) == '('
+                result.append(0xb8)
+                assert next(iterator) == ')'
+    
+            elif token == 'bye':
+                assert next(iterator) == '('
+                result.append(0xb6)
+                assert next(iterator) == ')'
+    
+            elif token == 'inputString':
+                assert next(iterator) == '('
+                result.append(0xf9)
+                read_expression()
+                assert next(iterator) == ')'
+    
+            elif token == 'inputInteger':
+                assert next(iterator) == '('
+                result.append(0xfb)
+                read_expression()
+                assert next(iterator) == ')'
+    
+            elif token == 'inputDigit':
+                assert next(iterator) == '('
+                result.append(0xfc)
+                read_expression()
+                assert next(iterator) == ')'
+    
+            elif token == 'do':
+                assert next(iterator) == '('
+                result.append(0xcd)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ','
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'look':
+                assert next(iterator) == '('
+                result.append(0xd8)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'resurrect':
+                assert next(iterator) == '('
+                result.append(0xd6)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'inventory':
+                assert next(iterator) == '('
+                result.append(0xbe)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'createItem':
+                assert next(iterator) == '('
+                result.append(0xb9)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ','
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ','
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ','
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'destroyItem':
+                assert next(iterator) == '('
+                result.append(0xba)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ','
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ','
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ','
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'moveItem':
+                assert next(iterator) == '('
+                result.append(0xc9)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ','
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ','
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ','
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'wait':
+                assert next(iterator) == '('
+                result.append(0xcb)
+                assert next(iterator) == ')'
+    
+            elif token == 'interaction':
+                assert next(iterator) == ':'
+                result.append(0xf2)
+                add_label()
+    
+            elif token == 'ask':
+                assert next(iterator) == '('
+                result.append(0xf7)
+                assert next(iterator) == ')'
+    
+            elif token == 'if':
+                result.append(0xa1)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ':'
+    
+            elif token == 'else':
+                result.append(0xa3 if version == 1 else 3)
+                assert next(iterator) == ':'
+    
+            elif token == 'fi':
+                result.append(0xa2 if version == 1 else 2)
+    
+            elif token == 'jump':
+                result.append(0xb0)
+                label = next(iterator)
+                placeholders[len(result)] = label
+                result.extend(b'\x00\x00\x00\x00')
+    
+            elif token == 'case':
+                result.append(0xef if version == 1 else 0x0f)
+                case = next(iterator)
+                if target_language in languages:
+                    write_string(case, 'case')
+                result.append(0xf6)
+                assert next(iterator) == ':'
+    
+            elif token == 'esac':
+                result.append(0xee if version == 1 else 0x0e)
+    
+            elif token == 'createHorse':
+                assert next(iterator) == '('
+                result.append(0x9c)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'setBit':
+                assert next(iterator) == '('
+                result.append(0xa4)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ','
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'clearBit':
+                assert next(iterator) == '('
+                result.append(0xa5)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ','
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'portrait':
+                assert next(iterator) == '('
+                result.append(0xbf)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'heal':
+                assert next(iterator) == '('
+                result.append(0xd9)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'printString':
+                assert next(iterator) == '('
+                result.append(0xb5)
+                array = next(iterator)
+                result.append(0xd2)
+                placeholders[len(result)] = array
+                dangerous_placeholders.add(len(result))
+                result.extend(b'\x00\x00\x00\x00')
+                assert next(iterator) == ','
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'increaseKarma':
+                assert next(iterator) == '('
+                result.append(0xc4)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'decreaseKarma':
+                assert next(iterator) == '('
+                result.append(0xc5)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'cure':
+                assert next(iterator) == '('
+                result.append(0xdb)
+                read_expression()
+                result.append(0xa7)
+                assert next(iterator) == ')'
+    
+            elif token == 'choice':
+                assert next(iterator) == '('
+                result.append(0xf8)
+                string = next(iterator)
+                if target_language in languages:
+                    write_string(unquote(string), 'choice')
+                assert next(iterator) == ')'
+    
+            elif token in operators:
+                result.append(0xa6)
+                read_expression(token)
+                assert next(iterator) == '='
+                result.append(0xa8)
+                read_expression()
+                result.append(0xa7)
+    
+            elif token == 'nop':
+                assert next(iterator) == '('
+                assert next(iterator) == ')'
+    
+            elif token == '[':
+                languages = set()
+                while True:
+                    language = next(iterator)
+                    if language == ']':
+                        break
+                    assert language in ('russian', 'english')
+                    languages.add(language)
+                    token = next(iterator)
+                    assert token in ',]'
+                    if token == ']':
+                        break
+    
+            elif (next_token := next(iterator)) == ':':
+                add_label()
+    
+            elif next_token == '=':
+                add_label()
+                assert (token := next(iterator)) == '['
+                array = token
+                value_type = None
+                while token != ']':
+                    value = next(iterator)
+                    if value == ']':
+                        break # Trailing comma.
+                    if value_type is None:
+                        value_type = is_string(value)
+                    else:
+                        assert value_type == is_string(value)
+                    if is_string(value):
+                        if target_language in languages:
+                            write_string(unquote(value), 'strings')
+                    else:
+                        result.extend(int(value).to_bytes(2, 'little'))
+                    token = next(iterator)
+                    assert token in ',]'
+    
+            else:
+                assert False
+    
+            if target_language not in languages:
+                # TODO make internal
+                del result[last_result_size:]
 
-        if token == 'id':
-            assert next(iterator) == '('
-            result.append(0xff)
-            result.append(int(next(iterator)))
-            assert next(iterator) == ')'
-
-        elif token == 'name':
-            assert next(iterator) == '('
-            name = unquote(next(iterator))
-            if target_language in languages:
-                write_string(name, 'name')
-            assert next(iterator) == ')'
-
-        elif token == 'description':
-            assert next(iterator) == ':'
-            result.append(0xf1 if version == 1 else 1)
-            add_label()
-
-        elif token == 'print':
-            assert next(iterator) == '('
-            string = next(iterator)
-            if target_language in languages:
-                write_string(unquote(string), 'print')
-            assert next(iterator) == ')'
-
-        elif token == 'f3':
-            assert next(iterator) == '('
-            result.append(0xf3)
-            assert next(iterator) == ')'
-
-        elif token == 'sleep':
-            assert next(iterator) == '('
-            result.append(0x9e)
-            assert next(iterator) == ')'
-
-        elif token == 'endOfList':
-            assert next(iterator) == '('
-            result.append(0xb8)
-            assert next(iterator) == ')'
-
-        elif token == 'bye':
-            assert next(iterator) == '('
-            result.append(0xb6)
-            assert next(iterator) == ')'
-
-        elif token == 'inputString':
-            assert next(iterator) == '('
-            result.append(0xf9)
-            read_expression()
-            assert next(iterator) == ')'
-
-        elif token == 'inputInteger':
-            assert next(iterator) == '('
-            result.append(0xfb)
-            read_expression()
-            assert next(iterator) == ')'
-
-        elif token == 'inputDigit':
-            assert next(iterator) == '('
-            result.append(0xfc)
-            read_expression()
-            assert next(iterator) == ')'
-
-        elif token == 'do':
-            assert next(iterator) == '('
-            result.append(0xcd)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ','
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'look':
-            assert next(iterator) == '('
-            result.append(0xd8)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'resurrect':
-            assert next(iterator) == '('
-            result.append(0xd6)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'inventory':
-            assert next(iterator) == '('
-            result.append(0xbe)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'createItem':
-            assert next(iterator) == '('
-            result.append(0xb9)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ','
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ','
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ','
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'destroyItem':
-            assert next(iterator) == '('
-            result.append(0xba)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ','
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ','
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ','
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'moveItem':
-            assert next(iterator) == '('
-            result.append(0xc9)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ','
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ','
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ','
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'wait':
-            assert next(iterator) == '('
-            result.append(0xcb)
-            assert next(iterator) == ')'
-
-        elif token == 'interaction':
-            assert next(iterator) == ':'
-            result.append(0xf2)
-            add_label()
-
-        elif token == 'ask':
-            assert next(iterator) == '('
-            result.append(0xf7)
-            assert next(iterator) == ')'
-
-        elif token == 'if':
-            result.append(0xa1)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ':'
-
-        elif token == 'else':
-            result.append(0xa3 if version == 1 else 3)
-            assert next(iterator) == ':'
-
-        elif token == 'fi':
-            result.append(0xa2 if version == 1 else 2)
-
-        elif token == 'jump':
-            result.append(0xb0)
-            label = next(iterator)
-            placeholders[len(result)] = label
-            result.extend(b'\x00\x00\x00\x00')
-
-        elif token == 'case':
-            result.append(0xef if version == 1 else 0x0f)
-            case = next(iterator)
-            if target_language in languages:
-                write_string(case, 'case')
-            result.append(0xf6)
-            assert next(iterator) == ':'
-
-        elif token == 'esac':
-            result.append(0xee if version == 1 else 0x0e)
-
-        elif token == 'createHorse':
-            assert next(iterator) == '('
-            result.append(0x9c)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'setBit':
-            assert next(iterator) == '('
-            result.append(0xa4)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ','
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'clearBit':
-            assert next(iterator) == '('
-            result.append(0xa5)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ','
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'portrait':
-            assert next(iterator) == '('
-            result.append(0xbf)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'heal':
-            assert next(iterator) == '('
-            result.append(0xd9)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'printString':
-            assert next(iterator) == '('
-            result.append(0xb5)
-            array = next(iterator)
-            result.append(0xd2)
-            placeholders[len(result)] = array
-            dangerous_placeholders.add(len(result))
-            result.extend(b'\x00\x00\x00\x00')
-            assert next(iterator) == ','
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'increaseKarma':
-            assert next(iterator) == '('
-            result.append(0xc4)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'decreaseKarma':
-            assert next(iterator) == '('
-            result.append(0xc5)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'cure':
-            assert next(iterator) == '('
-            result.append(0xdb)
-            read_expression()
-            result.append(0xa7)
-            assert next(iterator) == ')'
-
-        elif token == 'choice':
-            assert next(iterator) == '('
-            result.append(0xf8)
-            string = next(iterator)
-            if target_language in languages:
-                write_string(unquote(string), 'choice')
-            assert next(iterator) == ')'
-
-        elif token in operators:
-            result.append(0xa6)
-            read_expression(token)
-            assert next(iterator) == '='
-            result.append(0xa8)
-            read_expression()
-            result.append(0xa7)
-
-        elif token == 'nop':
-            assert next(iterator) == '('
-            assert next(iterator) == ')'
-
-        elif token == '[':
-            languages = set()
-            while True:
-                language = next(iterator)
-                if language == ']':
-                    break
-                assert language in ('russian', 'english')
-                languages.add(language)
-                token = next(iterator)
-                assert token in ',]'
-                if token == ']':
-                    break
-
-        elif (next_token := next(iterator)) == ':':
-            add_label()
-
-        elif next_token == '=':
-            add_label()
-            assert (token := next(iterator)) == '['
-            array = token
-            value_type = None
-            while token != ']':
-                value = next(iterator)
-                if value == ']':
-                    break # Trailing comma.
-                if value_type is None:
-                    value_type = is_string(value)
-                else:
-                    assert value_type == is_string(value)
-                if is_string(value):
-                    if target_language in languages:
-                        write_string(unquote(value), 'strings')
-                else:
-                    result.extend(int(value).to_bytes(2, 'little'))
-                token = next(iterator)
-                assert token in ',]'
-
-        else:
-            assert False
-
-        if target_language not in languages:
-            # TODO make internal
-            del result[last_result_size:]
+    except Exception as e:
+        e.add_note(f'Line number: {line_number}')
+        raise
 
     for offset, label in placeholders.items():
         data = labels[label].to_bytes(4, 'little')
