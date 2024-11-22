@@ -9,10 +9,11 @@ services:
   test:
     build: .
     pull_policy: build
+    ipc: host # FIXME
     environment:
     - DISPLAY
     volumes:
-    - "/tmp/.X11-unix:/tmp/.X11-unix"
-    - "/dev/snd:/dev/snd"
+    - /tmp/.X11-unix:/tmp/.X11-unix
+    - /dev/snd:/dev/snd
     depends_on:
     - testbox

@@ -19,4 +19,6 @@ COPY tools/RK211.COM .
 COPY tools/RUSSIAN.RK .
 COPY tools/8X16.RK .
 
+COPY tools/DEBUG.EXE .
+
 ENTRYPOINT ["python3", "-m", "unittest", "-v"]

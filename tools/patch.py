@@ -232,34 +232,49 @@ for binary, functions in patches.add_functions.items():
     elif binary == 'U.EXE':
         patches.patch_U(d)
 
+    ds = d[header + segments[-1]*0x10:]
+
     uninitialized_fill, = find_all(d, [0xbf, None, None, 0xb9, None, None, 0x2b, 0xcf, 0xf3, 0xaa])
     initialized_size = int.from_bytes(d[uninitialized_fill+1:uninitialized_fill+3], 'little')
     assert initialized_size in (len(d) - segments[-1]*0x10 - header, len(d) - segments[-1]*0x10 - header-2)
     uninitialized_size = int.from_bytes(d[uninitialized_fill+4:uninitialized_fill+6], 'little') - initialized_size
+
+    # FIXME not used
     dereferencing = [b'\xbf', b'\xa1', b'\x8b\x1e', b'\xa3', b'\xc4\x1e', b'\xff\x36', b'\x89\x1e', b'\x8c\x06', b'\x8b\x16', b'\x89\x16', b'\x3b\x06', b'\x29\x06', b'\x3b\x16', b'\x19\x16']
+
     system_break_shift, = find_all(d, [0x8b, 0x56, 8, 3, 6, None, None, 0x83, 0xd2, 0, 0x8b, 0xc8, 0x81, 0xc1, 0, 1, 0x83, 0xd2, 0])
     system_break_address = int.from_bytes(d[system_break_shift+5:system_break_shift+7], 'little')
     system_break = int.from_bytes(d[system_break_address+segments[-1]*0x10+header:system_break_address+segments[-1]*0x10+header+2], 'little')
     assert system_break == initialized_size + uninitialized_size
 
+    # FIXME not used
+    extra_alloc_update, = find_all(d, [0x8b, 0x3e, None, None, 0x81, 0xff, 0, 2, 0x73, 7, 0xbf, 0, 2, 0x89, 0x3e])
+    extra_alloc_address = int.from_bytes(d[extra_alloc_update+2:extra_alloc_update+4], 'little')
+    extra_alloc = int.from_bytes(ds[extra_alloc_address:extra_alloc_address+2], 'little')
+
     replaces = []
-    ds = d[header + segments[-1]*0x10:]
     ds_size = len(ds)
     ds = ljust(ds, system_break, b'www.old-games.ru.')
+    ds_full_size = len(ds)
     required_space = 0
     if mode == 'russian':
         for t in translation:
             if t['source'] == binary:
                 if not t['russian'].startswith('FIXME ') and t['russian'] != t['english']:
                     references_segments = [x['segment'] for x in references.get((binary, t['offset']), [])]
+                    new_string = t['russian'].encode('cp866')
+                    import random
+                    if random.random() < 0.95:
+                        new_string = t['russian'].encode('cp866')[:len(t['english'].encode('cp866'))]
 
-                    if len(t['russian'].encode('cp866')) <= len(t['english'].encode('cp866')):
+                    if len(new_string) <= len(t['english'].encode('cp866')):
                         # FIXME упаковать фразы лучше
-                        message = t['russian'].encode('cp866').ljust(len(t['english']), b'\x00')
+                        message = new_string.ljust(len(t['english']), b'\x00')
                         replaces.append((t['offset'], len(message), message))
                         replaced += 1
 
                     elif t['offset'] > header + segments[-1]*0x10:
+                        # Data segment.
                         # FIXME reuse old space
                         rr = references.get((binary, t['offset']), [])
                         for r in rr:
@@ -272,17 +287,28 @@ for binary, functions in patches.add_functions.items():
                         added += 1
 
                     elif all(map(lambda x: isinstance(x, int), references_segments)):
+                        # (Probably) only referenced by far pointers.
                         print(f'String {repr(t["russian"])} can be moved!')
-                        # FIXME why it can?
 
                 else:
                     missing += 1
 
     ds[system_break_address:system_break_address+2] = len(ds).to_bytes(2, 'little')
+
+    print('Old DS size:', hex(ds_size))
     ds.extend(b'\x00' * ((len(ds) - ds_size + 0x1ff) // 0x200 * 0x200 - len(ds) + ds_size))
+    print('Required space:', hex(len(ds)-ds_full_size))
     assert (len(ds) - ds_size) % 0x200 == 0
     data_space = (len(ds) - ds_size) // 0x200
+    print('DS size:', hex(len(ds)))
     print(f'{binary} — adding {data_space*0x200 + len(code_block)} bytes for {len(functions)} functions and {added} strings')
+
+    # TODO FIXME check for remaining memory
+
+    #Reduce stack???
+    #assert extra_alloc - data_space*0x20 >= 0x200 # Stack? FIXME find a way to leave stack size as is.
+    #ds[extra_alloc_address:extra_alloc_address+2] = (extra_alloc-data_space*0x20).to_bytes(2, 'little')
+
     d[header + segments[-1]*0x10:] = ds
 
     # FIXME переставил это на абзац ниже, проверить, что это ничего не ломает. как будто бы не должно
@@ -330,8 +356,25 @@ for binary, functions in patches.add_functions.items():
     assert ss + 0x10 < 0x10000
     d[0x0e:0x10] = ss.to_bytes(2, 'little')
     d[4:6] = pages.to_bytes(2, 'little')
+
+    assert d[0x0c:0x0e] == b'\xff\xff' # Maximum allocation.
+
     d[0x0a:0x0c] = (max(0, int.from_bytes(d[0x0a:0x0c], 'little') - data_space*0x20)).to_bytes(2, 'little')
-    d[0x0c:0x0e] = (max(0, int.from_bytes(d[0x0c:0x0e], 'little') - data_space*0x20)).to_bytes(2, 'little')
+
+    if d[0x0c:0x0e] != b'\xff\xff':
+        d[0x0c:0x0e] = (max(0, int.from_bytes(d[0x0c:0x0e], 'little') - data_space*0x20)).to_bytes(2, 'little')
+
+    replace_system_breaks = { # TODO more strict.
+        b'\x81\xc7': 1,
+        b'\xb9': 1,
+    }
+    for i in range(len(d)):
+        if int.from_bytes(d[i:i+2], 'little') == system_break:
+            for prefix in replace_system_breaks:
+                if i >= len(prefix) and prefix == d[i-len(prefix):i]:
+                    replace_system_breaks[prefix] -= 1
+                    d[i:i+2] = len(ds).to_bytes(2, 'little')
+    assert set(replace_system_breaks.values()) == {0}
 
     d = d[:header] + code_block + d[header:]
 
