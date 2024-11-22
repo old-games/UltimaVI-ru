@@ -19,4 +19,4 @@ with open('patches/bad-references.json') as f:
 
 for k, v in references.items():
     if len(v) > 1:
-        print('WARNING', k[0], k[1], len(v), 'references')
+        print('WARNING', k[0], hex(k[1]), len(v), 'references:', ', '.join((hex(x['origin']) for x in v)))

@@ -9,6 +9,7 @@ import zipfile
 
 import tools
 import tools.archive
+import tools.book
 import tools.conversation
 import tools.file
 import tools.look
@@ -33,6 +34,11 @@ with tempfile.TemporaryDirectory() as d:
         tools.lzw.compress(tools.look.encode(json.loads(tools.file.read(tools.get_path('look.json'))), data_language))
     )
 
+    tools.file.write(
+        os.path.join(d, 'BOOK.DAT'),
+        tools.book.encode(json.loads(tools.file.read(tools.get_path('book.json'))), data_language)
+    )
+
     # FIXME get rid of tempfile
 
     for name in tools.get_compressed_files():
@@ -45,10 +51,11 @@ with tempfile.TemporaryDirectory() as d:
     conversations = collections.defaultdict(dict)
     conversations_path = os.path.join(tools.get_script_path(), 'conversations')
     for character in sorted(os.listdir(conversations_path)):
+        name = os.path.splitext(character)[0]
         path = os.path.join(conversations_path, character)
         with open(path, 'r') as f:
             script = f.read()
-        source, index, data = tools.conversation.encode(script, data_language, 2)
+        source, index, data = tools.conversation.encode(script, data_language, 2, ignore_flow_errors=name in ('Stivius', 'Ybarra'))
         conversations[source][index] = data
 
     for name in tools.get_archive_files():
