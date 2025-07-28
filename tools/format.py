@@ -32,7 +32,7 @@ fixups = {}
 labels = set()
 for line in input_lines:
     (address, _, instruction, arguments), = re.findall('([0-9A-F]+) +([0-9A-F]+) +([^ ]+)(?: +(.*)|$)', line)
-    if instruction in ('call', 'jmp') and ':' in arguments:
+    if instruction in ('call', 'jmp') and ':0x' in arguments:
         fixups[int(address, 16)] = len(fixups)
     elif (instruction[0] == 'j' or instruction == 'call') and '[' not in arguments:
         if arguments.startswith('short '):
