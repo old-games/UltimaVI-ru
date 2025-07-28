@@ -3,6 +3,7 @@ add_functions = {
     },
     'GAME.EXE': {
         # FIXME switch to global names in asm files — что я здесь имел в виду?
+        'putch': (0x464, 0x33d3, 0x24e),
         'putch_impl': (0x464, 0x2efa, 0x3e4),
         'gets': (0x464, 0x2d3a, 0xcf),
         'get_character_name': (0xecb, 0xa0, 0x76),
