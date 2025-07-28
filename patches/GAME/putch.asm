@@ -18,6 +18,8 @@ global fixmeupD
 
 section CODE
 
+%define CTYPE_TABLE 0x3117
+
 ; python3 -m tools.format unpacked/GAME.EXE 0xb013 0xb261 0x33d3
 
 sub_33d3:
@@ -253,10 +255,40 @@ fixmeup9: ; far call by absolute direct address
         call    0x464:0x32f8 ; puts
         jmp     loc_35d8
 
+sub_isnotalpha_bx:
+        cmp     bx, 0x80
+        jb      check_table
+
+        cmp     bx, 0xb0
+        jb      alpha
+
+        cmp     bx, 0xe0
+        jb      not_alpha
+
+        cmp     bx, 0xf2 ; Skipping non-russian cyrillic letters.
+        jb      alpha
+
+        cmp     bx, 0x100
+        jb      not_alpha
+
+        ; fix runes (not needed actually)
+        and     bx, 0xfeff
+        or      bx, 0x80
+
+check_table:
+        test    byte [bx+CTYPE_TABLE], 0xc
+        jnz     alpha
+not_alpha:
+        add     sp, 2
+        push    ax
+alpha:
+        ret
+
 loc_17BB6: ; '/'
         mov     bx, [bp+0x6]
-        test    byte [bx+0x3117], 0xc
-        jz      loc_35a0
+        mov     ax, loc_35a0
+        call    sub_isnotalpha_bx
+
         cmp     word [0x49d], byte +0x0
         jz      loc_358a
         jmp     loc_361a
@@ -266,8 +298,8 @@ loc_358a:
 
 loc_17BCC: ; '\'
         mov     bx, [bp+0x6]
-        test    byte [bx+0x3117], 0xc
-        jz      loc_35a0
+        mov     ax, loc_35a0
+        call    sub_isnotalpha_bx
         cmp     word [0x49d], byte +0x0
         jnz     loc_35a0
         jmp     loc_361a
@@ -278,9 +310,9 @@ loc_35a0:
 fixmeupA: ; far call by absolute direct address
         call    0x464:0x2efa ; putch_impl
         mov     bx, [bp+0x6]
-        test    byte [bx+0x3117], 0xc
-        jnz     loc_361a
-        jmp     loc_35d8
+        mov     ax, loc_35d8
+        call    sub_isnotalpha_bx
+        jmp     loc_361a
 
 loc_17BF3: ; '^'
         mov     bx, [0x4df]
