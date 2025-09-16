@@ -1,4 +1,4 @@
-FROM testbox
+FROM excitoon/testbox
 
 RUN apt-get install -y nasm
 RUN apt-get install -y unzip
