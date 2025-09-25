@@ -4,19 +4,19 @@ index(53)
 id(53)
 name({
     'english': 'Peer',
-    'russian': 'FIXME Peer'
+    'russian': 'Пэр'
 })
 
 description:
     print({
         'english': 'a tall, muscled man with a wide grin.',
-        'russian': 'FIXME a tall, muscled man with a wide grin.'
+        'russian': 'высокого мускулистого мужчину с широкой улыбкой.'
     })
     wait()
 
     print({
         'english': '\n',
-        'russian': 'FIXME \n'
+        'russian': '\n'
     })
 
 interaction:
@@ -25,13 +25,13 @@ interaction:
     if hasBit(byte 235, value 0):
         print({
             'english': 'He squints at you. "We\'ve met, haven\'t we?"',
-            'russian': 'FIXME He squints at you. "We\'ve met, haven\'t we?"'
+            'russian': 'Он прищуривается на вас. - "Мы ведь уже встречались, не так ли?"'
         })
 
     else:
         print({
             'english': '"Hello," he says, lumbering over to you and extending a large hand.',
-            'russian': 'FIXME "Hello," he says, lumbering over to you and extending a large hand.'
+            'russian': '"Привет", - говорит он, неуклюже приближаясь к вам и протягивая большую руку.'
         })
         setBit(byte 235, value 0)
     fi
@@ -40,62 +40,62 @@ interaction:
 
     print({
         'english': '\n\n"What can I do for ya?"',
-        'russian': 'FIXME \n\n"What can I do for ya?"'
+        'russian': '\n\n"Что я могу для вас сделать?"'
     })
 
 label_204:
     print({
         'english': '\n',
-        'russian': 'FIXME \n'
+        'russian': '\n'
     })
 
     ask()
 
     case 'name':
-    case {'russian': 'FIXME name'}:
+    case {'russian': 'имя'}:
         print({
             'english': '"@Peer."',
-            'russian': 'FIXME "@Peer."'
+            'russian': '"@Пэр".'
         })
         jump label_204
 
     case 'peer':
-    case {'russian': 'FIXME peer'}:
+    case {'russian': 'пэр'}:
         print({
             'english': '"My father was a @sailor, but couldn\'t spell." He laughs out loud.',
-            'russian': 'FIXME "My father was a @sailor, but couldn\'t spell." He laughs out loud.'
+            'russian': '"Мой отец был @моряком, но он не умел писать". Он громко смеется.'
         })
         jump label_204
 
     case 'sail':
-    case {'russian': 'FIXME sail'}:
+    case {'russian': 'моря'}:
     case 'fath':
-    case {'russian': 'FIXME fath'}:
+    case {'russian': 'отец'}:
         print({
             'english': '"And his father before him."',
-            'russian': 'FIXME "And his father before him."'
+            'russian': '"А до него - его отец".'
         })
         jump label_204
 
     case 'buy':
-    case {'russian': 'FIXME buy'}:
+    case {'russian': 'купи'}:
         if equals(hasObject(byte 235, byte 149, byte 0), byte 0):
             print({
                 'english': '"You bought my last craft!"',
-                'russian': 'FIXME "You bought my last craft!"'
+                'russian': '"Вы купили моё последнее судно!"'
             })
             jump label_204
         fi
 
         print({
             'english': '"I sell ',
-            'russian': 'FIXME "I sell '
+            'russian': '"Я продаю '
         })
 
         if or(hasObject(byte 235, byte 149, data(integers_1893, byte 0)), hasObject(byte 235, byte 149, data(integers_1893, byte 1))):
             print({
                 'english': '@ships',
-                'russian': 'FIXME @ships'
+                'russian': '@корабли'
             })
             integer(value 1) = byte 1
 
@@ -106,7 +106,7 @@ label_204:
         if equals(or(hasObject(byte 235, byte 149, data(integers_1893, byte 2)), hasObject(byte 235, byte 149, data(integers_1893, byte 3))), byte 0):
             print({
                 'english': '."',
-                'russian': 'FIXME ."'
+                'russian': '."'
             })
             jump label_204
         fi
@@ -114,18 +114,18 @@ label_204:
         if integer(value 1):
             print({
                 'english': ' and ',
-                'russian': 'FIXME  and '
+                'russian': ' и '
             })
         fi
 
         print({
             'english': '@skiffs."',
-            'russian': 'FIXME @skiffs."'
+            'russian': '@лодки".'
         })
         jump label_204
 
     case 'ship':
-    case {'russian': 'FIXME ship'}:
+    case {'russian': 'кора'}:
         if hasObject(byte 235, byte 149, data(integers_1893, byte 0)):
             integer(value 9) = byte 0
             jump label_1010
@@ -138,12 +138,12 @@ label_204:
 
         print({
             'english': '"Sorry, I sold you my last ship."',
-            'russian': 'FIXME "Sorry, I sold you my last ship."'
+            'russian': '"Извините, я продал вам свой последний корабль".'
         })
         jump label_204
 
     case 'skif':
-    case {'russian': 'FIXME skif'}:
+    case {'russian': 'лодк'}:
         if hasObject(byte 235, byte 149, data(integers_1893, byte 2)):
             integer(value 9) = byte 2
             jump label_1010
@@ -156,35 +156,35 @@ label_204:
 
         print({
             'english': '"Sorry, I sold you my last skiff."',
-            'russian': 'FIXME "Sorry, I sold you my last skiff."'
+            'russian': '"Извините, я продал вам свою последнюю лодку".'
         })
         jump label_204
 
     case 'job':
-    case {'russian': 'FIXME job'}:
+    case {'russian': 'раб'}:
         if equals(hasObject(byte 235, byte 149, byte 0), byte 0):
             print({
                 'english': '"I used to sell ships and skiffs."',
-                'russian': 'FIXME "I used to sell ships and skiffs."'
+                'russian': '"Раньше я продавал корабли и лодки".'
             })
             wait()
 
             print({
                 'english': '\n\n"But you bought them all!"',
-                'russian': 'FIXME \n\n"But you bought them all!"'
+                'russian': '\n\n"Но вы их все выкупили!"'
             })
             jump label_204
         fi
 
         print({
             'english': '"I sell ',
-            'russian': 'FIXME "I sell '
+            'russian': '"Я продаю '
         })
 
         if or(hasObject(byte 235, byte 149, data(integers_1893, byte 0)), hasObject(byte 235, byte 149, data(integers_1893, byte 1))):
             print({
                 'english': '@ships',
-                'russian': 'FIXME @ships'
+                'russian': '@корабли'
             })
             integer(value 1) = byte 1
 
@@ -195,7 +195,7 @@ label_204:
         if equals(or(hasObject(byte 235, byte 149, data(integers_1893, byte 2)), hasObject(byte 235, byte 149, data(integers_1893, byte 3))), byte 0):
             print({
                 'english': '."',
-                'russian': 'FIXME ."'
+                'russian': '."'
             })
             jump label_204
         fi
@@ -203,28 +203,28 @@ label_204:
         if integer(value 1):
             print({
                 'english': ' and ',
-                'russian': 'FIXME  and '
+                'russian': ' и '
             })
         fi
 
         print({
             'english': '@skiffs."',
-            'russian': 'FIXME @skiffs."'
+            'russian': '@лодки".'
         })
         jump label_204
 
     case 'bye':
-    case {'russian': 'FIXME bye'}:
+    case {'russian': 'пока'}:
         print({
             'english': '"So long friend." He lumbers back to his work.\n',
-            'russian': 'FIXME "So long friend." He lumbers back to his work.\n'
+            'russian': '"Прощайте, друг". Он возвращается к своей работе.\n'
         })
         bye()
 
     case '*':
         print({
             'english': '"That\'s a puzzler."',
-            'russian': 'FIXME "That\'s a puzzler."'
+            'russian': '"Это загадка".'
         })
         jump label_204
     esac
@@ -245,7 +245,7 @@ label_1051:
     look(character(integer(value 0), byte 0))
     print({
         'english': '#2) $Y\n',
-        'russian': 'FIXME #2) $Y\n'
+        'russian': '#2) $Y\n'
     })
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -256,7 +256,7 @@ label_1051:
 
     print({
         'english': '"Which of you?" ',
-        'russian': 'FIXME "Which of you?" '
+        'russian': '"Кто из вас?" '
     })
     inputDigit(integer(value 3))
 
@@ -276,20 +276,20 @@ label_1153:
     look(integer(value 3))
     print({
         'english': '$N turns to $Y. "It\'ll cost you #4 gold for the deed. Interested?" ',
-        'russian': 'FIXME $N turns to $Y. "It\'ll cost you #4 gold for the deed. Interested?" '
+        'russian': '$N поворачивается к $Y. "Это будет стоить вам #4 монет золотом за документ. Интересует?" '
     })
 
     choice({
         'english': 'yn',
-        'russian': 'FIXME yn'
+        'russian': 'дн'
     })
 
     case 'y':
-    case {'russian': 'FIXME y'}:
+    case {'russian': 'д'}:
         if less(plus(canCarry(integer(value 3)), weight(byte 88, data(integers_1885, string(value 9)))), weight(byte 149, byte 1)):
             print({
                 'english': '"You look pretty full to me, $Y."',
-                'russian': 'FIXME "You look pretty full to me, $Y."'
+                'russian': '"Вы кажетесь мне довольно перегруженным, $Y".'
             })
             jump label_204
         fi
@@ -303,7 +303,7 @@ label_1153:
         fi
 
     case 'n':
-    case {'russian': 'FIXME n'}:
+    case {'russian': 'н'}:
         jump label_1465
     esac
 
@@ -311,14 +311,14 @@ label_1371:
     moveItem(byte 149, data(integers_1893, integer(value 9)), byte 235, integer(value 3))
     print({
         'english': '"Excellent!" After accepting the gold, $N hands $Y the deed.',
-        'russian': 'FIXME "Excellent!" After accepting the gold, $N hands $Y the deed.'
+        'russian': '"Отлично!" Приняв золото, $N вручает $Y документ.'
     })
     integer(value 5) = byte 1
     wait()
 
     print({
         'english': '\n\n',
-        'russian': 'FIXME \n\n'
+        'russian': '\n\n'
     })
     jump label_1465
 
@@ -326,13 +326,13 @@ label_1465:
     if integer(value 5):
         print({
             'english': '"Sail her straight."',
-            'russian': 'FIXME "Sail her straight."'
+            'russian': '"Попутного ветра".'
         })
 
     else:
         print({
             'english': '"You\'ll ne\'er find a better craft."',
-            'russian': 'FIXME "You\'ll ne\'er find a better craft."'
+            'russian': '"Вы не найдёте лучшего судна".'
         })
     fi
 
@@ -342,7 +342,7 @@ label_1531:
     if equals(integer(value 23), byte 0):
         print({
             'english': '"Thou hast not enough gold."',
-            'russian': 'FIXME "Thou hast not enough gold."'
+            'russian': '"У тебя недостаточно золота".'
         })
         jump label_204
     fi
@@ -356,7 +356,7 @@ label_1606:
     if greater(integer(value 6), integer(value 23)):
         print({
             'english': '"Thy party hast not enough gold."',
-            'russian': 'FIXME "Thy party hast not enough gold."'
+            'russian': '"У твоей группы недостаточно золота".'
         })
         jump label_204
     fi
@@ -372,7 +372,7 @@ label_1606:
     else:
         print({
             'english': 'Your party takes up a collection to purchase the vessel.',
-            'russian': 'FIXME Your party takes up a collection to purchase the vessel.'
+            'russian': 'Ваша группа собирает деньги на покупку судна.'
         })
         integer(value 1) = word 400
         integer(value 2) = byte 0
@@ -388,7 +388,7 @@ label_1799:
 
         print({
             'english': '\n\n',
-            'russian': 'FIXME \n\n'
+            'russian': '\n\n'
         })
         jump label_1371
     fi
