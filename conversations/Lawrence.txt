@@ -4,105 +4,105 @@ index(77)
 id(77)
 name({
     'english': 'Lawrence',
-    'russian': 'FIXME Lawrence'
+    'russian': 'Лоуренс'
 })
 
 description:
     print({
         'english': 'a small, fussy looking man.',
-        'russian': 'FIXME a small, fussy looking man.'
+        'russian': 'маленького вертлявого мужчину.'
     })
     wait()
 
     print({
         'english': '\n',
-        'russian': 'FIXME \n'
+        'russian': '\n'
     })
 
 interaction:
     integer(value 5) = byte 0
     print({
         'english': '"Welcome to the Fool\'s Pair o\' Dice."',
-        'russian': 'FIXME "Welcome to the Fool\'s Pair o\' Dice."'
+        'russian': '"Добро пожаловать в Лудем!"'
     })
     jump label_124
 
 label_90:
     print({
         'english': '\n"Anything else I can do for you?"',
-        'russian': 'FIXME \n"Anything else I can do for you?"'
+        'russian': '\n"Что-нибудь ещё?"'
     })
 
 label_124:
     print({
         'english': '\n',
-        'russian': 'FIXME \n'
+        'russian': '\n'
     })
 
     ask()
 
     case 'name':
-    case {'russian': 'FIXME name'}:
+    case {'russian': 'имя'}:
         print({
             'english': '"It\'s Lawrence."',
-            'russian': 'FIXME "It\'s Lawrence."'
+            'russian': '"Зовут Лоуренс".'
         })
         setBit(byte 235, value 0)
         jump label_124
 
     case 'buy':
-    case {'russian': 'FIXME buy'}:
+    case {'russian': 'куп'}:
         print({
             'english': '"Which, @grapes, @ale, @mead, @wine, or @rations?"',
-            'russian': 'FIXME "Which, @grapes, @ale, @mead, @wine, or @rations?"'
+            'russian': '"Что интересует? @Виноград, @эль, @медовуха, @вино или @пайки?"'
         })
         jump label_124
 
     case 'job':
-    case {'russian': 'FIXME job'}:
+    case {'russian': 'раб'}:
         print({
             'english': '"I sell @grapes, @ale, @mead, @wine, and @rations."',
-            'russian': 'FIXME "I sell @grapes, @ale, @mead, @wine, and @rations."'
+            'russian': '"Я продаю @виноград, @эль, @медовуху, @вино и @пайки".'
         })
         jump label_124
 
     case 'grap':
-    case {'russian': 'FIXME grap'}:
+    case {'russian': 'виног'}:
         jump label_877
 
     case 'mead':
-    case {'russian': 'FIXME mead'}:
+    case {'russian': 'мед'}:
         integer(value 4) = byte 0
         jump label_413
 
     case 'ale':
-    case {'russian': 'FIXME ale'}:
+    case {'russian': 'эль'}:
         integer(value 4) = byte 1
         jump label_413
 
     case 'wine':
-    case {'russian': 'FIXME wine'}:
+    case {'russian': 'вино'}:
         integer(value 4) = byte 2
         jump label_413
 
     case 'rati':
-    case {'russian': 'FIXME rati'}:
+    case {'russian': 'пай'}:
         jump label_1255
 
     case 'no':
-    case {'russian': 'FIXME no'}:
+    case {'russian': 'нет'}:
     case 'bye':
-    case {'russian': 'FIXME bye'}:
+    case {'russian': 'пока'}:
         print({
             'english': '"Goodbye."\n',
-            'russian': 'FIXME "Goodbye."\n'
+            'russian': '"Прощайте".\n'
         })
         bye()
 
     case '*':
         print({
             'english': '"I can\'t help you with that."',
-            'russian': 'FIXME "I can\'t help you with that."'
+            'russian': '"Ничем не могу помочь".'
         })
     esac
 
@@ -122,7 +122,7 @@ label_450:
     look(character(integer(value 0), byte 0))
     print({
         'english': '#2. $Y\n',
-        'russian': 'FIXME #2. $Y\n'
+        'russian': '#2. $Y\n'
     })
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -133,7 +133,7 @@ label_450:
 
     print({
         'english': '"Which of you?" ',
-        'russian': 'FIXME "Which of you?" '
+        'russian': '"Кто из вас?" '
     })
     inputDigit(integer(value 3))
 
@@ -154,20 +154,20 @@ label_562:
     integer(value 1) = data(integers_1967, integer(value 4))
     print({
         'english': '"That\'s #1 gold, okay?" ',
-        'russian': 'FIXME "That\'s #1 gold, okay?" '
+        'russian': '"С вас #1 золотых, по рукам?" '
     })
 
     choice({
         'english': 'yn',
-        'russian': 'FIXME yn'
+        'russian': 'дн'
     })
 
     case 'y':
-    case {'russian': 'FIXME y'}:
+    case {'russian': 'д'}:
         jump label_630
 
     case 'n':
-    case {'russian': 'FIXME n'}:
+    case {'russian': 'н'}:
         integer(value 5) = byte 0
         jump label_834
     esac
@@ -176,13 +176,13 @@ label_630:
     if less(objectsCount(integer(value 3), byte 88), integer(value 1)):
         print({
             'english': '"Come back when you have some gold."',
-            'russian': 'FIXME "Come back when you have some gold."'
+            'russian': '"Возвращайтесь, когда раздобудете золото".'
         })
         wait()
 
         print({
             'english': '\n',
-            'russian': 'FIXME \n'
+            'russian': '\n'
         })
         jump label_90
     fi
@@ -190,7 +190,7 @@ label_630:
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(integers_1973, integer(value 4)), byte 1)):
         print({
             'english': '"You don\'t have room to carry it."',
-            'russian': 'FIXME "You don\'t have room to carry it."'
+            'russian': '"В вашем мешке недостаточно места".'
         })
         integer(value 5) = byte 0
         jump label_834
@@ -202,13 +202,13 @@ label_630:
     string(value 1) = data(strings_1979, integer(value 4))
     print({
         'english': '$N gives $Y some $1.',
-        'russian': 'FIXME $N gives $Y some $1.'
+        'russian': '$N отдаёт персонажу $Y предметы: $1.'
     })
     wait()
 
     print({
         'english': '\n\n',
-        'russian': 'FIXME \n\n'
+        'russian': '\n\n'
     })
     jump label_834
 
@@ -216,20 +216,20 @@ label_834:
     if integer(value 5):
         print({
             'english': '"That ought to hold you."',
-            'russian': 'FIXME "That ought to hold you."'
+            'russian': '"Этого должно хватить".'
         })
         wait()
 
         print({
             'english': '\n',
-            'russian': 'FIXME \n'
+            'russian': '\n'
         })
         jump label_90
     fi
 
     print({
         'english': '\n',
-        'russian': 'FIXME \n'
+        'russian': '\n'
     })
     jump label_90
 
@@ -247,7 +247,7 @@ label_914:
     look(character(integer(value 0), byte 0))
     print({
         'english': '#2. $Y\n',
-        'russian': 'FIXME #2. $Y\n'
+        'russian': '#2. $Y\n'
     })
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -258,7 +258,7 @@ label_914:
 
     print({
         'english': '"Which of you?" ',
-        'russian': 'FIXME "Which of you?" '
+        'russian': '"Кто из вас?" '
     })
     inputDigit(integer(value 3))
 
@@ -278,26 +278,26 @@ label_1026:
     look(integer(value 3))
     print({
         'english': '"That\'ll be 3 gold, okay?" ',
-        'russian': 'FIXME "That\'ll be 3 gold, okay?" '
+        'russian': '"Это стоит 3 золотых, по рукам?" '
     })
 
     choice({
         'english': 'yn',
-        'russian': 'FIXME yn'
+        'russian': 'дн'
     })
 
     case 'y':
-    case {'russian': 'FIXME y'}:
+    case {'russian': 'д'}:
         if less(objectsCount(integer(value 3), byte 88), byte 3):
             print({
                 'english': '"Come back when you have some gold."',
-                'russian': 'FIXME "Come back when you have some gold."'
+                'russian': '"Возвращайтесь, когда раздобудете золото".'
             })
             wait()
 
             print({
                 'english': '\n',
-                'russian': 'FIXME \n'
+                'russian': '\n'
             })
             jump label_90
         fi
@@ -305,7 +305,7 @@ label_1026:
         if less(plus(canCarry(integer(value 3)), weight(byte 88, byte 3)), weight(byte 95, byte 1)):
             print({
                 'english': '"You don\'t have room to carry them."',
-                'russian': 'FIXME "You don\'t have room to carry them."'
+                'russian': '"Вам столько не унести".'
             })
             integer(value 5) = byte 0
             jump label_1249
@@ -315,25 +315,25 @@ label_1026:
         createItem(integer(value 3), byte 95, byte 0, byte 1)
         print({
             'english': '$N gives $Y some grapes.',
-            'russian': 'FIXME $N gives $Y some grapes.'
+            'russian': '$N отдаёт персонажу $Y немного винограда.'
         })
         wait()
 
         print({
             'english': '\n',
-            'russian': 'FIXME \n'
+            'russian': '\n'
         })
         jump label_1249
 
     case 'n':
-    case {'russian': 'FIXME n'}:
+    case {'russian': 'н'}:
         jump label_1249
     esac
 
 label_1249:
     print({
         'english': '\n',
-        'russian': 'FIXME \n'
+        'russian': '\n'
     })
     jump label_90
 
@@ -351,7 +351,7 @@ label_1292:
     look(character(integer(value 0), byte 0))
     print({
         'english': '#2. $Y\n',
-        'russian': 'FIXME #2. $Y\n'
+        'russian': '#2. $Y\n'
     })
     integer(value 0) = plus(integer(value 0), byte 1)
     integer(value 2) = plus(integer(value 2), byte 1)
@@ -362,7 +362,7 @@ label_1292:
 
     print({
         'english': '"Which of you?" ',
-        'russian': 'FIXME "Which of you?" '
+        'russian': '"Кто из вас?" '
     })
     inputDigit(integer(value 3))
 
@@ -386,7 +386,7 @@ label_1404:
 
     print({
         'english': '"Rations are 4 gold apiece. How many do you want?" ',
-        'russian': 'FIXME "Rations are 4 gold apiece. How many do you want?" '
+        'russian': '"Пайки продаются за 4 золотых за штуку. Сколько вам нужно?" '
     })
     inputInteger(integer(value 9))
 
@@ -430,13 +430,13 @@ label_1646:
         look(integer(value 3))
         print({
             'english': '$N looks at $Y. "You haven\'t any room in your pack."',
-            'russian': 'FIXME $N looks at $Y. "You haven\'t any room in your pack."'
+            'russian': '$N смотрит на персонажа $Y: "В вашем мешке недостаточно места".'
         })
         wait()
 
         print({
             'english': '\n',
-            'russian': 'FIXME \n'
+            'russian': '\n'
         })
         jump label_90
     fi
@@ -445,13 +445,13 @@ label_1646:
         look(integer(value 3))
         print({
             'english': '"Come back when you have some gold."',
-            'russian': 'FIXME "Come back when you have some gold."'
+            'russian': '"Возвращайтесь, когда раздобудете золото".'
         })
         wait()
 
         print({
             'english': '\n',
-            'russian': 'FIXME \n'
+            'russian': '\n'
         })
         jump label_90
     fi
@@ -465,51 +465,51 @@ label_1776:
         look(integer(value 3))
         print({
             'english': '$N hands the rations to $Y.',
-            'russian': 'FIXME $N hands the rations to $Y.'
+            'russian': '$N передаёт пайки персонажу $Y.'
         })
         wait()
 
         print({
             'english': '\n',
-            'russian': 'FIXME \n'
+            'russian': '\n'
         })
         jump label_90
     fi
 
     print({
         'english': 'He hands $Y #9 ration\\s of mutton.',
-        'russian': 'FIXME He hands $Y #9 ration\\s of mutton.'
+        'russian': 'Он передаёт персонажу $Y пайки из баранины х#9.'
     })
     wait()
 
     print({
         'english': '\n\n',
-        'russian': 'FIXME \n\n'
+        'russian': '\n\n'
     })
 
     if integer(value 0):
         print({
             'english': '"That\'s all you can carry."',
-            'russian': 'FIXME "That\'s all you can carry."'
+            'russian': '"Больше вам не унести".'
         })
         wait()
 
         print({
             'english': '\n',
-            'russian': 'FIXME \n'
+            'russian': '\n'
         })
         jump label_90
 
     else:
         print({
             'english': '"That\'s all you can afford."',
-            'russian': 'FIXME "That\'s all you can afford."'
+            'russian': '"Больше вам не по карману".'
         })
         wait()
 
         print({
             'english': '\n',
-            'russian': 'FIXME \n'
+            'russian': '\n'
         })
         jump label_90
     fi
@@ -529,14 +529,14 @@ integers_1973 = [
 strings_1979 = [
     {
         'english': 'Mead',
-        'russian': 'FIXME Mead'
+        'russian': 'Медовуха'
     }, // 0
     {
         'english': 'Ale',
-        'russian': 'FIXME Ale'
+        'russian': 'Эль'
     }, // 1
     {
         'english': 'Wine',
-        'russian': 'FIXME Wine'
+        'russian': 'Вино'
     }, // 2
 ]
