@@ -254,7 +254,7 @@ for binary, functions in patches.add_functions.items():
                     references_segments = [x['segment'] for x in references.get((binary, t['offset']), [])]
 
                     # Temporary fix. FIXME TODO
-                    t['russian'] = t['russian'][:len(t['english'])]
+#                    t['russian'] = t['russian'][:len(t['english'])]
 
                     if len(t['russian'].encode('cp866')) <= len(t['english'].encode('cp866')):
                         # FIXME упаковать фразы лучше
