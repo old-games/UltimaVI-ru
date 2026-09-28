@@ -40,6 +40,59 @@ def add_reference(name, offset, origin, type, segment):
             rr[(name, offset)].append({'origin': origin, 'segment': segment, 'type': type})
 
 
+def filter_false_data_references(rr, window=32, min_neighbors=2):
+    """
+    Отсеивает ложные data-ссылки.
+
+    Проблема: `strings.py` сканирует весь сегмент данных и каждое двухбайтовое
+    слово пытается интерпретировать как указатель на строку. Многие слова
+    случайно совпадают со смещениями реальных строк — это даёт ложные
+    data-ссылки. `patch.py` потом бьёт по этим ложным ссылкам, затирая
+    чужие данные (например, указатели в массиве команд), и игра вылетает.
+
+    Логика фильтрации:
+    - Если у строки нет register-ссылок (она используется только как данные,
+      например, строка в таблице), то все data-ссылки на неё считаются
+      реальными — не трогаем.
+    - Если у строки есть register-ссылки (она используется в коде через
+      `mov reg, offset`), то data-ссылки на неё реальны только если они
+      часть массива указателей: рядом (±window байт) есть ещё ≥min_neighbors
+      data-ссылок на другие строки. Одиночные data-ссылки на такие строки —
+      ложные, отбрасываем.
+
+    Это безопасно отсекает ложные срабатывания для команд меню (Attack,
+    Use, Rest, Save и т.д.), не затрагивая реальные data-ссылки.
+    """
+    # Собираем все data-ссылки: name -> {origin: set(offsets)}
+    data_by_origin = {}
+    for (name, offset), refs in rr.items():
+        for r in refs:
+            if r['type'] == 'data' and isinstance(r['segment'], str):
+                data_by_origin.setdefault(name, {}).setdefault(r['origin'], set()).add(offset)
+
+    filtered = 0
+    for (name, offset), refs in list(rr.items()):
+        has_register = any(r['type'] == 'register' for r in refs)
+        if not has_register:
+            continue  # строка используется только как данные — не трогаем
+
+        new_refs = []
+        for r in refs:
+            if r['type'] == 'data' and isinstance(r['segment'], str):
+                origins = data_by_origin.get(name, {})
+                neighbors = sum(
+                    1 for o in origins
+                    if o != r['origin'] and abs(o - r['origin']) <= window
+                )
+                if neighbors < min_neighbors:
+                    filtered += 1
+                    continue  # ложная одиночная data-ссылка
+            new_refs.append(r)
+        rr[(name, offset)] = new_refs
+
+    print(f'Filtered {filtered} false data references')
+
+
 tt = {}
 rr = {}
 
@@ -147,6 +200,9 @@ for name, printfs in printf.items():
                     add_reference(name, o, i, 'argument' if d[i-1] == 0x68 or d[i-4:i-2] == b'\xc7\x06' else 'register', 'unknown')
                 except (IndexError, UnicodeDecodeError, AssertionError):
                     pass
+
+# Отсеиваем ложные data-ссылки ДО мержа с old_tt и записи references.json.
+filter_false_data_references(rr)
 
 if os.path.isfile('patches/translation.json'):
     with open('patches/translation.json') as f:
