@@ -265,25 +265,13 @@ for binary, functions in patches.add_functions.items():
                     elif t['offset'] > header + segments[-1]*0x10:
                         # FIXME reuse old space
                         rr = references.get((binary, t['offset']), [])
-                        moved = 0
                         for r in rr:
-                            origin = r['origin']
-                            # Пропускаем ссылки за пределами файла и ложные ссылки,
-                            # которые не указывают на старое смещение этой строки.
-                            if origin + 2 > len(d):
-                                continue
-                            expected = t['offset'] - header - segments[-1]*0x10
-                            if int.from_bytes(d[origin:origin+2], 'little') != expected:
-                                # Ложная ссылка (например, случайное совпадение
-                                # двух байт со смещением строки). Не трогаем —
-                                # иначе затрём чужие данные.
-                                continue
-                            replaces.append((origin, 2, len(ds).to_bytes(2, 'little')))
-                            moved += 1
+                            assert int.from_bytes(d[r['origin']:r['origin']+2], 'little') == t['offset'] - header - segments[-1]*0x10
+                            replaces.append((r['origin'], 2, len(ds).to_bytes(2, 'little')))
 
                         ds.extend(t['russian'].encode('cp866') + b'\x00')
 
-                        replaced += bool(moved)
+                        replaced += bool(rr)
                         added += 1
 
                     elif all(map(lambda x: isinstance(x, int), references_segments)):
