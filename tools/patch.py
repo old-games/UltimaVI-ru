@@ -256,11 +256,17 @@ for binary, functions in patches.add_functions.items():
                     # Temporary fix. FIXME TODO
 #                    t['russian'] = t['russian'][:len(t['english'])]
 
-                    if len(t['russian'].encode('cp866')) <= len(t['english'].encode('cp866')):
+                    slot = patches.fixed_size_strings.get((binary, t['offset']))
+                    limit = slot - 1 if slot else len(t['english'].encode('cp866'))
+
+                    if len(t['russian'].encode('cp866')) <= limit:
                         # FIXME упаковать фразы лучше
-                        message = t['russian'].encode('cp866').ljust(len(t['english']), b'\x00')
+                        message = t['russian'].encode('cp866').ljust(limit, b'\x00')
                         replaces.append((t['offset'], len(message), message))
                         replaced += 1
+
+                    elif slot:
+                        print(f'String {repr(t["russian"])} is longer than {limit} bytes of its fixed-size slot, left untranslated!')
 
                     elif t['offset'] > header + segments[-1]*0x10:
                         # FIXME reuse old space
@@ -278,8 +284,20 @@ for binary, functions in patches.add_functions.items():
                         print(f'String {repr(t["russian"])} can be moved!')
                         # FIXME why it can?
 
+                    else:
+                        # FIXME строки вне последнего сегмента данных (форматы printf в 0x2d32) пока не переносятся.
+                        print(f'String {repr(t["english"])} is too long and not in DS, left untranslated!')
+
                 else:
                     missing += 1
+
+    # DGROUP (данные + BSS + перенесённые строки + near heap + стек) не может быть больше 64К,
+    # при _heaplen = 0 стек растёт вниз от 0xFFFF. STACK_RESERVE — сколько оставляем стеку.
+    # FIXME замерить реальную глубину стека, автор игры закладывал _stklen = 0x1000.
+    STACK_RESERVE = 0x400
+    ds_free = 0x10000 - STACK_RESERVE - len(ds)
+    print(f'{binary} — {ds_free} bytes left in DS (stack reserve {STACK_RESERVE})')
+    assert ds_free >= 0, f'{binary}: DS overflow by {-ds_free} bytes, shorten or pack strings'
 
     ds[system_break_address:system_break_address+2] = len(ds).to_bytes(2, 'little')
     ds.extend(b'\x00' * ((len(ds) - ds_size + 0x1ff) // 0x200 * 0x200 - len(ds) + ds_size))
