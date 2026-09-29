@@ -18,11 +18,40 @@ add_functions = {
 }
 
 
-# Строки в массивах фиксированной ширины: (файл, смещение) -> размер ячейки вместе с нулём.
-# Такие строки нельзя переносить, зато можно занимать всю ячейку.
+def russian_plural(n, one, few, many):
+    if n % 10 == 1 and n % 100 != 11:
+        return one
+    if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
+        return few
+    return many
+
+
+# Массивы строк фиксированной ширины char[count][size]. Массив переносится в конец DS с ячейками new_size,
+# в коде правятся ширина (size_refs, imm16) и адрес начала (base_refs, imm16 смещение в DS). Если у копии
+# есть units, к элементу i добавляется ' ' + форма слова для числа i, и для каждой копии делается свой массив.
+string_arrays = {
+    'END.EXE': [
+        {
+            # char numbers[30][13] — "zero" ... "twenty-nine": mov dx, 13; mul dx; add ax, 0x258; ... strcpy.
+            # Затем strcat(" year") и strcat("s"), если не 1, — эти суффиксы в переводе пустые, а годы, месяцы
+            # и дни берутся из своих массивов уже с правильной формой. Приёмники — буферы по 64 байта.
+            'offset': 34712, 'count': 30, 'size': 13, 'new_size': 32,
+            'size_refs': [8507, 8575, 8655],
+            'copies': [
+                {'base_refs': [8512], 'units': ('год', 'года', 'лет')},
+                {'base_refs': [8580], 'units': ('месяц', 'месяца', 'месяцев')},
+                {'base_refs': [8660], 'units': ('день', 'дня', 'дней')},
+            ],
+        },
+    ],
+}
+
+# (файл, смещение) -> максимальный размер строки вместе с нулём.
 fixed_size_strings = {
-    # END.EXE: char numbers[30][13] — "zero" ... "twenty-nine", обращение через mul 13; add ax, 0x258.
-    **{('END.EXE', 34712 + 13*i): 13 for i in range(30)},
+    (binary, a['offset'] + a['size']*i): a['new_size'] - max(
+        (1 + len(u.encode('cp866')) for c in a['copies'] for u in c.get('units', ())), default=0
+    )
+    for binary, arrays in string_arrays.items() for a in arrays for i in range(a['count'])
 }
 
 

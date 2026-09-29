@@ -1,4 +1,5 @@
 import io
+import re
 import textwrap
 
 
@@ -844,7 +845,21 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
 
         yield from join_cases()
 
-    def read_expression(token=None):
+    # В формате версии 2 опкоды 0xf1, 0xa2, 0xa3, 0xee, 0xef стали байтами 1, 2, 3, 0x0e, 0x0f. Игра ищет их
+    # простым сканированием (например, else/endif при пропуске тела if), и сырое число с тем же значением
+    # (индекс переменной или номер бита) принимается за опкод. Поэтому переменные общего назначения
+    # (индексы меньше 0x10) с такими номерами переназначаем на свободные, а прочие числа пишем как byte.
+    remapped_opcodes = {1, 2, 3, 0x0e, 0x0f}
+    variables = {}
+    if version == 2:
+        for kind in ('integer', 'string'):
+            used = {int(x) for x in re.findall(kind + r'\s*\(\s*value\s+(\d+)\s*\)', conversation)}
+            free = sorted(set(range(0x10)) - remapped_opcodes - {4} - used) # 4 — начало текста в версии 2
+            clashing = sorted(used & remapped_opcodes)
+            assert len(clashing) <= len(free), f'No free {kind} variables to remap {clashing}.'
+            variables[kind] = dict(zip(clashing, free))
+
+    def read_expression(token=None, variable=None):
         # FIXME value переименовать в small???
         # FIXME inventory в showInventory
         # FIXME portrait в showPortrait
@@ -854,6 +869,10 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
 
         if operator in ('value', 'byte', 'word', 'dword'): # FIXME copy-paste
             value = int(next(iterator))
+            if operator == 'value' and variable is not None:
+                value = variables.get(variable, {}).get(value, value)
+            if operator == 'value' and version == 2 and value in remapped_opcodes:
+                operator = 'byte'
             if operator == 'value':
                 assert 0 <= value < 0x80
                 result.append(value)
@@ -888,7 +907,7 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
             for index in range(parameters[operator]):
                 if index:
                     assert next(iterator) == ','
-                read_expression()
+                read_expression(variable=operator if operator in ('integer', 'string') else None)
 
         result.append(operators[operator])
         assert next(iterator) == ')'
