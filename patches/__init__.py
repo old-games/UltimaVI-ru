@@ -18,6 +18,43 @@ add_functions = {
 }
 
 
+def russian_plural(n, one, few, many):
+    if n % 10 == 1 and n % 100 != 11:
+        return one
+    if 2 <= n % 10 <= 4 and not 12 <= n % 100 <= 14:
+        return few
+    return many
+
+
+# Массивы строк фиксированной ширины char[count][size]. Массив переносится в конец DS с ячейками new_size,
+# в коде правятся ширина (size_refs, imm16) и адрес начала (base_refs, imm16 смещение в DS). Если у копии
+# есть units, к элементу i добавляется ' ' + форма слова для числа i, и для каждой копии делается свой массив.
+string_arrays = {
+    'END.EXE': [
+        {
+            # char numbers[30][13] — "zero" ... "twenty-nine": mov dx, 13; mul dx; add ax, 0x258; ... strcpy.
+            # Затем strcat(" year") и strcat("s"), если не 1, — эти суффиксы в переводе пустые, а годы, месяцы
+            # и дни берутся из своих массивов уже с правильной формой. Приёмники — буферы по 64 байта.
+            'offset': 34712, 'count': 30, 'size': 13, 'new_size': 32,
+            'size_refs': [8507, 8575, 8655],
+            'copies': [
+                {'base_refs': [8512], 'units': ('год', 'года', 'лет')},
+                {'base_refs': [8580], 'units': ('месяц', 'месяца', 'месяцев')},
+                {'base_refs': [8660], 'units': ('день', 'дня', 'дней')},
+            ],
+        },
+    ],
+}
+
+# (файл, смещение) -> максимальный размер строки вместе с нулём.
+fixed_size_strings = {
+    (binary, a['offset'] + a['size']*i): a['new_size'] - max(
+        (1 + len(u.encode('cp866')) for c in a['copies'] for u in c.get('units', ())), default=0
+    )
+    for binary, arrays in string_arrays.items() for a in arrays for i in range(a['count'])
+}
+
+
 def replace(d, a, c):
     d[a:a+len(c)] = c
 
@@ -84,6 +121,44 @@ def patch_U(d):
     # Use word.
     assert d[0x2afc] == 0x98
     d[0x2afc] = 0x90
+
+    # Пол персонажа хранится в DS:0x5a46 буквой ('F'/'M') или словом ("Female"/"Male", переводятся),
+    # и везде игра проверяет только первый символ на 'F'. После перевода слов на "Жен"/"Муж" женский пол
+    # не распознаётся. Вместо сравнения проверяем бит 3 первого символа: он сброшен у 'F' (0x46) и 'Ж' (0x86)
+    # и установлен у 'M' (0x4d) и 'М' (0x8c). Поэтому перевод слова для женского пола должен начинаться
+    # с 'Ж', для мужского — с 'М'.
+    test_female = b'\xf6\x06\x46\x5a\x08' # test byte [0x5a46], 8
+
+    # Портрет и запись пола в сохранение: cmp byte [0x5a46], 'F' -> test.
+    for a in (0x4da4, 0x5abd):
+        assert d[a:a+5] == b'\x80\x3e\x46\x5a\x46'
+        replace(d, a, test_female)
+
+    # Переключение пола на итоговом экране: 'F' -> "Male", 'M' -> "Female".
+    assert d[0x458f:0x459f] == bytes.fromhex('a0465a983d460074193d4d007402eb22')
+    replace(d, 0x458f, test_female + bytes.fromhex(
+        '741b'          # jz male (0x45b1)
+        'eb07'          # jmp female (0x459f)
+    ).ljust(11, b'\x90'))
+
+    # Ответ на вопрос "Мужчина ты иль женщина?": принимаем M/F и М/Ж, строчные тоже.
+    assert d[0x5d60:0x5d88] == bytes.fromhex('a0465a98509a0f0040124444a2465a803e465a4d740b803e465a4674040bf675c20bf67503e957ff')
+    replace(d, 0x5d60, bytes.fromhex(
+        'a1465a'        # mov ax, [0x5a46]  ; ah = 0 из терминатора, без cbw, иначе toupper ломается на >= 0x80
+        '90'            # nop
+        '50'            # push ax
+        '9a0f004012'    # lcall toupper (релокация, не трогаем)
+        '59'            # pop cx
+        'a2465a'        # mov [0x5a46], al
+        '0bf6'          # or si, si
+        '7412'          # jz back (0x5d84)
+        '3c4d7412'      # cmp al, 'M' ; je ok (0x5d88)
+        '3c46740e'      # cmp al, 'F' ; je ok
+        '3c8c740a'      # cmp al, 'М' ; je ok
+        '3c8675c1'      # cmp al, 'Ж' ; jne ask_again (0x5d43)
+        'eb04'          # jmp ok
+        'e958ff'        # back: jmp 0x5cdf
+    ))
 
     # FIXME
     0x13e68
