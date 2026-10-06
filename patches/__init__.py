@@ -18,6 +18,24 @@ add_functions = {
 }
 
 
+# Дальние вызовы (call far с релокацией сегмента), перенаправляемые на функции из code_block:
+# смещение инструкции в файле → (asm-файл, метка, прежний адрес seg:off — для проверки).
+redirect_calls = {
+    'GAME.EXE': {
+        0x9a82: ('hotkeys', 'hotkey_toupper', (0x2ce6, 0x3)),  # toupper в обработчике событий 0x464:0x1d59
+        0x7298: ('hotkeys', 'command_getch', (0x464, 0x2a59)),  # цикл команд A B C D G L M R T U
+        0x7739: ('hotkeys', 'yes_no_getch', (0x464, 0x2a59)),  # вопросы «да/нет»: getch, затем 'Y'/'N'
+        0x7927: ('hotkeys', 'yes_no_getch', (0x464, 0x2a59)),
+        0x7964: ('hotkeys', 'yes_no_getch', (0x464, 0x2a59)),
+        0x1cefc: ('hotkeys', 'yes_no_getch', (0x464, 0x2a59)),
+        0x27b50: ('hotkeys', 'yes_no_getch', (0x464, 0x2a59)),
+        0x144c0: ('hotkeys', 'conversation_getch', (0x464, 0x2a59)),  # диалоги: ввод символа (0xfc)
+        0x1453e: ('hotkeys', 'conversation_getch', (0x464, 0x2a59)),  # диалоги: ввод символа (0xfa)
+        0x145a7: ('hotkeys', 'conversation_getch', (0x464, 0x2a59)),  # диалоги: choice (0xf8)
+    },
+}
+
+
 def russian_plural(n, one, few, many):
     if n % 10 == 1 and n % 100 != 11:
         return one

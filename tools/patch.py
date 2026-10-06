@@ -33,7 +33,7 @@ def find_all(d, pattern):
     return results
 
 
-def apply_obj(path, base):
+def apply_obj(path, base, publics=None):
     with open(path, 'rb') as f:
         data = f.read()
     index = 0
@@ -78,6 +78,8 @@ def apply_obj(path, base):
                 a = int.from_bytes(d[i+2+s:i+4+s], 'little')
                 if n.startswith('fixmeup'): # TODO избавиться от fixmeup, придумать как-то поумнее
                     fixmeups.add(a)
+                elif publics is not None:
+                    publics[n] = base + a
                 i += s + 4
 
     for a in fixmeups:
@@ -221,6 +223,15 @@ for binary, functions in patches.add_functions.items():
             subprocess.run(['nasm', '-f', 'obj', f'patches/{os.path.splitext(binary)[0]}/{f}.asm', '-o', f'{temp}/{f}.obj'], check=True)
             function_address[f] = len(code_block)
             code_block += apply_obj(f'{temp}/{f}.obj', function_address[f])
+
+        # Отдельные функции, на которые перенаправляются вызовы (patches.redirect_calls), а не заменяемые целиком.
+        redirects = patches.redirect_calls.get(binary, {})
+        redirect_address = {}
+        for f in sorted({f for f, _, _ in redirects.values()}):
+            subprocess.run(['nasm', '-f', 'obj', f'patches/{os.path.splitext(binary)[0]}/{f}.asm', '-o', f'{temp}/{f}.obj'], check=True)
+            publics = {}
+            code_block += apply_obj(f'{temp}/{f}.obj', len(code_block), publics)
+            redirect_address.update({(f, n): a for n, a in publics.items()})
 
     # Длинные строки из других сегментов данных (форматы printf в 0x2d32): на них ссылаются полным адресом
     # mov ax, seg; push ax; mov ax, offset; push ax, поэтому их можно положить в code_block и поменять
@@ -403,6 +414,14 @@ for binary, functions in patches.add_functions.items():
             assert segment_origin in relocated
             d[segment_origin:segment_origin+2] = (0).to_bytes(2, 'little')
             d[offset_origin:offset_origin+2] = code_block_offset.to_bytes(2, 'little')
+
+    # Перенаправленные вызовы: call far seg:off → call far 0:адрес в code_block (сегмент 0 до настройки загрузчиком).
+    for origin, (f, label, (old_segment, old_offset)) in redirects.items():
+        assert d[origin] == 0x9a and origin + 3 in relocated
+        assert int.from_bytes(d[origin+1:origin+3], 'little') == old_offset
+        assert int.from_bytes(d[origin+3:origin+5], 'little') == old_segment + space*0x20
+        d[origin+1:origin+3] = redirect_address[(f, label)].to_bytes(2, 'little')
+        d[origin+3:origin+5] = (0).to_bytes(2, 'little')
 
     pages += space + data_space
     d[6:8] = len(relocs).to_bytes(2, 'little')
