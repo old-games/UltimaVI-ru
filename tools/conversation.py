@@ -854,6 +854,7 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
     if version == 2:
         for kind in ('integer', 'string'):
             used = {int(x) for x in re.findall(kind + r'\s*\(\s*value\s+(\d+)\s*\)', conversation)}
+            used |= {int(x, 36) for x in re.findall(('#' if kind == 'integer' else r'\$') + r'([0-9A-Za-z])', conversation)}
             free = sorted(set(range(0x10)) - remapped_opcodes - {4} - used) # 4 — начало текста в версии 2
             clashing = sorted(used & remapped_opcodes)
             assert len(clashing) <= len(free), f'No free {kind} variables to remap {clashing}.'
@@ -926,6 +927,14 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
         elif version == 2 and context == 'print':
             start = b'\x04'
             end = b'\x00'
+            # Подстановки в тексте (#N — integer, $N — string) ссылаются на переменные по номеру, поэтому
+            # переназначаются так же, как в выражениях. Номер — один символ: 0-9, затем A-Z (10-35), см. putch.asm.
+            digits = '0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ'
+            def remap(match):
+                kind = 'integer' if match[1] == '#' else 'string'
+                value = variables.get(kind, {}).get(digits.index(match[2].upper()))
+                return match[0] if value is None else match[1] + digits[value]
+            string = re.sub(r'([#$])([0-9A-Za-z])', remap, string)
         else:
             start = b''
             end = b''
