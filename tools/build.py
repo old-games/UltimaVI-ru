@@ -14,6 +14,7 @@ import tools.conversation
 import tools.file
 import tools.look
 import tools.lzw
+import tools.party
 import tools.symbols
 
 
@@ -40,6 +41,16 @@ with tempfile.TemporaryDirectory() as d:
     )
 
     # FIXME get rid of tempfile
+
+    # Имена спутников начального отряда в шаблоне сохранения.
+    tools.file.write(
+        os.path.join(d, 'LZDNGBLK'),
+        tools.party.encode(
+            tools.file.read(tools.get_path('LZDNGBLK')),
+            os.path.join(tools.get_script_path(), 'conversations'),
+            data_language,
+        ),
+    )
 
     for name in tools.get_compressed_files():
         if name not in tools.get_force_original_files():

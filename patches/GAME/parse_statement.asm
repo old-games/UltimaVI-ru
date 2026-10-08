@@ -79,18 +79,18 @@ loc_1ca5:
         jnz     loc_1c93
         jmp     loc_1cb7
 
-loc_1cad:
-        cmp     byte [bp-0x1], 0xa3
-        jz      replace_a3      
+loc_1cad: ; в версии 2 else и endif — это 3 и 2, а диспетчер ждёт 0xa3 и 0xa2
+        cmp     byte [bp-0x1], 3
+        jz      replace_3
 
-        cmp     byte [bp-0x1], 0xa2
+        cmp     byte [bp-0x1], 2
         jnz     execute
 
-        mov     byte [bp-0x1], 2
+        mov     byte [bp-0x1], 0xa2
         jmp     execute
 
-replace_a3:
-        mov     byte [bp-0x1], 3
+replace_3:
+        mov     byte [bp-0x1], 0xa3
 
 execute:
         push    word [bp-0x1]
