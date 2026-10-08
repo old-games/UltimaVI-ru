@@ -33,7 +33,7 @@ def find_all(d, pattern):
     return results
 
 
-def apply_obj(path, base):
+def apply_obj(path, base, publics=None):
     with open(path, 'rb') as f:
         data = f.read()
     index = 0
@@ -78,6 +78,8 @@ def apply_obj(path, base):
                 a = int.from_bytes(d[i+2+s:i+4+s], 'little')
                 if n.startswith('fixmeup'): # TODO избавиться от fixmeup, придумать как-то поумнее
                     fixmeups.add(a)
+                elif publics is not None:
+                    publics[n] = base + a
                 i += s + 4
 
     for a in fixmeups:
@@ -222,6 +224,39 @@ for binary, functions in patches.add_functions.items():
             function_address[f] = len(code_block)
             code_block += apply_obj(f'{temp}/{f}.obj', function_address[f])
 
+        # Отдельные функции, на которые перенаправляются вызовы (patches.redirect_calls), а не заменяемые целиком.
+        redirects = patches.redirect_calls.get(binary, {})
+        redirect_address = {}
+        for f in sorted({f for f, _, _ in redirects.values()}):
+            subprocess.run(['nasm', '-f', 'obj', f'patches/{os.path.splitext(binary)[0]}/{f}.asm', '-o', f'{temp}/{f}.obj'], check=True)
+            publics = {}
+            code_block += apply_obj(f'{temp}/{f}.obj', len(code_block), publics)
+            redirect_address.update({(f, n): a for n, a in publics.items()})
+
+    # Длинные строки из других сегментов данных (форматы printf в 0x2d32): на них ссылаются полным адресом
+    # mov ax, seg; push ax; mov ax, offset; push ax, поэтому их можно положить в code_block и поменять
+    # в ссылках и сегмент, и смещение.
+    far_strings = {}
+    if mode == 'russian':
+        for t in translation:
+            if t['source'] != binary or t['russian'].startswith('FIXME ') or t['russian'] == t['english']:
+                continue
+            if len(t['russian'].encode('cp866')) <= len(t['english'].encode('cp866')) or t['offset'] >= header + segments[-1]*0x10:
+                continue
+            if (binary, t['offset']) in patches.fixed_size_strings:
+                continue
+            seg = max(s for s in segments if header + s*0x10 <= t['offset'])
+            far = [
+                (r['segment'], r['origin'])
+                for r in references.get((binary, t['offset']), [])
+                if isinstance(r['segment'], int)
+                and int.from_bytes(d[r['segment']:r['segment']+2], 'little') == seg
+                and int.from_bytes(d[r['origin']:r['origin']+2], 'little') == t['offset'] - header - seg*0x10
+            ]
+            if far:
+                far_strings[t['offset']] = (len(code_block), far)
+                code_block += t['russian'].encode('cp866') + b'\x00'
+
     code_block += b'\x00' * (0x200 - len(code_block) % 0x200)
     space = len(code_block) // 0x200
 
@@ -247,6 +282,13 @@ for binary, functions in patches.add_functions.items():
     ds_size = len(ds)
     ds = ljust(ds, system_break, b'www.old-games.ru.')
     required_space = 0
+    arrays = patches.string_arrays.get(binary, []) if mode == 'russian' else []
+    array_items = {}
+    for a in arrays:
+        for i in range(a['count']):
+            o = a['offset'] + a['size']*i
+            array_items[o] = d[o:o+a['size']].split(b'\x00')[0]
+
     if mode == 'russian':
         for t in translation:
             if t['source'] == binary:
@@ -256,11 +298,21 @@ for binary, functions in patches.add_functions.items():
                     # Temporary fix. FIXME TODO
 #                    t['russian'] = t['russian'][:len(t['english'])]
 
-                    if len(t['russian'].encode('cp866')) <= len(t['english'].encode('cp866')):
+                    slot = patches.fixed_size_strings.get((binary, t['offset']))
+                    limit = slot - 1 if slot else len(t['english'].encode('cp866'))
+
+                    if t['offset'] in array_items and len(t['russian'].encode('cp866')) <= limit:
+                        array_items[t['offset']] = t['russian'].encode('cp866')
+                        replaced += 1
+
+                    elif len(t['russian'].encode('cp866')) <= limit:
                         # FIXME упаковать фразы лучше
-                        message = t['russian'].encode('cp866').ljust(len(t['english']), b'\x00')
+                        message = t['russian'].encode('cp866').ljust(limit, b'\x00')
                         replaces.append((t['offset'], len(message), message))
                         replaced += 1
+
+                    elif slot:
+                        print(f'String {repr(t["russian"])} is longer than {limit} bytes of its fixed-size slot, left untranslated!')
 
                     elif t['offset'] > header + segments[-1]*0x10:
                         # FIXME reuse old space
@@ -274,12 +326,43 @@ for binary, functions in patches.add_functions.items():
                         replaced += bool(rr)
                         added += 1
 
+                    elif t['offset'] in far_strings:
+                        replaced += 1
+
                     elif all(map(lambda x: isinstance(x, int), references_segments)):
                         print(f'String {repr(t["russian"])} can be moved!')
                         # FIXME why it can?
 
+                    else:
+                        # FIXME строки вне последнего сегмента данных (форматы printf в 0x2d32) пока не переносятся.
+                        print(f'String {repr(t["english"])} is too long and not in DS, left untranslated!')
+
                 else:
                     missing += 1
+
+    for a in arrays:
+        ds_base = header + segments[-1]*0x10
+        for r in a['size_refs']:
+            assert int.from_bytes(d[r:r+2], 'little') == a['size']
+            replaces.append((r, 2, a['new_size'].to_bytes(2, 'little')))
+        for c in a['copies']:
+            for r in c['base_refs']:
+                assert int.from_bytes(d[r:r+2], 'little') == a['offset'] - ds_base
+                replaces.append((r, 2, len(ds).to_bytes(2, 'little')))
+            for i in range(a['count']):
+                item = array_items[a['offset'] + a['size']*i]
+                if 'units' in c:
+                    item += b' ' + patches.russian_plural(i, *c['units']).encode('cp866')
+                assert len(item) < a['new_size']
+                ds.extend(item.ljust(a['new_size'], b'\x00'))
+
+    # DGROUP (данные + BSS + перенесённые строки + near heap + стек) не может быть больше 64К,
+    # при _heaplen = 0 стек растёт вниз от 0xFFFF. STACK_RESERVE — сколько оставляем стеку.
+    # FIXME замерить реальную глубину стека, автор игры закладывал _stklen = 0x1000.
+    STACK_RESERVE = 0x400
+    ds_free = 0x10000 - STACK_RESERVE - len(ds)
+    print(f'{binary} — {ds_free} bytes left in DS (stack reserve {STACK_RESERVE})')
+    assert ds_free >= 0, f'{binary}: DS overflow by {-ds_free} bytes, shorten or pack strings'
 
     ds[system_break_address:system_break_address+2] = len(ds).to_bytes(2, 'little')
     ds.extend(b'\x00' * ((len(ds) - ds_size + 0x1ff) // 0x200 * 0x200 - len(ds) + ds_size))
@@ -323,6 +406,22 @@ for binary, functions in patches.add_functions.items():
 
     for i in range(len(relocs), relocs_size):
         d[relocs_base+i*4:relocs_base+i*4+4] = b'\x00'*4
+
+    # code_block лежит в начале загружаемого образа, то есть в сегменте 0 до настройки загрузчиком.
+    relocated = {header + o + s*0x10 for o, s, l, v in relocs if v and not l}
+    for code_block_offset, far in far_strings.values():
+        for segment_origin, offset_origin in far:
+            assert segment_origin in relocated
+            d[segment_origin:segment_origin+2] = (0).to_bytes(2, 'little')
+            d[offset_origin:offset_origin+2] = code_block_offset.to_bytes(2, 'little')
+
+    # Перенаправленные вызовы: call far seg:off → call far 0:адрес в code_block (сегмент 0 до настройки загрузчиком).
+    for origin, (f, label, (old_segment, old_offset)) in redirects.items():
+        assert d[origin] == 0x9a and origin + 3 in relocated
+        assert int.from_bytes(d[origin+1:origin+3], 'little') == old_offset
+        assert int.from_bytes(d[origin+3:origin+5], 'little') == old_segment + space*0x20
+        d[origin+1:origin+3] = redirect_address[(f, label)].to_bytes(2, 'little')
+        d[origin+3:origin+5] = (0).to_bytes(2, 'little')
 
     pages += space + data_space
     d[6:8] = len(relocs).to_bytes(2, 'little')
