@@ -731,7 +731,7 @@ def decode(conversation, source, index):
     return f"source('{source}')\nindex({index})\n\n{format_instructions()}"
 
 
-def encode(conversation, target_language, version, ignore_flow_errors=False):
+def encode(conversation, target_language, version, ignore_flow_errors=False, padding=0):
     assert version in (1, 2) and target_language in ('english', 'russian') and (version == 2 or target_language == 'english')
 
     # FIXME remove copy-paste
@@ -971,6 +971,7 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
     labels = {}
     placeholders = {}
     dangerous_placeholders = set()
+    padded = False
 
     languages = {target_language}
 
@@ -1281,6 +1282,10 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
                 add_label()
     
             elif next_token == '=':
+                if padding and not padded and target_language in languages:
+                    # Выравнивание перед первым массивом данных — недостижимые байты после кода, см. ниже.
+                    result.extend(b'\x00' * padding)
+                    padded = True
                 add_label()
                 assert (token := next(iterator)) == '['
                 array = token
@@ -1316,8 +1321,11 @@ def encode(conversation, target_language, version, ignore_flow_errors=False):
         data = labels[label].to_bytes(4, 'little')
         result[offset:offset+4] = data
         dangerous_ff = 0xb0 in data or 0xd4 in data[2:4] or 0xd3 == data[3]
-        if not ignore_flow_errors and offset in dangerous_placeholders and dangerous_ff:
-          print(f'DANGEROUS: offset={offset}, label={label}, data={data.hex()}, 'f'source={source}, index={index}')
-        assert ignore_flow_errors or offset not in dangerous_placeholders or not dangerous_ff, 'Flow may be broken'
+        if not ignore_flow_errors and offset in dangerous_placeholders and dangerous_ff and version == 2 and padding < 16:
+            # Адрес с байтами опкодов собьёт сканирование скрипта игрой. В версии 2 (английская версия 1 обязана
+            # совпадать с оригиналом) сдвигаем массивы данных выравниванием и собираем заново.
+            return encode(conversation, target_language, version, ignore_flow_errors, padding + 1)
+        assert ignore_flow_errors or offset not in dangerous_placeholders or not dangerous_ff, \
+            f'Flow may be broken: {source} {index}, label {label} at {labels[label]:#x}'
 
     return source, index, result
