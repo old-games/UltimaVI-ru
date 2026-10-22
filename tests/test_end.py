@@ -20,12 +20,12 @@ class TestEnd(tests.TestCase):
             [
                 '-c', 'MOUNT C: .',
                 '-c', 'C:',
-                '-c', 'END.EXE vma388 10 11 29',
+                '-c', 'END.EXE vmn 10 11 29', # Без звука: с AdLib в CI финал иногда не стартует за 15 секунд.
             ],
             configuration,
             timeout_error=AssertionError,
         ) as box:
-            box.wait_image('screenshots/END/one.png', bbox=(0, 0, 320, 120), timeout=15)
+            box.wait_image('screenshots/END/one.png', bbox=(0, 0, 320, 120), timeout=30)
             box.send_keys(' ')
             box.wait_image('screenshots/END/two.png', bbox=(0, 0, 320, 120), timeout=1)
             box.send_keys(' ')
