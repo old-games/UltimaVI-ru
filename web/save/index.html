@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<title>Ultima VI — редактор сохранений для проверки перевода</title>
+<style>
+    body { font: 14px/1.4 system-ui, sans-serif; margin: 0; background: #faf6ea; color: #222; }
+    header { background: #5b2a0e; color: #fff3d6; padding: 10px 16px; }
+    header h1 { font-size: 18px; margin: 0; }
+    main { display: grid; grid-template-columns: minmax(420px, 1fr) 380px; gap: 16px; padding: 16px; }
+    section { background: #fff; border: 1px solid #d8cdb0; border-radius: 6px; padding: 10px 12px; margin-bottom: 16px; }
+    h2 { font-size: 15px; margin: 0 0 8px; }
+    button { font: inherit; padding: 3px 10px; cursor: pointer; }
+    button.primary { background: #5b2a0e; color: #fff; border: 1px solid #3c1b08; border-radius: 4px; }
+    input[type=number] { width: 4.5em; }
+    input[type=search] { width: 100%; box-sizing: border-box; padding: 4px 6px; margin-bottom: 8px; }
+    table { border-collapse: collapse; width: 100%; }
+    th, td { text-align: left; padding: 2px 6px; border-bottom: 1px solid #eee5cf; }
+    tr.npc { cursor: pointer; }
+    tr.npc:hover { background: #f6eedb; }
+    tr.selected { background: #efe0b8 !important; }
+    tr.absent { color: #999; }
+    .muted { color: #888; }
+    .scroll { max-height: 60vh; overflow: auto; }
+    .row { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; margin: 4px 0; }
+    #status { margin-left: 12px; }
+    #changes li { margin: 2px 0; }
+    .error { color: #b00020; }
+    .hint { font-size: 12px; color: #666; margin: 0 0 4px 22px; font-family: ui-monospace, monospace; }
+    .hidden { display: none; }
+</style>
+</head>
+<body>
+<header>
+    <h1>Ultima VI — редактор сохранений для проверки перевода</h1>
+</header>
+
+<main>
+<div>
+    <section>
+        <h2>Сохранение</h2>
+        <div class="row">
+            <button class="primary" id="open-folder">Открыть папку игры</button>
+            <label>или файл <input type="file" id="open-file"></label>
+        </div>
+        <div class="row">
+            <button id="save" disabled>Сохранить</button>
+            <button id="restore" disabled>Вернуть из OBJLIST.BAK</button>
+            <button id="download" disabled>Скачать OBJLIST</button>
+            <span id="status" class="muted">Ничего не открыто.</span>
+        </div>
+        <p class="muted">Перед правкой сохранись в игре и выйди из GAME.EXE. После сохранения здесь снова запусти
+            GAME.EXE — игра загрузит изменённое сохранение.</p>
+    </section>
+
+    <section>
+        <h2>Персонажи</h2>
+        <input type="search" id="search" placeholder="Поиск по имени (рус./англ.) или номеру" disabled>
+        <div class="row">
+            Встать рядом:
+            <label><input type="radio" name="side" value="south" checked> с юга</label>
+            <label><input type="radio" name="side" value="north"> с севера</label>
+            <label><input type="radio" name="side" value="east"> с востока</label>
+            <label><input type="radio" name="side" value="west"> с запада</label>
+            <span class="muted">— если отряд попал в стену, попробуй другую сторону</span>
+        </div>
+        <div class="scroll">
+            <table>
+                <thead><tr><th>№</th><th>Имя</th><th>English</th><th>Где</th><th></th></tr></thead>
+                <tbody id="npcs"></tbody>
+            </table>
+        </div>
+    </section>
+</div>
+
+<div>
+    <section>
+        <h2>Отряд</h2>
+        <table><tbody id="party"></tbody></table>
+    </section>
+
+    <section>
+        <h2>Телепорт по координатам</h2>
+        <div class="row">
+            x <input type="number" id="tp-x" min="0" max="1023">
+            y <input type="number" id="tp-y" min="0" max="1023">
+            этаж <input type="number" id="tp-z" min="0" max="5" value="0">
+            <button id="teleport" disabled>Перенести отряд</button>
+        </div>
+        <p class="muted">Этаж 0 — поверхность (1024×1024), 1–4 — подземелья, 5 — мир горгулий (256×256).</p>
+    </section>
+
+    <section>
+        <h2>Время и карма</h2>
+        <div class="row">
+            <input type="number" id="t-hour" min="0" max="23">:<input type="number" id="t-minute" min="0" max="59">
+            день <input type="number" id="t-day" min="1" max="28">
+            месяц <input type="number" id="t-month" min="1" max="12">
+            год <input type="number" id="t-year" min="0">
+        </div>
+        <div class="row">
+            карма <input type="number" id="karma" min="0" max="99">
+            <button id="apply-time" disabled>Применить</button>
+        </div>
+    </section>
+
+    <section id="flags-section" class="hidden">
+        <h2>Флаги разговора: <span id="flags-npc"></span></h2>
+        <p class="muted">Биты, которые скрипт диалога ставит и проверяет (setBit / hasBit). Под каждым — где он
+            встречается в conversations/.</p>
+        <div id="flags"></div>
+    </section>
+
+    <section>
+        <h2>Изменения</h2>
+        <ul id="changes"><li class="muted">Пока нет.</li></ul>
+    </section>
+</div>
+</main>
+
+<script src="npc.js"></script>
+<script src="objlist.js"></script>
+<script src="app.js"></script>
+</body>
+</html>
