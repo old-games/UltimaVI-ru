@@ -178,6 +178,59 @@ def patch_U(d):
         'e958ff'        # back: jmp 0x5cdf
     ))
 
+    # Выбор кнопки клавишей (0xe1:0x41b): символ строки горячих клавиш расширялся со знаком (cbw) и не совпадал
+    # с русской буквой. Сравниваем байты: cmp al, [bp-6]; nop.
+    assert d[0x2c8c:0x2c94] == bytes.fromhex('8a00983b46fa7506')
+    replace(d, 0x2c8e, bytes.fromhex('3a46fa90'))
+
+    # Экран создания персонажа: горячие клавиши "SPTA\x1b" (Sex, Portrait, conTinue, Abort, Esc) -> Н, И, П, О, Esc
+    # ("Новый пол", "Новое изображение", "Продолжить", "ESC-отмена"). Порядок букв = порядок кнопок.
+    assert d[0x167f3:0x167f9] == b'SPTA\x1b\x00'
+    replace(d, 0x167f3, 'НИПО'.encode('cp866'))
+    # Третью букву игра перед показом экрана переписывает: 'T' или 'C' в зависимости от режима (у кнопки
+    # тогда разные картинки, 1 и 16). Ставим 'П' в обоих случаях.
+    for offset in (0x49d7, 0x49e3):
+        assert d[offset:offset+4] == bytes.fromhex('c6066504')
+        replace(d, offset+4, 'П'.encode('cp866'))
+
+    # Кнопки этого экрана выровнены по правому краю: структуры по 14 байт DS:0x58fe.., +6 правый x (общий),
+    # +8 левый x, +0xa/+0xc верх/низ. Ширины русских кнопок (по скриншоту): 76, 127, 82, 85 — правый край 188
+    # вместо 151, левые края 188 - ширина + 1. Правый x заодно правая граница области клика.
+    assert d[0x4a40:0x4a43] == bytes.fromhex('b89700')
+    replace(d, 0x4a40, bytes.fromhex('b8bc00'))  # mov ax, 188
+    for offset, field, old, new in ((0x4a4f, 0x5906, 94, 113), (0x4a55, 0x5914, 62, 62), (0x4a5b, 0x5922, 86, 107), (0x4a61, 0x5930, 80, 104)):
+        assert d[offset:offset+6] == b'\xc7\x06' + field.to_bytes(2, 'little') + old.to_bytes(2, 'little')
+        replace(d, offset+4, new.to_bytes(2, 'little'))
+
+    # И выбор действия по букве: принимаем и латинские, и русские.
+    assert d[0x4e0f:0x4e3e] == bytes.fromhex(
+        '8a8763049889 46ec8b46ec3d500074257f113d1b0074363d410074313d430074 24eb2f3d530074073d54007418eb23'.replace(' ', '')
+    )
+    replace(d, 0x4e0f, bytes.fromhex(
+        '8a876304'      # mov al, [bx+0x463]
+        '3c8d7427'      # cmp al, 'Н' ; je new_sex (0x4e3e)
+        '3c537423'      # cmp al, 'S' ; je new_sex
+        '3c887425'      # cmp al, 'И' ; je portrait (0x4e44)
+        '3c507421'      # cmp al, 'P' ; je portrait
+        '3c8f742d'      # cmp al, 'П' ; je continue (0x4e54)
+        '3c547429'      # cmp al, 'T' ; je continue
+        '3c437425'      # cmp al, 'C' ; je continue
+        '3c8e7429'      # cmp al, 'О' ; je abort (0x4e5c)
+        '3c417425'      # cmp al, 'A' ; je abort
+        '3c1b7421'      # cmp al, Esc ; je abort
+        'eb24'          # jmp next (0x4e61)
+    ).ljust(0x2f, b'\x90'))
+
+    # Цыганка: ответы А/Б (в том числе строчные — после toupper) вместо только латинских A/B.
+    assert d[0x6a70:0x6a82] == bytes.fromhex('807eff417406807eff4275e7807eff41750e')
+    replace(d, 0x6a70, bytes.fromhex(
+        '3c41740e'      # cmp al, 'A' ; je answer_a (0x6a82)
+        '3c80740a'      # cmp al, 'А' ; je answer_a
+        '3c427414'      # cmp al, 'B' ; je answer_b (0x6a90)
+        '3c817410'      # cmp al, 'Б' ; je answer_b
+        'ebe1'          # jmp ask_again (0x6a63)
+    ))
+
     # FIXME
     0x13e68
     0x13e75
