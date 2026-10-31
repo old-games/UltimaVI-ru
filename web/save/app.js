@@ -14,7 +14,10 @@ const state = {
     data: null,         // Uint8Array содержимого OBJLIST
     folder: null,       // FileSystemDirectoryHandle каталога SAVEGAME (Chrome/Edge)
     fileName: 'OBJLIST',
-    backupMade: false,
+    blocks: null,       // Map имя → Uint8Array файлов OBJBLKxx (только при открытой папке)
+    blockNames: null,   // Map имя в верхнем регистре → настоящее имя файла
+    dirty: new Set(),   // какие OBJBLKxx изменены
+    backedUp: new Set(),// для каких файлов уже сделан .BAK в этом сеансе
     selected: null,     // номер выбранного NPC
     changes: [],
 };
@@ -67,7 +70,10 @@ async function openFolder() {
         setStatus('Этот браузер не умеет открывать папки — выбери файл SAVEGAME/OBJLIST.', true);
         return;
     }
-    let directory = await window.showDirectoryPicker({mode: 'readwrite'});
+    await openFolderHandle(await window.showDirectoryPicker({mode: 'readwrite'}));
+}
+
+async function openFolderHandle(directory) {
     // Можно выбрать и саму папку игры, и SAVEGAME внутри неё.
     if (!await findEntry(directory, 'OBJLIST', 'file')) {
         const savegame = await findEntry(directory, 'SAVEGAME', 'directory');
@@ -82,11 +88,21 @@ async function openFolder() {
     }
     state.folder = directory;
     state.fileName = handle.name;
+    state.blocks = new Map();
+    state.blockNames = new Map();
+    for await (const entry of directory.values()) {
+        if (entry.kind === 'file' && /^OBJBLK[A-Z]{2}$/i.test(entry.name)) {
+            const name = entry.name.toUpperCase();
+            state.blocks.set(name, new Uint8Array(await (await entry.getFile()).arrayBuffer()));
+            state.blockNames.set(name, entry.name);
+        }
+    }
     load(new Uint8Array(await (await handle.getFile()).arrayBuffer()), `${directory.name}/${handle.name}`);
 }
 
 async function openFile(file) {
     state.folder = null;
+    state.blocks = null;
     state.fileName = file.name;
     load(new Uint8Array(await file.arrayBuffer()), file.name);
 }
@@ -94,7 +110,8 @@ async function openFile(file) {
 function load(data, source) {
     Objlist.check(data);
     state.data = data;
-    state.backupMade = false;
+    state.dirty = new Set();
+    state.backedUp = new Set();
     state.changes = [];
     state.selected = null;
     for (const id of ['save', 'restore']) {
@@ -114,27 +131,44 @@ async function writeFile(name, data) {
     await writable.close();
 }
 
-async function save() {
-    if (!state.backupMade) {
-        const original = await (await (await state.folder.getFileHandle(state.fileName)).getFile()).arrayBuffer();
-        await writeFile('OBJLIST.BAK', original);
-        state.backupMade = true;
+// Перед первой записью файла в этом сеансе кладём рядом копию NAME.BAK.
+async function writeWithBackup(name, data) {
+    if (!state.backedUp.has(name)) {
+        const original = await (await (await state.folder.getFileHandle(name)).getFile()).arrayBuffer();
+        await writeFile(`${name}.BAK`, original);
+        state.backedUp.add(name);
     }
-    await writeFile(state.fileName, state.data);
-    state.changes = [];
-    renderChanges();
-    setStatus('Сохранено. Копия до правок — OBJLIST.BAK. Запускай GAME.EXE.');
+    await writeFile(name, data);
 }
 
+async function save() {
+    await writeWithBackup(state.fileName, state.data);
+    for (const name of state.dirty) {
+        await writeWithBackup(state.blockNames.get(name), state.blocks.get(name));
+    }
+    state.dirty = new Set();
+    state.changes = [];
+    renderChanges();
+    setStatus('Сохранено. Копии до правок — файлы *.BAK в SAVEGAME. Запускай GAME.EXE.');
+}
+
+// Возвращает все файлы, для которых есть .BAK (OBJLIST и OBJBLKxx), и перечитывает папку.
 async function restore() {
-    const backup = await findEntry(state.folder, 'OBJLIST.BAK', 'file');
-    if (!backup) {
+    const backups = [];
+    for await (const entry of state.folder.values()) {
+        if (entry.kind === 'file' && /\.BAK$/i.test(entry.name)) {
+            backups.push(entry);
+        }
+    }
+    if (!backups.some(entry => entry.name.toUpperCase() === 'OBJLIST.BAK')) {
         throw new Error('OBJLIST.BAK нет — нечего возвращать.');
     }
-    const data = new Uint8Array(await (await backup.getFile()).arrayBuffer());
-    await writeFile(state.fileName, data);
-    load(data, `${state.folder.name}/${state.fileName}`);
-    setStatus('Возвращено сохранение из OBJLIST.BAK.');
+    for (const backup of backups) {
+        await writeFile(backup.name.slice(0, -4), await (await backup.getFile()).arrayBuffer());
+    }
+    const folder = state.folder;
+    await openFolderHandle(folder);
+    setStatus(`Возвращено из копий: ${backups.map(entry => entry.name).join(', ')}.`);
 }
 
 function download() {
@@ -185,7 +219,7 @@ function renderNpcs() {
                 event.stopPropagation();
                 guard(() => {
                     Objlist.teleportToActor(state.data, npc.id, side());
-                    addChange(`Отряд перенесён к ${npc.russian} (${place(actor)})`);
+                    addChange(`Отряд перенесён к ${npc.russian} (${place(actor)})` + moveInventories());
                     renderParty();
                 });
             };
@@ -256,13 +290,29 @@ function renderChanges() {
 
 // ---------- Действия ----------
 
+// Вещи отряда лежат в файле участка, где стоит персонаж; игра грузит только участки рядом с отрядом.
+// После телепорта переносим инвентарь каждого члена отряда в файл его нового участка.
+function moveInventories() {
+    if (!state.blocks) {
+        return ' — вещи отряда остались на старом месте: чтобы перенести и их, открой папку игры в Chrome/Edge';
+    }
+    let count = 0;
+    for (const member of Objlist.getParty(state.data)) {
+        const target = Objblk.blockName(Objlist.getPosition(state.data, member.number));
+        const result = Objblk.moveInventories(state.blocks, [member.number], target);
+        result.changed.forEach(name => state.dirty.add(name));
+        count += result.count;
+    }
+    return count ? `, вещи отряда (${count}) перенесены` : '';
+}
+
 function teleportToCoordinates() {
     const target = {x: Number($('tp-x').value), y: Number($('tp-y').value), z: Number($('tp-z').value)};
     if (!Number.isInteger(target.x) || !Number.isInteger(target.y) || !Number.isInteger(target.z)) {
         throw new Error('Укажи x, y и этаж целыми числами.');
     }
     Objlist.teleportParty(state.data, target, 'here');
-    addChange(`Отряд перенесён в ${place(target)}`);
+    addChange(`Отряд перенесён в ${place(target)}` + moveInventories());
     renderParty();
 }
 

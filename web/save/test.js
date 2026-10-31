@@ -60,4 +60,46 @@ const copy = () => new Uint8Array(template);
     assert.strictEqual(Objlist.getActor(data, 5).talkFlags, 0x01);
 }
 
-console.log('objlist.js: OK');
+// Перенос инвентаря отряда между файлами участков (блоки из LZOBJBLK: 20 — участок замка с вещами отряда).
+{
+    const Objblk = require('./objblk.js');
+    const raw = fs.readFileSync(path.join(root, 'unpacked', 'LZOBJBLK'));
+    const blocks = [];
+    for (let p = 0; p < raw.length;) {
+        const count = raw[p] | raw[p + 1] << 8;
+        blocks.push(new Uint8Array(raw.subarray(p, p + 2 + count * 8)));
+        p += 2 + count * 8;
+    }
+    const map = new Map([['OBJBLKCC', blocks[20]], ['OBJBLKEH', blocks[37]], ['OBJBLKAA', blocks[0]]]);
+    const party = [1, 2, 3, 4];
+    const before = new Map([...map].map(([name, data]) => [name, Objblk.parse(data)]));
+    assert.deepStrictEqual([...Objblk.inventoryCount(map, party)], [['OBJBLKCC', 43]]);
+    assert.strictEqual(Objblk.blockName({x: 307, y: 352, z: 0}), 'OBJBLKCC');
+    assert.strictEqual(Objblk.blockName({x: 570, y: 948, z: 0}), 'OBJBLKEH');
+    assert.strictEqual(Objblk.blockName({x: 10, y: 10, z: 3}), 'OBJBLKCI');
+
+    const result = Objblk.moveInventories(map, party, 'OBJBLKEH');
+    assert.deepStrictEqual(result, {changed: ['OBJBLKCC', 'OBJBLKEH'], count: 43});
+    assert.deepStrictEqual([...Objblk.inventoryCount(map, party)], [['OBJBLKEH', 43]]);
+    assert.deepStrictEqual(map.get('OBJBLKAA'), blocks[0]);
+
+    // Ничего не потерялось и не задвоилось; ссылки на контейнеры ведут на те же предметы.
+    const describe = (records, i, seen = 0) => {
+        const r = records[i];
+        const own = Array.from(r.slice(3)).join(',') + ':' + (r[0] & 0x18);
+        if ((r[0] & 0x18) !== 0x08) {
+            return own + '@' + (r[1] | (r[2] & 3) << 8);
+        }
+        assert(seen < 10);
+        const parentIndex = r[1] | (r[2] & 3) << 8 | (r[2] >> 2 & 0x3f) << 10;
+        assert(parentIndex < i, 'контейнер должен идти раньше содержимого');
+        return own + ' in ' + describe(records, parentIndex, seen + 1);
+    };
+    const all = records => records.map((_, i) => describe(records, i)).sort();
+    const beforeAll = [...all(before.get('OBJBLKCC')), ...all(before.get('OBJBLKEH'))].sort();
+    const after = new Map([...map].map(([name, data]) => [name, Objblk.parse(data)]));
+    assert.deepStrictEqual([...all(after.get('OBJBLKCC')), ...all(after.get('OBJBLKEH'))].sort(), beforeAll);
+    assert.strictEqual(after.get('OBJBLKCC').length + 43, before.get('OBJBLKCC').length);
+}
+
+console.log('objlist.js, objblk.js: OK');
