@@ -1,0 +1,293 @@
+// Интерфейс редактора сохранений. Данные о NPC — npc.js (python3 -m tools.web_npc), формат — objlist.js.
+'use strict';
+
+const $ = id => document.getElementById(id);
+const NPCS = window.NPC_DATA.npcs;
+const NPC_BY_ID = new Map(NPCS.map(npc => [npc.id, npc]));
+const FLAGS = window.NPC_DATA.flags;
+const Z_NAMES = ['поверхность', 'подземелье 1', 'подземелье 2', 'подземелье 3', 'подземелье 4', 'мир горгулий'];
+
+// cp866: только то, что встречается в именах отряда.
+const CP866 = 'АБВГДЕЖЗИЙКЛМНОПРСТУФХЦЧШЩЪЫЬЭЮЯабвгдежзийклмноп' + '░'.repeat(48) + 'рстуфхцчшщъыьэюяЁё';
+
+const state = {
+    data: null,         // Uint8Array содержимого OBJLIST
+    folder: null,       // FileSystemDirectoryHandle каталога SAVEGAME (Chrome/Edge)
+    fileName: 'OBJLIST',
+    backupMade: false,
+    selected: null,     // номер выбранного NPC
+    changes: [],
+};
+
+function decodeName(bytes) {
+    return bytes.map(b => b < 0x80 ? String.fromCharCode(b) : CP866[b - 0x80] || '?').join('');
+}
+
+function npcName(id) {
+    const npc = NPC_BY_ID.get(id);
+    return npc ? npc.russian : `№${id}`;
+}
+
+function place({x, y, z}) {
+    return `${x}, ${y}${z ? `, ${Z_NAMES[z] || 'этаж ' + z}` : ''}`;
+}
+
+function setStatus(text, error = false) {
+    $('status').textContent = text;
+    $('status').className = error ? 'error' : 'muted';
+}
+
+function addChange(text) {
+    state.changes.push(text);
+    renderChanges();
+    setStatus(state.folder ? 'Есть несохранённые изменения — нажми «Сохранить».' : 'Есть изменения — нажми «Скачать OBJLIST».');
+}
+
+function guard(action) {
+    try {
+        action();
+    } catch (error) {
+        setStatus(error.message, true);
+    }
+}
+
+// ---------- Открытие и сохранение ----------
+
+async function findEntry(directory, name, kind) {
+    for await (const entry of directory.values()) {
+        if (entry.kind === kind && entry.name.toUpperCase() === name.toUpperCase()) {
+            return entry;
+        }
+    }
+    return null;
+}
+
+async function openFolder() {
+    if (!window.showDirectoryPicker) {
+        setStatus('Этот браузер не умеет открывать папки — выбери файл SAVEGAME/OBJLIST.', true);
+        return;
+    }
+    let directory = await window.showDirectoryPicker({mode: 'readwrite'});
+    // Можно выбрать и саму папку игры, и SAVEGAME внутри неё.
+    if (!await findEntry(directory, 'OBJLIST', 'file')) {
+        const savegame = await findEntry(directory, 'SAVEGAME', 'directory');
+        if (!savegame) {
+            throw new Error(`В «${directory.name}» нет ни SAVEGAME, ни OBJLIST.`);
+        }
+        directory = savegame;
+    }
+    const handle = await findEntry(directory, 'OBJLIST', 'file');
+    if (!handle) {
+        throw new Error('В SAVEGAME нет файла OBJLIST — сохранись в игре.');
+    }
+    state.folder = directory;
+    state.fileName = handle.name;
+    load(new Uint8Array(await (await handle.getFile()).arrayBuffer()), `${directory.name}/${handle.name}`);
+}
+
+async function openFile(file) {
+    state.folder = null;
+    state.fileName = file.name;
+    load(new Uint8Array(await file.arrayBuffer()), file.name);
+}
+
+function load(data, source) {
+    Objlist.check(data);
+    state.data = data;
+    state.backupMade = false;
+    state.changes = [];
+    state.selected = null;
+    for (const id of ['save', 'restore']) {
+        $(id).disabled = !state.folder;
+    }
+    for (const id of ['download', 'search', 'teleport', 'apply-time']) {
+        $(id).disabled = false;
+    }
+    renderAll();
+    setStatus(`Открыто: ${source} (${data.length} байт).`);
+}
+
+async function writeFile(name, data) {
+    const handle = await state.folder.getFileHandle(name, {create: true});
+    const writable = await handle.createWritable();
+    await writable.write(data);
+    await writable.close();
+}
+
+async function save() {
+    if (!state.backupMade) {
+        const original = await (await (await state.folder.getFileHandle(state.fileName)).getFile()).arrayBuffer();
+        await writeFile('OBJLIST.BAK', original);
+        state.backupMade = true;
+    }
+    await writeFile(state.fileName, state.data);
+    state.changes = [];
+    renderChanges();
+    setStatus('Сохранено. Копия до правок — OBJLIST.BAK. Запускай GAME.EXE.');
+}
+
+async function restore() {
+    const backup = await findEntry(state.folder, 'OBJLIST.BAK', 'file');
+    if (!backup) {
+        throw new Error('OBJLIST.BAK нет — нечего возвращать.');
+    }
+    const data = new Uint8Array(await (await backup.getFile()).arrayBuffer());
+    await writeFile(state.fileName, data);
+    load(data, `${state.folder.name}/${state.fileName}`);
+    setStatus('Возвращено сохранение из OBJLIST.BAK.');
+}
+
+function download() {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(new Blob([state.data]));
+    link.download = 'OBJLIST';
+    link.click();
+    URL.revokeObjectURL(link.href);
+    setStatus('Положи скачанный OBJLIST в SAVEGAME игры вместо старого.');
+}
+
+// ---------- Отображение ----------
+
+function renderAll() {
+    renderParty();
+    renderNpcs();
+    renderTime();
+    renderFlags();
+    renderChanges();
+}
+
+function renderParty() {
+    const rows = Objlist.getParty(state.data).map(member => {
+        const actor = Objlist.getActor(state.data, member.number);
+        return `<tr><td>${member.number}</td><td>${decodeName(member.name)}</td><td>${place(actor)}</td></tr>`;
+    });
+    $('party').innerHTML = rows.join('');
+}
+
+function renderNpcs() {
+    const query = $('search').value.trim().toLowerCase();
+    const side = () => document.querySelector('input[name=side]:checked').value;
+    const tbody = $('npcs');
+    tbody.innerHTML = '';
+    for (const npc of NPCS) {
+        if (query && !`${npc.id} ${npc.russian} ${npc.english}`.toLowerCase().includes(query)) {
+            continue;
+        }
+        const actor = Objlist.getActor(state.data, npc.id);
+        const row = document.createElement('tr');
+        row.className = 'npc' + (actor.present ? '' : ' absent') + (npc.id === state.selected ? ' selected' : '');
+        row.innerHTML = `<td>${npc.id}</td><td>${npc.russian}</td><td>${npc.english}</td>`
+            + `<td>${actor.present ? place(actor) : 'нет в мире'}</td><td></td>`;
+        if (actor.present) {
+            const button = document.createElement('button');
+            button.textContent = 'Телепорт';
+            button.onclick = event => {
+                event.stopPropagation();
+                guard(() => {
+                    Objlist.teleportToActor(state.data, npc.id, side());
+                    addChange(`Отряд перенесён к ${npc.russian} (${place(actor)})`);
+                    renderParty();
+                });
+            };
+            row.lastChild.append(button);
+        }
+        row.onclick = () => {
+            state.selected = npc.id;
+            renderNpcs();
+            renderFlags();
+        };
+        tbody.append(row);
+    }
+}
+
+function renderTime() {
+    const time = Objlist.getTime(state.data);
+    for (const key of ['hour', 'minute', 'day', 'month', 'year']) {
+        $(`t-${key}`).value = time[key];
+    }
+    $('karma').value = Objlist.getKarma(state.data);
+}
+
+function renderFlags() {
+    if (state.selected === null) {
+        $('flags-section').classList.add('hidden');
+        return;
+    }
+    $('flags-section').classList.remove('hidden');
+    const npc = NPC_BY_ID.get(state.selected);
+    $('flags-npc').textContent = `${npc.russian} (${npc.english}, №${npc.id})`;
+    const value = Objlist.getActor(state.data, npc.id).talkFlags;
+    const usage = FLAGS[npc.id] || {};
+    const container = $('flags');
+    container.innerHTML = '';
+    for (let bit = 0; bit < 8; bit++) {
+        const label = document.createElement('label');
+        const box = document.createElement('input');
+        box.type = 'checkbox';
+        box.checked = Boolean(value & 1 << bit);
+        box.onchange = () => guard(() => {
+            Objlist.setTalkFlag(state.data, npc.id, bit, box.checked);
+            addChange(`${npc.russian}: бит ${bit} ${box.checked ? 'установлен' : 'сброшен'}`);
+        });
+        label.append(box, ` бит ${bit}`);
+        const div = document.createElement('div');
+        div.append(label);
+        for (const use of usage[bit] || []) {
+            const hint = document.createElement('div');
+            hint.className = 'hint';
+            hint.textContent = `${use.script}:${use.line} — ${use.operation}: ${use.text}`;
+            div.append(hint);
+        }
+        if (!usage[bit]) {
+            const hint = document.createElement('div');
+            hint.className = 'hint';
+            hint.textContent = 'в скриптах не используется';
+            div.append(hint);
+        }
+        container.append(div);
+    }
+}
+
+function renderChanges() {
+    $('changes').innerHTML = state.changes.length
+        ? state.changes.map(change => `<li>${change}</li>`).join('')
+        : '<li class="muted">Пока нет.</li>';
+}
+
+// ---------- Действия ----------
+
+function teleportToCoordinates() {
+    const target = {x: Number($('tp-x').value), y: Number($('tp-y').value), z: Number($('tp-z').value)};
+    if (!Number.isInteger(target.x) || !Number.isInteger(target.y) || !Number.isInteger(target.z)) {
+        throw new Error('Укажи x, y и этаж целыми числами.');
+    }
+    Objlist.teleportParty(state.data, target, 'here');
+    addChange(`Отряд перенесён в ${place(target)}`);
+    renderParty();
+}
+
+function applyTime() {
+    const time = {};
+    for (const key of ['hour', 'minute', 'day', 'month', 'year']) {
+        time[key] = Number($(`t-${key}`).value);
+    }
+    Objlist.setTime(state.data, time);
+    const karma = Number($('karma').value);
+    Objlist.setKarma(state.data, karma);
+    addChange(`Время ${time.hour}:${String(time.minute).padStart(2, '0')}, ${time.day}.${time.month}.${time.year}, карма ${karma}`);
+}
+
+const async_ = action => () => action().catch(error => {
+    if (error.name !== 'AbortError') {
+        setStatus(error.message, true);
+    }
+});
+
+$('open-folder').onclick = async_(openFolder);
+$('open-file').onchange = event => event.target.files[0] && async_(() => openFile(event.target.files[0]))();
+$('save').onclick = async_(save);
+$('restore').onclick = async_(restore);
+$('download').onclick = () => guard(download);
+$('search').oninput = () => renderNpcs();
+$('teleport').onclick = () => guard(teleportToCoordinates);
+$('apply-time').onclick = () => guard(applyTime);
