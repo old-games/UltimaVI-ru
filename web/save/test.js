@@ -102,4 +102,52 @@ const copy = () => new Uint8Array(template);
     assert.strictEqual(after.get('OBJBLKCC').length + 43, before.get('OBJBLKCC').length);
 }
 
+// Выдача предметов и заклинаний.
+{
+    const Objblk = require('./objblk.js');
+    const raw = fs.readFileSync(path.join(root, 'unpacked', 'LZOBJBLK'));
+    const count = raw[0] | raw[1] << 8;
+    const map = new Map([['OBJBLKAA', new Uint8Array(raw.subarray(0, 2 + count * 8))], ['OBJBLKCC', Objblk.serialize([])]]);
+    const records = () => Objblk.parse(map.get('OBJBLKCC'));
+    const type = r => r[4] | (r[5] & 3) << 8;
+
+    Objblk.addItem(map, 'OBJBLKCC', 1, {obj: 88, qty: 5000, stackable: true});
+    Objblk.addItem(map, 'OBJBLKCC', 1, {obj: 88, qty: 300, stackable: true});
+    assert.strictEqual(records().length, 1);
+    assert.strictEqual(records()[0][6] | records()[0][7] << 8, 5300);
+    assert.strictEqual(Objblk.addItem(map, 'OBJBLKCC', 1, {obj: 88, qty: 65000, stackable: true}), 65535);
+    Objblk.addItem(map, 'OBJBLKCC', 2, {obj: 88, qty: 7, stackable: true});     // у другого персонажа — своя стопка
+    Objblk.addItem(map, 'OBJBLKCC', 1, {obj: 43});
+    Objblk.addItem(map, 'OBJBLKCC', 1, {obj: 43});
+    assert.strictEqual(records().filter(r => type(r) === 43).length, 2);
+    Objblk.addItem(map, 'OBJBLKCC', 1, {obj: 77, frame: 2, qty: 3, stackable: true});     // стопки разных вариантов
+    Objblk.addItem(map, 'OBJBLKCC', 1, {obj: 77, frame: 3, qty: 4, stackable: true});     // не смешиваются
+    Objblk.addItem(map, 'OBJBLKCC', 1, {obj: 77, frame: 2, qty: 5, stackable: true});
+    assert.deepStrictEqual(records().filter(r => type(r) === 77).map(r => [r[5] >> 2, r[6]]), [[2, 8], [3, 4]]);
+
+    assert.strictEqual(Objblk.addSpells(map, 'OBJBLKCC', 1, [0, 1, 16]), 3);
+    assert.strictEqual(Objblk.addSpells(map, 'OBJBLKCC', 1, [1, 16, 17]), 1);
+    const book = records().findIndex(r => type(r) === 57);
+    assert.strictEqual(records()[book][0] & 0x18, 0x18, 'книга должна быть в руке');
+    const spells = records().filter(r => type(r) === 58);
+    assert.deepStrictEqual(spells.map(r => r[7]).sort((a, b) => a - b), [0, 1, 16, 17]);
+    assert(spells.every(r => (r[0] & 0x18) === 0x08 && (r[1] | (r[2] & 3) << 8 | (r[2] >> 2 & 0x3f) << 10) === book));
+    assert.deepStrictEqual([...Objblk.inventoryCount(map, [1])], [['OBJBLKCC', 10]]);
+
+    // Книга с текстом и ключ к замку: качество сохраняется.
+    Objblk.addItem(map, 'OBJBLKCC', 2, {obj: 151, quality: 7});
+    Objblk.addItem(map, 'OBJBLKCC', 2, {obj: 64, quality: 14});
+    assert.deepStrictEqual(records().filter(r => type(r) === 151 || type(r) === 64).map(r => [type(r), r[7]]), [[151, 7], [64, 14]]);
+
+    // Замки на участке замка (блок 20 из LZOBJBLK).
+    const castle = raw;
+    let p = 0;
+    for (let i = 0; i < 20; i++) {
+        p += 2 + (castle[p] | castle[p + 1] << 8) * 8;
+    }
+    const block = castle.subarray(p, p + 2 + (castle[p] | castle[p + 1] << 8) * 8);
+    assert.deepStrictEqual(Objblk.locks(block).map(lock => [lock.obj, lock.x, lock.y, lock.quality]),
+        [[297, 296, 357, 14], [300, 304, 382, 1], [300, 311, 382, 1]]);
+}
+
 console.log('objlist.js, objblk.js: OK');
