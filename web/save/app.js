@@ -53,7 +53,8 @@ function setStatus(text, error = false) {
 function addChange(text) {
     state.changes.push(text);
     renderChanges();
-    setStatus(state.folder ? 'Есть несохранённые изменения — нажми «Сохранить».' : 'Есть изменения — нажми «Скачать OBJLIST».');
+    setStatus(state.folder ? 'Есть несохранённые изменения — нажми «Сохранить».'
+        : `Есть изменения — нажми «${downloadLabel()}».`);
 }
 
 function guard(action) {
@@ -77,10 +78,40 @@ async function findEntry(directory, name, kind) {
 
 async function openFolder() {
     if (!window.showDirectoryPicker) {
-        setStatus('Этот браузер не умеет открывать папки — выбери файл SAVEGAME/OBJLIST.', true);
+        // Firefox и Safari: папку можно только прочитать, изменённые файлы отдаём архивом.
+        $('open-folder-input').click();
         return;
     }
     await openFolderHandle(await window.showDirectoryPicker({mode: 'readwrite'}));
+}
+
+// Папка, выбранная через <input webkitdirectory>: список файлов с путями от выбранной папки.
+async function openFolderFiles(files) {
+    files = Array.from(files);
+    const objlists = files.filter(file => file.name.toUpperCase() === 'OBJLIST');
+    // Если выбрана папка игры, OBJLIST лежит в SAVEGAME; берём тот, у которого путь короче всего.
+    const depth = file => file.webkitRelativePath.split('/').length;
+    const objlist = objlists.sort((a, b) => depth(a) - depth(b))[0];
+    if (!objlist) {
+        throw new Error('В выбранной папке нет SAVEGAME/OBJLIST — выбери папку игры или SAVEGAME.');
+    }
+    const directory = objlist.webkitRelativePath.split('/').slice(0, -1).join('/');
+    state.folder = null;
+    state.fileName = objlist.name;
+    state.blocks = new Map();
+    state.blockNames = new Map();
+    for (const file of files) {
+        const parent = file.webkitRelativePath.split('/').slice(0, -1).join('/');
+        if (parent === directory && /^OBJBLK[A-Z]{2}$/i.test(file.name)) {
+            const name = file.name.toUpperCase();
+            state.blocks.set(name, new Uint8Array(await file.arrayBuffer()));
+            state.blockNames.set(name, file.name);
+        }
+    }
+    if (!state.blocks.size) {
+        throw new Error(`Рядом с ${objlist.webkitRelativePath} нет файлов OBJBLKxx.`);
+    }
+    load(new Uint8Array(await objlist.arrayBuffer()), `${objlist.webkitRelativePath || objlist.name} (только чтение)`);
 }
 
 async function openFolderHandle(directory) {
@@ -130,6 +161,7 @@ function load(data, source) {
     for (const id of ['download', 'search', 'teleport', 'apply-time']) {
         $(id).disabled = false;
     }
+    $('download').textContent = downloadLabel();
     for (const id of ['give-member', 'item-search', 'give', 'give-gold', 'give-reagents', 'give-spells']) {
         $(id).disabled = !state.blocks;
     }
@@ -185,13 +217,30 @@ async function restore() {
     setStatus(`Возвращено из копий: ${backups.map(entry => entry.name).join(', ')}.`);
 }
 
-function download() {
+function downloadLabel() {
+    return state.blocks && !state.folder ? 'Скачать изменённые файлы (SAVEGAME.zip)' : 'Скачать OBJLIST';
+}
+
+function saveAs(data, name) {
     const link = document.createElement('a');
-    link.href = URL.createObjectURL(new Blob([state.data]));
-    link.download = 'OBJLIST';
+    link.href = URL.createObjectURL(new Blob([data]));
+    link.download = name;
     link.click();
-    URL.revokeObjectURL(link.href);
-    setStatus('Положи скачанный OBJLIST в SAVEGAME игры вместо старого.');
+    setTimeout(() => URL.revokeObjectURL(link.href), 1000);
+}
+
+function download() {
+    if (state.blocks && !state.folder) {
+        const files = [{name: state.fileName, data: state.data}];
+        for (const name of [...state.dirty].sort()) {
+            files.push({name: state.blockNames.get(name), data: state.blocks.get(name)});
+        }
+        saveAs(Zip.makeZip(files), 'SAVEGAME.zip');
+        setStatus(`Распакуй SAVEGAME.zip в папку SAVEGAME игры с заменой файлов: ${files.map(f => f.name).join(', ')}.`);
+    } else {
+        saveAs(state.data, 'OBJLIST');
+        setStatus('Положи скачанный OBJLIST в SAVEGAME игры вместо старого.');
+    }
 }
 
 // ---------- Отображение ----------
@@ -414,7 +463,7 @@ function giveSpells() {
 // После телепорта переносим инвентарь каждого члена отряда в файл его нового участка.
 function moveInventories() {
     if (!state.blocks) {
-        return ' — вещи отряда остались на старом месте: чтобы перенести и их, открой папку игры в Chrome/Edge';
+        return ' — вещи отряда остались на старом месте: чтобы перенести и их, открой папку игры, а не один файл';
     }
     let count = 0;
     for (const member of Objlist.getParty(state.data)) {
@@ -454,6 +503,8 @@ const async_ = action => () => action().catch(error => {
 });
 
 $('open-folder').onclick = async_(openFolder);
+$('open-folder-input').onchange = event => event.target.files.length
+    && async_(() => openFolderFiles(event.target.files))();
 $('open-file').onchange = event => event.target.files[0] && async_(() => openFile(event.target.files[0]))();
 $('save').onclick = async_(save);
 $('restore').onclick = async_(restore);
