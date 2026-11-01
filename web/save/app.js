@@ -5,6 +5,15 @@ const $ = id => document.getElementById(id);
 const NPCS = window.NPC_DATA.npcs;
 const NPC_BY_ID = new Map(NPCS.map(npc => [npc.id, npc]));
 const FLAGS = window.NPC_DATA.flags;
+const ITEMS = window.NPC_DATA.items;
+const itemKey = (obj, frame = 0) => `${obj}:${frame}`;
+const ITEM_BY_KEY = new Map(ITEMS.map(item => [itemKey(item.obj, item.frame), item]));
+const SPELLS = window.NPC_DATA.spells;
+const BOOKS = window.NPC_DATA.books;
+const GOLD = 88;
+const READABLE = new Set([151, 152]);   // книга, свиток: качество = номер текста + 1
+const KEY = 64;
+const REAGENTS = [65, 66, 67, 68, 69, 70, 71, 72];
 const Z_NAMES = ['поверхность', 'подземелье 1', 'подземелье 2', 'подземелье 3', 'подземелье 4', 'мир горгулий'];
 
 // cp866: только то, что встречается в именах отряда.
@@ -19,6 +28,7 @@ const state = {
     dirty: new Set(),   // какие OBJBLKxx изменены
     backedUp: new Set(),// для каких файлов уже сделан .BAK в этом сеансе
     selected: null,     // номер выбранного NPC
+    item: null,         // ключ выбранного предмета (obj:frame)
     changes: [],
 };
 
@@ -120,6 +130,10 @@ function load(data, source) {
     for (const id of ['download', 'search', 'teleport', 'apply-time']) {
         $(id).disabled = false;
     }
+    for (const id of ['give-member', 'item-search', 'give', 'give-gold', 'give-reagents', 'give-spells']) {
+        $(id).disabled = !state.blocks;
+    }
+    $('item-list').classList.toggle('disabled', !state.blocks);
     renderAll();
     setStatus(`Открыто: ${source} (${data.length} байт).`);
 }
@@ -184,6 +198,7 @@ function download() {
 
 function renderAll() {
     renderParty();
+    renderItems();
     renderNpcs();
     renderTime();
     renderFlags();
@@ -231,6 +246,66 @@ function renderNpcs() {
             renderFlags();
         };
         tbody.append(row);
+    }
+}
+
+function renderItems() {
+    const members = Objlist.getParty(state.data);
+    $('give-member').innerHTML = members
+        .map(member => `<option value="${member.number}">${decodeName(member.name)}</option>`).join('');
+    const query = $('item-search').value.trim().toLowerCase();
+    const list = $('item-list');
+    list.innerHTML = '';
+    for (const item of ITEMS) {
+        if (query && !`${item.obj} ${item.russian} ${item.english}`.toLowerCase().includes(query)) {
+            continue;
+        }
+        const key = itemKey(item.obj, item.frame);
+        const row = document.createElement('div');
+        row.className = 'item' + (key === state.item ? ' selected' : '');
+        const icon = document.createElement('span');
+        icon.className = 'icon';
+        icon.style.backgroundPosition = `-${item.icon % 32 * 32}px -${Math.floor(item.icon / 32) * 32}px`;
+        const text = document.createElement('span');
+        text.textContent = `${item.russian} — ${item.english} `
+            + `(№${item.obj}${item.frame ? `, кадр ${item.frame}` : ''}${item.stackable ? ', стопка' : ''})`;
+        row.append(icon, text);
+        row.onclick = () => guard(() => {
+            state.item = key;
+            list.querySelectorAll('.selected').forEach(other => other.classList.remove('selected'));
+            row.classList.add('selected');
+            renderQualityHelper();
+        });
+        list.append(row);
+    }
+}
+
+// Подсказка к полю «качество» для выбранного предмета.
+function renderQualityHelper() {
+    const item = ITEM_BY_KEY.get(state.item);
+    const row = $('quality-helper-row');
+    let options = [];
+    if (item && READABLE.has(item.obj)) {
+        $('quality-helper-label').textContent = 'Текст:';
+        options = BOOKS.map(book => [book.quality, `${book.quality - 1}: ${book.russian} — ${book.english}`]);
+    } else if (item && item.obj === KEY) {
+        const actor = Number($('give-member').value);
+        const position = Objlist.getPosition(state.data, actor);
+        const file = Objblk.blockName(position);
+        $('quality-helper-label').textContent = `Замки на участке ${file}:`;
+        const distance = lock => Math.abs(lock.x - position.x) + Math.abs(lock.y - position.y);
+        options = Objblk.locks(state.blocks.get(file))
+            .filter(lock => lock.z === position.z)
+            .sort((a, b) => distance(a) - distance(b))
+            .map(lock => [lock.quality, `${lock.name} (${lock.x}, ${lock.y}), в ${distance(lock)} кл. — замок ${lock.quality}`]);
+        if (!options.length) {
+            options = [[0, 'на этом участке нет дверей и сундуков с замками']];
+        }
+    }
+    row.classList.toggle('hidden', !options.length);
+    $('quality-helper').innerHTML = options.map(([value, text]) => `<option value="${value}">${text}</option>`).join('');
+    if (options.length) {
+        $('item-quality').value = options[0][0];
     }
 }
 
@@ -290,6 +365,51 @@ function renderChanges() {
 
 // ---------- Действия ----------
 
+function giveTarget() {
+    const actor = Number($('give-member').value);
+    return {actor, file: Objblk.blockName(Objlist.getPosition(state.data, actor)), name: $('give-member').selectedOptions[0].textContent};
+}
+
+function give(key, qty) {
+    const {actor, file, name} = giveTarget();
+    const item = ITEM_BY_KEY.get(key);
+    if (!item) {
+        throw new Error('Выбери предмет в списке.');
+    }
+    if (!(Number.isInteger(qty) && qty >= 1)) {
+        throw new Error('Количество — целое число от 1.');
+    }
+    const {obj, frame} = item;
+    const quality = Number($('item-quality').value);
+    if (!item.stackable && !(Number.isInteger(quality) && quality >= 0 && quality <= 255)) {
+        throw new Error('Качество — от 0 до 255.');
+    }
+    if (item.stackable) {
+        Objblk.addItem(state.blocks, file, actor, {obj, frame, qty, stackable: true});
+    } else {
+        if (qty > 50) {
+            throw new Error('Нескладываемых предметов — не больше 50 за раз.');
+        }
+        for (let i = 0; i < qty; i++) {
+            Objblk.addItem(state.blocks, file, actor, {obj, frame, quality});
+        }
+    }
+    state.dirty.add(file);
+    return `${name}: ${item.russian} ×${qty}` + (!item.stackable && quality ? `, качество ${quality}` : '');
+}
+
+function giveSpells() {
+    const {actor, file, name} = giveTarget();
+    const before = new Map(state.blocks);
+    const added = Objblk.addSpells(state.blocks, file, actor, SPELLS.map(spell => spell.number));
+    for (const [block, data] of state.blocks) {
+        if (data !== before.get(block)) {
+            state.dirty.add(block);     // книга могла лежать в другом файле
+        }
+    }
+    return `${name}: книга заклинаний, добавлено заклинаний — ${added}`;
+}
+
 // Вещи отряда лежат в файле участка, где стоит персонаж; игра грузит только участки рядом с отрядом.
 // После телепорта переносим инвентарь каждого члена отряда в файл его нового участка.
 function moveInventories() {
@@ -341,3 +461,10 @@ $('download').onclick = () => guard(download);
 $('search').oninput = () => renderNpcs();
 $('teleport').onclick = () => guard(teleportToCoordinates);
 $('apply-time').onclick = () => guard(applyTime);
+$('item-search').oninput = () => renderItems();
+$('give-member').onchange = () => guard(renderQualityHelper);
+$('quality-helper').onchange = () => { $('item-quality').value = $('quality-helper').value; };
+$('give').onclick = () => guard(() => addChange(give(state.item, Number($('item-qty').value))));
+$('give-gold').onclick = () => guard(() => addChange(give(itemKey(GOLD), 5000)));     // стопки, качество не важно
+$('give-reagents').onclick = () => guard(() => addChange(REAGENTS.map(obj => give(itemKey(obj), 20)).join('; ')));
+$('give-spells').onclick = () => guard(() => addChange(giveSpells()));

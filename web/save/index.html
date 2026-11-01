@@ -28,6 +28,13 @@
     .error { color: #b00020; }
     .hint { font-size: 12px; color: #666; margin: 0 0 4px 22px; font-family: ui-monospace, monospace; }
     .hidden { display: none; }
+    #item-list { max-height: 260px; overflow: auto; border: 1px solid #e3d8bd; }
+    #item-list.disabled { opacity: .5; pointer-events: none; }
+    .item { display: flex; align-items: center; gap: 6px; padding: 1px 4px; cursor: pointer; }
+    .item:hover { background: #f6eedb; }
+    .item.selected { background: #efe0b8; }
+    .icon { width: 32px; height: 32px; flex: none; background-image: url(items.png); background-size: 1024px auto;
+            image-rendering: pixelated; }
 </style>
 </head>
 <body>
@@ -88,6 +95,33 @@
             <button id="teleport" disabled>Перенести отряд</button>
         </div>
         <p class="muted">Этаж 0 — поверхность (1024×1024), 1–4 — подземелья, 5 — мир горгулий (256×256).</p>
+    </section>
+
+    <section>
+        <h2>Выдать предметы</h2>
+        <div class="row">
+            Кому: <select id="give-member" disabled></select>
+        </div>
+        <input type="search" id="item-search" placeholder="Поиск предмета (рус./англ./номер)" disabled>
+        <div id="item-list" class="disabled"></div>
+        <div class="row">
+            количество <input type="number" id="item-qty" min="1" max="65535" value="1">
+            качество <input type="number" id="item-quality" min="0" max="255" value="0">
+            <button id="give" disabled>Выдать</button>
+        </div>
+        <div class="row hidden" id="quality-helper-row">
+            <span id="quality-helper-label"></span>
+            <select id="quality-helper" style="max-width: 100%"></select>
+        </div>
+        <div class="row">
+            <button id="give-gold" disabled>Золото 5000</button>
+            <button id="give-reagents" disabled>Все реагенты по 20</button>
+            <button id="give-spells" disabled>Книга со всеми заклинаниями</button>
+        </div>
+        <p class="muted">Стопки (золото, реагенты, стрелы) складываются с уже имеющимися; остальные предметы —
+            по одному на каждую единицу количества. Качество: у книги и свитка — какой текст в нём (книгу можно
+            прочитать в игре), у ключа — какой замок он открывает. Книга выдаётся в руку: колдовать можно только с ней. Работает
+            только с открытой папкой игры.</p>
     </section>
 
     <section>

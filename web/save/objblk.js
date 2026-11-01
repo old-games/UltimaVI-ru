@@ -141,7 +141,105 @@
         return result;
     }
 
-    const api = {blockName, parse, serialize, inventoryIndices, moveInventories, inventoryCount};
+    const SPELLBOOK = 57;
+    const SPELL = 58;       // качество = номер заклинания ((круг - 1) * 16 + номер в круге)
+    const objectType = record => record[4] | (record[5] & 0x3) << 8;
+
+    function makeRecord(status, xValue, obj, {frame = 0, qty = 0, quality = 0} = {}) {
+        return Uint8Array.of(status, xValue & 0xff, xValue >> 8 & 0x3, 0, obj & 0xff, obj >> 8 & 0x3 | frame << 2,
+            qty & 0xff, quality);
+    }
+
+    function check(blocks, name) {
+        if (!blocks.has(name)) {
+            throw new Error(`Нет файла ${name} в SAVEGAME`);
+        }
+    }
+
+    // Кладёт предмет в инвентарь персонажа actor (файл name — участок, где он стоит). Стопки складываются с уже
+    // лежащими в инвентаре (не в сумках), количество до 65535 хранится в байтах количества и качества.
+    function addItem(blocks, name, actor, {obj, qty = 1, frame = 0, quality = 0, stackable = false, readied = false}) {
+        check(blocks, name);
+        const records = parse(blocks.get(name));
+        if (stackable) {
+            if (!(Number.isInteger(qty) && qty >= 1 && qty <= 65535)) {
+                throw new Error(`Количество 1–65535: ${qty}`);
+            }
+            const stack = records.find(r => location(r) === IN_INVENTORY && x(r) === actor && objectType(r) === obj
+                && r[5] >> 2 === frame);
+            if (stack) {
+                const total = Math.min((stack[6] | stack[7] << 8) + qty, 65535);
+                stack[6] = total & 0xff;
+                stack[7] = total >> 8;
+                blocks.set(name, serialize(records));
+                return total;
+            }
+            records.push(makeRecord(IN_INVENTORY, actor, obj, {frame, qty: qty & 0xff, quality: qty >> 8}));
+        } else {
+            records.push(makeRecord(readied ? READIED : IN_INVENTORY, actor, obj, {frame, quality}));
+        }
+        blocks.set(name, serialize(records));
+        return qty;
+    }
+
+    // Кладёт заклинания в книгу персонажа; если книги нет ни в одном файле — выдаёт её в руку (колдовать можно
+    // только с книгой в руке) в файле name.
+    // Возвращает число добавленных заклинаний.
+    function addSpells(blocks, name, actor, numbers) {
+        check(blocks, name);
+        let bookFile = null;
+        let book = -1;
+        for (const [file, data] of blocks) {
+            const records = parse(data);
+            const index = records.findIndex(r => (location(r) === IN_INVENTORY || location(r) === READIED)
+                && x(r) === actor && objectType(r) === SPELLBOOK);
+            if (index >= 0) {
+                bookFile = file;
+                book = index;
+                break;
+            }
+        }
+        if (book < 0) {
+            addItem(blocks, name, actor, {obj: SPELLBOOK, readied: true});
+            bookFile = name;
+            book = parse(blocks.get(name)).length - 1;
+        }
+        const records = parse(blocks.get(bookFile));
+        const known = new Set(records.filter(r => location(r) === IN_CONTAINER && parent(r) === book
+            && objectType(r) === SPELL).map(r => r[7]));
+        let added = 0;
+        for (const number of numbers) {
+            if (!known.has(number)) {
+                const record = makeRecord(IN_CONTAINER, 0, SPELL, {quality: number});
+                setParent(record, book);
+                records.push(record);
+                known.add(number);
+                added++;
+            }
+        }
+        blocks.set(bookFile, serialize(records));
+        return added;
+    }
+
+    // Двери (дубовая, с окном, кедровая, стальная) и сундуки на карте, у которых есть замок: ключ открывает их,
+    // если его качество равно качеству двери (и не 0).
+    const LOCKABLE = new Map([[297, 'дверь'], [298, 'дверь с окном'], [299, 'кедровая дверь'], [300, 'стальная дверь'],
+        [98, 'сундук']]);
+
+    function locks(data) {
+        return parse(data)
+            .filter(r => location(r) === 0 && LOCKABLE.has(objectType(r)) && r[7] !== 0)
+            .map(r => ({
+                obj: objectType(r),
+                name: LOCKABLE.get(objectType(r)),
+                x: x(r),
+                y: r[2] >> 2 | (r[3] & 0xf) << 6,
+                z: r[3] >> 4,
+                quality: r[7],
+            }));
+    }
+
+    const api = {blockName, parse, serialize, inventoryIndices, moveInventories, inventoryCount, addItem, addSpells, locks};
 
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = api;
