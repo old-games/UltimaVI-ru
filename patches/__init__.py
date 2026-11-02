@@ -84,6 +84,13 @@ def patch_U(d):
     d[0xb750] -= 4
     d[0xb762] += 8
 
+    # И высота: окно было в одну строку, русская фраза в неё не влезает — от неё оставалась только вторая строка.
+    # Верх окна ([0x6090]) на 4 пикселя выше, высота ([0x607e]) на строку больше, как у фраз ниже.
+    assert d[0xb756] == 0xa5
+    assert d[0xb768] == 0x07
+    d[0xb756] -= 4
+    d[0xb768] += 8
+
     # Высота текста "At first the plain is still. Then a hundred voices ".
     assert d[0xcda2] == 0xa0
     assert d[0xcdb4] == 0x1f
@@ -227,6 +234,15 @@ def patch_U(d):
         'eb24'          # jmp next (0x4e61)
     ).ljust(0x2f, b'\x90'))
 
+    # Экран переноса персонажа: кнопка ESC стоит в x = 221, а окно ряда кнопок режет рисование по x = 292 —
+    # английская картинка шириной 72, русская «ESC-отмена» 85, от неё оставалось «ESC-отмен». Ставим кнопку в
+    # x = 208 (292 - 85 + 1). Перед ней — кнопки дисков A, B, … по 17 пикселей с x = 31 (не больше 11, по числу
+    # дисков в DOS); одиннадцатая, K (201..216), налезла бы на ESC, поэтому показываем не больше 10 (A–J).
+    assert d[0x51c6:0x51ca] == bytes.fromhex('c707dd00')
+    replace(d, 0x51c6, bytes.fromhex('c707d000'))  # mov word [bx], 208
+    assert d[0x5194:0x5197] == bytes.fromhex('83fe0b')
+    replace(d, 0x5194, bytes.fromhex('83fe0a'))  # cmp si, 10
+
     # Цыганка: ответы А/Б (в том числе строчные — после toupper) вместо только латинских A/B.
     assert d[0x6a70:0x6a82] == bytes.fromhex('807eff417406807eff4275e7807eff41750e')
     replace(d, 0x6a70, bytes.fromhex(
@@ -296,6 +312,18 @@ def patch_GAME(d):
     # Имя без наложения помещается до 11 символов: имена спутников в переводе короче, имя героя U.EXE ограничивает.
     assert d[0x1095d:0x10961] == bytes.fromhex('d1e04040')
     replace(d, 0x1095d, bytes.fromhex('01c00403'))
+    # То же при перерисовке здоровья одного персонажа (в бою): строка (i - [0x7cc]) * 2 + 2 -> + 3.
+    # Байт на add dx, 3 берём, заменив mov ah, 0 на cbw ([0x7cc] — номер первой строки списка, 0..15).
+    assert d[0x1fca1:0x1fcaf] == bytes.fromhex('a0cc07b4008bd72bd0d1e2424252')
+    replace(d, 0x1fca1, bytes.fromhex(
+        'a0cc07'        # mov al, [0x7cc]
+        '98'            # cbw
+        '8bd7'          # mov dx, di
+        '2bd0'          # sub dx, ax
+        'd1e2'          # shl dx, 1
+        '83c203'        # add dx, 3
+        '52'            # push dx
+    ))
 
     # 0x464:0x33d3, putch, проверка на 0x80 бит.
     assert d[0xb203:0xb206] == b'\x0d\x80\x00'

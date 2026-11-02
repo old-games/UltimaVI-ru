@@ -1,4 +1,4 @@
-"""Данные для редактора сохранений web/save: python3 -m tools.web_npc → web/save/npc.js и web/save/items.png.
+"""Данные для редактора сохранений web/save: python3 -m tools.web_npc → web/save/npc.js, items.png и maps/.
 
 Номер NPC — id(N) скрипта диалога (он же номер персонажа в SAVEGAME/OBJLIST), имена — поле name. Для каждого
 флага разговора (setBit/hasBit/clearBit(byte NPC, бит)) собираются места в скриптах, где он используется;
@@ -10,6 +10,9 @@ TILEFLAG (+0x1000); складываются в стопку те, у чьего
 базового тайла следующего предмета, у каждого своё название в LOOK.
 Иконки предметов: тайлы из tiles/ (MAPTILES.NNN — тайлы 0–511, OBJTILES.NNNN — тайл 512 + NNNN, увеличены в 10 раз),
 уменьшенные до 16×16 и собранные в атлас items.png по ICONS_PER_ROW в ряд; у предмета — номер иконки icon.
+Карты: maps/LZMAP.N.png (16 пикселей на клетку) уменьшаются до MAP_SCALE пикселей на клетку; поверхность режется на
+куски MAP_PIECE×MAP_PIECE (раскладку повторяют MAP_PIECE и mapTiles в app.js). Результат web/save/maps/ не хранится
+в git: его делает workflow Pages (или этот скрипт локально), пересобирается, только если исходник новее.
 Тексты книг и свитков: book.json, качество предмета = номер текста + 1.
 Заклинания: таблица названий в GAME.EXE, по 16 на круг (номер = (круг - 1) * 16 + номер в круге), перевод —
 из patches/translation.json.
@@ -29,6 +32,8 @@ SPELL_NAMES = 203380                               # файл GAME.EXE: 128 ук
 GAME_DS = 200272
 TILE = 16
 ICONS_PER_ROW = 32
+MAP_SCALE = 4       # пикселей на клетку в картах страницы
+MAP_PIECE = 1024    # сторона куска карты поверхности, пикселей
 OPERATIONS = {'hasBit': 'проверка', 'setBit': 'установка', 'clearBit': 'сброс'}
 
 
@@ -115,6 +120,27 @@ def build_icons(root, items, path):
     atlas.save(path, optimize=True)
 
 
+def build_maps(root, path):
+    from PIL import Image
+
+    os.makedirs(path, exist_ok=True)
+    for level in range(6):
+        source = os.path.join(root, 'maps', f'LZMAP.{level}.png')
+        first = os.path.join(path, f'{level}_0_0.webp')
+        if os.path.exists(first) and os.path.getmtime(first) >= os.path.getmtime(source):
+            continue
+        Image.MAX_IMAGE_PIXELS = None
+        with Image.open(source) as image:
+            size = image.width // TILE * MAP_SCALE
+            small = image.convert('RGB').resize((size, size), Image.BOX)
+        # Имена кусков: уровень_ряд_столбец.webp; раскладку (размер, MAP_PIECE) страница знает сама — app.js, MAPS.
+        for top in range(0, size, MAP_PIECE):
+            for left in range(0, size, MAP_PIECE):
+                name = f'{level}_{top // MAP_PIECE}_{left // MAP_PIECE}.webp'
+                small.crop((left, top, left + MAP_PIECE, top + MAP_PIECE)).save(os.path.join(path, name), quality=85)
+        print(f'{path}/{level}_*.webp: {size}×{size}')
+
+
 def collect_books(root):
     with open(os.path.join(root, 'unpacked', 'book.json')) as f:
         books = json.load(f)
@@ -156,6 +182,7 @@ def main():
     data = collect(os.path.join(root, 'conversations'))
     data['items'] = collect_items(root)
     build_icons(root, data['items'], os.path.join(root, 'web', 'save', 'items.png'))
+    build_maps(root, os.path.join(root, 'web', 'save', 'maps'))
     data['spells'] = collect_spells(root)
     data['books'] = collect_books(root)
     text = json.dumps(data, ensure_ascii=False, separators=(',', ':'))

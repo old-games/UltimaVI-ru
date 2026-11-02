@@ -150,4 +150,26 @@ const copy = () => new Uint8Array(template);
         [[297, 296, 357, 14], [300, 304, 382, 1], [300, 311, 382, 1]]);
 }
 
-console.log('objlist.js, objblk.js: OK');
+// Архив для Firefox и Safari: эталонная CRC-32 и разбор собственного zip.
+{
+    const Zip = require('./zip.js');
+    assert.strictEqual(Zip.crc32(Buffer.from('123456789')), 0xcbf43926);
+    const files = [{name: 'OBJLIST', data: copy()}, {name: 'OBJBLKCC', data: Uint8Array.of(1, 2, 3)}];
+    const zip = Buffer.from(Zip.makeZip(files));
+    const end = zip.length - 22;
+    assert.strictEqual(zip.readUInt32LE(end), 0x06054b50);
+    assert.strictEqual(zip.readUInt16LE(end + 10), 2);
+    let offset = zip.readUInt32LE(end + 16);
+    for (const file of files) {
+        assert.strictEqual(zip.readUInt32LE(offset), 0x02014b50);
+        const nameLength = zip.readUInt16LE(offset + 28);
+        assert.strictEqual(zip.toString('ascii', offset + 46, offset + 46 + nameLength), file.name);
+        const local = zip.readUInt32LE(offset + 42);
+        const start = local + 30 + zip.readUInt16LE(local + 26);
+        assert.deepStrictEqual(new Uint8Array(zip.subarray(start, start + zip.readUInt32LE(local + 18))), file.data);
+        assert.strictEqual(zip.readUInt32LE(local + 14), Zip.crc32(file.data));
+        offset += 46 + nameLength;
+    }
+}
+
+console.log('objlist.js, objblk.js, zip.js: OK');
