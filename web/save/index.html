@@ -33,6 +33,16 @@
     .item { display: flex; align-items: center; gap: 6px; padding: 1px 4px; cursor: pointer; }
     .item:hover { background: #f6eedb; }
     .item.selected { background: #efe0b8; }
+    #map-section { margin: 0 16px 16px; }
+    #map-view { height: 560px; overflow: auto; border: 1px solid #d8cdb0; background: #222; position: relative; }
+    #map-canvas { position: relative; cursor: crosshair; }
+    #map-canvas img { position: absolute; user-select: none; -webkit-user-drag: none; }
+    #map-canvas.pixelated img { image-rendering: pixelated; }
+    .marker { position: absolute; border-radius: 50%; transform: translate(-50%, -50%); box-sizing: border-box; }
+    .marker.npc { background: #2f6fff; border: 1px solid #fff; cursor: pointer; }
+    .marker.npc.selected { background: #ffd400; border: 2px solid #000; z-index: 2; }
+    .marker.party { background: #e00000; border: 2px solid #fff; z-index: 3; pointer-events: none; }
+    .marker.pick { width: 14px; height: 14px; border: 3px solid #ffd400; border-radius: 0; z-index: 4; pointer-events: none; }
     .icon { width: 32px; height: 32px; flex: none; background-image: url(items.png); background-size: 1024px auto;
             image-rendering: pixelated; }
 </style>
@@ -98,7 +108,14 @@
             этаж <input type="number" id="tp-z" min="0" max="5" value="0">
             <button id="teleport" disabled>Перенести отряд</button>
         </div>
-        <p class="muted">Этаж 0 — поверхность (1024×1024), 1–4 — подземелья, 5 — мир горгулий (256×256).</p>
+        <div class="row">
+            или пиксели на карте Ian Albert (16384 / 4096):
+            x <input type="number" id="px-x" min="0" max="16383">
+            y <input type="number" id="px-y" min="0" max="16383">
+        </div>
+        <p class="muted">Этаж 0 — поверхность (1024×1024), 1–4 — подземелья, 5 — мир горгулий (256×256). На картах
+            Ian Albert и в maps/ репозитория 16 пикселей на клетку: координаты клетки = пиксели / 16. Или выбери место
+            на карте внизу страницы.</p>
     </section>
 
     <section>
@@ -155,6 +172,35 @@
     </section>
 </div>
 </main>
+
+<section id="map-section">
+    <h2>Карта</h2>
+    <div class="row">
+        <select id="map-level">
+            <option value="0">поверхность</option>
+            <option value="1">подземелье 1</option>
+            <option value="2">подземелье 2</option>
+            <option value="3">подземелье 3</option>
+            <option value="4">подземелье 4</option>
+            <option value="5">мир горгулий</option>
+        </select>
+        масштаб <select id="map-zoom">
+            <option value="1">1 пиксель на клетку</option>
+            <option value="2" selected>2</option>
+            <option value="4">4</option>
+            <option value="8">8</option>
+        </select>
+        <button id="map-party">К отряду</button>
+        <span class="muted">клетка: <span id="map-hover">—</span></span>
+        <span>выбрано: <span id="map-pick">—</span></span>
+        <button id="map-teleport" disabled>Перенести отряд сюда</button>
+    </div>
+    <div id="map-view"><div id="map-canvas"></div></div>
+    <p class="muted">Клик по карте — выбрать клетку. Красное — отряд, синие — NPC (клик — телепорт к нему, сторона —
+        как в списке персонажей), жёлтое — выбранный в списке NPC. Карты делает <code>python3 -m tools.web_npc</code>.</p>
+    <p class="error hidden" id="map-missing">Карт нет: запусти в репозитории <code>../.venv/bin/python -m tools.web_npc</code>
+        (нужен Pillow) — он создаст web/save/maps/.</p>
+</section>
 
 <script src="npc.js"></script>
 <script src="objlist.js"></script>

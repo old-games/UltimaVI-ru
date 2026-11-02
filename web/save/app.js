@@ -14,6 +14,10 @@ const GOLD = 88;
 const READABLE = new Set([151, 152]);   // книга, свиток: качество = номер текста + 1
 const KEY = 64;
 const REAGENTS = [65, 66, 67, 68, 69, 70, 71, 72];
+// Карты web/save/maps/ (tools/web_npc.py): 4 пикселя на клетку, куски 1024×1024 = 256×256 клеток,
+// поверхность — 4×4 куска (1024 клетки), подземелья и мир горгулий — один кусок (256 клеток).
+const MAP_PIECE = 256;
+const mapTiles = level => level === 0 ? 1024 : 256;
 const Z_NAMES = ['поверхность', 'подземелье 1', 'подземелье 2', 'подземелье 3', 'подземелье 4', 'мир горгулий'];
 
 // cp866: только то, что встречается в именах отряда.
@@ -28,6 +32,7 @@ const state = {
     dirty: new Set(),   // какие OBJBLKxx изменены
     backedUp: new Set(),// для каких файлов уже сделан .BAK в этом сеансе
     selected: null,     // номер выбранного NPC
+    pick: null,         // выбранная на карте клетка {x, y, z}
     item: null,         // ключ выбранного предмета (obj:frame)
     changes: [],
 };
@@ -167,6 +172,8 @@ function load(data, source) {
     }
     $('item-list').classList.toggle('disabled', !state.blocks);
     renderAll();
+    showParty();
+    $('map-teleport').disabled = !state.pick;
     setStatus(`Открыто: ${source} (${data.length} байт).`);
 }
 
@@ -254,12 +261,129 @@ function renderAll() {
     renderChanges();
 }
 
+// ---------- Карта ----------
+
+function mapLevel() {
+    return Number($('map-level').value);
+}
+
+function mapZoom() {
+    return Number($('map-zoom').value);
+}
+
+function renderMap() {
+    const level = mapLevel();
+    const zoom = mapZoom();
+    const tiles = mapTiles(level);
+    const canvas = $('map-canvas');
+    canvas.innerHTML = '';
+    canvas.style.width = canvas.style.height = `${tiles * zoom}px`;
+    canvas.classList.toggle('pixelated', zoom >= 4);
+    const pieces = tiles / MAP_PIECE;
+    for (let row = 0; row < pieces; row++) {
+        for (let column = 0; column < pieces; column++) {
+            const image = document.createElement('img');
+            image.src = `maps/${level}_${row}_${column}.webp`;
+            image.style.left = `${column * MAP_PIECE * zoom}px`;
+            image.style.top = `${row * MAP_PIECE * zoom}px`;
+            image.style.width = image.style.height = `${MAP_PIECE * zoom}px`;
+            image.draggable = false;
+            image.onerror = () => $('map-missing').classList.remove('hidden');
+            canvas.append(image);
+        }
+    }
+    renderMapMarkers();
+}
+
+function addMarker(className, {x, y}, size, title) {
+    const zoom = mapZoom();
+    const marker = document.createElement('div');
+    marker.className = `marker ${className}`;
+    marker.style.left = `${(x + 0.5) * zoom}px`;
+    marker.style.top = `${(y + 0.5) * zoom}px`;
+    if (size) {
+        marker.style.width = marker.style.height = `${size}px`;
+    }
+    if (title) {
+        marker.title = title;
+    }
+    $('map-canvas').append(marker);
+    return marker;
+}
+
+function renderMapMarkers() {
+    const canvas = $('map-canvas');
+    canvas.querySelectorAll('.marker').forEach(marker => marker.remove());
+    const level = mapLevel();
+    const size = Math.max(6, mapZoom() + 2);
+    if (state.data) {
+        for (const npc of NPCS) {
+            const actor = Objlist.getActor(state.data, npc.id);
+            if (!actor.present || actor.z !== level) {
+                continue;
+            }
+            const marker = addMarker(`npc${npc.id === state.selected ? ' selected' : ''}`, actor, size,
+                `${npc.russian} (${npc.english}, №${npc.id}) — ${actor.x}, ${actor.y}`);
+            marker.onclick = event => {
+                event.stopPropagation();
+                guard(() => teleportToNpc(npc));
+            };
+        }
+        for (const member of Objlist.getParty(state.data)) {
+            const actor = Objlist.getActor(state.data, member.number);
+            if (actor.z === level) {
+                addMarker('party', actor, size + 2);
+            }
+        }
+    }
+    if (state.pick && state.pick.z === level) {
+        addMarker('pick', state.pick);
+    }
+}
+
+function mapCell(event) {
+    const rect = $('map-canvas').getBoundingClientRect();
+    const zoom = mapZoom();
+    const tiles = mapTiles(mapLevel());
+    const x = Math.floor((event.clientX - rect.left) / zoom);
+    const y = Math.floor((event.clientY - rect.top) / zoom);
+    return x >= 0 && y >= 0 && x < tiles && y < tiles ? {x, y, z: mapLevel()} : null;
+}
+
+function centerMap({x, y}) {
+    const view = $('map-view');
+    const zoom = mapZoom();
+    view.scrollLeft = x * zoom - view.clientWidth / 2;
+    view.scrollTop = y * zoom - view.clientHeight / 2;
+}
+
+function showParty() {
+    if (!state.data) {
+        return;
+    }
+    const avatar = Objlist.getActor(state.data, Objlist.getParty(state.data)[0].number);
+    if (mapLevel() !== avatar.z) {
+        $('map-level').value = avatar.z;
+        renderMap();
+    }
+    centerMap(avatar);
+}
+
+function teleportToNpc(npc) {
+    const side = document.querySelector('input[name=side]:checked').value;
+    const actor = Objlist.getActor(state.data, npc.id);
+    Objlist.teleportToActor(state.data, npc.id, side);
+    addChange(`Отряд перенесён к ${npc.russian} (${place(actor)})` + moveInventories());
+    renderParty();
+}
+
 function renderParty() {
     const rows = Objlist.getParty(state.data).map(member => {
         const actor = Objlist.getActor(state.data, member.number);
         return `<tr><td>${member.number}</td><td>${decodeName(member.name)}</td><td>${place(actor)}</td></tr>`;
     });
     $('party').innerHTML = rows.join('');
+    renderMapMarkers();
 }
 
 function renderNpcs() {
@@ -281,11 +405,7 @@ function renderNpcs() {
             button.textContent = 'Телепорт';
             button.onclick = event => {
                 event.stopPropagation();
-                guard(() => {
-                    Objlist.teleportToActor(state.data, npc.id, side());
-                    addChange(`Отряд перенесён к ${npc.russian} (${place(actor)})` + moveInventories());
-                    renderParty();
-                });
+                guard(() => teleportToNpc(npc));
             };
             row.lastChild.append(button);
         }
@@ -293,6 +413,12 @@ function renderNpcs() {
             state.selected = npc.id;
             renderNpcs();
             renderFlags();
+            renderMapMarkers();
+            if (actor.present) {
+                $('map-level').value = actor.z;
+                renderMap();
+                centerMap(actor);
+            }
         };
         tbody.append(row);
     }
@@ -512,6 +638,53 @@ $('download').onclick = () => guard(download);
 $('search').oninput = () => renderNpcs();
 $('teleport').onclick = () => guard(teleportToCoordinates);
 $('apply-time').onclick = () => guard(applyTime);
+$('map-level').onchange = () => { renderMap(); showPartyIfHere(); };
+$('map-zoom').onchange = () => {
+    const view = $('map-view');
+    const old = Number($('map-canvas').style.width.replace('px', '')) || 1;
+    const center = {x: (view.scrollLeft + view.clientWidth / 2) / old, y: (view.scrollTop + view.clientHeight / 2) / old};
+    renderMap();
+    const size = mapTiles(mapLevel()) * mapZoom();
+    view.scrollLeft = center.x * size - view.clientWidth / 2;
+    view.scrollTop = center.y * size - view.clientHeight / 2;
+};
+$('map-party').onclick = () => guard(showParty);
+$('map-canvas').onmousemove = event => {
+    const cell = mapCell(event);
+    $('map-hover').textContent = cell ? `${cell.x}, ${cell.y}` : '—';
+};
+$('map-canvas').onclick = event => {
+    const cell = mapCell(event);
+    if (!cell) {
+        return;
+    }
+    state.pick = cell;
+    $('map-pick').textContent = place(cell);
+    $('tp-x').value = cell.x;
+    $('tp-y').value = cell.y;
+    $('tp-z').value = cell.z;
+    $('map-teleport').disabled = !state.data;
+    renderMapMarkers();
+};
+$('map-teleport').onclick = () => guard(() => {
+    Objlist.teleportParty(state.data, state.pick, 'here');
+    addChange(`Отряд перенесён в ${place(state.pick)}` + moveInventories());
+    renderParty();
+});
+for (const id of ['px-x', 'px-y']) {
+    $(id).oninput = () => {
+        const value = Number($(id).value);
+        if ($(id).value !== '' && Number.isFinite(value)) {
+            $(id === 'px-x' ? 'tp-x' : 'tp-y').value = Math.floor(value / 16);
+        }
+    };
+}
+function showPartyIfHere() {
+    if (state.data && Objlist.getActor(state.data, Objlist.getParty(state.data)[0].number).z === mapLevel()) {
+        showParty();
+    }
+}
+renderMap();
 $('item-search').oninput = () => renderItems();
 $('give-member').onchange = () => guard(renderQualityHelper);
 $('quality-helper').onchange = () => { $('item-quality').value = $('quality-helper').value; };
