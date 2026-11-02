@@ -163,7 +163,8 @@ function load(data, source) {
     for (const id of ['save', 'restore']) {
         $(id).disabled = !state.folder;
     }
-    for (const id of ['download', 'search', 'teleport', 'apply-time']) {
+    for (const id of ['download', 'search', 'teleport', 'apply-time', 'stats-member', 'set-level', 'apply-stats',
+        'max-level']) {
         $(id).disabled = false;
     }
     $('download').textContent = downloadLabel();
@@ -254,6 +255,7 @@ function download() {
 
 function renderAll() {
     renderParty();
+    renderStatsMembers();
     renderItems();
     renderNpcs();
     renderTime();
@@ -443,6 +445,68 @@ function renderParty() {
     });
     $('party').innerHTML = rows.join('');
     renderMapMarkers();
+}
+
+// ---------- Уровень и характеристики ----------
+
+const STAT_FIELDS = ['level', 'experience', 'hp', 'magic', 'strength', 'dexterity', 'intelligence'];
+
+function renderStatsMembers() {
+    const selected = $('stats-member').value;
+    $('stats-member').innerHTML = Objlist.getParty(state.data)
+        .map(member => `<option value="${member.number}">${decodeName(member.name)}</option>`).join('');
+    if ([...$('stats-member').options].some(option => option.value === selected)) {
+        $('stats-member').value = selected;
+    }
+    renderStats();
+}
+
+function renderStats() {
+    const stats = Objlist.getStats(state.data, Number($('stats-member').value));
+    for (const key of STAT_FIELDS) {
+        $(`st-${key}`).value = stats[key];
+    }
+    const next = Objlist.LEVEL_EXPERIENCE[stats.level];
+    $('stats-hint').textContent = `Максимум здоровья — ${Objlist.maxHp(stats.level)}. ` + (stats.level >= Objlist.MAX_LEVEL
+        ? 'Уровень максимальный.'
+        : `Для уровня ${stats.level + 1} нужно опыта ${next}` + (stats.experience >= next ? ' — уже хватает, можно идти в святыню.' : '.'));
+}
+
+function statsName() {
+    return $('stats-member').selectedOptions[0].textContent;
+}
+
+function setLevel() {
+    const actor = Number($('stats-member').value);
+    const level = Number($('st-level').value);
+    Objlist.setLevel(state.data, actor, level);
+    const stats = Objlist.getStats(state.data, actor);
+    renderStats();
+    return `${statsName()}: уровень ${level}, опыт ${stats.experience}, здоровье ${stats.hp}`;
+}
+
+function applyStats() {
+    const actor = Number($('stats-member').value);
+    const stats = {};
+    for (const key of STAT_FIELDS) {
+        if ($(`st-${key}`).value.trim() === '') {
+            throw new Error('Заполни все поля характеристик.');
+        }
+        stats[key] = Number($(`st-${key}`).value);
+    }
+    Objlist.setStats(state.data, actor, stats);
+    renderStats();
+    return `${statsName()}: уровень ${stats.level}, опыт ${stats.experience}, здоровье ${stats.hp}, мана ${stats.magic}, `
+        + `сила ${stats.strength}, ловкость ${stats.dexterity}, интеллект ${stats.intelligence}`;
+}
+
+function maxLevel() {
+    const party = Objlist.getParty(state.data);
+    for (const member of party) {
+        Objlist.setLevel(state.data, member.number, Objlist.MAX_LEVEL);
+    }
+    renderStats();
+    return `Весь отряд (${party.length}): уровень ${Objlist.MAX_LEVEL}, полное здоровье`;
 }
 
 function renderNpcs() {
@@ -816,4 +880,8 @@ $('quality-helper').onchange = () => { $('item-quality').value = $('quality-help
 $('give').onclick = () => guard(() => addChange(give(state.item, Number($('item-qty').value))));
 $('give-gold').onclick = () => guard(() => addChange(give(itemKey(GOLD), 5000)));     // стопки, качество не важно
 $('give-reagents').onclick = () => guard(() => addChange(REAGENTS.map(obj => give(itemKey(obj), 20)).join('; ')));
+$('stats-member').onchange = () => guard(renderStats);
+$('set-level').onclick = () => guard(() => addChange(setLevel()));
+$('apply-stats').onclick = () => guard(() => addChange(applyStats()));
+$('max-level').onclick = () => guard(() => addChange(maxLevel()));
 $('give-spells').onclick = () => guard(() => addChange(giveSpells()));
