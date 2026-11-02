@@ -311,19 +311,65 @@ function addMarker(className, {x, y}, size, title) {
     return marker;
 }
 
+// Ширина подписи на карте (шрифт как у .map-label).
+const labelContext = document.createElement('canvas').getContext('2d');
+labelContext.font = '11px system-ui, sans-serif';
+
+// Расставляет подписи без наложений: каждая пробует свою строку, затем на строку и две ниже/выше; если места нет —
+// не показывается (имя остаётся во всплывающей подсказке точки). labels: [{text, x, y, className, force}] в порядке
+// важности, x/y — центр точки в пикселях.
+function placeLabels(labels) {
+    const placed = [];
+    const overlaps = box => placed.some(other =>
+        box.left < other.right && other.left < box.right && box.top < other.bottom && other.top < box.bottom);
+    for (const label of labels) {
+        const width = labelContext.measureText(label.text).width + 4;
+        let box = null;
+        for (const shift of [0, 12, -12, 24, -24]) {
+            const candidate = {left: label.x + 6, right: label.x + 6 + width, top: label.y - 6 + shift, bottom: label.y + 6 + shift};
+            if (!overlaps(candidate)) {
+                box = candidate;
+                break;
+            }
+        }
+        if (!box && label.force) {
+            box = {left: label.x + 6, right: label.x + 6 + width, top: label.y - 6, bottom: label.y + 6};
+        }
+        if (!box) {
+            continue;
+        }
+        placed.push(box);
+        const element = document.createElement('div');
+        element.className = `map-label ${label.className || ''}`;
+        element.textContent = label.text;
+        element.style.left = `${box.left}px`;
+        element.style.top = `${box.top}px`;
+        $('map-canvas').append(element);
+    }
+}
+
 function renderMapMarkers() {
     const canvas = $('map-canvas');
     canvas.querySelectorAll('.marker, .map-label').forEach(marker => marker.remove());
-    const labels = $('map-labels').checked && mapZoom() >= 3;
+    const showLabels = $('map-labels').checked && mapZoom() >= 3;
     const level = mapLevel();
-    const size = Math.max(6, mapZoom() + 2);
+    const zoom = mapZoom();
+    const size = Math.max(6, zoom + 2);
+    const labels = [];
+    const center = actor => ({x: (actor.x + 0.5) * zoom, y: (actor.y + 0.5) * zoom});
     if (state.data) {
+        const party = Objlist.getParty(state.data);
+        const partyNumbers = new Set(party.map(member => member.number));
+        const partyNames = party.map(member => npcName(member.number) === `№${member.number}`
+            ? decodeName(member.name) : npcName(member.number));
         for (const npc of NPCS) {
             const actor = Objlist.getActor(state.data, npc.id);
-            if (!actor.present || actor.z !== level) {
+            // члены отряда рисуются красными метками отряда
+            if (!actor.present || actor.z !== level || partyNumbers.has(npc.id)) {
                 continue;
             }
-            const marker = addMarker(`npc${npc.id === state.selected ? ' selected' : ''}`, actor, size,
+            const selected = npc.id === state.selected;
+            const marker = addMarker(`npc${selected ? ' selected' : ''}`, actor, size,
                 `${npc.russian} (${npc.english}, №${npc.id}) — ${actor.x}, ${actor.y}`);
             marker.onclick = event => {
                 event.stopPropagation();
@@ -331,22 +377,24 @@ function renderMapMarkers() {
                     guard(() => teleportToNpc(npc));
                 }
             };
-            if (labels) {
-                const label = document.createElement('div');
-                label.className = `map-label${npc.id === state.selected ? ' selected' : ''}`;
-                label.textContent = npc.russian;
-                label.style.left = `${(actor.x + 0.5) * mapZoom()}px`;
-                label.style.top = `${(actor.y + 0.5) * mapZoom()}px`;
-                canvas.append(label);
+            if (showLabels) {
+                labels.push({text: npc.russian, ...center(actor), className: selected ? 'selected' : '', force: selected,
+                    priority: selected ? 0 : 2});
             }
         }
-        for (const member of Objlist.getParty(state.data)) {
+        const title = `Отряд: ${partyNames.join(', ')}`;
+        party.forEach((member, i) => {
             const actor = Objlist.getActor(state.data, member.number);
             if (actor.z === level) {
-                addMarker('party', actor, size + 2);
+                addMarker('party', actor, size + 2, title);
+                if (i === 0 && showLabels) {
+                    labels.push({text: 'Отряд', ...center(actor), className: 'party', force: true, priority: 1});
+                }
             }
-        }
+        });
     }
+    labels.sort((a, b) => a.priority - b.priority);
+    placeLabels(labels);
     if (state.pick && state.pick.z === level) {
         addMarker('pick', state.pick);
     }
