@@ -36,12 +36,17 @@
     #map-section { margin: 0 16px 16px; }
     #map-view { height: 560px; overflow: auto; border: 1px solid #d8cdb0; background: #222; position: relative; }
     #map-canvas { position: relative; cursor: crosshair; }
+    #map-canvas.dragging { cursor: grabbing; }
     #map-canvas img { position: absolute; user-select: none; -webkit-user-drag: none; }
     #map-canvas.pixelated img { image-rendering: pixelated; }
     .marker { position: absolute; border-radius: 50%; transform: translate(-50%, -50%); box-sizing: border-box; }
     .marker.npc { background: #2f6fff; border: 1px solid #fff; cursor: pointer; }
     .marker.npc.selected { background: #ffd400; border: 2px solid #000; z-index: 2; }
     .marker.party { background: #e00000; border: 2px solid #fff; z-index: 3; pointer-events: none; }
+    .map-label { position: absolute; transform: translate(7px, -50%); font: 11px/1 system-ui, sans-serif; color: #fff;
+                 white-space: nowrap; pointer-events: none; z-index: 1;
+                 text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
+    .map-label.selected { color: #ffd400; z-index: 2; }
     .marker.pick { width: 14px; height: 14px; border: 3px solid #ffd400; border-radius: 0; z-index: 4; pointer-events: none; }
     .icon { width: 32px; height: 32px; flex: none; background-image: url(items.png); background-size: 1024px auto;
             image-rendering: pixelated; }
@@ -186,18 +191,22 @@
         </select>
         масштаб <select id="map-zoom">
             <option value="1">1 пиксель на клетку</option>
+            <option value="1.5">1,5</option>
             <option value="2" selected>2</option>
+            <option value="3">3</option>
             <option value="4">4</option>
+            <option value="6">6</option>
             <option value="8">8</option>
         </select>
+        <label><input type="checkbox" id="map-labels" checked> подписи NPC</label>
         <button id="map-party">К отряду</button>
         <span class="muted">клетка: <span id="map-hover">—</span></span>
         <span>выбрано: <span id="map-pick">—</span></span>
         <button id="map-teleport" disabled>Перенести отряд сюда</button>
     </div>
     <div id="map-view"><div id="map-canvas"></div></div>
-    <p class="muted">Клик по карте — выбрать клетку. Красное — отряд, синие — NPC (клик — телепорт к нему, сторона —
-        как в списке персонажей), жёлтое — выбранный в списке NPC. Карты делает <code>python3 -m tools.web_npc</code>.</p>
+    <p class="muted">Колесо мыши — масштаб, перетаскивание — сдвиг карты, клик — выбрать клетку. Красное — отряд, синие — NPC (клик — телепорт к нему, сторона —
+        как в списке персонажей), жёлтое — выбранный в списке NPC. Подписи видны с масштаба 3. Карты делает <code>python3 -m tools.web_npc</code>.</p>
     <p class="error hidden" id="map-missing">Карт нет: запусти в репозитории <code>../.venv/bin/python -m tools.web_npc</code>
         (нужен Pillow) — он создаст web/save/maps/.</p>
 </section>

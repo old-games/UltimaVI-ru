@@ -313,7 +313,8 @@ function addMarker(className, {x, y}, size, title) {
 
 function renderMapMarkers() {
     const canvas = $('map-canvas');
-    canvas.querySelectorAll('.marker').forEach(marker => marker.remove());
+    canvas.querySelectorAll('.marker, .map-label').forEach(marker => marker.remove());
+    const labels = $('map-labels').checked && mapZoom() >= 3;
     const level = mapLevel();
     const size = Math.max(6, mapZoom() + 2);
     if (state.data) {
@@ -326,8 +327,18 @@ function renderMapMarkers() {
                 `${npc.russian} (${npc.english}, №${npc.id}) — ${actor.x}, ${actor.y}`);
             marker.onclick = event => {
                 event.stopPropagation();
-                guard(() => teleportToNpc(npc));
+                if (!(drag && drag.moved)) {
+                    guard(() => teleportToNpc(npc));
+                }
             };
+            if (labels) {
+                const label = document.createElement('div');
+                label.className = `map-label${npc.id === state.selected ? ' selected' : ''}`;
+                label.textContent = npc.russian;
+                label.style.left = `${(actor.x + 0.5) * mapZoom()}px`;
+                label.style.top = `${(actor.y + 0.5) * mapZoom()}px`;
+                canvas.append(label);
+            }
         }
         for (const member of Objlist.getParty(state.data)) {
             const actor = Objlist.getActor(state.data, member.number);
@@ -639,21 +650,87 @@ $('search').oninput = () => renderNpcs();
 $('teleport').onclick = () => guard(teleportToCoordinates);
 $('apply-time').onclick = () => guard(applyTime);
 $('map-level').onchange = () => { renderMap(); showPartyIfHere(); };
-$('map-zoom').onchange = () => {
+// Меняет масштаб, оставляя на месте точку карты под (offsetX, offsetY) — координатами внутри окна карты.
+function setMapZoom(zoom, offsetX, offsetY) {
     const view = $('map-view');
-    const old = Number($('map-canvas').style.width.replace('px', '')) || 1;
-    const center = {x: (view.scrollLeft + view.clientWidth / 2) / old, y: (view.scrollTop + view.clientHeight / 2) / old};
+    offsetX = offsetX ?? view.clientWidth / 2;
+    offsetY = offsetY ?? view.clientHeight / 2;
+    const old = mapZoom();
+    const point = {x: (view.scrollLeft + offsetX) / old, y: (view.scrollTop + offsetY) / old};
+    $('map-zoom').value = String(zoom);
     renderMap();
-    const size = mapTiles(mapLevel()) * mapZoom();
-    view.scrollLeft = center.x * size - view.clientWidth / 2;
-    view.scrollTop = center.y * size - view.clientHeight / 2;
+    view.scrollLeft = point.x * zoom - offsetX;
+    view.scrollTop = point.y * zoom - offsetY;
+}
+
+$('map-zoom').onchange = () => {
+    // В select уже новое значение: старый масштаб берём из размера карты.
+    const zoom = mapZoom();
+    const old = Number($('map-canvas').style.width.replace('px', '')) / mapTiles(mapLevel()) || zoom;
+    $('map-zoom').value = String(old);
+    setMapZoom(zoom);
 };
+
+// Колесо мыши — масштаб; прокрутку копим, чтобы тачпад не перескакивал через уровни.
+let wheel = 0;
+$('map-view').addEventListener('wheel', event => {
+    event.preventDefault();
+    wheel += event.deltaMode === 1 ? event.deltaY * 40 : event.deltaY;
+    if (Math.abs(wheel) < 60) {
+        return;
+    }
+    const zooms = [...$('map-zoom').options].map(option => Number(option.value));
+    const index = zooms.indexOf(mapZoom()) + (wheel < 0 ? 1 : -1);
+    wheel = 0;
+    if (index < 0 || index >= zooms.length) {
+        return;
+    }
+    const rect = $('map-view').getBoundingClientRect();
+    setMapZoom(zooms[index], event.clientX - rect.left, event.clientY - rect.top);
+}, {passive: false});
+
+// Перетаскивание — сдвиг карты; короткий клик без сдвига выбирает клетку.
+let drag = null;
+$('map-canvas').addEventListener('mousedown', event => {
+    if (event.button === 0) {
+        drag = {x: event.clientX, y: event.clientY, left: $('map-view').scrollLeft, top: $('map-view').scrollTop, moved: false};
+        event.preventDefault();
+    }
+});
+window.addEventListener('mousemove', event => {
+    if (!drag) {
+        return;
+    }
+    const dx = event.clientX - drag.x;
+    const dy = event.clientY - drag.y;
+    if (!drag.moved && Math.hypot(dx, dy) > 4) {
+        drag.moved = true;
+        $('map-canvas').classList.add('dragging');
+    }
+    if (drag.moved) {
+        $('map-view').scrollLeft = drag.left - dx;
+        $('map-view').scrollTop = drag.top - dy;
+    }
+});
+window.addEventListener('mouseup', () => {
+    if (drag && drag.moved) {
+        // клик после перетаскивания не должен выбирать клетку
+        setTimeout(() => { drag = null; }, 0);
+    } else {
+        drag = null;
+    }
+    $('map-canvas').classList.remove('dragging');
+});
 $('map-party').onclick = () => guard(showParty);
+$('map-labels').onchange = () => renderMapMarkers();
 $('map-canvas').onmousemove = event => {
     const cell = mapCell(event);
     $('map-hover').textContent = cell ? `${cell.x}, ${cell.y}` : '—';
 };
 $('map-canvas').onclick = event => {
+    if (drag && drag.moved) {
+        return;
+    }
     const cell = mapCell(event);
     if (!cell) {
         return;
