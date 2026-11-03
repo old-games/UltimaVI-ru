@@ -12,6 +12,15 @@
     const PARTY_NAMES = 0xf00;          // 16 × 14 байт
     const PARTY_ROSTER = 0xfe0;         // 16 байт, номера персонажей
     const PARTY_SIZE = 0xff0;
+    // Характеристики: по байту на персонажа, опыт — по 2 байта.
+    const STATS = {
+        strength: [0x900, 1, 255], dexterity: [0xa00, 1, 255], intelligence: [0xb00, 1, 255],
+        experience: [0xc00, 2, 65535], hp: [0xe00, 1, 255], level: [0xff1, 1, 8], magic: [0x13f1, 1, 255],
+    };
+    // Опыт для уровня: святыня поднимает уровень L до L + 1, если опыта не меньше LEVEL_EXPERIENCE[L]
+    // (conversations/Honesty.txt и др., не выше 8). Здоровье не выше уровень * 30 (Nuvie, U6Actor::get_maxhp).
+    const LEVEL_EXPERIENCE = [0, 100, 200, 400, 800, 1600, 3200, 6400];
+    const MAX_LEVEL = 8;
     const TALK_FLAGS = 0x17f1;          // 256 байт, setBit/hasBit в диалогах
     const GAME_TIME = 0x1bf3;           // минута, час, день, месяц, год (2 байта)
     const KARMA = 0x1bf9;
@@ -168,10 +177,53 @@
         data[o] = value ? data[o] | 1 << bit : data[o] & ~(1 << bit);
     }
 
+    function getStats(data, actor) {
+        check(data);
+        const result = {};
+        for (const [name, [offset, size]] of Object.entries(STATS)) {
+            const o = offset + actor * size;
+            result[name] = size === 2 ? data[o] | data[o + 1] << 8 : data[o];
+        }
+        return result;
+    }
+
+    // Меняет только переданные поля.
+    function setStats(data, actor, stats) {
+        check(data);
+        for (const [name, value] of Object.entries(stats)) {
+            if (!STATS[name]) {
+                throw new Error(`Неизвестная характеристика: ${name}`);
+            }
+            const [offset, size, max] = STATS[name];
+            const min = name === 'level' ? 1 : 0;
+            if (!(Number.isInteger(value) && value >= min && value <= max)) {
+                throw new Error(`Неверное значение ${name}: ${value} (допустимо ${min}–${max})`);
+            }
+            const o = offset + actor * size;
+            data[o] = value & 0xff;
+            if (size === 2) {
+                data[o + 1] = value >> 8;
+            }
+        }
+    }
+
+    const maxHp = level => Math.min(level * 30, 255);
+
+    // Ставит уровень, как будто персонаж его заработал: опыта — не меньше нужного для этого уровня,
+    // здоровье — полное. Прибавки к силе/ловкости/интеллекту, которые даёт святыня, не добавляются.
+    function setLevel(data, actor, level) {
+        if (!(Number.isInteger(level) && level >= 1 && level <= MAX_LEVEL)) {
+            throw new Error(`Уровень 1–${MAX_LEVEL}: ${level}`);
+        }
+        const {experience} = getStats(data, actor);
+        setStats(data, actor, {level, experience: Math.max(experience, LEVEL_EXPERIENCE[level - 1]), hp: maxHp(level)});
+    }
+
     const api = {
         ACTORS, TEMP_ACTORS, SIDES, mapSize, check,
         getActor, getActors, getParty, getPosition, setPosition,
         teleportParty, teleportToActor, getTime, setTime, getKarma, setKarma, setTalkFlag,
+        LEVEL_EXPERIENCE, MAX_LEVEL, getStats, setStats, setLevel, maxHp,
     };
 
     if (typeof module !== 'undefined' && module.exports) {

@@ -45,6 +45,27 @@ const copy = () => new Uint8Array(template);
     assert(changed.every(i => party.includes(i)), `лишние изменения: ${changed.map(i => i.toString(16))}`);
 }
 
+// Характеристики: шаблон новой игры, запись только своих байт, уровень с опытом и здоровьем.
+{
+    const data = copy();
+    assert.deepStrictEqual(Objlist.getStats(data, 2),
+        {strength: 26, dexterity: 20, intelligence: 17, experience: 374, hp: 90, level: 3, magic: 0});
+    Objlist.setStats(data, 3, {experience: 1234, intelligence: 30});
+    assert.strictEqual(Objlist.getStats(data, 3).experience, 1234);
+    assert.strictEqual(Objlist.getStats(data, 3).intelligence, 30);
+    assert.throws(() => Objlist.setStats(data, 3, {level: 9}));
+    assert.throws(() => Objlist.setStats(data, 3, {experience: 65536}));
+    Objlist.setLevel(data, 2, 8);
+    assert.deepStrictEqual(Objlist.getStats(data, 2),
+        {strength: 26, dexterity: 20, intelligence: 17, experience: 6400, hp: 240, level: 8, magic: 0});
+    Objlist.setLevel(data, 2, 2);
+    assert.deepStrictEqual([Objlist.getStats(data, 2).experience, Objlist.getStats(data, 2).hp], [6400, 60]);
+    const changed = [];
+    data.forEach((byte, i) => byte !== template[i] && changed.push(i));
+    const expected = [0xc06, 0xc07, 0xb03, 0xc04, 0xc05, 0xe02, 0xff3].sort((a, b) => a - b);
+    assert.deepStrictEqual(changed, expected);
+}
+
 // Время, карма, флаги разговора.
 {
     const data = copy();
