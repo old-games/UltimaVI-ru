@@ -289,9 +289,22 @@ for binary, functions in patches.add_functions.items():
             o = a['offset'] + a['size']*i
             array_items[o] = d[o:o+a['size']].split(b'\x00')[0]
 
+    for t in translation:
+        if (t['source'], t['offset']) in patches.two_form_strings and t['source'] == binary:
+            translated = mode == 'russian' and not t['russian'].startswith('FIXME ') and t['russian'] != t['english']
+            forms = (t['russian'] if translated else t['english']).split('|', 1)
+            rr = references.get((binary, t['offset']), [])
+            assert rr and t['offset'] > header + segments[-1]*0x10
+            for r in rr:
+                assert int.from_bytes(d[r['origin']:r['origin']+2], 'little') == t['offset'] - header - segments[-1]*0x10
+                replaces.append((r['origin'], 2, len(ds).to_bytes(2, 'little')))
+            ds.extend(forms[0].encode('cp866') + b'\x00' + forms[-1].encode('cp866') + b'\x00')
+            replaced += translated
+            added += 1
+
     if mode == 'russian':
         for t in translation:
-            if t['source'] == binary:
+            if t['source'] == binary and (binary, t['offset']) not in patches.two_form_strings:
                 if not t['russian'].startswith('FIXME ') and t['russian'] != t['english']:
                     references_segments = [x['segment'] for x in references.get((binary, t['offset']), [])]
 
