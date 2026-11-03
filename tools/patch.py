@@ -305,7 +305,7 @@ for binary, functions in patches.add_functions.items():
                         array_items[t['offset']] = t['russian'].encode('cp866')
                         replaced += 1
 
-                    elif len(t['russian'].encode('cp866')) <= limit:
+                    elif len(t['russian'].encode('cp866')) <= limit and (binary, t['offset']) not in patches.tail_strings:
                         # FIXME упаковать фразы лучше
                         message = t['russian'].encode('cp866').ljust(limit, b'\x00')
                         replaces.append((t['offset'], len(message), message))
