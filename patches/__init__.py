@@ -72,6 +72,12 @@ fixed_size_strings = {
     for binary, arrays in string_arrays.items() for a in arrays for i in range(a['count'])
 }
 
+# Строки-хвосты других строк (см. tail_strings в tools/strings.py): на их месте лежит перевод строки, в которую они
+# входят, поэтому перевод хвоста всегда переносится в конец DS, даже если короче оригинала.
+tail_strings = {
+    ('GAME.EXE', 204513),  # 'Trap' внутри 'Detect Trap'
+}
+
 
 def replace(d, a, c):
     d[a:a+len(c)] = c
