@@ -239,7 +239,106 @@
             }));
     }
 
-    const api = {blockName, parse, serialize, inventoryIndices, moveInventories, inventoryCount, addItem, addSpells, locks};
+    // Яйца — невидимые объекты 335 на карте, из которых игра выпускает монстров (Nuvie, EggManager::spawn_egg).
+    // Количество яйца — шанс в процентах (100 — всегда и ровно столько монстров, сколько указано), качество —
+    // время (0–9 всегда, 10–19 днём, 20–29 ночью) * 10 + отношение к отряду (0 по умолчанию, 1 нейтральные,
+    // 2 злые, 3 добрые, 4 хаотичные). Внутри — «зародыши»: тип монстра, количество (до скольких), качество — режим
+    // поведения. Третий байт зародыша во всех яйцах игры 0x7b — повторяем.
+    const EGG = 335;
+    const y = record => record[2] >> 2 | (record[3] & 0xf) << 6;
+    const z = record => record[3] >> 4;
+
+    function mapRecord(status, position, obj, {frame = 0, qty = 0, quality = 0} = {}) {
+        return Uint8Array.of(status, position.x & 0xff, position.x >> 8 & 0x3 | (position.y & 0x3f) << 2,
+            position.y >> 6 & 0xf | position.z << 4, obj & 0xff, obj >> 8 & 0x3 | frame << 2, qty & 0xff, quality);
+    }
+
+    // Вставляет records в list по номеру index; номера контейнеров у остальных предметов сдвигаются.
+    function insert(list, index, records) {
+        list.forEach(record => {
+            if (location(record) === IN_CONTAINER && parent(record) >= index) {
+                setParent(record, parent(record) + records.length);
+            }
+        });
+        list.splice(index, 0, ...records);
+    }
+
+    // Яйца на клетке (только лежащие на карте) — номера записей.
+    function eggsAt(records, position) {
+        const result = [];
+        records.forEach((record, i) => {
+            if (location(record) === 0 && objectType(record) === EGG && x(record) === position.x
+                && y(record) === position.y && z(record) === position.z) {
+                result.push(i);
+            }
+        });
+        return result;
+    }
+
+    // Кладёт яйцо с монстрами embryos [{obj, count, worktype}] на клетку position. Предметы на карте в файлах
+    // игры отсортированы по y, затем x — яйцо встаёт на своё место (после предметов той же клетки).
+    function addEgg(blocks, position, embryos, {chance = 100, quality = 2} = {}) {
+        const name = blockName(position);
+        check(blocks, name);
+        if (!embryos.length || embryos.some(e => !(Number.isInteger(e.count) && e.count >= 1 && e.count <= 255))) {
+            throw new Error('Количество монстров 1–255');
+        }
+        const records = parse(blocks.get(name));
+        let index = records.findIndex(r => location(r) === 0
+            && (y(r) > position.y || y(r) === position.y && x(r) > position.x));
+        if (index < 0) {
+            index = records.length;
+        }
+        const added = [mapRecord(0, position, EGG, {qty: chance, quality})];
+        for (const {obj, count, worktype} of embryos) {
+            const record = makeRecord(IN_CONTAINER, 0, obj, {qty: count, quality: worktype});
+            setParent(record, index);
+            record[3] = 0x7b;
+            added.push(record);
+        }
+        insert(records, index, added);
+        blocks.set(name, serialize(records));
+        return name;
+    }
+
+    // Убирает яйца с клетки вместе с содержимым. Возвращает число убранных яиц.
+    function removeEggs(blocks, position) {
+        const name = blockName(position);
+        check(blocks, name);
+        const records = parse(blocks.get(name));
+        const eggs = eggsAt(records, position);
+        if (!eggs.length) {
+            return 0;
+        }
+        const selected = new Set(eggs);
+        records.forEach((record, i) => {
+            if (location(record) === IN_CONTAINER && selected.has(parent(record))) {
+                selected.add(i);
+            }
+        });
+        blocks.set(name, serialize(split(records, selected)[0]));
+        return eggs.length;
+    }
+
+    // Все яйца в файлах blocks: [{x, y, z, chance, quality, embryos: [{obj, count, worktype}]}].
+    function eggs(blocks) {
+        const result = [];
+        for (const data of blocks.values()) {
+            const records = parse(data);
+            records.forEach((record, i) => {
+                if (location(record) !== 0 || objectType(record) !== EGG) {
+                    return;
+                }
+                const embryos = records.filter(r => location(r) === IN_CONTAINER && parent(r) === i)
+                    .map(r => ({obj: objectType(r), count: r[6], worktype: r[7]}));
+                result.push({x: x(record), y: y(record), z: z(record), chance: record[6], quality: record[7], embryos});
+            });
+        }
+        return result;
+    }
+
+    const api = {blockName, parse, serialize, inventoryIndices, moveInventories, inventoryCount, addItem, addSpells, locks,
+        EGG, addEgg, removeEggs, eggsAt, eggs};
 
     if (typeof module !== 'undefined' && module.exports) {
         module.exports = api;

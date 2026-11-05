@@ -193,4 +193,47 @@ const copy = () => new Uint8Array(template);
     }
 }
 
+// Яйца: вставка на место по (y, x) с пересчётом контейнеров, чтение, удаление — файл как был.
+{
+    const Objblk = require('./objblk.js');
+    const raw = fs.readFileSync(path.join(root, 'unpacked', 'LZOBJBLK'));
+    const blocks = [];
+    for (let p = 0; p < raw.length;) {
+        const count = raw[p] | raw[p + 1] << 8;
+        blocks.push(new Uint8Array(raw.subarray(p, p + 2 + count * 8)));
+        p += 2 + count * 8;
+    }
+    const original = blocks[20];    // OBJBLKCC, замок Лорда Бритиша
+    const map = new Map([['OBJBLKCC', new Uint8Array(original)]]);
+    // Пары «контейнер + предмет в нём»; у вложенных номер контейнера (байты 1–2) при вставке сдвигается — не сравниваем.
+    const containers = data => {
+        const records = Objblk.parse(data);
+        const text = r => Buffer.from((r[0] & 0x18) === 0x08 ? [r[0], r[3], ...r.subarray(4)] : r).toString('hex');
+        return records.filter(r => (r[0] & 0x18) === 0x08)
+            .map(r => text(records[r[1] | (r[2] & 3) << 8 | (r[2] >> 2) << 10]) + text(r));
+    };
+    const eggsBefore = Objblk.eggs(map);
+    assert(eggsBefore.some(e => e.x === 307 && e.y === 350 && e.embryos[0].obj === 363 && e.embryos[0].count === 3));
+    const position = {x: 307, y: 362, z: 0};
+    assert.strictEqual(Objblk.addEgg(map, position, [{obj: 364, count: 2, worktype: 8}, {obj: 342, count: 3, worktype: 8}]),
+        'OBJBLKCC');
+    const records = Objblk.parse(map.get('OBJBLKCC'));
+    const onMap = records.filter(r => (r[0] & 0x18) === 0).map(r => [r[2] >> 2 | (r[3] & 0xf) << 6, r[1] | (r[2] & 3) << 8]);
+    onMap.forEach((cell, i) => assert(i === 0 || onMap[i - 1][0] < cell[0] || onMap[i - 1][0] === cell[0] && onMap[i - 1][1] <= cell[1]));
+    const [egg] = Objblk.eggsAt(records, position);
+    assert.deepStrictEqual(Buffer.from(records[egg]).toString('hex'), '0033a9054f016402');
+    assert.deepStrictEqual(Objblk.eggs(map).find(e => e.x === 307 && e.y === 362),
+        {x: 307, y: 362, z: 0, chance: 100, quality: 2, embryos: [{obj: 364, count: 2, worktype: 8}, {obj: 342, count: 3, worktype: 8}]});
+    assert.strictEqual(Objblk.eggs(map).length, eggsBefore.length + 1);
+    // Все остальные предметы в контейнерах ссылаются на те же контейнеры.
+    const before = containers(original);
+    const after = containers(map.get('OBJBLKCC'));
+    assert.strictEqual(after.length, before.length + 2);
+    assert(before.every(pair => after.includes(pair)));
+    assert.strictEqual(Objblk.removeEggs(map, position), 1);
+    assert.deepStrictEqual(map.get('OBJBLKCC'), original);
+    assert.strictEqual(Objblk.removeEggs(map, position), 0);
+    assert.throws(() => Objblk.addEgg(map, position, [{obj: 364, count: 0, worktype: 8}]));
+}
+
 console.log('objlist.js, objblk.js, zip.js: OK');
