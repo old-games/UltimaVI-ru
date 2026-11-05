@@ -10,6 +10,12 @@ const itemKey = (obj, frame = 0) => `${obj}:${frame}`;
 const ITEM_BY_KEY = new Map(ITEMS.map(item => [itemKey(item.obj, item.frame), item]));
 const SPELLS = window.NPC_DATA.spells;
 const BOOKS = window.NPC_DATA.books;
+const CREATURES = window.NPC_DATA.creatures;
+const CREATURE_BY_OBJ = new Map(CREATURES.map(creature => [creature.obj, creature]));
+// Яйца новой игры: пока не открыта папка, метки берутся отсюда, иначе — из файлов сохранения (state.eggs).
+const GAME_EGGS = window.NPC_DATA.eggs.map(([x, y, z, chance, quality, embryos]) =>
+    ({x, y, z, chance, quality, embryos: embryos.map(([obj, count, worktype]) => ({obj, count, worktype}))}));
+const ALIGNMENTS = ['по умолчанию', 'нейтральные', 'злые', 'добрые', 'хаотичные'];
 const GOLD = 88;
 const READABLE = new Set([151, 152]);   // книга, свиток: качество = номер текста + 1
 const KEY = 64;
@@ -34,6 +40,8 @@ const state = {
     selected: null,     // номер выбранного NPC
     pick: null,         // выбранная на карте клетка {x, y, z}
     item: null,         // ключ выбранного предмета (obj:frame)
+    eggs: null,         // яйца из файлов OBJBLKxx (при открытой папке)
+    createdEggs: new Set(), // клетки x,y,z, где в этом сеансе положены яйца
     changes: [],
 };
 
@@ -168,9 +176,12 @@ function load(data, source) {
         $(id).disabled = false;
     }
     $('download').textContent = downloadLabel();
-    for (const id of ['give-member', 'item-search', 'give', 'give-gold', 'give-reagents', 'give-spells']) {
+    for (const id of ['give-member', 'item-search', 'give', 'give-gold', 'give-reagents', 'give-spells',
+        'spawn-creature', 'spawn-alignment', 'spawn-south', 'spawn', 'spawn-remove']) {
         $(id).disabled = !state.blocks;
     }
+    state.eggs = state.blocks ? Objblk.eggs(state.blocks) : null;
+    state.createdEggs = new Set();
     $('item-list').classList.toggle('disabled', !state.blocks);
     renderAll();
     showParty();
@@ -350,6 +361,135 @@ function placeLabels(labels) {
     }
 }
 
+// ---------- Яйца монстров ----------
+
+const SAME_NAME = new Set(CREATURES.filter(c => CREATURES.some(o => o !== c && o.russian === c.russian)).map(c => c.obj));
+
+function creatureName(obj) {
+    const creature = CREATURE_BY_OBJ.get(obj);
+    if (creature) {
+        return SAME_NAME.has(obj) ? `${creature.russian} (№${obj})` : creature.russian;
+    }
+    const item = ITEM_BY_KEY.get(itemKey(obj));
+    return item ? item.russian : `№${obj}`;
+}
+
+function eggText(egg) {
+    const time = egg.quality < 10 || egg.quality >= 30 ? '' : egg.quality < 20 ? ', днём' : ', ночью';
+    const embryos = egg.embryos.map(e => `${creatureName(e.obj)} ×${e.count}`).join(', ') || 'пусто';
+    return `Яйцо ${egg.x}, ${egg.y}: ${embryos}; шанс ${egg.chance}%${time}, ${ALIGNMENTS[egg.quality % 10] || '?'}`;
+}
+
+const eggKey = ({x, y, z}) => `${x},${y},${z}`;
+
+function renderEggFilter() {
+    const counts = new Map();
+    for (const egg of GAME_EGGS) {
+        for (const obj of new Set(egg.embryos.map(e => e.obj))) {
+            counts.set(obj, (counts.get(obj) || 0) + 1);
+        }
+    }
+    const options = [...counts].map(([obj, count]) => [obj, `${creatureName(obj)} (${count})`])
+        .sort((a, b) => a[1].localeCompare(b[1], 'ru'));
+    $('egg-filter').innerHTML = '<option value="">все</option>'
+        + options.map(([obj, text]) => `<option value="${obj}">${text}</option>`).join('');
+    $('spawn-creature').innerHTML = [...CREATURES].sort((a, b) => creatureName(a.obj).localeCompare(creatureName(b.obj), 'ru'))
+        .map(c => `<option value="${c.obj}">${creatureName(c.obj)}</option>`).join('');
+    $('spawn-creature').value = 364;    // кислотный слизень
+}
+
+function renderEggMarkers(level, size) {
+    $('egg-count').textContent = '';
+    if (!$('map-eggs').checked) {
+        return;
+    }
+    const filter = Number($('egg-filter').value);
+    const all = (state.eggs || GAME_EGGS).filter(egg => !filter || egg.embryos.some(e => e.obj === filter));
+    const byLevel = Z_NAMES.map((name, z) => [name, all.filter(egg => egg.z === z).length]).filter(([, n]) => n);
+    $('egg-count').textContent = `здесь ${all.filter(egg => egg.z === level).length} из ${all.length}`
+        + (byLevel.length > 1 || byLevel.length && all[0].z !== level
+            ? ': ' + byLevel.map(([name, n]) => `${name} — ${n}`).join(', ') : '');
+    for (const egg of all) {
+        if (egg.z !== level) {
+            continue;
+        }
+        const created = state.createdEggs.has(eggKey(egg));
+        const marker = addMarker(`egg${created ? ' created' : ''}`, egg, size, eggText(egg));
+        marker.onclick = event => {
+            event.stopPropagation();
+            if (!(drag && drag.moved)) {
+                pickCell(egg);
+            }
+        };
+    }
+}
+
+function spawnPosition() {
+    const position = {x: Number($('tp-x').value), y: Number($('tp-y').value), z: Number($('tp-z').value)};
+    const size = Objlist.mapSize(position.z);
+    if ($('tp-x').value === '' || $('tp-y').value === '' || !(Number.isInteger(position.x) && Number.isInteger(position.y)
+        && position.z >= 0 && position.z <= 5 && position.x >= 0 && position.y >= 0 && position.x < size && position.y < size)) {
+        throw new Error('Укажи клетку в «Телепорт по координатам» или кликни по карте.');
+    }
+    return position;
+}
+
+// Сработает ли яйцо в клетке position при нынешнем положении отряда.
+function spawnHint(position) {
+    const avatar = Objlist.getActor(state.data, Objlist.getParty(state.data)[0].number);
+    const distance = Math.max(Math.abs(avatar.x - position.x), Math.abs(avatar.y - position.y));
+    if (avatar.z !== position.z || distance >= 20) {
+        return 'монстры появятся, когда отряд подойдёт на 9–19 клеток';
+    }
+    if (distance <= 8) {
+        return `отряд в ${distance} клетк. от яйца — так оно не сработает: отойди дальше 20 клеток и вернись `
+            + 'или положи яйцо в 9–19 клетках';
+    }
+    return `отряд в ${distance} клетках — монстры появятся сразу после загрузки`;
+}
+
+function refreshEggs() {
+    state.eggs = Objblk.eggs(state.blocks);
+    renderMapMarkers();
+}
+
+function spawn() {
+    const position = spawnPosition();
+    const creature = CREATURE_BY_OBJ.get(Number($('spawn-creature').value));
+    const count = Number($('spawn-count').value);
+    if (!(Number.isInteger(count) && count >= 1 && count <= 50)) {
+        throw new Error('Количество монстров 1–50.');
+    }
+    const alignment = $('spawn-alignment').value === '' ? creature.alignment : Number($('spawn-alignment').value);
+    const name = Objblk.addEgg(state.blocks, position, [{obj: creature.obj, count, worktype: creature.worktype}],
+        {chance: 100, quality: alignment});
+    state.dirty.add(name);
+    state.createdEggs.add(eggKey(position));
+    refreshEggs();
+    return `Яйцо в ${place(position)}: ${creatureName(creature.obj)} ×${count}, ${ALIGNMENTS[alignment]} — `
+        + spawnHint(position);
+}
+
+function removeSpawn() {
+    const position = spawnPosition();
+    const count = Objblk.removeEggs(state.blocks, position);
+    if (!count) {
+        throw new Error(`В ${place(position)} яиц нет.`);
+    }
+    state.dirty.add(Objblk.blockName(position));
+    state.createdEggs.delete(eggKey(position));
+    refreshEggs();
+    return `Убрано яиц в ${place(position)}: ${count}`;
+}
+
+function spawnSouth() {
+    const avatar = Objlist.getActor(state.data, Objlist.getParty(state.data)[0].number);
+    $('tp-x').value = avatar.x;
+    $('tp-y').value = Math.min(avatar.y + 10, Objlist.mapSize(avatar.z) - 1);
+    $('tp-z').value = avatar.z;
+    pickCell({x: avatar.x, y: Number($('tp-y').value), z: avatar.z});
+}
+
 function renderMapMarkers() {
     const canvas = $('map-canvas');
     canvas.querySelectorAll('.marker, .map-label').forEach(marker => marker.remove());
@@ -395,6 +535,7 @@ function renderMapMarkers() {
             }
         });
     }
+    renderEggMarkers(level, Math.max(5, zoom + 1));
     labels.sort((a, b) => a.priority - b.priority);
     placeLabels(labels);
     if (state.pick && state.pick.z === level) {
@@ -835,6 +976,11 @@ window.addEventListener('mouseup', () => {
 });
 $('map-party').onclick = () => guard(showParty);
 $('map-labels').onchange = () => renderMapMarkers();
+$('map-eggs').onchange = () => renderMapMarkers();
+$('egg-filter').onchange = () => { $('map-eggs').checked = true; renderMapMarkers(); };
+$('spawn').onclick = () => guard(() => addChange(spawn()));
+$('spawn-remove').onclick = () => guard(() => addChange(removeSpawn()));
+$('spawn-south').onclick = () => guard(spawnSouth);
 $('map-canvas').onmousemove = event => {
     const cell = mapCell(event);
     $('map-hover').textContent = cell ? `${cell.x}, ${cell.y}` : '—';
@@ -844,17 +990,22 @@ $('map-canvas').onclick = event => {
         return;
     }
     const cell = mapCell(event);
-    if (!cell) {
-        return;
+    if (cell) {
+        pickCell(cell);
     }
-    state.pick = cell;
-    $('map-pick').textContent = place(cell);
-    $('tp-x').value = cell.x;
-    $('tp-y').value = cell.y;
-    $('tp-z').value = cell.z;
-    $('map-teleport').disabled = !state.data;
-    renderMapMarkers();
 };
+function pickCell({x, y, z}) {
+    state.pick = {x, y, z};
+    $('map-pick').textContent = place(state.pick);
+    $('tp-x').value = x;
+    $('tp-y').value = y;
+    $('tp-z').value = z;
+    $('map-teleport').disabled = !state.data;
+    if (state.blocks) {
+        $('spawn-hint').textContent = `Выбрана клетка ${place(state.pick)}: ${spawnHint(state.pick)}.`;
+    }
+    renderMapMarkers();
+}
 $('map-teleport').onclick = () => guard(() => {
     Objlist.teleportParty(state.data, state.pick, 'here');
     addChange(`Отряд перенесён в ${place(state.pick)}` + moveInventories());
@@ -873,6 +1024,7 @@ function showPartyIfHere() {
         showParty();
     }
 }
+renderEggFilter();
 renderMap();
 $('item-search').oninput = () => renderItems();
 $('give-member').onchange = () => guard(renderQualityHelper);
