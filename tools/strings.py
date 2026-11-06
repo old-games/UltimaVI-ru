@@ -46,6 +46,7 @@ rr = {}
 # Строки, которые компилятор склеил с хвостом другой строки: перед ними не 0. Без списка эвристика их не находит.
 tail_strings = {
     ('GAME.EXE', 204513),  # 'Trap' — хвост 'Detect Trap', название заклинания 22
+    ('GAME.EXE', 204169),  # 'S' — хвост 'AS', юг в координатах (секстант, заклинание Locate)
 }
 
 with open('patches/not-strings.json', 'r') as f:
@@ -146,7 +147,7 @@ for name, printfs in printf.items():
                 try:
                     assert not next_ds or a2 < (next_ds-ds)*0x10+15
                     o = ds*0x10 + a2 + base
-                    assert d[o-1] == 0
+                    assert d[o-1] == 0 or (name, o) in tail_strings
                     s = read_null_terminated(d, o)
                     add_string(name, o, s)
                     add_reference(name, o, i, 'argument' if d[i-1] == 0x68 or d[i-4:i-2] == b'\xc7\x06' else 'register', 'unknown')
