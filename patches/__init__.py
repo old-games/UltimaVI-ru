@@ -32,6 +32,9 @@ redirect_calls = {
         0x144c0: ('hotkeys', 'conversation_getch', (0x464, 0x2a59)),  # диалоги: ввод символа (0xfc)
         0x1453e: ('hotkeys', 'conversation_getch', (0x464, 0x2a59)),  # диалоги: ввод символа (0xfa)
         0x145a7: ('hotkeys', 'conversation_getch', (0x464, 0x2a59)),  # диалоги: choice (0xf8)
+        0x7752: ('hotkeys', 'yes_no_echo', (0x464, 0x3643)),  # printf("%c\n", Y/N) после вопросов «да/нет»
+        0x7940: ('hotkeys', 'yes_no_echo', (0x464, 0x3643)),
+        0x797d: ('hotkeys', 'yes_no_echo', (0x464, 0x3643)),
     },
 }
 
@@ -76,6 +79,7 @@ fixed_size_strings = {
 # входят, поэтому перевод хвоста всегда переносится в конец DS, даже если короче оригинала.
 tail_strings = {
     ('GAME.EXE', 204513),  # 'Trap' внутри 'Detect Trap'
+    ('GAME.EXE', 204169),  # 'S' (юг в координатах секстанта) внутри служебной 'AS'
 }
 
 # Строки с двумя формами: перевод «первая|вторая» (без «|» вторая = первая) кладётся в конец DS как
