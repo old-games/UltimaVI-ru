@@ -48,6 +48,8 @@
                  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000; }
     .map-label.selected { color: #ffd400; z-index: 2; }
     .map-label.party { color: #ff8080; font-weight: bold; z-index: 2; }
+    .marker.egg { background: #33c24d; border: 1px solid #000; border-radius: 2px; cursor: pointer; }
+    .marker.egg.created { background: #ff8c1a; }
     .marker.pick { width: 14px; height: 14px; border: 3px solid #ffd400; border-radius: 0; z-index: 4; pointer-events: none; }
     .icon { width: 32px; height: 32px; flex: none; background-image: url(items.png); background-size: 1024px auto;
             image-rendering: pixelated; }
@@ -183,6 +185,35 @@
     </section>
 
     <section>
+        <h2>Создать монстров</h2>
+        <div class="row">
+            <select id="spawn-creature" disabled></select>
+            × <input type="number" id="spawn-count" min="1" max="50" value="1">
+        </div>
+        <div class="row">
+            отношение <select id="spawn-alignment" disabled>
+                <option value="">как в яйцах игры</option>
+                <option value="2">злые</option>
+                <option value="4">хаотичные</option>
+                <option value="1">нейтральные</option>
+                <option value="3">добрые</option>
+                <option value="0">по умолчанию</option>
+            </select>
+        </div>
+        <div class="row">
+            <button id="spawn-south" disabled>Клетка в 10 к югу от отряда</button>
+            <button id="spawn" disabled>Положить яйцо</button>
+            <button id="spawn-remove" disabled>Убрать яйца в клетке</button>
+        </div>
+        <p class="muted" id="spawn-hint"></p>
+        <p class="muted">Клетка — из «Телепорт по координатам» (или клик по карте). Редактор кладёт туда яйцо, как в самой
+            игре: шанс 100%, монстров ровно столько, сколько указано. Игра выпускает их, когда отряд оказывается от яйца
+            дальше 8 и ближе 20 клеток — сразу после загрузки или когда подойдёшь; ближе 8 клеток яйцо молчит, пока отряд не
+            уйдёт на 20 клеток и не вернётся. Яйцо остаётся и срабатывает снова при каждом таком возвращении. Нужна открытая
+            папка игры.</p>
+    </section>
+
+    <section>
         <h2>Время и карма</h2>
         <div class="row">
             <input type="number" id="t-hour" min="0" max="23">:<input type="number" id="t-minute" min="0" max="59">
@@ -231,6 +262,9 @@
             <option value="8">8</option>
         </select>
         <label><input type="checkbox" id="map-labels" checked> подписи NPC</label>
+        <label><input type="checkbox" id="map-eggs"> яйца монстров</label>
+        <select id="egg-filter"><option value="">все</option></select>
+        <span class="muted" id="egg-count"></span>
         <button id="map-party">К отряду</button>
         <span class="muted">клетка: <span id="map-hover">—</span></span>
         <span>выбрано: <span id="map-pick">—</span></span>
@@ -238,7 +272,10 @@
     </div>
     <div id="map-view"><div id="map-canvas"></div></div>
     <p class="muted">Колесо мыши — масштаб, перетаскивание — сдвиг карты, клик — выбрать клетку. Красное — отряд (наведи — состав), синие — NPC (клик — телепорт к нему, сторона —
-        как в списке персонажей), жёлтое — выбранный в списке NPC. Подписи видны с масштаба 3; где не помещаются — скрываются, имя видно при наведении на точку. Карты делает <code>python3 -m tools.web_npc</code>.</p>
+        как в списке персонажей), жёлтое — выбранный в списке NPC. Подписи видны с масштаба 3; где не помещаются — скрываются, имя видно при наведении на точку.
+        Зелёные квадраты — яйца монстров (наведи — кто в нём, клик — выбрать клетку), оранжевые — созданные здесь; в списке
+        рядом можно оставить только яйца с нужным монстром. Яйцо срабатывает, когда отряд оказывается в 9–19 клетках от
+        него, — переноси отряд не на само яйцо, а клеток за 10–15. Карты делает <code>python3 -m tools.web_npc</code>.</p>
     <p class="error hidden" id="map-missing">Карт нет: запусти в репозитории <code>../.venv/bin/python -m tools.web_npc</code>
         (нужен Pillow) — он создаст web/save/maps/.</p>
 </section>

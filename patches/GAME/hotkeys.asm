@@ -4,11 +4,13 @@ global hotkey_toupper
 global command_getch
 global yes_no_getch
 global conversation_getch
+global yes_no_echo
 
 global fixmeup0
 global fixmeup1
 global fixmeup2
 global fixmeup3
+global fixmeup4
 
 section CODE
 
@@ -22,12 +24,16 @@ section CODE
 ; это «О» и «Ч»: command_getch превращает KEY_O в R только вне транспорта, KEY_CH — только в транспорте.
 ; Диалогам (choice «дн» и ввод символа) нужна сама русская буква: hotkey_toupper запоминает её и код,
 ; в который она превратилась, а conversation_getch возвращает букву, если getch вернул этот код.
+; При вводе слогов заклинания буква — первая буква слога (А — An, Б — Bet, В — Corp … Щ — Zu): русская буква
+; переводится в латинскую с тем же номером в алфавите (А..Щ -> A..Z), а не по таблице команд.
 
 %define KEY_D 0x284
 %define KEY_O 0x28e
 %define KEY_CH 0x297
 %define ACTIVE_ACTOR 0x2c54
 %define PARTY_SIZE 0x8e50
+%define COMMAND 0x4c2 ; текущая команда, 0x82 — колдовать
+%define COMMAND_STAGE 0x492 ; этап команды, 3 — ввод слогов
 
 hotkey_toupper:
         push    bp
@@ -45,6 +51,16 @@ fixmeup0: ; far call by absolute direct address
         jae     .done
 
         mov     [cs:last_letter], al
+        cmp     word [COMMAND], 0x82
+        jnz     .table
+        cmp     byte [COMMAND_STAGE], 0x3
+        jnz     .table
+        cmp     al, 0x9a ; Щ
+        jae     .table
+        sub     al, 0x80 - 'A'
+        jmp     .done
+
+.table:
         mov     bx, keys
 .next:
         cmp     byte [cs:bx], 0
@@ -132,6 +148,30 @@ fixmeup2: ; far call by absolute direct address
         jnz     .done
         mov     ax, 'Y'
 .done:
+        retf
+
+; Замена вызова printf("%c\n", ответ) после вопросов «да/нет» (0x7752, 0x7940, 0x797d в файле): ответ
+; уже Y или N (yes_no_getch, hotkey_toupper), печатаем «Д» или «Н».
+yes_no_echo:
+        push    bp
+        mov     bp, sp
+        mov     ax, [bp+0xa]
+        cmp     ax, 'Y'
+        jnz     .not_y
+        mov     ax, 0x84 ; Д
+.not_y:
+        cmp     ax, 'N'
+        jnz     .print
+        mov     ax, 0x8d ; Н
+.print:
+        push    ax
+        push    word [bp+0x8]
+        push    word [bp+0x6]
+
+fixmeup4: ; far call by absolute direct address
+        call    0x464:0x3643 ; printf
+        add     sp, byte +0x6
+        pop     bp
         retf
 
 ; Замена вызова getch в диалогах: choice (0x145a7) и ввод символа (0x144c0, 0x1453e).
