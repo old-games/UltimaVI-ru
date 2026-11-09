@@ -35,6 +35,57 @@ redirect_calls = {
         0x7752: ('hotkeys', 'yes_no_echo', (0x464, 0x3643)),  # printf("%c\n", Y/N) после вопросов «да/нет»
         0x7940: ('hotkeys', 'yes_no_echo', (0x464, 0x3643)),
         0x797d: ('hotkeys', 'yes_no_echo', (0x464, 0x3643)),
+        # Название предмета: форма `/` или `\` по количеству в стопке, а не по последнему напечатанному числу.
+        0x63c8: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x6453: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x11cf0: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x11fa0: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x1228d: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x153cd: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x15a5e: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x15d0b: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x16378: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x16562: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x174e4: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x178c8: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x179ef: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x17e79: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x18389: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x1a338: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x1a375: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x1d15d: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x1fe35: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x1ffc2: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x20270: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x20326: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x20557: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x2056b: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x205b5: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x20b45: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x20b77: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x20e4c: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x20f26: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x20fdb: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x2106b: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x23230: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x238aa: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x23aca: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x23b6c: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x241a5: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x24643: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x24b4c: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x2500b: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x254fb: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x25a86: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x26529: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x28ecf: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        0x2da0d: ('quantity', 'object_name', (0x94c, 0x3c9c)),
+        # Осмотр и обыск: количество после названия в русской версии — «золотые монеты (20)».
+        0x23523: ('quantity', 'look_quantity', (0x464, 0x3643)),  # printf("%d ", количество) в 0x234d1
+        0x238b0: ('quantity', 'look_print_name', (0x464, 0x3643)),  # printf(название)
+        0x23ad0: ('quantity', 'look_print_name', (0x464, 0x3643)),  # printf(название)
+        0x23b72: ('quantity', 'look_print_name', (0x464, 0x3643)),  # printf(название)
+        0x24649: ('quantity', 'look_print_name', (0x464, 0x3643)),  # printf(название)
     },
 }
 
