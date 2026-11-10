@@ -228,7 +228,9 @@ for binary, functions in patches.add_functions.items():
         redirects = patches.redirect_calls.get(binary, {})
         redirect_address = {}
         for f in sorted({f for f, _, _ in redirects.values()}):
-            subprocess.run(['nasm', '-f', 'obj', f'patches/{os.path.splitext(binary)[0]}/{f}.asm', '-o', f'{temp}/{f}.obj'], check=True)
+            # RUSSIAN — для правок, которые нужны только русской версии (порядок слов и т. п.).
+            defines = ['-dRUSSIAN'] if mode == 'russian' else []
+            subprocess.run(['nasm', '-f', 'obj', *defines, f'patches/{os.path.splitext(binary)[0]}/{f}.asm', '-o', f'{temp}/{f}.obj'], check=True)
             publics = {}
             code_block += apply_obj(f'{temp}/{f}.obj', len(code_block), publics)
             redirect_address.update({(f, n): a for n, a in publics.items()})
