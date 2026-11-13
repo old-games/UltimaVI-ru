@@ -731,7 +731,15 @@ def decode(conversation, source, index):
     return f"source('{source}')\nindex({index})\n\n{format_instructions()}"
 
 
-def encode(conversation, target_language, version, ignore_flow_errors=False, padding=0):
+def encode(conversation, target_language, version, ignore_flow_errors=False):
+    # Выравнивание подбирается перебором, см. конец _encode.
+    padding = 0
+    while (encoded := _encode(conversation, target_language, version, ignore_flow_errors, padding)) is None:
+        padding += 1
+    return encoded
+
+
+def _encode(conversation, target_language, version, ignore_flow_errors, padding):
     assert version in (1, 2) and target_language in ('english', 'russian') and (version == 2 or target_language == 'english')
 
     # FIXME remove copy-paste
@@ -1321,10 +1329,16 @@ def encode(conversation, target_language, version, ignore_flow_errors=False, pad
         data = labels[label].to_bytes(4, 'little')
         result[offset:offset+4] = data
         dangerous_ff = 0xb0 in data or 0xd4 in data[2:4] or 0xd3 == data[3]
-        if not ignore_flow_errors and offset in dangerous_placeholders and dangerous_ff and version == 2 and padding < 16:
+        if version == 2:
+            # Сканеры игры (пропуск тела if/else — 0x13ab6, поиск следующего case — 0x14072) идут по байтам и
+            # пропускают операнды только у 0xb0, 0xd3, 0xd4, а адрес после 0xd2 — нет. Байт адреса, равный fi/else
+            # (2/3 в версии 2) или концу case (0x0e/0x0f/0xff), принимается за опкод: у Грисона адрес 0x0a03
+            # массива в теле if давал else посреди адреса → «Неизвестная команда. Логическая ошибка.»
+            dangerous_ff = dangerous_ff or any(b in data for b in (2, 3, 0x0e, 0x0f, 0xff))
+        if not ignore_flow_errors and offset in dangerous_placeholders and dangerous_ff and version == 2 and padding < 0x400:
             # Адрес с байтами опкодов собьёт сканирование скрипта игрой. В версии 2 (английская версия 1 обязана
             # совпадать с оригиналом) сдвигаем массивы данных выравниванием и собираем заново.
-            return encode(conversation, target_language, version, ignore_flow_errors, padding + 1)
+            return None
         assert ignore_flow_errors or offset not in dangerous_placeholders or not dangerous_ff, \
             f'Flow may be broken: {source} {index}, label {label} at {labels[label]:#x}'
 
