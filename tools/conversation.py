@@ -1320,6 +1320,10 @@ def _encode(conversation, target_language, version, ignore_flow_errors, padding)
             if target_language not in languages:
                 # TODO make internal
                 del result[last_result_size:]
+                # Адреса (jump, data) из выброшенной инструкции иначе записались бы поверх следующих байт.
+                for offset in [offset for offset in placeholders if offset >= last_result_size]:
+                    del placeholders[offset]
+                    dangerous_placeholders.discard(offset)
 
     except Exception as e:
         e.add_note(f'Line number: {line_number}')

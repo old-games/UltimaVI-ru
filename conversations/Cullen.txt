@@ -242,6 +242,10 @@ label_921:
     fi
 
     if greaterOrEquals(integer(value 0), integer(value 7)):
+        [russian]
+        // В оригинале на label_893 номер персонажа снова превращался в члена отряда — покупал другой.
+        integer(value 3) = integer(value 9)
+        [english, russian]
         jump label_893
     fi
 
@@ -281,11 +285,21 @@ label_1135:
     integer(value 5) = byte 0
 
 label_1283:
+    // В оригинале место и золото проверялись на все купленные штуки + 1, хотя купленное уже в рюкзаке, а золото
+    // списано, — отказ приходил раньше времени. В русской версии проверка на одну следующую штуку.
+    [english]
     if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), multiply(plus(integer(value 5), byte 1), weight(data(integers_2689, integer(value 0)), byte 1))):
+    [russian]
+    if less(plus(canCarry(integer(value 3)), weight(byte 88, integer(value 1))), weight(data(integers_2689, integer(value 0)), byte 1)):
+    [english, russian]
         jump label_1404
     fi
 
+    [english]
     if less(objectsCount(integer(value 3), byte 88), multiply(integer(value 1), plus(integer(value 5), byte 1))):
+    [russian]
+    if less(objectsCount(integer(value 3), byte 88), integer(value 1)):
+    [english, russian]
         jump label_1526
     fi
 
@@ -293,7 +307,13 @@ label_1283:
     createItem(integer(value 3), data(integers_2689, integer(value 0)), byte 0, byte 1)
     integer(value 5) = plus(integer(value 5), byte 1)
 
+    // В оригинале цикл кончался на «заказано − 1»: при заказе 1 продавал, пока хватает места и золота, иначе на
+    // одну меньше.
+    [english]
     if equals(integer(value 5), minus(integer(value 4), byte 1)):
+    [russian]
+    if equals(integer(value 5), integer(value 4)):
+    [english, russian]
         jump label_1657
 
     else:
@@ -362,7 +382,13 @@ label_1657:
         'russian': '"Вот ваша покупка - $1'
     })
 
+    // В оригинале and побитовый: «на удачу» только при свободном весе нечётном и предмете весом не больше 1. В русской
+    // версии — при покупке от 13 штук (как в оригинале, где куплено на одну меньше заказа, больше 11), если есть место.
+    [english]
     if greaterOrEquals(and(greater(integer(value 5), byte 11), canCarry(integer(value 3))), weight(data(integers_2689, integer(value 0)), byte 1)):
+    [russian]
+    if and(greater(integer(value 5), byte 12), greaterOrEquals(canCarry(integer(value 3)), weight(data(integers_2689, integer(value 0)), byte 1))):
+    [english, russian]
         createItem(integer(value 3), data(integers_2689, integer(value 0)), byte 0, byte 1)
         print({
             'english': ', plus one for luck!"',
@@ -391,6 +417,9 @@ label_1742:
 
     case 'y':
     case {'russian': 'д'}:
+        [russian]
+        integer(value 3) = integer(value 9)
+        [english, russian]
         jump label_893
 
     case 'n':
