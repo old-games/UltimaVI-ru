@@ -731,6 +731,14 @@ def decode(conversation, source, index):
     return f"source('{source}')\nindex({index})\n\n{format_instructions()}"
 
 
+# Неразрывный пробел в cp866 — 0xff, конец case для игры: разговор после него обрывался. Своих неразрывных и
+# невидимых символов у игры нет — пробелы заменяются обычным, невидимые выбрасываются.
+INVISIBLE = {c: ' ' for c in (0x00a0, 0x2007, 0x202f, *range(0x2000, 0x200b))} | dict.fromkeys(
+    (0x00ad, 0x200b, 0x200c, 0x200d, 0x2060, 0xfeff)
+)
+TEXT_OPCODES = {1, 2, 3, 4, 0x0e, 0x0f, 0xb0, 0xd3, 0xd4, 0xff}
+
+
 def encode(conversation, target_language, version, ignore_flow_errors=False):
     # Выравнивание подбирается перебором, см. конец _encode.
     padding = 0
@@ -946,8 +954,16 @@ def _encode(conversation, target_language, version, ignore_flow_errors, padding)
         else:
             start = b''
             end = b''
+        if version == 2:
+            string = string.translate(INVISIBLE)
         try:
-            result.extend(start + string.encode('ascii' if version == 1 else 'cp866') + end)
+            encoded = string.encode('ascii' if version == 1 else 'cp866')
+            if version == 2:
+                # Сканеры игры (см. проверку адресов в конце _encode) идут по тексту побайтно: 0xff — конец case,
+                # 0xb0/0xd3/0xd4 — пропуск следующих байт, 1–4 и 0x0e/0x0f — опкоды версии 2.
+                bad = sorted({b for b in encoded if b in TEXT_OPCODES})
+                assert not bad, f"Opcode bytes {', '.join(f'{b:#04x}' for b in bad)} in '{string}'."
+            result.extend(start + encoded + end)
         except UnicodeEncodeError as e:
             for i, c in enumerate(string):
                 try:
