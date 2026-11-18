@@ -14,6 +14,7 @@ import tools.conversation
 import tools.file
 import tools.look
 import tools.lzw
+import tools.shapes
 import tools.party
 import tools.symbols
 
@@ -51,6 +52,13 @@ with tempfile.TemporaryDirectory() as d:
             data_language,
         ),
     )
+
+    # Перерисованная графика (заставка, меню, создание персонажа) — PNG из graphics/, см. tools/shapes.py.
+    if data_language == 'russian':
+        script_path = tools.get_script_path()
+        shapes = tools.shapes.build(os.path.join(script_path, 'graphics'), os.path.join(script_path, 'original'))
+        for name, data in shapes.items():
+            tools.file.write(os.path.join(d, name), data)
 
     for name in tools.get_compressed_files():
         if name not in tools.get_force_original_files():
