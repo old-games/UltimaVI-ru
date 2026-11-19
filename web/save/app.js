@@ -726,7 +726,14 @@ function renderQualityHelper() {
     let options = [];
     if (item && READABLE.has(item.obj)) {
         $('quality-helper-label').textContent = 'Текст:';
-        options = BOOKS.map(book => [book.quality, `${book.quality - 1}: ${book.russian} — ${book.english}`]);
+        // Сначала книги, нужные NPC, потом книги и свитки с карты, в конце прочие тексты (таблички, надгробия).
+        const group = book => book.needed.length ? 'Нужны NPC' : book.kind === 'book' ? 'Книги'
+            : book.kind === 'scroll' ? 'Свитки' : 'Прочие тексты (таблички, надгробия, картины)';
+        const order = ['Нужны NPC', 'Книги', 'Свитки', 'Прочие тексты (таблички, надгробия, картины)'];
+        options = BOOKS
+            .map(book => [book.quality, `${book.quality - 1}: ${book.russian} — ${book.english}`
+                + (book.needed.length ? ` (нужна: ${book.needed.join(', ')})` : ''), group(book)])
+            .sort((a, b) => order.indexOf(a[2]) - order.indexOf(b[2]) || a[0] - b[0]);
     } else if (item && item.obj === KEY) {
         const actor = Number($('give-member').value);
         const position = Objlist.getPosition(state.data, actor);
@@ -742,7 +749,17 @@ function renderQualityHelper() {
         }
     }
     row.classList.toggle('hidden', !options.length);
-    $('quality-helper').innerHTML = options.map(([value, text]) => `<option value="${value}">${text}</option>`).join('');
+    const escape = text => text.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    let html = '';
+    let current = null;
+    for (const [value, text, group] of options) {
+        if (group !== current) {
+            html += (current !== null ? '</optgroup>' : '') + (group ? `<optgroup label="${group}">` : '');
+            current = group;
+        }
+        html += `<option value="${value}">${escape(text)}</option>`;
+    }
+    $('quality-helper').innerHTML = html + (current ? '</optgroup>' : '');
     if (options.length) {
         $('item-quality').value = options[0][0];
     }
