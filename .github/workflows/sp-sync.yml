@@ -1,0 +1,205 @@
+# Translation from the translation system (SP, translate.old-games.ru) into the repository and a test build.
+#
+# The project export comes from SP by the export token (only when it changed: ETag). tools.sp import puts the
+# conversation translations into conversations/*.txt and the redrawn graphics into graphics/, then the tests and
+# the build (installed game with a ready Avatar for translators) run. The build goes to the file server as
+# Ultima6_build_<month><year>.zip (overwritten during the month: the last build of each month stays for history)
+# into project.build.buildsDir from manifest.json (set in SP:
+# project settings -> "Выгрузка для сборки" -> "Файлы сборки"). Changes of conversations/ and graphics/ go to the
+# branch sp-sync with an open pull request into master. The import report is on the summary page of the run.
+#
+# Secrets: OG_TRANSLATE_TOKEN (SP export token), SFTPGO_URL (without /api/v2), SFTPGO_API_KEY (the build user's
+# key). Variable: OG_PROJECT_ID. Repository settings: Actions -> Workflow permissions -> Read and write, Allow
+# GitHub Actions to create and approve pull requests.
+name: Sync from SP
+
+on:
+  schedule:
+    - cron: "0 2 * * *" # every day, 05:00 Moscow (02:00 UTC)
+  workflow_dispatch:
+  push:
+    branches: [master]
+    paths-ignore:
+      - "**.md"
+      - "web/**"
+      - "screenshots/**"
+      - "documentation/**"
+
+concurrency:
+  group: sp-sync
+  cancel-in-progress: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+env:
+  SP_URL: https://translate.old-games.ru
+  BRANCH: sp-sync
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          ref: master
+
+      # the last export and its ETag: a scheduled run without changes stops, a manual run or a push builds from the
+      # cached export
+      - uses: actions/cache@v4
+        with:
+          path: sp
+          key: sp-export-${{ github.run_id }}
+          restore-keys: sp-export-
+
+      - name: Download the SP export
+        id: export
+        env:
+          OG_TRANSLATE_TOKEN: ${{ secrets.OG_TRANSLATE_TOKEN }}
+          PROJECT: ${{ vars.OG_PROJECT_ID }}
+        run: |
+          set -eu
+          : "${OG_TRANSLATE_TOKEN:?no secret OG_TRANSLATE_TOKEN}"
+          : "${PROJECT:?no variable OG_PROJECT_ID}"
+          mkdir -p sp
+          url="$SP_URL/v1/export/projects/$PROJECT.zip"
+          for attempt in 1 2 3; do
+            set -- -sS -o sp/new.zip -D sp/headers -w '%{http_code}' \
+              -H "Authorization: Bearer $OG_TRANSLATE_TOKEN"
+            if [ -f sp/etag ] && [ -f sp/project.zip ]; then
+              set -- "$@" -H "If-None-Match: $(cat sp/etag)"
+            fi
+            code=$(curl "$@" "$url")
+            case $code in
+              200)
+                unzip -tq sp/new.zip >/dev/null || { echo "::error::the SP export is broken"; exit 1; }
+                mv sp/new.zip sp/project.zip
+                grep -i '^etag:' sp/headers | cut -d' ' -f2- | tr -d '\r' > sp/etag
+                echo "changed=true" >> "$GITHUB_OUTPUT"
+                echo "SP export downloaded"
+                exit 0 ;;
+              304)
+                rm -f sp/new.zip
+                echo "changed=false" >> "$GITHUB_OUTPUT"
+                echo "SP export not changed"
+                exit 0 ;;
+              429)
+                wait=$(grep -i '^retry-after:' sp/headers | tr -dc '0-9')
+                echo "429, retry in ${wait:-10} s"
+                sleep "${wait:-10}" ;;
+              *)
+                echo "::error::SP export: HTTP $code $(head -c 300 sp/new.zip 2>/dev/null)"
+                exit 1 ;;
+            esac
+          done
+          exit 1
+
+      - name: Decide
+        id: go
+        run: |
+          if [ "${{ steps.export.outputs.changed }}" = "true" ] || [ "${{ github.event_name }}" != "schedule" ]; then
+            echo "run=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "run=false" >> "$GITHUB_OUTPUT"
+            echo "The translation did not change since the last run" >> "$GITHUB_STEP_SUMMARY"
+          fi
+
+      - uses: actions/setup-python@v5
+        if: steps.go.outputs.run == 'true'
+        with:
+          python-version: "3.11"
+
+      - name: Install dependencies
+        if: steps.go.outputs.run == 'true'
+        run: |
+          sudo apt-get install -y nasm
+          pip3 install poetry
+          poetry config virtualenvs.create false
+          poetry install --no-root
+
+      - name: Import from SP
+        id: import
+        if: steps.go.outputs.run == 'true'
+        run: |
+          set +e
+          python3 -m tools.sp import sp/project.zip --report sp/report.md
+          code=$?
+          set -e
+          echo "code=$code" >> "$GITHUB_OUTPUT"
+          if [ -f sp/report.md ]; then cat sp/report.md >> "$GITHUB_STEP_SUMMARY"; fi
+          case $code in
+            0) ;;
+            2) echo "::warning::some phrases were not applied, see the report" ;;
+            *) echo "::error::the import failed"; exit 1 ;;
+          esac
+
+      - name: Tests
+        if: steps.go.outputs.run == 'true'
+        run: |
+          python3 -m unittest tests.test_conversation.TestConversation.testUser tests.test_book tests.test_look \
+            tests.test_translation tests.test_sp tests.test_setup
+          python3 -m tools.duplicates
+
+      - name: Build
+        if: steps.go.outputs.run == 'true'
+        run: |
+          python3 -m tools.build russian russian
+          mkdir -p out
+          mv UltimaVI-ru*.zip out/UltimaVI-ru.zip
+
+      - name: Upload the build artifact
+        if: steps.go.outputs.run == 'true'
+        uses: actions/upload-artifact@v4
+        with:
+          name: UltimaVI-ru-${{ github.sha }}
+          path: out/UltimaVI-ru.zip
+          if-no-files-found: error
+
+      - name: Upload to the file server
+        if: steps.go.outputs.run == 'true'
+        env:
+          SFTPGO_URL: ${{ secrets.SFTPGO_URL }}
+          SFTPGO_API_KEY: ${{ secrets.SFTPGO_API_KEY }}
+        run: |
+          set -eu
+          unzip -p sp/project.zip manifest.json > sp/manifest.json
+          builds=$(jq -r '.project.build.buildsDir // empty' sp/manifest.json)
+          if [ -z "$builds" ] || [ -z "${SFTPGO_URL:-}" ] || [ -z "${SFTPGO_API_KEY:-}" ]; then
+            echo "::warning::no buildsDir in SP or no SFTPGo secrets: the build is not uploaded"
+            exit 0
+          fi
+          upload() {
+            path=$(jq -rn --arg p "/${builds#/}" --arg n "$1" '$p | rtrimstr("/") + "/" + $n | @uri')
+            curl -fsS -o /dev/null -X POST -H "X-SFTPGO-API-KEY: $SFTPGO_API_KEY" -H "Content-Type: application/zip" \
+              --data-binary @out/UltimaVI-ru.zip "${SFTPGO_URL%/}/api/v2/user/files/upload?path=$path&mkdir_parents=true"
+            echo "uploaded ${builds%/}/$1" | tee -a "$GITHUB_STEP_SUMMARY"
+          }
+          # for history: the last build of each month, named as the earlier builds (Ultima6_build_nov2026.zip)
+          month=$(TZ=Europe/Moscow LC_ALL=C date +%b%Y | tr '[:upper:]' '[:lower:]')
+          upload "Ultima6_build_$month.zip"
+
+      - name: Pull request with the translation
+        if: steps.go.outputs.run == 'true'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -eu
+          git add -A conversations graphics
+          if git diff --cached --quiet; then
+            echo "No translation changes for the repository"
+            exit 0
+          fi
+          revision=$(jq -r '.revision' sp/manifest.json 2>/dev/null || unzip -p sp/project.zip manifest.json | jq -r '.revision')
+          git config user.name "github-actions[bot]"
+          git config user.email "41898299+github-actions[bot]@users.noreply.github.com"
+          git checkout -B "$BRANCH"
+          git commit -q -m "Translation from SP ($revision)" -m "$(git diff --cached --stat HEAD | tail -1)"
+          git push -f origin "$BRANCH"
+          { echo "Автоматически из «Системы Переводчик», выгрузка $revision."; echo; cat sp/report.md; } > sp/body.md
+          number=$(gh pr list --head "$BRANCH" --base master --state open --json number --jq '.[0].number')
+          if [ -n "$number" ]; then
+            gh pr edit "$number" --title "Translation from SP ($revision)" --body-file sp/body.md
+          else
+            gh pr create --head "$BRANCH" --base master --title "Translation from SP ($revision)" --body-file sp/body.md
+          fi

@@ -18,6 +18,12 @@ class TestCase(unittest.TestCase):
 
 class InstalledTestCase(unittest.TestCase):
     def setUp(self):
+        # Сборка уже установлена (tools/install.py), а INSTALL.EXE при существующем CONFIG.U6 сначала спрашивает,
+        # что делать с текущим персонажем. Тесты проверяют чистую установку — готовая убирается.
+        if os.path.isfile('CONFIG.U6'):
+            os.remove('CONFIG.U6')
+        shutil.rmtree('SAVEGAME', ignore_errors=True)
+
         configuration = {
             'cpu': {
                 'cycles': 'max',

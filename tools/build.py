@@ -12,6 +12,7 @@ import tools.archive
 import tools.book
 import tools.conversation
 import tools.file
+import tools.install
 import tools.look
 import tools.lzw
 import tools.shapes
@@ -97,6 +98,13 @@ with tempfile.TemporaryDirectory() as d:
 
     existing_files = set(os.listdir(d))
     recursive_copy('original', d)
+
+    # Игра в архиве установлена (карта, начальное сохранение, настройки), как после INSTALL.EXE, — см. tools/install.py.
+    # Сборка — тестовая, для переводчиков: Аватар уже создан.
+    tools.install.install(d, launcher=patch_language == 'russian', avatar=True)
+    existing_files = {
+        os.path.relpath(os.path.join(root, n), d) for root, _, names in os.walk(d) for n in names
+    }
 
     sha = tools.get_sha()
     sha = f'-{sha}' if sha else ''
