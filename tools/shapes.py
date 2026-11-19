@@ -291,17 +291,32 @@ def build(graphics_path, original_path):
     return result
 
 
-def import_export(source, graphics_path, original_path):
-    """Выгрузка СП (ZIP проекта или каталог) → graphics_path: только отличающиеся кадры."""
+def read_export(source):
+    """Выгрузка СП (ZIP проекта или каталог) → {путь внутри выгрузки через /: байты}."""
     files = {}
     if os.path.isdir(source):
         for root, _, names in os.walk(source):
             for name in names:
                 path = os.path.join(root, name)
-                files[os.path.relpath(path, source)] = tools.file.read(path)
+                files[os.path.relpath(path, source).replace(os.sep, '/')] = tools.file.read(path)
     else:
         with zipfile.ZipFile(source) as archive:
             files = {info.filename: archive.read(info) for info in archive.infolist() if not info.is_dir()}
+    return files
+
+
+def has_frames(files):
+    return any(PATH.search(path) for path in files)
+
+
+def import_export(source, graphics_path, original_path):
+    """Выгрузка СП (ZIP проекта или каталог) → graphics_path: только отличающиеся кадры."""
+    return import_files(read_export(source), graphics_path, original_path)
+
+
+def import_files(files, graphics_path, original_path, write=True):
+    """Файлы выгрузки → graphics_path. Возвращает список изменений; write=False — только посчитать."""
+    changes = []
     paths = {}
     for path, data in files.items():
         match = PATH.search(path.replace(os.sep, '/'))
@@ -316,16 +331,21 @@ def import_export(source, graphics_path, original_path):
             for name in names:
                 relative = os.path.relpath(os.path.join(root, name), graphics_path).replace(os.sep, '/')
                 if relative not in keep:
-                    os.remove(os.path.join(root, name))
-                    print(f'removed {relative}')
+                    if write:
+                        os.remove(os.path.join(root, name))
+                    changes.append(f'removed {relative}')
     for target in sorted(keep):
         path = os.path.join(graphics_path, target)
-        os.makedirs(os.path.dirname(path), exist_ok=True)
         old = tools.file.read(path) if os.path.isfile(path) else None
         if old != files[paths[target]]:
-            tools.file.write(path, files[paths[target]])
-            print(f'{"updated" if old else "added"} {target}')
+            if write:
+                os.makedirs(os.path.dirname(path), exist_ok=True)
+                tools.file.write(path, files[paths[target]])
+            changes.append(f'{"updated" if old else "added"} {target}')
+    for change in changes:
+        print(change)
     print(f'{len(keep)} redrawn frames of {len(paths)} images in the export')
+    return changes
 
 
 def main():
