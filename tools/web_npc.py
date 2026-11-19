@@ -43,6 +43,8 @@ EGG = 335
 # Монстры, животные и люди (их типы — в NOT_ITEMS), кроме частей тел: 366 — побег жгучей лозы, 425 — тело гидры.
 CREATURES = [*range(342, 366), *range(367, 389), 411, 413, 424, *range(426, 431)]
 DUNGEON_BLOCKS = 5
+READABLE = {151: 'book', 152: 'scroll'}  # качество = номер текста + 1
+HAS_BOOK = re.compile(r'partyHasObject\(byte (151|152), byte (\d+)\)')
 OPERATIONS = {'hasBit': 'проверка', 'setBit': 'установка', 'clearBit': 'сброс'}
 
 
@@ -205,15 +207,40 @@ def collect_creatures(root, eggs):
     return creatures
 
 
-def collect_books(root):
+def collect_books(root, npcs):
+    """Тексты book.json для книг и свитков. kind — книга/свиток, если такой предмет с этим текстом есть на карте;
+    needed — NPC, чьи скрипты проверяют книгу или свиток с этим текстом (partyHasObject). Остальные тексты —
+    таблички, надгробия, картины (у них качество — номер текста без +1, редактору они не нужны, но выдать можно)."""
     with open(os.path.join(root, 'unpacked', 'book.json')) as f:
         books = json.load(f)
+    kinds = {}
+    with open(os.path.join(root, 'unpacked', 'LZOBJBLK'), 'rb') as f:
+        blocks = read_blocks(f.read())
+    with open(os.path.join(root, 'unpacked', 'LZDNGBLK'), 'rb') as f:
+        blocks += read_blocks(f.read(), DUNGEON_BLOCKS)
+    for records in blocks:
+        for r in records:
+            obj = r[4] | (r[5] & 3) << 8
+            if obj in READABLE and r[7]:
+                kinds.setdefault(r[7], READABLE[obj])
+    needed = {}
+    for npc in npcs:
+        with open(os.path.join(root, 'conversations', npc['script'])) as f:
+            for obj, quality in HAS_BOOK.findall(f.read()):
+                kinds.setdefault(int(quality), READABLE[int(obj)])
+                needed.setdefault(int(quality), []).append(npc['russian'])
 
     def first(lines):
-        return next((line.strip() for line in lines if line.strip()), '')[:70]
+        return next((line.strip() for line in '\n'.join(lines).splitlines() if line.strip()), '')[:70]
 
     return [
-        {'quality': i + 1, 'english': first(book['english']), 'russian': first(book['russian'])}
+        {
+            'quality': i + 1,
+            'english': first(book['english']),
+            'russian': first(book['russian']),
+            'kind': kinds.get(i + 1),
+            'needed': sorted(set(needed.get(i + 1, []))),
+        }
         for i, book in enumerate(books)
     ]
 
@@ -248,7 +275,7 @@ def main():
     build_icons(root, data['items'], os.path.join(root, 'web', 'save', 'items.png'))
     build_maps(root, os.path.join(root, 'web', 'save', 'maps'))
     data['spells'] = collect_spells(root)
-    data['books'] = collect_books(root)
+    data['books'] = collect_books(root, data['npcs'])
     data['eggs'] = collect_eggs(root)
     data['creatures'] = collect_creatures(root, data['eggs'])
     text = json.dumps(data, ensure_ascii=False, separators=(',', ':'))
