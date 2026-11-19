@@ -95,6 +95,14 @@ label_486:
         setBit(byte 235, value 0)
         jump label_486
 
+    [russian]
+    // «кот» раньше в списке и перехватывал бы «коте», «котё»: игра сравнивает
+    // столько первых букв ввода, сколько их в ключевом слове.
+    case 'коте':
+    case 'котё':
+        jump label_ru_345
+    [english, russian]
+
     case 'pet':
     case {'russian': 'пит'}:
     case 'cat':
@@ -343,6 +351,7 @@ label_2264:
     case 'kyty':
     case {'russian': 'коте'}:
     case {'russian': 'котё'}:
+label_ru_345:
         print({
             'english': '"She lives in Britain."',
             'russian': '"Она живёт в Бритайне".'
