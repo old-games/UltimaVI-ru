@@ -17,19 +17,19 @@ description:
 interaction:
     print({
         'english': '\n"Hello ',
-        'russian': '\n"Добро '
+        'russian': '\n"Добро пожаловать '
     })
 
     if hasBit(byte 235, value 0):
         print({
             'english': 'again',
-            'russian': 'пожаловать '
+            'russian': 'опять'
         })
 
     else:
         print({
             'english': 'there',
-            'russian': 'снова'
+            'russian': ''
         })
         setBit(byte 235, value 0)
     fi
@@ -109,7 +109,7 @@ label_184:
     case {'russian': 'пека'}:
         print({
             'english': '"I bake goods for Lord British himself!" the man says proudly.',
-            'russian': '"Я пеку хлеб для самого Лорда Бритиша!" - с гордостью произносит мужчина.'
+            'russian': '"Я пеку выпечку для самого Лорда Бритиша!" - с гордостью произносит мужчина.'
         })
         wait()
 
@@ -236,7 +236,7 @@ label_921:
     if equals(integer(value 0), byte 0):
         print({
             'english': '"Suit thyself, $Y, but thou\'lt find no better!"',
-            'russian': '"Как вам угодно, $Y, но вы не найдёте товар лучше!"'
+            'russian': '"Как тебе угодно, $Y, но ты не найдёшь выпечку лучше!"'
         })
         jump label_184
     fi
@@ -254,7 +254,7 @@ label_921:
     string(value 1) = data(strings_2697, integer(value 0))
     print({
         'english': '"Those cost #1 gold each."',
-        'russian': '"Это выйдет #1 золотых за штуку".'
+        'russian': '"Это будет стоить #1 золотых за штуку".'
     })
 
 label_1135:
@@ -262,14 +262,14 @@ label_1135:
 
     print({
         'english': '\n\n"How many do you want, $Y?" ',
-        'russian': '\n\n"Сколько желаете, $Y?" '
+        'russian': '\n\n"Сколько вам нужно, $Y?" '
     })
     inputInteger(integer(value 4))
 
     if equals(integer(value 4), byte 0):
         print({
             'english': '"Suit thyself, but thou\'lt find no better!"',
-            'russian': '"Как вам угодно, но вы не найдёте товар лучше!"'
+            'russian': '"Как тебе угодно, но ты не найдёшь выпечку лучше!"'
         })
         jump label_1742
     fi
@@ -371,7 +371,7 @@ label_1526:
     else:
         print({
             'english': '"But thou canst not afford any $1!"',
-            'russian': '"Но вы не можете себе позволить $1!"'
+            'russian': '"Но ты не можешь себе позволить $1!"'
         })
         jump label_1742
     fi
@@ -379,7 +379,7 @@ label_1526:
 label_1657:
     print({
         'english': '"Here\'s thy $1',
-        'russian': '"Вот ваша покупка - $1'
+        'russian': '"Вот твоя покупка - $1'
     })
 
     // В оригинале and побитовый: «на удачу» только при свободном весе нечётном и предмете весом не больше 1. В русской
@@ -435,14 +435,14 @@ label_1742:
         if greater(integer(value 23), byte 1):
             print({
                 'english': '"Perhaps one of thy friends, then?"\n\n',
-                'russian': '"Может быть, тогда кому-то из ваших друзей?"\n\n'
+                'russian': '"Может быть, тогда кому-то из твоих друзей?"\n\n'
             })
             jump label_695
         fi
 
         print({
             'english': '"Perhaps thy friend, then?"\n\n',
-            'russian': '"Может быть, тогда вашему другу?"\n\n'
+            'russian': '"Может быть, тогда твоему другу?"\n\n'
         })
 
         if integer(value 9):
@@ -556,7 +556,7 @@ label_2318:
 
     print({
         'english': '$N turns to $Y, and says "Will you take 5 gold for that sack of ',
-        'russian': '$N поворачивается к $Y и говорит: "Вас устроят 5 золотых '
+        'russian': '$N поворачивается к персонажу $Y и говорит: "Вас устроят 5 золотых '
     })
     print({
         'english': 'flour?" ',
@@ -572,7 +572,7 @@ label_2318:
     case {'russian': 'д'}:
         print({
             'english': '"Done!" He hands $Y 5 gold pieces and takes the sack of flour.',
-            'russian': '"Готово!" - он забирает мешок муки, а $Y получает от него 5 золотых.'
+            'russian': '"По рукам!" - он забирает мешок муки, а $Y получает от него 5 золотых.'
         })
         destroyItem(character(integer(value 3), byte 0), byte 167, byte 0, byte 1)
         createItem(character(integer(value 3), byte 0), byte 88, byte 0, byte 5)
