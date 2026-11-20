@@ -54,7 +54,8 @@ class InstalledTestCase(unittest.TestCase):
                 box.send_keys(keys)
                 time.sleep(0.1)
 
-            box.wait_image('screenshots/INSTALL/install.png', bbox=(0, 16, 640, 400), timeout=1)
+            # Установка пишет карту и сохранение — на занятой машине CI за 1 с не успевала (тест U, 19.11).
+            box.wait_image('screenshots/INSTALL/install.png', bbox=(0, 16, 640, 400), timeout=10)
             self.assertTrue(os.path.isfile('CONFIG.U6'))
 
     def tearDown(self):
