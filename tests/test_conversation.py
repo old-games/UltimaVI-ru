@@ -8,6 +8,10 @@ import tests
 
 
 class TestConversation(tests.TestCase):
+    # Сценарии, намеренно изменённые относительно оригинала (v1 с оригиналом не сравнивается).
+    # Фермеры Нэш и Крилл: помнят (бит 1 байта 235), назвал ли Аватар настоящее имя, и без этого не обращаются по $P.
+    MODIFIED = ('Farmer Nash', 'Farmer Krill')
+
     @staticmethod
     def fixScript(script):
         return script.replace("'Dr. Cat'", "'Dr_ Cat'").replace("'english': 'Ed'", "'english': 'ed'").replace('Snake Charmer', 'Snake_Charmer')
@@ -43,6 +47,8 @@ class TestConversation(tests.TestCase):
                 with self.subTest(language='english', version=2):
                     tools.conversation.encode(script, 'english', 2, ignore_flow_errors=name in ('Stivius', 'Ybarra'))
 
+                if name in self.MODIFIED:
+                    continue
                 with self.subTest(language='english', version=1):
                     name, index, english = tools.conversation.encode(self.fixScript(script), 'english', 1)
                     self.assertEqual(english, expected[name][index], 'Conversation does not match')
