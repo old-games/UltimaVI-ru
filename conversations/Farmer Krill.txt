@@ -37,41 +37,73 @@ interaction:
     fi
 
     if hasBit(byte 235, value 0):
+        jump label_440
+    fi
+
+    print({
+        'english': '"To note that you wear the Amulet of Submission."',
+        'russian': '"Отметить, что вы носите Амулет Покорности".'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To admire your courage and to appreciate your sacrifice."',
+        'russian': '\n\n"Восхититься вашей храбростью и оценить ваше самопожертвование".'
+    })
+    wait()
+
+    print({
+        'english': '\n\n"To ask your name, that I may address you in a noble manner?"\n',
+        'russian': '\n\n"Спросить ваше имя, чтобы я мог обратиться к вам благородно?"\n'
+    })
+
+    ask()
+    string(value 0) = string(value 35)
+    if equals(string(value 25), string(value 35)):
+        setBit(byte 235, value 1)
+    fi
+    wait()
+
+    print({
+        'english': '\n"To greet you, $0."',
+        'russian': '\n"Поприветствовать вас, $0".'
+    })
+    setBit(byte 235, value 0)
+    jump label_641
+
+label_440:
+    if hasBit(byte 235, value 1):
         print({
             'english': '"Good $T, noble $P. To be pleased by your return!"',
             'russian': '"Доброго $T, благородный $P. Радоваться вашему возвращению!"'
         })
+        jump label_641
+    fi
+
+    print({
+        'english': '"Good $T. To be pleased by your return! To ask your name once more?"\n',
+        'russian': '"Доброго $T. Радоваться вашему возвращению! Спросить ещё раз ваше имя?"\n'
+    })
+
+    ask()
+    string(value 0) = string(value 35)
+    wait()
+
+    if equals(string(value 25), string(value 35)):
+        setBit(byte 235, value 1)
+        print({
+            'english': '\n"To greet you, noble $P."',
+            'russian': '\n"Поприветствовать вас, благородный $P".'
+        })
 
     else:
-        print({
-            'english': '"To note that you wear the Amulet of Submission."',
-            'russian': '"Отметить, что вы носите Амулет Покорности".'
-        })
-        wait()
-
-        print({
-            'english': '\n\n"To admire your courage and to appreciate your sacrifice."',
-            'russian': '\n\n"Восхититься вашей храбростью и оценить ваше самопожертвование".'
-        })
-        wait()
-
-        print({
-            'english': '\n\n"To ask your name, that I may address you in a noble manner?"\n',
-            'russian': '\n\n"Спросить ваше имя, чтобы я мог обратиться к вам благородно?"\n'
-        })
-
-        ask()
-        string(value 0) = string(value 35)
-        wait()
-
         print({
             'english': '\n"To greet you, $0."',
             'russian': '\n"Поприветствовать вас, $0".'
         })
-        setBit(byte 235, value 0)
     fi
 
-label_467:
+label_641:
     print({
         'english': '\n',
         'russian': '\n'
@@ -85,7 +117,7 @@ label_467:
             'english': '"To be named Krill Us-arb-vas-lem, Krill the @Leader of Farmers."',
             'russian': '"Называться Криль Ус-арб-вас-лем, Криль - @Руководитель Фермеров".'
         })
-        jump label_467
+        jump label_641
 
     case 'job':
     case {'russian': 'раб'}:
@@ -103,7 +135,7 @@ label_467:
             'english': '\n\n"To have great fortune in my @harvests!"',
             'russian': '\n\n"Иметь большую удачу в @урожаях!"'
         })
-        jump label_467
+        jump label_641
 
     case 'lead':
     case {'russian': 'руко'}:
@@ -122,7 +154,7 @@ label_467:
             'english': 'choice or @freedom."',
             'russian': 'выбора или @свободы".'
         })
-        jump label_467
+        jump label_641
 
     case 'beh':
     case {'russian': 'бех'}:
@@ -143,7 +175,7 @@ label_467:
             })
         fi
 
-        jump label_467
+        jump label_641
 
     case 'valk':
     case {'russian': 'валк'}:
@@ -155,7 +187,7 @@ label_467:
             'english': '@studies unseemly."',
             'russian': '@учения неподобающими".'
         })
-        jump label_467
+        jump label_641
 
     case 'stud':
     case {'russian': 'учен'}:
@@ -171,10 +203,18 @@ label_467:
         })
         wait()
 
-        print({
-            'english': '\n\n"To mean no offense to you, $P."',
-            'russian': '\n\n"Не желая вас обидеть, $P".'
-        })
+        if hasBit(byte 235, value 1):
+            print({
+                'english': '\n\n"To mean no offense to you, $P."',
+                'russian': '\n\n"Не желая вас обидеть, $P".'
+            })
+
+        else:
+            print({
+                'english': '\n\n"To mean no offense to you."',
+                'russian': '\n\n"Не желая вас обидеть".'
+            })
+        fi
         wait()
 
         print({
@@ -187,7 +227,7 @@ label_467:
             'english': '\n\n"To consider you a great credit to your race!"',
             'russian': '\n\n"Считать вас великой честью для вашей расы!"'
         })
-        jump label_467
+        jump label_641
 
     case 'room':
     case {'russian': 'мест'}:
@@ -213,7 +253,7 @@ label_467:
             'english': 'direction."',
             'russian': 'направления".'
         })
-        jump label_467
+        jump label_641
 
     case 'wing':
     case {'russian': 'беск'}:
@@ -233,7 +273,7 @@ label_467:
             'english': '\n\n"To explain that they are far less intelligent than you or I."',
             'russian': '\n\n"Объяснять, что они гораздо менее умны, чем вы или я".'
         })
-        jump label_467
+        jump label_641
 
     case 'good':
     case {'russian': 'хоро'}:
@@ -266,7 +306,7 @@ label_467:
             'english': 'east does."',
             'russian': 'востоке".'
         })
-        jump label_467
+        jump label_641
 
     case 'nash':
     case {'russian': 'нэш'}:
@@ -292,14 +332,22 @@ label_467:
             'english': 'the wingless ones need firm @guidance."',
             'russian': 'бескрылым нужно твёрдое @руководство".'
         })
-        jump label_467
+        jump label_641
 
     case 'bye':
     case {'russian': 'пока'}:
-        print({
-            'english': '"To have greatly enjoyed this conversation, noble $P."\n',
-            'russian': '"Получать огромное удовольствие от этой беседы, благородный $P".\n'
-        })
+        if hasBit(byte 235, value 1):
+            print({
+                'english': '"To have greatly enjoyed this conversation, noble $P."\n',
+                'russian': '"Получать огромное удовольствие от этой беседы, благородный $P".\n'
+            })
+
+        else:
+            print({
+                'english': '"To have greatly enjoyed this conversation."\n',
+                'russian': '"Получать огромное удовольствие от этой беседы".\n'
+            })
+        fi
         bye()
 
     case '*':
@@ -307,5 +355,5 @@ label_467:
             'english': '"To ask what you mean by $Z?"',
             'russian': '"Спросить, что вы имеете в виду под $Z?"'
         })
-        jump label_467
+        jump label_641
     esac
