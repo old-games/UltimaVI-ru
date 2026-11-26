@@ -10,7 +10,8 @@ import tests
 class TestConversation(tests.TestCase):
     # Сценарии, намеренно изменённые относительно оригинала (v1 с оригиналом не сравнивается).
     # Фермеры Нэш и Крилл: помнят (бит 1 байта 235), назвал ли Аватар настоящее имя, и без этого не обращаются по $P.
-    MODIFIED = ('Farmer Nash', 'Farmer Krill')
+    # Мандрейк: если согласиться заплатить за истории и дать 0 монет, в оригинале он переходит к песне, а не к историям.
+    MODIFIED = ('Farmer Nash', 'Farmer Krill', 'Mandrake')
 
     @staticmethod
     def fixScript(script):
