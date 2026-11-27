@@ -268,6 +268,8 @@ for binary, functions in patches.add_functions.items():
         patches.patch_GAME(d)
     elif binary == 'U.EXE':
         patches.patch_U(d)
+    elif binary == 'INSTALL.EXE':
+        patches.patch_INSTALL(d)
 
     uninitialized_fill, = find_all(d, [0xbf, None, None, 0xb9, None, None, 0x2b, 0xcf, 0xf3, 0xaa])
     initialized_size = int.from_bytes(d[uninitialized_fill+1:uninitialized_fill+3], 'little')

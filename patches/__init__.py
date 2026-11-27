@@ -87,6 +87,23 @@ redirect_calls = {
         0x23b72: ('quantity', 'look_print_name', (0x464, 0x3643)),  # printf(название)
         0x24649: ('quantity', 'look_print_name', (0x464, 0x3643)),  # printf(название)
     },
+    # Ответы установщика русскими буквами: toupper после getch в каждом вопросе.
+    'INSTALL.EXE': {
+        0x15d9: ('keys', 'disk_toupper', (0x4ee, 0x6)),  # жёсткий диск (Ж) или дискета (Д): H/F
+        0x1642: ('keys', 'drive_toupper', (0x4ee, 0x6)),  # буква жёсткого диска
+        0x16a6: ('keys', 'drive_toupper', (0x4ee, 0x6)),  # буква дисковода
+        0x17d1: ('keys', 'yes_no_toupper', (0x4ee, 0x6)),  # «Сделано ли всё это?»
+        0x1a4a: ('keys', 'yes_no_toupper', (0x4ee, 0x6)),  # «Всё равно установить драйвер?»
+        0x1b41: ('keys', 'yes_no_toupper', (0x4ee, 0x6)),  # мышь
+        0x2051: ('keys', 'yes_no_toupper', (0x4ee, 0x6)),  # «Всё верно?»
+        0x1cfa: ('keys', 'option_toupper', (0x4ee, 0x6)),  # порт AdLib (а..г)
+        0x1d84: ('keys', 'option_toupper', (0x4ee, 0x6)),  # порт CMS (а..е)
+        0x1e0e: ('keys', 'option_toupper', (0x4ee, 0x6)),  # порт Covox (а..г)
+        0x1e98: ('keys', 'option_toupper', (0x4ee, 0x6)),  # порт Innovation (а..г)
+    },
+    'U.EXE': {
+        0x3374: ('keys', 'menu_toupper', (0x1240, 0xf)),  # главное меню: Ctrl+В — выход, как Ctrl+Q
+    },
 }
 
 
@@ -330,6 +347,14 @@ def patch_U(d):
     0x13f4a
     0x13f6b
     0x13f7c
+
+
+def patch_INSTALL(d):
+    # Итог настроек, «Music:  Creative Music System (I/O port 220)»: в оригинале после порта печатается конец строки
+    # (putch(0) — строка выводится по центру), а потом «)», и скобка уходит на следующую строку, к «Is this correct?».
+    # Переходим на общий хвост остальных карт (0x2010): putch(')'), putch(0).
+    assert d[0x1f97:0x1faa] == bytes.fromhex('33c0500ee878f34444b82900500ee86ef34444')
+    replace(d, 0x1f97, bytes.fromhex('e97600'))  # jmp 0x2010
 
 
 def patch_END(d):

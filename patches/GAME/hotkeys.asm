@@ -118,6 +118,22 @@ keys: ; cp866, затем код клавиши
 command_getch:
 fixmeup1: ; far call by absolute direct address
         call    0x464:0x2a59 ; getch
+%ifdef RUSSIAN
+        mov     bx, ctrl_keys
+.next_ctrl:
+        cmp     word [cs:bx], byte 0
+        jz      .not_ctrl
+        cmp     ax, [cs:bx]
+        jz      .ctrl
+        add     bx, byte +0x4
+        jmp     .next_ctrl
+
+.ctrl:
+        mov     ax, [cs:bx+0x2]
+        retf
+
+.not_ctrl:
+%endif
         cmp     ax, KEY_D
         jnz     .not_d
         mov     ax, 'M'
@@ -139,6 +155,20 @@ fixmeup1: ; far call by absolute direct address
 
 .done:
         retf
+
+%ifdef RUSSIAN
+; Ctrl-клавиши цикла команд (таблицы 0x72bd и 0x76b6 в файле): Ctrl+буква даёт код физической клавиши, поэтому
+; Ctrl+В — это Ctrl+D (0x04) и т. д. Русские сочетания переводятся в оригинальные коды. Ctrl+М — та же клавиша, что
+; Ctrl+V (версия), поэтому Ctrl+V теперь звук, а версия — Ctrl+Н. Ctrl+Q, H, R, S, Z работают как раньше.
+ctrl_keys: ; код клавиши, код оригинала
+        dw      0x04, 0x11 ; Ctrl+В — Выход (Ctrl+Q)
+        dw      0x07, 0x08 ; Ctrl+П — Помощь (Ctrl+H)
+        dw      0x10, 0x12 ; Ctrl+З — Загрузить (Ctrl+R)
+        dw      0x03, 0x13 ; Ctrl+С — Сохранить (Ctrl+S)
+        dw      0x19, 0x16 ; Ctrl+Н — Номер версии (Ctrl+V)
+        dw      0x16, 0x1a ; Ctrl+М — Музыка и звук (Ctrl+Z)
+        dw      0
+%endif
 
 ; Замена вызова getch в вопросах «да/нет» (сравнение с 'Y' и 'N').
 yes_no_getch:
