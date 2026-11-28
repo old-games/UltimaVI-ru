@@ -49,7 +49,7 @@ interaction:
         ask()
         print({
             'english': '\nHe bows stiffly. "Well met, $G."',
-            'russian': '\nОн кланяется через силу. "Приятно познакомиться, $G".'
+            'russian': '\nЧопорно кланяется. "Приятно познакомиться, $G".'
         })
         setBit(byte 235, value 0)
         jump label_307
@@ -236,13 +236,13 @@ label_307:
     case {'russian': 'нора'}:
         print({
             'english': '"It ran into a hole in the west wall of the pub, carrying the rune."',
-            'russian': '"У неё была нора в западной стене паба, держа руну в зубах".'
+            'russian': '"Она убежала в нору в западной стене паба, держа руну в зубах".'
         })
         wait()
 
         print({
             'english': '\n\n"We tried everything - banging on the wall, digging, poking with a ',
-            'russian': '\n\n"Мы всё перепробовали - стучали по стене, копали, протыкали стену '
+            'russian': '\n\n"Мы всё перепробовали - стучали по стене, копали, протыкали нору '
         })
         print({
             'english': 'sword."',
@@ -442,7 +442,7 @@ label_2362:
     look(integer(value 3))
     print({
         'english': '"Will you take #7 gold for that $0, $Y?" ',
-        'russian': '"Возьмёте ли вы #7 золотых за: $0, $Y?" '
+        'russian': '"Цена, которую я заплачу вам за предмет: #7 - $0. Согласны, $Y?" '
     })
 
     choice({
@@ -484,7 +484,7 @@ label_2362:
         look(integer(value 3))
         print({
             'english': '"Done!" $N hands $Y #7 gold pieces and takes the $0.',
-            'russian': '"По рукам!" $N передаёт #7 золотых монет, и $Y отдаёт предмет: $0.'
+            'russian': '"По рукам!" $N передаёт золотые монеты (#7), и $Y отдаёт предмет: $0.'
         })
         destroyItem(integer(value 3), data(integers_4111, integer(value 6)), byte 0, byte 1)
         createItem(integer(value 3), byte 88, byte 0, integer(value 7))
@@ -718,7 +718,7 @@ label_3438:
     integer(value 7) = byte 2
     print({
         'english': '"Which kind?" ',
-        'russian': '"Какого типа?" '
+        'russian': '"Что именно?" '
     })
     inputDigit(integer(value 0))
 
@@ -777,12 +777,12 @@ label_3655:
     if equals(integer(value 6), integer(value 5)):
         print({
             'english': '"Excellent!"\n\nAfter accepting $Y\'s gold, $N hands over ',
-            'russian': '"Замечательно!"\n\nКак только $Y отдаёт золото, $N передаёт предмет: '
+            'russian': '"Замечательно!"\n\nКак только $Y отдаёт золото, $N передаёт '
         })
         integer(value 6) = multiply(byte 12, integer(value 6))
         print({
             'english': '#6 $1s.',
-            'russian': 'предмет $1, #6 шт.'
+            'russian': '$1, #6 шт.'
         })
         wait()
 
@@ -800,12 +800,12 @@ label_3829:
     if integer(value 6):
         print({
             'english': '"Thou canst not carry that many, but I will give thee ',
-            'russian': '"Ты не сможешь столько унести, я отдам тебе '
+            'russian': '"Ты не сможешь унести эти '
         })
         integer(value 6) = multiply(byte 12, integer(value 6))
         print({
             'english': '#6 $1s, $Y."',
-            'russian': '$1, #6 шт., $Y".'
+            'russian': '$1, я дам тебе лишь #6, $Y".'
         })
         wait()
 
@@ -818,7 +818,7 @@ label_3829:
     else:
         print({
             'english': '"Thou canst not carry any $1s, $Y!"',
-            'russian': '"Ещё $1... Тебе столько не унести, $Y!"'
+            'russian': '"Ты не сможешь унести эти $1, $Y!"'
         })
         wait()
 
@@ -833,12 +833,12 @@ label_3960:
     if integer(value 6):
         print({
             'english': '"Thou canst not afford that many, but I will give thee ',
-            'russian': '"Ты не сможешь столько себе позволить, я отдам тебе '
+            'russian': '"Ты не сможешь позволить себе эти '
         })
         integer(value 6) = multiply(byte 12, integer(value 6))
         print({
             'english': '#6 $1s, $Y."',
-            'russian': '$1, #6 шт., $Y".'
+            'russian': '$1, я дам тебе лишь #6, $Y".'
         })
         wait()
 
@@ -851,7 +851,7 @@ label_3960:
     else:
         print({
             'english': '"Thou canst not afford any $1s, $Y!"',
-            'russian': '"Ещё $1... Ты не можешь позволить себе ещё, $Y!"'
+            'russian': '"Ты не можешь позволить себе эти $1, $Y!"'
         })
         wait()
 
